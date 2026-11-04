@@ -278,6 +278,32 @@ body {
   text-decoration: none;
 }
 
+/* The repository in the mobile navigation drawer: a full row */
+.pg-github--nav {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+  color: var(--ui-fg);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pg-github--nav svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.pg-github--nav .pg-github-stars {
+  margin-left: auto;
+  color: var(--ui-fg-muted);
+  font-weight: 500;
+}
+
 .pg-header .pg-github svg {
   width: 1.125rem;
   height: 1.125rem;
@@ -329,11 +355,15 @@ body {
   }
 }
 
+/* Narrow screens: menu, brand, search and customize; the language and mode are in the customize drawer, the
+   repository in the menu drawer */
 @media (max-width: 40rem) {
   .pg-search kbd {
     display: none;
   }
-  .pg-github-stars {
+  .pg-header .pg-github,
+  .pg-header .pg-lang-btn,
+  .pg-header .pg-mode-btn {
     display: none;
   }
   .pg-pill-text {

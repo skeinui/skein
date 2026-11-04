@@ -101,7 +101,7 @@ export function Header({
           </button>
           <button
             type="button"
-            className="pg-icon-btn"
+            className="pg-icon-btn pg-mode-btn"
             aria-label={t(s.mode === "dark" ? "header.toLight" : "header.toDark")}
             onClick={() => s.set.mode(s.mode === "dark" ? "light" : "dark")}
           >
@@ -213,14 +213,17 @@ function useGitHubStars() {
   return stars;
 }
 
-/** The repository, with its star count (hidden on narrow screens, and when GitHub's API doesn't answer). */
-function GitHubLink() {
+/**
+ * The repository, with its star count (left out when GitHub's API doesn't answer). In the header (left out on narrow
+ * screens) an icon button; `inNav`: a row of the mobile navigation drawer, with the name.
+ */
+function GitHubLink({ inNav = false }: { inNav?: boolean }) {
   const t = useSiteT();
   const lang = useLang();
   const stars = useGitHubStars();
   return (
     <a
-      className="pg-icon-btn pg-github"
+      className={inNav ? "pg-github pg-github--nav" : "pg-icon-btn pg-github"}
       href={GITHUB_URL}
       target="_blank"
       rel="noreferrer"
@@ -229,6 +232,7 @@ function GitHubLink() {
       data-stars={stars ?? undefined}
     >
       <GitHubIcon />
+      {inNav ? <span className="pg-github-name">GitHub</span> : null}
       {stars === null ? null : (
         <span className="pg-github-stars">
           {new Intl.NumberFormat(lang, { notation: "compact" }).format(stars)}
@@ -753,6 +757,10 @@ export function MobileNav({
         <Drawer.Body>
           <Sidebar current={current} onNavigate={() => onOpenChange(false)} />
         </Drawer.Body>
+        {/* The header leaves the repository out on narrow screens */}
+        <Drawer.Footer>
+          <GitHubLink inNav />
+        </Drawer.Footer>
       </Drawer.Content>
     </Drawer>
   );
