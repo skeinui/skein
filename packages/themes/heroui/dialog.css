@@ -1,0 +1,150 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Dialog: mask + centered dialog, padding 1.5rem, radius min(2rem, var(--ui-r-surface)); width steps xs / sm / md / lg / full. */
+  [data-theme-style="heroui"] [data-slot="dialog-backdrop"] {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background-color: var(--ui-backdrop);
+    opacity: 1;
+    transition: opacity 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-backdrop"][data-starting-style],
+  [data-theme-style="heroui"] [data-slot="dialog-backdrop"][data-ending-style] {
+    opacity: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-backdrop"][data-ending-style] {
+    transition-duration: 100ms;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-viewport"] {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: calc(1rem * var(--ui-density));
+    overflow-y: auto;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 28rem;
+    margin-block: auto;
+    padding: calc(1.5rem * var(--ui-density));
+    border: 0px solid var(--ui-overlay-border);
+    border-radius: min(2rem, var(--ui-r-surface));
+    background-color: var(--ui-overlay-bg);
+    color: var(--ui-fg);
+    box-shadow: var(--ui-overlay-shadow);
+    font-family: var(--ui-font-family);
+    outline: none;
+    opacity: 1;
+    transform: scale(1);
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-starting-style],
+  [data-theme-style="heroui"] [data-slot="dialog"][data-ending-style] {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-ending-style] {
+    transition-duration: 100ms;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-size="xs"] {
+    max-width: 20rem;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-size="sm"] {
+    max-width: 24rem;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-size="md"] {
+    max-width: 28rem;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-size="lg"] {
+    max-width: 32rem;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog"][data-size="full"] {
+    max-width: none;
+    height: 100%;
+    border-radius: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-title"] {
+    margin: 0;
+    padding-inline-end: calc(2rem * var(--ui-density));
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-description"] {
+    margin: 0.5rem 0 0;
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-body"] {
+    margin-top: 0.75rem;
+    min-height: 0;
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    line-height: 1.43;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-footer"] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(0.5rem * var(--ui-density));
+    margin-top: 1.25rem;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-close"] {
+    position: absolute;
+    top: 1rem;
+    inset-inline-end: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-r-item);
+    background: var(--ui-c-neutral);
+    color: var(--ui-fg-muted);
+    outline: none;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-close"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-close"]:hover {
+    background-color: color-mix(in oklab, var(--ui-c-neutral) 96%, var(--ui-c-neutral-text) 4%);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-close"]:active {
+    transform: scale(0.93);
+  }
+  [data-theme-style="heroui"] [data-slot="dialog-close"]:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--ui-bg),
+      0 0 0 4px var(--ui-ring);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="dialog-backdrop"],
+    [data-theme-style="heroui"] [data-slot="dialog"] {
+      transition: none;
+    }
+  }
+}

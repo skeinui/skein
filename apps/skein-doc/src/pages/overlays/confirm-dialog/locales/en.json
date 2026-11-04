@@ -1,0 +1,13 @@
+{
+  "lead": "A confirm dialog: AlertDialog with the usual title / description / cancel / confirm built in, one component instead of a dozen lines of boilerplate. `onConfirm` can be async: while it runs the button spins and the dialog can't be closed. For more customization use AlertDialog directly. The look reuses Dialog's theme styles.",
+  "usage": { "title": "Usage" },
+  "async": {
+    "title": "Async confirm",
+    "hint": "The first request fails: the dialog stays open and you can click again to retry. Last:"
+  },
+  "body": { "title": "Extra content" },
+  "api": {
+    "title": "API Reference",
+    "note": "It has no slots or theme style files of its own: it reuses those of `alert-dialog` / `dialog`."
+  }
+}

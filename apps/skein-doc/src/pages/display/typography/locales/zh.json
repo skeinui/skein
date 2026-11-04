@@ -1,0 +1,103 @@
+{
+  "lead": "文字排版：`Title`、`Text`、`Paragraph` 管单个文字元素（颜色语义、省略、复制），`Typography` 容器管一大段内容里原生元素的排版。组件本身不带外边距，间距交给 `Flex` 或 `Typography`。",
+  "title": {
+    "title": "标题",
+    "heading": "{level} 级标题"
+  },
+  "text": {
+    "title": "文本",
+    "default": "默认",
+    "bold": "粗体",
+    "italic": "斜体",
+    "underline": "下划线",
+    "strikethrough": "删除线",
+    "combined": "组合"
+  },
+  "tones": {
+    "title": "颜色语义"
+  },
+  "ellipsis": {
+    "title": "省略",
+    "description": "单行、多行；被截断时可以展开（只有真的被截断才出现按钮），单行被截断时悬停能看到全文。",
+    "long": "Skein UI 把行为和外观分开：组件只输出带 data 属性的语义化标记，所有外观——间距、颜色、圆角、阴影——都放在可替换的皮肤里。在根元素上改一个属性，整个页面就换了一套设计语言，一处调用代码都不用动。",
+    "short": "足够短，放得下——没有按钮。"
+  },
+  "copy": {
+    "title": "可复制",
+    "sentence": "复制这句话",
+    "heading": "可复制的标题"
+  },
+  "prose": {
+    "title": "Typography 容器",
+    "description": "里面直接写原生元素（或者 Markdown 渲染出来的 HTML），标题、段落、列表、引用、代码、表格都自动有排版。",
+    "heading": "为什么用皮肤",
+    "p1": "组件描述**结构和行为**，皮肤描述它们长什么样。详见",
+    "link": "架构说明",
+    "p2": "，或者在根元素上使用 `data-theme-style`。",
+    "li1": "一处调用，多种外观",
+    "li2": "没有样式钩子——不用逐页打补丁",
+    "li3": "暗色模式随皮肤而来",
+    "quote": "一致性是系统的属性，而不是每个页面的属性。",
+    "tokens": "Token",
+    "name": "名称",
+    "usedFor": "用途",
+    "radius": "圆角",
+    "ring": "焦点环"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `typography.css` 里处理：字阶、颜色语义、行内样式、省略和按钮，以及 Typography 容器里原生元素的排版。",
+    "hook": "钩子",
+    "text": "`data-tone`、`data-disabled`；省略时 `data-ellipsis` / `data-rows`，被截断时 `data-truncated`，展开着 `data-expanded`",
+    "parts": "文字本体（省略作用在它上面）；复制按钮（复制后 `data-copied`）；展开 / 收起按钮",
+    "container": "内容容器；里面的 h1–h6、p、ul / ol、blockquote、code、pre、a、hr、table 由主题风格按元素写样式"
+  },
+  "props": {
+    "Title": {
+      "code": "行内代码样式（`<code>`）。",
+      "copyable": "在文字后面加复制按钮；不给 `text` 就复制显示的文字，复制后按钮变成对勾约 2 秒。",
+      "disabled": "灰掉、不可用的样子（只影响外观，不影响交互）。",
+      "ellipsis": "超出就用省略号截断：`true` 是单行，对象可以指定行数（1–10）和能否展开。被截断的纯文本用 `title` 显示全文。",
+      "italic": "斜体（`<em>`）。",
+      "labels": "按钮文字（换语言时用）。",
+      "mark": "高亮标记（`<mark>`）。",
+      "strikethrough": "删除线（`<del>`）。",
+      "strong": "粗体（用 `<strong>` 包住文字）。",
+      "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
+      "underline": "下划线（`<u>`）。",
+      "level": "1–5，渲染成 h1–h5，字阶取主题风格的值。"
+    },
+    "Text": {
+      "code": "行内代码样式（`<code>`）。",
+      "copyable": "在文字后面加复制按钮；不给 `text` 就复制显示的文字，复制后按钮变成对勾约 2 秒。",
+      "disabled": "灰掉、不可用的样子（只影响外观，不影响交互）。",
+      "ellipsis": "超出就用省略号截断：`true` 是单行，对象可以指定行数（1–10）和能否展开。被截断的纯文本用 `title` 显示全文。",
+      "italic": "斜体（`<em>`）。",
+      "labels": "按钮文字（换语言时用）。",
+      "mark": "高亮标记（`<mark>`）。",
+      "strikethrough": "删除线（`<del>`）。",
+      "strong": "粗体（用 `<strong>` 包住文字）。",
+      "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
+      "underline": "下划线（`<u>`）。"
+    },
+    "Paragraph": {
+      "code": "行内代码样式（`<code>`）。",
+      "copyable": "在文字后面加复制按钮；不给 `text` 就复制显示的文字，复制后按钮变成对勾约 2 秒。",
+      "disabled": "灰掉、不可用的样子（只影响外观，不影响交互）。",
+      "ellipsis": "超出就用省略号截断：`true` 是单行，对象可以指定行数（1–10）和能否展开。被截断的纯文本用 `title` 显示全文。",
+      "italic": "斜体（`<em>`）。",
+      "labels": "按钮文字（换语言时用）。",
+      "mark": "高亮标记（`<mark>`）。",
+      "strikethrough": "删除线（`<del>`）。",
+      "strong": "粗体（用 `<strong>` 包住文字）。",
+      "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
+      "underline": "下划线（`<u>`）。"
+    },
+    "Typography": {
+      "as": "容器元素；里面的原生标题、段落、列表、引用、代码、链接、表格自动有合适的排版。"
+    }
+  }
+}

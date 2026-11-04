@@ -1,0 +1,30 @@
+{
+  "name": "skein",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Skein UI monorepo: React components built on Base UI, with swappable theme styles.",
+  "type": "module",
+  "scripts": {
+    "ready": "vp check && vp run -r test && vp run -r build",
+    "dev": "vp run skein-doc#dev",
+    "changeset": "changeset",
+    "version-packages": "changeset version && pnpm --filter @skeinui/ui manifest",
+    "release": "changeset publish",
+    "clean": "node scripts/clean.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.4.1",
+      "onFail": "download"
+    }
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  }
+}

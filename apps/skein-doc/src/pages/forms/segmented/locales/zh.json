@@ -1,0 +1,33 @@
+{
+  "lead": "分段控制：一排互斥的选项，选中项下面有一块滑动的底。语义是 radiogroup，方向键移动并选中，Home / End 跳到两端，只有选中项在 tab 顺序里。",
+  "usage": { "title": "用法" },
+  "controlled": { "title": "受控", "value": "当前值：" },
+  "icons": { "title": "带图标" },
+  "sizes": { "title": "尺寸" },
+  "block": { "title": "占满宽度" },
+  "disabled": { "title": "禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `segmented.css` 里处理。",
+    "hook": "钩子",
+    "root": "根，`role=radiogroup`；`data-size` / `data-full-width` / `data-disabled`，没有选中项时 `data-empty`，滑块摆好位置后 `data-ready`",
+    "thumb": "选中项下面滑动的底；位置来自根上的 `--seg-x` / `--seg-w`（像素，不带单位）",
+    "item": "每个选项，`role=radio`；`data-selected` / `data-disabled`",
+    "parts": "选项里的图标和文字"
+  },
+  "props": {
+    "Segmented": {
+      "aria-label": "无可见标签时的无障碍名称。",
+      "aria-labelledby": "为它命名的元素的 id。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "整体禁用。",
+      "fullWidth": "撑满父容器的宽度，各项平分。",
+      "name": "写一个隐藏 input，随原生表单提交。",
+      "onValueChange": "`value` 变化时以新值调用；同时传 `value` 即为受控。",
+      "options": "选项；只有文字时可以直接给字符串数组，value 和 label 都取这个字符串。",
+      "size": "尺寸档位。",
+      "value": "当前选中的值，受控。"
+    }
+  }
+}

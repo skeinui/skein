@@ -1,0 +1,38 @@
+{
+  "lead": "引用回复：选中助手回复里的一段话，选区上方出现「引用」按钮；点它之后，这段话作为引用块挂在输入区上，下一条消息就是在回复它。`QuoteSelection` 负责选中和按钮，`Quote` 是显示引用的块。",
+  "usage": {
+    "title": "用法",
+    "description": "用鼠标，或者键盘（<kbd>Shift</kbd> + 方向键选中，<kbd>Tab</kbd> 到按钮）。",
+    "text": "皮肤就是普通的 CSS 文件，所以换外观从不碰组件代码。行为来自 Base UI，所有视觉决定都在皮肤里。",
+    "hint": "选中上面的一段文字，再点出现的「引用」：",
+    "empty": "（还没有引用）"
+  },
+  "quote": {
+    "title": "引用块",
+    "description": "发出去的消息里不给 `onRemove`，就是只读的引用块。",
+    "text": "皮肤就是普通的 CSS 文件，所以换外观从不碰组件代码。行为来自 Base UI，所有视觉决定都在皮肤里，外观变化时别的什么都不用改。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式参考",
+    "hook": "钩子",
+    "quote": "被引用的文字块（`blockquote`）",
+    "text": "出处和文字（文字限 3 行）",
+    "remove": "删除按钮",
+    "selection": "可引用的内容容器；位置变量 `--quote-x` / `--quote-y` 由组件写入",
+    "action": "选区上方的「引用」按钮"
+  },
+  "props": {
+    "Quote": {
+      "children": "被引用的文字。",
+      "labels": "要覆盖的内置文字（类型见下方的 Labels）；默认跟随 ConfigProvider 的语言。",
+      "onRemove": "给了就在右上角出现删除按钮（输入区里的引用用它）；发出去的消息里的引用不给。",
+      "source": "出处（「Assistant」「You」），显示在引用上面一行。"
+    },
+    "QuoteSelection": {
+      "children": "可以选中并引用的内容（比如一条助手回复）。",
+      "labels": "要覆盖的内置文字（类型见下方的 Labels）；默认跟随 ConfigProvider 的语言。",
+      "onQuote": "点了「引用」按钮：参数是选中的文字。"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Watermark: the watermark layer covers the content without blocking the mouse; its background is a pattern drawn on a canvas.
+     Pattern, size, offset and stacking come from --wm-image / --wm-w / --wm-h / --wm-ox / --wm-oy / --wm-z (see watermark.tsx).
+     This is behavior, not appearance, so it is the same in every theme style. */
+  [data-theme-style="default"] [data-slot="watermark"] {
+    position: relative;
+  }
+  [data-theme-style="default"] [data-slot="watermark-layer"] {
+    position: absolute;
+    inset: 0;
+    z-index: var(--wm-z, 9);
+    background-image: var(--wm-image);
+    background-repeat: repeat;
+    background-position: calc(var(--wm-ox, 0) * 1px) calc(var(--wm-oy, 0) * 1px);
+    background-size: calc(var(--wm-w, 0) * 1px) calc(var(--wm-h, 0) * 1px);
+    pointer-events: none;
+    user-select: none;
+  }
+}

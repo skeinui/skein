@@ -1,0 +1,53 @@
+{
+  "lead": "AI 回复里的引用来源：一枚小胶囊（图标 + 标题），点击在新标签页打开；有说明时悬停出预览卡片；文档来源不是链接；一堆来源可以收成「3 sources」的折叠组。",
+  "usage": { "title": "用法", "noIcon": "没有图标" },
+  "preview": {
+    "title": "悬停预览",
+    "description": "给 `description`，悬停或键盘聚焦到胶囊上就出现预览卡片。"
+  },
+  "document": { "title": "文档" },
+  "group": { "title": "分组", "label": "3 个来源" },
+  "api": {
+    "title": "API 参考",
+    "marker": "正文里的引用角标（带数字的小徽标）：`index` 是角标上的数字，其余同 Citation；名称是「Source n: 标题」。Markdown 的 `citations` 就用它，也可以单独用。",
+    "citations": "把一堆来源收成一组：触发器是「3 sources」，展开后是一排 Citation；默认收起，展开状态同 Base UI 的 Collapsible。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "citation": "来源胶囊（`a` / `button` / `span`）；`data-type`",
+    "icon": "圆形图标位、网站图标、首字母兜底",
+    "title": "标题（过长省略）",
+    "preview": "预览卡片里的内容（卡片外壳借用 Popover 的 slot）",
+    "marker": "正文里的引用角标（`a` / `span`）",
+    "citations": "一组来源的根",
+    "trigger": "触发器和展开箭头；`data-panel-open`",
+    "panel": "展开面板和里面换行排列的来源"
+  },
+  "props": {
+    "Citation": {
+      "description": "有说明时，悬停 / 聚焦出现预览卡片（标题、说明、域名）。",
+      "faviconUrl": "网站图标地址（不会自动去取）；没有或加载失败就显示标题首字母。",
+      "href": "来源链接（url 来源），在新标签页打开（`noopener noreferrer`）；不是 http(s) 的地址不会变成链接。",
+      "onClick": "文档来源被点击时（比如打开文档预览）。",
+      "sourceType": "url：网页来源（有 href 时默认），document：上传的文档。",
+      "title": "显示的标题，默认是链接的域名。"
+    },
+    "CitationMarker": {
+      "description": "有说明时，悬停 / 聚焦出现预览卡片（标题、说明、域名）。",
+      "faviconUrl": "网站图标地址（不会自动去取）；没有或加载失败就显示标题首字母。",
+      "href": "来源链接（url 来源），在新标签页打开（`noopener noreferrer`）；不是 http(s) 的地址不会变成链接。",
+      "index": "角标上的数字（从 1 开始）。",
+      "title": "显示的标题，默认是链接的域名。"
+    },
+    "Citations": {
+      "children": "一组 `Citation`。",
+      "label": "触发器上的文字，比如「3 sources」。",
+      "defaultOpen": "折叠面板初始是否展开。要受控就改用 `open`。",
+      "disabled": "是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用。",
+      "open": "折叠面板当前是否展开。要非受控就改用 `defaultOpen`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

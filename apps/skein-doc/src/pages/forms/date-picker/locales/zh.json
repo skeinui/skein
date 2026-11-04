@@ -1,0 +1,56 @@
+{
+  "lead": "日期选择：触发器复用 Select 的外观，弹层复用 Popover，里面放 [Calendar](/calendar)。单选选好日期就关闭，范围选在选完结束日期后关闭。",
+  "usage": { "title": "用法" },
+  "range": { "title": "范围" },
+  "time": {
+    "title": "日期和时间",
+    "description": "`showTime` 在日历旁边多一个时间面板（只有单选支持），值变成 “YYYY-MM-DDTHH:mm”。换日期时时间保留，还没选日期就先选时间则日期取今天。点 **确定** 或点外面才关闭弹层。"
+  },
+  "picker": {
+    "title": "周、月、季度、年",
+    "description": "`picker` 决定粒度；月 / 季度 / 年的面板是 PeriodCalendar（也可单独用），周是 Calendar 的 `mode=\"week\"`。"
+  },
+  "editable": {
+    "title": "可输入",
+    "description": "`editable` 让触发器变成输入框，直接键入固定格式的日期；回车或失焦时校验提交，不合法的文字回车后标成无效、失焦后还原。向下键或日历图标打开弹层，弹层里选的日期会同步到输入框。"
+  },
+  "variants": { "title": "变体与尺寸" },
+  "in-field": {
+    "title": "放进 Field",
+    "description": "放进 [Field](/field) 时，`variant` / `size` 和禁用 / 无效状态取 Field 的，DatePicker 自己传了则以自己的为准。"
+  },
+  "limits": { "title": "最小与最大日期" },
+  "controlled": { "title": "受控", "value": "值：" },
+  "disabled": { "title": "禁用与无效" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "DatePicker 没有自己的 CSS 文件：触发器来自 `select.css`，弹层来自 `popover.css`，日历来自 `calendar.css`。",
+    "trigger": "触发器，复用 Select 的 slot",
+    "popup": "弹层，复用 Popover 的 slot；`data-picker` 让主题风格去掉弹层自带的内边距",
+    "calendar": "弹层里的 Calendar，见 [Calendar](/calendar) 页"
+  },
+  "props": {
+    "DatePicker": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "editable": "触发器变成输入框，可以直接键入日期（固定格式，不受 locale 影响）：日 \"YYYY-MM-DD\"，月 \"YYYY-MM\"，季度 \"YYYY-Qn\"，年 \"YYYY\"；周写这一周里的任意一天（取这一周的第一天），范围用 \" – \" 连接两端，带时间时在日期后加 \"HH:mm\"。回车或失焦时校验并提交；不合法的文字回车后标成无效、失焦后还原；日历图标按钮仍可打开弹层，向下键也可以。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示无效状态。",
+      "isDateDisabled": "额外的单日禁用规则（比如周末）；参数是 \"YYYY-MM-DD\"。",
+      "isPeriodDisabled": "`picker` 为 month / quarter / year 时的禁用规则；参数是周期值（\"YYYY-MM\" / \"YYYY-Qn\" / \"YYYY\"）。",
+      "locale": "月份 / 星期名称和显示值用的 BCP 47 语言区域（如 \"zh-CN\"）；默认取 ConfigProvider 的 locale。",
+      "max": "可选的最晚日期，\"YYYY-MM-DD\"（完全在它之后的周期也被限制）。",
+      "min": "可选的最早日期，\"YYYY-MM-DD\"（完全在它之前的周 / 月 / 季度 / 年也被限制）。",
+      "mode": "选一个日期，或选一个范围（`{ start, end }`）。",
+      "onValueChange": "以新的 `value` 调用；同时传 `value` 即为受控。",
+      "picker": "选择的粒度。值的格式：date 是 \"YYYY-MM-DD\"；week 是这一周第一天的 \"YYYY-MM-DD\"（周起始由 `weekStartsOn` 决定）；month 是 \"YYYY-MM\"；quarter 是 \"YYYY-Qn\"；year 是 \"YYYY\"。`showTime` 只在 date 下有效。范围选择支持 date / month / quarter / year（不支持周范围）。",
+      "placeholder": "为空时显示的文字。",
+      "size": "尺寸档位。",
+      "value": "值：不带时间是 \"YYYY-MM-DD\"，带时间是 \"YYYY-MM-DDTHH:mm[:ss]\"。",
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "weekStartsOn": "每周从星期几开始，0 = 周日，1 = 周一，默认 0。也决定选周时的值。"
+    }
+  }
+}

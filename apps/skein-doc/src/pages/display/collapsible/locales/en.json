@@ -1,0 +1,30 @@
+{
+  "lead": "A single region that opens and closes: one trigger button plus a panel, for a lone \"show more\" or \"advanced options\". For a group where only one opens at a time, use [Accordion](/accordion).",
+  "usage": {
+    "title": "Usage",
+    "trigger": "Show more",
+    "text": "Only the people you invite can see this project. You can change the visibility at any time from the project settings."
+  },
+  "controlled": {
+    "title": "Controlled",
+    "trigger": "Advanced options",
+    "text": "Retry count, timeout and proxy settings live here.",
+    "open": "Open from outside",
+    "close": "Close from outside"
+  },
+  "no-icon": {
+    "title": "Custom trigger",
+    "description": "`icon={false}` removes the arrow; `render` swaps in your own element.",
+    "trigger": "Details",
+    "text": "Build #482 finished in 2m 14s on the main branch."
+  },
+  "disabled": { "title": "Disabled", "trigger": "Locked section", "text": "Not reachable." },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root; Base UI writes `data-open` / `data-closed`",
+    "trigger": "The trigger button and its arrow; the button has `data-panel-open` when open and `data-disabled` when disabled",
+    "panel": "The panel and the content box inside it; the height animation uses `--collapsible-panel-height` with `data-starting-style` / `data-ending-style`"
+  }
+}

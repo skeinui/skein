@@ -1,0 +1,30 @@
+{
+  "lead": "Color picking: the trigger is a swatch that opens a popup with a saturation × brightness area, a hue slider, an optional opacity slider, value inputs and preset colors. The color is kept as HSV inside, so the hue isn't lost when you drag the saturation to 0.",
+  "usage": { "title": "Usage" },
+  "controlled": { "title": "Controlled", "value": "Value:" },
+  "formats": {
+    "title": "Formats",
+    "description": "The panel switches between HEX / RGB / HSB. `format` sets the inputs shown and the string `onValueChange` gives; `defaultFormat` sets the initial format, `formats` limits the ones you can switch to."
+  },
+  "alpha": {
+    "title": "Alpha",
+    "description": "With `alpha` there is an opacity slider, and an opacity input in percent (in every format)."
+  },
+  "presets": { "title": "Presets" },
+  "show-value": { "title": "Show value" },
+  "sizes": { "title": "Sizes" },
+  "disabled": { "title": "Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `color-picker.css`. The color is a dynamic value and the component writes no styles: it splits the current color into `--cp-*` variables set on the panel and the swatches, which theme styles use to place the thumbs and draw the gradients.",
+    "trigger": "The trigger (`data-popup-open` while the popup is open), the swatch and the hex text",
+    "panel": "The panel in the popup; it carries the `--cp-x` / `--cp-y` / `--cp-hue` / `--cp-alpha` / `--cp-hue-color` / `--cp-solid` / `--cp-color` variables",
+    "area": "The saturation × brightness area and its thumb, `role=slider`, adjusted with the arrow keys",
+    "controls": "The preview circle and the sliders next to it",
+    "sliders": "The hue and opacity sliders and their thumbs",
+    "formats": "The format switch (a ToggleGroup inside)",
+    "input": "The row of inputs (`data-format` is the format) and each input's wrapper (`data-field` is hex / r / g / b / h / s / alpha)",
+    "presets": "The preset list and each preset (the current color has `data-selected`)"
+  }
+}

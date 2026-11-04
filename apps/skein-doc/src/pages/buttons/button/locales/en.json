@@ -1,0 +1,50 @@
+{
+  "lead": "A clickable button: its behaviour comes from Base UI, its look from the current theme style. The examples follow the Button page of the HeroUI docs, with HeroUI's variants written as `variant` + `color` here. To join several buttons into one, see [Button Group](/button-group).",
+  "usage": { "title": "Usage" },
+  "variants": {
+    "title": "Variants",
+    "description": "How HeroUI's primary / secondary / tertiary / outline / ghost / danger / danger-soft are written in this package."
+  },
+  "sizes": { "title": "Sizes" },
+  "with-icons": {
+    "title": "With Icons",
+    "description": "Icons go in `startContent` / `endContent`, one slot each."
+  },
+  "icon-only": { "title": "Icon Only" },
+  "loading": {
+    "title": "Loading",
+    "description": "With `loading`, the start slot shows a spinner: the button ignores clicks but stays focusable."
+  },
+  "loading-state": { "title": "Loading State" },
+  "full-width": { "title": "Full Width" },
+  "disabled-state": { "title": "Disabled State" },
+  "social-buttons": {
+    "title": "Social Buttons",
+    "description": "The brand icons use the same paths as the OAuth sign-in page."
+  },
+  "render-function": {
+    "title": "Render Function",
+    "description": "Base UI's `render`: render the button as another element, such as a link. A non-native button also needs `nativeButton={false}`."
+  },
+  "colors": {
+    "title": "Colors",
+    "description": "HeroUI v3 has no `color`. This is the full `variant` × `color` matrix of this package, to check that each theme style covers all of it."
+  },
+  "radius": { "title": "Radius" },
+  "behaviour": {
+    "title": "Behaviour",
+    "description": "The behaviour must not change with the theme style: clicking the disabled and loading buttons keeps their counts at 0, and Tab focuses them, to check the focus styles.",
+    "clickable": "Clickable {n}"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "The component has no styles. It only writes the hooks below, which theme styles style with attribute selectors such as `[data-theme-style=\"x\"] [data-slot=\"button\"][data-variant=\"solid\"]`.",
+    "hook": "Hook",
+    "sameAsProps": "same as the props",
+    "slot": "Structure hook: theme styles select each part with it",
+    "variants": "Variant hooks, only passing the values through; `data-radius` appears only when `radius` is passed (or set by the group)",
+    "states": "State hooks",
+    "disabled": "Written by Base UI when disabled"
+  }
+}

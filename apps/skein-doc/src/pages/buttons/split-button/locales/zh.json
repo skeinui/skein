@@ -1,0 +1,36 @@
+{
+  "lead": "拆分按钮：左边是主操作，右边连着一个箭头按钮，点开是更多相关操作（对应 antd 的 `Dropdown.Button`）。用 ButtonGroup 拼成一体，菜单用 Menu：方向键、首字母跳转、Esc 关闭都来自 Base UI。",
+  "basic": {
+    "title": "基础",
+    "main": "保存（主按钮）",
+    "last": "上次操作：{action}"
+  },
+  "variants": { "title": "变体与尺寸" },
+  "danger": { "title": "危险项、禁用项、分隔线" },
+  "loading": { "title": "加载与禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "existing": "既有 slot",
+    "composed": "SplitButton 是 ButtonGroup + Button + Menu 的组合，没有自己的 slot，外观由这三个组件的主题风格决定（接缝圆角、重叠边框、菜单浮层）"
+  },
+  "props": {
+    "SplitButton": {
+      "children": "主按钮的内容。",
+      "color": "两个按钮共用的颜色（通过 ButtonGroup 传入）。",
+      "defaultOpen": "非受控时 `open` 的初始值。",
+      "disabled": "主按钮和箭头按钮都不可用。",
+      "items": "点箭头弹出的菜单项：`{ key, label, disabled?, danger?, onSelect? }` 或 `{ type: \"separator\" }`。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。只作用于主按钮。",
+      "menuLabel": "箭头按钮的无障碍名称（它只有图标）；默认是当前语言的「More actions」。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "onSelect": "选中某个菜单项时调用（`item.onSelect` 也会调用）。",
+      "open": "菜单的展开状态：受控值 / 非受控初始值 / 变化回调。",
+      "radius": "两个按钮的圆角档位，只有外侧保留圆角。",
+      "size": "两个按钮共用的尺寸（通过 ButtonGroup 传入）。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。只作用于主按钮。",
+      "variant": "两个按钮共用的变体（通过 ButtonGroup 传入）。"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "lead": "折叠面板。展开收起、键盘导航、aria 关联来自 Base UI 的 Accordion。",
+  "usage": { "title": "用法" },
+  "variants": {
+    "title": "变体",
+    "description": "`divided` 条目之间一根线，`bordered` 加外框，`filled` 每项一张浅底卡片。"
+  },
+  "multiple": {
+    "title": "多项展开",
+    "description": "传 `multiple` 后可以同时展开多项。"
+  },
+  "default-open": {
+    "title": "默认展开",
+    "description": "`defaultValue` 列出初始展开的项；受控用 `value` / `onValueChange`。"
+  },
+  "disabled": { "title": "禁用", "description": "`disabled` 的项不能展开。" },
+  "demo": {
+    "q1": "如何开始？",
+    "a1": "安装包，引入一个主题风格，然后渲染组件。",
+    "q2": "能切换设计语言吗？",
+    "a2": "可以：在 html 元素上设置 data-theme-style，其他都不用改。",
+    "q3": "支持无障碍吗？",
+    "a3": "行为和 aria 都来自 Base UI。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `accordion.css` 里处理；高度动画靠 `data-starting-style` / `data-ending-style` 和 Base UI 写的 `--accordion-panel-height`。",
+    "hook": "钩子",
+    "root": "外层和每一项",
+    "header": "标题行、按钮和箭头，展开时 trigger 上有 `data-panel-open`",
+    "panel": "面板（高度动画，用 `--accordion-panel-height`）和内边距层"
+  },
+  "props": {
+    "Accordion": {
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "defaultValue": "非受控时初始展开的项的 value。受控请改用 `value`。",
+      "disabled": "是否忽略用户交互。",
+      "hiddenUntilFound": "让浏览器自带的页内搜索能找到并展开面板内容。会覆盖 `keepMounted`，用 `hidden=\"until-found\"` 隐藏元素而不从 DOM 移除。",
+      "keepMounted": "面板收起时是否仍保留在 DOM 中。使用 `hiddenUntilFound` 时忽略此项。",
+      "loopFocus": "已弃用（见 [APG 指南更新](https://github.com/w3c/aria-practices/pull/3434)，移除了 roving focus）。此属性不再影响键盘焦点行为。",
+      "multiple": "是否允许同时展开多项。",
+      "onValueChange": "某项展开或收起时调用，参数是新的 value。",
+      "orientation": "已弃用（见 [APG 指南更新](https://github.com/w3c/aria-practices/pull/3434)，移除了 roving focus）。此属性不再影响键盘焦点行为。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "受控时展开的项的 value。非受控请改用 `defaultValue`。"
+    },
+    "Accordion_Item": {
+      "disabled": "是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "标识这一项的唯一值；不传时自动生成 ID。以代码控制折叠面板或设置初始展开状态时使用。"
+    },
+    "Accordion_Trigger": {
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Accordion_Panel": {
+      "hiddenUntilFound": "让浏览器自带的页内搜索能找到并展开面板内容。会覆盖 `keepMounted`，用 `hidden=\"until-found\"` 隐藏元素而不从 DOM 移除。",
+      "keepMounted": "面板收起时是否仍保留在 DOM 中。使用 `hiddenUntilFound` 时忽略此项。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

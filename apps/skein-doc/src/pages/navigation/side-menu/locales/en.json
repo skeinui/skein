@@ -1,0 +1,72 @@
+{
+  "lead": "A side navigation tree, driven by data: leaves are links or buttons, items with `children` are expandable submenus, and there are group headings and dividers. It can collapse to a narrow icon rail (submenus pop out on hover), and inside a `Sidebar` it collapses with it. For a horizontal top navigation, use Navigation Menu.",
+  "basic": {
+    "title": "Basic",
+    "items": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "users-list": "All users",
+      "users-roles": "Roles",
+      "users-more": "More",
+      "users-groups": "Groups",
+      "users-invites": "Invitations",
+      "content": "Content",
+      "g1": "Pages",
+      "pages-all": "All pages",
+      "pages-new": "New page",
+      "g2": "Media",
+      "media-lib": "Library",
+      "security": "Security",
+      "settings": "Settings"
+    }
+  },
+  "controlled": {
+    "title": "Controlled",
+    "description": "You own `selectedKey` / `openKeys`; the ancestors of the selected item are open by default. Keyboard: Up / Down move, Right expands, Left collapses or goes back to the parent."
+  },
+  "sidebar": {
+    "title": "In a Sidebar",
+    "description": "Inside a `Sidebar` (`collapsible=\"icon\"`): click the toggle and the menu shrinks to an icon rail; on the rail, leaves show a tooltip on hover and submenus pop out."
+  },
+  "collapsed": {
+    "title": "Collapsed",
+    "description": "Outside a `Sidebar`, control it yourself with `collapsed`.",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "theme": {
+    "title": "Theme",
+    "description": "Used alone it is light by default; `theme=\"dark\"` makes it dark. Inside a `Sidebar` you don't set it: it follows the Sidebar."
+  },
+  "links": {
+    "title": "Links, disabled, danger",
+    "description": "An item with `href` is a real link (open in a new tab and copy link both work); with a router, call `preventDefault` in `onSelect` and navigate yourself.",
+    "docs": "Docs",
+    "billing": "Billing",
+    "logout": "Sign out"
+  },
+  "api": {
+    "title": "API Reference",
+    "itemIntro": "An entry of `items`: a leaf, a submenu (with `children`), a `{ type: \"group\" }` group or a `{ type: \"divider\" }` line.",
+    "field": "Field",
+    "item": {
+      "key": "Unique key across the whole menu; used by `selectedKey`, `openKeys` and `onSelect`",
+      "label": "The visible text",
+      "icon": "Icon in front (all that is left on the collapsed rail)",
+      "href": "When given, the item renders as a link; otherwise it is a button",
+      "flags": "Greyed out and not selectable / a danger color for destructive actions",
+      "title": "The tooltip and accessible name when collapsed (may be omitted when `label` is a string)",
+      "children": "Makes it an expandable submenu"
+    }
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles define the item height, indentation, selected colour and expand animation in `side-menu.css`. The antd theme style's dark menu uses a darkened primary colour; the other theme styles mix every colour from the current text colour, so the menu works in both light and dark sidebars.",
+    "hook": "Hook",
+    "root": "The root (`<nav>`); `data-collapsed`, `data-theme`; a popped-out submenu has `data-popup`",
+    "item": "A leaf; `data-level` (depth, from 1), `data-selected` / `data-disabled` / `data-danger`; links get `aria-current`",
+    "submenu": "A submenu; `data-open`, `data-has-selected` (a selected item inside)",
+    "panel": "The expanding area, `data-open`; animated with a grid row from `0fr` to `1fr`",
+    "parts": "Group, group title, divider, icon and label"
+  }
+}

@@ -1,0 +1,126 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Segmented: a row of mutually exclusive options, with a sliding backdrop under the selected one.
+     The slider position comes from --seg-x / --seg-w (see segmented.tsx), this file only draws and does the sliding animation. */
+  [data-theme-style="default"] [data-slot="segmented"] {
+    --_pad: calc(0.25rem * var(--ui-density));
+    --_h: calc(2rem * var(--ui-density));
+    --_px: calc(0.75rem * var(--ui-density));
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: var(--_pad);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-c-neutral-soft);
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="default"] [data-slot="segmented"][data-size="sm"] {
+    --_h: calc(1.5rem * var(--ui-density));
+    --_px: calc(0.5rem * var(--ui-density));
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="default"] [data-slot="segmented"][data-size="lg"] {
+    --_h: calc(2.5rem * var(--ui-density));
+    --_px: calc(1rem * var(--ui-density));
+    font-size: 1rem;
+  }
+  [data-theme-style="default"] [data-slot="segmented"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="default"] [data-slot="segmented"][data-disabled] {
+    cursor: not-allowed;
+  }
+  [data-theme-style="default"] [data-slot="segmented-thumb"] {
+    position: absolute;
+    z-index: 0;
+    inset-block: var(--_pad);
+    inset-inline-start: 0;
+    width: calc(var(--seg-w, 0) * 1px);
+    translate: calc(var(--seg-x, 0) * 1px) 0;
+    border-radius: var(--ui-radius-md);
+    background-color: var(--ui-container);
+    box-shadow: var(--ui-field-shadow);
+    pointer-events: none;
+  }
+  /* Animation starts only after the first positioning, so the initial render does not slide in from 0 */
+  [data-theme-style="default"] [data-slot="segmented"][data-ready] [data-slot="segmented-thumb"] {
+    transition:
+      translate 200ms cubic-bezier(0.2, 0, 0, 1),
+      width 200ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-theme-style="default"] [data-slot="segmented"][data-empty] [data-slot="segmented-thumb"] {
+    opacity: 0;
+  }
+  [data-theme-style="default"] [data-slot="segmented-item"] {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    gap: calc(0.375rem * var(--ui-density));
+    box-sizing: border-box;
+    height: var(--_h);
+    margin: 0;
+    padding: 0 var(--_px);
+    border: 0;
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 500;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition: color 150ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-theme-style="default"]
+    [data-slot="segmented"][data-full-width]
+    [data-slot="segmented-item"] {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  [data-theme-style="default"]
+    [data-slot="segmented-item"]:hover:not([data-selected], [data-disabled]) {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="default"] [data-slot="segmented-item"][data-selected] {
+    color: var(--ui-fg);
+    font-weight: 500;
+  }
+  [data-theme-style="default"] [data-slot="segmented-item"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="default"] [data-slot="segmented-item"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  [data-theme-style="default"] [data-slot="segmented-icon"] {
+    display: inline-flex;
+    flex: none;
+  }
+  [data-theme-style="default"] [data-slot="segmented-icon"] > svg {
+    width: 1.125em;
+    height: 1.125em;
+  }
+  [data-theme-style="default"] [data-slot="segmented-label"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"] [data-slot="segmented"][data-ready] [data-slot="segmented-thumb"],
+    [data-theme-style="default"] [data-slot="segmented-item"] {
+      transition: none;
+    }
+  }
+}

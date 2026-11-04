@@ -1,0 +1,40 @@
+{
+  "lead": "文件上传：数据驱动。组件只负责选文件、拖文件和展示列表，真正的上传由使用方做，进度和结果通过 `files` 传回来。",
+  "usage": {
+    "title": "用法",
+    "description": "拖入或点击选择文件，演示里用定时器模拟上传进度。",
+    "hint": "任意文件；文件名含 “fail” 的会失败，用来演示错误状态",
+    "failed": "上传失败，请重试"
+  },
+  "button": { "title": "按钮" },
+  "states": { "title": "文件状态", "tooLarge": "文件超过 50 MB" },
+  "disabled": { "title": "禁用", "hint": "上传已关闭" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `upload.css` 里处理。",
+    "hook": "钩子",
+    "root": "根（`data-variant` / `data-disabled` / 拖拽中 `data-dragging`）和触发区",
+    "trigger": "触发区里的图标、主文字和说明",
+    "list": "文件列表和每一行，行上的 `data-status` 是状态",
+    "item": "行内的图标、文件名、大小与百分比、进度条、错误原因、移除 / 重试按钮（`data-action`）"
+  },
+  "props": {
+    "Upload": {
+      "accept": "原生 accept，例如 \".png,.jpg\" 或 \"image/*\"。",
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "disabled": "禁用选择和拖入文件。",
+      "files": "已选 / 上传中 / 已上传的文件，由使用方维护；每行的 `status` 是 uploading / done / error。",
+      "hint": "主文字下面的说明，比如格式和大小限制。",
+      "icon": "触发区的图标；不传时用内置的上传图标。",
+      "multiple": "允许一次选择 / 拖入多个文件；否则只把第一个传给 `onFilesAdded`。",
+      "onFilesAdded": "选择或拖入文件后调用；组件不负责上传，使用方拿到 File 自己发请求并更新 files。",
+      "onRemove": "点击文件行的移除按钮；上传中的文件也用它取消。",
+      "onRetry": "点击失败文件的重试按钮；不传就不显示重试。",
+      "removeLabel": "文件行里移除按钮的无障碍文字，默认 \"Remove\"。",
+      "retryLabel": "失败文件行里重试按钮的无障碍文字，默认 \"Retry\"。",
+      "title": "触发区的主文字，dropzone 默认 \"Click or drag files here\"，button 默认 \"Select file\"。",
+      "variant": "dropzone 是可拖放的区域，button 只有一个按钮。"
+    }
+  }
+}

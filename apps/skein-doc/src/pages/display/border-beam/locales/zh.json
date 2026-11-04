@@ -1,0 +1,60 @@
+{
+  "lead": "边框流光：给一个容器的边框加一圈持续流动的装饰性高亮，适合登录面板、推荐卡片、AI 模块、重点 CTA。纯装饰（`aria-hidden`、不拦截鼠标），不能替代焦点态、校验态或业务状态的边框；系统要求减少动效时整层隐藏。",
+  "basic": {
+    "title": "基础用法",
+    "panelTitle": "工作区概览",
+    "panelText": "在一个面板里查看任务状态、部署健康度和最近的自动化动态。"
+  },
+  "hover": {
+    "title": "悬停时显示",
+    "panelTitle": "把鼠标移到卡片上",
+    "panelText": "鼠标移到这张卡片上时，边框流光才出现。"
+  },
+  "count": {
+    "title": "多条流光",
+    "panelTitle": "多条流光",
+    "panelText": "设置 count，让多条流光沿容器边框均匀分布。"
+  },
+  "color": { "title": "渐变色", "palette": "配色" },
+  "size": {
+    "title": "长度、线宽与速度",
+    "compactTitle": "短、快",
+    "compactText": "高亮更短更快，适合密集的卡片组。",
+    "extendedTitle": "长、慢、2px",
+    "extendedText": "更长、更舒缓的高亮，适合较宽的功能面板。"
+  },
+  "custom": {
+    "title": "自定义容器与颜色",
+    "description": "BorderBeam 自己是容器，里面放任何东西；圆角用 `radius` 对齐里面内容的圆角。切换颜色，看流光是不是都贴着各自的边框走。",
+    "beamColor": "流光颜色",
+    "customColor": "自定义流光颜色",
+    "primary": "主色",
+    "custom": "自定义",
+    "upgrade": "升级",
+    "assistant": "试试助手",
+    "panelTitle": "两条流光",
+    "panelText": "同一种颜色，任意形状的容器。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "容器，带 `data-radius` / `data-trigger`；`--bb-*` 变量是组件写的数值",
+    "layer": "盖在容器上的遮罩层，只露出边框那一圈（`aria-hidden`，不拦截鼠标）",
+    "beam": "沿边框路径移动的方形渐变，`--bb-index` 是第几条"
+  },
+  "props": {
+    "BorderBeam": {
+      "children": "被装饰的内容。",
+      "color": "流光颜色：一个颜色字符串，或一组渐变停靠点（第一个在流光头部）。不传时用主色。",
+      "count": "流光数量，沿边框均匀分布。",
+      "duration": "一条流光跑完一圈的秒数。",
+      "fit": "容器贴合内容的尺寸（按钮、徽标、头像之类）。默认容器像块级元素一样占满可用宽度（卡片、面板），在横向 flex 里还会被拉到和相邻元素一样高，流光就离开了内容的边框；这种情况打开 `fit`。",
+      "lineWidth": "流光线宽（像素）。",
+      "outset": "流光层从容器边缘向外扩的距离（像素）。",
+      "radius": "圆角，要和被包住的内容一致（流光沿它画）。",
+      "size": "流光的长度（从头到尾），单位像素。",
+      "trigger": "`always` 一直流动，`hover` 只在鼠标移上去 / 焦点进来时显示。"
+    }
+  }
+}

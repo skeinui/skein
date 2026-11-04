@@ -1,0 +1,19 @@
+{
+  "lead": "A segmented control: a row of mutually exclusive options with a sliding background under the selected one. It is a radiogroup: the arrow keys move and select, Home / End jump to either end, and only the selected item is in the tab order.",
+  "usage": { "title": "Usage" },
+  "controlled": { "title": "Controlled", "value": "Value:" },
+  "icons": { "title": "With icons" },
+  "sizes": { "title": "Sizes" },
+  "block": { "title": "Full width" },
+  "disabled": { "title": "Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `segmented.css`.",
+    "hook": "Hook",
+    "root": "The root, `role=radiogroup`; `data-size` / `data-full-width` / `data-disabled`, `data-empty` when nothing is selected, `data-ready` once the thumb is in place",
+    "thumb": "The sliding background under the selected item; its position comes from `--seg-x` / `--seg-w` on the root (pixels, no unit)",
+    "item": "Each option, `role=radio`; `data-selected` / `data-disabled`",
+    "parts": "The icon and the text of an option"
+  }
+}

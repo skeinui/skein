@@ -1,0 +1,34 @@
+{
+  "title": "AI 编程",
+  "lead": "Skein UI 的设计目标之一，是让 AI 编程助手用它写出正确的代码：每个组件都有数据化的描述，CLI 则让助手能查文档、自检结果。",
+  "why": {
+    "title": "为什么适合 AI",
+    "p1": "AI 会猜。用大多数组件库时，猜出来的是一个半生效的 `className`，或一个不存在的属性。在 Skein 里，外观根本不在代码中，属性是有固定可选值的数据，同样的命名（`value` / `onValueChange`、`open` / `onOpenChange`）处处一致，可出错的地方少得多。",
+    "p2": "`@skeinui/ui` 自带 `manifest.json`：每个组件的属性、可选值、部件、数据类型和示例。CLI、MCP 服务和文档站的 `llms.txt` 都读取它，所以 AI 看到的和这份文档完全一致。"
+  },
+  "project": {
+    "title": "项目里自带什么",
+    "p1": "`skein create` 生成的项目带有给 AI 的说明，内容按你选的功能生成：",
+    "file": "文件",
+    "for": "用途",
+    "agents": "项目规则：目录结构、约定、命令。Codex、Cursor 等大多数助手都会读。",
+    "claude": "`@AGENTS.md`，给 Claude Code 用。",
+    "skillUi": "使用组件：先查再写、数据化属性、不用 `className`。",
+    "skillPage": "添加页面：`skein new page`、页面的文件组成、翻译、mock。",
+    "skillTheme": "修改外观：主题风格、覆盖值、编写主题风格。"
+  },
+  "loop": {
+    "title": "反馈闭环",
+    "p1": "这些说明会引导 AI 使用三个命令：",
+    "p2": "加上 `--json` 后，输出就是给 AI 读的：每个问题都带文件、行号和修复提示。AI 在说“完成”之前跑一遍 `skein check` 和 `skein preview`，就能发现自己的错误。"
+  },
+  "mcp": {
+    "title": "MCP 服务",
+    "p1": "`skein mcp` 通过 stdio 把 CLI 作为 MCP 工具提供（`skein_docs`、`skein_check`、`skein_preview`、`skein_new_page`、`skein_theme_init`……）。需要主动开启：创建项目时加 `--mcp`（浏览器检查再加 `--preview`）：",
+    "p2": "这会写出 `.mcp.json`，Claude Code、Cursor 等 MCP 客户端会自动识别："
+  },
+  "llms": {
+    "title": "llms.txt",
+    "p1": "本站提供 [/llms.txt](/llms.txt)（文档索引）和 [/llms-full.txt](/llms-full.txt)（所有组件的属性和示例，合成一个 Markdown 文件）。给不在 Skein 项目里工作的 AI 用。"
+  }
+}

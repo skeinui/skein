@@ -1,0 +1,243 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* ColorPicker: the trigger is a small bordered square (can include hex text), the overlay holds a saturation / brightness panel, hue bar, opacity bar, hex input and preset colors.
+     Color-related positions and gradients all come from --cp-* variables (see color-picker.tsx), this file only draws. */
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"] {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: var(--ui-height-md);
+    padding: 0.25rem;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-field-bg);
+    box-shadow: var(--ui-field-shadow);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    outline: none;
+    cursor: pointer;
+    transition:
+      background-color 150ms var(--ui-easing),
+      border-color 150ms var(--ui-easing),
+      box-shadow 150ms var(--ui-easing);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"][data-size="sm"] {
+    height: var(--ui-height-sm);
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"][data-size="lg"] {
+    height: var(--ui-height-lg);
+    font-size: 1rem;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="colorpicker-trigger"]:has([data-slot="colorpicker-value"]) {
+    padding-inline-end: 0.625rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"]:hover {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  /* Same as the Select trigger: keyboard focus gets a 3px ring/50 and a border color change, the expanded state has no ring */
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"]:focus-visible {
+    border-color: var(--ui-ring);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent),
+      var(--ui-field-shadow);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"][data-popup-open] {
+    outline: none;
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  /* Swatch: a checkerboard underneath, with the current color on top (so transparency is visible) */
+  [data-theme-style="shadcn"] [data-slot="colorpicker-swatch"],
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preview"],
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preset"] {
+    box-sizing: border-box;
+    flex: none;
+    background:
+      linear-gradient(var(--cp-color), var(--cp-color)),
+      conic-gradient(var(--ui-border) 25%, transparent 0 50%, var(--ui-border) 0 75%, transparent 0)
+        0 0 / 0.5rem 0.5rem;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ui-fg) 12%, transparent);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-swatch"] {
+    aspect-ratio: 1;
+    height: 100%;
+    border-radius: var(--ui-radius-sm);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-value"] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  [data-theme-style="shadcn"] [data-slot="colorpicker-panel"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 15rem;
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-area"] {
+    position: relative;
+    height: 9rem;
+    border-radius: var(--ui-radius-md);
+    background:
+      linear-gradient(to top, rgb(0 0 0), transparent),
+      linear-gradient(to right, rgb(255 255 255), var(--cp-hue-color));
+    outline: none;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-area-thumb"],
+  [data-theme-style="shadcn"] [data-slot="colorpicker-hue-thumb"],
+  [data-theme-style="shadcn"] [data-slot="colorpicker-alpha-thumb"] {
+    position: absolute;
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgb(255 255 255);
+    border-radius: var(--ui-radius-full);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+    pointer-events: none;
+    translate: -50% -50%;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-area-thumb"] {
+    left: calc(var(--cp-x) * 1%);
+    top: calc(var(--cp-y) * 1%);
+    background-color: var(--cp-solid);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-controls"] {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preview"] {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--ui-radius-full);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-sliders"] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.625rem;
+    min-width: 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-hue"],
+  [data-theme-style="shadcn"] [data-slot="colorpicker-alpha"] {
+    position: relative;
+    height: 0.5rem;
+    border-radius: var(--ui-radius-full);
+    outline: none;
+    cursor: pointer;
+    touch-action: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-hue"] {
+    background: linear-gradient(
+      to right,
+      hsl(0 100% 50%),
+      hsl(60 100% 50%),
+      hsl(120 100% 50%),
+      hsl(180 100% 50%),
+      hsl(240 100% 50%),
+      hsl(300 100% 50%),
+      hsl(360 100% 50%)
+    );
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-alpha"] {
+    background:
+      linear-gradient(to right, transparent, var(--cp-solid)),
+      conic-gradient(var(--ui-border) 25%, transparent 0 50%, var(--ui-border) 0 75%, transparent 0)
+        0 0 / 0.5rem 0.5rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-hue-thumb"] {
+    top: 50%;
+    left: calc(var(--cp-hue) * 1%);
+    background-color: var(--cp-hue-color);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-alpha-thumb"] {
+    top: 50%;
+    left: calc(var(--cp-alpha) * 1%);
+    background-color: var(--cp-color);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-area"]:focus-visible > [data-slot$="-thumb"],
+  [data-theme-style="shadcn"] [data-slot="colorpicker-hue"]:focus-visible > [data-slot$="-thumb"],
+  [data-theme-style="shadcn"]
+    [data-slot="colorpicker-alpha"]:focus-visible
+    > [data-slot$="-thumb"] {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
+  }
+  /* Format switch: a row of small buttons joined together, filling one row */
+  [data-theme-style="shadcn"] [data-slot="colorpicker-formats"] {
+    display: flex;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-formats"] [data-slot="toggle-group"] {
+    flex: 1;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-formats"] [data-slot="toggle"] {
+    flex: 1;
+    padding-inline: 0;
+  }
+
+  [data-theme-style="shadcn"] [data-slot="colorpicker-input"] {
+    display: flex;
+    gap: 0.375rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-field"] {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-field"] input {
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-field"][data-field="hex"] input {
+    text-transform: uppercase;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-field"][data-field="alpha"] {
+    flex: none;
+    width: 4.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-presets"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preset"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-sm);
+    outline: none;
+    cursor: pointer;
+    transition: transform 120ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preset"]:hover {
+    transform: scale(1.1);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preset"][data-selected] {
+    box-shadow:
+      0 0 0 2px var(--ui-bg),
+      0 0 0 4px var(--ui-ring);
+  }
+  [data-theme-style="shadcn"] [data-slot="colorpicker-preset"]:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--ui-bg),
+      0 0 0 4px var(--ui-ring);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="colorpicker-trigger"],
+    [data-theme-style="shadcn"] [data-slot="colorpicker-preset"] {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "lead": "Tree select: the trigger matches [Select](/select), the popup holds a [Tree](/tree). In single mode clicking a node selects it, in multiple mode you check boxes; search and async loading are supported. For flat data without levels use Select; for two or three levels picked one level at a time use [Cascader](/cascader).",
+  "basic": { "title": "Basic", "placeholder": "Select a city" },
+  "multiple": { "title": "Multiple", "placeholder": "Select cities" },
+  "search": { "title": "Search and clear" },
+  "lazy": { "title": "Lazy loading" },
+  "states": { "title": "Sizes and states" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Outer wrapper; `data-full-width`",
+    "trigger": "`data-variant` / `data-size` / `data-invalid` / `data-multiple` / `data-popup-open`",
+    "parts": "Parts inside the trigger; `data-placeholder` on value when empty",
+    "panel": "The popup's container, search box and the scroll area holding the Tree"
+  }
+}

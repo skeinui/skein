@@ -1,0 +1,30 @@
+{
+  "lead": "A card for one tool call: the trigger shows a status icon, the tool name and the state, and expands to the input and result (JSON), the error details, and approve / reject buttons when the user must approve. It opens by default on an error or a pending approval, and several calls can be collected into a group.",
+  "usage": { "title": "Usage", "prefix": "Used tool: " },
+  "states": {
+    "title": "States",
+    "results": "3 results",
+    "rateLimited": "Rate limited: try again in 30s."
+  },
+  "approval": {
+    "title": "Approval",
+    "description": "In `requires-action` it shows approve / reject; once the user has clicked, you switch `state` to the result.",
+    "rejected": "The user rejected this tool call.",
+    "reset": "Reset"
+  },
+  "group": { "title": "Group", "label": "3 tool calls" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Card root; `data-state`",
+    "trigger": "The trigger (the whole row); `data-panel-open` when expanded",
+    "status": "Status icon (`data-state`); a spinner while running",
+    "name": "Tool name (with the prefix) and the state text",
+    "icon": "Expand arrow",
+    "panel": "The expanding panel, its content, and each block of input / result (CodeBlock)",
+    "error": "Error details and their small heading",
+    "actions": "Approve / reject buttons (`role=group`)",
+    "groupHooks": "A group of tool calls"
+  }
+}

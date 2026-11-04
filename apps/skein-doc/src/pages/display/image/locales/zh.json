@@ -1,0 +1,50 @@
+{
+  "lead": "图片：加载中有占位、失败有备用图或备用内容，点击全屏预览（缩放、旋转、拖动，成组时可切换）。有预览时整个图片是一个按钮（名称取 `alt`），预览用 Dialog，焦点锁定、Esc 关闭。预览里的键盘：← → 切换，+ − 缩放，r 旋转，0 重置。",
+  "basic": {
+    "title": "基本用法"
+  },
+  "fallback": {
+    "title": "失败与占位",
+    "description": "第一张加载失败显示备用图；第二张失败显示主题风格的占位块；第三张失败显示自己给的内容。",
+    "noCover": "暂无封面"
+  },
+  "no-preview": {
+    "title": "不可预览"
+  },
+  "group": {
+    "title": "预览组",
+    "description": "组里的图在预览里可以用 ← → 或两侧按钮切换，左下角显示 n / 总数。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `image.css` 里定义占位、失败块、悬停遮罩和全屏查看器。查看器总是深色遮罩（照片总在暗背景上看），不跟亮暗模式走。antd 主题风格按官网实测：遮罩 0.3、预览遮罩 0.45、按钮 42px 圆、工具栏胶囊 radius 100px。",
+    "hook": "钩子",
+    "root": "有预览且加载完是 `<button>`（`data-preview`），否则 `<span>`；`data-status` = loading | loaded | error",
+    "parts": "图、占位、失败块、悬停遮罩",
+    "preview": "预览：遮罩、对话框、舞台、大图（`data-zoomed`；缩放 / 旋转 / 位置读 `--pv-scale` / `--pv-rot` / `--pv-x` / `--pv-y`）",
+    "toolbar": "工具栏、按钮、关闭、上一张 / 下一张（`data-direction`）、计数"
+  },
+  "props": {
+    "Image": {
+      "alt": "替代文字，也是预览按钮的可访问名称。装饰性图片传 \"\"。",
+      "fallback": "加载失败时显示：字符串当作备用图片地址，节点直接显示。",
+      "height": "高度（像素），写在 `<img>` 上（见 `width`）。",
+      "labels": "预览里的文字，默认英文。",
+      "loading": "浏览器原生懒加载。",
+      "onError": "图片加载失败时调用（有 `fallback` 图片时，在它也失败之后）。",
+      "onLoad": "图片加载完成时调用。",
+      "placeholder": "加载中的占位：不给是主题风格的占位块，`false` 不显示。",
+      "preview": "点击放大预览（缩放、旋转、拖动；在 `Image.PreviewGroup` 里还能切换）。",
+      "previewSrc": "预览时用的大图地址，不给用 `src`。",
+      "src": "图片地址。",
+      "width": "图片的宽 / 高（像素，作为属性写在 `<img>` 上）。"
+    },
+    "Image_PreviewGroup": {
+      "children": "内容。",
+      "labels": "预览里的文字，组里所有图片共用（单张图片也可以自己覆盖）。"
+    }
+  }
+}

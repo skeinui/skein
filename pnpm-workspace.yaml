@@ -1,0 +1,45 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Install scripts allowed to run: workerd downloads the Cloudflare runtime (wrangler dev), esbuild checks its binary
+allowBuilds:
+  esbuild: true
+  workerd: true
+
+catalog:
+  "@changesets/cli": ^3.0.3
+  "@cloudflare/vite-plugin": ^1.67.0
+  "@modelcontextprotocol/sdk": ^1.29.0
+  "@types/node": ^24.0.0
+  "@types/react": ^19.2.5
+  "@types/react-dom": ^19.2.3
+  axe-core: ^4.14.0
+  jsdom: ^30.1.3
+  katex: ^0.18.11 # same as mermaid's
+  mermaid: ^12.2.0
+  msw: ^3.0.3
+  playwright-core: ^1.64.1
+  prism-react-renderer: ^2.4.1
+  react: ^19.2.0
+  react-dom: ^19.2.0
+  typescript: ^6.0.2 # 7.x has no compiler API (packages/ui/scripts/manifest.ts)
+  vite: npm:@voidzero-dev/vite-plus-core@1.4.0
+  vite-plus: 1.4.0
+  wrangler: ^4.156.2
+  zod: ^4.0.0
+
+catalogMode: prefer
+
+overrides:
+  vite: "catalog:"
+
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: "*"
+
+updateConfig:
+  ignoreDependencies:
+    - typescript

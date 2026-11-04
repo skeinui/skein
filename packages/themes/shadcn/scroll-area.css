@@ -1,0 +1,60 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* ScrollArea: scrolling is native, the scrollbar is hidden normally and fades in on hover or scroll; the thumb uses 25% of the foreground color. */
+  [data-theme-style="shadcn"] [data-slot="scroll-area"] {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-viewport"] {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overscroll-behavior: contain;
+    outline: none;
+  }
+  /* Nova: ring-[3px] ring-ring/50 + outline-1 (outline color is ring/50) */
+  [data-theme-style="shadcn"] [data-slot="scroll-area-viewport"]:focus-visible {
+    outline: 1px solid color-mix(in oklab, var(--ui-ring) 50%, transparent);
+    outline-offset: 0;
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-scrollbar"] {
+    display: flex;
+    box-sizing: border-box;
+    padding: 1px;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    touch-action: none;
+    user-select: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-scrollbar"][data-orientation="vertical"] {
+    width: 0.625rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-scrollbar"][data-orientation="horizontal"] {
+    height: 0.625rem;
+    flex-direction: column;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-scrollbar"][data-hovering],
+  [data-theme-style="shadcn"] [data-slot="scroll-area-scrollbar"][data-scrolling] {
+    opacity: 1;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-thumb"] {
+    flex: 1;
+    border-radius: var(--ui-radius-full);
+    background-color: var(--ui-border);
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-area-corner"] {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="scroll-area-scrollbar"] {
+      transition: none;
+    }
+  }
+}

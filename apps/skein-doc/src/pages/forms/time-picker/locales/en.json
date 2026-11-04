@@ -1,0 +1,20 @@
+{
+  "lead": "Picks a time: the trigger matches [Select](/select), the popup holds scrollable hour / minute / second columns. Clicking an option changes the value at once, no need to click OK. Steps, an earliest / latest time and a 12-hour clock are available. For a date and a time, use `showTime` on [DatePicker](/date-picker).",
+  "usage": { "title": "Usage" },
+  "seconds": { "title": "Seconds and 12-hour" },
+  "steps": { "title": "Steps" },
+  "limits": { "title": "Min and max" },
+  "controlled": { "title": "Controlled", "value": "Value:" },
+  "in-field": { "title": "In Field", "label": "Start time" },
+  "states": { "title": "Disabled and invalid" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `time-picker.css`; the trigger is `select-trigger`, the popup shell is `popover`.",
+    "hook": "Hook",
+    "column": "The panel and each column (a listbox; `data-column` is hour / minute / second / period)",
+    "option": "Each option; `data-selected` when selected, `data-disabled` when disabled",
+    "footer": "Footer: Now on the left, Clear and OK on the right",
+    "datetime": "When DatePicker shows a time, the container holding the calendar and the time panel side by side"
+  }
+}

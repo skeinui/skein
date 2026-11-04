@@ -1,0 +1,174 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* FloatButton: a round / square button fixed to a corner of the viewport. Position uses the theme style's margins (--_ix / --_iy); when grouped, the Group is fixed and the buttons themselves are not. */
+  [data-theme-style="shadcn"] [data-slot="floatbutton"],
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"] {
+    --_size: 3rem;
+    --_ix: 1.5rem;
+    --_iy: 1.5rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"] {
+    position: fixed;
+    z-index: 1000;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.125rem;
+    box-sizing: border-box;
+    width: var(--_size);
+    height: var(--_size);
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--ui-border);
+    box-shadow: var(--ui-overlay-shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.75rem;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    animation: ui-shadcn-fb-in 200ms ease-out;
+    transition:
+      background-color 200ms,
+      color 200ms;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-shape="circle"] {
+    border-radius: 50%;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-shape="square"] {
+    border-radius: var(--ui-radius-lg);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-variant="default"] {
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-has-label] {
+    height: auto;
+    min-height: var(--_size);
+    padding-block: 0.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-corner="bottom-end"] {
+    inset-block-end: var(--_iy);
+    inset-inline-end: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-corner="bottom-start"] {
+    inset-block-end: var(--_iy);
+    inset-inline-start: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-corner="top-end"] {
+    inset-block-start: var(--_iy);
+    inset-inline-end: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-corner="top-start"] {
+    inset-block-start: var(--_iy);
+    inset-inline-start: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 6%, var(--ui-bg));
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-variant="primary"] {
+    border-color: transparent;
+    background-color: var(--ui-c-primary);
+    color: var(--ui-c-primary-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-variant="primary"]:hover {
+    background-color: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"]:active {
+    transform: scale(0.96);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"]:focus-visible {
+    border-color: var(--ui-ring);
+    box-shadow:
+      var(--ui-overlay-shadow),
+      0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-icon"] {
+    display: inline-flex;
+    font-size: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-icon"] > svg {
+    width: 1em;
+    height: 1em;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-label"] {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Grouped: the Group is fixed in the corner and buttons stack vertically. Round ones each have a shadow and spacing; square ones are joined end to end and share one border and shadow */
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"] {
+    position: fixed;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"][data-corner="bottom-end"] {
+    inset-block-end: var(--_iy);
+    inset-inline-end: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"][data-corner="bottom-start"] {
+    inset-block-end: var(--_iy);
+    inset-inline-start: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"][data-corner="top-end"] {
+    inset-block-start: var(--_iy);
+    inset-inline-end: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"][data-corner="top-start"] {
+    inset-block-start: var(--_iy);
+    inset-inline-start: var(--_ix);
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton"][data-in-group] {
+    position: relative;
+    z-index: auto;
+    animation: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="floatbutton-group"][data-shape="square"] {
+    gap: 0;
+    border-radius: var(--ui-radius-lg);
+    box-shadow: var(--ui-overlay-shadow);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="floatbutton-group"][data-shape="square"]
+    > [data-slot="floatbutton"] {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="floatbutton-group"][data-shape="square"]
+    > [data-slot="floatbutton"]:first-child {
+    border-start-start-radius: var(--ui-radius-lg);
+    border-start-end-radius: var(--ui-radius-lg);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="floatbutton-group"][data-shape="square"]
+    > [data-slot="floatbutton"]:last-child {
+    border-end-start-radius: var(--ui-radius-lg);
+    border-end-end-radius: var(--ui-radius-lg);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="floatbutton-group"][data-shape="square"]
+    > [data-slot="floatbutton"]
+    + [data-slot="floatbutton"] {
+    margin-block-start: -1px;
+  }
+
+  @keyframes ui-shadcn-fb-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="floatbutton"] {
+      animation: none;
+      transition: none;
+    }
+  }
+}

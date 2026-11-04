@@ -1,0 +1,66 @@
+{
+  "lead": "The tab bar of open pages common in admin apps: switch, close, pin, drag to reorder, a context menu (close others / to the left / to the right / all, pin, refresh) and scroll buttons at both ends when there are too many. It knows nothing about routing: the tabs are data (`tabs` + `activeKey`), and clicks and closes come back through callbacks. Together with `KeepAlive`, pages you switch away from keep their state.",
+  "usage": {
+    "title": "Usage",
+    "description": "Click a tab to switch; close it with × or the middle button, right-click for more, drag to reorder. Keyboard: arrow keys move the focus, Delete closes, Alt + left / right reorders. The first tab (home) is pinned and can't be closed.",
+    "pages": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "orders": "Orders",
+      "products": "Products",
+      "reports": "Reports",
+      "settings": "Settings",
+      "audit-log": "Audit Log"
+    }
+  },
+  "variants": {
+    "title": "Variants",
+    "description": "`card` (small bordered cards), `chrome` (browser tabs, the selected one joins the content below) and `line` (an underline)."
+  },
+  "keep-alive": {
+    "title": "With KeepAlive",
+    "description": "Each page holds a counter, an input and some tall content: they all survive switching tabs, scroll position included. The state goes only when the tab is closed; right-click → Refresh starts the page over.",
+    "clicked": "Clicked {n} times",
+    "placeholder": "Type here, switch away and back",
+    "tall": "(tall page: scroll, then switch)",
+    "open": "Open {title}",
+    "note": "Closing a tab drops its page state; right-click → Refresh remounts it."
+  },
+  "overflow": {
+    "title": "Overflow",
+    "description": "When the tabs don't fit, scroll buttons appear at both ends; the active tab scrolls into view."
+  },
+  "api": {
+    "title": "API Reference",
+    "field": "Field",
+    "tab": {
+      "key": "Unique identifier, usually the page's path",
+      "title": "The tab's title (also its accessible name and tooltip)",
+      "icon": "Icon before the title",
+      "pinned": "Pinned: placed first, can't be closed, and only reorders among pinned tabs (e.g. home)",
+      "closable": "Whether it can be closed"
+    }
+  },
+  "keep-alive-api": { "title": "KeepAlive API" },
+  "helpers": {
+    "title": "Helpers",
+    "function": "Function",
+    "closeTabs": "Closes a set of tabs; closing the active one switches to the next tab in its place (or the previous one). Pinned / non-closable tabs stay",
+    "keysToClose": "Works out which tabs to close for a scope (`self` / `others` / `left` / `right` / `all`)",
+    "moveTab": "Moves a tab; pinned and normal tabs each stay in their own zone",
+    "pinTab": "Pins / unpins a tab",
+    "openTab": "Opens a tab: returns the list unchanged if it's already open, else appends it"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "`data-variant`, `data-size`; `data-dragging` while dragging",
+    "list": "The horizontally scrolling list (scrollbar hidden)",
+    "item": "A tab + its close button: `data-active`, `data-pinned`, `data-dragging`; while dragging, the offset is `--drag-x`",
+    "tab": "The tab itself (a button)",
+    "title": "Icon and title",
+    "close": "The close button, outside the tab (a button can't contain another one)",
+    "scroll": "The scroll buttons at both ends when there are too many tabs, `data-direction=start|end`",
+    "keepAlive": "One pane per item (scrolling on its own), the current one has `data-active`; the root has `data-transition`"
+  }
+}

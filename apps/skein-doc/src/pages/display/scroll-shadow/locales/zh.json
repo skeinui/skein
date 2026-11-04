@@ -1,0 +1,25 @@
+{
+  "lead": "带边缘淡出的滚动容器：内容还能往某个方向滚时，那一侧的边缘淡出，提示「这里还有」；滚到头就没有了。滚动是原生的，滚动条也还在（可隐藏）；与 [Scroll Area](/scroll-area)（自绘滚动条）互补。",
+  "basic": {
+    "title": "基础用法",
+    "row": "通知 {n} —— 你的工作区里有新动态"
+  },
+  "horizontal": { "title": "水平方向", "tag": "标签 {n}" },
+  "size": { "title": "淡出长度与隐藏滚动条" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "滚动容器；`data-orientation` / `data-scrollbar`；`data-shadow-start` / `data-shadow-end` 表示那一侧还有内容（淡出）；`--ss-size` 是淡出长度",
+    "content": "内容的包裹层（横向时撑成内容的宽度）"
+  },
+  "props": {
+    "ScrollShadow": {
+      "aria-label": "滚动区域的名称：内容确实超出、需要滚动时它是 `role=\"region\"`，读屏会念出这个名称。",
+      "children": "内容。放进有高度（或宽度）的父元素里，它撑满父元素并在里面滚动。",
+      "hideScrollbar": "隐藏滚动条（仍可滚动，淡出的边缘就是提示）。",
+      "orientation": "滚动方向。",
+      "size": "边缘淡出的长度（像素）。"
+    }
+  }
+}

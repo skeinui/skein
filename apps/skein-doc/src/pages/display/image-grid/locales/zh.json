@@ -1,0 +1,57 @@
+{
+  "lead": "带状态的图片网格：每一格是加载中（占位 + 可选进度）、就绪（点开全屏预览，成组可切换）或失败（原因 + 重试）。格子等宽高比，列数按张数自动排。通用——AI 一次生成几张图、批量上传、批量处理的结果都能用；在 [AI Chat](/ai-chat) 里就是助手回复里的那一组图。",
+  "usage": {
+    "title": "用法",
+    "description": "点任意一张打开预览，左右键或两侧按钮在这一组图之间切换。"
+  },
+  "states": {
+    "title": "状态",
+    "description": "`loading`（给了 `progress` 才有进度条）、`ready`、`error`（给了 `onRetry` 才有重试按钮）。",
+    "uploadFailed": "上传失败"
+  },
+  "generating": {
+    "title": "生成中",
+    "description": "一次生成四张：各自出进度，出完一张亮一张；第三张失败，点重试后成功。",
+    "start": "生成",
+    "again": "重新生成",
+    "blocked": "内容策略拦截了这张图"
+  },
+  "actions": {
+    "title": "操作与删除",
+    "description": "`actions` 里用 `ImageGrid.Action` 写底部的操作（悬停或键盘聚焦才出现），`onRemove` 给每格右上角加删除按钮。",
+    "reset": "重置"
+  },
+  "layout": {
+    "title": "列数与比例"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "列表（`ul`）；`data-columns`、`data-ratio`；还有未就绪的格子时 `aria-busy`",
+    "item": "一格（`li`），`data-status`：loading / ready / error",
+    "loading": "加载中的占位（流光）和状态文字",
+    "progress": "进度条（`role=progressbar`）；填充读 `--grid-progress`",
+    "error": "失败的格子、原因、重试按钮",
+    "actions": "就绪格子底部的操作区和按钮",
+    "remove": "右上角的删除按钮",
+    "image": "就绪的格子里是 Image（预览用 `Image.PreviewGroup` 成组）"
+  },
+  "props": {
+    "ImageGrid": {
+      "actions": "就绪格子底部的操作，悬停（或键盘聚焦）时出现；按钮用 `ImageGrid.Action` 写。",
+      "columns": "列数；不给就按张数自动排：1 张 1 列，2 到 4 张 2 列，5 到 9 张 3 列，更多 4 列。",
+      "items": "图片列表（`ImageGridItem`：`id`、`alt`、`status`、`src`、`progress`），按显示顺序。",
+      "labels": "要覆盖的内置文字（见下面的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onRemove": "每格右上角出现删除按钮。",
+      "onRetry": "失败的格子里出现「重试」按钮。",
+      "previewLabels": "预览里的文字，同 `Image`。",
+      "ratio": "每格的宽高比（1:1 / 4:3 / 3:4 / 16:9），所有格子一样。"
+    },
+    "ImageGrid_Action": {
+      "aria-label": "按钮的名称（只有图标，必填）。"
+    }
+  }
+}

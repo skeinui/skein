@@ -1,0 +1,20 @@
+{
+  "lead": "A toggle button with two states, pressed and released; it writes `data-pressed` when pressed. ToggleGroup manages a set of them: single choice by default, several with `multiple`.",
+  "usage": { "title": "Usage" },
+  "variants": { "title": "Variants" },
+  "colors": { "title": "Colors" },
+  "sizes": { "title": "Sizes" },
+  "group": { "title": "Toggle Group" },
+  "attached": { "title": "Attached" },
+  "multiple": { "title": "Multiple" },
+  "vertical": { "title": "Vertical" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `toggle.css`. The pressed colour comes from the soft / text values of `--ui-c-*`; the soft variant turns solid when pressed.",
+    "hook": "Hook",
+    "slot": "A single button and a group of buttons",
+    "pressed": "Written on the toggle when it is pressed",
+    "group": "Whether the group is attached, and its direction"
+  }
+}

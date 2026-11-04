@@ -1,0 +1,17 @@
+{
+  "lead": "A right-click menu: it opens on right click (long press on touch) over the trigger area. Items, groups and separators reuse the parts and theme styles of [Menu](/menu).",
+  "usage": { "title": "Usage" },
+  "groups": { "title": "Groups & Danger" },
+  "checkbox": { "title": "Checkbox Items" },
+  "api": {
+    "title": "API Reference",
+    "items": "`Item` / `CheckboxItem` / `Group` / `GroupLabel` / `Separator` are the [Menu](/menu) parts of the same name, used exactly as in Menu."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "ContextMenu has no CSS file of its own: its whole look comes from `menu.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "hook": "Hook",
+    "trigger": "The trigger area (theme styles usually leave it unstyled)",
+    "menu": "The popup and its items, reusing Menu's slots"
+  }
+}

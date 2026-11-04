@@ -1,0 +1,22 @@
+{
+  "lead": "A dropdown you can type into to filter. The input reuses Input and the popup reuses Select, so both match in every theme style; filtering and keyboard navigation come from Base UI's Combobox.",
+  "usage": { "title": "Usage" },
+  "groups": { "title": "Groups" },
+  "controlled": { "title": "Controlled", "selected": "Selected:" },
+  "variants": { "title": "Variants & Sizes" },
+  "in-field": {
+    "title": "In Field",
+    "description": "Inside a [Field](/field), it takes the Field's `variant` / `size` and its disabled / invalid state, unless passed on the Combobox."
+  },
+  "empty": { "title": "Empty Text" },
+  "disabled": { "title": "Disabled & Invalid" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "In `combobox.css` theme styles only handle the toggle button and the empty state; the input's look comes from `input.css`, the popup from `select.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "input": "The input, reusing Input's input-group",
+    "trigger": "The toggle (arrow) button, with `data-popup-open` while open",
+    "popup": "The popup and the options, reusing Select's slots",
+    "empty": "The message when nothing matches"
+  }
+}

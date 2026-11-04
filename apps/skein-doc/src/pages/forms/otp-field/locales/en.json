@@ -1,0 +1,17 @@
+{
+  "lead": "A verification code input with one box per digit. Moving to the next box, pasting the whole code and stepping back with Backspace come from Base UI's OTPField.",
+  "usage": { "title": "Usage" },
+  "separator": { "title": "Separator" },
+  "sizes": { "title": "Sizes & Variants" },
+  "mask": { "title": "Mask" },
+  "complete": { "title": "On Complete", "completed": "Completed:" },
+  "invalid": { "title": "Disabled & Invalid" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `otp-field.css`; the box size comes from `--ui-height-*`.",
+    "cells": "The root and the container of each digit",
+    "input": "The input of each digit, looking like Input; the focused one gets the focus ring",
+    "separator": "The separator"
+  }
+}

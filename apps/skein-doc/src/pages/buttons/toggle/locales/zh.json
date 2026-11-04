@@ -1,0 +1,49 @@
+{
+  "lead": "开关按钮：按下 / 弹起两种状态，按下时写 `data-pressed`。ToggleGroup 管一组，默认单选，`multiple` 允许多选。",
+  "usage": { "title": "用法" },
+  "variants": { "title": "变体" },
+  "colors": { "title": "颜色" },
+  "sizes": { "title": "尺寸" },
+  "group": { "title": "按钮组" },
+  "attached": { "title": "贴合" },
+  "multiple": { "title": "多选" },
+  "vertical": { "title": "垂直" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `toggle.css` 里处理；按下时的颜色取 `--ui-c-*` 的 soft / text，soft 变体按下后换成实心。",
+    "hook": "钩子",
+    "slot": "单个按钮和一组按钮",
+    "pressed": "按下时写在 toggle 上",
+    "group": "组的贴合与方向"
+  },
+  "props": {
+    "Toggle": {
+      "color": "按下时的颜色；在 ToggleGroup 里默认取组的。",
+      "iconOnly": "只放图标，宽高相等。",
+      "size": "尺寸档位；在 ToggleGroup 里默认取组的。",
+      "variant": "视觉变体：透明底 / 描边 / 常驻浅底；在 ToggleGroup 里默认取组的。",
+      "defaultPressed": "按钮当前是否按下。`pressed` 的非受控版本。",
+      "disabled": "是否忽略用户交互。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "onPressedChange": "按下状态变化时调用。",
+      "pressed": "按钮当前是否按下。`defaultPressed` 的受控版本。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "在 ToggleGroup 里标识这个按钮的唯一字符串。"
+    },
+    "ToggleGroup": {
+      "attached": "相邻按钮紧贴在一起，接缝处去掉圆角。",
+      "color": "组内 Toggle 按下时的颜色。",
+      "orientation": "排列方向。",
+      "size": "组内 Toggle 的尺寸。",
+      "variant": "组内 Toggle 的变体，Toggle 自己传了就以 Toggle 为准。",
+      "defaultValue": "按钮组的按下状态，用所有按下按钮的 value 组成的数组表示。`value` 的非受控版本。",
+      "disabled": "按钮组是否忽略用户交互。",
+      "loopFocus": "用方向键移动焦点到达末尾时，是否回到第一个。",
+      "multiple": "为 `false` 时组内只能按下一个，按下一个会弹起其他的；为 `true` 时可以同时按下多个。",
+      "onValueChange": "按钮组的按下状态变化时调用。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "按钮组的按下状态，用所有按下按钮的 value 组成的数组表示。`defaultValue` 的受控版本。"
+    }
+  }
+}

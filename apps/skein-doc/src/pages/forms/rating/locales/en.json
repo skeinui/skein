@@ -1,0 +1,22 @@
+{
+  "lead": "A star rating whose value is a single number. It supports half stars, read-only display and custom icons; the Left / Right arrow keys change the score and Home / End jump to either end.",
+  "usage": { "title": "Usage" },
+  "controlled": {
+    "title": "Controlled",
+    "value": "Value: `{value}` (click the current score again to clear it)"
+  },
+  "half": { "title": "Half stars" },
+  "readonly": { "title": "Read only" },
+  "icon": { "title": "Custom icon" },
+  "sizes": { "title": "Sizes and colors" },
+  "disabled": { "title": "Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `rating.css`.",
+    "root": "The root, `role=slider`; `data-readonly` / `data-disabled`, and `data-hovering` while the pointer previews a score",
+    "item": "Each star; `data-fill` is full / half / empty",
+    "icon": "Two icon layers: the unselected one below, the filled one on top; for a half star the theme style clips the fill in half",
+    "hit": "The pointer hit area; two per star when half stars are allowed (`data-half` is the left half)"
+  }
+}

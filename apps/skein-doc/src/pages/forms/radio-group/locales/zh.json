@@ -1,0 +1,53 @@
+{
+  "lead": "单选组，行为来自 Base UI 的 RadioGroup 和 Radio，方向键切换、同组互斥都由它处理。结构和状态约定与 Checkbox 一致。示例参照 HeroUI 文档的 RadioGroup 页。",
+  "usage": { "title": "用法" },
+  "horizontal": { "title": "横向排列" },
+  "with-description": { "title": "带说明" },
+  "controlled": { "title": "受控", "selected": "已选：" },
+  "disabled": { "title": "禁用" },
+  "invalid": {
+    "title": "无效",
+    "description": "放进 Field 并标记 `invalid`，里面的每个 Radio 都会带 `data-invalid`。"
+  },
+  "variants": {
+    "title": "变体",
+    "description": "`outline` 对应 HeroUI v3 的 primary，`filled` 对应 secondary。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `radio.css` 里处理。选中的圆点画在 `radio-indicator` 的伪元素上，组件里没有圆点元素。",
+    "hook": "钩子",
+    "sameAsProps": "同 props",
+    "slot": "结构钩子。`radio` 是外层 `<label>`，`radio-control` 是真正的控件，`radio-indicator` 里的圆点由主题风格画",
+    "group": "写在 `radio-group` 上",
+    "states": "状态钩子，写在 `radio-control` 和 `radio-indicator` 上；整个 label 的变化由主题风格用 `:has()` 读取"
+  },
+  "props": {
+    "Radio": {
+      "children": "标签文字，放在控件右边。",
+      "description": "标签下面的说明文字（解释这个选项）。",
+      "invalid": "不在 Field 里时用 invalid 手动标记；在 Field 里由 Field 的校验状态决定。",
+      "disabled": "是否忽略用户交互。",
+      "inputRef": "用来访问隐藏 input 元素的 ref。",
+      "nativeButton": "通过 `render` 替换元素时，是否渲染原生 `<button>` 元素。渲染的是原生按钮时设为 `true`。",
+      "readOnly": "用户是否不能选中这个单选项。",
+      "required": "提交表单前是否必须选择。",
+      "value": "这个单选项在组里的唯一标识值。"
+    },
+    "RadioGroup": {
+      "orientation": "单选项的排列方向。",
+      "variant": "控件底色：outline（白底 + 阴影）或 filled（灰底）。",
+      "defaultValue": "初始选中项的非受控值。要做受控的单选组，改用 `value`。",
+      "disabled": "是否忽略用户交互。",
+      "form": "单选 input 所属表单的标识。单选组渲染在表单外面时有用。",
+      "inputRef": "用来访问隐藏 input 元素的 ref。",
+      "name": "表单提交时的字段名。",
+      "onValueChange": "值变化时的回调。",
+      "readOnly": "用户是否不能改选组里的其他单选项。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "required": "提交表单前是否必须选择。",
+      "value": "当前选中项的受控值。要做非受控的单选组，改用 `defaultValue`。"
+    }
+  }
+}

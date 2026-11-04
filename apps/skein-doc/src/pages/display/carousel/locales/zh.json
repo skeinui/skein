@@ -1,0 +1,35 @@
+{
+  "lead": "轮播：一次显示一页，箭头 / 圆点 / 键盘 / 滑动换页，可自动播放。遵循 WAI-ARIA 轮播模式：当前页以外 inert，自动播放有暂停按钮，鼠标和焦点进来时自动暂停。",
+  "basic": { "title": "基础用法", "slide": "第 {n} 页" },
+  "effect": { "title": "淡入淡出与圆点位置" },
+  "autoplay": { "title": "自动播放" },
+  "controlled": { "title": "受控" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根，带 `data-effect` / `data-dot-position`；`--car-index` 是当前页",
+    "viewport": "裁剪窗口与轨道",
+    "slide": "`data-active`；不在当前页的带 `inert`",
+    "arrow": "`data-direction=prev|next`",
+    "dots": "圆点带 `data-active`、`aria-current`",
+    "pause": "`data-paused`"
+  },
+  "props": {
+    "Carousel": {
+      "aria-label": "整个轮播的名称，读屏软件用。",
+      "arrows": "两侧的上一页 / 下一页箭头。",
+      "autoplay": "自动播放的间隔（毫秒）；`false` 关闭自动播放。系统要求减少动效时不自动播放。",
+      "children": "每个子元素是一页。",
+      "defaultIndex": "非受控时的初始 `index`。",
+      "dotPosition": "圆点的位置：在页面下方或上方。",
+      "dots": "用来选页的圆点。",
+      "effect": "`slide` 横向滑动，`fade` 交叉淡入淡出。",
+      "index": "受控的当前页（从 0 起）。",
+      "labels": "要覆盖的内置文案（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "loop": "到头后绕回另一头。",
+      "onIndexChange": "换页时以新的 `index` 调用；同时传 `index` 即为受控。",
+      "pauseOnHover": "鼠标移上去 / 焦点在里面时暂停自动播放。"
+    }
+  }
+}

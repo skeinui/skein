@@ -1,0 +1,67 @@
+{
+  "lead": "渲染 AI 回复里的 Markdown。解析器自己写的、不依赖任何库：标题、段落、围栏代码（用 Code Block）、引用、列表和任务列表、表格、分割线，行内的代码 / 粗体 / 斜体 / 删除线 / 链接 / 图片。按块缓存，适合流式输出；不认 HTML，链接和图片只放行安全的地址。",
+  "usage": {
+    "title": "用法",
+    "sample": "# 一级标题\n## 二级标题\n\n一段文字，带 **粗体**、*斜体*、~~删除线~~、`行内代码` 和一个[链接](https://base-ui.com)。\n裸链接也能识别：https://example.com 。\n\n> 一段带 **强调** 的引用。\n\n```ts\nconst answer: number = 42; // the answer\n```\n\n---\n\n![占位图](https://randomuser.me/api/portraits/women/44.jpg)"
+  },
+  "lists": {
+    "title": "列表和任务",
+    "sample": "- 无序列表项\n- 另一项\n  - 嵌套的第一项\n  - 嵌套的第二项\n- 最后一项\n\n3. 从三开始\n4. 然后是四\n\n- [x] 写解析器\n- [x] 加测试\n- [ ] 发布"
+  },
+  "table": {
+    "title": "表格",
+    "description": "表格在可聚焦的滚动区里，列对齐用冒号写。",
+    "sample": "| 包 | 大小 | 状态 |\n| :------ | ---: | :----: |\n| @skeinui/ui | 120 KB | 稳定 |\n| base-ui | 80 KB | 对等依赖 |\n| react | 6 KB | 对等依赖 |"
+  },
+  "streaming": {
+    "title": "流式输出",
+    "description": "文字一直往后追加：没变的块不会重画；没闭合的粗体 / 代码围栏在闭合前按原文显示，不会把后面的内容吞掉。",
+    "sample": "## 流式输出演示\n\n回答按 **块** 渲染。没变的块不会重画，没写完的标记，比如 **粗体或代码围栏，在闭合之前都按原文显示。\n\n```js\nfunction hello() {\n  console.log(\"streaming…\");\n}\n```\n\n- 第一点\n- 第二点\n\n完成。",
+    "replay": "重播"
+  },
+  "citations": {
+    "title": "引用",
+    "description": "给了 `citations`，正文里的 `[1]`、`[2]` 就变成引用角标：点击打开来源，有 `description` 的悬停出预览卡片。",
+    "sample": "Base UI 提供不带样式的组件[1]，外观由一层皮肤加上[2]。没有对应来源的标记，比如 [9]，仍是普通文字。",
+    "baseUi": "不带样式、无障碍的 React 组件。"
+  },
+  "math": {
+    "title": "数学公式",
+    "description": "`math` 传一个渲染函数（这里接 KaTeX，按需加载）。公式不是库自带的；价格里的美元符号不会被误认。",
+    "sample": "能量是 $E = mc^2$，欧拉恒等式是 \\(e^{i\\pi} + 1 = 0\\)。\n\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}\n$$\n\n价格不是公式：今天 $5，明天 $10。"
+  },
+  "safety": {
+    "title": "安全",
+    "description": "HTML 当普通文字；链接和图片只放行 http(s) / mailto / tel 和相对地址，`javascript:` 之类只留文字。",
+    "sample": "[javascript 链接](javascript:alert(1)) 只留文字，\n<script>alert(1)</script> 当文字显示、不会执行，\n![坏图片](javascript:alert(1)) 不会渲染。\n[安全链接](https://example.com) 正常可用。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根元素。里面的标题 / 段落 / 列表 / 引用 / 分割线 / 表格直接用标签选择器上样式",
+    "inlineCode": "行内代码",
+    "link": "链接",
+    "math": "公式的容器（内容由 `math` 函数生成）；`data-display`：inline / block，块级居中、过宽时横向滚动",
+    "image": "图片",
+    "task": "任务项前面的只读方框（`role=checkbox`）；`data-checked`；所在的 `li` 带 `data-task`",
+    "caret": "流式输出时最后一段文字后面的光标（`aria-hidden`）；根上有 `data-streaming`",
+    "tableWrap": "表格的滚动区（`role=region`，可聚焦）；`th` / `td` 带 `data-align`"
+  },
+  "props": {
+    "Markdown": {
+      "breaks": "段落里的单个换行也换行（聊天里常见）；默认按标准写法当作空格。",
+      "children": "Markdown 原文。流式输出时一直往后追加即可：前面没变的块不会重画，没闭合的标记按原文显示。",
+      "citations": "引用来源：正文里的 `[1]`、`[2]` 变成可点的引用角标，第 n 个来源对应 `[n]`（从 1 数）。没有对应来源的数字（比如 `[7]`）仍是普通文字。传稳定的引用：数组一变，所有块都会重画。",
+      "codeRenderers": "按语言接管围栏代码的渲染，比如 `{ mermaid: ({ code }) => <MermaidBlock code={code} render={render} /> }`。围栏还没闭合时（流式输出到一半）不会调用，先按普通代码块显示。传稳定的对象：对象一变，所有块都会重画。",
+      "codeTheme": "围栏代码的主题，同 `CodeBlock` 的 `theme`。",
+      "highlight": "围栏代码的着色，同 `CodeBlock` 的 `highlight`。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "linkTarget": "链接怎么打开，默认 `_blank`（带 `noopener noreferrer`）。",
+      "math": "数学公式：给了就认 `$$…$$` 块和行内的 `$…$`、`\\(…\\)`、`\\[…\\]`，渲染交给这个函数（接 KaTeX / MathJax），由它返回放进页面的内容。没给就当普通文字。`$` 的规则同 Pandoc（开头的 `$` 后面不能是空白，结尾的 `$` 前面不能是空白、后面不能紧跟数字，所以 \"$5 和 $10\" 不是公式）；块级公式没闭合（流式输出到一半）时先按普通文字显示。传稳定的函数：函数一变，所有块都会重画。函数抛错时退回显示公式原文。",
+      "streaming": "还在流式输出：最后一段文字后面显示一个闪烁的光标，结束时去掉。"
+    }
+  }
+}

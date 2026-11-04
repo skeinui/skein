@@ -1,0 +1,45 @@
+{
+  "lead": "分页。数据驱动：页码和总数由调用方持有，服务端分页和客户端分页都能用。按钮和下拉复用 Button、Select 的主题风格。",
+  "usage": { "title": "用法" },
+  "pages": { "title": "页码按钮" },
+  "page-size": { "title": "每页条数" },
+  "selected": { "title": "已选数量" },
+  "sizes": { "title": "尺寸" },
+  "labels": {
+    "title": "自定义文案",
+    "total": "共 {n} 条",
+    "selected": "已选 {n} 行",
+    "page": "第 {current} / {count} 页",
+    "pageSize": "{n} 条 / 页",
+    "first": "首页",
+    "previous": "上一页",
+    "next": "下一页",
+    "last": "末页"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `pagination.css` 里只处理布局和文字；按钮外观来自 `button.css`，每页条数下拉来自 `select.css`。",
+    "hook": "钩子",
+    "root": "外层：左右分开排布",
+    "info": "汇总文字和「第 x / y 页」",
+    "controls": "右侧控件区、翻页按钮组、页码组",
+    "extras": "省略号和每页条数下拉"
+  },
+  "props": {
+    "Pagination": {
+      "disabled": "整体禁用。",
+      "labels": "文案，不传时用英文；每个字段都可以单独覆盖。",
+      "onPageChange": "翻页时带着新的 `page` 调用；要受控时同时传 `page`。",
+      "onPageSizeChange": "传了才显示「每页条数」下拉。",
+      "page": "当前页，从 1 开始。",
+      "pageSize": "每页条数，和 `total` 一起决定总页数。",
+      "pageSizeOptions": "「每页条数」下拉里的选项（只在传了 `onPageSizeChange` 时显示）。",
+      "selectedCount": "已选行数，大于 0 时显示在左侧。",
+      "siblings": "pages 变体里当前页两侧各显示几页。",
+      "size": "按钮尺寸。",
+      "total": "总条数。",
+      "variant": "simple：首页 / 上一页 / 下一页 / 末页 +「第 x / y 页」；pages：带页码按钮。"
+    }
+  }
+}

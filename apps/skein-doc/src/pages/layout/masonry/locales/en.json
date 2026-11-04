@@ -1,0 +1,38 @@
+{
+  "lead": "A masonry layout: content of different heights (images, cards) laid out in columns, each item going into the shortest column at that moment, so the columns stay compact. Columns and gaps can be set per breakpoint; when an item grows (an image finishes loading) the layout is redone. The DOM order is the items' order, and keyboard and screen readers follow it.",
+  "basic": { "title": "Basic" },
+  "responsive": {
+    "title": "Responsive",
+    "description": "Both `columns` and `gutter` can be set per breakpoint; resize the window to see the column count change."
+  },
+  "images": {
+    "title": "Images",
+    "description": "An image's height is known only once it loads: positions are recomputed as each image loads, without items that are already placed jumping around (the images have `width` / `height`, so their space is reserved)."
+  },
+  "dynamic": {
+    "title": "Dynamic update",
+    "description": "Adding an item at the front reassigns the columns of the items after it; click “Pin current columns” first, then add, and the existing items stay in their columns.",
+    "add": "Add item at the front",
+    "pin": "Pin current columns"
+  },
+  "api": {
+    "title": "API Reference",
+    "item": "`MasonryItem` fields",
+    "field": "Field",
+    "key": "Unique key of the item; also reported in `onLayoutChange`",
+    "data": "Your own data, passed to `itemRender`",
+    "column": "Pins the item to a column (0-based); without it the item goes into the shortest column at that moment",
+    "height": "Used to estimate positions before the first layout; afterwards the measured height is used",
+    "children": "The item's content; takes precedence over `itemRender`",
+    "helpers": "Helpers",
+    "helper": "Function",
+    "layoutMasonry": "The layout algorithm (greedy: each item goes into the shortest column), a pure function; for your own layout or for tests",
+    "resolveResponsive": "Picks the value for the largest breakpoint the viewport has reached, a pure function"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "masonry": "`ul`; `data-ready` means the layout is done (content is hidden before); `--ms-cols` / `--ms-gx` / `--ms-gy` / `--ms-height` are values the component writes",
+    "item": "`li`, absolutely positioned; `--ms-col` (column) / `--ms-y` (vertical position) are measured by the component"
+  }
+}

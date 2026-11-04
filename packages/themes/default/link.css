@@ -1,0 +1,66 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Link: default has a permanent color and gets an underline on hover; subtle is body-text color normally and changes color only on hover. */
+  [data-theme-style="default"] [data-slot="link"][data-color="neutral"] {
+    --_c: var(--ui-c-neutral-text);
+    --_c-hover: var(--ui-c-neutral-hover);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-color="primary"] {
+    --_c: var(--ui-c-primary-text);
+    --_c-hover: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary-text);
+    --_c-hover: var(--ui-c-secondary-hover);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-color="success"] {
+    --_c: var(--ui-c-success-text);
+    --_c-hover: var(--ui-c-success-hover);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-color="warning"] {
+    --_c: var(--ui-c-warning-text);
+    --_c-hover: var(--ui-c-warning-hover);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-color="danger"] {
+    --_c: var(--ui-c-danger-text);
+    --_c-hover: var(--ui-c-danger-hover);
+  }
+  [data-theme-style="default"] [data-slot="link"] {
+    color: var(--_c);
+    font-family: inherit;
+    text-decoration: none;
+    text-underline-offset: 0.2em;
+    border-radius: var(--ui-radius-sm);
+    outline: none;
+    cursor: pointer;
+    transition: color 150ms ease;
+  }
+  [data-theme-style="default"] [data-slot="link"]:hover {
+    color: var(--_c-hover);
+    text-decoration: underline;
+  }
+  [data-theme-style="default"] [data-slot="link"][data-variant="subtle"] {
+    color: var(--ui-fg);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-variant="subtle"]:hover {
+    color: var(--_c);
+    text-decoration-color: currentColor;
+  }
+  [data-theme-style="default"] [data-slot="link"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="default"] [data-slot="link"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="default"] [data-slot="link"][data-external]::after {
+    content: "↗";
+    margin-inline-start: 0.125em;
+    font-size: 0.85em;
+    opacity: 0.7;
+  }
+}

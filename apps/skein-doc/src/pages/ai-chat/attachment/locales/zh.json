@@ -1,0 +1,46 @@
+{
+  "lead": "聊天里的附件：图片 / 视频是缩略图方块（悬停显示名字和大小），其余是横向的文件卡片（带扩展名的彩色图标）；输入框里的待发送附件可以加移除按钮。",
+  "files": { "title": "文件" },
+  "media": {
+    "title": "图片和视频",
+    "description": "有 `src` 的图片 / 视频是缩略图；悬停或聚焦时名字和大小盖在底部。没有 `src` 就退回文件卡片。"
+  },
+  "removable": {
+    "title": "可移除",
+    "group": "待发送的文件",
+    "empty": "已全部移除。"
+  },
+  "api": {
+    "title": "API 参考",
+    "group": "一排附件，自动换行；`role=group` 的 `div`。",
+    "helpers": "工具函数",
+    "function": "函数",
+    "kind": "按 MIME 类型、再按扩展名推断文件种类（pdf / archive / sheet / doc / code / audio / video / image / file）",
+    "size": "格式化字节数：12 B / 3.4 KB / 1.2 MB"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根元素；`data-variant`（`media` 缩略图 / `file` 文件卡片）、`data-kind`（文件种类，决定图标颜色）",
+    "preview": "预览位：缩略图或文件图标",
+    "media": "缩略图里的图片 / 视频",
+    "icon": "文件图标（显示扩展名，颜色按种类）",
+    "info": "文件名和大小；缩略图时在悬停 / 聚焦时盖在底部",
+    "remove": "移除按钮；缩略图时悬停 / 聚焦才显示，触屏一直显示",
+    "group": "一排附件"
+  },
+  "props": {
+    "Attachment": {
+      "mediaType": "媒体类型；不传就按 `mimeType`、再按文件扩展名推断。",
+      "mimeType": "MIME 类型，用来判断媒体类型和图标。",
+      "name": "文件名；同时是这个附件的无障碍名称（`role=group`）。",
+      "onRemove": "传了就在右上角 / 末尾多一个移除按钮。",
+      "removeLabel": "移除按钮的名称，默认 \"Remove <文件名>\"。",
+      "size": "文件大小（字节），格式化后显示（12 B / 3.4 KB / 1.2 MB）；不传就不显示。",
+      "src": "图片 / 视频的预览地址（不传就显示成文件卡片）。"
+    },
+    "AttachmentGroup": {
+      "aria-label": "这组附件的名称，给读屏用，默认 \"Attachments\"。"
+    }
+  }
+}

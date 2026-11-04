@@ -1,0 +1,22 @@
+{
+  "lead": "Mentions: type a trigger character (`@` by default) in the input and a list of candidates opens next to the caret. Arrow keys move through it, <kbd>Enter</kbd> or <kbd>Tab</kbd> confirms, <kbd>Esc</kbd> closes. The value is plain text: to know who was mentioned, parse it yourself by prefix.",
+  "usage": { "title": "Usage" },
+  "controlled": { "title": "Controlled", "last": "Last selected:" },
+  "prefix": { "title": "Multiple prefixes" },
+  "single": { "title": "Single line" },
+  "rich": { "title": "Rich options" },
+  "async": {
+    "title": "Async search",
+    "searching": "Searching…",
+    "hint": "Simulates a 400 ms server query"
+  },
+  "states": { "title": "States" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `mentions.css`; the input's look comes from `input.css`.",
+    "root": "The outer wrapper; the input inside is the theme style's own input / textarea",
+    "list": "The candidate list in the popup next to the caret, `role=listbox`",
+    "option": "Each candidate, `role=option`; `data-active` when highlighted by keyboard or mouse, `data-disabled` when disabled"
+  }
+}

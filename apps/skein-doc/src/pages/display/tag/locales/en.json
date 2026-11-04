@@ -1,0 +1,16 @@
+{
+  "lead": "A tag: a little larger than a [Badge](/badge) and removable, for selected items, filter conditions and keywords.",
+  "usage": { "title": "Usage" },
+  "variants": { "title": "Variants & Colors" },
+  "sizes": { "title": "Sizes", "sm": "Small", "md": "Medium", "lg": "Large" },
+  "removable": { "title": "Removable", "empty": "All removed." },
+  "disabled": { "title": "Disabled", "locked": "locked" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `tag.css`, with colours from the solid / soft / text / border values of `--ui-c-*`.",
+    "hook": "Hook",
+    "root": "The outer box and the text (truncated when too long)",
+    "remove": "The remove button"
+  }
+}

@@ -1,0 +1,19 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Dracula (always dark): on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="dracula"] {
+    --ui-bg: #282a36;
+    --ui-surface: #282a36;
+    --ui-fg: #f8f8f2;
+    --ui-fg-muted: #a4a8c0;
+    --ui-border: #44475a;
+    --code-keyword: #ff79c6;
+    --code-string: #f1fa8c;
+    --code-number: #bd93f9;
+    --code-property: #50fa7b;
+    --code-variable: #ffb86c;
+    --code-comment: #8491b6;
+    color-scheme: dark;
+  }
+}

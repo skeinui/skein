@@ -1,0 +1,109 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /*
+   * Modeled on Ant Design 6's Switch: a 44×22 track (small 28×16) fully rounded, 25% black when off, 45% black on hover, primary when on;
+   * the 18px knob (small 12px) has a shadow, sits 2px from the edge, and slides via margin; disabled is 25% opacity.
+   */
+  [data-theme-style="antd"] [data-slot="switch"] {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"] {
+    --_w: calc(44px * var(--ui-density));
+    --_h: calc(22px * var(--ui-density));
+    --_thumb: calc(18px * var(--ui-density));
+    position: relative;
+    display: flex;
+    flex: none;
+    align-items: center;
+    box-sizing: border-box;
+    width: var(--_w);
+    min-width: var(--_w);
+    height: var(--_h);
+    margin-top: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 100px;
+    background-color: var(--ui-field-placeholder);
+    outline: none;
+    cursor: pointer;
+    transition: all var(--ui-duration) ease-in-out;
+  }
+  [data-theme-style="antd"] [data-slot="switch"][data-size="sm"] [data-slot="switch-control"] {
+    --_w: calc(28px * var(--ui-density));
+    --_h: calc(16px * var(--ui-density));
+    --_thumb: calc(12px * var(--ui-density));
+  }
+  [data-theme-style="antd"] [data-slot="switch"][data-size="lg"] [data-slot="switch-control"] {
+    --_w: calc(52px * var(--ui-density));
+    --_h: calc(26px * var(--ui-density));
+    --_thumb: calc(22px * var(--ui-density));
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"]:hover:not([data-disabled]) {
+    background-color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"][data-checked] {
+    background-color: var(--ui-c-primary);
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"][data-checked]:hover:not([data-disabled]) {
+    background-color: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"]:focus-visible {
+    outline: 3px solid var(--ui-c-primary-border);
+    outline-offset: 1px;
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"][data-invalid] {
+    outline: 1px solid var(--ui-c-danger);
+    outline-offset: 1px;
+  }
+  [data-theme-style="antd"] [data-slot="switch-control"][data-disabled] {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  [data-theme-style="antd"] [data-slot="switch-thumb"] {
+    display: block;
+    width: var(--_thumb);
+    height: var(--_thumb);
+    margin-inline-start: calc((var(--_h) - var(--_thumb)) / 2);
+    border-radius: var(--ui-radius-full);
+    background-color: white;
+    box-shadow: 0 2px 4px 0 rgb(0 35 11 / 0.2);
+    transition: margin var(--ui-duration) ease-in-out;
+  }
+  [data-theme-style="antd"] [data-slot="switch-thumb"][data-checked] {
+    margin-inline-start: calc(100% - var(--_thumb) - (var(--_h) - var(--_thumb)) / 2);
+  }
+
+  [data-theme-style="antd"] [data-slot="switch-content"] {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--ui-font-family);
+    user-select: none;
+  }
+  [data-theme-style="antd"] [data-slot="switch-label"] {
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+  }
+  [data-theme-style="antd"] [data-slot="switch-description"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+    overflow-wrap: break-word;
+  }
+  [data-theme-style="antd"] [data-slot="switch"]:has([data-slot="switch-control"][data-disabled]) {
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="switch-control"],
+    [data-theme-style="antd"] [data-slot="switch-thumb"] {
+      transition: none;
+    }
+  }
+}

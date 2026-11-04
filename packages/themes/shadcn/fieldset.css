@@ -1,0 +1,26 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Fieldset: removes the native frame, lays out vertically, legend serves as a small title. */
+  [data-theme-style="shadcn"] [data-slot="fieldset"] {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="shadcn"] [data-slot="fieldset-legend"] {
+    margin-bottom: 0;
+    padding: 0;
+    color: var(--ui-fg);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="fieldset"][data-disabled] [data-slot="fieldset-legend"] {
+    color: var(--ui-fg-muted);
+  }
+}

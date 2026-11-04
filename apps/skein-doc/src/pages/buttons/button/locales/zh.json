@@ -1,0 +1,67 @@
+{
+  "lead": "可点击的按钮，行为来自 Base UI，外观由当前主题风格决定。示例参照 HeroUI 文档的 Button 页，HeroUI 的变体名在本包里写成 `variant` + `color`。把多个按钮拼成一体见 [Button Group](/button-group)。",
+  "usage": { "title": "用法" },
+  "variants": {
+    "title": "变体",
+    "description": "HeroUI 的 primary / secondary / tertiary / outline / ghost / danger / danger-soft 在本包里的写法。"
+  },
+  "sizes": { "title": "尺寸" },
+  "with-icons": {
+    "title": "带图标",
+    "description": "图标放进 `startContent` / `endContent`，各占一个 slot。"
+  },
+  "icon-only": { "title": "仅图标" },
+  "loading": {
+    "title": "加载中",
+    "description": "`loading` 为 true 时，开头的内容位换成 spinner，按钮不响应点击但仍可聚焦。"
+  },
+  "loading-state": { "title": "加载状态" },
+  "full-width": { "title": "占满宽度" },
+  "disabled-state": { "title": "禁用状态" },
+  "social-buttons": {
+    "title": "社交登录按钮",
+    "description": "品牌图标与 OAuth 登录页用的是同一份路径。"
+  },
+  "render-function": {
+    "title": "Render 函数",
+    "description": "Base UI 的 `render`：把按钮渲染成别的元素，比如链接。非原生按钮要同时传 `nativeButton={false}`。"
+  },
+  "colors": {
+    "title": "颜色",
+    "description": "HeroUI v3 没有 `color`，这是本包的 `variant` × `color` 全矩阵，用来检查每个主题风格是否覆盖完整。"
+  },
+  "radius": { "title": "圆角" },
+  "behaviour": {
+    "title": "行为",
+    "description": "切换主题风格前后行为应当一致：disabled 与 loading 按钮点击后计数保持 0；Tab 键可聚焦，查看 focus 样式。",
+    "clickable": "可点击 {n}"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "组件不带任何样式，只写下面这些钩子；主题风格用属性选择器给它们上样式，例如 `[data-theme-style=\"x\"] [data-slot=\"button\"][data-variant=\"solid\"]`。",
+    "hook": "钩子",
+    "sameAsProps": "同 props",
+    "slot": "结构钩子，主题风格用它选中各部件",
+    "variants": "变体钩子，只透传取值；`data-radius` 仅在传了 `radius`（或按钮组传了）时出现",
+    "states": "状态钩子",
+    "disabled": "Base UI 在禁用时写入"
+  },
+  "props": {
+    "Button": {
+      "children": "按钮内容。",
+      "color": "语义色，具体颜色由主题风格决定。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "iconOnly": "只有图标、没有文字的按钮，主题风格会把它画成正方形。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "size": "尺寸档位。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是 `<button>`（比如链接）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

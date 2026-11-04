@@ -1,0 +1,12 @@
+{
+  "lead": "A dividing line, horizontal or vertical.",
+  "usage": { "title": "Usage", "above": "Above", "below": "Below" },
+  "vertical": { "title": "Vertical", "docs": "Docs", "blog": "Blog", "about": "About" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `separator.css`.",
+    "hook": "Hook",
+    "slot": "The line itself; its thickness and colour are up to the theme style"
+  }
+}

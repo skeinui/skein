@@ -1,0 +1,31 @@
+{
+  "lead": "Pins an element to the edge of its scroll container once it scrolls out of view, and releases it when it is back in place. While pinned, a placeholder of the same size keeps its spot, so the page doesn't jump. Without `target` it follows the whole window.",
+  "demo": {
+    "area": "Scrollable demo area",
+    "before": "Before",
+    "after": "After",
+    "filler": "Placeholder content that makes the container scrollable."
+  },
+  "usage": {
+    "title": "Usage",
+    "affixed": "Affixed",
+    "scroll": "Scroll down",
+    "hint": "(scroll down in the box above)"
+  },
+  "offset": { "title": "Offset" },
+  "bottom": {
+    "title": "Bottom",
+    "description": "With `offsetBottom` the element starts below the visible area: it is pinned to the bottom of the box and released when you scroll to its place.",
+    "affixed": "Pinned to bottom",
+    "inPlace": "In place",
+    "hint": "(it starts below: pinned to the bottom of the box, released once you scroll to its place)"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `affix.css`. It is about positioning, not looks, so it is the same in every theme style.",
+    "hook": "Hook",
+    "affix": "The placeholder: while pinned it takes the content's height, so the page doesn't jump; `data-affixed`. Position and size are written to its `--affix-top` / `left` / `w` / `h` (pixels, no unit)",
+    "content": "The content: gets `data-affixed` and `position: fixed` while pinned. Use it to add a shadow or a background to the pinned state"
+  }
+}

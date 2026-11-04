@@ -1,0 +1,29 @@
+{
+  "lead": "Picks the model in the input area: a compact trigger (icon + current model name + caret) that opens a list of models with descriptions and badges, optionally grouped. Keyboard support and type-ahead come from Base UI's Select, and the list reuses the Select theme styles.",
+  "usage": { "title": "Usage", "current": "Current: {id}" },
+  "groups": {
+    "title": "Groups",
+    "description": "With `group`, models are shown in groups: models of the same group are gathered together under the group name."
+  },
+  "composer": {
+    "title": "In a Composer",
+    "description": "Put it in `Composer.ToolbarStart`; the list opens upward by default.",
+    "placeholder": "Ask anything…"
+  },
+  "models": {
+    "fast": "Quick answers for everyday tasks",
+    "smart": "Deeper reasoning for hard problems",
+    "legacy": "Retiring soon",
+    "atlasSmall": "Cheap and fast",
+    "atlasLarge": "Most capable",
+    "borealis": "Conversational"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "trigger": "The trigger (a compact button); `data-popup-open` while the list is open",
+    "triggerParts": "The model name, icon and caret in the trigger",
+    "item": "The extra parts of a list item (the list itself reuses Select's slots: `select` / `select-item` / `select-group` …; the popup has `data-model-picker`)"
+  }
+}

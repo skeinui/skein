@@ -1,0 +1,24 @@
+{
+  "lead": "A table of contents for the page: clicking a link scrolls smoothly to its section, and while scrolling the current section is highlighted, with the indicator line following it. Links are real `<a href=\"#id\">` elements, so when the target element is missing the browser's default behaviour applies.",
+  "usage": {
+    "title": "Usage",
+    "description": "Inside a scrolling element, given with `container`; without `container` it follows the window.",
+    "placeholder": "Section `#{id}`. Placeholder text that makes the container scroll: when this section reaches the top, the table of contents highlights its link."
+  },
+  "nested": { "title": "Nested links" },
+  "horizontal": { "title": "Horizontal" },
+  "controlled": {
+    "title": "Controlled",
+    "active": "Active: `{active}` (when controlled it changes on click, not on scroll)"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles style these hooks in `anchor.css`.",
+    "hook": "Hook",
+    "root": "The root (`nav`): `data-direction`; `data-empty` when no link is highlighted; `data-ready` once the indicator is in place. The current link's position is written on the root as `--anchor-x` / `y` / `w` / `h` (pixels, unitless)",
+    "ink": "The indicator line that moves with the current link, positioned from the variables above",
+    "list": "The list (`data-level` is its depth) and each item",
+    "link": "A link; the current one has `data-active` and `aria-current=location`"
+  }
+}

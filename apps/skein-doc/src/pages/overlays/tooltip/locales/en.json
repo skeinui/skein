@@ -1,0 +1,18 @@
+{
+  "lead": "A short hint shown on hover or focus. Its behaviour (delay, positioning, collision flipping, keyboard) comes from Base UI's Tooltip.",
+  "usage": { "title": "Usage" },
+  "placement": { "title": "Placement" },
+  "arrow": { "title": "Arrow" },
+  "delay": { "title": "Delay" },
+  "icon-button": { "title": "Icon Button" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `tooltip.css`; the colors come from `--ui-tooltip-bg` / `--ui-tooltip-fg`.",
+    "hook": "Hook",
+    "positioner": "The positioner; theme styles set its z-index here",
+    "popup": "The bubble itself: background, padding, radius, max width",
+    "arrow": "The arrow; `data-side` decides which edge it sits on",
+    "states": "Starting styles for entering / leaving; theme styles use them for a fade + scale"
+  }
+}

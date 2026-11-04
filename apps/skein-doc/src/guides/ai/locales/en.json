@@ -1,0 +1,34 @@
+{
+  "title": "AI coding agents",
+  "lead": "Skein UI is built so that AI coding agents write correct code with it: every component is described in data, and the CLI gives the agent a way to look things up and check its work.",
+  "why": {
+    "title": "Why it works well with agents",
+    "p1": "Agents guess. With most libraries a guess is a `className` that half works, or a prop that doesn't exist. In Skein the looks are not in the code at all, props are data with a fixed set of allowed values, and the same names (`value` / `onValueChange`, `open` / `onOpenChange`) are used everywhere, so there is much less to get wrong.",
+    "p2": "`@skeinui/ui` ships `manifest.json`: every component's props, allowed values, parts, data types and examples. The CLI, the MCP server and the docs site's `llms.txt` all read it, so an agent sees exactly what this documentation shows."
+  },
+  "project": {
+    "title": "What a project carries",
+    "p1": "Projects made by `skein create` come with instructions for agents, rendered for the features you picked:",
+    "file": "File",
+    "for": "What it is for",
+    "agents": "The rules of the project: layout, conventions, commands. Read by Codex, Cursor and most agents.",
+    "claude": "`@AGENTS.md`, for Claude Code.",
+    "skillUi": "Using the components: look up before writing, data props, no `className`.",
+    "skillPage": "Adding a page: `skein new page`, the files of a page, translations, mocks.",
+    "skillTheme": "Changing the look: theme styles, overrides, writing a theme style."
+  },
+  "loop": {
+    "title": "The feedback loop",
+    "p1": "The instructions point agents at three commands:",
+    "p2": "With `--json` the output is meant for the agent: each problem with its file, line and a hint for the fix. An agent that runs `skein check` and `skein preview` before saying it is done catches its own mistakes."
+  },
+  "mcp": {
+    "title": "MCP server",
+    "p1": "`skein mcp` serves the CLI as MCP tools (`skein_docs`, `skein_check`, `skein_preview`, `skein_new_page`, `skein_theme_init`, …) over stdio. It is opt-in: create the project with `--mcp` (and `--preview` for the browser check):",
+    "p2": "That writes `.mcp.json`, which Claude Code, Cursor and other MCP clients pick up:"
+  },
+  "llms": {
+    "title": "llms.txt",
+    "p1": "This site publishes [/llms.txt](/llms.txt), an index of the docs, and [/llms-full.txt](/llms-full.txt), every component's props and examples in one Markdown file. Give either to an agent that works outside a Skein project."
+  }
+}

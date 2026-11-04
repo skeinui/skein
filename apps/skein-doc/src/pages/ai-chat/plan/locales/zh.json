@@ -1,0 +1,48 @@
+{
+  "lead": "agent 的任务计划：一串要做的事，每项有状态（待办 / 进行中 / 完成 / 失败 / 跳过），头部是标题、「2 / 5」和进度条，可以折叠。比 Reasoning 的步骤更像任务清单。",
+  "usage": {
+    "title": "用法",
+    "planTitle": "实现解析器",
+    "read": "阅读现有的表单组件",
+    "design": "设计校验 API",
+    "designDetail": "输入 schema，输出错误",
+    "parser": "编写解析器",
+    "parserDetail": "正在处理表格和任务列表",
+    "tests": "补充测试",
+    "docs": "迁移文档",
+    "docsDetail": "不在这次改动的范围内"
+  },
+  "running": {
+    "title": "运行中",
+    "description": "状态一项项推进，进度条和「2 / 4」跟着变。进度按「完成 + 跳过」算。",
+    "planTitle": "正在回答你的问题",
+    "search": "搜索文档",
+    "read": "阅读三个页面",
+    "draft": "起草回答",
+    "review": "检查草稿",
+    "replay": "重放"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根（带外框）",
+    "trigger": "头部：标题、「2 / 5」、展开箭头；`data-panel-open`",
+    "bar": "进度条（`role=progressbar`）；填充宽度读 `--plan-progress`",
+    "panel": "展开面板和任务列表（`ol`）",
+    "item": "一项（`data-status`；进行中的带 `aria-current=step`）、状态图标、进行中的转圈",
+    "body": "文字块、标签、只给读屏的状态文字、说明"
+  },
+  "props": {
+    "Plan": {
+      "items": "按顺序排列的步骤，每项有 `id`、`label`、`status` 和可选的 `detail`。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "title": "计划的标题。",
+      "defaultOpen": "计划初始是否展开；头部是触发器，可以把它折叠起来。要受控就改用 `open`。",
+      "disabled": "是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用。",
+      "open": "面板当前是否展开。\n\n要非受控就改用 `defaultOpen`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。\n\n可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

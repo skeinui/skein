@@ -1,0 +1,47 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Menubar: a row of top-level menu triggers; the open one stays highlighted. The overlay and menu items come from menu.css. */
+  [data-theme-style="heroui"] [data-slot="menubar"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.125rem;
+    box-sizing: border-box;
+    padding: 0.25rem;
+    border: 1px solid transparent;
+    border-radius: var(--ui-r-surface);
+    background-color: var(--ui-overlay-bg);
+    box-shadow: var(--ui-field-shadow);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="menubar-trigger"] {
+    display: inline-flex;
+    align-items: center;
+    height: var(--ui-height-sm);
+    padding-inline: calc(0.75rem * var(--ui-density));
+    border: 0;
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: var(--ui-fg);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="menubar-trigger"]:hover,
+  [data-theme-style="heroui"] [data-slot="menubar-trigger"][data-popup-open] {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="heroui"] [data-slot="menubar-trigger"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="menubar-trigger"][data-disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

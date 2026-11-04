@@ -1,0 +1,264 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Trigger: same appearance as Input - 1px border, on focus / open the border changes to the focus color with a ring, invalid turns red, disabled 50% */
+  [data-theme-style="default"] [data-slot="select-trigger"] {
+    --_bg: var(--ui-field-bg);
+    --_shadow: var(--ui-field-shadow);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-width: 0;
+    height: var(--ui-height-md);
+    padding-inline: 0.875rem;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-md);
+    background-color: var(--_bg);
+    color: var(--ui-field-fg);
+    box-shadow: var(--_shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    text-align: start;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      border-color 150ms var(--ui-easing),
+      box-shadow 150ms var(--ui-easing),
+      background-color 150ms var(--ui-easing);
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    --_shadow: 0 0 0 0 transparent;
+    border-color: transparent;
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-size="sm"] {
+    height: var(--ui-height-sm);
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-size="lg"] {
+    height: var(--ui-height-lg);
+    font-size: 1rem;
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="default"]
+    [data-slot="select-trigger"]:hover:not(
+      [data-popup-open],
+      :focus-visible,
+      [data-variant="filled"]
+    ) {
+    border-color: color-mix(in oklab, var(--ui-field-border) 75%, var(--ui-field-fg) 25%);
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"]:is(:focus-visible, [data-popup-open]) {
+    border-color: var(--ui-ring);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-ring) 35%, transparent),
+      var(--_shadow);
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-invalid] {
+    border-color: var(--ui-c-danger);
+  }
+  [data-theme-style="default"]
+    [data-slot="select-trigger"][data-invalid]:is(:focus-visible, [data-popup-open]) {
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-c-danger) 25%, transparent),
+      var(--_shadow);
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="default"] [data-slot="select-value"] {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="default"] [data-slot="select-value"][data-placeholder] {
+    color: var(--ui-field-placeholder);
+  }
+  [data-theme-style="default"] [data-slot="select-icon"] {
+    display: inline-flex;
+    flex: none;
+    color: var(--ui-field-placeholder);
+  }
+  [data-theme-style="default"] [data-slot="select-icon"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* Overlay: width not less than the trigger, the option list scrolls inside */
+  [data-theme-style="default"] [data-slot="select-positioner"] {
+    z-index: 50;
+  }
+  [data-theme-style="default"] [data-slot="select"] {
+    box-sizing: border-box;
+    min-width: var(--anchor-width);
+    max-height: var(--available-height);
+    padding: 0.25rem;
+    overflow-y: auto;
+    border: 1px solid var(--ui-overlay-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-overlay-bg);
+    color: var(--ui-fg);
+    box-shadow: var(--ui-overlay-shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    outline: none;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: var(--transform-origin);
+    transition:
+      opacity 150ms cubic-bezier(0.2, 0, 0, 1),
+      transform 150ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-theme-style="default"] [data-slot="select"][data-starting-style],
+  [data-theme-style="default"] [data-slot="select"][data-ending-style] {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  [data-theme-style="default"] [data-slot="select"][data-ending-style] {
+    transition-duration: 100ms;
+  }
+  [data-theme-style="default"] [data-slot="select-list"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    outline: none;
+  }
+  [data-theme-style="default"] [data-slot="select-item"] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(2rem * var(--ui-density));
+    padding: calc(0.375rem * var(--ui-density)) calc(0.625rem * var(--ui-density));
+    border-radius: var(--ui-radius-sm);
+    color: var(--ui-fg);
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 100ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-theme-style="default"] [data-slot="select-item"][data-highlighted] {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="default"] [data-slot="select-item"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="default"] [data-slot="select-item-text"] {
+    flex: 1;
+    min-width: 0;
+  }
+  [data-theme-style="default"] [data-slot="select-item-indicator"] {
+    position: absolute;
+    inset-inline-end: 0.5rem;
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="default"] [data-slot="select-item-indicator"] > svg {
+    width: 0.625rem;
+    height: 0.625rem;
+    margin: auto;
+    stroke-width: 2.5px;
+  }
+  [data-theme-style="default"] [data-slot="select-item"] {
+    padding-inline-end: 1.75rem;
+  }
+  [data-theme-style="default"] [data-slot="select-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  [data-theme-style="default"] [data-slot="select-group-label"] {
+    padding: 0.375rem 0.625rem;
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"] [data-slot="select"],
+    [data-theme-style="default"] [data-slot="select-icon"],
+    [data-theme-style="default"] [data-slot="select-trigger"] {
+      transition: none;
+    }
+  }
+}
+
+/* Typeable date picker (DatePicker editable): the trigger is a container holding a borderless input plus a calendar icon button; the focus state follows the container */
+@layer ui-style {
+  [data-theme-style="default"] [data-slot="select-trigger"][data-editable] {
+    cursor: text;
+    user-select: auto;
+  }
+  [data-theme-style="default"] [data-slot="select-trigger"][data-editable]:focus-within {
+    border-color: var(--ui-ring);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-ring) 35%, transparent),
+      var(--_shadow);
+  }
+  [data-theme-style="default"]
+    [data-slot="select-trigger"][data-editable][data-invalid]:focus-within {
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-c-danger) 25%, transparent),
+      var(--_shadow);
+  }
+  [data-theme-style="default"] [data-slot="date-input"] {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-overflow: ellipsis;
+    outline: none;
+  }
+  [data-theme-style="default"] [data-slot="date-input"]::placeholder {
+    color: var(--ui-field-placeholder);
+    opacity: 1;
+  }
+  [data-theme-style="default"] [data-slot="date-input"]:disabled {
+    cursor: not-allowed;
+  }
+  [data-theme-style="default"] button[data-slot="select-icon"] {
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-sm, 0.25rem);
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="default"] button[data-slot="select-icon"]:hover {
+    color: var(--ui-field-fg);
+  }
+  [data-theme-style="default"] button[data-slot="select-icon"]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: 2px;
+  }
+}

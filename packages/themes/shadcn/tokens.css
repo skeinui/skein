@@ -1,0 +1,130 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/* shadcn theme style: neutral gray scale, thin borders, flat, smaller controls. Light values. */
+@layer ui-tokens {
+  [data-theme-style="shadcn"] {
+    --ui-accent: var(--ui-c-neutral-soft); /* Nova's --accent, with its own value in dark mode */
+    color-scheme: light;
+
+    --ui-font-family:
+      "Geist Variable", ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+      sans-serif;
+    /* Code font: same as the HeroUI docs site (i.e. Tailwind's default monospace stack) */
+    --ui-font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
+    --ui-density: 1;
+    --ui-radius: 0.625rem;
+    --ui-duration: 120ms;
+    --ui-easing: ease;
+
+    --ui-bg: #ffffff;
+    --ui-surface: #fafafa;
+    --ui-invalid-border: var(--ui-c-danger); /* aria-invalid border and outer ring */
+    --ui-invalid-ring: color-mix(in oklab, var(--ui-c-danger) 20%, transparent);
+    --ui-card: var(
+      --ui-bg
+    ); /* Nova's --card: same as background in light mode, surface in dark mode */
+    --ui-fg: #000000;
+    --ui-fg-muted: #737373;
+    --ui-border: #e5e5e5;
+    --ui-ring: #a1a1a1;
+
+    /* Form controls */
+    --ui-field-bg: transparent;
+    --ui-field-filled-bg: var(--ui-c-neutral-soft);
+    --ui-field-fg: var(--ui-fg);
+    --ui-field-placeholder: var(--ui-fg-muted);
+    --ui-field-border: var(--ui-border); /* Nova's --input, same value as border in light mode */
+    --ui-outline-bg: var(
+      --ui-bg
+    ); /* outline button background: background in light mode, input/30 in dark mode */
+    --ui-field-shadow: 0 0 0 0 transparent;
+
+    /* Overlays */
+    --ui-overlay-bg: #ffffff;
+    --ui-overlay-border: var(--ui-border);
+    --ui-overlay-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --ui-backdrop: rgb(0 0 0 / 0.5);
+    --ui-tooltip-bg: #000000;
+    --ui-tooltip-fg: #ffffff;
+
+    --ui-c-neutral: #f5f5f5;
+    --ui-c-neutral-fg: #171717;
+    --ui-c-neutral-soft: #f5f5f5;
+    --ui-c-neutral-text: #171717;
+
+    --ui-c-primary: #000000;
+    --ui-c-primary-fg: #fafafa;
+    --ui-c-primary-soft: #f5f5f5;
+    --ui-c-primary-text: #000000;
+
+    --ui-c-secondary: #7c3aed;
+    --ui-c-secondary-fg: #fafafa;
+    --ui-c-secondary-soft: #f5f3ff;
+    --ui-c-secondary-text: #6d28d9;
+
+    --ui-c-success: #16a34a;
+    --ui-c-success-fg: #fafafa;
+    --ui-c-success-soft: #f0fdf4;
+    --ui-c-success-text: #15803d;
+
+    --ui-c-warning: #f59e0b;
+    --ui-c-warning-fg: #1c1000;
+    --ui-c-warning-soft: #fffbeb;
+    --ui-c-warning-text: #b45309;
+
+    --ui-c-danger: #e7000b;
+    --ui-c-danger-fg: #ffffff;
+    --ui-c-danger-soft: #fce8e9;
+    --ui-c-danger-text: #e7000b;
+  }
+
+  [data-theme-style="shadcn"],
+  [data-theme-style="shadcn"] :is([data-theme-color], [data-theme-density]) {
+    /* State colors: hover / pressed / outline, derived from the base and foreground colors so they follow when the theme changes the base color */
+    --ui-c-neutral-hover: color-mix(in oklab, var(--ui-c-neutral) 90%, var(--ui-c-neutral-fg) 10%);
+    --ui-c-neutral-active: color-mix(in oklab, var(--ui-c-neutral) 80%, var(--ui-c-neutral-fg) 20%);
+    --ui-c-neutral-border: color-mix(in oklab, var(--ui-c-neutral) 40%, transparent);
+    --ui-c-primary-hover: color-mix(in oklab, var(--ui-c-primary) 90%, var(--ui-c-primary-fg) 10%);
+    --ui-c-primary-active: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-c-primary-fg) 20%);
+    --ui-c-primary-border: color-mix(in oklab, var(--ui-c-primary) 40%, transparent);
+    --ui-c-secondary-hover: color-mix(
+      in oklab,
+      var(--ui-c-secondary) 90%,
+      var(--ui-c-secondary-fg) 10%
+    );
+    --ui-c-secondary-active: color-mix(
+      in oklab,
+      var(--ui-c-secondary) 80%,
+      var(--ui-c-secondary-fg) 20%
+    );
+    --ui-c-secondary-border: color-mix(in oklab, var(--ui-c-secondary) 40%, transparent);
+    --ui-c-success-hover: color-mix(in oklab, var(--ui-c-success) 90%, var(--ui-c-success-fg) 10%);
+    --ui-c-success-active: color-mix(in oklab, var(--ui-c-success) 80%, var(--ui-c-success-fg) 20%);
+    --ui-c-success-border: color-mix(in oklab, var(--ui-c-success) 40%, transparent);
+    --ui-c-warning-hover: color-mix(in oklab, var(--ui-c-warning) 90%, var(--ui-c-warning-fg) 10%);
+    --ui-c-warning-active: color-mix(in oklab, var(--ui-c-warning) 80%, var(--ui-c-warning-fg) 20%);
+    --ui-c-warning-border: color-mix(in oklab, var(--ui-c-warning) 40%, transparent);
+    --ui-c-danger-hover: color-mix(in oklab, var(--ui-c-danger) 90%, var(--ui-c-danger-fg) 10%);
+    --ui-c-danger-active: color-mix(in oklab, var(--ui-c-danger) 80%, var(--ui-c-danger-fg) 20%);
+    --ui-c-danger-border: color-mix(in oklab, var(--ui-c-danger) 40%, transparent);
+
+    --ui-radius-sm: max(0px, calc(var(--ui-radius) - 4px));
+    --ui-radius-md: max(0px, calc(var(--ui-radius) - 2px));
+    --ui-radius-lg: var(--ui-radius);
+    --ui-radius-full: 9999px;
+
+    /* Semantic radius: reuses this theme style's official sm / md / lg tiers. surface overlay / block content block = lg;
+       item entry inside a block = md; one level deeper inside a small entry = sm; control small button = md. */
+    --ui-r-surface: var(--ui-radius-lg);
+    --ui-r-block: var(--ui-radius-lg);
+    --ui-r-item: var(--ui-radius-md);
+    --ui-r-small: var(--ui-radius-sm);
+    --ui-r-control: var(--ui-radius-md);
+
+    --ui-height-sm: calc(1.75rem * var(--ui-density));
+    --ui-height-md: calc(2rem * var(--ui-density));
+    --ui-height-lg: calc(2.25rem * var(--ui-density));
+  }
+}

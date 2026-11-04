@@ -1,0 +1,43 @@
+{
+  "lead": "验证码输入：每位一个框，自动跳格、粘贴整串、退格回退来自 Base UI 的 OTPField。",
+  "usage": { "title": "用法" },
+  "separator": { "title": "分隔符" },
+  "sizes": { "title": "尺寸与变体" },
+  "mask": { "title": "遮挡输入" },
+  "complete": { "title": "填满回调", "completed": "已填满：" },
+  "invalid": { "title": "禁用与无效" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `otp-field.css` 里处理，方框尺寸取 `--ui-height-*`。",
+    "cells": "外层与每一位的容器",
+    "input": "每位的输入框，外观和 Input 一致，聚焦那一位出光环",
+    "separator": "分隔符"
+  },
+  "props": {
+    "OtpField": {
+      "invalid": "显示无效状态。",
+      "length": "验证码的位数。",
+      "separatorAfter": "在第几位后面插入分隔符，比如 6 位验证码传 3 显示成 \"123 – 456\"。",
+      "size": "尺寸档位。",
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "autoComplete": "input 的 autocomplete 属性，加在第一个格子和隐藏的校验 input 上。",
+      "autoSubmit": "验证码填满时是否提交所属表单。",
+      "defaultValue": "首次渲染时的非受控值。",
+      "disabled": "是否忽略用户交互。",
+      "form": "隐藏 input 关联的 `form` 元素，值必须和同一文档里某个 `form` 元素的 id 一致。",
+      "id": "第一个 input 元素的 id，后面的 input 由它派生（`{id}-2`、`{id}-3` 以此类推）。",
+      "inputMode": "加在每个格子和隐藏校验 input 上的虚拟键盘提示。内置的校验类型已给出合适的默认值，需要时可以覆盖。",
+      "mask": "是否遮住格子里输入的字符。要用自定义的 input 类型，直接给单个 `<OTPField.Input>` 传 `type`。",
+      "name": "表单提交时的字段名。",
+      "normalizeValue": "在去掉空白和按 `validationType` 过滤之后规范化值的函数。每次规范化都会调用，包括初始 / 默认值、受控值和用户编辑。返回值会再按 `validationType` 过滤一次，然后截到 `length` 位。它应当是幂等的，因为处理编辑、保存状态、渲染受控或非受控值时可能对同一个值规范化多次，非幂等的函数会在多次规范化中叠加。规范化输入或粘贴的文字时被拒绝的字符通过 `onValueInvalid` 报告。",
+      "onValueChange": "验证码变化时的回调。`eventDetails.reason` 表示触发原因：`'input-change'` 输入或自动填充；`'input-clear'` 通过输入删掉一个字符；`'input-paste'` 粘贴；`'keyboard'` 键盘操作改了值。",
+      "onValueComplete": "验证码填满时，或者已填满时又粘贴了一串完整的值时触发。值发生变化时，它比 `onValueChange` 晚，在内部的值更新之后执行。粘贴的完整值和当前值相同时，`onValueChange` 不会触发。开启 `autoSubmit` 时，它在提交所属表单之前立即执行。",
+      "onValueInvalid": "输入的文字里有被校验或规范化拒绝的字符时、在更新值之前触发。参数 `value` 是规范化之前用户尝试输入的字符串。",
+      "readOnly": "用户是否不能修改值。",
+      "required": "提交表单前是否必须填写。",
+      "validationType": "对验证码做的输入校验类型。",
+      "value": "验证码的值。"
+    }
+  }
+}

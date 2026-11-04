@@ -1,0 +1,32 @@
+{
+  "lead": "提示条，用来说明静态的信息、警告和错误。三种变体 × 六种语义色，可带操作区和关闭按钮。",
+  "usage": { "title": "用法" },
+  "variants": { "title": "变体", "message": "变体说明" },
+  "colors": { "title": "颜色", "message": "有件事要告诉你。" },
+  "action": {
+    "title": "操作区与关闭",
+    "showAgain": "重新显示提示",
+    "saved": "已保存更改",
+    "message": "你的个人资料已更新。"
+  },
+  "no-icon": { "title": "无图标", "alertTitle": "无图标", "message": "只有文字。" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `alert.css` 里处理，颜色取 `--ui-c-*` 的 solid / soft / text / border。",
+    "hook": "钩子",
+    "frame": "外框、图标和文字区",
+    "text": "标题与说明",
+    "action": "操作区与关闭按钮"
+  },
+  "props": {
+    "Alert": {
+      "action": "右侧操作区（通常是按钮或链接）。",
+      "color": "语义色，同时决定默认图标；danger 和 warning 用 `role=\"alert\"`，其余用 `role=\"status\"`。",
+      "icon": "图标：不传用对应颜色的默认图标，传 `false` 不显示，传节点则替换。",
+      "onClose": "传了就显示关闭按钮，点击时调用；是否真的移除由调用方决定。",
+      "title": "说明文字（`children`）上方的加粗标题。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

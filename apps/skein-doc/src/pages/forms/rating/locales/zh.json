@@ -1,0 +1,40 @@
+{
+  "lead": "评分：数据只有一个数字，支持半星、只读、自定义图标，键盘上左右方向键调分、Home / End 到两端。",
+  "usage": { "title": "用法" },
+  "controlled": {
+    "title": "受控",
+    "value": "Value: `{value}`（再点一次当前分值会清零）"
+  },
+  "half": { "title": "半星" },
+  "readonly": { "title": "只读" },
+  "icon": { "title": "自定义图标" },
+  "sizes": { "title": "尺寸与颜色" },
+  "disabled": { "title": "禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `rating.css` 里处理。",
+    "root": "根，`role=slider`；`data-readonly` / `data-disabled`，鼠标预览时 `data-hovering`",
+    "item": "每一颗星；`data-fill` 是 full / half / empty",
+    "icon": "两层图标：底下未选中的，上面填充色的；半星时主题风格把填充裁掉一半",
+    "hit": "鼠标命中区，允许半星时每颗星有两个（`data-half` 是左半）"
+  },
+  "props": {
+    "Rating": {
+      "allowClear": "再点一次当前分值就清零。",
+      "allowHalf": "允许半星（步长 0.5）。",
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "aria-labelledby": "用来命名它的元素的 id。",
+      "color": "语义色，具体颜色由主题风格决定。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "icon": "自定义图标（比如心形），不传用星星；它同时用作未选中的底图和选中的填充。",
+      "max": "星的个数。",
+      "name": "写一个隐藏 input，随原生表单提交。",
+      "onValueChange": "以新的 `value` 调用；同时传 `value` 即为受控。",
+      "readOnly": "只读：只展示，不响应鼠标和键盘，也不进 tab 顺序。",
+      "size": "尺寸档位。",
+      "value": "当前分值，受控。"
+    }
+  }
+}

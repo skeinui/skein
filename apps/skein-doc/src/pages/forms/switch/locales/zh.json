@@ -1,0 +1,63 @@
+{
+  "lead": "开关，行为来自 Base UI 的 Switch。结构和状态约定与 [Checkbox](/checkbox) 一致。示例参照 HeroUI 文档的 Switch 页。",
+  "usage": {
+    "title": "用法",
+    "notifications": "开启通知"
+  },
+  "default-selected": {
+    "title": "默认开启"
+  },
+  "sizes": {
+    "title": "尺寸"
+  },
+  "disabled": {
+    "title": "禁用",
+    "off": "禁用（关）",
+    "on": "禁用（开）"
+  },
+  "with-description": {
+    "title": "带说明",
+    "sample": "有人提到你时收到提醒。"
+  },
+  "controlled": {
+    "title": "受控",
+    "airplane": "飞行模式",
+    "selected": "当前状态："
+  },
+  "without-label": {
+    "title": "无标签",
+    "description": "没有文字时记得给控件加 `aria-label`。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `switch.css` 里处理。滑块靠 `margin` 滑到另一端，轨道和滑块的尺寸来自 size 档位。",
+    "hook": "钩子",
+    "slot": "结构钩子。`switch` 是外层 `<label>`，`switch-control` 是轨道，`switch-thumb` 是滑块",
+    "size": "写在 `switch`（label）上",
+    "states": "状态钩子，写在 `switch-control` 和 `switch-thumb` 上；整个 label 的变化由主题风格用 `:has()` 读取"
+  },
+  "props": {
+    "Switch": {
+      "children": "标签文字，放在开关右边；不传就只有开关，记得加 `aria-label`。",
+      "description": "标签下面的说明文字，点击它也会切换。",
+      "invalid": "不在 Field 里时手动标记无效；放进 Field 时由 Field 的校验状态决定。",
+      "size": "尺寸档位。",
+      "checked": "开关当前是否开启。要做非受控开关，改用 `defaultChecked`。",
+      "defaultChecked": "开关初始是否开启。要做受控开关，改用 `checked`。",
+      "disabled": "组件是否忽略用户交互。",
+      "form": "指定隐藏 input 所属的表单。开关渲染在表单外部时有用。",
+      "id": "隐藏 input 元素的 id。`nativeButton` 为 `true` 时，id 加在根元素上。",
+      "inputRef": "访问隐藏 `<input>` 元素的 ref。",
+      "name": "提交表单时标识该字段。",
+      "nativeButton": "通过 `render` 替换元素时，是否渲染原生 `<button>` 元素。渲染的是原生按钮时设为 `true`。",
+      "onCheckedChange": "开关打开或关闭时调用的事件处理函数。",
+      "readOnly": "用户是否不能打开或关闭开关。",
+      "required": "提交表单前用户是否必须打开开关。",
+      "uncheckedValue": "开关关闭时随表单提交的值。默认关闭的开关不提交任何值，与原生 checkbox 一致。",
+      "value": "开关打开时随表单提交的值。默认提交 \"on\"，与原生 checkbox 一致。"
+    }
+  }
+}

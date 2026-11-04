@@ -1,0 +1,139 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Anchor: a vertical (or horizontal) line plus a row of links, with an indicator line below the current link that moves along with it.
+     The indicator's position comes from --anchor-x / --anchor-y / --anchor-w / --anchor-h (see anchor.tsx); this file only draws it. */
+  [data-theme-style="antd"] [data-slot="anchor"] {
+    --_rail: var(--ui-border-secondary, color-mix(in srgb, var(--ui-fg) 6.8%, transparent));
+    --_pl: 1rem;
+    position: relative;
+    box-sizing: border-box;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    padding-inline-start: 2px;
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+  [data-theme-style="antd"] [data-slot="anchor"][data-direction="vertical"]::before {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 2px;
+    background-color: var(--_rail);
+    content: "";
+  }
+  [data-theme-style="antd"] [data-slot="anchor"][data-direction="horizontal"] {
+    --_pl: 1rem;
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  [data-theme-style="antd"] [data-slot="anchor"][data-direction="horizontal"]::before {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: var(--_rail);
+    content: "";
+  }
+  [data-theme-style="antd"] [data-slot="anchor-ink"] {
+    position: absolute;
+    z-index: 1;
+    background-color: var(--ui-c-primary);
+    pointer-events: none;
+  }
+  [data-theme-style="antd"]
+    [data-slot="anchor"][data-direction="vertical"]
+    [data-slot="anchor-ink"] {
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 2px;
+    height: calc(var(--anchor-h, 0) * 1px);
+    translate: 0 calc(var(--anchor-y, 0) * 1px);
+  }
+  [data-theme-style="antd"]
+    [data-slot="anchor"][data-direction="horizontal"]
+    [data-slot="anchor-ink"] {
+    inset-inline-start: 0;
+    bottom: 0;
+    width: calc(var(--anchor-w, 0) * 1px);
+    height: 2px;
+    translate: calc(var(--anchor-x, 0) * 1px) 0;
+  }
+  [data-theme-style="antd"] [data-slot="anchor"][data-ready] [data-slot="anchor-ink"] {
+    transition:
+      translate 300ms ease-in-out,
+      width 300ms ease-in-out,
+      height 300ms ease-in-out;
+  }
+  [data-theme-style="antd"] [data-slot="anchor"][data-empty] [data-slot="anchor-ink"] {
+    opacity: 0;
+  }
+  [data-theme-style="antd"] [data-slot="anchor-list"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="antd"]
+    [data-slot="anchor"][data-direction="horizontal"]
+    > [data-slot="anchor-list"] {
+    display: flex;
+  }
+  /* Horizontal does not show child links */
+  [data-theme-style="antd"]
+    [data-slot="anchor"][data-direction="horizontal"]
+    [data-slot="anchor-list"]
+    [data-slot="anchor-list"] {
+    display: none;
+  }
+  /* Padding goes on the li rather than the <a>: the indicator measures the <a>, and like the official one it should frame only the title text, excluding padding.
+     Nested lists are inside the li, so the indentation naturally accumulates level by level */
+  [data-theme-style="antd"] [data-slot="anchor-item"] {
+    flex: none;
+    margin: 0;
+    padding: 0.25rem 0 0.25rem var(--_pl);
+  }
+  [data-theme-style="antd"]
+    [data-slot="anchor-list"]
+    [data-slot="anchor-list"]
+    > [data-slot="anchor-item"] {
+    padding-block: 0.125rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="anchor"][data-direction="horizontal"]
+    > [data-slot="anchor-list"]
+    > [data-slot="anchor-item"]:first-child {
+    padding-inline-start: 0;
+  }
+  [data-theme-style="antd"] [data-slot="anchor-link"] {
+    display: block;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    outline: none;
+    white-space: nowrap;
+    transition: color 300ms;
+  }
+  /* When the title has child links below it, separate them by 3px */
+  [data-theme-style="antd"] [data-slot="anchor-link"]:has(+ [data-slot="anchor-list"]) {
+    margin-bottom: 3px;
+  }
+  [data-theme-style="antd"] [data-slot="anchor-link"][data-active] {
+    color: var(--ui-c-primary);
+    /* No font-weight: bold makes the text wider, the table-of-contents column would widen with it, and the content beside it would be pushed around */
+    text-shadow: none;
+  }
+  [data-theme-style="antd"] [data-slot="anchor-link"]:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ui-ring);
+    border-radius: var(--ui-radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="anchor"][data-ready] [data-slot="anchor-ink"],
+    [data-theme-style="antd"] [data-slot="anchor-link"] {
+      transition: none;
+    }
+  }
+}

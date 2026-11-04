@@ -1,0 +1,43 @@
+{
+  "lead": "弹性布局：排一排（或一列）东西。间距取主题风格的刻度，对齐和分布用属性表达，不用写 `className` 或 `style`。组件本身不带外边距，间距都由 `gap` 决定。需要页面级的栅格（按 24 份分宽度、随屏幕变化）用 `Row` / `Col`，见 [Grid](/grid)。",
+  "basic": {
+    "title": "基础",
+    "description": "竖排（`direction=\"column\"`）就是 Stack。",
+    "one": "一",
+    "two": "二",
+    "three": "三",
+    "stacked": "竖排 {n}"
+  },
+  "gap": { "title": "间距刻度" },
+  "align": { "title": "对齐与分布" },
+  "toolbar": {
+    "title": "Spacer 与换行",
+    "description": "`Flex.Spacer` 把它后面的东西推到另一头；`wrap` 让放不下的换到下一行。",
+    "users": "用户",
+    "export": "导出",
+    "newUser": "新建用户",
+    "tag": "标签 {n}"
+  },
+  "api": {
+    "title": "API 参考",
+    "spacer": "`Flex.Spacer` 没有属性：吃掉剩下的空间，把它后面的东西推到另一头。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `flex.css` 里定义间距刻度；要让某个主题风格的间距整体更松或更紧，改这里的刻度即可。",
+    "hook": "钩子",
+    "flex": "`data-direction` / `data-gap` / `data-align` / `data-justify`，`data-wrap`、`data-inline`",
+    "spacer": "`flex: 1 1 auto`"
+  },
+  "props": {
+    "Flex": {
+      "align": "交叉轴对齐（横排时是上下）。",
+      "as": "渲染成哪个元素（语义）。",
+      "direction": "row 横排，column 竖排（即 Stack）；reverse 把顺序倒过来。",
+      "gap": "子元素之间的间距，取主题风格的间距刻度。",
+      "inline": "行内的 flex（inline-flex），不撑满一行。",
+      "justify": "主轴分布（横排时是左右）。",
+      "wrap": "放不下就换行。"
+    }
+  }
+}

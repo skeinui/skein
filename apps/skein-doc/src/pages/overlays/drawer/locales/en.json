@@ -1,0 +1,23 @@
+{
+  "lead": "A side drawer. Focus trapping, Esc to close, swipe to close and background scroll lock come from Base UI's Drawer; the backdrop and close button reuse the slots of [Dialog](/dialog).",
+  "usage": { "title": "Usage" },
+  "sides": { "title": "Sides" },
+  "sizes": { "title": "Sizes" },
+  "scroll": { "title": "Scrolling Content" },
+  "controlled": {
+    "title": "Controlled",
+    "body": "The state is held outside."
+  },
+  "api": {
+    "title": "API Reference",
+    "parts": "`Drawer.Title` / `Description` / `Body` / `Footer` / `Close` are the [Dialog](/dialog) parts of the same name."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `drawer.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "hook": "Hook",
+    "dialog": "The backdrop and the close button, shared with Dialog",
+    "drawer": "The fixed layer, the drawer itself (`data-side` / `data-size`) and the content layer",
+    "states": "Entering, leaving and swiping; the offset comes from `--drawer-swipe-movement-x` / `y`"
+  }
+}

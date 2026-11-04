@@ -1,0 +1,30 @@
+{
+  "lead": "An image with a placeholder while loading and a fallback image or content on failure; click it for a full-screen preview (zoom, rotate, drag, and switch between images in a group). With a preview the whole image is a button (named after `alt`); the preview is a Dialog that traps focus and closes on Esc. Keys in the preview: ← → switch, + − zoom, r rotates, 0 resets.",
+  "basic": {
+    "title": "Basic"
+  },
+  "fallback": {
+    "title": "Fallback and Placeholder",
+    "description": "When loading fails, the first image shows a fallback image, the second the theme style's placeholder block, the third the content it was given.",
+    "noCover": "No cover"
+  },
+  "no-preview": {
+    "title": "Without Preview"
+  },
+  "group": {
+    "title": "Preview Group",
+    "description": "In the preview, the images of a group switch with ← → or the side buttons; the bottom left shows n / total."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles define the placeholder, the failure block, the hover mask and the full-screen viewer in `image.css`. The viewer always has a dark backdrop (photos are viewed on a dark background), whatever the light / dark mode. The antd style follows measurements of the antd site: mask 0.3, preview mask 0.45, 42px round buttons, a pill toolbar with radius 100px.",
+    "hook": "Hook",
+    "root": "A `<button>` (`data-preview`) when it has a preview and has loaded, otherwise a `<span>`; `data-status` = loading | loaded | error",
+    "parts": "The image, the placeholder, the failure block and the hover mask",
+    "preview": "The preview: backdrop, dialog, stage and large image (`data-zoomed`; zoom / rotation / position read `--pv-scale` / `--pv-rot` / `--pv-x` / `--pv-y`)",
+    "toolbar": "Toolbar, buttons, close, previous / next (`data-direction`) and the counter"
+  }
+}

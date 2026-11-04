@@ -1,0 +1,47 @@
+{
+  "lead": "可拖拽分栏：几个面板并排（或上下叠放），之间的分隔条可以拖动，也可以聚焦后用方向键、Home / End 调整。每个面板可以设最小 / 最大尺寸，尺寸可以是像素或百分比，最后一个面板吸收容器大小变化。",
+  "usage": {
+    "title": "用法",
+    "left": "左",
+    "right": "右",
+    "leftNote": "30%，最小 100px",
+    "rest": "其余空间"
+  },
+  "vertical": { "title": "上下排列", "top": "上", "bottom": "下" },
+  "limits": {
+    "title": "最小与最大尺寸",
+    "nav": "导航",
+    "content": "内容",
+    "contentNote": "至少 30%",
+    "aside": "侧栏"
+  },
+  "nested": { "title": "嵌套", "explorer": "资源管理器", "editor": "编辑器", "terminal": "终端" },
+  "controlled": { "title": "受控" },
+  "disabled": { "title": "禁用", "fixed": "固定" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `splitter.css` 里处理。Splitter 填满父元素，所以父元素要有高度（横向时）。",
+    "hook": "钩子",
+    "splitter": "整体（flex）；`data-orientation` / `data-ready`（量到容器尺寸之后）/ `data-dragging` / `data-disabled`",
+    "panel": "每个面板；它的 `--splitter-size` 是像素尺寸，最后一个面板（`data-last`）吸收剩余空间",
+    "bar": "分隔条（宽度为 0）和里面绝对定位的拖动区（`role=separator`，可聚焦，拖动时 `data-active`）；线和把手是它的伪元素"
+  },
+  "props": {
+    "Splitter": {
+      "children": "内容（Splitter.Panel）。",
+      "disabled": "禁用时不能拖动，也不能用键盘调整。",
+      "handleLabel": "分隔条的无障碍名称；默认取语言包里的 “Resize”。",
+      "onResize": "拖动中每次变化时回调，参数是各面板的像素尺寸。",
+      "onResizeEnd": "松开鼠标 / 键盘调整结束时回调。",
+      "orientation": "horizontal：面板左右并排，分隔条是竖的；vertical：上下叠放。",
+      "sizes": "各面板的像素尺寸，受控；不给就是非受控（面板从 `defaultSize` 开始）。"
+    },
+    "Splitter_Panel": {
+      "children": "面板内容。",
+      "defaultSize": "初始尺寸：数字是像素，也可以是 \"30%\" / \"120px\" 这样的字符串；不给的面板平分剩下的空间。",
+      "max": "最大尺寸，像素数字或 \"30%\" / \"120px\" 字符串；拖动不会越过。",
+      "min": "最小尺寸，像素数字或 \"30%\" / \"120px\" 字符串；拖动不会越过。"
+    }
+  }
+}

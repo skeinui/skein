@@ -1,0 +1,39 @@
+{
+  "lead": "Lightweight notifications. Put one `Toaster` at the app root, then call `toast()` from anywhere. Timer pausing, swipe to dismiss and screen-reader announcements come from Base UI's Toast.",
+  "usage": { "title": "Usage" },
+  "types": { "title": "Types" },
+  "description": { "title": "With Description" },
+  "action": { "title": "With Action" },
+  "promise": { "title": "Promise" },
+  "loading": { "title": "Loading" },
+  "layout": {
+    "title": "Layout",
+    "stacked": "When stacked, each toast tucks under the one before it"
+  },
+  "position": {
+    "title": "Position",
+    "switched": "The Toaster's position has changed"
+  },
+  "persistent": { "title": "Persistent" },
+  "api": {
+    "title": "API Reference",
+    "functions": "`<Toaster />` goes once at the app root and every toast renders in it. Toasts are shown with the `toast` functions:",
+    "function": "Function",
+    "toast": "`{ title, description, type, timeout, action, onClose }`; `timeout: 0` never closes on its own",
+    "typed": "Shorthands with a type",
+    "loading": "In progress: a spinner, never closes on its own; finish with `toast.update(id, { type: 'success', … })` or `toast.close(id)`",
+    "promise": "Updates the same toast as the promise settles",
+    "update": "Update or close; without an id, closes them all"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `toast.css`. Toasts render in a Portal, so `data-theme-style` must be set on `<html>`.",
+    "hook": "Hook",
+    "viewport": "Fixed-position container; `data-position` sets the corner, and the z-index goes here",
+    "toast": "One message: background, border, radius, shadow; `data-type` is its type",
+    "icon": "Type icon and text area; the icon takes the semantic colour of `data-type`",
+    "text": "Title and description",
+    "buttons": "Action button and close button",
+    "states": "States while entering, leaving and being swiped away"
+  }
+}

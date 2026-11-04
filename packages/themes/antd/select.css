@@ -1,0 +1,291 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Trigger: the same look as Input: 32px, 1px stroke, the stroke turns the primary hover color on hover, and a primary stroke + 2px faint ring when open / focused */
+  [data-theme-style="antd"] [data-slot="select-trigger"] {
+    --_bg: var(--ui-field-bg);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    min-width: 0;
+    height: var(--ui-height-md);
+    padding-inline: 11px;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-md);
+    background-color: var(--_bg);
+    color: var(--ui-field-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5714285714285714;
+    text-align: start;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition: all var(--ui-duration) var(--ui-easing);
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    border-color: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-size="sm"] {
+    height: var(--ui-height-sm);
+    padding-inline: 7px;
+    border-radius: var(--ui-radius-sm);
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-size="lg"] {
+    height: var(--ui-height-lg);
+    border-radius: var(--ui-radius-lg);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="antd"]
+    [data-slot="select-trigger"]:hover:not([data-popup-open], :focus-visible, [data-disabled]) {
+    border-color: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="antd"]
+    [data-slot="select-trigger"][data-variant="filled"]:hover:not(
+      [data-popup-open],
+      :focus-visible,
+      [data-disabled]
+    ) {
+    border-color: transparent;
+    background-color: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"]:is(:focus-visible, [data-popup-open]) {
+    border-color: var(--ui-c-primary);
+    background-color: var(--ui-field-bg);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-primary) var(--ui-glow, 10%), transparent);
+  }
+  [data-theme-style="antd"]
+    [data-slot="select-trigger"][data-variant="filled"]:is(:focus-visible, [data-popup-open]) {
+    box-shadow: none;
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-invalid] {
+    border-color: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"]
+    [data-slot="select-trigger"][data-invalid]:hover:not(
+      [data-popup-open],
+      :focus-visible,
+      [data-disabled]
+    ) {
+    border-color: color-mix(in srgb, var(--ui-c-danger) 54%, var(--ui-field-bg));
+  }
+  [data-theme-style="antd"]
+    [data-slot="select-trigger"][data-invalid]:is(:focus-visible, [data-popup-open]) {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 6%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-disabled] {
+    border-color: var(--ui-border);
+    background-color: var(--ui-field-filled-bg);
+    color: var(--ui-field-placeholder);
+    cursor: not-allowed;
+  }
+  [data-theme-style="antd"] [data-slot="select-value"] {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="select-value"][data-placeholder] {
+    color: var(--ui-field-placeholder);
+  }
+  [data-theme-style="antd"] [data-slot="select-icon"] {
+    display: inline-flex;
+    flex: none;
+    color: var(--ui-field-placeholder);
+    transition: color var(--ui-duration) var(--ui-easing);
+  }
+  [data-theme-style="antd"] [data-slot="select-icon"] > svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  /* Overlay: width not smaller than the trigger, with the option list scrolling inside */
+  [data-theme-style="antd"] [data-slot="select-positioner"] {
+    z-index: 1050;
+  }
+  [data-theme-style="antd"] [data-slot="select"] {
+    box-sizing: border-box;
+    min-width: var(--anchor-width);
+    max-height: var(--available-height);
+    padding: 4px;
+    overflow-y: auto;
+    border: 0px solid var(--ui-overlay-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-overlay-bg);
+    color: var(--ui-fg);
+    box-shadow: var(--ui-overlay-shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+    outline: none;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: var(--transform-origin);
+    transition:
+      opacity 200ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      transform 200ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="select"][data-starting-style],
+  [data-theme-style="antd"] [data-slot="select"][data-ending-style] {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  [data-theme-style="antd"] [data-slot="select"][data-ending-style] {
+    transition-duration: 200ms;
+  }
+  [data-theme-style="antd"] [data-slot="select-list"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    outline: none;
+  }
+  [data-theme-style="antd"] [data-slot="select-item"] {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(32px * var(--ui-density));
+    padding: calc(5px * var(--ui-density)) calc(12px * var(--ui-density));
+    border-radius: var(--ui-radius-sm);
+    color: var(--ui-fg);
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 100ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="select-item"][data-highlighted] {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="antd"] [data-slot="select-item"][data-disabled] {
+    color: var(--ui-field-placeholder);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="select-item-text"] {
+    flex: 1;
+    min-width: 0;
+  }
+  /* antd's selected item: light primary background + bold, with no check mark */
+  [data-theme-style="antd"] [data-slot="select-item"][data-selected] {
+    background-color: var(--ui-c-primary-soft);
+    font-weight: 600;
+  }
+  [data-theme-style="antd"] [data-slot="select-item"][data-selected][data-highlighted] {
+    background-color: var(--ui-c-primary-soft-hover, var(--ui-c-primary-soft));
+  }
+  [data-theme-style="antd"] [data-slot="select-item-indicator"] {
+    display: none;
+  }
+  [data-theme-style="antd"] [data-slot="select-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  [data-theme-style="antd"] [data-slot="select-group-label"] {
+    padding: 5px 12px;
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="select"],
+    [data-theme-style="antd"] [data-slot="select-icon"],
+    [data-theme-style="antd"] [data-slot="select-trigger"] {
+      transition: none;
+    }
+  }
+
+  /* Dark: filled hover is 12% white; the invalid-state ring is 11% (6% in light) */
+  [data-theme-style="antd"][data-mode="dark"]
+    [data-slot="select-trigger"][data-variant="filled"]:hover:not(
+      [data-popup-open],
+      :focus-visible,
+      [data-disabled]
+    ),
+  [data-theme-style="antd"]
+    [data-mode="dark"]
+    [data-slot="select-trigger"][data-variant="filled"]:hover:not(
+      [data-popup-open],
+      :focus-visible,
+      [data-disabled]
+    ) {
+    background-color: rgb(255 255 255 / 0.12);
+  }
+  [data-theme-style="antd"][data-mode="dark"]
+    [data-slot="select-trigger"][data-invalid]:is(:focus-visible, [data-popup-open]),
+  [data-theme-style="antd"]
+    [data-mode="dark"]
+    [data-slot="select-trigger"][data-invalid]:is(:focus-visible, [data-popup-open]) {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 11%, transparent);
+  }
+}
+
+/* Typeable date picker (DatePicker editable): the trigger is a container holding a borderless input and a calendar-icon button; the focus state follows the container */
+@layer ui-style {
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-editable] {
+    cursor: text;
+    user-select: auto;
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-editable]:focus-within {
+    border-color: var(--ui-c-primary);
+    background-color: var(--ui-field-bg);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-primary) var(--ui-glow, 10%), transparent);
+  }
+  [data-theme-style="antd"] [data-slot="select-trigger"][data-editable][data-invalid]:focus-within {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 6%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="date-input"] {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-overflow: ellipsis;
+    outline: none;
+  }
+  [data-theme-style="antd"] [data-slot="date-input"]::placeholder {
+    color: var(--ui-field-placeholder);
+    opacity: 1;
+  }
+  [data-theme-style="antd"] [data-slot="date-input"]:disabled {
+    cursor: not-allowed;
+  }
+  [data-theme-style="antd"] button[data-slot="select-icon"] {
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-sm, 0.25rem);
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="antd"] button[data-slot="select-icon"]:hover {
+    color: var(--ui-field-fg);
+  }
+  [data-theme-style="antd"] button[data-slot="select-icon"]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: 2px;
+  }
+}

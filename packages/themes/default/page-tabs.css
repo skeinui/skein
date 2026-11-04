@@ -1,0 +1,285 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* PageTabs: a row of page tabs. card = small bordered cards, chrome = browser-tab style (the selected one merges with what is below), line = underline */
+  [data-theme-style="default"] [data-slot="page-tabs"] {
+    --_h: 2.25rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    box-sizing: border-box;
+    min-width: 0;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs"][data-size="sm"] {
+    --_h: 1.75rem;
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs"][data-size="lg"] {
+    --_h: 2.75rem;
+    font-size: 1rem;
+  }
+  /* The bottom divider is drawn as an inner shadow (not a border): the tabs are flush with the bottom edge of the list, the selected tab naturally covers it, and no negative margin is needed to push tabs out of the container */
+  [data-theme-style="default"] [data-slot="page-tabs"][data-variant="line"] {
+    box-shadow: inset 0 -1px 0 var(--ui-border);
+  }
+  [data-theme-style="default"] [data-slot="page-tabs"][data-variant="chrome"] {
+    padding-top: 0.25rem;
+    background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 45%, transparent);
+    box-shadow: inset 0 -1px 0 var(--ui-border);
+  }
+  /* The list scrolls by itself (horizontally, no scrollbar shown); it is the tabs' offsetParent, drag-sorting computes positions relative to it */
+  [data-theme-style="default"] [data-slot="page-tabs-list"] {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    gap: 0.25rem;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-list"]::-webkit-scrollbar {
+    display: none;
+  }
+  [data-theme-style="default"]
+    [data-slot="page-tabs"][data-variant="card"]
+    [data-slot="page-tabs-list"] {
+    align-items: center;
+  }
+  [data-theme-style="default"]
+    [data-slot="page-tabs"][data-variant="chrome"]
+    [data-slot="page-tabs-list"] {
+    gap: 0;
+  }
+  /* The context-menu trigger layer only handles right-click, and takes no part in layout */
+  [data-theme-style="default"] [data-slot="page-tabs-list"] > [data-slot="context-menu-trigger"] {
+    display: contents;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-item"] {
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 14rem;
+    height: var(--_h);
+    color: var(--ui-fg-muted);
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-tab"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    box-sizing: border-box;
+    min-width: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0 0.75rem;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+  /* Tabs with a close button leave room for it on the right */
+  [data-theme-style="default"]
+    [data-slot="page-tabs-item"]:has(> [data-slot="page-tabs-close"])
+    > [data-slot="page-tabs-tab"] {
+    padding-inline-end: 1.75rem;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-icon"] {
+    display: inline-flex;
+    flex: none;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-title"] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-close"],
+  [data-theme-style="default"] [data-slot="page-tabs-scroll"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ui-fg-muted);
+    font: inherit;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-close"] {
+    position: absolute;
+    inset-inline-end: 0.375rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 50%;
+    font-size: 0.75rem;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-scroll"] {
+    width: 1.75rem;
+    height: var(--_h);
+    border-radius: var(--ui-r-small);
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-close"]:hover,
+  [data-theme-style="default"] [data-slot="page-tabs-scroll"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 10%, transparent);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-tab"]:focus-visible,
+  [data-theme-style="default"] [data-slot="page-tabs-close"]:focus-visible,
+  [data-theme-style="default"] [data-slot="page-tabs-scroll"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+    outline: none;
+  }
+  /* The active tab's text uses the -text variant (made specifically for text on light backgrounds): pure primary on a faint primary background does not reach the AA contrast ratio (default measured 4.31, needs 4.5) */
+  [data-theme-style="default"] [data-slot="page-tabs-item"][data-active] {
+    color: var(--ui-c-primary-text);
+  }
+  /* Pinned tab: no close button, the title is slightly bolder */
+  [data-theme-style="default"]
+    [data-slot="page-tabs-item"][data-pinned]
+    [data-slot="page-tabs-title"] {
+    font-weight: 600;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-item"]:not([data-active]):hover {
+    color: var(--ui-fg);
+  }
+
+  /* card */
+  [data-theme-style="default"] [data-variant="card"] [data-slot="page-tabs-item"] {
+    height: calc(var(--_h) - 0.25rem);
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-r-small);
+  }
+  [data-theme-style="default"]
+    [data-variant="card"]
+    [data-slot="page-tabs-item"]:not([data-active]):hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 6%, transparent);
+  }
+  [data-theme-style="default"] [data-variant="card"] [data-slot="page-tabs-item"][data-active] {
+    border-color: color-mix(in srgb, var(--ui-c-primary) 35%, transparent);
+    background-color: color-mix(in srgb, var(--ui-c-primary) 12%, transparent);
+  }
+
+  /* line */
+  [data-theme-style="default"] [data-variant="line"] [data-slot="page-tabs-item"] {
+    border-bottom: 2px solid transparent;
+  }
+  [data-theme-style="default"]
+    [data-variant="line"]
+    [data-slot="page-tabs-item"]:not([data-active]):hover {
+    border-bottom-color: color-mix(in srgb, var(--ui-fg-muted) 50%, transparent);
+  }
+  [data-theme-style="default"] [data-variant="line"] [data-slot="page-tabs-item"][data-active] {
+    border-bottom-color: var(--ui-c-primary);
+  }
+
+  /* chrome (console's smooth): tabs overlap each other by 18px; the selected one is a curved shape in 10% primary, hover is a shape in the border color.
+     Shape = tab button (two rounded corners on top) + two outward-flaring lower-corner shoulders on the left and right (placed in 0.5rem edges on each side of the tab), all colors take --_shape */
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-item"] {
+    --_shape: transparent;
+    margin-inline-end: -1.125rem;
+    padding-inline: 0.5rem;
+    border-radius: 0;
+  }
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-tab"] {
+    padding-inline: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: var(--_shape);
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-close"] {
+    inset-inline-end: 0.875rem;
+  }
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-item"]::before,
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-item"]::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    pointer-events: none;
+  }
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-item"]::before {
+    inset-inline-start: 0;
+    background: radial-gradient(circle at top left, transparent 0.5rem, var(--_shape) 0.5rem);
+  }
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-item"]::after {
+    inset-inline-end: 0;
+    background: radial-gradient(circle at top right, transparent 0.5rem, var(--_shape) 0.5rem);
+  }
+  [data-theme-style="default"]
+    [dir="rtl"]
+    [data-variant="chrome"]
+    [data-slot="page-tabs-item"]::before {
+    background: radial-gradient(circle at top right, transparent 0.5rem, var(--_shape) 0.5rem);
+  }
+  [data-theme-style="default"]
+    [dir="rtl"]
+    [data-variant="chrome"]
+    [data-slot="page-tabs-item"]::after {
+    background: radial-gradient(circle at top left, transparent 0.5rem, var(--_shape) 0.5rem);
+  }
+  [data-theme-style="default"]
+    [data-variant="chrome"]
+    [data-slot="page-tabs-item"]:not([data-active]):hover {
+    --_shape: var(--ui-border);
+    z-index: 2;
+  }
+  [data-theme-style="default"] [data-variant="chrome"] [data-slot="page-tabs-item"][data-active] {
+    --_shape: color-mix(in srgb, var(--ui-c-primary) 10%, var(--ui-bg));
+    z-index: 1;
+  }
+
+  /* Dragging: the dragged tab follows the pointer (--drag-x) and floats above the other tabs; the sliding when other tabs make way is done by the component with WAAPI */
+  [data-theme-style="default"] [data-slot="page-tabs-item"][data-dragging] {
+    z-index: 3;
+    transform: translateX(var(--drag-x, 0px));
+    box-shadow: 0 6px 16px color-mix(in srgb, black 20%, transparent);
+    cursor: grabbing;
+    transition: none;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs"][data-dragging] [data-slot="page-tabs-tab"] {
+    cursor: grabbing;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs"][data-dragging] {
+    user-select: none;
+  }
+  [data-theme-style="default"] [data-slot="page-tabs-status"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"]
+      :is(
+        [data-slot="page-tabs-item"],
+        [data-slot="page-tabs-close"],
+        [data-slot="page-tabs-scroll"]
+      ) {
+      transition: none;
+    }
+  }
+}

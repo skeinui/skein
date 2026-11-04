@@ -1,0 +1,33 @@
+{
+  "lead": "全局配置：在应用根放一次，把主题风格 / 模式 / 主题写到 `<html>`（浮层在 Portal 里，属性必须在那儿），并给日期类组件和带文字的组件下发默认的 locale 与 labels。它只改属性、不改结构，不会重新挂载子树。",
+  "root": {
+    "title": "应用根",
+    "note": "本站的主题风格 / 模式 / 主题由右上角的开关管理，这里不再套一层，免得互相覆盖。"
+  },
+  "locale": {
+    "title": "locale 与 labels",
+    "description": "里面的 Calendar、Pagination、Carousel 都从它取 locale 和 labels；组件自己传的 `locale` / `labels` 优先。这里是中文。",
+    "locale": "zh-CN",
+    "previous": "上一页",
+    "next": "下一页",
+    "previousSlide": "上一张",
+    "nextSlide": "下一张",
+    "carousel": "示例"
+  },
+  "api": {
+    "title": "API 参考",
+    "useConfig": "`useConfig()` 返回 `{ locale?, labels? }`：自己的组件想读同一份配置时用。"
+  },
+  "props": {
+    "ConfigProvider": {
+      "children": "内容。",
+      "labels": "组件的文字，换语言时整体替换；组件自己传的 `labels` 优先。传稳定的引用，不要在 render 里内联创建对象。",
+      "locale": "日期类组件默认的 locale（BCP 47，如 \"zh-CN\"）；组件自己传的 `locale` 优先。",
+      "mode": "亮 / 暗，写到 `<html data-mode>`；\"system\" 跟随系统，并在系统切换时更新。",
+      "themeColor": "配色（只管颜色，亮暗两套），写到 `<html data-theme-color>`；可以传多个，用空格连接。",
+      "themeDensity": "密度（如 \"compact\"），写到 `<html data-theme-density>`；不传就是主题风格自己的密度。",
+      "themeOverrides": "在主题风格 / 配色 / 密度之上逐项覆盖：颜色、三档圆角（`radiusSm / radius / radiusLg`，rem）、密度倍数，和 `AdminLayout` 的 `settings.themeOverrides` 是同一份数据（设置面板导出的就是它）。写到 `<html>` 的内联 CSS 变量（浮层也跟着变），卸载或变化时还原；切换亮暗时重新计算颜色。",
+      "themeStyle": "主题风格（形状、密度基准、字体、组件外观），写到 `<html data-theme-style>`。"
+    }
+  }
+}

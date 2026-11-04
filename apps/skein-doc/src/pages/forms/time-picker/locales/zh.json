@@ -1,0 +1,44 @@
+{
+  "lead": "时间选择：触发器和 [Select](/select) 一致，弹层里是几列可滚动的时 / 分 / 秒。点一项值就立刻变，不用点「确定」；可以设步长、最早 / 最晚时间、12 小时制。日期加时间用 [DatePicker](/date-picker) 的 `showTime`。",
+  "usage": { "title": "用法" },
+  "seconds": { "title": "秒与 12 小时制" },
+  "steps": { "title": "步长" },
+  "limits": { "title": "最早与最晚" },
+  "controlled": { "title": "受控", "value": "当前值：" },
+  "in-field": { "title": "放进 Field", "label": "开始时间" },
+  "states": { "title": "禁用与无效" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `time-picker.css` 里处理；触发器是 `select-trigger`，弹层外壳是 `popover`。",
+    "hook": "钩子",
+    "column": "面板和每一列（listbox，`data-column` 是 hour / minute / second / period）",
+    "option": "每个选项；选中时 `data-selected`，禁用时 `data-disabled`",
+    "footer": "底栏：「此刻」在左，「清除」「确定」在右",
+    "datetime": "DatePicker 带时间时，日历和时间面板并排的容器"
+  },
+  "props": {
+    "TimePicker": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "clearable": "在面板底部显示「清除」。",
+      "defaultValue": "非受控时的初始 `value`。",
+      "disabled": "禁用交互。",
+      "fullWidth": "占满父元素的宽度。",
+      "hour12": "按 12–11 显示小时，并多一列上午 / 下午（只影响显示，值仍是 24 小时制）。",
+      "hourStep": "小时选项的间隔。",
+      "invalid": "显示无效状态。",
+      "labels": "按钮和列的文字（换语言时用）。",
+      "max": "可选的最晚时间 \"HH:mm[:ss]\"，更晚的选项禁用。",
+      "min": "可选的最早时间 \"HH:mm[:ss]\"，更早的选项禁用。",
+      "minuteStep": "分钟选项的间隔，比如 15 就是 :00 / :15 / :30 / :45。",
+      "name": "写一个隐藏 input，让值随原生表单提交。",
+      "onValueChange": "值变化时以新的 `value` 调用；同时传 `value` 即为受控。",
+      "placeholder": "没有值时显示的文字；默认取当前语言的占位文字（英文是 \"Pick a time\"）。",
+      "seconds": "多一列秒，值随之带上 \":ss\"。",
+      "secondStep": "秒选项的间隔。",
+      "size": "尺寸档位，同 Select；放进 Field 时默认取 Field 的。",
+      "value": "时间 \"HH:mm\"（显示秒时 \"HH:mm:ss\"），24 小时制；没选时是 null。",
+      "variant": "视觉变体，同 Select；放进 Field 时默认取 Field 的。"
+    }
+  }
+}

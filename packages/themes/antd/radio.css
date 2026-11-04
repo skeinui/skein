@@ -1,0 +1,133 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Modeled on Ant Design 6's Radio: 16px circle, 1px stroke; when selected the whole circle turns primary with a 6px white dot in the middle, and on hover the stroke turns primary. */
+  [data-theme-style="antd"] [data-slot="radio"] {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"] {
+    --_bg: var(--ui-field-bg);
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: calc(1rem * var(--ui-density));
+    height: calc(1rem * var(--ui-density));
+    margin-top: 3px;
+    padding: 0;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-full);
+    background-color: var(--_bg);
+    outline: none;
+    cursor: pointer;
+    transition: all var(--ui-duration) var(--ui-easing);
+  }
+  [data-theme-style="antd"]
+    [data-slot="radio-group"][data-variant="filled"]
+    [data-slot="radio-control"] {
+    --_bg: var(--ui-field-filled-bg);
+    border-color: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"]:hover:not([data-disabled]) {
+    border-color: var(--ui-c-primary);
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"][data-checked] {
+    border-color: var(--ui-c-primary);
+    background-color: var(--ui-c-primary);
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"][data-checked]:hover:not([data-disabled]) {
+    /* Official selected hover only changes the background, and the stroke stays primary */
+    border-color: var(--ui-c-primary);
+    background-color: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"]:focus-visible {
+    outline: 3px solid var(--ui-c-primary-border);
+    outline-offset: 1px;
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"][data-invalid] {
+    border-color: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"][data-invalid][data-checked] {
+    background-color: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"] [data-slot="radio-control"][data-disabled] {
+    border-color: var(--ui-border);
+    background-color: var(--ui-field-filled-bg);
+    cursor: not-allowed;
+  }
+
+  [data-theme-style="antd"] [data-slot="radio-indicator"] {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="radio-indicator"]::before {
+    width: calc(6px * var(--ui-density));
+    height: calc(6px * var(--ui-density));
+    border-radius: var(--ui-radius-full);
+    background-color: var(--ui-c-primary-fg);
+    content: "";
+    scale: 0;
+    transition: scale var(--ui-duration) var(--ui-easing);
+  }
+  [data-theme-style="antd"] [data-slot="radio-indicator"][data-checked]::before {
+    scale: 1;
+  }
+  [data-theme-style="antd"]
+    [data-slot="radio-control"][data-disabled]
+    [data-slot="radio-indicator"]::before {
+    background-color: var(--ui-field-placeholder);
+  }
+
+  [data-theme-style="antd"] [data-slot="radio-content"] {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--ui-font-family);
+    user-select: none;
+  }
+  [data-theme-style="antd"] [data-slot="radio-label"] {
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+  }
+  [data-theme-style="antd"] [data-slot="radio-description"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+    overflow-wrap: break-word;
+  }
+  [data-theme-style="antd"] [data-slot="radio"]:has([data-slot="radio-control"][data-disabled]) {
+    cursor: not-allowed;
+  }
+  [data-theme-style="antd"]
+    [data-slot="radio"]:has([data-slot="radio-control"][data-disabled])
+    [data-slot="radio-label"] {
+    color: var(--ui-field-placeholder);
+  }
+
+  [data-theme-style="antd"] [data-slot="radio-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="radio-group"][data-orientation="horizontal"] {
+    flex-flow: row wrap;
+    gap: 0.5rem 1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="radio-control"],
+    [data-theme-style="antd"] [data-slot="radio-indicator"]::before {
+      transition: none;
+    }
+  }
+}

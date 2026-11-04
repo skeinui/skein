@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="{{#if i18n}}zh-CN{{else}}en{{/if}}" data-theme-style="{{themeStyle}}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{{title}}</title>
+    <!--
+      ConfigProvider writes data-theme-style / data-mode to <html> after the first render; setting them
+      here as well keeps the first paint themed instead of flashing unstyled (or light in dark mode).
+    -->
+    <script>
+      (() => {
+        let mode = "system";
+{{#if shell}}
+        try {
+          const saved = JSON.parse(localStorage.getItem("{{storageKey}}-preferences") ?? "{}");
+          mode = saved.state?.mode ?? mode;
+        } catch {}
+{{/if}}
+        if (mode === "system") mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.mode = mode;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

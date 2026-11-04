@@ -1,0 +1,42 @@
+{
+  "lead": "会话列表，放聊天侧栏或会话选择器里：每行是图标、标题、一行预览和右边的补充信息，当前会话高亮；标题和预览过长会省略，所以可以放进窄的侧栏。",
+  "usage": {
+    "title": "用法",
+    "planning": "项目规划",
+    "planningPreview": "这是接下来两个迭代的大致计划，先从数据模型开始。",
+    "today": "今天",
+    "recipes": "长周末的菜谱灵感",
+    "recipesPreview": "周六试试慢炖肉酱，周日吃点清淡的。",
+    "yesterday": "昨天",
+    "debugging": "排查一个不稳定的测试",
+    "debuggingPreview": "竞态出在 setup 钩子里。",
+    "monday": "周一",
+    "untitled": "未命名"
+  },
+  "empty": {
+    "title": "空列表",
+    "text": "还没有会话",
+    "label": "空的会话列表"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根（`nav`）",
+    "items": "列表（`ul`）",
+    "item": "一行（原生 `button`）；当前会话有 `data-selected` 和 `aria-current`",
+    "icon": "图标（装饰）",
+    "content": "文字块、标题和预览（过长省略）",
+    "meta": "右边的补充信息",
+    "emptyHint": "没有会话时的提示"
+  },
+  "props": {
+    "ThreadList": {
+      "aria-label": "列表的名称，读屏用，默认 \"Conversations\"。",
+      "empty": "没有会话时显示的内容。",
+      "items": "要列出的会话，按显示顺序（`{ id, title, preview, meta, icon }`）。",
+      "onValueChange": "点了某个会话时触发。",
+      "value": "当前打开的会话 id。"
+    }
+  }
+}

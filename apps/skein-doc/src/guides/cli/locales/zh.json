@@ -1,0 +1,55 @@
+{
+  "title": "Skein CLI",
+  "lead": "`skein` 命令用来创建项目、添加页面和模块、管理主题风格、检查代码。需要 Node 22.18 或更高版本。",
+  "run": {
+    "title": "运行",
+    "p1": "不需要全局安装："
+  },
+  "create": {
+    "title": "创建项目",
+    "p1": "不给目录时，会依次询问项目名、模板、主题风格和可选功能。`--theme none` 会在 `src/theme/` 里生成一个空白的自有主题风格。",
+    "template": "模板",
+    "gives": "内容",
+    "basic": "Vite + React + 一个主题风格。",
+    "admin": "布局、菜单、标签页、KeepAlive、偏好设置、登录、仪表盘和用户增删改查页。",
+    "feature": "功能",
+    "adds": "添加的内容",
+    "router": "TanStack Router 文件路由（`src/routes/`）。",
+    "query": "TanStack Query 和 fetch 封装（`src/lib/http.ts`）。",
+    "i18n": "i18next 中英文，每个页面有自己的 `locales/`。",
+    "mock": "MSW，每个页面有自己的 `mocks/handlers.ts`。",
+    "auth": "登录页、路由守卫、会话存储。依赖 router、query、i18n。",
+    "shell": "AdminLayout、菜单、标签页、KeepAlive、偏好设置抽屉。依赖 auth、i18n。",
+    "mcp": "`.mcp.json`：把 skein 命令作为 MCP 工具提供给 AI 助手。",
+    "preview": "给 `skein preview` 用的 `playwright-core`（使用本机已装的 Chrome）。",
+    "p2": "`admin` 会开启 `shell` 和 `mock`。`mcp` 和 `preview` 默认关闭，只有开启的项目才会安装它们的依赖。"
+  },
+  "layout": {
+    "title": "admin 项目结构",
+    "p1": "admin 项目的目录结构如下：",
+    "p2": "每个页面自己注册：路由靠文件，菜单项靠 `_meta.ts`，mock 靠 `mocks/handlers.ts`。添加页面从不需要改动已有文件。"
+  },
+  "pages": {
+    "title": "页面与模块",
+    "p1": "`--from` 读取 OpenAPI 3 文档（JSON 或 YAML）中的一个资源，生成带筛选、新建、编辑、删除的列表页，有类型、带 mock。文档里有多个资源时，用 `--resource /orders` 指定。"
+  },
+  "theme-commands": {
+    "title": "主题风格",
+    "p1": "basic 项目在 `src/skein.theme.ts` 里引入一个主题风格。admin 项目在 `src/settings.ts` 的 `themeStyles` 里列出可选风格；每个风格是单独的 CSS 文件，只有在偏好设置抽屉里选中时才加载。见[主题](/theming)。"
+  },
+  "tools": {
+    "title": "文档与检查",
+    "command": "命令",
+    "does": "作用",
+    "docs": "组件的用途、属性和可选值、示例。`--search <关键词>` 查找组件。",
+    "check": "带提示的类型错误、缺失的翻译、写死的颜色、主题覆盖情况。",
+    "preview": "在 Chrome 中打开页面（自动登录），报告报错、失败的请求、空白页，并截图。",
+    "list": "模板、功能和主题风格列表。",
+    "init": "为缺少 `.skein.json` 的项目生成它，功能从项目文件中检测。",
+    "mcp": "以上全部，加上 `new page`、`theme` 和 `create`，作为 MCP 工具提供。见 [AI 编程](/ai)。"
+  },
+  "options": {
+    "title": "通用选项",
+    "p1": "每个命令都支持 `--json`（机器可读的输出，从不交互询问）。会写文件的命令支持 `--dry-run`（只列出将要写的文件），只有加 `--force` 才会覆盖已有文件。`skein create` 会写出 `.skein.json`（模板、主题风格、功能），其他命令都会读它：请提交到仓库。"
+  }
+}

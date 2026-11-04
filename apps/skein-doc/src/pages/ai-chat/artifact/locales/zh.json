@@ -1,0 +1,80 @@
+{
+  "lead": "产物面板：对话旁边展示模型生成的东西（文档、代码、网页）的那块区域，头部有标题、视图切换（预览 / 代码）、操作和关闭；对话里用 `ArtifactCard` 指向它。",
+  "usage": {
+    "title": "用法",
+    "description": "内容区放什么都行：这里预览是 `Markdown`，代码视图是 `CodeBlock`。",
+    "preview": "预览",
+    "code": "代码",
+    "copy": "复制",
+    "content": "report.md 内容"
+  },
+  "card": {
+    "title": "卡片和面板",
+    "description": "对话里的 `ArtifactCard`：`aria-pressed` 表示这个产物是否正在旁边打开着。",
+    "open": "已打开：{id}"
+  },
+  "api": {
+    "title": "API 参考",
+    "description": "`Artifact` 是复合组件；没有自己 props 的部件接受它所渲染元素的 props。",
+    "part": "部件",
+    "root": "产物面板的根：用 Title 命名的 `section`（region）。放进有高度的父元素里，它撑满并在里面滚动内容",
+    "header": "头部：标题、说明、视图切换、操作",
+    "titlePart": "标题，同时是整块面板的名称",
+    "meta": "标题旁边的一小段说明（\"Document · v2\"）",
+    "views": "视图切换（预览 / 代码），用库里的 `Segmented`；`aria-label` 默认 \"View\"",
+    "actions": "一排操作（`role=group`，`aria-label` 默认 \"Actions\"）",
+    "action": "一个图标按钮（`aria-label` 必填）/ 关闭按钮（默认名称 \"Close\"）",
+    "body": "内容区：可以被键盘聚焦，内容多了在里面滚动；`aria-label` 默认 \"Content\"",
+    "card": "对话里指向某个产物的小卡片：是个按钮，`aria-pressed` 表示是否正打开着，点它在旁边打开 `Artifact`。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "面板根（带外框的竖排 flex）",
+    "header": "头部和里面的标题、说明、操作组",
+    "body": "内容区（可滚动、可聚焦）",
+    "card": "对话里的产物卡片；`data-selected` 表示正打开着"
+  },
+  "props": {
+    "Artifact_Views": {
+      "aria-label": "视图切换的名称，给读屏用，默认 \"View\"。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "onValueChange": "`value` 变化时调用，参数是新值；要受控就同时传 `value`。",
+      "options": "选项；只有文字时可以直接传字符串数组，value 和 label 都取这个字符串。",
+      "value": "当前选中的值（受控）。"
+    },
+    "Artifact_Action": {
+      "aria-label": "只有图标，所以名称必填。",
+      "children": "按钮内容。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是 `<button>`（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Artifact_Close": {
+      "aria-label": "关闭按钮的名称，默认 \"Close\"。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是 `<button>`（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Artifact_Body": {
+      "aria-label": "内容区的名称，给读屏用，默认 \"Content\"。"
+    },
+    "ArtifactCard": {
+      "icon": "左侧图标，默认是文档图标。",
+      "meta": "标题下面那一行（\"Code · v2\"、\"Document\"）。",
+      "onOpen": "点击（打开 / 切换到这个产物）。",
+      "selected": "这个产物正在右侧面板里打开着。",
+      "title": "产物的标题。"
+    }
+  }
+}

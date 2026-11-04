@@ -1,0 +1,17 @@
+{
+  "lead": "A dialog that asks for an explicit answer (deleting, irreversible actions): clicking the backdrop or pressing Esc doesn't close it, and it has no close button in the corner by default. It reuses Dialog's theme styles.",
+  "usage": { "title": "Usage" },
+  "sizes": { "title": "Sizes" },
+  "controlled": { "title": "Controlled" },
+  "api": {
+    "title": "API Reference",
+    "description": "`AlertDialog.Title` / `Description` / `Body` / `Footer` are the same as Dialog's parts of the same name."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "AlertDialog has no CSS file of its own: all its styles come from `dialog.css`. As with every overlay, `data-theme-style` must be on `<html>`.",
+    "hook": "Hook",
+    "slots": "The same slots as Dialog, so theme styles need nothing extra",
+    "alert": "Written on the dialog; theme styles can use it to style confirmation dialogs differently"
+  }
+}

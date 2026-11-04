@@ -1,0 +1,78 @@
+{
+  "lead": "把相关的按钮拼成一体。圆角、接缝和分隔线由主题风格处理，组上的 `variant` / `color` / `size` / `radius` / `disabled` 通过 context 作为组内按钮的默认值。示例参照 HeroUI 文档的 ButtonGroup 页。",
+  "usage": { "title": "用法" },
+  "anatomy": {
+    "title": "结构",
+    "description": "ButtonGroup 包住若干 Button；ButtonGroup.Separator 放在按钮里，可选。"
+  },
+  "variants": {
+    "title": "变体",
+    "description": "HeroUI 的 primary / secondary / tertiary / outline / ghost / danger 在本包里的写法，对应关系见 [Button](/button) 页。"
+  },
+  "sizes": {
+    "title": "尺寸",
+    "sm": "小",
+    "md": "中（默认）",
+    "lg": "大"
+  },
+  "orientation": {
+    "title": "方向",
+    "description": "用 `orientation` 在水平和垂直之间切换。",
+    "horizontal": "水平",
+    "vertical": "垂直"
+  },
+  "with-icons": {
+    "title": "带图标",
+    "withIcons": "带图标",
+    "iconOnly": "仅图标按钮"
+  },
+  "full-width": { "title": "占满宽度" },
+  "disabled-state": {
+    "title": "禁用状态",
+    "all": "全部按钮禁用",
+    "override": "组禁用，但其中一个按钮覆盖"
+  },
+  "without-separator": {
+    "title": "无分隔线",
+    "description": "不放 ButtonGroup.Separator 就没有分隔线。"
+  },
+  "colors": {
+    "title": "颜色",
+    "description": "HeroUI v3 没有 `color`，这是本包的 `variant` × `color` 矩阵，用来检查每个主题风格的接缝是否都正常。"
+  },
+  "radius": {
+    "title": "圆角",
+    "description": "只有两端保留外侧圆角，接缝处是直角。"
+  },
+  "overrides": {
+    "title": "覆盖",
+    "description": "按钮自己传的 `variant` / `color` 优先于组；`loading` 的按钮在组里同样不响应点击。"
+  },
+  "api": {
+    "title": "API 参考",
+    "separator": "接受 `span` 的原生属性。放在按钮里（通常是第一个子元素），在它和前一个按钮的接缝处画分隔线；不放就没有。有描边的变体靠边框重叠，主题风格会隐藏它。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "和 Button 一样，组件不带样式，只写钩子，主题风格在 `button-group.css` 里处理接缝。",
+    "hook": "钩子",
+    "sameAsProps": "同 props",
+    "pseudoClass": "CSS 伪类",
+    "slot": "结构钩子",
+    "orientation": "分组方向，主题风格据此决定接缝处合并哪两个角、分隔线朝向",
+    "variants": "只在传了对应 prop 时出现，同样的值会通过 context 传给组内按钮",
+    "states": "状态钩子",
+    "position": "组内按钮没有位置属性，接缝处的圆角合并全靠结构伪类，所以组的直接子元素必须是按钮"
+  },
+  "props": {
+    "ButtonGroup": {
+      "color": "组内按钮的默认颜色。",
+      "disabled": "组内按钮默认禁用，按钮可用 `disabled={false}` 覆盖。",
+      "fullWidth": "占满容器宽度，组内按钮平分。",
+      "orientation": "排列方向。",
+      "radius": "组内按钮的圆角档位，只有两端保留外侧圆角。",
+      "size": "组内按钮的默认尺寸。",
+      "variant": "组内按钮的默认变体，按钮自己传了就以按钮为准。"
+    }
+  }
+}

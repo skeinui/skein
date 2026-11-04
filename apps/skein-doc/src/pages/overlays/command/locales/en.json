@@ -1,0 +1,44 @@
+{
+  "lead": "A command palette: a search box over a list of commands ranked by how well they match, driven by data (`items`: commands, groups, icons, shortcut hints, aliases). Focus always stays in the input and the list is read the combobox way. `Command` is the inline version, `CommandDialog` the pop-up one (it can bind a global hotkey). Keyboard: ↑ ↓ move (wrapping at the ends, skipping disabled items), Home / End, Enter runs.",
+  "demo": {
+    "home": "Go to dashboard",
+    "files": "Files",
+    "new-file": "New file",
+    "open-file": "Open file…",
+    "archive": "Archive (unavailable)",
+    "account": "Account",
+    "profile": "Edit profile",
+    "settings": "Settings",
+    "last": "Last command: {key}"
+  },
+  "inline": {
+    "title": "Inline",
+    "label": "Commands"
+  },
+  "dialog": {
+    "title": "Dialog and hotkey",
+    "description": "`hotkey=\"mod+j\"` toggles it globally (not `mod+k` here, which the docs site's own search uses). Opening moves focus into the input, Esc closes it, and focus then returns to the button.",
+    "open": "Open command palette",
+    "press": "or press",
+    "onPage": "on this page"
+  },
+  "search": {
+    "title": "Search and keywords",
+    "description": "Try typing add, name, dash or nf: results rank as \"exact > prefix > word start > contains > alias > letters in order\"; with no result, `emptyText` shows.",
+    "label": "Search demo",
+    "empty": "Nothing matches that."
+  },
+  "api": {
+    "title": "API Reference",
+    "entries": "Each entry of `items` is a command `{ key, label, icon?, shortcut?, keywords?, disabled?, onSelect? }` or a group `{ type: \"group\", key, label, items }`."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root, the input row (with the search icon) and the input (`role=combobox`)",
+    "list": "The list (`role=listbox`), a group (`role=group`) and its title",
+    "item": "`data-active` (the current item), `data-disabled`; children `command-icon` / `command-label` / `command-shortcut`",
+    "empty": "Nothing matches",
+    "dialog": "The backdrop and dialog of the pop-up version (`data-starting-style` / `data-ending-style`)"
+  }
+}

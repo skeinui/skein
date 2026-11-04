@@ -1,0 +1,23 @@
+{
+  "lead": "自定义滚动条的滚动容器：滚动本身是原生的，滚动条（轨道、滑块）由主题风格画。没有高度入口——放进有高度的父元素里，它会撑满并在里面滚动。",
+  "usage": { "title": "用法", "item": "第 {n} 项" },
+  "horizontal": { "title": "水平方向", "tag": "标签 {n}" },
+  "both": { "title": "双向", "line": "一行横竖都会溢出的长文本 —— {n}" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `scroll-area.css` 里处理，滑块用前景色的 25%，悬停加深。",
+    "hook": "钩子",
+    "root": "外框（裁切）和真正滚动的视口",
+    "scrollbar": "滚动条和滑块，`data-orientation` 区分方向，滑块尺寸由 Base UI 写成 CSS 变量",
+    "corner": "两个方向都有滚动条时的右下角",
+    "states": "悬停或滚动时写在滚动条上，用来让滚动条淡入"
+  },
+  "props": {
+    "ScrollArea": {
+      "children": "内容。",
+      "orientation": "显示哪个方向的滚动条。",
+      "overflowEdgeThreshold": "超出多少像素后才写入溢出边缘属性。传一个数字作用于所有边，或者传一个对象分别设置每条边。"
+    }
+  }
+}

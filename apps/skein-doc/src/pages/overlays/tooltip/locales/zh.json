@@ -1,0 +1,41 @@
+{
+  "lead": "悬停或聚焦时出现的简短说明，行为（延迟、定位、碰撞翻转、键盘）来自 Base UI 的 Tooltip。",
+  "usage": { "title": "用法" },
+  "placement": { "title": "位置" },
+  "arrow": { "title": "箭头" },
+  "delay": { "title": "延迟" },
+  "icon-button": { "title": "图标按钮" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `tooltip.css` 里处理，颜色来自 `--ui-tooltip-bg` / `--ui-tooltip-fg`。",
+    "hook": "钩子",
+    "positioner": "定位容器，主题风格在这里放 z-index",
+    "popup": "气泡本体：背景、内边距、圆角、最大宽度",
+    "arrow": "箭头，靠 `data-side` 决定贴哪条边",
+    "states": "进场 / 出场的起点样式，主题风格用它写淡入 + 缩放"
+  },
+  "props": {
+    "Tooltip": {
+      "align": "沿这一侧的对齐方式。",
+      "arrow": "是否显示指向触发元素的小箭头。",
+      "children": "触发元素；必须是单个能接收 ref 和事件的元素（按钮、链接或自己的组件都可以）。",
+      "closeDelay": "指针离开后还停留多久（毫秒）。",
+      "content": "气泡里的内容。",
+      "delay": "悬停多久后出现（毫秒）；不传时用 TooltipProvider 的值。",
+      "side": "出现在触发元素的哪一侧，空间不够会自动翻转。",
+      "sideOffset": "气泡与触发元素之间的距离（px）。",
+      "defaultOpen": "提示初始是否打开。要受控请改用 `open`。",
+      "disabled": "是否禁用提示。",
+      "onOpenChange": "提示打开或关闭时调用。",
+      "open": "提示当前是否打开。",
+      "trackCursorAxis": "提示沿哪条轴跟随光标。"
+    },
+    "Tooltip_Provider": {
+      "children": "共享延迟的一组 Tooltip。",
+      "closeDelay": "关闭提示前等待多久，单位毫秒。",
+      "delay": "悬停多久后打开提示，单位毫秒。",
+      "timeout": "上一个提示关闭后在这段时间内，另一个提示会立即打开，单位毫秒。"
+    }
+  }
+}

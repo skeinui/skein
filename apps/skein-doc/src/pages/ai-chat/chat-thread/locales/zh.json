@@ -1,0 +1,62 @@
+{
+  "lead": "对话的滚动区：贴底滚动——你在底部时，新消息和流式输出会自动跟着滚下去；往上翻看历史时它不打扰，并出现「回到底部」按钮。根元素是 `role=log`，新消息会被读屏播报。",
+  "assistant": "助手",
+  "usage": {
+    "title": "用法",
+    "description": "把它放进有高度的父元素里。往上滚一下就会出现回到底部按钮；点「添加一轮」，在底部时会自动跟到新消息。",
+    "add": "添加一轮",
+    "label": "示例对话",
+    "answer": "这是第 {n} 个问题的回答。写得稍长一些，好让对话需要滚动：主题风格就是普通的 CSS 文件，用文档上的一个 data 属性切换，行为来自 Base UI。",
+    "questions": {
+      "q0": "Base UI 是什么？",
+      "q1": "它自带样式吗？",
+      "q2": "主题风格是怎么工作的？",
+      "q3": "能在运行时切换主题风格吗？",
+      "q4": "暗色模式呢？",
+      "q5": "无障碍做得怎么样？"
+    }
+  },
+  "streaming": {
+    "title": "流式输出",
+    "description": "流式输出时，贴在底部就一直跟着；向上翻就停止跟随。",
+    "start": "开始流式输出",
+    "running": "输出中…",
+    "label": "流式对话",
+    "empty": "点按钮开始流式输出一条回复。",
+    "text": "回复正在逐字输出，只要你停在底部，对话就会一直跟着滚动。向上滚动查看之前的消息：它会停止跟随，并出现一个回到底部的按钮。"
+  },
+  "api": {
+    "title": "API 参考",
+    "root": "`ChatThread` 是一个 `role=log` 的 `div`。放进有高度的父元素里，它撑满并在里面滚动；可以被键盘聚焦。",
+    "scrollButton": "回到底部的按钮：只在不在底部时出现，点击滚到底并重新贴底；`children` 可换图标。",
+    "more": "其他部件",
+    "name": "名称",
+    "content": "居中的消息列：限制最大宽度，消息之间留间距",
+    "hook": "在 ChatThread 里读「是否在底部」和「滚到底部」，自定义回到底部按钮时用"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "滚动区；`data-at-bottom` 表示现在在底部",
+    "content": "居中的消息列",
+    "button": "回到底部按钮的定位层：粘在可视区底边，自己不占高度；里面是一个 Button"
+  },
+  "props": {
+    "ChatThread": {
+      "aria-label": "滚动区的名称，读屏用，默认 \"Conversation\"。",
+      "children": "内容。",
+      "stickThreshold": "离底部多近（像素）还算「在底部」；在底部时新内容自动跟着滚下去。"
+    },
+    "ChatThread_ScrollButton": {
+      "aria-label": "按钮的名称，默认 \"Scroll to bottom\"。",
+      "children": "内容。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

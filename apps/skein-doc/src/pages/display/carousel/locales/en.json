@@ -1,0 +1,18 @@
+{
+  "lead": "Shows one page at a time, changed with the arrows, the dots, the keyboard or a swipe, and can play on its own. It follows the WAI-ARIA carousel pattern: pages other than the current one are inert, autoplay comes with a pause button and stops while the pointer or focus is inside.",
+  "basic": { "title": "Basic", "slide": "Slide {n}" },
+  "effect": { "title": "Fade and dot position" },
+  "autoplay": { "title": "Autoplay" },
+  "controlled": { "title": "Controlled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root, with `data-effect` / `data-dot-position`; `--car-index` is the current page",
+    "viewport": "The clipping window and the track",
+    "slide": "`data-active`; pages other than the current one are `inert`",
+    "arrow": "`data-direction=prev|next`",
+    "dots": "Dots have `data-active` and `aria-current`",
+    "pause": "`data-paused`"
+  }
+}

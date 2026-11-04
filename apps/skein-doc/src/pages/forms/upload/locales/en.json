@@ -1,0 +1,22 @@
+{
+  "lead": "File upload, data-driven. The component only picks and drops files and shows the list; the actual upload is up to you, and progress and results come back through `files`.",
+  "usage": {
+    "title": "Usage",
+    "description": "Drop files or click to choose them; the demo fakes upload progress with a timer.",
+    "hint": "Any file; names containing “fail” fail, to show the error state",
+    "failed": "Upload failed, please retry"
+  },
+  "button": { "title": "Button" },
+  "states": { "title": "File states", "tooLarge": "File is larger than 50 MB" },
+  "disabled": { "title": "Disabled", "hint": "Uploads are turned off" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `upload.css`.",
+    "hook": "Hook",
+    "root": "The root (`data-variant` / `data-disabled` / `data-dragging` while dragging) and the trigger area",
+    "trigger": "Icon, main text and hint in the trigger area",
+    "list": "The file list and each row; `data-status` on the row is its status",
+    "item": "In a row: icon, file name, size and percentage, progress bar, error reason, remove / retry buttons (`data-action`)"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "title": "登录 {{app}}",
+  "subtitle": "欢迎回来，请输入账号和密码",
+  "username": "用户名",
+  "password": "密码",
+  "submit": "登录",
+  "failed": "登录失败",
+  "mockHint": "演示账号：admin / admin123（数据由 MSW 模拟）"
+}

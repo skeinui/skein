@@ -1,0 +1,88 @@
+{
+  "lead": "页面标签栏（管理后台常见的「已打开的页面」）：切换、关闭、固定、拖动排序、右键菜单（关闭其他 / 左边 / 右边 / 全部、固定、刷新），太多时两端出滚动按钮。不认识路由：标签是数据（`tabs` + `activeKey`），点击和关闭都通过回调交回去。配合 `KeepAlive` 可以让切走的页面状态一直留着。",
+  "usage": {
+    "title": "用法",
+    "description": "点标签切换；× 或中键关闭，右键有更多操作，拖动调整顺序。键盘：方向键移动焦点，Delete 关闭，Alt + 左右调顺序。第一个是固定的（首页），不能关。",
+    "pages": {
+      "dashboard": "仪表盘",
+      "users": "用户管理",
+      "orders": "订单",
+      "products": "商品",
+      "reports": "报表",
+      "settings": "设置",
+      "audit-log": "审计日志"
+    }
+  },
+  "variants": {
+    "title": "变体",
+    "description": "`card`（带边框的小卡片）、`chrome`（浏览器标签式，选中的和下面的内容连成一片）、`line`（下划线）。"
+  },
+  "keep-alive": {
+    "title": "配合 KeepAlive",
+    "description": "每个页面里有计数器、输入框和一段很高的内容：切换标签后它们都还在，包括滚动位置；关掉标签状态才丢；右键「刷新」让它重新来过。",
+    "clicked": "点了 {n} 次",
+    "placeholder": "在这里输入，切走再切回来",
+    "tall": "（页面很高，试试滚动再切换）",
+    "open": "打开 {title}",
+    "note": "关掉标签，它的页面状态就没了；右键「刷新」让它重新来过。"
+  },
+  "overflow": {
+    "title": "溢出",
+    "description": "标签太多放不下时，两端出现滚动按钮；切到的标签会自动滚进视野。"
+  },
+  "api": {
+    "title": "API 参考",
+    "field": "字段",
+    "tab": {
+      "key": "唯一标识，通常就是页面的路径",
+      "title": "标签上的标题（也是读屏名和悬停提示）",
+      "icon": "标题前的图标",
+      "pinned": "固定：排在最前面，不能关闭，只能在固定的标签之间调顺序（比如首页）",
+      "closable": "能不能关闭"
+    }
+  },
+  "keep-alive-api": { "title": "KeepAlive API" },
+  "helpers": {
+    "title": "辅助函数",
+    "function": "函数",
+    "closeTabs": "关掉一批标签；关掉当前项时换到原来位置上的下一个（没有就上一个）；固定 / 不可关闭的不会被关",
+    "keysToClose": "按范围（`self` / `others` / `left` / `right` / `all`）算出要关掉哪些",
+    "moveTab": "移动一个标签，固定的和普通的各在各的区里",
+    "pinTab": "固定 / 取消固定",
+    "openTab": "打开一个标签：已经有了就原样返回，没有就加到最后"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "`data-variant`、`data-size`；拖动时有 `data-dragging`",
+    "list": "横向滚动的列表（隐藏滚动条）",
+    "item": "标签 + 关闭按钮：`data-active`、`data-pinned`、`data-dragging`；拖动时位置是 `--drag-x`",
+    "tab": "标签本身（按钮）",
+    "title": "图标和标题",
+    "close": "关闭按钮，在标签外面（标签里不能再套按钮）",
+    "scroll": "太多时两端的滚动按钮，`data-direction=start|end`",
+    "keepAlive": "每一项一个窗格（自己滚动），当前项有 `data-active`；根上有 `data-transition`"
+  },
+  "props": {
+    "PageTabs": {
+      "activeKey": "当前标签的 key。",
+      "draggable": "能不能拖动调整顺序，默认传了 `onTabsChange` 就能。",
+      "labels": "要覆盖的内置文字（见下面的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onActiveKeyChange": "点了一个标签；关掉当前标签后换到邻近的一个时也会调用。",
+      "onRefresh": "给了，右键菜单里就有「刷新」（比如配合 `KeepAlive` 的 `versions` 重新挂载这个页面）。",
+      "onTabsChange": "标签增减、排序、固定后给出新的整个数组。传了它，标签才能关闭、拖动排序和固定，否则只是一排可切换的标签。关掉当前标签时先调用它，再由 `onActiveKeyChange` 给出新的当前项。",
+      "pinnable": "右键菜单里有「固定 / 取消固定」，需要同时传 `onTabsChange`。",
+      "size": "尺寸档位。",
+      "tabs": "打开着的标签，顺序就是显示的顺序。由调用方持有：在 `onTabsChange` 里更新（关闭 / 固定 / 拖动排序之后）。",
+      "variant": "外观：card 是带边框的小卡片，chrome 是浏览器标签式（选中的和下面的内容连成一片），line 是下划线。"
+    },
+    "KeepAlive": {
+      "activeKey": "当前显示的是哪一项（比如当前路由路径、当前标签的 key）。",
+      "children": "当前项的内容。切走之后这一项保留的是**它最后一次收到的内容**，不会再更新。",
+      "keepKeys": "要保留的项的 key（比如当前打开的标签）。不在里面的项被丢掉、状态清空——关掉标签，页面也就没了。不给就保留所有访问过的项（受 `max` 限制）。当前项不受它影响，总是显示。",
+      "max": "最多同时保留几项，超出时丢掉最久没看的。默认不限。",
+      "transition": "切换到一项时的进场动画，样式由主题风格决定；「减少动效」时没有。",
+      "versions": "想让某一项重新来过（刷新）：把它的数字加 1，它会被重新挂载。"
+    }
+  }
+}

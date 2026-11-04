@@ -1,0 +1,77 @@
+{
+  "lead": "One message in a chat: the assistant's is \"avatar + content column\", the user's a bubble on the right. The content can hold Markdown, sources and tool calls, with a row of faded actions below. Each message is a named article, so inside a Chat Thread a screen reader can read them one by one.",
+  "assistant": "Assistant",
+  "usage": {
+    "title": "Usage",
+    "question": "How do I validate a form?",
+    "answer": "Use a schema and validate on submit."
+  },
+  "markdown": {
+    "title": "With Markdown",
+    "reply": "Sure! Here is a quick plan:\n\n1. **Parse** the input\n2. **Validate** each field\n3. Return a typed result\n\n```ts\nconst result = validate(parse(input));\n```"
+  },
+  "actions": {
+    "title": "Actions",
+    "description": "The actions stay faded until the message is hovered or focused with the keyboard (always shown on touch screens); toggles such as Like use `pressed`.",
+    "message": "Hover (or focus) this message to reveal the actions.",
+    "copy": "Copy",
+    "retry": "Retry",
+    "like": "Like"
+  },
+  "grouped": {
+    "title": "Consecutive messages",
+    "description": "In a run of assistant messages only the first shows the avatar; the others pass `show={false}` to keep an empty slot, so the text stays aligned.",
+    "first": "First message.",
+    "second": "Second message, aligned with the first."
+  },
+  "edit": {
+    "title": "Edit and resend",
+    "description": "Click the pencil to edit: ⌘ / Ctrl + Enter saves, Esc cancels, empty text can't be saved.",
+    "edit": "Edit message"
+  },
+  "pager": {
+    "title": "Response versions",
+    "description": "After regenerating, one question has several replies: `Pager` switches between the versions.",
+    "v0": "Use a schema and validate on submit.",
+    "v1": "Validate on blur, and show inline errors as the user types.",
+    "v2": "Prefer a library: it gives you schemas, async rules and typed errors.",
+    "regenerate": "Regenerate"
+  },
+  "status": {
+    "title": "Status and time",
+    "description": "A failed send is `role=alert` and can be retried; once sent, a timestamp takes its place.",
+    "question": "Does it work offline?",
+    "fail": "Fail again"
+  },
+  "api": {
+    "title": "API Reference",
+    "Assistant": "The root of an assistant message: an `article` with a name (`aria-label`, \"Assistant\" by default).",
+    "User": "The root of a user message: an `article` with a name (`aria-label`, \"You\" by default).",
+    "Avatar": "The assistant's avatar (`src` / `alt` / `fallback`). In a run of assistant messages, the later ones pass `show={false}`: an empty slot of the same width keeps the text aligned.",
+    "Actions": "A row of action buttons (`role=group`, `aria-label` \"Message actions\" by default). Faded until the message is hovered or focused; always shown on touch screens.",
+    "Action": "An icon button (a small, muted Button); `aria-label` is required. `pressed` is written as `aria-pressed`, for Like / Dislike.",
+    "Edit": "A form to edit a user message: put it in `ChatTurn.User` instead of `Bubble`. `defaultValue` / `onSave(value)` / `onCancel`. It grows with its text, Enter adds a line, ⌘ / Ctrl + Enter saves, Esc cancels, it takes focus when mounted, and empty text can't be saved; `labels` changes the button texts.",
+    "Pager": "Switches between the reply versions of one question (\"‹ 2 / 3 ›\"): `index` counts from 0, nothing renders under 2 versions, the direction at either end is disabled, and changes are announced. Put it in `Actions`.",
+    "Status": "The message's send state: `sending` is `role=status`, `failed` is `role=alert` and can be retried.",
+    "Time": "A timestamp: `<time datetime>`, formatted for `locale` (the ConfigProvider's by default), with the full date as `title`; `display=\"datetime\"` includes the date.",
+    "more": "Other parts",
+    "name": "Part",
+    "Body": "The assistant's content column.",
+    "Bubble": "The user's bubble.",
+    "Content": "The message content (Markdown, text…)."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root of a message; `data-role=assistant | user`",
+    "avatar": "The avatar slot (`data-hidden` when only the space is kept)",
+    "body": "The assistant's content column",
+    "bubble": "The user's bubble",
+    "content": "The message content",
+    "actions": "The action button group",
+    "edit": "The edit form of a user message, its textarea and its Save / Cancel row",
+    "pager": "The reply version switcher and its \"2 / 3\"",
+    "status": "The send state (`data-state`) and the Retry button",
+    "time": "The timestamp"
+  }
+}

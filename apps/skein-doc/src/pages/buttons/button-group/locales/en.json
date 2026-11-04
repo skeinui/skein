@@ -1,0 +1,67 @@
+{
+  "lead": "Joins related buttons into one. The theme style handles the corners, seams and dividers; `variant` / `color` / `size` / `radius` / `disabled` on the group reach the buttons in it through context, as their defaults. The examples follow the ButtonGroup page of the HeroUI docs.",
+  "usage": { "title": "Usage" },
+  "anatomy": {
+    "title": "Anatomy",
+    "description": "ButtonGroup wraps a few Buttons; the optional ButtonGroup.Separator goes inside a button."
+  },
+  "variants": {
+    "title": "Variants",
+    "description": "How HeroUI's primary / secondary / tertiary / outline / ghost / danger are written in this package; the mapping is on the [Button](/button) page."
+  },
+  "sizes": {
+    "title": "Sizes",
+    "sm": "Small",
+    "md": "Medium (default)",
+    "lg": "Large"
+  },
+  "orientation": {
+    "title": "Orientation",
+    "description": "`orientation` switches between horizontal and vertical.",
+    "horizontal": "Horizontal",
+    "vertical": "Vertical"
+  },
+  "with-icons": {
+    "title": "With Icons",
+    "withIcons": "With icons",
+    "iconOnly": "Icon only buttons"
+  },
+  "full-width": { "title": "Full Width" },
+  "disabled-state": {
+    "title": "Disabled State",
+    "all": "All buttons disabled",
+    "override": "Group disabled, but one button overrides"
+  },
+  "without-separator": {
+    "title": "Without Separator",
+    "description": "Leave out ButtonGroup.Separator and there is no divider."
+  },
+  "colors": {
+    "title": "Colors",
+    "description": "HeroUI v3 has no `color`. This is the `variant` × `color` matrix of this package, to check the seams of every theme style."
+  },
+  "radius": {
+    "title": "Radius",
+    "description": "Only the two ends keep their outer corners rounded; the seams are square."
+  },
+  "overrides": {
+    "title": "Overrides",
+    "description": "A button's own `variant` / `color` win over the group's; a `loading` button ignores clicks inside a group too."
+  },
+  "api": {
+    "title": "API Reference",
+    "separator": "Takes the native attributes of a `span`. Put it inside a button (usually as the first child) to draw a divider at the seam with the previous button; leave it out for no divider. Variants with a border rely on the overlapping borders, so the theme style hides it there."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Like Button, the component has no styles and only writes hooks; theme styles handle the seams in `button-group.css`.",
+    "hook": "Hook",
+    "sameAsProps": "same as the props",
+    "pseudoClass": "CSS pseudo-class",
+    "slot": "Structure hooks",
+    "orientation": "Group direction: theme styles use it to pick which corners merge at the seams and which way the dividers run",
+    "variants": "Only present when the matching prop is passed; the same values reach the buttons in the group through context",
+    "states": "State hooks",
+    "position": "Buttons in a group carry no position attribute: merging the corners at the seams relies on structural pseudo-classes only, so the group's direct children must be buttons"
+  }
+}

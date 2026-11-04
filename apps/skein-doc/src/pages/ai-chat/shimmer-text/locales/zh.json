@@ -1,0 +1,30 @@
+{
+  "lead": "流光文字，给「思考中」「生成中」这类短标签用：文字是淡色的，上面叠一份同样的文字、只在字形里露出高光，从左扫到右循环。「减少动效」时高光不显示，文字就是实色。",
+  "basic": { "title": "基础", "text": "思考中…" },
+  "states": {
+    "title": "进行中与已结束",
+    "description": "`active` 关掉就是普通的淡色文字，比如思考结束了。",
+    "searching": "正在搜索网页…",
+    "finished": "思考了 4 秒"
+  },
+  "speed": {
+    "title": "速度",
+    "fast": "正在生成简短回答…",
+    "slow": "正在读一篇很长的文档…"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式参考",
+    "hook": "钩子",
+    "root": "根元素；`data-active` 表示正在流光；`--sh-duration`",
+    "label": "读屏读到的那一份文字",
+    "highlight": "叠在上面的同样文字（`aria-hidden`），只在字形里露出高光；减少动效时不显示"
+  },
+  "props": {
+    "ShimmerText": {
+      "active": "是否流光；关掉就是普通的淡色文字（比如思考结束了）。",
+      "children": "短的状态文字，比如「Thinking…」。",
+      "duration": "高光扫一遍的时间（秒）。"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "lead": "命令输出：深色的终端面板，头部是标题、状态（运行中 / 完成 / 失败 + 退出码）和复制按钮，下面是输出。认 ANSI 颜色和样式，运行中停在底部时自动跟着滚；复制的是去掉转义的纯文字。",
+  "usage": { "title": "用法" },
+  "streaming": {
+    "title": "流式输出",
+    "description": "输出一行行追加，`status=\"running\"`；结束时换成 `done`。",
+    "replay": "重播"
+  },
+  "failed": { "title": "失败" },
+  "api": {
+    "title": "API 参考",
+    "helpers": "辅助函数，也导出供自己用：",
+    "function": "函数",
+    "ansi": "把输出解析成行 → 片段（颜色、粗体…）/ 去掉所有转义序列的纯文字"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "terminal": "面板根（深色，亮暗模式下都一样）；`data-status`",
+    "header": "头部和标题",
+    "status": "状态（`data-status`：running / done / error）",
+    "copy": "复制按钮；`data-copied` 表示刚复制成功",
+    "output": "输出区（`pre`，`role=region`，可聚焦）；高度上限读 `--term-lines`",
+    "line": "一行，和命令行前的 `$`",
+    "text": "一个有样式的片段：`data-fg` / `data-bg`（0–15 色）、`data-bold`、`data-dim`、`data-italic`、`data-underline`、`data-inverse`"
+  },
+  "props": {
+    "Terminal": {
+      "command": "执行的命令，显示成输出上面的一行 `$ command`。",
+      "exitCode": "结束时的退出码，显示在状态后面。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "maxLines": "输出超过多少行就在里面滚动，默认 16。",
+      "output": "命令输出，可以带 ANSI 转义序列（颜色、粗体…）；流式输出一直往后追加即可。",
+      "status": "running：运行中，done：成功结束，error：失败；不传则不显示状态。",
+      "title": "头部标题，默认 \"Terminal\"。"
+    }
+  }
+}

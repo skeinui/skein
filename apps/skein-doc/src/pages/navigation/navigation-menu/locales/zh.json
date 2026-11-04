@@ -1,0 +1,51 @@
+{
+  "lead": "站点导航：顶层是链接或带下拉面板的触发器。下拉面板共用一个浮层，在不同项之间切换时位置和大小平滑过渡。浮层由根组件自动渲染。",
+  "usage": { "title": "用法" },
+  "links-only": { "title": "仅链接" },
+  "api": {
+    "title": "API 参考",
+    "description": "浮层（Portal + 定位 + 视口）由 `NavigationMenu` 自动渲染。`NavigationMenu.Trigger` 自带展开箭头；`NavigationMenu.Link` 放在 `Item` 里是顶层链接，放在 `Content` 里是面板里的链接。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `navigation-menu.css` 里处理；浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "hook": "钩子",
+    "navigation-menu": "外层、列表和列表项",
+    "navigation-menu-trigger": "触发器、展开箭头和链接",
+    "navigation-menu-positioner": "共用的浮层与内容，宽高取 `--popup-width` / `--popup-height` 做过渡"
+  },
+  "props": {
+    "NavigationMenu": {
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后结束导航菜单弹层的关闭阶段，需先在 `onValueChange` 里调用 `preventUnmountOnClose()`，否则弹层会自行完成关闭；是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时命令式地关闭导航菜单。",
+      "closeDelay": "关闭导航弹层前等待多久，单位毫秒。",
+      "defaultValue": "初始选中项的值（不受控）。要做受控的导航菜单，改用 `value`。",
+      "delay": "打开导航弹层前等待多久，单位毫秒。",
+      "onOpenChangeComplete": "导航菜单关闭、所有动画结束后调用。",
+      "onValueChange": "值变化时调用。",
+      "orientation": "导航菜单的方向。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "当前打开的导航菜单项的值（受控）。非空时菜单打开，为空时菜单关闭。要做不受控的导航菜单，改用 `defaultValue`。"
+    },
+    "NavigationMenu_List": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "NavigationMenu_Item": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "标识这一项的唯一值。不传时自动生成一个唯一 ID。以代码控制导航菜单时使用。"
+    },
+    "NavigationMenu_Trigger": {
+      "disabled": "组件是否忽略用户交互。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "NavigationMenu_Content": {
+      "keepMounted": "弹层关闭时是否把内容保留在 DOM 里，保证服务端渲染时内容存在，便于搜索引擎抓取。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "NavigationMenu_Link": {
+      "active": "该链接是否为当前页面。",
+      "closeOnClick": "点击链接时是否关闭导航菜单。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

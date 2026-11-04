@@ -1,0 +1,58 @@
+{
+  "lead": "侧边抽屉。焦点锁定、Esc 关闭、滑动关闭、背景滚动锁定来自 Base UI 的 Drawer；遮罩和关闭按钮复用 [Dialog](/dialog) 的 slot。",
+  "usage": { "title": "用法" },
+  "sides": { "title": "方向" },
+  "sizes": { "title": "尺寸" },
+  "scroll": { "title": "滚动内容" },
+  "controlled": {
+    "title": "受控",
+    "body": "状态由外部持有。"
+  },
+  "api": {
+    "title": "API 参考",
+    "parts": "`Drawer.Title` / `Description` / `Body` / `Footer` / `Close` 就是 [Dialog](/dialog) 的同名部件。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `drawer.css` 里处理；和其他浮层一样，`data-theme-style` 要设在 `<html>` 上。",
+    "hook": "钩子",
+    "dialog": "遮罩和关闭按钮，和 Dialog 共用",
+    "drawer": "固定定位层、抽屉本体（`data-side` / `data-size`）和内容层",
+    "states": "进出场和滑动中，位移取 `--drawer-swipe-movement-x` / `y`"
+  },
+  "props": {
+    "Drawer": {
+      "side": "从哪一侧滑出，同时决定滑动关闭的方向。",
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后，结束抽屉的关闭阶段；需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则抽屉会自行完成关闭，是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时以命令方式关闭抽屉。",
+      "children": "抽屉的内容。",
+      "defaultOpen": "抽屉初始是否打开。要受控请改用 `open`。",
+      "defaultSnapPoint": "非受控时的初始吸附点。",
+      "defaultTriggerId": "抽屉关联的触发元素 ID。和 `defaultOpen` 一起用，可以做一个初始就打开的抽屉。",
+      "disablePointerDismissal": "是否禁止点击外部关闭抽屉。非模态抽屉还会禁止焦点移出时关闭。",
+      "handle": "把抽屉和触发元素关联起来的 handle。指定后，分离的触发元素也能控制抽屉的打开状态。用 `Drawer.createHandle()` 创建。",
+      "modal": "打开时是否进入模态。`true`：只能和抽屉交互，焦点被锁定、页面滚动被锁定、外部元素不响应指针；`false`：可以和页面其余部分交互；`'trap-focus'`：焦点锁在抽屉内，但页面滚动不锁定，外部指针交互仍然可用。",
+      "onOpenChange": "抽屉打开或关闭时调用。",
+      "onOpenChangeComplete": "抽屉打开或关闭、动画全部结束后调用。",
+      "onSnapPointChange": "吸附点变化时调用。",
+      "open": "抽屉当前是否打开。",
+      "snapPoint": "当前的吸附点。配合 `onSnapPointChange` 受控。",
+      "snapPoints": "抽屉定位用的吸附点。0 到 1 之间的数表示视口高度的比例，大于 1 的数表示像素，也可以是 `px` / `rem` 单位的字符串（比如 `'148px'`、`'30rem'`）。",
+      "snapToSequentialPoints": "关闭基于速度的跳点，由拖动距离决定下一个吸附点。",
+      "triggerId": "抽屉关联的触发元素 ID。和 `open` 一起用，可以做受控抽屉；非受控（没传 `open`）时不需要。"
+    },
+    "Drawer_Trigger": {
+      "handle": "把触发元素和抽屉关联起来的 handle。用 `Drawer.createHandle()` 创建。",
+      "id": "触发元素的 ID。除了传给渲染的元素，受控模式下还用来指定当前的触发元素（配合 Drawer 的 `triggerId`）。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "payload": "打开抽屉时传给它的数据。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Drawer_Content": {
+      "closeButton": "右上角的关闭按钮。",
+      "size": "左右抽屉是宽度，上下抽屉是高度。",
+      "finalFocus": "抽屉关闭时把焦点移到哪个元素。`false`：不移动焦点；`true`：按默认行为移动（触发元素或之前聚焦的元素）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，返回 `true` 用默认行为，返回 `false` / `undefined` 则什么都不做。",
+      "initialFocus": "抽屉打开时把焦点移到哪个元素。`false`：不移动焦点；`true`：按默认行为移动（第一个可聚焦元素或弹层本身）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，返回 `true` 用默认行为，返回 `false` / `undefined` 则什么都不做。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

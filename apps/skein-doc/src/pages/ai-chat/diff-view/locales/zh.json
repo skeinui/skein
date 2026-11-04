@@ -1,0 +1,47 @@
+{
+  "lead": "代码改动对比：给两段文字（或一份 unified diff），逐行显示新增、删除和没改的，带新旧行号；头部是文件名和 +n −m 统计，离改动远的没改的行折叠成一条。增删除了底色还有 + / − 符号和读屏前缀，不只靠颜色。",
+  "usage": { "title": "用法" },
+  "patch": {
+    "title": "Unified patch",
+    "description": "直接传 `git diff` 的输出，文件头被忽略，行号取自 `@@`。"
+  },
+  "collapsed": {
+    "title": "折叠上下文",
+    "description": "两处改动之间、改动之外没改的行折叠起来，点折叠条展开。"
+  },
+  "api": { "title": "API 参考" },
+  "helpers": {
+    "title": "辅助函数",
+    "description": "DiffView 内部用的函数也导出了，可以自己渲染。",
+    "function": "函数",
+    "diffLines": "逐行比较两段文本（LCS）",
+    "parsePatch": "解析 unified diff，忽略文件头，按 `@@` 的起始行编号",
+    "collapse": "把离改动超过 `context` 行的没改的行折叠成一段"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根",
+    "header": "头部和文件名",
+    "stats": "增删统计；`diff-stat` 的 `data-type` 是 add / del",
+    "scroll": "可聚焦、可横向滚动的代码区",
+    "row": "一行；`data-type`：add / del / ctx / gap（折叠条所在行）",
+    "gutter": "旧 / 新行号两列",
+    "code": "代码和 + / − 符号（`aria-hidden`）",
+    "label": "只给读屏的「Added: / Removed: 」前缀，视觉上隐藏",
+    "gap": "折叠条和里面的展开按钮",
+    "token": "着色片段，取值同 CodeBlock（keyword / string / number…）"
+  },
+  "props": {
+    "DiffView": {
+      "codeTheme": "代码主题，同 `CodeBlock` 的 `theme`。",
+      "context": "每处改动前后各留几行，更远的没改的行折叠起来，默认 3；点折叠条展开。",
+      "fileName": "文件名，显示在头部；同时是代码区的名称。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "language": "语言，用来给每一行轻量着色（同 CodeBlock）；不传不着色。",
+      "newText": "改动后的文本。",
+      "oldText": "改动前的文本；和 `newText` 逐行比较。两段文本和 `patch` 二选一。",
+      "patch": "一份 unified diff（`git diff` / `diff -u` 的输出），代替 `oldText` / `newText` 显示；文件头被忽略，行号取自 `@@` 块头。"
+    }
+  }
+}

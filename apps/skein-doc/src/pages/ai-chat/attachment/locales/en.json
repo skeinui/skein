@@ -1,0 +1,32 @@
+{
+  "lead": "Attachments in a chat: images / videos are thumbnail tiles (name and size shown on hover), everything else is a horizontal file card with a colored icon showing the extension. Attachments waiting to be sent in the composer can get a remove button.",
+  "files": { "title": "Files" },
+  "media": {
+    "title": "Images and video",
+    "description": "An image / video with `src` is a thumbnail; its name and size overlay the bottom on hover or focus. Without `src` it falls back to a file card."
+  },
+  "removable": {
+    "title": "Removable",
+    "group": "Files to send",
+    "empty": "All removed."
+  },
+  "api": {
+    "title": "API Reference",
+    "group": "A row of attachments that wraps; a `div` with `role=group`.",
+    "helpers": "Helpers",
+    "function": "Function",
+    "kind": "Infers the file kind (pdf / archive / sheet / doc / code / audio / video / image / file) from the MIME type, then the extension",
+    "size": "Formats a size in bytes: 12 B / 3.4 KB / 1.2 MB"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root; `data-variant` (`media` thumbnail / `file` card), `data-kind` (the file kind, decides the icon color)",
+    "preview": "The preview: thumbnail or file icon",
+    "media": "The image / video inside a thumbnail",
+    "icon": "The file icon (shows the extension, colored by kind)",
+    "info": "Name and size; on a thumbnail they overlay the bottom on hover / focus",
+    "remove": "The remove button; on a thumbnail shown only on hover / focus, always on touch screens",
+    "group": "A row of attachments"
+  }
+}

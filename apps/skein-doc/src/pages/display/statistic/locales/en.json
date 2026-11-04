@@ -1,0 +1,44 @@
+{
+  "lead": "A statistic: a small title, a large value (with optional prefix and suffix) and an optional description. The value is grouped by thousands and rounded to the given precision, in tabular figures so it doesn't jitter when it changes; formatting doesn't rely on Intl, so server and browser output match.",
+  "usage": { "title": "Usage" },
+  "format": { "title": "Formatting" },
+  "affixes": { "title": "Prefix, suffix and description" },
+  "colors": { "title": "Colors and sizes" },
+  "loading": { "title": "Loading" },
+  "animated": {
+    "title": "Animated",
+    "description": "On first display the digits roll up from 0; click the button to change the value and each digit rolls on its own. Nothing moves when the system asks for reduced motion.",
+    "randomize": "Randomize"
+  },
+  "countdown": {
+    "title": "Countdown",
+    "description": "The value is a `<time>` inside `role=\"timer\"` (screen readers don't read it out every second), and it is recomputed as soon as a hidden page becomes visible again, so it never drifts.",
+    "saleEnds": "Sale ends in",
+    "finished": "Finished",
+    "launch": "Launch",
+    "launchFormat": "D [days] HH:mm:ss"
+  },
+  "cards": { "title": "In cards" },
+  "demo": {
+    "activeUsers": "Active users",
+    "revenue": "Revenue",
+    "orders": "Orders",
+    "uptime": "Uptime",
+    "users": "Users",
+    "weekly": "+12% vs last week",
+    "usersTrend": "+3.2% vs last month",
+    "ordersTrend": "−1.1% vs last month",
+    "string": "string",
+    "empty": "empty"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `statistic.css`.",
+    "hook": "Hook",
+    "root": "The whole statistic; `data-size` / `data-color` / `data-loading`",
+    "rows": "The title, the value row and the description",
+    "value": "The three parts of the value row",
+    "skeleton": "The placeholder bar while loading (a Skeleton inside)"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "lead": "A description list: label / value pairs laid out in columns, typically for the fields of a detail page. Every row is filled (an item that doesn't fit moves to the next row, and the last item in a row stretches over the columns left); in the horizontal layout each label and value has its own cell and the columns line up, like a table.",
+  "usage": {
+    "title": "Usage"
+  },
+  "bordered": {
+    "title": "Bordered"
+  },
+  "span": {
+    "title": "Column Span"
+  },
+  "vertical": {
+    "title": "Vertical"
+  },
+  "sizes": {
+    "title": "Sizes"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `descriptions.css`. The grid lines are the background showing through 1px gaps, so they stay right for cells spanning several columns.",
+    "hook": "Hook",
+    "root": "The root; `data-bordered` / `data-layout` / `data-size` / `data-column`, and `data-colon` when labels get a colon",
+    "header": "The title row, its title and the content on its right",
+    "list": "The `<dl>` and each item (`data-span` is the number of columns it spans)",
+    "cell": "The `<dt>` and `<dd>`"
+  }
+}

@@ -1,0 +1,102 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* OtpField: one box per digit, with the look kept consistent with this theme style's Input; the focused digit shows a ring. */
+  [data-theme-style="antd"] [data-slot="otp-field"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="otp-cell"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="otp-separator"] {
+    color: var(--ui-fg);
+    user-select: none;
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"] {
+    --_bg: var(--ui-field-bg);
+    box-sizing: border-box;
+    width: var(--ui-height-md);
+    height: var(--ui-height-md);
+    padding: 0;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-md);
+    background-color: var(--_bg);
+    color: var(--ui-field-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5714285714285714;
+    text-align: center;
+    outline: none;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      background-color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    border-color: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-size="sm"] {
+    width: var(--ui-height-sm);
+    height: var(--ui-height-sm);
+    font-size: 0.875rem;
+    border-radius: var(--ui-radius-sm);
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-size="lg"] {
+    width: var(--ui-height-lg);
+    height: var(--ui-height-lg);
+    font-size: 1rem;
+    border-radius: var(--ui-radius-lg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="otp-input"]:hover:not(:focus, [data-disabled], [data-invalid]) {
+    border-color: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="antd"]
+    [data-slot="otp-input"][data-variant="filled"]:hover:not(:focus, [data-disabled]) {
+    border-color: transparent;
+    background-color: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+  }
+  [data-theme-style="antd"]
+    [data-slot="otp-input"][data-invalid]:hover:not(:focus, [data-disabled]) {
+    border-color: color-mix(in srgb, var(--ui-c-danger) 54%, var(--ui-field-bg));
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-variant="filled"]:focus {
+    background-color: var(--ui-field-bg);
+    box-shadow: none;
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"]:focus {
+    border-color: var(--ui-c-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-primary) var(--ui-glow, 10%), transparent);
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-invalid] {
+    border-color: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-invalid]:focus {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 6%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="otp-input"][data-disabled] {
+    border-color: var(--ui-border);
+    background-color: var(--ui-field-filled-bg);
+    color: var(--ui-field-placeholder);
+    cursor: not-allowed;
+  }
+
+  /* Dark: filled hover is 12% white; the invalid-state ring is 11% (6% in light) */
+  [data-theme-style="antd"][data-mode="dark"]
+    [data-slot="otp-input"][data-variant="filled"]:hover:not(:focus, [data-disabled]),
+  [data-theme-style="antd"]
+    [data-mode="dark"]
+    [data-slot="otp-input"][data-variant="filled"]:hover:not(:focus, [data-disabled]) {
+    background-color: rgb(255 255 255 / 0.12);
+  }
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="otp-input"][data-invalid]:focus,
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="otp-input"][data-invalid]:focus {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 11%, transparent);
+  }
+}

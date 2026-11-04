@@ -1,0 +1,53 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Combobox: the input comes from input-group, the overlay from select; this file only handles the expand arrow button and "no results". */
+  [data-theme-style="heroui"] [data-slot="combobox-trigger"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: calc(1.5rem * var(--ui-density));
+    align-self: stretch;
+    padding: 0 calc(0.5rem * var(--ui-density)) 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--ui-field-placeholder);
+    cursor: pointer;
+    outline: none;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-trigger"]:active {
+    opacity: 0.7;
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-trigger"]:hover {
+    color: var(--ui-field-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-trigger"]:focus-visible {
+    border-radius: 0.25rem;
+    box-shadow:
+      0 0 0 2px var(--ui-bg),
+      0 0 0 4px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-trigger"] > svg {
+    width: 1rem;
+    height: 1rem;
+    transition: rotate 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-trigger"][data-popup-open] > svg {
+    rotate: 180deg;
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-empty"] {
+    padding: calc(0.5rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  [data-theme-style="heroui"] [data-slot="combobox-empty"]:empty {
+    display: none;
+  }
+}

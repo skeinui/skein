@@ -1,0 +1,26 @@
+{
+  "lead": "键盘按键提示，比如 ⌘ K。",
+  "usage": { "title": "用法" },
+  "group": {
+    "title": "按键组",
+    "description": "`Kbd.Group` 排列一组组合键，按键之间留间隔。"
+  },
+  "sizes": { "title": "尺寸" },
+  "inline": {
+    "title": "行内",
+    "description": "按键放在正文里。",
+    "before": "按",
+    "after": "搜索。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `kbd.css` 里处理，字体用 `--ui-font-mono`。",
+    "hook": "钩子",
+    "slot": "按键帽和按键组"
+  },
+  "props": {
+    "Kbd": { "size": "尺寸档位。" },
+    "Kbd_Group": { "size": "尺寸档位。" }
+  }
+}

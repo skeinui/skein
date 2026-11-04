@@ -1,0 +1,40 @@
+{
+  "lead": "A data-driven form: `fields` describes each field (name, type, label, validation rules), and Form takes care of the layout, the values, validation, error messages and the submit state. Form holds the values itself, whether or not a control takes part in native forms, so date, rating and segmented controls work the same way. For more freedom, use a `custom` field with `render`, or build the form yourself from [Field](/field).",
+  "result": "— submit to see the values —",
+  "usage": {
+    "title": "Usage",
+    "description": "Fields are validated when you leave them, and a field that had an error is re-validated on every change. The password confirmation gets the whole form's values in `validate`, and `dependencies` re-validates it when the password changes. Submitting is async: the button spins."
+  },
+  "layouts": { "title": "Layouts" },
+  "columns": { "title": "Columns" },
+  "types": { "title": "Field types" },
+  "conditional": {
+    "title": "Conditional and server errors",
+    "hint": "Try \"admin\": the \"server\" rejects it."
+  },
+  "instance": { "title": "Imperative API" },
+  "api": { "title": "Form API" },
+  "field": {
+    "title": "Field API",
+    "description": "Each entry of `fields` is a `FormField` object:",
+    "name": "Field name, also the key in the values object; dot paths such as `'address.city'` are supported",
+    "type": "Control type; `custom` plugs in your own control with `render`. `email` / `url` check the format automatically",
+    "label": "The label (for checkbox and switch, the control's own text), the description under the control, the placeholder",
+    "required": "Required; a string is used as the message",
+    "rules": "Built-in rules (length of a text or an array, size of a number, a regular expression)",
+    "validate": "Custom validation: return an error text to fail. The second argument is the whole form's values (a \"confirm password\" compares with \"password\"); it can be async",
+    "messages": "Overrides the messages for this field only",
+    "dependencies": "Names of the fields it depends on: when their values change, this field is re-validated (\"confirm password\" depends on \"password\"). Only fields already validated (left, submitted, or in error) are re-validated, so an untouched field doesn't show an error because of a change elsewhere",
+    "hidden": "Conditional display / disabling; a hidden field is not validated and not in the submitted values (its value is kept and comes back when shown again)",
+    "options": "Options of select / radio / checkbox-group / segmented",
+    "span": "Columns spanned in a multi-column form; the initial value; props passed straight to the control (`rows` of a textarea, `step` of a number, `allowHalf` of a rating…)",
+    "render": "Renders the control when `type` is `custom`: `control` has `value` / `onChange` / `onBlur` / `invalid` / `disabled`"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "In `form.css` theme styles only handle the layout; inside each field (label, control, description, error) the look still comes from `field.css` and each control's own styles.",
+    "form": "The `<form>`; `data-layout` / `data-columns`, `aria-busy` while submitting",
+    "fields": "The field area (a grid); one item per field (`data-span`, `data-field-name`) with a Field inside",
+    "actions": "The action area at the bottom (submit / reset)"
+  }
+}

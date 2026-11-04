@@ -1,0 +1,68 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  [data-theme-style="shadcn"] [data-slot="container"] {
+    box-sizing: border-box;
+    width: 100%;
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-center] {
+    margin-inline: auto;
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-size="sm"] {
+    max-width: 40rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-size="md"] {
+    max-width: 48rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-size="lg"] {
+    max-width: 64rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-size="xl"] {
+    max-width: 80rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-size="full"] {
+    max-width: none;
+  }
+  /* Layout: the page skeleton, with Header / Content / Footer stacked vertically. For an app shell with a sidebar use Sidebar. */
+  [data-theme-style="shadcn"] [data-slot="layout"] {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5714;
+  }
+  [data-theme-style="shadcn"] [data-slot="layout-header"] {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    box-sizing: border-box;
+    height: 3.5rem;
+    padding-inline: 1rem;
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+    border-bottom: 1px solid var(--ui-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="layout-content"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="layout-footer"] {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    padding: 1rem 1rem;
+    background-color: var(--ui-bg);
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    border-top: 1px solid var(--ui-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="container"][data-padded] {
+    padding-inline: 1rem;
+  }
+}

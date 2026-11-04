@@ -1,0 +1,53 @@
+{
+  "lead": "Renders the Markdown of AI replies. The parser is our own, with no dependencies: headings, paragraphs, fenced code (with Code Block), quotes, lists and task lists, tables, rules, and inline code / bold / italic / strikethrough / links / images. It caches by block, which suits streaming output; HTML is not recognized, and links and images only accept safe addresses.",
+  "usage": {
+    "title": "Usage",
+    "sample": "# Heading 1\n## Heading 2\n\nA paragraph with **bold**, *italic*, ~~strike~~, `inline code` and a [link](https://base-ui.com).\nBare links work too, no brackets needed: https://example.com\n\n> A quote with **emphasis**.\n\n```ts\nconst answer: number = 42; // the answer\n```\n\n---\n\n![placeholder](https://randomuser.me/api/portraits/women/44.jpg)"
+  },
+  "lists": {
+    "title": "Lists and tasks",
+    "sample": "- Unordered item\n- Another item\n  - Nested one\n  - Nested two\n- Last item\n\n3. Starts at three\n4. Then four\n\n- [x] Write the parser\n- [x] Add tests\n- [ ] Ship it"
+  },
+  "table": {
+    "title": "Tables",
+    "description": "Tables sit in a focusable scroll area; column alignment is written with colons.",
+    "sample": "| Package | Size | Status |\n| :------ | ---: | :----: |\n| @skeinui/ui | 120 KB | stable |\n| base-ui | 80 KB | peer |\n| react | 6 KB | peer |"
+  },
+  "streaming": {
+    "title": "Streaming",
+    "description": "The text keeps being appended: unchanged blocks are not redrawn, and an unclosed bold / code fence is shown as raw text until it closes, so it doesn't swallow what follows.",
+    "sample": "## Streaming demo\n\nThe answer is rendered **block by block**. Blocks that did not change are not re-rendered,\nand an unfinished construct such as **bold or a code fence stays plain text until it closes.\n\n```js\nfunction hello() {\n  console.log(\"streaming…\");\n}\n```\n\n- first point\n- second point\n\nDone.",
+    "replay": "Replay"
+  },
+  "citations": {
+    "title": "Citations",
+    "description": "With `citations`, `[1]`, `[2]` in the text become citation badges: clicking opens the source, and a source with a `description` shows a preview card on hover.",
+    "sample": "Base UI ships unstyled components[1] and a skin layer adds the look[2]. An unknown marker like [9] stays plain text.",
+    "baseUi": "Unstyled, accessible React components."
+  },
+  "math": {
+    "title": "Math",
+    "description": "Pass a render function to `math` (KaTeX here, loaded on demand). Math is not built into the library, and dollar signs in prices are not mistaken for formulas.",
+    "sample": "The energy is $E = mc^2$, and Euler's identity is \\(e^{i\\pi} + 1 = 0\\).\n\n$$\n\\int_{-\\infty}^{\\infty} e^{-x^2}\\,dx = \\sqrt{\\pi}\n$$\n\nPrices are not math: it costs $5 today and $10 tomorrow."
+  },
+  "safety": {
+    "title": "Safety",
+    "description": "HTML is plain text; links and images only accept http(s) / mailto / tel and relative addresses, anything like `javascript:` keeps just its text.",
+    "sample": "[javascript link](javascript:alert(1)) stays plain text,\n<script>alert(1)</script> is shown as text, not run,\nand ![bad image](javascript:alert(1)) is not rendered.\n[Safe link](https://example.com) works."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root element. Headings / paragraphs / lists / quotes / rules / tables inside it are styled with tag selectors",
+    "inlineCode": "Inline code",
+    "link": "Link",
+    "math": "Container of a formula (its content comes from the `math` function); `data-display`: inline / block, block formulas are centered and scroll horizontally when too wide",
+    "image": "Image",
+    "task": "The read-only box before a task item (`role=checkbox`); `data-checked`; its `li` has `data-task`",
+    "caret": "The cursor after the last text while streaming (`aria-hidden`); the root has `data-streaming`",
+    "tableWrap": "The table's scroll area (`role=region`, focusable); `th` / `td` have `data-align`"
+  }
+}

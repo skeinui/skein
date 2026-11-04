@@ -1,0 +1,36 @@
+{
+  "lead": "An agent's task plan: a list of things to do, each with a status (pending / in progress / done / failed / skipped), under a header with the title, a \"2 / 5\" count and a progress bar. It can be collapsed. More of a task list than the steps of Reasoning.",
+  "usage": {
+    "title": "Usage",
+    "planTitle": "Build the parser",
+    "read": "Read the existing form components",
+    "design": "Design the validation API",
+    "designDetail": "Schema in, errors out",
+    "parser": "Write the parser",
+    "parserDetail": "Handling tables and task lists",
+    "tests": "Add tests",
+    "docs": "Port the docs",
+    "docsDetail": "Out of scope for this change"
+  },
+  "running": {
+    "title": "Running",
+    "description": "The statuses move forward one by one; the progress bar and the \"2 / 4\" count follow. Progress counts done and skipped items.",
+    "planTitle": "Answering your question",
+    "search": "Search the docs",
+    "read": "Read three pages",
+    "draft": "Draft the answer",
+    "review": "Review the draft",
+    "replay": "Replay"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root (with a border)",
+    "trigger": "Header: title, \"2 / 5\", caret; `data-panel-open`",
+    "bar": "Progress bar (`role=progressbar`); the fill width reads `--plan-progress`",
+    "panel": "The collapsible panel and the task list (`ol`)",
+    "item": "An item (`data-status`; the active one has `aria-current=step`), its status icon, the spinner of the active item",
+    "body": "Text block, label, status text for screen readers only, detail"
+  }
+}

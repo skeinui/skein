@@ -1,0 +1,12 @@
+{
+  "title": "仪表盘",
+  "subtitle": "欢迎回来，这是系统概览",
+  "stats": { "users": "用户总数", "active": "启用", "disabled": "停用", "admins": "管理员" },
+  "recent": {
+    "title": "最近加入",
+    "description": "最新的 5 位用户",
+    "name": "姓名",
+    "email": "邮箱",
+    "createdAt": "创建时间"
+  }
+}

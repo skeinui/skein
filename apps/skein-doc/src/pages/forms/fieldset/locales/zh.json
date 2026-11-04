@@ -1,0 +1,24 @@
+{
+  "lead": "把相关的表单控件圈成一组：原生 fieldset 的语义和禁用传递，`legend` 是这一组的名字，屏幕阅读器会读出来。",
+  "usage": { "title": "用法" },
+  "radio": { "title": "配合单选组" },
+  "disabled": {
+    "title": "禁用",
+    "description": "fieldset 上的 `disabled` 会禁用其中所有控件。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `fieldset.css` 里处理，很薄：去掉原生边框，竖排，legend 作小标题。",
+    "hook": "钩子",
+    "slot": "外层（去掉原生框、竖着排）和小标题",
+    "disabled": "整组禁用时写在 fieldset 上"
+  },
+  "props": {
+    "Fieldset": {
+      "legend": "这一组的标题，渲染成 `<legend>`，屏幕阅读器会把它读作这组表单控件的名字。",
+      "disabled": "禁用整组，其中的控件一起禁用。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

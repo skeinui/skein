@@ -1,0 +1,93 @@
+{
+  "lead": "点击触发的操作菜单。键盘导航、类型搜索、嵌套焦点来自 Base UI 的 Menu。",
+  "usage": { "title": "用法" },
+  "groups": { "title": "分组" },
+  "danger": { "title": "危险项" },
+  "checkbox": { "title": "复选菜单项" },
+  "disabled": { "title": "禁用项" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `menu.css` 里处理，悬停 / 键盘高亮底色取 `--ui-c-neutral-soft`。",
+    "hook": "钩子",
+    "popup": "定位容器与弹层本体",
+    "item": "选项，键盘高亮用 `data-highlighted`",
+    "indicator": "勾选项的勾，`data-checked` 时显示",
+    "group": "分组与标题",
+    "separator": "分隔线"
+  },
+  "props": {
+    "Menu": {
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后，结束菜单的关闭阶段；需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则菜单会自行完成关闭，是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时以命令方式关闭菜单。",
+      "children": "菜单的内容。可以是普通的 React 节点，也可以是一个渲染函数，参数是当前触发元素的 `payload`。",
+      "closeParentOnEsc": "在子菜单里按 Esc 时，是关闭整个菜单，还是只关闭当前子菜单。",
+      "defaultOpen": "菜单初始是否打开。要受控请改用 `open`。",
+      "defaultTriggerId": "菜单关联的触发元素 ID。和 `defaultOpen` 一起用，可以做一个初始就打开的菜单。",
+      "disabled": "是否忽略用户交互。",
+      "handle": "把菜单和触发元素关联起来的 handle。指定后，外部的触发元素也能控制菜单的打开状态。",
+      "highlightItemOnHover": "指针移过菜单项时是否高亮它。关掉后可以把 CSS `:hover` 和 `:focus`（`data-highlighted`）状态区分开。",
+      "loopFocus": "用方向键走到列表末尾时，键盘焦点是否回到第一项。",
+      "modal": "打开时是否进入模态。`true`：只能和菜单交互，页面滚动被锁定、外部元素不响应指针；`false`：可以和页面其余部分交互。在触屏设备上，`true` 会挡住外部点按，但除非弹层几乎占满视口宽度，页面仍可滚动，与 iOS 原生行为一致。嵌套菜单忽略这个属性，悬停打开的菜单永远不是模态。",
+      "onItemHighlighted": "菜单项被高亮或取消高亮时调用。参数是被高亮的元素（没有则为 `undefined`）和详情：变化原因、事件和该项的文字标签。`reason` 可能是：`'keyboard'` 键盘导航引起；`'pointer'` 指针悬停引起（事件可能是 `MouseEvent` 而不是 `PointerEvent`）；`'none'` 其他原因，比如过滤时自动高亮、列表变化、弹层打开或关闭。",
+      "onOpenChange": "菜单打开或关闭时调用。",
+      "onOpenChangeComplete": "菜单打开或关闭、动画全部结束后调用。",
+      "open": "菜单当前是否打开。",
+      "orientation": "菜单的视觉方向，决定漫游焦点用上下键还是左右键。",
+      "triggerId": "菜单关联的触发元素 ID。和 `open` 一起用，可以做受控菜单；非受控（没传 `open`）时不需要。"
+    },
+    "Menu_Trigger": {
+      "children": "触发元素的内容。",
+      "closeDelay": "悬停打开的菜单在关闭前等待多久，单位毫秒。需要 `openOnHover`。",
+      "delay": "悬停多久后才打开菜单，单位毫秒。需要 `openOnHover`。",
+      "disabled": "是否忽略用户交互。",
+      "handle": "把触发元素和菜单关联起来的 handle。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "openOnHover": "悬停在触发元素上时是否也打开菜单。",
+      "payload": "打开菜单时传给它的数据。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menu_Content": {
+      "align": "菜单相对触发元素的对齐方式。",
+      "children": "菜单项。",
+      "side": "菜单在触发元素的哪一侧弹出。",
+      "sideOffset": "触发元素与菜单之间的间距，单位像素。",
+      "finalFocus": "菜单关闭时把焦点移到哪个元素。`false`：不移动焦点；`true`：按默认行为移动（触发元素或之前聚焦的元素）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，返回 `true` 用默认行为，返回 `false` / `undefined` 则什么都不做。",
+      "id": "弹层元素的 `id`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menu_Item": {
+      "color": "danger 用于删除之类的破坏性操作，具体颜色由主题风格决定。",
+      "closeOnClick": "点击该项后是否关闭菜单。",
+      "disabled": "是否忽略用户交互。",
+      "id": "菜单项元素的 `id`。",
+      "label": "覆盖键盘文字导航和过滤时用的文字，不传时取渲染出的文字。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的是原生按钮时设为 `true`。",
+      "onClick": "菜单项的点击处理函数。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menu_CheckboxItem": {
+      "children": "菜单项的内容。",
+      "checked": "当前是否勾选。要非受控请改用 `defaultChecked`。",
+      "closeOnClick": "点击该项后是否关闭菜单。",
+      "defaultChecked": "初始是否勾选。要受控请改用 `checked`。",
+      "disabled": "是否忽略用户交互。",
+      "id": "菜单项元素的 `id`。",
+      "label": "覆盖键盘文字导航和过滤时用的文字，不传时取渲染出的文字。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的是原生按钮时设为 `true`。",
+      "onCheckedChange": "勾选或取消勾选时调用。",
+      "onClick": "菜单项的点击处理函数。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menu_Group": {
+      "children": "组件的内容。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menu_GroupLabel": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menu_Separator": {
+      "orientation": "分隔线的方向。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

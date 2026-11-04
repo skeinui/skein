@@ -1,0 +1,28 @@
+{
+  "lead": "标签：比 [Badge](/badge) 大一点、可删除，用于已选项、筛选条件、关键词。",
+  "usage": { "title": "用法" },
+  "variants": { "title": "变体与颜色" },
+  "sizes": { "title": "尺寸", "sm": "小", "md": "中", "lg": "大" },
+  "removable": { "title": "可删除", "empty": "已全部删除。" },
+  "disabled": { "title": "禁用", "locked": "已锁定" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `tag.css` 里处理，颜色取 `--ui-c-*` 的 solid / soft / text / border。",
+    "hook": "钩子",
+    "root": "外框和文字（过长省略）",
+    "remove": "删除按钮"
+  },
+  "props": {
+    "Tag": {
+      "children": "内容。",
+      "color": "语义色，具体颜色由主题风格决定。",
+      "disabled": "禁用，删除按钮也不可点。",
+      "onRemove": "传了才显示删除按钮，点击时调用；是否真的移除由调用方决定。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "removeLabel": "删除按钮的无障碍名称；不传时是当前语言的「删除」文字。",
+      "size": "尺寸档位。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

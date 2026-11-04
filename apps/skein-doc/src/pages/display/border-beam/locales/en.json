@@ -1,0 +1,46 @@
+{
+  "lead": "A beam of light that keeps running around a container's border: a decorative highlight for sign-in panels, featured cards, AI modules and key calls to action. It is purely decorative (`aria-hidden`, lets the pointer through) and must not stand in for focus, validation or status borders; it is hidden entirely when the system asks for reduced motion.",
+  "basic": {
+    "title": "Basic",
+    "panelTitle": "Workspace overview",
+    "panelText": "Review task status, deployment health, and recent automation activity in one panel."
+  },
+  "hover": {
+    "title": "Show on hover",
+    "panelTitle": "Hover over the card",
+    "panelText": "The border beam appears when the pointer moves over this card."
+  },
+  "count": {
+    "title": "Multiple beams",
+    "panelTitle": "Multiple beams",
+    "panelText": "Set count to distribute multiple beams evenly around the container border."
+  },
+  "color": { "title": "Gradient colors", "palette": "Palette" },
+  "size": {
+    "title": "Size, width and speed",
+    "compactTitle": "Compact, fast",
+    "compactText": "Keeps the highlight shorter and faster for dense card groups.",
+    "extendedTitle": "Extended, slow, 2px",
+    "extendedText": "A longer, calmer highlight for wider feature panels."
+  },
+  "custom": {
+    "title": "Custom container and color",
+    "description": "BorderBeam is itself the container, so anything goes inside; set `radius` to match the content's corners. Switch colors to check that each beam follows its own border.",
+    "beamColor": "Beam color",
+    "customColor": "Custom beam color",
+    "primary": "Primary",
+    "custom": "Custom",
+    "upgrade": "Upgrade",
+    "assistant": "Try the assistant",
+    "panelTitle": "Two beams",
+    "panelText": "Same color, any container shape."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The container, with `data-radius` / `data-trigger`; the `--bb-*` variables hold the values the component writes",
+    "layer": "A mask over the container that only shows the border ring (`aria-hidden`, lets the pointer through)",
+    "beam": "A square gradient moving along the border path; `--bb-index` is its number"
+  }
+}

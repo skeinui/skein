@@ -1,0 +1,262 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Tree: each row is expand arrow + optional checkbox + icon + label, children indented one level. A selected row uses the light background of that color. */
+  [data-theme-style="shadcn"] [data-slot="tree"][data-color="neutral"] {
+    --_c: var(--ui-c-neutral);
+    --_soft: var(--ui-c-neutral-soft);
+    --_text: var(--ui-c-neutral-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-color="primary"] {
+    --_c: var(--ui-c-primary);
+    --_soft: var(--ui-c-primary-soft);
+    --_text: var(--ui-c-primary-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary);
+    --_soft: var(--ui-c-secondary-soft);
+    --_text: var(--ui-c-secondary-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-color="success"] {
+    --_c: var(--ui-c-success);
+    --_soft: var(--ui-c-success-soft);
+    --_text: var(--ui-c-success-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-color="warning"] {
+    --_c: var(--ui-c-warning);
+    --_soft: var(--ui-c-warning-soft);
+    --_text: var(--ui-c-warning-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-color="danger"] {
+    --_c: var(--ui-c-danger);
+    --_soft: var(--ui-c-danger-soft);
+    --_text: var(--ui-c-danger-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"] {
+    --_row: var(--ui-height-sm);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-size="sm"] {
+    --_row: 1.5rem;
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-size="lg"] {
+    --_row: var(--ui-height-md);
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-item"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-group"] {
+    margin: 0;
+    padding: 0;
+    padding-inline-start: 1.25rem;
+    list-style: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"] {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: var(--_row);
+    padding-inline: 0.375rem;
+    border-radius: var(--ui-radius-md);
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"]:hover {
+    background-color: var(--ui-accent);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"]:focus-visible {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-ring) 50%, transparent);
+  }
+  /* shadcn's selected row and hover share the same accent background, text keeps the body color, font weight 500 */
+  [data-theme-style="shadcn"] [data-slot="tree-item"][data-selected] > [data-slot="tree-row"] {
+    background-color: var(--ui-accent);
+    color: var(--ui-fg);
+    font-weight: 500;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-toggle"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--ui-fg-muted);
+    transition: transform 150ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-toggle"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="tree-item"][data-expanded]
+    > [data-slot="tree-row"]
+    > [data-slot="tree-toggle"] {
+    transform: rotate(90deg);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-checkbox"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-icon"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-icon"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-label"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-item"][data-disabled] > [data-slot="tree-row"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="tree-item"][data-disabled]
+    > [data-slot="tree-row"]:hover {
+    background-color: transparent;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-item"][data-leaf] > [data-slot="tree-row"] {
+    padding-inline-start: 0.375rem;
+  }
+
+  /* lines: connector lines. The vertical line is drawn at the left of the child list, and each child gets a short horizontal line to its own arrow */
+  [data-theme-style="shadcn"]
+    [data-slot="tree"][data-lines]
+    [data-slot="tree-group"]
+    > [data-slot="tree-item"] {
+    position: relative;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree"][data-lines] [data-slot="tree-group"] {
+    padding-inline-start: 1.5rem;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="tree"][data-lines]
+    [data-slot="tree-group"]
+    > [data-slot="tree-item"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-start: -0.75rem;
+    border-inline-start: 1px solid var(--ui-border);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="tree"][data-lines]
+    [data-slot="tree-group"]
+    > [data-slot="tree-item"]:last-child::before {
+    bottom: auto;
+    height: calc(var(--_row) / 2);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="tree"][data-lines]
+    [data-slot="tree-group"]
+    > [data-slot="tree-item"]::after {
+    content: "";
+    position: absolute;
+    top: calc(var(--_row) / 2);
+    inset-inline-start: -0.75rem;
+    width: 0.75rem;
+    border-top: 1px solid var(--ui-border);
+  }
+  /* block: the background fills the whole row (the row is already full width, this just declares it explicitly) */
+  [data-theme-style="shadcn"] [data-slot="tree"][data-block] [data-slot="tree-row"] {
+    width: 100%;
+  }
+
+  /* Async loading: a spinner replaces the arrow, and doesn't rotate with expansion */
+  [data-theme-style="shadcn"]
+    [data-slot="tree-item"][data-loading]
+    > [data-slot="tree-row"]
+    > [data-slot="tree-toggle"] {
+    transform: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-spinner"] {
+    animation: ui-shadcn-tree-spin 700ms linear infinite;
+  }
+  @keyframes ui-shadcn-tree-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="tree-row"],
+    [data-theme-style="shadcn"] [data-slot="tree-toggle"] {
+      transition: none;
+    }
+    [data-theme-style="shadcn"] [data-slot="tree-spinner"] {
+      animation-duration: 2s;
+    }
+  }
+
+  /* Search: highlight for matched text, and the hint when nothing matches */
+  [data-theme-style="shadcn"] [data-slot="tree-match"] {
+    padding-inline: 1px;
+    border-radius: 2px;
+    background-color: var(--ui-c-primary-soft);
+    color: var(--ui-c-primary-text);
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"][data-match] > [data-slot="tree-label"] {
+    font-weight: 500;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-empty"] {
+    padding: 0.5rem 0.75rem;
+    color: var(--ui-fg-muted);
+    list-style: none;
+  }
+
+  /* Drag and drop: the dragged node fades; the drop position is a line before / after, or a full-row outline inside */
+  [data-theme-style="shadcn"] [data-slot="tree-row"] {
+    position: relative;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"][draggable="true"] {
+    cursor: grab;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-item"][data-dragging] > [data-slot="tree-row"] {
+    opacity: 0.45;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"][data-drop="before"]::before,
+  [data-theme-style="shadcn"] [data-slot="tree-row"][data-drop="after"]::after {
+    position: absolute;
+    inset-inline: 0;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--ui-c-primary);
+    content: "";
+    pointer-events: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"][data-drop="before"]::before {
+    top: -1px;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"][data-drop="after"]::after {
+    bottom: -1px;
+  }
+  [data-theme-style="shadcn"] [data-slot="tree-row"][data-drop="inside"] {
+    background-color: var(--ui-c-primary-soft);
+    box-shadow: inset 0 0 0 1px var(--ui-c-primary);
+  }
+}

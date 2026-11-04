@@ -1,0 +1,12 @@
+{
+  "lead": "A box with a fixed aspect ratio: it fills the parent's width and its height follows from the ratio, and the image, video, map or placeholder inside fills it. The space is reserved before an image loads, so the page doesn't jump.",
+  "basic": { "title": "Basic" },
+  "ratios": { "title": "Ratios" },
+  "radius": { "title": "Radius" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "slot": "Fills the width; the height comes from `--ar-ratio` (a variable the component writes); `data-radius`"
+  }
+}

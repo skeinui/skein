@@ -1,0 +1,40 @@
+{
+  "lead": "固钉：元素滚出容器可视范围时钉在容器的边上不动，回到原位再放开。钉住时原位置留一个同样大小的占位，页面不会跳。不给 `target` 就是相对整个窗口。",
+  "demo": {
+    "area": "可滚动的演示区域",
+    "before": "前",
+    "after": "后",
+    "filler": "占位内容，用来让容器可以滚动。"
+  },
+  "usage": {
+    "title": "用法",
+    "affixed": "已钉住",
+    "scroll": "往下滚",
+    "hint": "（在上面的框里往下滚）"
+  },
+  "offset": { "title": "偏移" },
+  "bottom": {
+    "title": "钉在底部",
+    "description": "用 `offsetBottom` 时元素本来在可视范围下方：先钉在框底，滚到原位再放开。",
+    "affixed": "钉在底部",
+    "inPlace": "在原位",
+    "hint": "（它本来在下面，先钉在框底，滚到原位再放开）"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `affix.css` 里处理；它管的是定位，不是外观，各主题风格一样。",
+    "hook": "钩子",
+    "affix": "占位，钉住时被撑成和内容一样的高度（页面不会跳）；`data-affixed`。位置和尺寸写在它的 `--affix-top` / `left` / `w` / `h`（像素，不带单位）",
+    "content": "内容；钉住时带 `data-affixed` 并变成 `position: fixed`。想给钉住的状态加阴影或底色用这个属性"
+  },
+  "props": {
+    "Affix": {
+      "children": "内容。",
+      "offsetBottom": "距离容器底部多少像素时钉住（元素在容器下方，滚动之后才进入视野时用，比如底部操作栏）；给了就不再按顶部算。",
+      "offsetTop": "距离容器顶部多少像素时钉住。没给 `offsetBottom` 时默认 0。",
+      "onChange": "钉住 / 放开时的回调。",
+      "target": "监听滚动的容器：一个元素、一个 ref，或返回元素的函数。不给就是整个窗口。"
+    }
+  }
+}

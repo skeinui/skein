@@ -1,0 +1,2338 @@
+/*
+ * Page styles for the playground.
+ *
+ * The shell (top bar, sidebar, docs typography, home page) uses its own set of neutral colors --pg-*, which doesn't change with the theme style, so the site looks like
+ * stable component library docs; only the components in the preview canvas, the appearance panel and the command palette take the current theme style's --ui-* tokens.
+ * The components' own appearance is not here.
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --pg-font:
+    "Geist Variable", ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+    sans-serif;
+  --pg-mono: "Geist Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --pg-bg: #fafaf8;
+  --pg-panel: #ffffff;
+  --pg-ink: #15140f;
+  --pg-muted: #67665d;
+  --pg-faint: #9a998f;
+  --pg-line: #e8e7e0;
+  --pg-line-2: #d8d6cb;
+  --pg-accent: #3a55e8;
+  --pg-accent-2: #7c3aed;
+  --pg-code-bg: #f4f3ee;
+  color-scheme: light;
+}
+
+:root[data-mode="dark"] {
+  --pg-bg: #0d0d0b;
+  --pg-panel: #151513;
+  --pg-ink: #f2f1ea;
+  --pg-muted: #9b9a90;
+  --pg-faint: #66655d;
+  --pg-line: #22221e;
+  --pg-line-2: #34342d;
+  --pg-accent: #8398ff;
+  --pg-accent-2: #b794ff;
+  --pg-code-bg: #10100e;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--pg-bg);
+  color: var(--pg-ink);
+  font-family: var(--pg-font);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 150ms ease;
+}
+
+.pg-page {
+  min-height: 100vh;
+}
+
+.pg-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3rem;
+  border: 1px solid var(--pg-line-2);
+  border-bottom-width: 2px;
+  border-radius: 0.3rem;
+  background: var(--pg-panel);
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------------- Top bar */
+
+.pg-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--pg-line);
+  background: color-mix(in oklab, var(--pg-bg) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+
+.pg-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 90rem;
+  height: 3.5rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.pg-header svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+.pg-brand {
+  display: inline-flex;
+  flex: none;
+  white-space: nowrap;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--pg-ink);
+  text-decoration: none;
+}
+
+.pg-brand img {
+  display: block;
+}
+
+.pg-brand-name {
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.pg-brand-tag {
+  display: none;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 999px;
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  text-decoration: none;
+}
+
+.pg-brand-tag:hover {
+  color: var(--pg-ink);
+}
+
+.pg-search {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 26rem;
+  height: 2.25rem;
+  margin-left: 1rem;
+  padding: 0 0.5rem 0 0.75rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.625rem;
+  background: var(--pg-panel);
+  color: var(--pg-muted);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 150ms ease;
+}
+
+.pg-search:hover {
+  border-color: var(--pg-faint);
+}
+
+.pg-search span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-header-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 0.375rem;
+  margin-left: auto;
+}
+
+.pg-icon-btn,
+.pg-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--pg-ink);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.pg-icon-btn {
+  flex: none;
+  width: 2.25rem;
+  border-radius: 0.625rem;
+}
+
+.pg-icon-btn:hover {
+  border-color: var(--pg-line-2);
+  background: var(--pg-panel);
+}
+
+/* Language switch: shows the abbreviation of the current language, a bit wider than an icon button */
+.pg-lang-btn {
+  width: auto;
+  min-width: 2.25rem;
+  padding: 0 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.pg-pill {
+  gap: 0.5rem;
+  padding: 0 0.875rem;
+  border-color: var(--pg-line-2);
+  border-radius: 999px;
+  background: var(--pg-panel);
+  font-family: var(--pg-mono);
+  font-size: 0.75rem;
+}
+
+.pg-pill:hover {
+  border-color: var(--pg-faint);
+}
+
+.pg-pill-text i {
+  margin: 0 0.25rem;
+  color: var(--pg-faint);
+  font-style: normal;
+}
+
+.pg-menu-btn {
+  display: inline-flex;
+}
+
+@media (min-width: 64rem) {
+  .pg-menu-btn {
+    display: none;
+  }
+}
+
+@media (min-width: 48rem) {
+  .pg-brand-tag {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 40rem) {
+  .pg-search kbd {
+    display: none;
+  }
+  .pg-pill-text {
+    display: none;
+  }
+  .pg-pill {
+    padding: 0 0.625rem;
+  }
+  .pg-search {
+    margin-left: 0;
+  }
+}
+
+/* ------------------------------------------------------------- Three-column layout */
+
+.pg-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 90rem;
+  margin: 0 auto;
+}
+
+.pg-aside {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .pg-layout {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+  .pg-aside:not(.pg-aside--toc) {
+    display: block;
+    position: sticky;
+    top: 3.5rem;
+    align-self: start;
+    max-height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-right: 1px solid var(--pg-line);
+  }
+}
+
+@media (min-width: 80rem) {
+  .pg-layout {
+    grid-template-columns: 15rem minmax(0, 1fr) 14rem;
+  }
+  .pg-aside--toc {
+    display: block;
+    position: sticky;
+    top: 3.5rem;
+    align-self: start;
+    max-height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+  }
+}
+
+/* ------------------------------------------------------------- Sidebar */
+
+.pg-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 1.25rem 0.875rem 2rem;
+}
+
+.pg-sidebar-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+  margin-bottom: 0.75rem;
+  padding: 0 0.625rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.5rem;
+  background: var(--pg-panel);
+  color: var(--pg-faint);
+}
+
+.pg-sidebar-filter svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: none;
+}
+
+.pg-sidebar-filter input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pg-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  outline: none;
+}
+
+.pg-sidebar-filter:focus-within {
+  border-color: var(--pg-accent);
+}
+
+.pg-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.0625rem;
+  margin-top: 1.125rem;
+}
+
+.pg-nav-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.375rem;
+  padding: 0 0.625rem;
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pg-nav-index {
+  color: var(--pg-accent);
+}
+
+.pg-nav-count {
+  margin-left: auto;
+  letter-spacing: 0;
+}
+
+.pg-nav-link {
+  position: relative;
+  padding: 0.3125rem 0.625rem;
+  border-radius: 0.5rem;
+  color: var(--pg-muted);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  transition:
+    color 120ms ease,
+    background-color 120ms ease;
+}
+
+.pg-nav-link:hover {
+  background: color-mix(in oklab, var(--pg-ink) 5%, transparent);
+  color: var(--pg-ink);
+}
+
+.pg-nav-link[aria-current="page"] {
+  background: var(--pg-panel);
+  color: var(--pg-ink);
+  font-weight: 550;
+  box-shadow: inset 0 0 0 1px var(--pg-line);
+}
+
+.pg-nav-link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset: 0.375rem auto 0.375rem -0.875rem;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--pg-accent);
+}
+
+.pg-nav-empty {
+  margin: 1rem 0.625rem;
+  color: var(--pg-muted);
+  font-size: 0.8125rem;
+}
+
+/* Sidebar inside a drawer (theme style styles): uses the theme style's colors, not the shell colors */
+[data-slot="drawer"] .pg-sidebar {
+  padding: 0;
+}
+
+/* ------------------------------------------------------------ Right table of contents */
+
+.pg-toc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 2rem 1rem 2rem 0.5rem;
+}
+
+.pg-toc-title {
+  margin-bottom: 0.5rem;
+  color: var(--pg-ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.pg-toc-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.75rem;
+  border-left: 1px solid var(--pg-line);
+}
+
+.pg-toc-group-label {
+  padding: 0 0 0.375rem 0.75rem;
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pg-toc a {
+  margin-left: -1px;
+  padding: 0.25rem 0 0.25rem 0.75rem;
+  border-left: 1px solid transparent;
+  color: var(--pg-muted);
+  font-size: 0.8125rem;
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+.pg-toc a:hover {
+  color: var(--pg-ink);
+}
+
+.pg-toc a[aria-current="location"] {
+  border-left-color: var(--pg-accent);
+  color: var(--pg-ink);
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------ Docs typography */
+
+.pg-content {
+  min-width: 0;
+  padding: 2rem 1.25rem 4rem;
+  animation: pg-fade 260ms ease both;
+}
+
+@media (min-width: 64rem) {
+  .pg-content {
+    padding: 2.5rem 3rem 5rem;
+  }
+}
+
+@keyframes pg-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.pg-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pg-crumbs a {
+  color: var(--pg-muted);
+  text-decoration: none;
+}
+
+.pg-crumbs a:hover {
+  color: var(--pg-ink);
+}
+
+.pg-crumbs span {
+  color: var(--pg-faint);
+}
+
+.pg-crumbs span:last-child {
+  color: var(--pg-accent);
+}
+
+.pg-doc {
+  max-width: 54rem;
+}
+
+.pg-doc-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.pg-doc-lead {
+  max-width: 42rem;
+  margin: 0 0 2.5rem;
+  color: var(--pg-muted);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+.pg-doc-heading {
+  margin: 3.5rem 0 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--pg-line);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--pg-mono);
+  color: var(--pg-faint);
+  scroll-margin-top: 5rem;
+}
+
+.pg-example {
+  margin-bottom: 2.5rem;
+  scroll-margin-top: 5rem;
+}
+
+.pg-example > h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.pg-example > h4 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.pg-desc {
+  margin: 0 0 0.875rem;
+  color: var(--pg-muted);
+  line-height: 1.65;
+}
+
+/* Inline code: the background is a faint layer of the text color, visible in both light / dark modes */
+.pg-desc code,
+.pg-doc-lead code,
+.pg-hero-lead code,
+.pg-section-head code,
+.pg-inline-code {
+  padding: 0.15em 0.45em;
+  border-radius: 0.375rem;
+  background: color-mix(in oklab, var(--pg-ink) 7%, transparent);
+  font-family: var(--pg-mono);
+  font-size: 0.8125rem;
+  /* Long selectors and the like must be able to wrap when they don't fit, otherwise they stretch the whole page into a horizontal scrollbar */
+  overflow-wrap: anywhere;
+  box-decoration-break: clone;
+}
+
+.pg-desc a,
+.pg-doc-lead a {
+  color: var(--pg-accent);
+  text-decoration: none;
+}
+
+.pg-desc a:hover,
+.pg-doc-lead a:hover {
+  text-decoration: underline;
+}
+
+.pg-inline-code--name {
+  color: var(--pg-accent);
+  font-weight: 500;
+}
+
+/* The frame of one example: on top the preview canvas (takes the current theme style's background, with a dot grid), below it collapsible code */
+.pg-frame {
+  overflow: hidden;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.875rem;
+  background: var(--pg-panel);
+}
+
+.pg-preview {
+  padding: 2rem 1.5rem;
+  background-color: var(--ui-surface);
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--ui-fg) 9%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 16px 16px;
+  color: var(--ui-fg);
+  font-family: var(--ui-font-family);
+  overflow-x: auto;
+}
+
+.pg-code {
+  position: relative;
+  border-top: 1px solid var(--pg-line-2);
+  background: var(--pg-code-bg);
+}
+
+.pg-code summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.25rem;
+  padding: 0 0.875rem;
+  color: var(--pg-muted);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.pg-code summary::-webkit-details-marker {
+  display: none;
+}
+
+.pg-code summary::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 150ms ease;
+}
+
+.pg-code[open] summary::before {
+  transform: rotate(45deg);
+}
+
+.pg-code-label {
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pg-code summary:hover {
+  color: var(--pg-ink);
+}
+
+.pg-copy {
+  position: absolute;
+  top: 0.3125rem;
+  right: 0.625rem;
+  display: none;
+  align-items: center;
+  gap: 0.375rem;
+  height: 1.625rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.4rem;
+  background: var(--pg-panel);
+  color: var(--pg-muted);
+  font: inherit;
+  font-size: 0.6875rem;
+  cursor: pointer;
+}
+
+.pg-copy svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.pg-code[open] .pg-copy {
+  display: inline-flex;
+}
+
+.pg-copy:hover {
+  color: var(--pg-ink);
+}
+
+.pg-code .pg-pre {
+  margin: 0;
+  padding: 0.875rem 1rem 1.125rem;
+  border-top: 1px solid var(--pg-line);
+  overflow-x: auto;
+  font-family: var(--pg-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.pg-code .pg-pre code {
+  font-family: inherit;
+}
+
+/* A guide's code sample: no preview above it, so it is a framed block of its own, its copy button always there */
+.pg-code--solo {
+  margin: 0 0 1rem;
+  overflow: hidden;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.875rem;
+}
+
+.pg-code--solo .pg-copy {
+  display: inline-flex;
+  top: 0.5rem;
+}
+
+.pg-code--solo .pg-pre {
+  border-top: 0;
+  padding-right: 5.5rem;
+}
+
+.pg-guide-table {
+  margin: 0 0 1rem;
+}
+
+.pg-guide-table td code {
+  padding: 0.15em 0.45em;
+  border-radius: 0.375rem;
+  background: color-mix(in oklab, var(--pg-ink) 7%, transparent);
+  font-family: var(--pg-mono);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------- Props table */
+
+.pg-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.875rem;
+  background: var(--pg-panel);
+}
+
+.pg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.pg-table th,
+.pg-table td {
+  padding: 0.625rem 0.875rem;
+  border-bottom: 1px solid var(--pg-line);
+  text-align: start;
+  vertical-align: top;
+}
+
+.pg-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.pg-table th {
+  background: var(--pg-code-bg);
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pg-table td {
+  color: var(--pg-muted);
+  line-height: 1.55;
+}
+
+.pg-table .pg-inline-code {
+  white-space: normal;
+}
+
+.pg-table td:last-child {
+  min-width: 14rem;
+}
+
+/* Names wrap only between names ("data-variant / data-color", each one kept whole by .pg-nowrap);
+   defaults stay on one line. The type column takes the rest */
+.pg-table td:first-child .pg-inline-code {
+  white-space: normal;
+  overflow-wrap: normal;
+}
+
+.pg-table td:nth-child(3) .pg-inline-code {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.pg-nowrap {
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ Demo layout */
+
+.pg-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.pg-flex--center {
+  align-items: center;
+}
+
+.pg-flex--start {
+  align-items: flex-start;
+}
+
+.pg-flex--loose {
+  gap: 2rem;
+}
+
+.pg-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pg-stack--start {
+  align-items: flex-start;
+}
+
+.pg-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pg-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pg-row-label {
+  flex: none;
+  width: 6.5rem;
+  color: var(--ui-fg-muted);
+  font-size: 0.75rem;
+}
+
+/* The fullWidth demo needs a container with a width */
+.pg-fill {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+
+.pg-labeled {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.pg-labeled-label {
+  margin: 0;
+  color: var(--ui-fg-muted);
+  font-size: 0.8125rem;
+}
+
+.pg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+
+/* Description text in the preview canvas takes the theme style's colors */
+.pg-preview .pg-desc {
+  color: var(--ui-fg-muted);
+}
+
+@media (max-width: 40rem) {
+  .pg-row-label {
+    width: 100%;
+  }
+  .pg-preview {
+    padding: 1.25rem 1rem;
+  }
+}
+
+/* ------------------------------------------------------- Previous / next page */
+
+.pg-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 54rem;
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--pg-line);
+}
+
+.pg-pager-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.75rem;
+  color: var(--pg-ink);
+  text-decoration: none;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.pg-pager-link:hover {
+  border-color: var(--pg-ink);
+  background: var(--pg-panel);
+}
+
+.pg-pager-next {
+  grid-column: 2;
+  text-align: end;
+}
+
+.pg-pager-dir {
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pg-pager-name {
+  font-size: 1rem;
+  font-weight: 550;
+}
+
+.pg-pager-link:hover .pg-pager-name {
+  color: var(--pg-accent);
+}
+
+/* ------------------------------------------------- Command palette (takes theme style styles) */
+
+[data-pg-sr] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+[data-slot="dialog"][data-palette] {
+  max-width: 36rem;
+  margin: 12vh auto auto;
+  padding: 0;
+  overflow: hidden;
+}
+
+.pg-palette-input {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--ui-border);
+  color: var(--ui-fg-muted);
+}
+
+.pg-palette-input svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+}
+
+.pg-palette-input input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ui-fg);
+  font: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.pg-palette-list {
+  max-height: 20rem;
+  padding: 0.375rem;
+  overflow-y: auto;
+}
+
+.pg-palette-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: var(--ui-radius-sm);
+  background: transparent;
+  color: var(--ui-fg);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.pg-palette-item[data-active="true"] {
+  background: var(--ui-c-neutral-soft);
+}
+
+.pg-palette-group {
+  color: var(--ui-fg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pg-palette-empty {
+  margin: 0;
+  padding: 1.5rem;
+  color: var(--ui-fg-muted);
+  text-align: center;
+}
+
+.pg-palette-foot {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0.875rem;
+  border-top: 1px solid var(--ui-border);
+  color: var(--ui-fg-muted);
+  font-size: 0.75rem;
+}
+
+.pg-palette-foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* ------------------------------------------------ Appearance panel (takes theme style styles) */
+
+.pg-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  padding-top: 0.5rem;
+}
+
+.pg-panel-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+  color: var(--ui-fg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pg-panel-section h4::after {
+  flex: 1;
+  height: 1px;
+  background: var(--ui-border);
+  content: "";
+}
+
+.pg-panel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+  background: color-mix(in oklab, var(--ui-fg) 2.5%, transparent);
+}
+
+/* Theme style: one compact row each, the UI library's icon, the name and the selected mark (the one-line description
+   is the row's title) */
+.pg-skin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.pg-skin-option {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+  background: transparent;
+  color: var(--ui-fg);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.pg-skin-option:hover {
+  border-color: var(--ui-fg-muted);
+}
+
+.pg-skin-option:focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 2px;
+}
+
+.pg-skin-option[aria-checked="true"] {
+  border-color: var(--ui-c-primary);
+  background: color-mix(in oklab, var(--ui-c-primary) 7%, transparent);
+  box-shadow: 0 0 0 1px var(--ui-c-primary);
+}
+
+.pg-skin-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid color-mix(in oklab, var(--ui-fg) 12%, transparent);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+}
+
+.pg-skin-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.pg-skin-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* This theme style's own three colors: primary, text, outline, taken directly from its tokens */
+.pg-skin-swatch {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 0.1875rem;
+}
+
+.pg-skin-swatch i {
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 1px solid color-mix(in oklab, var(--ui-fg) 15%, transparent);
+  border-radius: 50%;
+  background: var(--ui-c-primary);
+}
+
+.pg-skin-swatch i:nth-child(2) {
+  background: var(--ui-fg);
+}
+
+.pg-skin-swatch i:nth-child(3) {
+  background: var(--ui-bg);
+}
+
+.pg-skin-check {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--ui-border);
+  border-radius: 50%;
+  color: transparent;
+}
+
+.pg-skin-check svg {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.pg-skin-option[aria-checked="true"] .pg-skin-check {
+  border-color: var(--ui-c-primary);
+  background: var(--ui-c-primary);
+  color: var(--ui-c-primary-fg, #fff);
+}
+
+/* Color theme: small three-column squares, color dot on top, name below */
+.pg-theme-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.pg-theme-option {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-lg);
+  background: transparent;
+  color: var(--ui-fg);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.pg-theme-option:hover {
+  border-color: var(--ui-fg-muted);
+}
+
+.pg-theme-option:focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 2px;
+}
+
+.pg-theme-option[aria-checked="true"] {
+  border-color: var(--ui-fg);
+  background: color-mix(in oklab, var(--ui-fg) 5%, transparent);
+}
+
+.pg-theme-dot {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid color-mix(in oklab, var(--ui-fg) 12%, transparent);
+  border-radius: 50%;
+}
+
+.pg-theme-name {
+  color: var(--ui-fg-muted);
+}
+
+/* A code theme's swatch: its background and its keyword colour (the span carries data-code-theme) */
+.pg-code-dot {
+  background: linear-gradient(135deg, var(--pg-code-bg) 50%, var(--pg-tok-keyword) 50%);
+}
+
+.pg-code-dot[data-code-theme] {
+  background: linear-gradient(135deg, var(--ui-bg) 50%, var(--code-keyword) 50%);
+}
+
+.pg-theme-option[aria-checked="true"] .pg-theme-name {
+  color: var(--ui-fg);
+  font-weight: 550;
+}
+
+/* ------------------------------------------------------------- Home page */
+
+.pg-home-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.pg-home-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 36rem;
+  background-image:
+    linear-gradient(var(--pg-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pg-line) 1px, transparent 1px);
+  background-size: 3rem 3rem;
+  mask-image: radial-gradient(ellipse 70% 100% at 30% 0%, #000 0%, transparent 72%);
+  pointer-events: none;
+}
+
+.pg-home-wrap::after {
+  content: "";
+  position: absolute;
+  top: -12rem;
+  right: -8rem;
+  width: 36rem;
+  height: 30rem;
+  background: radial-gradient(
+    closest-side,
+    color-mix(in oklab, var(--pg-accent) 22%, transparent),
+    transparent
+  );
+  pointer-events: none;
+}
+
+.pg-home {
+  position: relative;
+  z-index: 1;
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+}
+
+.pg-hero {
+  display: grid;
+  gap: 3rem;
+  padding: 5rem 0 4rem;
+}
+
+@media (min-width: 60rem) {
+  .pg-hero {
+    grid-template-columns: minmax(0, 1fr) 21rem;
+    align-items: end;
+    padding: 6.5rem 0 5rem;
+  }
+}
+
+.pg-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pg-eyebrow i {
+  color: var(--pg-accent);
+  font-style: normal;
+}
+
+.pg-eyebrow--plain {
+  margin-bottom: 0.75rem;
+  color: var(--pg-accent);
+}
+
+.pg-hero h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 6.2vw, 4.75rem);
+  font-weight: 650;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.pg-hero h1 em {
+  font-style: normal;
+  background: linear-gradient(95deg, var(--pg-accent), var(--pg-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pg-hero-lead {
+  max-width: 36rem;
+  margin: 1.75rem 0 0;
+  color: var(--pg-muted);
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
+.pg-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
+}
+
+.pg-hero-copy > * {
+  animation: pg-rise 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.pg-hero-copy > :nth-child(2) {
+  animation-delay: 80ms;
+}
+.pg-hero-copy > :nth-child(3) {
+  animation-delay: 160ms;
+}
+.pg-hero-copy > :nth-child(4) {
+  animation-delay: 240ms;
+}
+
+/* The numbers, beside the hero, as plain type: the component count on a line of its own, the other three in a row
+   under it, each as wide as its content */
+.pg-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem 2.5rem;
+  margin: 0;
+  animation: pg-rise 700ms 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.pg-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* The figure first on screen, its label (the dt) under it */
+.pg-stats dd {
+  order: -1;
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.pg-stats dt,
+.pg-stats-note {
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The component count: a bigger figure in the hero's gradient, the Base UI / Original split after its label */
+.pg-stats > div:first-child {
+  flex-basis: 100%;
+  flex-flow: row wrap;
+  align-items: baseline;
+  column-gap: 0;
+}
+
+.pg-stats > div:first-child dd {
+  flex-basis: 100%;
+  font-size: 3.25rem;
+  letter-spacing: -0.05em;
+  background: linear-gradient(95deg, var(--pg-accent), var(--pg-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.pg-stats-note {
+  margin: 0;
+}
+
+.pg-stats-note span::before {
+  content: "·";
+  margin: 0 0.625rem;
+}
+
+@keyframes pg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.pg-home-section {
+  padding: 3rem 0 1rem;
+}
+
+.pg-section-head {
+  max-width: 40rem;
+  margin-bottom: 1.75rem;
+}
+
+.pg-section-head h2 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.pg-section-head p:not(.pg-eyebrow) {
+  margin: 0.75rem 0 0;
+  color: var(--pg-muted);
+  line-height: 1.65;
+}
+
+/* Skin lab: each card carries its own data-theme-style / data-mode, and the tokens inside take that theme style's */
+.pg-skinlab {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+  gap: 1rem;
+}
+
+.pg-skincard {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 1rem;
+  background: var(--pg-panel);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.pg-skincard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px -12px rgb(0 0 0 / 0.25);
+}
+
+.pg-skincard[data-active="true"] {
+  outline: 2px solid var(--pg-accent);
+  outline-offset: 3px;
+}
+
+.pg-skincard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--pg-line);
+}
+
+.pg-skincard-head > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pg-skincard-head strong {
+  color: var(--pg-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.pg-skincard-head span {
+  overflow: hidden;
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pg-skincard-use {
+  flex: none;
+  padding: 0.15rem 0.625rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pg-ink);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.pg-skincard-use:hover {
+  border-color: var(--pg-faint);
+}
+
+.pg-skincard[data-active="true"] .pg-skincard-use {
+  border-color: var(--pg-accent);
+  color: var(--pg-accent);
+}
+
+/* The card's themed part fills the card, also when its neighbours in the row are taller */
+.pg-skincard-island {
+  flex: 1;
+}
+
+/* The element carrying the shadow root, inside it */
+.pg-skincard-island > [data-island] {
+  height: 100%;
+}
+
+/* Inside the card's shadow root (ThemeIsland): the theme style's page colours and font, as the frame's body had */
+.pg-skincard-theme {
+  height: 100%;
+  background: var(--ui-bg);
+  color: var(--ui-fg);
+  font-family: var(--ui-font-family);
+}
+
+.pg-skincard-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 1rem;
+}
+
+.pg-skincard-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pg-principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 2rem;
+}
+
+.pg-principles article {
+  padding-top: 1rem;
+  border-top: 2px solid var(--pg-ink);
+}
+
+.pg-principles span {
+  color: var(--pg-accent);
+  font-family: var(--pg-mono);
+  font-size: 0.75rem;
+}
+
+.pg-principles h3 {
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.pg-principles p {
+  margin: 0;
+  color: var(--pg-muted);
+  line-height: 1.65;
+}
+
+.pg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.pg-chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pg-muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.pg-chips button:hover {
+  color: var(--pg-ink);
+}
+
+.pg-chips button span {
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+}
+
+.pg-chips button[aria-selected="true"] {
+  border-color: var(--pg-ink);
+  background: var(--pg-ink);
+  color: var(--pg-bg);
+}
+
+.pg-chips button[aria-selected="true"] span {
+  color: inherit;
+  opacity: 0.6;
+}
+
+.pg-index {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.875rem;
+  background: var(--pg-line-2);
+}
+
+.pg-index-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.875rem 1rem 1rem;
+  background: var(--pg-bg);
+  color: var(--pg-ink);
+  text-decoration: none;
+  transition: background-color 150ms ease;
+}
+
+.pg-index-card:hover {
+  background: var(--pg-panel);
+}
+
+.pg-index-num {
+  color: var(--pg-faint);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+}
+
+.pg-index-name {
+  font-size: 1rem;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+
+.pg-index-card:hover .pg-index-name {
+  color: var(--pg-accent);
+}
+
+.pg-index-group {
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pg-home-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 4rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--pg-line);
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.75rem;
+}
+
+.pg-home-foot a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pg-home-foot a:hover {
+  color: var(--pg-ink);
+}
+
+.pg-home-foot b {
+  color: var(--pg-ink);
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-content,
+  .pg-hero-copy > *,
+  .pg-stats {
+    animation: none;
+  }
+  .pg-skincard {
+    transition: none;
+  }
+}
+
+/* Code highlighting: colors are defined per light / dark mode, token types are given as classes by prism-react-renderer */
+:root {
+  --pg-tok-plain: #24292f;
+  --pg-tok-comment: #6e7781;
+  --pg-tok-keyword: #cf222e;
+  --pg-tok-string: #0a3069;
+  --pg-tok-number: #0550ae;
+  --pg-tok-function: #8250df;
+  --pg-tok-tag: #116329;
+  --pg-tok-attr: #0550ae;
+  --pg-tok-class: #953800;
+  --pg-tok-punct: #57606a;
+}
+
+:root[data-mode="dark"] {
+  --pg-tok-plain: #e6edf3;
+  --pg-tok-comment: #8b949e;
+  --pg-tok-keyword: #ff7b72;
+  --pg-tok-string: #a5d6ff;
+  --pg-tok-number: #79c0ff;
+  --pg-tok-function: #d2a8ff;
+  --pg-tok-tag: #7ee787;
+  --pg-tok-attr: #79c0ff;
+  --pg-tok-class: #ffa657;
+  --pg-tok-punct: #8b949e;
+}
+
+.pg-pre {
+  color: var(--pg-tok-plain);
+}
+
+/* A code theme of @skeinui/themes (Customize → Code theme), on a code block carrying data-code-theme: the theme
+   defines --ui-* / --code-* there, and the site colours the block uses are mapped onto them */
+.pg-code[data-code-theme] {
+  --pg-code-bg: var(--ui-bg);
+  --pg-panel: var(--ui-bg);
+  --pg-ink: var(--ui-fg);
+  --pg-muted: var(--ui-fg-muted);
+  --pg-faint: var(--ui-fg-muted);
+  --pg-line: var(--ui-border);
+  --pg-line-2: var(--ui-border);
+  --pg-tok-plain: var(--ui-fg);
+  --pg-tok-comment: var(--code-comment);
+  --pg-tok-keyword: var(--code-keyword);
+  --pg-tok-string: var(--code-string);
+  --pg-tok-number: var(--code-number);
+  --pg-tok-function: var(--code-property);
+  --pg-tok-tag: var(--code-variable);
+  --pg-tok-attr: var(--code-property);
+  --pg-tok-class: var(--code-variable);
+  --pg-tok-punct: var(--ui-fg-muted);
+}
+
+.pg-code--solo[data-code-theme] {
+  border-color: var(--ui-border);
+}
+
+/* Shell commands look like a terminal, apart from the code: with the site's colours always dark (in dark mode a
+   step lighter than the code), with a code theme its background a step towards its text colour */
+.pg-code--shell:not([data-code-theme]) {
+  --pg-code-bg: #34332e;
+  --pg-panel: #34332e;
+  --pg-ink: #f2f1ea;
+  --pg-muted: #a3a298;
+  --pg-faint: #7d7c73;
+  --pg-line: #45443e;
+  --pg-line-2: #4f4e47;
+  --pg-tok-plain: #e6edf3;
+  --pg-tok-comment: #8b949e;
+  --pg-tok-keyword: #ff7b72;
+  --pg-tok-string: #a5d6ff;
+  --pg-tok-number: #79c0ff;
+  --pg-tok-function: #d2a8ff;
+  --pg-tok-attr: #79c0ff;
+  --pg-tok-punct: #8b949e;
+  border-color: #45443e;
+  color-scheme: dark;
+}
+
+.pg-code--shell[data-code-theme] {
+  --pg-code-bg: color-mix(in oklab, var(--ui-bg) 90%, var(--ui-fg));
+  --pg-panel: color-mix(in oklab, var(--ui-bg) 90%, var(--ui-fg));
+}
+
+/* The prompt: shown, not selected or copied (the copy button copies the commands as written) */
+.pg-code--shell .token-line[data-prompt]::before {
+  content: "$ ";
+  color: var(--pg-tok-punct);
+  user-select: none;
+}
+
+.pg-pre .token.comment,
+.pg-pre .token.prolog,
+.pg-pre .token.doctype {
+  color: var(--pg-tok-comment);
+  font-style: italic;
+}
+
+.pg-pre .token.keyword,
+.pg-pre .token.operator,
+.pg-pre .token.boolean,
+.pg-pre .token.atrule {
+  color: var(--pg-tok-keyword);
+}
+
+.pg-pre .token.string,
+.pg-pre .token.template-string,
+.pg-pre .token.attr-value {
+  color: var(--pg-tok-string);
+}
+
+.pg-pre .token.number,
+.pg-pre .token.attr-name,
+.pg-pre .token.constant,
+.pg-pre .token.property {
+  color: var(--pg-tok-attr);
+}
+
+.pg-pre .token.function,
+.pg-pre .token.builtin {
+  color: var(--pg-tok-function);
+}
+
+.pg-pre .token.tag,
+.pg-pre .token.selector {
+  color: var(--pg-tok-tag);
+}
+
+.pg-pre .token.class-name,
+.pg-pre .token.maybe-class-name {
+  color: var(--pg-tok-class);
+}
+
+.pg-pre .token.punctuation {
+  color: var(--pg-tok-punct);
+}
+
+/* The attr-name class also carries tag, so it must come after tag to override it */
+.pg-pre .token.tag.attr-name {
+  color: var(--pg-tok-attr);
+}
+
+.pg-pre .token.tag.class-name {
+  color: var(--pg-tok-class);
+}
+
+/* Component source marker: Base UI (behavior comes from Base UI) / Original (written or composed by ourselves) */
+.pg-origin {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.0625rem 0.375rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 999px;
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  line-height: 1rem;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.pg-origin[data-origin="original"] {
+  border-color: color-mix(in oklab, var(--pg-accent) 45%, transparent);
+  background: color-mix(in oklab, var(--pg-accent) 10%, transparent);
+  color: var(--pg-accent);
+}
+
+.pg-crumbs .pg-origin {
+  margin-inline-start: 0.25rem;
+}
+
+.pg-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pg-nav-dot {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: 999px;
+  background: var(--pg-accent);
+  opacity: 0.8;
+}
+
+/* Small avatar dot in the Mentions example */
+.pg-avatar-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ui-c-primary, #06f) 18%, transparent);
+  color: var(--ui-c-primary-text, inherit);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+/* Anchor example: a scrollable area next to the table of contents */
+.pg-row--top {
+  align-items: flex-start;
+}
+
+.pg-scrollbox {
+  flex: none;
+  box-sizing: border-box;
+  width: 28rem;
+  max-width: 100%;
+  height: 15rem;
+  overflow-y: auto;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.75rem;
+  background: var(--pg-panel);
+}
+
+.pg-scrollbox-section {
+  box-sizing: border-box;
+  min-height: 9rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px dashed var(--pg-line-2);
+}
+
+.pg-scrollbox-section h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.pg-scrollbox-section p {
+  margin: 0;
+  color: var(--pg-muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Content panel of the Watermark example */
+.pg-wm-panel {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 11rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.75rem;
+  background: var(--pg-panel);
+}
+
+.pg-wm-panel h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.pg-wm-panel p {
+  margin: 0 0 0.5rem;
+  color: var(--pg-muted);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Layout of the Result / Statistic examples */
+.pg-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.pg-plain-list {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.pg-emoji-icon {
+  font-size: 4rem;
+  line-height: 1;
+}
+
+/* Splitter example: a box with a fixed height, with a description block in each panel */
+.pg-split-frame {
+  box-sizing: border-box;
+  width: 100%;
+  height: 11rem;
+  overflow: hidden;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.75rem;
+  background: var(--pg-panel);
+}
+
+.pg-split-frame--tall {
+  height: 16rem;
+}
+
+.pg-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  height: 100%;
+  padding: 0.5rem;
+  color: var(--pg-muted);
+  font-size: 0.8125rem;
+  text-align: center;
+}
+
+.pg-pane strong {
+  color: var(--pg-ink);
+  font-size: 0.9375rem;
+}
+
+/* Form example */
+.pg-form-box {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 26rem;
+  padding: 1.25rem;
+  border: 1px solid var(--pg-line-2);
+  border-radius: 0.75rem;
+  background: var(--pg-panel);
+}
+
+.pg-form-box--wide {
+  max-width: 40rem;
+}
+
+.pg-values {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 26rem;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  background: color-mix(in oklab, var(--pg-ink) 5%, transparent);
+  color: var(--pg-muted);
+  font-family: var(--pg-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+/* Layout / Typography examples */
+.pg-box {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.625rem;
+  border: 1px dashed color-mix(in oklab, var(--pg-ink) 25%, transparent);
+  border-radius: 0.375rem;
+  background: color-mix(in oklab, var(--pg-ink) 5%, transparent);
+  color: var(--pg-muted);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.pg-box[data-tall] {
+  min-height: 3.5rem;
+}
+
+.pg-narrow {
+  width: 18rem;
+  max-width: 100%;
+}
+
+/* No transitions for the frame where the theme style / mode / color theme switches (see App.tsx), to avoid page-wide fading and scrollbar flicker */
+:root[data-switching] *,
+:root[data-switching] *::before,
+:root[data-switching] *::after {
+  transition: none !important;
+}
+
+/* Layout page: give Layout a definite height, with a content placeholder and sidebar navigation inside */
+.pg-shell {
+  display: flex;
+  flex-direction: column;
+  height: 20rem;
+  overflow: hidden;
+  border: 1px solid var(--pg-line);
+  border-radius: 8px;
+}
+.pg-shell[data-short] {
+  height: 15rem;
+}
+.pg-shell-body {
+  padding: 1.5rem;
+}
+
+/* Side Menu page: give the menu a fixed-width box that narrows when collapsed */
+.pg-menu-frame {
+  width: 16rem;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--pg-line);
+  border-radius: 8px;
+  transition: width 300ms cubic-bezier(0.2, 0, 0, 1);
+}
+.pg-menu-frame[data-narrow] {
+  width: 5rem;
+  overflow: visible;
+}
+
+/* Float Button page: the stage has a transform, so position: fixed buttons inside are relative to the stage and won't end up at the corners of the whole window */
+.pg-fb-stage {
+  position: relative;
+  height: 15rem;
+  overflow: hidden;
+  border: 1px dashed var(--pg-line-2);
+  border-radius: 8px;
+  padding: 1rem;
+  transform: translateZ(0);
+}
+.pg-fb-scroll {
+  height: 100%;
+  margin: -1rem;
+  padding: 1rem;
+  overflow: auto;
+}
+
+/* Command page: the inline command palette sits in a fixed-width box */
+.pg-cmd-frame {
+  width: min(32rem, 100%);
+}
+
+/* ------------------------------------------------------- Floating settings button (full-page demo, development only) */
+
+.pg-fab {
+  position: fixed;
+  inset-block-end: 1.25rem;
+  inset-inline-end: 1.25rem;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ui-c-primary);
+  color: var(--ui-c-primary-fg);
+  font-size: 1.375rem;
+  cursor: pointer;
+  box-shadow:
+    0 8px 24px -6px color-mix(in srgb, var(--ui-c-primary) 55%, transparent),
+    0 2px 6px rgb(0 0 0 / 0.18);
+  transition:
+    transform 200ms cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 200ms ease,
+    background-color 150ms ease;
+  animation: pg-fab-in 420ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Entrance: pops out from small, then a ring of primary-colored glow spreads out (once only) */
+.pg-fab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 var(--ui-c-primary);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: pg-fab-ping 900ms ease-out 450ms 2 both;
+}
+
+.pg-fab svg {
+  transition: transform 350ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.pg-fab:hover {
+  background: var(--ui-c-primary-hover);
+  transform: translateY(-2px) scale(1.06);
+  box-shadow:
+    0 14px 30px -8px color-mix(in srgb, var(--ui-c-primary) 60%, transparent),
+    0 3px 8px rgb(0 0 0 / 0.2);
+}
+
+.pg-fab:hover svg {
+  transform: rotate(90deg);
+}
+
+.pg-fab:active {
+  background: var(--ui-c-primary-active);
+  transform: scale(0.94);
+}
+
+.pg-fab:focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 3px;
+}
+
+@keyframes pg-fab-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.4);
+  }
+}
+
+@keyframes pg-fab-ping {
+  to {
+    box-shadow: 0 0 0 0.875rem transparent;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-fab,
+  .pg-fab::after,
+  .pg-fab svg {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------- "Demo slots" section in the Customize panel */
+
+.pg-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 1.25rem;
+  border-top: 2px solid var(--ui-border);
+}
+
+.pg-slots h4 {
+  margin: 0;
+  color: var(--ui-fg);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.pg-slots p {
+  margin: 0;
+  color: var(--ui-fg-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.pg-slot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Avatar as the menu trigger: the avatar itself is round, so it is a round button with no background, no background on hover / open, and only a round focus ring on keyboard focus */
+.pg-avatar-trigger {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.pg-avatar-trigger:focus-visible {
+  outline: 2px solid var(--ui-ring, currentColor);
+  outline-offset: 2px;
+}

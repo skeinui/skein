@@ -1,0 +1,1081 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /*
+   * AdminLayout: the full-page frame. The root fills its parent (make the parent 100svh for a full page); the five layouts are just different arrangements of the same parts, distinguished by data-layout:
+   * side (sidebar; the toolbar sits at the bottom of the sidebar or in a header at the top of the content area), top (top bar), mix (top bar for level one + sidebar for level two), column (icon column + secondary menu column), boxed (content is a rounded card).
+   * Narrow screens (below md = 768px): the header navigation collapses and is replaced by an "open menu" button; the sidebar, icon column and secondary menu no longer take up space.
+   */
+  [data-theme-style="antd"] [data-slot="admin-layout"] {
+    --_header: 3.5rem;
+    --_boxed: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout"][data-layout="boxed"] {
+    background-color: var(--_boxed);
+  }
+  /* The outer frame (the base holding the header + sidebar) follows the navigation area: a light background when Semi Dark is off / the sidebar is light; the sidebar color when a custom sidebar color is set */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-layout="boxed"][data-nav-theme="light"] {
+    --_boxed: var(--ui-bg);
+  }
+
+  /* Header */
+  [data-theme-style="antd"] [data-slot="admin-layout-header"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 1rem;
+    box-sizing: border-box;
+    height: var(--_header);
+    padding-inline: 1rem;
+    border-bottom: 1px solid var(--ui-border);
+    background-color: var(--ui-bg);
+  }
+  /* A header inside the content area is shorter (2.5rem = 40px; the full-row header of other layouts is 3.5rem): the sidebar's logo band reads the same --_header, so they shrink together;
+     the left side always has a "collapse / expand sidebar" button (so the left is not empty without breadcrumbs; other layouts only need it on narrow screens) */
+  [data-theme-style="antd"] [data-slot="admin-layout"][data-header-inset] {
+    --_header: 2.5rem;
+  }
+  [data-theme-style="antd"]
+    [data-header-inset]
+    [data-slot="admin-layout-header"]
+    [data-slot="admin-layout-sidebar-trigger"] {
+    display: inline-flex;
+  }
+  /* When the sidebar layout puts the toolbar in the header (or has breadcrumbs): the header is inside the content area, so its background is the content's (it draws none of its own), with a divider line below */
+  [data-theme-style="antd"] [data-header-inset] [data-slot="admin-layout-header"] {
+    background-color: transparent;
+  }
+  /* When a tab bar follows the header directly, the two join into one block: the header draws no bottom divider (the tab bar has its own bottom line); the chrome tab bar has a faint background layer,
+     and the header uses the same background, otherwise the header and tab bar look like two bands with a line between them; without a tab bar the header keeps its divider */
+  [data-theme-style="antd"]
+    [data-header-inset]:has([data-slot="admin-layout-bar"])
+    [data-slot="admin-layout-header"] {
+    border-bottom-color: color-mix(in srgb, var(--ui-border) 45%, transparent);
+  }
+  [data-theme-style="antd"]
+    [data-header-inset]:has(
+      [data-slot="admin-layout-bar"] > [data-slot="page-tabs"][data-variant="chrome"]
+    )
+    [data-slot="admin-layout-header"] {
+    background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 45%, transparent);
+  }
+  /* Mix: the logo on the left of the header aligns with the icon column in the sidebar below */
+  [data-theme-style="antd"] [data-layout="mix"] [data-slot="admin-layout-header"] {
+    padding-inline-start: 1.75rem;
+  }
+  [data-theme-style="antd"] [data-layout="boxed"] [data-slot="admin-layout-header"] {
+    padding-inline-start: 2.25rem;
+    border-bottom: 0;
+    background-color: var(--_boxed);
+  }
+  /* Dark outer frame: the tokens read by text, breadcrumbs and buttons must switch to the light set, otherwise dark text sits on a dark background */
+  [data-theme-style="antd"]
+    [data-layout="boxed"]:not([data-nav-theme="light"])
+    [data-slot="admin-layout-header"] {
+    color: color-mix(in srgb, white 85%, transparent);
+    --ui-fg: white;
+    --ui-fg-muted: rgb(255 255 255 / 0.65);
+    --ui-border: rgb(255 255 255 / 0.12);
+    --ui-c-neutral: rgb(255 255 255 / 0.16);
+    --ui-c-neutral-soft: rgb(255 255 255 / 0.1);
+    --ui-c-neutral-fg: white;
+    --ui-c-neutral-text: rgb(255 255 255 / 0.85);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-menu-button"] {
+    display: none;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-r-control);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-menu-button"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 8%, transparent);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-menu-button"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-logo"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-context"] {
+    flex: none;
+    min-width: 0;
+  }
+  /* During the expand transition the outer frame is still narrow: the logo's icon / title / version do not shrink (otherwise the icon would first be squeezed to 0 width and then "grow" out, with the title sliding along),
+     and like the menu icons they are in their final position from the first frame, only gradually revealed by the sidebar edge. When collapsing, the logo mark is centered in the shrinking frame like the menu icons,
+     and both slide from the middle of the wide sidebar toward the narrow strip (the two follow the same path, so the mark gets no separate animation) */
+  [data-theme-style="antd"] [data-slot="admin-layout-logo"] > * {
+    flex: none;
+  }
+  /* When the header is too narrow: the logo shrinks as a whole and its overflowing tail (version, second half of the name) is clipped, while buttons and avatar always stay fully visible
+     (the logo's parts do not shrink, so the logo container itself must shrink) */
+  [data-theme-style="antd"] [data-slot="admin-layout-header"] [data-slot="admin-layout-logo"] {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+  /* During the sidebar expand transition the outer frame is still narrow: the logo's name and the context switcher must not first wrap to two lines and then merge back into one (whatever does not fit is clipped by the sidebar panel) */
+  [data-theme-style="antd"]
+    :is([data-slot="admin-layout-logo"], [data-slot="admin-layout-context"]) {
+    white-space: nowrap;
+  }
+  /* When the header is too crowded: breadcrumbs shrink first and use an ellipsis (flex-shrink larger than the navigation's); navigation items must not overflow and push other elements */
+  [data-theme-style="antd"] [data-slot="admin-layout-breadcrumb"] {
+    flex: 0 100 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-actions"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.5rem;
+    margin-inline-start: auto;
+  }
+  /* The side layout has no header; the logo / context / actions are all in the sidebar */
+  [data-theme-style="antd"] [data-slot="sidebar-header"] [data-slot="admin-layout-logo"],
+  [data-theme-style="antd"] [data-slot="sidebar-header"] [data-slot="admin-layout-context"] {
+    width: 100%;
+  }
+  /* Sidebar (with or without a header, the same): the logo takes a 3.5rem-high band, vertically centered (the same height as the header of other layouts), with its left edge aligned to the menu's icon column
+     (the sidebar header has its own padding, offset with a negative margin; the context switcher below is still laid out by the header's padding) */
+  [data-theme-style="antd"]
+    [data-layout="side"]
+    [data-slot="sidebar"]:not([data-collapsible])
+    [data-slot="sidebar-header"]
+    > [data-slot="admin-layout-logo"] {
+    box-sizing: border-box;
+    height: var(--_header);
+    margin-block-start: calc(-1 * 1rem);
+    margin-inline-start: calc(1.75rem - 0.75rem);
+  }
+  [data-theme-style="antd"]
+    [data-layout="side"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="admin-layout-logo-mark"] {
+    height: var(--_header);
+    margin-block-start: calc(-1 * 1rem);
+  }
+  /* The first menu row follows right after the logo band (the header's bottom padding is removed): so it aligns with the header / tab bar row on the right; when there is a context switcher the spacing is kept */
+  [data-theme-style="antd"]
+    [data-layout="side"]
+    [data-slot="sidebar"]:not([data-collapsible])
+    [data-slot="sidebar-header"]:not(:has(> [data-slot="admin-layout-context"])),
+  [data-theme-style="antd"]
+    [data-layout="side"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-header"] {
+    padding-block-end: 0;
+  }
+  /* Sidebar collapsed to a narrow strip: only the mark (logoMark) remains, while the name and context switcher collapse away; if no logoMark is given, the logo stays */
+  [data-theme-style="antd"] [data-slot="admin-layout-logo-mark"] {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* Aligns with the icon buttons in the narrow strip below (the sidebar header's padding is smaller than the menu's) */
+    padding-inline-start: 0;
+    box-sizing: border-box;
+    font-size: 1.5rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="admin-layout-logo-mark"] {
+    display: flex;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="admin-layout-context"] {
+    display: none;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-header"]:has([data-slot="admin-layout-logo-mark"])
+    [data-slot="admin-layout-logo"] {
+    display: none;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-footer"] [data-slot="admin-layout-actions"] {
+    margin-inline-start: 0;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* Context switcher and action buttons in a dark sidebar: use semi-transparent white, otherwise neutral-colored icons / white-background buttons are hard to see on a dark background (consistent with the sidebars of other theme styles) */
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    [data-slot="admin-layout-context"]
+    [data-slot="button"] {
+    border-color: rgb(255 255 255 / 0.2);
+    background-color: rgb(255 255 255 / 0.08);
+    color: rgb(255 255 255 / 0.85);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"] {
+    color: rgb(255 255 255 / 0.65);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    :is([data-slot="admin-layout-context"], [data-slot="admin-layout-actions"])
+    [data-slot="button"]:hover {
+    background-color: rgb(255 255 255 / 0.16);
+    color: white;
+  }
+
+  /* Actions at the bottom of the sidebar: buttons are square with larger icons; the avatar uses a semi-transparent white background on dark; when collapsed to a narrow strip they stack vertically and are centered, aligned with the icon column above */
+  [data-theme-style="antd"]
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only] {
+    box-sizing: border-box;
+    inline-size: 2rem;
+    block-size: 2rem;
+    padding: 0;
+    font-size: 1rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    [data-slot="sidebar-footer"]
+    :is([data-slot="avatar"], [data-slot="avatar-fallback"]) {
+    background-color: rgb(255 255 255 / 0.16);
+    color: white;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"] {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  /* When the remaining avatar is shorter than a button, the toolbar still has the button height (2rem) and the avatar is centered inside: the avatar's vertical position is the same before and after collapsing */
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"] {
+    min-block-size: 2rem;
+  }
+  /* When collapsed to a narrow strip, only the last item of actions (by convention the user avatar / menu) stays at the bottom: a horizontal row of buttons cannot transition into a vertical stack,
+     and in the first collapse frame the earlier ones would jump instantly from the bottom row to the top, so the rest are hidden and reappear after expanding; the remaining one, like the menu icons,
+     is centered in the shrinking frame and slides toward the narrow strip along with it */
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"]
+    > :not([data-base-ui-focus-guard], [aria-owns]):has(
+      ~ :not([data-base-ui-focus-guard], [aria-owns])
+    ) {
+    display: none;
+  }
+  /* When the toolbar contains a Menu, Base UI inserts empty focus-guard / aria-owns spans when it opens: they do not count as the "last item" (the selector above skips them),
+     and they do not take part in the flex gap (absolutely positioned), otherwise opening the menu would push the avatar off position, or it would be hidden as not being the last item */
+  [data-theme-style="antd"]
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"]
+    > :is([data-base-ui-focus-guard], [aria-owns]) {
+    position: absolute;
+  }
+
+  /* Level-one navigation in the header of the top bar / mix layout */
+  [data-theme-style="antd"] [data-slot="admin-layout-nav"] {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+    overflow: hidden;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"],
+  [data-theme-style="antd"] [data-slot="admin-layout-rail-item"] {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ui-fg-muted);
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"] {
+    flex: none;
+    gap: 0.375rem;
+    height: 2rem;
+    padding: 0 0.75rem;
+    border-radius: var(--ui-r-control);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"]:hover,
+  [data-theme-style="antd"] [data-slot="admin-layout-rail-item"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 7%, transparent);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="admin-layout-rail-item"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"][data-active],
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"][data-popup-open] {
+    color: var(--ui-fg);
+    font-weight: 500;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-item"]:disabled,
+  [data-theme-style="antd"] [data-slot="admin-layout-rail-item"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-icon"] {
+    display: inline-flex;
+    flex: none;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-label"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-nav-chevron"] {
+    display: inline-flex;
+    font-size: 0.8125rem;
+    opacity: 0.6;
+  }
+
+  /* Column layout: level-one icon column + secondary menu column (collapsible) + content */
+  [data-theme-style="antd"] [data-slot="admin-layout-row"] {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-rail"] {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    box-sizing: border-box;
+    width: 5rem;
+    padding: 0.5rem;
+    overflow-y: auto;
+    border-inline-end: 1px solid var(--ui-border);
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-rail-item"] {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.125rem;
+    padding: 0.5rem 0.25rem;
+    border-radius: var(--ui-r-item);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-rail-item"]
+    [data-slot="admin-layout-nav-icon"] {
+    font-size: 1.25rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-rail-item"][data-active] {
+    background-color: color-mix(in srgb, var(--ui-c-primary) 10%, transparent);
+    color: var(--ui-c-primary-text);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav"] {
+    flex: none;
+    box-sizing: border-box;
+    width: 14rem;
+    padding: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-inline-end: 1px solid var(--ui-border);
+    background-color: var(--ui-bg);
+    transition:
+      width 200ms ease,
+      padding 200ms ease,
+      border-width 200ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav"][data-collapsed] {
+    width: 0;
+    padding-inline: 0;
+    border-inline-end-width: 0;
+  }
+  /* Small round button at the edge of the secondary menu: sits on the divider line, collapse / expand */
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav-toggle"] {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    align-self: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-inline: -0.625rem;
+    padding: 0;
+    border: 1px solid var(--ui-border);
+    border-radius: 50%;
+    background-color: var(--ui-bg);
+    color: var(--ui-fg-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-row"]:hover
+    [data-slot="admin-layout-subnav-toggle"],
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav-toggle"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav-toggle"][data-collapsed] {
+    opacity: 1;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav-toggle"]:hover {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-subnav-toggle"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+
+  /* Main area: tab row, content, footer. In the side / mix / boxed layouts it is Sidebar.Inset */
+  [data-theme-style="antd"] [data-slot="admin-layout-main"] {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    background-color: var(--ui-bg);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout"] [data-slot="sidebar-inset"] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-background"] {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-body"] {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    border-radius: inherit;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-bar"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.25rem;
+    min-width: 0;
+  }
+  /* Built-in buttons on the right of the tab row (refresh, maximize / restore), separated from the tabs by a vertical line */
+  [data-theme-style="antd"] [data-slot="admin-layout-bar-actions"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.25rem;
+    margin-inline-start: auto;
+    padding-inline: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-bar-actions"]::before {
+    content: "";
+    width: 1px;
+    height: 1rem;
+    margin-inline-end: 0.25rem;
+    background-color: var(--ui-border);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-bar-button"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-r-small);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    font-size: 1rem;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-bar-button"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 8%, transparent);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-bar-button"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  /* The tab bar (chrome / line) and the buttons on its right join into one strip: the background and bottom line move to the tab row, so the tab bar inside no longer draws them */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-bar"]:has(> [data-slot="page-tabs"][data-variant="chrome"]) {
+    background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 45%, transparent);
+    box-shadow: inset 0 -1px 0 var(--ui-border);
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-bar"]:has(> [data-slot="page-tabs"][data-variant="line"]) {
+    box-shadow: inset 0 -1px 0 var(--ui-border);
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-bar"]
+    > [data-slot="page-tabs"][data-variant="chrome"],
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-bar"]
+    > [data-slot="page-tabs"][data-variant="line"] {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-bar"] > [data-slot="page-tabs"] {
+    flex: 1;
+    min-width: 0;
+  }
+  /* The open-sidebar button needed only on narrow screens (on desktop there is a thin strip at the sidebar edge) */
+  [data-theme-style="antd"] [data-slot="admin-layout-sidebar-trigger"] {
+    display: none;
+    flex: none;
+  }
+  /* Logo shown only on narrow screens (in the side layout the desktop logo is in the sidebar); when space runs out it shrinks as a whole and clips its tail, keeping buttons fully visible */
+  [data-theme-style="antd"] [data-slot="admin-layout-mobile-logo"] {
+    display: none;
+    flex: 0 1 auto;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-mobile-logo"] > * {
+    flex: none;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-content"] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-footer"] {
+    flex: none;
+    padding: 0.75rem 1.5rem;
+    color: var(--ui-fg-muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-footer"][data-fixed] {
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid var(--ui-border);
+    background-color: var(--ui-bg);
+  }
+
+  /* Maximized: only tabs, content and footer remain */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-maximized]
+    [data-slot="admin-layout-row"] {
+    display: block;
+  }
+
+  /* Full navigation in the narrow-screen drawer */
+  [data-theme-style="antd"] [data-slot="admin-layout-drawer"] {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-drawer-header"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    box-sizing: border-box;
+    height: var(--_header, 3.5rem);
+    padding-inline: 1rem;
+    border-bottom: 1px solid var(--ui-border);
+    font-weight: 600;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-drawer"] > :last-child {
+    flex: 1;
+    min-height: 0;
+    padding: 0.5rem;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 767.98px) {
+    [data-theme-style="antd"] [data-slot="admin-layout-menu-button"] {
+      display: inline-flex;
+    }
+    [data-theme-style="antd"] [data-slot="admin-layout-nav"],
+    [data-theme-style="antd"] [data-slot="admin-layout-rail"],
+    [data-theme-style="antd"] [data-slot="admin-layout-subnav"],
+    [data-theme-style="antd"] [data-slot="admin-layout-subnav-toggle"],
+    [data-theme-style="antd"] [data-slot="admin-layout-context"],
+    [data-theme-style="antd"] [data-slot="admin-layout-breadcrumb"] {
+      display: none;
+    }
+    [data-theme-style="antd"] [data-slot="admin-layout-sidebar-trigger"] {
+      display: inline-flex;
+    }
+    [data-theme-style="antd"] [data-slot="admin-layout-mobile-logo"] {
+      display: flex;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"]
+      :is(
+        [data-slot="admin-layout-menu-button"],
+        [data-slot="admin-layout-nav-item"],
+        [data-slot="admin-layout-rail-item"],
+        [data-slot="admin-layout-bar-button"],
+        [data-slot="admin-layout-subnav"],
+        [data-slot="admin-layout-subnav-toggle"]
+      ) {
+      transition: none;
+    }
+  }
+
+  /* ---- Settings panel: presets, palette, individual settings ---- */
+  [data-theme-style="antd"] [data-slot="admin-layout-settings"] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-section"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  /* "Custom" heading: separates the presets above from the user-adjusted part below */
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-heading"] {
+    margin: 0.25rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ui-border);
+    color: var(--ui-fg);
+    font-size: 1.0625rem;
+    font-weight: 700;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-title"] {
+    margin: 0;
+    color: var(--ui-fg);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+  /* A divider line between sections; hierarchy: section title (large, dark) > group subtitle (small, light) */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-settings-section"]
+    + [data-slot="admin-layout-settings-section"] {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--ui-border);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-presets"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-preset"] {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    box-sizing: border-box;
+    min-width: 0;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-preset"]:hover {
+    border-color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-preset"][data-active] {
+    border-color: var(--ui-c-primary);
+    background: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-preset"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-swatch"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-clear"]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: 2px;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-dots"] {
+    display: inline-flex;
+    flex: none;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-dot"] {
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-inline-end: -0.25rem;
+    border: 2px solid var(--ui-bg);
+    border-radius: 50%;
+    background: var(--dot);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ui-fg) 14%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-name"] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-palette"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-swatch"] {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 2px solid var(--ui-bg);
+    border-radius: 50%;
+    background: var(--dot);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--ui-fg) 14%, transparent);
+    cursor: pointer;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-swatch"][data-active] {
+    box-shadow: 0 0 0 2px var(--dot);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-field"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-field"][data-inline] {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-label"] {
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-color"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  /* Theme style section: one per row, name + a one-line description */
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-styles"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style"] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.125rem;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style"]:hover {
+    border-color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style"][data-active] {
+    border-color: var(--ui-c-primary);
+    background: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-delete"]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: 2px;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style-name"] {
+    font-weight: 600;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style"] {
+    min-width: 0;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style-name"],
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style-note"] {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-style-note"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.75rem;
+  }
+  /* User-saved presets: preset button + delete button */
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-custom"] {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    min-width: 0;
+    gap: 0.25rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-settings-custom"]
+    > [data-slot="admin-layout-settings-preset"] {
+    flex: 1;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-delete"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ui-fg-muted);
+    cursor: pointer;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-delete"]:hover {
+    background: color-mix(in srgb, var(--ui-fg) 8%, transparent);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-save-form"] {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-save-form"] [data-slot="input"] {
+    flex: 1;
+    min-width: 0;
+  }
+  /* Export / import: buttons in a row; the import failure message */
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-actions"] {
+    display: flex;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-error"] {
+    margin: 0;
+    color: var(--ui-c-danger-text);
+    font-size: 0.75rem;
+  }
+  /* Color group: subtitle + the rows of that group */
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-settings-group"]
+    + [data-slot="admin-layout-settings-group"] {
+    padding-top: 0.75rem;
+    border-top: 1px solid color-mix(in srgb, var(--ui-border) 70%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-subtitle"] {
+    margin: 0;
+    color: var(--ui-fg-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-row"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  /* Group subtitles in the preset grid span a full row */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-settings-presets"]
+    > [data-slot="admin-layout-settings-subtitle"] {
+    grid-column: 1 / -1;
+    margin-top: 0.25rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-settings-row"]
+    > [data-slot="admin-layout-settings-field"] {
+    min-width: 0;
+  }
+  /* Actions on the right of the header (notifications, light/dark toggle, ...): like those at the bottom of the sidebar they are 2rem square icon buttons, with a hover background one step darker than the default so it is clearly visible */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-header"]
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only] {
+    box-sizing: border-box;
+    inline-size: 2rem;
+    block-size: 2rem;
+    padding: 0;
+    font-size: 1rem;
+  }
+  [data-theme-style="antd"]
+    :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-variant="ghost"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 14%, transparent);
+    color: var(--ui-fg);
+  }
+  /* Reserve the reset button's place when it is absent, so the color pickers of every row stay in the same column */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-settings-color"]:not(:has([data-slot="admin-layout-settings-clear"])) {
+    padding-inline-end: 1.875rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-hint"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.75rem;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-clear"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ui-fg-muted);
+    cursor: pointer;
+  }
+  [data-theme-style="antd"] [data-slot="admin-layout-settings-clear"]:hover {
+    background: color-mix(in srgb, var(--ui-fg) 8%, transparent);
+    color: var(--ui-fg);
+  }
+
+  /* The column layout has no Sidebar: the level-one icon column and secondary menu column also use the sidebar color */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-sidebar-color]
+    :is([data-slot="admin-layout-rail"], [data-slot="admin-layout-subnav"]) {
+    background-color: var(--al-sidebar);
+    color: var(--al-sidebar-fg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
+    [data-slot="admin-layout-rail-item"]:not([data-active]) {
+    color: color-mix(in srgb, var(--al-sidebar-fg) 70%, transparent);
+  }
+  /* With a custom sidebar color: selected / hover no longer use primary-colored text (readability on an arbitrary background is not guaranteed); text takes the sidebar's contrast color, and selected uses a 28% primary background */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
+    :is([data-slot="sidebar-inner"], [data-slot="admin-layout-subnav"])
+    [data-slot="sidemenu"]:not([data-popup]) {
+    --_fg: color-mix(in srgb, var(--al-sidebar-fg) 78%, transparent);
+    --_hover-bg: color-mix(in srgb, var(--al-sidebar-fg) 10%, transparent);
+    --_hover-fg: var(--al-sidebar-fg);
+    --_sel-bg: color-mix(
+      in srgb,
+      var(--al-sidebar-fg) 14%,
+      color-mix(in srgb, var(--ui-c-primary) 28%, transparent)
+    );
+    --_sel-fg: var(--al-sidebar-fg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
+    [data-slot="admin-layout-rail-item"][data-active] {
+    background-color: color-mix(
+      in srgb,
+      var(--al-sidebar-fg) 14%,
+      color-mix(in srgb, var(--ui-c-primary) 28%, transparent)
+    );
+    color: var(--al-sidebar-fg);
+  }
+  /* Semi Dark: the page is light, while the navigation areas (header, the column layout's level-one icon column and secondary menu column; the sidebar uses Sidebar's theme="dark") are forced dark.
+     Text / stroke / neutral colors are redefined inside the area, so the breadcrumbs, navigation items and buttons within automatically switch to the light set */
+  [data-theme-style="antd"] [data-slot="admin-layout"][data-semi-dark] {
+    --_semi-bg: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+    --al-sidebar-fg: white;
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-semi-dark]:not([data-header-inset])
+    :is(
+      [data-slot="admin-layout-header"],
+      [data-slot="admin-layout-rail"],
+      [data-slot="admin-layout-subnav"]
+    ) {
+    --ui-fg: white;
+    --ui-fg-muted: rgb(255 255 255 / 0.65);
+    --ui-border: rgb(255 255 255 / 0.12);
+    --ui-c-neutral: rgb(255 255 255 / 0.16);
+    --ui-c-neutral-soft: rgb(255 255 255 / 0.1);
+    --ui-c-neutral-fg: white;
+    --ui-c-neutral-text: rgb(255 255 255 / 0.85);
+    background-color: var(--_semi-bg);
+    color: white;
+  }
+  /* Custom sidebar color: both the background and text colors are computed from theme.colors.sidebar (--al-sidebar / --al-sidebar-fg) */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-sidebar-color]
+    [data-slot="sidebar-inner"] {
+    --_bg: var(--al-sidebar);
+    color: var(--al-sidebar-fg);
+  }
+  /* Column: no line between the level-one icon column and the secondary menu column (the two columns are one block of navigation), only one between the secondary menu and the content area; when the secondary menu is collapsed the line returns to the right of the icon column */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout-rail"]:has(+ [data-slot="admin-layout-subnav"]:not([data-collapsed])) {
+    border-inline-end: 0;
+  }
+  /* When the settings panel is in a drawer, all five theme styles use the same drawer width (each style's md drawer originally had a different width: 24rem / 28rem / 378px ...) */
+  [data-theme-style="antd"]
+    [data-slot="drawer"][data-side][data-size]:has([data-slot="admin-layout-settings"]) {
+    width: 28rem;
+  }
+  /* Custom sidebar color: in boxed the sidebar background is painted by the Sidebar shell (provider) while the panel (inner) is transparent, so the shell's background, outer frame and header all use the sidebar color */
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-layout][data-sidebar-color]
+    [data-slot="sidebar-provider"] {
+    --_bg: var(--al-sidebar);
+    --_dark-bg: var(--al-sidebar);
+  }
+  [data-theme-style="antd"]
+    [data-slot="admin-layout"][data-layout="boxed"][data-sidebar-color]:not(
+      [data-header-follow="off"]
+    ) {
+    --_boxed: var(--al-sidebar);
+  }
+}

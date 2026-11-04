@@ -1,0 +1,49 @@
+{
+  "lead": "瀑布流：高度不一的内容（图片、卡片）按列排，每一项放进当时最矮的那一列，排得紧凑。列数和间距可以按断点给；项自己长高（图片加载完）会重新排。DOM 顺序就是项的顺序，键盘和读屏按它走。",
+  "basic": { "title": "基础" },
+  "responsive": {
+    "title": "响应式",
+    "description": "`columns` / `gutter` 都可以按断点给；改窗口宽度看列数变化。"
+  },
+  "images": {
+    "title": "图片",
+    "description": "图片加载完才知道高度：每张图加载好后位置会重新排，已排好的不乱跳（图片给了 `width` / `height`，先占好位）。"
+  },
+  "dynamic": {
+    "title": "动态更新",
+    "description": "往前面加一项时，后面的项会重新分配列；先点「固定当前列」再加，已有的项就固定在原来的列。",
+    "add": "在前面加一项",
+    "pin": "固定当前列"
+  },
+  "api": {
+    "title": "API 参考",
+    "item": "`MasonryItem` 的字段",
+    "field": "字段",
+    "key": "项的唯一 key；`onLayoutChange` 里也用它",
+    "data": "你自己的数据，传给 `itemRender`",
+    "column": "固定在第几列（从 0 起），不给就放进当时最矮的列",
+    "height": "排版前估位置用；之后以量出来的高度为准",
+    "children": "项的内容，比 `itemRender` 优先",
+    "helpers": "辅助函数",
+    "helper": "函数",
+    "layoutMasonry": "排版算法（贪心：每项放进最矮的列），纯函数，想自己排版或测试时用",
+    "resolveResponsive": "按视口已到达的最大断点取值，纯函数"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "masonry": "`ul`；`data-ready` 表示已排好版（之前内容隐藏）；`--ms-cols` / `--ms-gx` / `--ms-gy` / `--ms-height` 是组件写的数值",
+    "item": "`li`，绝对定位；`--ms-col`（列）/ `--ms-y`（纵向位置）是组件量出来的"
+  },
+  "props": {
+    "Masonry": {
+      "aria-label": "整个列表的名称，读屏用。",
+      "children": "直接写出的各项（不给 `items` 时）。",
+      "columns": "列数；可以按断点给。",
+      "gutter": "项之间的间距（像素，可以取主题风格刻度之外的任意值）：一个数横竖同用，`[横, 竖]` 分开设；可以按断点给。",
+      "itemRender": "画一项：数据驱动时用它把 `item.data` 画出来。",
+      "items": "数据驱动的项；也可以不给，直接把每一项写成 children。",
+      "onLayoutChange": "每次排版后各项落在第几列。"
+    }
+  }
+}

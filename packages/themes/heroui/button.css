@@ -1,0 +1,265 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * Follows HeroUI v3's button.css:
+ *   solid=primary / danger, soft=secondary / tertiary / danger-soft (depends on color), outline=outline, ghost=ghost.
+ *   faded and shadow are v2 variants that v3 does not have; approximate renderings are provided here to keep the contract complete.
+ * Common traits: flat with no border (only outline has 1px), background changes on hover, scales on press, disabled is 50% + non-interactive,
+ * loading only disables interaction without dimming.
+ */
+@layer ui-style {
+  /* Structure and size */
+  [data-theme-style="heroui"] [data-slot="button"] {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    width: fit-content;
+    height: var(--ui-height-md);
+    padding-inline: calc(1rem * var(--ui-density));
+    border: 0 solid transparent;
+    border-radius: var(--ui-radius-md);
+    background-color: var(--_bg, transparent);
+    color: var(--_fg, currentColor);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.43;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+    transform-origin: 50%;
+    transition:
+      transform var(--ui-duration) var(--ui-easing),
+      background-color 100ms cubic-bezier(0, 0, 0.2, 1),
+      box-shadow 100ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-size="sm"] {
+    height: var(--ui-height-sm);
+    padding-inline: calc(0.75rem * var(--ui-density));
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-size="lg"] {
+    height: var(--ui-height-lg);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-icon-only] {
+    padding: 0;
+    aspect-ratio: 1;
+  }
+
+  /* Radius: when set explicitly it overrides the default pill shape */
+  [data-theme-style="heroui"] [data-slot="button"][data-radius="none"] {
+    border-radius: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-radius="sm"] {
+    border-radius: var(--ui-radius-sm);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-radius="md"] {
+    border-radius: var(--ui-radius-md);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-radius="lg"] {
+    border-radius: var(--ui-radius-lg);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-radius="full"] {
+    border-radius: var(--ui-radius-full);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+
+  /*
+   * Semantic colors map to private variables: _base solid background, _on text on solid, _soft light background, _text text on the light background,
+   * _hover solid hover color, _soft-hover light-background hover color, _line outline border, _ghost-hover / _outline-hover hover backgrounds of the same-named variants.
+   * neutral / secondary correspond to v3's default: hover is a gray background mixed with 4% foreground color.
+   */
+  [data-theme-style="heroui"] [data-slot="button"][data-color="neutral"],
+  [data-theme-style="heroui"] [data-slot="button"][data-color="secondary"] {
+    --_hover: color-mix(in oklab, var(--_base) 96%, var(--ui-c-neutral-text) 4%);
+    --_soft-hover: var(--_hover);
+    --_line: var(--ui-border);
+    --_ghost-hover: var(--_base);
+    --_outline-hover: color-mix(in oklab, var(--_base) 60%, transparent);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-color="primary"],
+  [data-theme-style="heroui"] [data-slot="button"][data-color="success"],
+  [data-theme-style="heroui"] [data-slot="button"][data-color="warning"],
+  [data-theme-style="heroui"] [data-slot="button"][data-color="danger"] {
+    --_hover: color-mix(in oklab, var(--_base) 90%, var(--_on) 10%);
+    --_soft-hover: color-mix(in oklab, var(--_base) 20%, transparent);
+    --_line: var(--_base);
+    --_ghost-hover: var(--_soft);
+    --_outline-hover: var(--_soft);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-color="neutral"] {
+    --_base: var(--ui-c-neutral);
+    --_on: var(--ui-c-neutral-fg);
+    --_soft: var(--ui-c-neutral-soft);
+    --_text: var(--ui-c-neutral-text);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-color="primary"] {
+    --_base: var(--ui-c-primary);
+    --_on: var(--ui-c-primary-fg);
+    --_soft: var(--ui-c-primary-soft);
+    --_text: var(--ui-c-primary-text);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-color="secondary"] {
+    --_base: var(--ui-c-secondary);
+    --_on: var(--ui-c-secondary-fg);
+    --_soft: var(--ui-c-secondary-soft);
+    --_text: var(--ui-c-secondary-text);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-color="success"] {
+    --_base: var(--ui-c-success);
+    --_on: var(--ui-c-success-fg);
+    --_soft: var(--ui-c-success-soft);
+    --_text: var(--ui-c-success-text);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-color="warning"] {
+    --_base: var(--ui-c-warning);
+    --_on: var(--ui-c-warning-fg);
+    --_soft: var(--ui-c-warning-soft);
+    --_text: var(--ui-c-warning-text);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-color="danger"] {
+    --_base: var(--ui-c-danger);
+    --_on: var(--ui-c-danger-fg);
+    --_soft: var(--ui-c-danger-soft);
+    --_text: var(--ui-c-danger-text);
+  }
+
+  /* Variants: only set _bg / _fg and the matching hover background; the real background-color reads them in the base rule above */
+  [data-theme-style="heroui"] [data-slot="button"][data-variant="solid"] {
+    --_bg: var(--_base);
+    --_bg-hover: var(--_hover);
+    --_fg: var(--_on);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-variant="shadow"] {
+    --_bg: var(--_base);
+    --_bg-hover: var(--_hover);
+    --_fg: var(--_on);
+    box-shadow: 0 4px 12px -2px color-mix(in oklab, var(--_base) 40%, transparent);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-variant="soft"] {
+    --_bg: var(--_soft);
+    --_bg-hover: var(--_soft-hover);
+    --_fg: var(--_text);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-variant="outline"] {
+    --_bg: transparent;
+    --_bg-hover: var(--_outline-hover);
+    --_fg: var(--_text);
+    border-width: 1px;
+    border-color: var(--_line);
+  }
+
+  /* faded: v3 does not have it, approximated as a gray background + 1px border */
+  [data-theme-style="heroui"] [data-slot="button"][data-variant="faded"] {
+    --_bg: var(--ui-c-neutral);
+    --_bg-hover: color-mix(in oklab, var(--ui-c-neutral) 96%, var(--ui-c-neutral-text) 4%);
+    --_fg: var(--_text);
+    border-width: 1px;
+    border-color: var(--ui-border);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-variant="ghost"] {
+    --_bg: transparent;
+    --_bg-hover: var(--_ghost-hover);
+    --_fg: var(--_text);
+  }
+
+  /* States: hover / pressed both switch to _bg-hover, and pressed also scales (sm 0.98, md 0.97, lg 0.96) */
+  [data-theme-style="heroui"] [data-slot="button"]:hover:not([data-disabled]),
+  [data-theme-style="heroui"] [data-slot="button"]:active:not([data-disabled]) {
+    background-color: var(--_bg-hover, var(--_bg, transparent));
+  }
+  [data-theme-style="heroui"] [data-slot="button"]:active:not([data-disabled]) {
+    will-change: transform;
+    transform: scale(0.97);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-size="sm"]:active:not([data-disabled]) {
+    transform: scale(0.98);
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-size="lg"]:active:not([data-disabled]) {
+    transform: scale(0.96);
+  }
+
+  /* outline pressed: in v3 hover is a 60% gray background, and pressed switches to an opaque gray background */
+  [data-theme-style="heroui"]
+    [data-slot="button"][data-variant="outline"]:active:not([data-disabled]) {
+    background-color: var(--_ghost-hover);
+  }
+
+  /* Focus ring: 2px page-background gap + 2px ring */
+  [data-theme-style="heroui"] [data-slot="button"]:focus-visible {
+    box-shadow:
+      0 0 0 2px var(--ui-bg),
+      0 0 0 4px var(--ui-ring);
+  }
+
+  [data-theme-style="heroui"] [data-slot="button"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="heroui"] [data-slot="button"][data-loading] {
+    pointer-events: none;
+  }
+
+  /* Leading / trailing content, loading indicator: icons are a uniform 16px, with 2px pulled in on each side */
+  [data-theme-style="heroui"] [data-slot="button-start"],
+  [data-theme-style="heroui"] [data-slot="button-end"] {
+    display: inline-flex;
+    flex: none;
+  }
+  [data-theme-style="heroui"] [data-slot="button-start"] > svg,
+  [data-theme-style="heroui"] [data-slot="button-end"] > svg,
+  [data-theme-style="heroui"] [data-slot="button"][data-icon-only] > svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-inline: -0.125rem;
+    pointer-events: none;
+  }
+  [data-theme-style="heroui"] [data-slot="button-spinner"] {
+    flex: none;
+    box-sizing: border-box;
+    width: 1rem;
+    height: 1rem;
+    margin-inline: -0.125rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: ui-heroui-button-spin 0.7s linear infinite;
+  }
+
+  @keyframes ui-heroui-button-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="button"] {
+      transition: none;
+    }
+    [data-theme-style="heroui"] [data-slot="button-spinner"] {
+      animation-duration: 2s;
+    }
+  }
+}

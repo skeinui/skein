@@ -1,0 +1,19 @@
+{
+  "lead": "An action menu opened by clicking a trigger. Keyboard navigation, typeahead and nested focus come from Base UI's Menu.",
+  "usage": { "title": "Usage" },
+  "groups": { "title": "Groups" },
+  "danger": { "title": "Danger Item" },
+  "checkbox": { "title": "Checkbox Items" },
+  "disabled": { "title": "Disabled Item" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `menu.css`; the hover / keyboard highlight background is `--ui-c-neutral-soft`.",
+    "hook": "Hook",
+    "popup": "The positioner and the popup itself",
+    "item": "Items; the keyboard highlight is `data-highlighted`",
+    "indicator": "The check of a checkbox item, shown with `data-checked`",
+    "group": "Groups and their labels",
+    "separator": "Separator line"
+  }
+}

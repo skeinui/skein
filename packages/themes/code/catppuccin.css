@@ -1,0 +1,33 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Catppuccin Latte / Mocha: on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="catppuccin"] {
+    --ui-bg: #eff1f5;
+    --ui-surface: #eff1f5;
+    --ui-fg: #4c4f69;
+    --ui-fg-muted: #696c83;
+    --ui-border: #ccd0da;
+    --code-keyword: #8839ef;
+    --code-string: #467949;
+    --code-number: #a55a3a;
+    --code-property: #2164eb;
+    --code-variable: #d20f39;
+    --code-comment: #696c83;
+  }
+  [data-mode="dark"] [data-code-theme="catppuccin"],
+  [data-code-theme="catppuccin"][data-mode="dark"] {
+    --ui-bg: #1e1e2e;
+    --ui-surface: #1e1e2e;
+    --ui-fg: #cdd6f4;
+    --ui-fg-muted: #a6adc8;
+    --ui-border: #313244;
+    --code-keyword: #cba6f7;
+    --code-string: #a6e3a1;
+    --code-number: #fab387;
+    --code-property: #89b4fa;
+    --code-variable: #f38ba8;
+    --code-comment: #81869e;
+    color-scheme: dark;
+  }
+}

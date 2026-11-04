@@ -1,0 +1,42 @@
+{
+  "lead": "输入区里选模型：一个紧凑的触发器（图标 + 当前模型名 + 箭头），展开是带说明和标签的模型列表，可以分组。键盘操作和输入搜索来自 Base UI 的 Select，列表外观复用 Select 的主题风格。",
+  "usage": { "title": "用法", "current": "当前：{id}" },
+  "groups": {
+    "title": "分组",
+    "description": "给了 `group` 就按分组显示：同一组的归在一起，组名是标题。"
+  },
+  "composer": {
+    "title": "放进输入框",
+    "description": "放进 `Composer.ToolbarStart`，默认往上弹出。",
+    "placeholder": "随便问点什么…"
+  },
+  "models": {
+    "fast": "日常任务，回答快",
+    "smart": "推理更深，适合难题",
+    "legacy": "即将下线",
+    "atlasSmall": "便宜又快",
+    "atlasLarge": "能力最强",
+    "borealis": "擅长对话"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "trigger": "触发器（紧凑的按钮）；列表展开时带 `data-popup-open`",
+    "triggerParts": "触发器里的模型名、图标和展开箭头",
+    "item": "列表项里多出来的部分（列表本身复用 Select 的 slot：`select` / `select-item` / `select-group` …，弹层带 `data-model-picker`）"
+  },
+  "props": {
+    "ModelPicker": {
+      "align": "列表沿触发器那一侧怎么对齐。",
+      "aria-label": "触发器的名称，读屏用，默认 \"Model\"。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "models": "可选的模型，按显示顺序排列（`group` 相同的归在一起）。",
+      "onValueChange": "选中新值时调用，参数是新的 `value`；同时传 `value` 即为受控。",
+      "placeholder": "没选时触发器上的文字，默认 \"Select model\"。",
+      "side": "列表出现在触发器的哪一侧，默认在上方（放在输入框工具栏里，往上弹出）。",
+      "value": "当前模型的 id；受控。"
+    }
+  }
+}

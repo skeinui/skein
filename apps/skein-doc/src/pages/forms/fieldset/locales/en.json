@@ -1,0 +1,17 @@
+{
+  "lead": "Groups related form controls: the semantics and disabled propagation of the native fieldset, with `legend` as the group's name, which screen readers read out.",
+  "usage": { "title": "Usage" },
+  "radio": { "title": "With Radio Group" },
+  "disabled": {
+    "title": "Disabled",
+    "description": "`disabled` on the fieldset disables every control inside it."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `fieldset.css`, and it is thin: no native border, a vertical stack, the legend as a small heading.",
+    "hook": "Hook",
+    "slot": "The wrapper (no native border, stacked vertically) and the small heading",
+    "disabled": "Written on the fieldset when the whole group is disabled"
+  }
+}

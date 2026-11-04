@@ -1,0 +1,15 @@
+{
+  "lead": "An empty state: the placeholder shown when there is no data or no search results. Data-driven; every part is optional.",
+  "usage": { "title": "Usage" },
+  "actions": { "title": "With Actions" },
+  "sizes": { "title": "Sizes" },
+  "in-table": { "title": "In Table" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `empty.css`.",
+    "hook": "Hook",
+    "root": "Root: centred, with padding",
+    "parts": "The parts; one that isn't passed isn't rendered"
+  }
+}

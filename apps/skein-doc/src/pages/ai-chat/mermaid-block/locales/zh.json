@@ -1,0 +1,38 @@
+{
+  "lead": "Mermaid 图：头部是标题、看源码和复制按钮，下面是渲染出来的图。库里不带 Mermaid，渲染函数由使用方传进来；结果当作图片放进 `<img>`，不会把 SVG 注入页面。跟着亮暗模式重新渲染，渲染中和失败都有状态。",
+  "usage": {
+    "title": "用法",
+    "description": "这个页面里 Mermaid 是按需加载的（动态 `import()`），只在用到时才下载。",
+    "flowchart": "流程图",
+    "sequence": "时序图"
+  },
+  "error": {
+    "title": "错误",
+    "description": "语法错误时显示错误信息，并把源码摆出来。",
+    "broken": "有错误的图"
+  },
+  "markdown": {
+    "title": "在 Markdown 里",
+    "description": "`codeRenderers` 让围栏代码里的 `mermaid` 变成图；流式输出时围栏闭合之前先是普通代码块，闭合后才渲染。传稳定的对象。",
+    "replay": "重放"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根（`figure`）；`data-state`：loading / ready / error，`data-view`：diagram / source",
+    "header": "头部、标题和按钮组",
+    "action": "看源码（`aria-pressed`）和复制（`data-copied`）按钮",
+    "body": "图的滚动区（可聚焦）和 `<img>`；保留上一张图时带 `data-stale`",
+    "status": "渲染中的提示（`role=status`）",
+    "error": "渲染失败的提示（`role=alert`）",
+    "source": "源码区（`pre`，可聚焦）"
+  },
+  "props": {
+    "MermaidBlock": {
+      "code": "Mermaid 源码。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "render": "把源码渲染成 SVG 字符串；库里不带 Mermaid，由使用方接入：\n`(code, { theme }) => mermaid.render(id, code).then((r) => r.svg)`。\n初始化 Mermaid 时设 `securityLevel: \"strict\"` 并关掉 `htmlLabels`：SVG 放在 `<img>` 里（脚本不执行，也不会注入页面），而 `<img>` 里的 `foreignObject` 文字支持不可靠。"
+    }
+  }
+}

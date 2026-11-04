@@ -1,0 +1,92 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * High-contrast colour theme: replaces "secondary text, placeholder, and the four semantic colors" with values reaching WCAG AA (4.5:1 for text), and can be applied on top of any theme style.
+ * Why it is needed: several theme styles follow the official palettes (Ant Design's white text on #1677ff is 4.1:1, the placeholder #bfbfbf is 1.8:1,
+ * HeroUI's primary button with white text is 3.6:1), and to stay consistent with the official ones the theme style's palette cannot be changed directly; when compliance is needed, add data-theme-color="contrast" on <html>,
+ * which can be used together with other themes (plus data-theme-density="compact"); the cost is that primary, success / warning / danger colors become darker (light) or brighter (dark).
+ * These values were all computed with the WCAG formula:
+ *   light  secondary text #525252 is 7.8 / 6.6 on white / light gray, placeholder #666 is 5.7 / 4.8 on white / light gray,
+ *          solid colors with white text: primary 6.7, success 5.0, warning 4.9, danger 6.5; soft backgrounds with same-color text are all above 4.7
+ *   dark   secondary text #b4b4b4 is 8.9 on #141414, placeholder #9a9a9a is 6.6, solid colors with dark text are above 7.1
+ */
+@layer ui-color {
+  [data-theme-color~="contrast"] {
+    --ui-fg-muted: #525252;
+    --ui-field-placeholder: #666666;
+    --ui-ring: #1d4ed8;
+
+    --ui-c-primary: #1d4ed8;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #eff6ff;
+    --ui-c-primary-text: #1d4ed8;
+    --ui-c-primary-hover: #1e40af;
+    --ui-c-primary-active: #1e3a8a;
+    --ui-c-primary-border: #93c5fd;
+
+    --ui-c-success: #15803d;
+    --ui-c-success-fg: #ffffff;
+    --ui-c-success-soft: #f0fdf4;
+    --ui-c-success-text: #166534;
+    --ui-c-success-hover: #166534;
+    --ui-c-success-active: #14532d;
+    --ui-c-success-border: #86efac;
+
+    --ui-c-warning: #a16207;
+    --ui-c-warning-fg: #ffffff;
+    --ui-c-warning-soft: #fefce8;
+    --ui-c-warning-text: #854d0e;
+    --ui-c-warning-hover: #854d0e;
+    --ui-c-warning-active: #713f12;
+    --ui-c-warning-border: #fde047;
+
+    --ui-c-danger: #b91c1c;
+    --ui-c-danger-fg: #ffffff;
+    --ui-c-danger-soft: #fef2f2;
+    --ui-c-danger-text: #991b1b;
+    --ui-c-danger-hover: #991b1b;
+    --ui-c-danger-active: #7f1d1d;
+    --ui-c-danger-border: #fca5a5;
+  }
+
+  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-theme-color~="contrast"][data-mode="dark"],
+  [data-mode="dark"] [data-theme-color~="contrast"],
+  [data-theme-color~="contrast"] [data-mode="dark"] {
+    --ui-fg-muted: #b4b4b4;
+    --ui-field-placeholder: #9a9a9a;
+    --ui-ring: #93c5fd;
+
+    --ui-c-primary: #93c5fd;
+    --ui-c-primary-fg: #0c1424;
+    --ui-c-primary-soft: #1a2a4a;
+    --ui-c-primary-text: #bfdbfe;
+    --ui-c-primary-hover: #bfdbfe;
+    --ui-c-primary-active: #60a5fa;
+    --ui-c-primary-border: #1e3a8a;
+
+    --ui-c-success: #4ade80;
+    --ui-c-success-fg: #052e16;
+    --ui-c-success-soft: #14532d;
+    --ui-c-success-text: #bbf7d0;
+    --ui-c-success-hover: #86efac;
+    --ui-c-success-active: #22c55e;
+    --ui-c-success-border: #166534;
+
+    --ui-c-warning: #fbbf24;
+    --ui-c-warning-fg: #1c1100;
+    --ui-c-warning-soft: #422006;
+    --ui-c-warning-text: #fde68a;
+    --ui-c-warning-hover: #fcd34d;
+    --ui-c-warning-active: #f59e0b;
+    --ui-c-warning-border: #713f12;
+
+    --ui-c-danger: #f87171;
+    --ui-c-danger-fg: #1a0505;
+    --ui-c-danger-soft: #450a0a;
+    --ui-c-danger-text: #fecaca;
+    --ui-c-danger-hover: #fca5a5;
+    --ui-c-danger-active: #ef4444;
+    --ui-c-danger-border: #7f1d1d;
+  }
+}

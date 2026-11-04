@@ -1,0 +1,29 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Shared rules for code themes: background / foreground / coloring all come from --code-*, each theme (the other files in this directory) only supplies values for these variables */
+@layer ui-code {
+  [data-code-theme][data-slot="code-block"],
+  [data-code-theme][data-slot="diff-view"] {
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+  }
+  [data-code-theme] [data-token="keyword"] {
+    color: var(--code-keyword);
+  }
+  [data-code-theme] [data-token="string"] {
+    color: var(--code-string);
+  }
+  [data-code-theme] [data-token="number"] {
+    color: var(--code-number);
+  }
+  [data-code-theme] [data-token="property"] {
+    color: var(--code-property);
+  }
+  [data-code-theme] [data-token="variable"] {
+    color: var(--code-variable);
+  }
+  [data-code-theme] [data-token="comment"] {
+    color: var(--code-comment);
+    font-style: italic;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "lead": "A breadcrumb trail, driven by data. The last item is marked as the current page automatically.",
+  "usage": { "title": "Usage" },
+  "separator": { "title": "Custom Separator" },
+  "onclick": { "title": "Click Handlers" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles style these hooks in `breadcrumb.css`; in Ant Design the items get a light background on hover. To use a router, call its navigation in `onClick`.",
+    "hook": "Hook",
+    "breadcrumb": "The `nav`, the ordered list and the list items",
+    "breadcrumb-link": "A link, and the current page (`aria-current`)",
+    "breadcrumb-icon": "The icon before an item (`BreadcrumbItem.icon`)",
+    "breadcrumb-separator": "The separator"
+  }
+}

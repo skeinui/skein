@@ -1,0 +1,35 @@
+{
+  "lead": "A column of entries with avatar / title / description / actions, for vertical content streams such as messages, feeds and search results. Semantically `<li>` items inside a `<ul>`. For aligned rows and columns, use Table.",
+  "basic": {
+    "title": "Basic",
+    "note1": "Wrote the first program",
+    "note2": "Proposed the universal machine",
+    "note3": "Invented the first compiler"
+  },
+  "bordered": {
+    "title": "Bordered, header and footer",
+    "header": "Pioneers",
+    "footer": "3 people"
+  },
+  "sizes": { "title": "Sizes" },
+  "actions": {
+    "title": "Actions and extra",
+    "new": "New",
+    "time1": "2m ago",
+    "time2": "1h ago",
+    "time3": "Yesterday",
+    "edit": "edit",
+    "more": "more"
+  },
+  "state": { "title": "Loading and empty", "loading": "Loading", "empty": "Nothing here yet" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root; carries `data-bordered` / `data-split` / `data-size` / `data-loading`",
+    "parts": "Header, footer, empty state, loading overlay",
+    "items": "The `ul` / `li`",
+    "meta": "The left-hand block of an item",
+    "extra": "The extra content and actions on the right of an item"
+  }
+}

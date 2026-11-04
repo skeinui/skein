@@ -1,0 +1,24 @@
+{
+  "lead": "空状态：没有数据、没有搜索结果时的占位说明。数据驱动，各部分都是可选的。",
+  "usage": { "title": "用法" },
+  "actions": { "title": "带操作" },
+  "sizes": { "title": "尺寸" },
+  "in-table": { "title": "在表格中" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `empty.css` 里处理。",
+    "hook": "钩子",
+    "root": "外层：居中，带内边距",
+    "parts": "各部分，没传就不渲染"
+  },
+  "props": {
+    "Empty": {
+      "actions": "下面的操作区，通常是一两个按钮。",
+      "description": "标题下的说明：为什么是空的，或者下一步该做什么。",
+      "icon": "图标或插画，放在最上面。",
+      "size": "尺寸档位（决定内边距和标题大小）。",
+      "title": "简短的标题，例如“No results”。"
+    }
+  }
+}

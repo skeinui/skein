@@ -1,0 +1,97 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* ThreadList: conversation list. Each row is icon + title / preview + extra info, the current conversation is highlighted; long titles and previews are truncated */
+  [data-theme-style="heroui"] [data-slot="thread-list"] {
+    box-sizing: border-box;
+    width: 100%;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-items"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-item"] {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0.5rem 0.625rem;
+    border: 0;
+    border-radius: var(--ui-r-item);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-item"]:hover {
+    background-color: color-mix(in srgb, transparent 94%, var(--ui-fg) 6%);
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-item"][data-selected] {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-item"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-icon"] {
+    display: inline-flex;
+    flex: none;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-icon"] > svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-content"] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-title"] {
+    overflow: hidden;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-preview"] {
+    overflow: hidden;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-meta"] {
+    flex: none;
+    align-self: flex-start;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+  [data-theme-style="heroui"] [data-slot="thread-list-empty"] {
+    padding: 1.5rem 0.75rem;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="thread-list-item"] {
+      transition: none;
+    }
+  }
+}

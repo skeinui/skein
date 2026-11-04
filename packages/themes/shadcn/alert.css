@@ -1,0 +1,140 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Alert: three variants solid / soft / outline; icon, title, description, actions area and close button laid out in order. */
+  [data-theme-style="shadcn"] [data-slot="alert"][data-color="neutral"] {
+    --_solid: var(--ui-c-neutral);
+    --_solid-fg: var(--ui-c-neutral-fg);
+    --_soft: var(--ui-c-neutral-soft);
+    --_text: var(--ui-c-neutral-text);
+    --_line: var(--ui-c-neutral-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-color="primary"] {
+    --_solid: var(--ui-c-primary);
+    --_solid-fg: var(--ui-c-primary-fg);
+    --_soft: var(--ui-c-primary-soft);
+    --_text: var(--ui-c-primary-text);
+    --_line: var(--ui-c-primary-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-color="secondary"] {
+    --_solid: var(--ui-c-secondary);
+    --_solid-fg: var(--ui-c-secondary-fg);
+    --_soft: var(--ui-c-secondary-soft);
+    --_text: var(--ui-c-secondary-text);
+    --_line: var(--ui-c-secondary-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-color="success"] {
+    --_solid: var(--ui-c-success);
+    --_solid-fg: var(--ui-c-success-fg);
+    --_soft: var(--ui-c-success-soft);
+    --_text: var(--ui-c-success-text);
+    --_line: var(--ui-c-success-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-color="warning"] {
+    --_solid: var(--ui-c-warning);
+    --_solid-fg: var(--ui-c-warning-fg);
+    --_soft: var(--ui-c-warning-soft);
+    --_text: var(--ui-c-warning-text);
+    --_line: var(--ui-c-warning-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-color="danger"] {
+    --_solid: var(--ui-c-danger);
+    --_solid-fg: var(--ui-c-danger-fg);
+    --_soft: var(--ui-c-danger-soft);
+    --_text: var(--ui-c-danger-text);
+    --_line: var(--ui-c-danger-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"] {
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: calc(0.5rem * var(--ui-density));
+    width: 100%;
+    padding: calc(0.5rem * var(--ui-density)) calc(0.625rem * var(--ui-density));
+    border: 1px solid transparent;
+    border-radius: var(--ui-radius-lg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-variant="soft"] {
+    background-color: var(--_soft);
+    border-color: transparent;
+    color: var(--_text);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-variant="outline"] {
+    background-color: var(--ui-card);
+    border-color: var(--_line);
+    color: var(--_text);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert"][data-variant="solid"] {
+    background-color: var(--_solid);
+    border-color: transparent;
+    color: var(--_solid-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-icon"] {
+    display: inline-flex;
+    flex: none;
+    margin-top: 0.125rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-icon"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-content"] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: calc(0.125rem * var(--ui-density));
+    min-width: 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-title"] {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-description"] {
+    opacity: 0.9;
+  }
+  /* Official site: the description text is muted-foreground */
+  [data-theme-style="shadcn"]
+    [data-slot="alert"][data-color="neutral"]:not([data-variant="solid"])
+    [data-slot="alert-description"] {
+    color: var(--ui-fg-muted);
+    opacity: 1;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-action"] {
+    display: flex;
+    flex: none;
+    align-items: center;
+    align-self: center;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-close"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: -0.125rem -0.25rem 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-sm);
+    background: transparent;
+    color: inherit;
+    opacity: 0.7;
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-close"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-close"]:hover {
+    opacity: 1;
+  }
+  [data-theme-style="shadcn"] [data-slot="alert-close"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+    opacity: 1;
+  }
+}

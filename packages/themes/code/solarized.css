@@ -1,0 +1,33 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Solarized Light / Dark: on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="solarized"] {
+    --ui-bg: #fdf6e3;
+    --ui-surface: #fdf6e3;
+    --ui-fg: #586e75;
+    --ui-fg-muted: #5f757c;
+    --ui-border: #eee8d5;
+    --code-keyword: #62775b;
+    --code-string: #4f787c;
+    --code-number: #c33d80;
+    --code-property: #4a7690;
+    --code-variable: #bd4f21;
+    --code-comment: #5f747a;
+  }
+  [data-mode="dark"] [data-code-theme="solarized"],
+  [data-code-theme="solarized"][data-mode="dark"] {
+    --ui-bg: #002b36;
+    --ui-surface: #002b36;
+    --ui-fg: #93a1a1;
+    --ui-fg-muted: #839496;
+    --ui-border: #073642;
+    --code-keyword: #859900;
+    --code-string: #2aa198;
+    --code-number: #a58398;
+    --code-property: #5194bf;
+    --code-variable: #a48777;
+    --code-comment: #7e9093;
+    color-scheme: dark;
+  }
+}

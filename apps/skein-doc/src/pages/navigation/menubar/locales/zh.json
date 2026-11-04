@@ -1,0 +1,98 @@
+{
+  "lead": "菜单栏：一排顶层菜单，打开一个后鼠标移到相邻的会直接切换，左右方向键在它们之间移动。弹层、菜单项复用 Menu 的主题风格。",
+  "usage": { "title": "用法" },
+  "checkbox": { "title": "复选菜单项" },
+  "danger": { "title": "危险操作项" },
+  "api": {
+    "title": "API 参考",
+    "description": "`Menubar` 是 `role=menubar` 的那一排，`Menubar.Menu` 是每个顶层菜单的根，`Menubar.Trigger` 是它的按钮。`Content` / `Item` / `CheckboxItem` / `Group` / `GroupLabel` / `Separator` 就是 [Menu](/menu) 的同名部件。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `menubar.css` 里处理菜单栏本体和触发器；弹层和菜单项来自 `menu.css`。浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "hook": "钩子",
+    "menubar": "菜单栏本体和顶层触发器，打开的那个有 `data-popup-open`",
+    "menu-positioner": "弹层和菜单项，复用 Menu 的 slot"
+  },
+  "props": {
+    "Menubar": {
+      "disabled": "是否禁用整个菜单栏。",
+      "loopFocus": "用方向键移动到列表末尾时，是否让键盘焦点回到第一项。",
+      "modal": "菜单栏是否为模态。",
+      "orientation": "菜单栏的方向。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_Menu": {
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后结束菜单的关闭阶段，需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则菜单会自行完成关闭；是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时命令式地关闭菜单。",
+      "children": "菜单内容。可以是普通的 React 节点，也可以是一个接收当前触发器 `payload` 的渲染函数。",
+      "closeParentOnEsc": "在子菜单里按 Esc 时，是关闭整个菜单，还是只关闭当前子菜单。",
+      "defaultOpen": "菜单初始是否打开。要做受控菜单，改用 `open`。",
+      "defaultTriggerId": "菜单关联的触发器 ID，配合 `defaultOpen` 创建一个初始就打开的菜单。",
+      "disabled": "组件是否忽略用户交互。",
+      "handle": "把菜单和触发器关联起来的 handle；指定后外部触发器也能控制菜单的打开状态。",
+      "highlightItemOnHover": "指针移过菜单项时是否高亮它。关掉后可以把 CSS `:hover` 和 `:focus`（`data-highlighted`）状态区分开。",
+      "loopFocus": "用方向键移动到列表末尾时，是否让键盘焦点回到第一项。",
+      "modal": "菜单打开时是否进入模态状态。`true`：交互限制在菜单内，页面滚动被锁定，外部元素的指针交互被禁用；`false`：可以和文档其他部分交互。触屏设备上，`true` 会挡住外部点击，但页面仍可滚动，除非弹层几乎占满视口宽度（与原生 iOS 行为一致）。嵌套菜单忽略这个属性，悬停打开的菜单永远不是模态。",
+      "onItemHighlighted": "某一项被高亮或取消高亮时调用。参数是高亮的元素（没有时为 `undefined`）和包含变化原因、事件、该项文本标签的详情。`reason` 可能是：`'keyboard'` 键盘导航引起；`'pointer'` 指针悬停引起（事件可能是 `MouseEvent` 而不是 `PointerEvent`）；`'none'` 其他原因引起。",
+      "onOpenChange": "菜单打开或关闭时调用。",
+      "onOpenChangeComplete": "菜单打开或关闭、所有动画结束后调用。",
+      "open": "菜单当前是否打开。",
+      "orientation": "菜单的视觉方向，决定漫游焦点用上下还是左右方向键。",
+      "triggerId": "菜单关联的触发器 ID，配合 `open` 创建受控菜单。不受控（没设 `open`）时不需要指定。"
+    },
+    "Menubar_Trigger": {
+      "children": "触发器内容。",
+      "closeDelay": "悬停打开的菜单在关闭前等待多久，单位毫秒。需要 `openOnHover`。",
+      "delay": "悬停多久后才打开菜单，单位毫秒。需要 `openOnHover`。",
+      "disabled": "组件是否忽略用户交互。",
+      "handle": "把触发器和菜单关联起来的 handle。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "openOnHover": "悬停在触发器上时是否也打开菜单。",
+      "payload": "菜单打开时传给它的数据。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_Content": {
+      "align": "弹层相对触发器的对齐方式。",
+      "children": "内容。",
+      "side": "弹层出现在触发器的哪一侧。",
+      "sideOffset": "触发器与菜单之间的间距（像素），默认 4。",
+      "finalFocus": "菜单关闭时把焦点移到哪个元素。`false`：不移动焦点；`true`：按默认行为（回到触发器或之前聚焦的元素）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，`true` 用默认行为，`false` / `undefined` 什么都不做。",
+      "id": "元素的 id。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_Item": {
+      "color": "`danger` 标出删除之类的破坏性操作，颜色由主题风格决定。",
+      "closeOnClick": "点击该项时是否关闭菜单。",
+      "disabled": "组件是否忽略用户交互。",
+      "id": "元素的 id。",
+      "label": "覆盖键盘文本导航和过滤时使用的文本；不传时用渲染出的文字。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的是原生按钮时设为 `true`。",
+      "onClick": "菜单项的点击处理函数。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_CheckboxItem": {
+      "children": "内容。",
+      "checked": "复选项当前是否勾选。要做不受控的复选项，改用 `defaultChecked`。",
+      "closeOnClick": "点击该项时是否关闭菜单。",
+      "defaultChecked": "复选项初始是否勾选。要做受控的复选项，改用 `checked`。",
+      "disabled": "组件是否忽略用户交互。",
+      "id": "元素的 id。",
+      "label": "覆盖键盘文本导航和过滤时使用的文本；不传时用渲染出的文字。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的是原生按钮时设为 `true`。",
+      "onCheckedChange": "复选项勾选或取消勾选时调用。",
+      "onClick": "菜单项的点击处理函数。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_Group": {
+      "children": "组件的内容。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_GroupLabel": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Menubar_Separator": {
+      "orientation": "分隔线的方向。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

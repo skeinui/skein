@@ -1,0 +1,163 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* DiffView: file name + add / remove stats, below is a line-by-line comparison with old and new line numbers; added / removed lines use a semantic color background, not relying on color alone (there are +/- signs and a screen-reader prefix) */
+  [data-theme-style="shadcn"] [data-slot="diff-view"] {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-r-block);
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-header"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.4375rem 0.75rem;
+    border-bottom: 1px solid var(--ui-border);
+    background-color: color-mix(in srgb, transparent 96%, var(--ui-fg) 4%);
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-file"] {
+    min-width: 0;
+    overflow: hidden;
+    font-family: var(--ui-font-mono);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-stats"] {
+    flex: none;
+    font-family: var(--ui-font-mono);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-stat"][data-type="add"] {
+    color: color-mix(in srgb, var(--ui-c-success) 45%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-stat"][data-type="del"] {
+    color: color-mix(in srgb, var(--ui-c-danger) 50%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-empty"] {
+    padding: 1rem 0.75rem;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    text-align: center;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-scroll"] {
+    overflow: auto;
+    outline: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-scroll"]:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-table"] {
+    width: 100%;
+    min-width: max-content;
+    border-collapse: collapse;
+    font-family: var(--ui-font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-gutter"] {
+    width: 1%;
+    min-width: 2.75rem;
+    padding: 0 0.5rem;
+    color: color-mix(in srgb, var(--ui-fg-muted) 55%, var(--ui-fg));
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    vertical-align: top;
+    user-select: none;
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-code"] {
+    padding: 0 0.75rem 0 0;
+    white-space: pre;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-sign"] {
+    display: inline-block;
+    width: 1.25rem;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    text-align: center;
+    user-select: none;
+  }
+  /* Screen-reader prefix: visually hidden, still present for copy and screen readers */
+  [data-theme-style="shadcn"] [data-slot="diff-label"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-row"][data-type="add"] > td {
+    background-color: color-mix(in srgb, transparent 85%, var(--ui-c-success) 15%);
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-row"][data-type="del"] > td {
+    background-color: color-mix(in srgb, transparent 85%, var(--ui-c-danger) 15%);
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-row"][data-type="add"] [data-slot="diff-sign"] {
+    color: color-mix(in srgb, var(--ui-c-success) 45%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-row"][data-type="del"] [data-slot="diff-sign"] {
+    color: color-mix(in srgb, var(--ui-c-danger) 50%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-row"][data-type="ctx"] {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="shadcn"] [data-type="gap"] > [data-slot="diff-gap"] {
+    padding: 0;
+    border-block: 1px solid var(--ui-border);
+    background-color: color-mix(in srgb, transparent 96%, var(--ui-fg) 4%);
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-expand"] {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 0.25rem 0.75rem;
+    border: 0;
+    background: transparent;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font: inherit;
+    font-size: 0.75rem;
+    text-align: start;
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-expand"]:hover {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-expand"]:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ui-ring);
+  }
+  /* Coloring (same as CodeBlock) */
+  [data-theme-style="shadcn"] [data-slot="diff-code"] [data-token="keyword"] {
+    color: color-mix(
+      in srgb,
+      color-mix(in srgb, var(--ui-c-primary) 50%, var(--ui-c-danger)) 62%,
+      var(--ui-fg)
+    );
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-code"] [data-token="string"] {
+    color: color-mix(in srgb, var(--ui-c-success) 75%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-code"] [data-token="number"] {
+    color: color-mix(in srgb, var(--ui-c-warning) 55%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-code"] [data-token="property"] {
+    color: color-mix(in srgb, var(--ui-c-primary) 75%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-code"] [data-token="variable"] {
+    color: color-mix(in srgb, var(--ui-c-danger) 50%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="diff-code"] [data-token="comment"] {
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-style: italic;
+  }
+}

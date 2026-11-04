@@ -1,0 +1,135 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Reasoning: the trigger is a faint sentence plus an arrow, expanded into a vertical step timeline (dots strung on one line). The panel height animation reads --collapsible-panel-height */
+  [data-theme-style="shadcn"] [data-slot="reasoning"] {
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-trigger"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.125rem 0.25rem;
+    margin-inline-start: -0.25rem;
+    border: 0;
+    border-radius: var(--ui-r-control);
+    background: transparent;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    outline: none;
+    transition: color 150ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-trigger"]:hover {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-trigger"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-icon"] {
+    display: inline-flex;
+    flex: none;
+    transition: rotate 200ms var(--ui-easing);
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-icon"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="reasoning-trigger"][data-panel-open]
+    [data-slot="reasoning-icon"] {
+    rotate: 180deg;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-panel"] {
+    height: var(--collapsible-panel-height);
+    overflow: hidden;
+    transition: height 200ms var(--ui-easing);
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-panel"][data-starting-style],
+  [data-theme-style="shadcn"] [data-slot="reasoning-panel"][data-ending-style] {
+    height: 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-content"] {
+    padding-block: 0.5rem 0.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-steps"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Each step: a dot on the left, with a line from the dot down to the next step */
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"] {
+    position: relative;
+    padding-inline-start: 1.25rem;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"]::before {
+    content: "";
+    position: absolute;
+    inset-block-start: 0.5rem;
+    inset-inline-start: 0;
+    box-sizing: border-box;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"]:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    inset-block: 1.25rem calc(-0.75rem + 0.0625rem);
+    inset-inline-start: calc(0.25rem - 0.5px);
+    width: 1px;
+    background-color: var(--ui-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"][data-status="done"]::before {
+    background-color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"][data-status="active"]::before {
+    background-color: var(--ui-c-primary);
+    animation: ui-reasoning-pulse 1.4s ease-in-out infinite;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"][data-status="pending"] {
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step"][data-status="pending"]::before {
+    border: 1px solid var(--ui-fg-muted);
+    background-color: transparent;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step-label"] {
+    font-weight: 500;
+  }
+  [data-theme-style="shadcn"] [data-slot="reasoning-step-content"] {
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    overflow-wrap: anywhere;
+  }
+  @keyframes ui-reasoning-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="reasoning-panel"],
+    [data-theme-style="shadcn"] [data-slot="reasoning-icon"],
+    [data-theme-style="shadcn"] [data-slot="reasoning-trigger"] {
+      transition: none;
+    }
+    [data-theme-style="shadcn"] [data-slot="reasoning-step"][data-status="active"]::before {
+      animation: none;
+    }
+  }
+}

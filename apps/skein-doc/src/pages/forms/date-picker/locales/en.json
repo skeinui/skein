@@ -1,0 +1,33 @@
+{
+  "lead": "Date picking: the trigger reuses Select's look, the popup reuses Popover with a [Calendar](/calendar) inside. A single pick closes the popup as soon as a date is chosen; a range closes once the end date is picked.",
+  "usage": { "title": "Usage" },
+  "range": { "title": "Range" },
+  "time": {
+    "title": "Date and time",
+    "description": "`showTime` adds a time panel next to the calendar (single selection only), and the value becomes \"YYYY-MM-DDTHH:mm\". Changing the date keeps the time; picking a time before a date uses today's date. The popup closes on **OK** or a click outside."
+  },
+  "picker": {
+    "title": "Week, month, quarter, year",
+    "description": "`picker` sets the granularity. The month / quarter / year panels are PeriodCalendar (also usable on its own); the week one is Calendar's `mode=\"week\"`."
+  },
+  "editable": {
+    "title": "Editable",
+    "description": "`editable` turns the trigger into an input where you type the date in a fixed format. It is checked and committed on Enter or blur: invalid text is marked invalid after Enter and restored on blur. The Down key or the calendar icon opens the popup, and a date picked there is copied into the input."
+  },
+  "variants": { "title": "Variants & Sizes" },
+  "in-field": {
+    "title": "In Field",
+    "description": "Inside a [Field](/field), it takes the Field's `variant` / `size` and its disabled / invalid state, unless passed on the DatePicker."
+  },
+  "limits": { "title": "Min & Max" },
+  "controlled": { "title": "Controlled", "value": "Value:" },
+  "disabled": { "title": "Disabled & Invalid" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "DatePicker has no CSS file of its own: the trigger comes from `select.css`, the popup from `popover.css`, the calendar from `calendar.css`.",
+    "trigger": "The trigger, reusing Select's slots",
+    "popup": "The popup, reusing Popover's slots; `data-picker` lets theme styles drop the popup's own padding",
+    "calendar": "The Calendar in the popup, see the [Calendar](/calendar) page"
+  }
+}

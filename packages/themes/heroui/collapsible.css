@@ -1,0 +1,75 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Collapsible: a trigger button plus an expandable panel. The panel height animation reads the --collapsible-panel-height provided by Base UI. */
+  [data-theme-style="heroui"] [data-slot="collapsible"] {
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-trigger"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    text-align: start;
+    cursor: pointer;
+    outline: none;
+    transition: color 250ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-trigger"]:hover:not([data-disabled]) {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-trigger"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-trigger"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-icon"] {
+    display: inline-flex;
+    flex: none;
+    color: var(--ui-fg-muted);
+    transition: rotate 250ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-icon"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="collapsible-trigger"][data-panel-open]
+    [data-slot="collapsible-icon"] {
+    rotate: 180deg;
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-panel"] {
+    height: var(--collapsible-panel-height);
+    overflow: hidden;
+    transition: height 250ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-panel"][data-starting-style],
+  [data-theme-style="heroui"] [data-slot="collapsible-panel"][data-ending-style] {
+    height: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="collapsible-content"] {
+    padding: 0.25rem 0.75rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="collapsible-panel"],
+    [data-theme-style="heroui"] [data-slot="collapsible-icon"],
+    [data-theme-style="heroui"] [data-slot="collapsible-trigger"] {
+      transition: none;
+    }
+  }
+}

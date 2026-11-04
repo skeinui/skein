@@ -1,0 +1,23 @@
+{
+  "lead": "A user's picture. When the image fails to load or none is given, the fallback is shown; the loading state comes from Base UI's Avatar.",
+  "usage": { "title": "Usage" },
+  "sizes": { "title": "Sizes" },
+  "colors": { "title": "Colors" },
+  "radius": { "title": "Radius" },
+  "group": {
+    "title": "Avatar Group",
+    "description": "Avatars stack, and those beyond `max` collapse into \"+N\". The group is `role=group`, and \"+N\" is a named `role=img`.",
+    "members": "Project members ({size})",
+    "reviewers": "Reviewers"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `avatar.css`; the corner radius comes from `--_r` in the size step.",
+    "hook": "Hook",
+    "avatar-group": "The stacking container; avatars inside are stacked with sibling selectors, and \"+N\" is an avatar with `data-overflow`",
+    "avatar": "The frame: size, radius, clipping",
+    "avatar-image": "The image, filling the frame",
+    "avatar-fallback": "Fallback content, shown when the image hasn't loaded"
+  }
+}

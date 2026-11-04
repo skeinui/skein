@@ -1,0 +1,39 @@
+{
+  "lead": "气泡确认：点一个元素，在它旁边弹出小气泡问「确定吗」，不打断页面，比对话框轻，适合行内的删除、停用。`onConfirm` 可以是异步的。要全屏的强确认用 [Confirm Dialog](/confirm-dialog)。",
+  "usage": { "title": "用法" },
+  "placement": { "title": "位置" },
+  "async": {
+    "title": "异步确认",
+    "left": "剩余条目：`{n}`（确认后请求 900ms，期间按钮转圈）"
+  },
+  "custom": { "title": "图标和按钮" },
+  "disabled": { "title": "禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `popconfirm.css` 里排内容；外壳沿用 `popover.css`。",
+    "hook": "钩子",
+    "root": "气泡里的内容，带 `data-tone`；外壳（背景、阴影、箭头）是本主题风格的 popover",
+    "parts": "图标、标题、描述（缩进和标题对齐）、底部按钮区"
+  },
+  "props": {
+    "Popconfirm": {
+      "align": "气泡相对元素的对齐方式。",
+      "cancelLabel": "取消按钮的文字，默认取语言包的“取消”。",
+      "children": "点击后弹出确认气泡的元素（按钮之类，单个元素）。",
+      "confirmLabel": "确认按钮的文字，默认取语言包的“确定”。",
+      "defaultOpen": "非受控时的初始 `open`。",
+      "description": "标题下方可选的补充说明（后果、细节）。",
+      "disabled": "禁用时点元素不弹出，元素本身照常工作。",
+      "hideCancel": "不显示取消按钮（只有一个“知道了”按钮的提示）。",
+      "icon": "标题前的图标；不传是警告图标，传 null 不显示。",
+      "onCancel": "未确认就关闭气泡时调用：取消按钮、Esc 或点外面。",
+      "onConfirm": "点确认时调用。返回 Promise 时确认按钮进入加载状态，期间无法取消或关闭；成功后自动关闭，失败（reject）保持打开，错误由使用方提示。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "side": "气泡在元素的哪一侧弹出。",
+      "title": "要问的问题，比如“删除这一项？”；是字符串时也作为气泡的无障碍名称。",
+      "tone": "为 danger 时确认按钮和图标用危险色。"
+    }
+  }
+}

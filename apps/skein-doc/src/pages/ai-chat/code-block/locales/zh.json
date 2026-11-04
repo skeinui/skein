@@ -1,0 +1,43 @@
+{
+  "lead": "代码块：头部是语言（或标题）加复制按钮，下面是可滚动的代码。自带轻量着色，不依赖 shiki 之类的库；要更精确的高亮，用 `highlight` 换成自己的。常用于 Markdown 里的围栏代码。",
+  "usage": { "title": "用法" },
+  "languages": {
+    "title": "语言",
+    "description": "内置：js / ts / json / python / bash / css / html / sql；认不出的语言就是纯文本。"
+  },
+  "line-numbers": { "title": "行号与换行" },
+  "themes": {
+    "title": "主题",
+    "description": "内置 8 套流行主题：GitHub、One、Solarized、Catppuccin 跟随亮暗模式，Dracula、Nord、Monokai、Tokyo Night 固定深色。和主题风格互不影响，换主题风格时代码块的配色保持不变。官方色板里对比度不到 4.5 的颜色已微调到刚好达标。"
+  },
+  "custom": {
+    "title": "自定义着色",
+    "description": "`highlight` 传函数，按行返回已经着色的内容（这里只是把每行首个单词加粗，实际用 shiki 之类）。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根元素；`data-language` / `data-line-numbers` / `data-wrap`",
+    "header": "头部：语言 + 复制按钮",
+    "language": "头部的语言 / 标题文字",
+    "copy": "复制按钮；`data-copied` 表示刚复制成功（图标变对勾）",
+    "status": "复制成功的播报文字（`role=status`，视觉隐藏）",
+    "pre": "可滚动、可聚焦的代码区（`role=region`）",
+    "code": "代码和每一行（行号靠 CSS 计数）",
+    "token": "着色的片段：keyword / string / comment / number / property / variable"
+  },
+  "props": {
+    "CodeBlock": {
+      "code": "代码文本。",
+      "copiedLabel": "复制成功后按钮的名称，也会被读屏播报，默认 \"Copied\"；2 秒后复原。",
+      "copyLabel": "复制按钮的名称，默认 \"Copy code\"。",
+      "highlight": "着色：默认（`true`）用内置的轻量着色，认不出的语言就是纯文本；`false` 不着色；也可以传函数，按行返回已经着色的内容（接 shiki / Prism 用），行数要和 `code` 按换行拆出来的一致。",
+      "language": "语言，显示在头部，也决定内置着色用哪一套（js / ts / json / python / bash / css / html / sql 等）。",
+      "lineNumbers": "显示行号。",
+      "theme": "代码主题（GitHub / One / Solarized / Catppuccin 跟随亮暗模式，Dracula / Nord / Monokai / Tokyo Night 固定深色）。不传就用主题风格自己的配色。需要引入 `@skeinui/themes/code/index.css`（或单个主题的文件）。",
+      "title": "头部左边的文字，默认是语言；传文件名之类的可以换掉。",
+      "wrap": "长行自动换行；默认横向滚动。"
+    }
+  }
+}

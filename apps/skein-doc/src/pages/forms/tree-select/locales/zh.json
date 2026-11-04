@@ -1,0 +1,40 @@
+{
+  "lead": "树选择：触发器同 [Select](/select)，浮层里是一棵 [Tree](/tree)。单选点节点即选，多选勾复选框；支持搜索、异步加载。数据比较平、不分层时用 Select，只有两三级且要逐级选用 [Cascader](/cascader)。",
+  "basic": { "title": "基础", "placeholder": "选择城市" },
+  "multiple": { "title": "多选", "placeholder": "选择多个城市" },
+  "search": { "title": "搜索与清除" },
+  "lazy": { "title": "异步加载" },
+  "states": { "title": "尺寸与状态" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "外层；`data-full-width`",
+    "trigger": "`data-variant` / `data-size` / `data-invalid` / `data-multiple` / `data-popup-open`",
+    "parts": "触发器里的部件；value 为空时带 `data-placeholder`",
+    "panel": "浮层里的容器、搜索框、放 Tree 的滚动区"
+  },
+  "props": {
+    "TreeSelect": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "clearable": "有值时显示清除按钮。",
+      "defaultExpandAll": "打开时展开所有节点。",
+      "defaultValue": "非受控时的初始 `value`。",
+      "disabled": "禁用交互。",
+      "emptyText": "搜索无匹配时显示的内容，默认取当前语言的「无结果」。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示无效状态。",
+      "multiple": "多选：每个节点前有复选框，勾选父节点会勾上其下所有可用的叶子。",
+      "nodes": "树的数据：顶层节点，各自嵌套 `children`。",
+      "onLoadChildren": "展开还没有子节点的 lazy 节点时调用；返回 Promise 时节点在加载期间显示 spinner。",
+      "onValueChange": "值变化时以新的 `value` 调用；同时传 `value` 即为受控。",
+      "placeholder": "没有值时显示的文字，默认取当前语言的「请选择」。",
+      "searchable": "浮层顶部显示搜索框：输入后树只保留命中的节点（连同其祖先）。",
+      "searchPlaceholder": "搜索框的占位文字（也是它的无障碍名称），默认取当前语言的「搜索」。",
+      "size": "尺寸档位，同 Select；放进 Field 时默认取 Field 的。",
+      "value": "单选时是选中节点的 id（任何层级的节点都可以选）。多选时是选中的叶子节点 id 数组（父节点由子孙推出，不包含在内）。",
+      "variant": "触发器的视觉变体，同 Select；放进 Field 时默认取 Field 的。",
+      "maxTagCount": "多选时触发器里最多显示几个标签，其余折成「+N」。"
+    }
+  }
+}

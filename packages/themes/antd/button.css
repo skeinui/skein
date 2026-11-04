@@ -1,0 +1,349 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /*
+   * Modeled on Ant Design 6's Button: 32px high, 15px padding, 1px stroke, 6px radius, 14px / 22px, font weight 400, 8px gap,
+   * transition 0.2s cubic-bezier(.645,.045,.355,1), and focus is a 3px colorPrimaryBorder outer outline (offset 1px).
+   * Variants: solid=solid, outline=outlined, soft=filled, ghost=text, faded=dashed; shadow is an extension of this package.
+   * antd's default color corresponds to this package's neutral: for outlined / dashed, the stroke and text change to the primary hover color on hover.
+   */
+  [data-theme-style="antd"] [data-slot="button"] {
+    --_bg: transparent;
+    --_fg: inherit;
+    --_bd: transparent;
+    --_shadow: 0 0 0 0 transparent;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    height: var(--ui-height-md);
+    padding-inline: 15px;
+    border: 1px solid var(--_bd);
+    border-radius: var(--ui-radius-md);
+    background-color: var(--_bg);
+    color: var(--_fg);
+    box-shadow: var(--_shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5714285714285714;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all var(--ui-duration) var(--ui-easing);
+  }
+
+  [data-theme-style="antd"] [data-slot="button"][data-size="sm"] {
+    height: var(--ui-height-sm);
+    padding-inline: 7px;
+    border-radius: var(--ui-radius-sm);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-size="lg"] {
+    height: var(--ui-height-lg);
+    border-radius: var(--ui-radius-lg);
+    font-size: 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-icon-only] {
+    width: var(--ui-height-md);
+    padding: 0;
+    font-size: 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-icon-only][data-size="sm"] {
+    width: var(--ui-height-sm);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-icon-only][data-size="lg"] {
+    width: var(--ui-height-lg);
+    font-size: 1.125rem;
+  }
+
+  [data-theme-style="antd"] [data-slot="button"][data-radius="none"] {
+    border-radius: 0;
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-radius="sm"] {
+    border-radius: var(--ui-radius-sm);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-radius="md"] {
+    border-radius: var(--ui-radius-md);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-radius="lg"] {
+    border-radius: var(--ui-radius-lg);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-radius="full"] {
+    border-radius: var(--ui-radius-full);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+
+  /* Map semantic colors to private variables */
+  [data-theme-style="antd"] [data-slot="button"][data-color="neutral"] {
+    --_base: var(--ui-c-neutral);
+    --_on: var(--ui-c-neutral-fg);
+    --_soft: var(--ui-c-neutral-soft);
+    --_text: var(--ui-c-neutral-text);
+    --_hover: var(--ui-c-neutral-hover);
+    --_active: var(--ui-c-neutral-active);
+    --_line: var(--ui-c-neutral-border);
+    /* default's outlined / dashed use the primary color on hover and press */
+    --_line-hover: var(--ui-c-primary-hover);
+    --_line-active: var(--ui-c-primary-active);
+    --_text-hover: var(--ui-c-primary-hover);
+    --_text-active: var(--ui-c-primary-active);
+    --_soft-hover: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+    --_soft-active: color-mix(in srgb, var(--ui-fg) 17%, transparent);
+    --_ghost-hover: color-mix(in srgb, var(--ui-fg) 4.5%, transparent);
+    --_ghost-active: color-mix(in srgb, var(--ui-fg) 17%, transparent);
+  }
+  [data-theme-style="antd"]
+    [data-slot="button"]:is(
+      [data-color="primary"],
+      [data-color="secondary"],
+      [data-color="success"],
+      [data-color="warning"],
+      [data-color="danger"]
+    ) {
+    --_hover: var(--_c-hover);
+    --_active: var(--_c-active);
+    --_line: var(--_base);
+    --_line-hover: var(--_c-hover);
+    --_line-active: var(--_c-active);
+    --_text-hover: var(--_c-hover);
+    --_text-active: var(--_c-active);
+    --_soft-hover: color-mix(in oklab, var(--_soft) 50%, var(--_c-border) 50%);
+    --_soft-active: var(--_c-border);
+    --_ghost-hover: var(--_soft);
+    --_ghost-active: var(--_c-border);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-color="primary"] {
+    --_sh: 10%;
+    --_base: var(--ui-c-primary);
+    --_on: var(--ui-c-primary-fg);
+    --_soft: var(--ui-c-primary-soft);
+    --_text: var(--ui-c-primary-text);
+    --_c-hover: var(--ui-c-primary-hover);
+    --_c-active: var(--ui-c-primary-active);
+    --_c-border: var(--ui-c-primary-border);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-color="secondary"] {
+    --_base: var(--ui-c-secondary);
+    --_on: var(--ui-c-secondary-fg);
+    --_soft: var(--ui-c-secondary-soft);
+    --_text: var(--ui-c-secondary-text);
+    --_c-hover: var(--ui-c-secondary-hover);
+    --_c-active: var(--ui-c-secondary-active);
+    --_c-border: var(--ui-c-secondary-border);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-color="success"] {
+    --_base: var(--ui-c-success);
+    --_on: var(--ui-c-success-fg);
+    --_soft: var(--ui-c-success-soft);
+    --_text: var(--ui-c-success-text);
+    --_c-hover: var(--ui-c-success-hover);
+    --_c-active: var(--ui-c-success-active);
+    --_c-border: var(--ui-c-success-border);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-color="warning"] {
+    --_base: var(--ui-c-warning);
+    --_on: var(--ui-c-warning-fg);
+    --_soft: var(--ui-c-warning-soft);
+    --_text: var(--ui-c-warning-text);
+    --_c-hover: var(--ui-c-warning-hover);
+    --_c-active: var(--ui-c-warning-active);
+    --_c-border: var(--ui-c-warning-border);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-color="danger"] {
+    --_sh: 6%;
+    --_base: var(--ui-c-danger);
+    --_on: var(--ui-c-danger-fg);
+    --_soft: var(--ui-c-danger-soft);
+    --_text: var(--ui-c-danger-text);
+    --_c-hover: var(--ui-c-danger-hover);
+    --_c-active: var(--ui-c-danger-active);
+    --_c-border: var(--ui-c-danger-border);
+  }
+
+  /* Variants */
+  [data-theme-style="antd"] [data-slot="button"][data-variant="solid"] {
+    --_bg: var(--_base);
+    --_fg: var(--_on);
+    --_bg-hover: var(--_hover);
+    --_bg-active: var(--_active);
+    --_shadow: 0 2px 0 color-mix(in srgb, var(--_base) var(--_sh, 8%), transparent);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-variant="shadow"] {
+    --_bg: var(--_base);
+    --_fg: var(--_on);
+    --_bg-hover: var(--_hover);
+    --_bg-active: var(--_active);
+    --_shadow: 0 4px 12px 0 color-mix(in srgb, var(--_base) 35%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-variant="outline"],
+  [data-theme-style="antd"] [data-slot="button"][data-variant="faded"] {
+    --_bg: var(--ui-field-bg);
+    --_fg: var(--_text);
+    --_bd: var(--_line);
+    --_shadow: 0 2px 0 rgb(0 0 0 / 0.02);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-variant="faded"] {
+    border-style: dashed;
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-variant="soft"] {
+    --_bg: var(--_soft);
+    --_fg: var(--_text);
+    --_bg-hover: var(--_soft-hover);
+    --_bg-active: var(--_soft-active);
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-variant="ghost"] {
+    --_bg: transparent;
+    --_fg: var(--_text);
+    --_bg-hover: var(--_ghost-hover);
+    --_bg-active: var(--_ghost-active);
+  }
+
+  /* In dark, antd's button shadow is heavier: primary 31%, danger 11%, and default's outlined button is 4% white */
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="button"][data-color="primary"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="button"][data-color="primary"] {
+    --_sh: 31%;
+  }
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="button"][data-color="danger"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="button"][data-color="danger"] {
+    --_sh: 11%;
+  }
+  [data-theme-style="antd"][data-mode="dark"]
+    [data-slot="button"][data-color="neutral"]:is([data-variant="outline"], [data-variant="faded"]),
+  [data-theme-style="antd"]
+    [data-mode="dark"]
+    [data-slot="button"][data-color="neutral"]:is(
+      [data-variant="outline"],
+      [data-variant="faded"]
+    ) {
+    --_shadow: 0 2px 0 rgb(255 255 255 / 0.04);
+  }
+
+  /* Dark neutral: filled hover / press is 12% / 18% white, text hover is 8% white (--ui-fg itself is 85% white, scaled proportionally) */
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="button"][data-color="neutral"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="button"][data-color="neutral"] {
+    --_soft-hover: rgb(255 255 255 / 0.12);
+    --_soft-active: rgb(255 255 255 / 0.18);
+    --_ghost-hover: rgb(255 255 255 / 0.08);
+    --_ghost-active: rgb(255 255 255 / 0.18);
+  }
+
+  /* Dark primary: colorPrimaryBgHover is one step brighter than colorPrimaryBg (soft and border have the same value, so mixing yields no change) */
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="button"][data-color="primary"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="button"][data-color="primary"] {
+    --_soft-hover: color-mix(in srgb, var(--ui-c-primary) 25%, var(--ui-c-primary-soft));
+    --_ghost-hover: var(--_soft-hover);
+  }
+
+  /* Hover / press */
+  [data-theme-style="antd"] [data-slot="button"]:hover:not([data-disabled], [data-loading]) {
+    background-color: var(--_bg-hover, var(--_bg));
+  }
+  [data-theme-style="antd"] [data-slot="button"]:active:not([data-disabled], [data-loading]) {
+    background-color: var(--_bg-active, var(--_bg));
+  }
+  [data-theme-style="antd"]
+    [data-slot="button"]:is([data-variant="outline"], [data-variant="faded"]):hover:not(
+      [data-disabled],
+      [data-loading]
+    ) {
+    border-color: var(--_line-hover);
+    color: var(--_text-hover);
+  }
+  [data-theme-style="antd"]
+    [data-slot="button"]:is([data-variant="outline"], [data-variant="faded"]):active:not(
+      [data-disabled],
+      [data-loading]
+    ) {
+    border-color: var(--_line-active);
+    color: var(--_text-active);
+  }
+  [data-theme-style="antd"]
+    [data-slot="button"][data-variant="ghost"][data-color]:not([data-color="neutral"]):hover:not(
+      [data-disabled],
+      [data-loading]
+    ) {
+    color: var(--_text-hover);
+  }
+
+  [data-theme-style="antd"]
+    [data-slot="button"][data-variant="ghost"][data-color]:not([data-color="neutral"]):active:not(
+      [data-disabled],
+      [data-loading]
+    ) {
+    color: var(--_text-active);
+  }
+  /* Colored outlined buttons have a transparent background in antd (dashed buttons still use the container background and have a shadow) */
+  [data-theme-style="antd"]
+    [data-slot="button"][data-variant="outline"][data-color]:not([data-color="neutral"]) {
+    --_bg: transparent;
+    --_shadow: 0 0 0 0 transparent;
+  }
+
+  [data-theme-style="antd"] [data-slot="button"]:focus-visible {
+    outline: 3px solid var(--ui-c-primary-border);
+    outline-offset: 1px;
+  }
+
+  /* Disabled: gray background, gray text, gray stroke, with no reduced opacity; text buttons only get gray text */
+  [data-theme-style="antd"] [data-slot="button"][data-disabled] {
+    border-color: var(--ui-border);
+    background-color: var(--ui-field-filled-bg);
+    color: var(--ui-field-placeholder);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-disabled][data-variant="ghost"] {
+    border-color: transparent;
+    background-color: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="button"][data-loading] {
+    opacity: 0.65;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Leading / trailing content, loading indicator: icon 16px */
+  [data-theme-style="antd"] [data-slot="button-start"],
+  [data-theme-style="antd"] [data-slot="button-end"] {
+    display: inline-flex;
+    flex: none;
+  }
+  [data-theme-style="antd"] [data-slot="button-start"] > svg,
+  [data-theme-style="antd"] [data-slot="button-end"] > svg,
+  [data-theme-style="antd"] [data-slot="button"][data-icon-only] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="button-spinner"] {
+    flex: none;
+    box-sizing: border-box;
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: ui-antd-button-spin 1s linear infinite;
+  }
+
+  @keyframes ui-antd-button-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="button"] {
+      transition: none;
+    }
+    [data-theme-style="antd"] [data-slot="button-spinner"] {
+      animation-duration: 2s;
+    }
+  }
+}

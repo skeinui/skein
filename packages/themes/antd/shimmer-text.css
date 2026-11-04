@@ -1,0 +1,44 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* ShimmerText: the text is faint, and an overlaid copy of the same text shows a highlight only within the glyphs, with the highlight looping from left to right (the component writes --sh-duration) */
+  [data-theme-style="antd"] [data-slot="shimmer-text"] {
+    position: relative;
+    display: inline-block;
+    color: var(--ui-fg-muted);
+    font-family: inherit;
+  }
+  [data-theme-style="antd"] [data-slot="shimmer-text"]:not([data-active]) {
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="shimmer-text-label"] {
+    display: inline-block;
+  }
+  [data-theme-style="antd"] [data-slot="shimmer-text-highlight"] {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    color: transparent;
+    background-image: linear-gradient(100deg, transparent 35%, var(--ui-fg) 50%, transparent 65%);
+    background-repeat: no-repeat;
+    background-size: 250% 100%;
+    background-position: 150% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: ui-shimmer-text var(--sh-duration, 2s) linear infinite;
+  }
+  @keyframes ui-shimmer-text {
+    to {
+      background-position: -50% 0;
+    }
+  }
+  /* Reduced motion: the highlight layer is not shown, and the text is a solid color */
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="shimmer-text-highlight"] {
+      display: none;
+    }
+    [data-theme-style="antd"] [data-slot="shimmer-text"] {
+      color: var(--ui-fg);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "lead": "步骤条：数据驱动，状态是 complete / current / upcoming / error，完成的画勾、出错的画叉，其余显示序号。",
+  "usage": { "title": "用法" },
+  "vertical": { "title": "纵向" },
+  "error": { "title": "出错" },
+  "clickable": {
+    "title": "可点击",
+    "current": "当前：`{current}`（点击已完成的步骤可以回退）"
+  },
+  "colors": { "title": "颜色" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `stepper.css` 里处理。",
+    "hook": "钩子",
+    "step": "列表和每一步；步骤上 `data-status` 是状态，当前步骤带 `aria-current=step`",
+    "parts": "可点击区、序号圆点和文字区",
+    "text": "标题、说明和连接线"
+  },
+  "props": {
+    "Stepper": {
+      "color": "完成和当前步骤的颜色，具体颜色由主题风格决定。",
+      "current": "当前步骤的下标，从 0 开始。",
+      "onStepClick": "点击已完成 / 当前步骤时调用；不传则步骤不可点击。",
+      "orientation": "排列方向。",
+      "steps": "按顺序排列的步骤：`{ title, description, status }`；`status` 会覆盖按 `current` 推出的状态（如 `error`）。"
+    }
+  }
+}

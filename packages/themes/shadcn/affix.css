@@ -1,0 +1,18 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Affix: when pinned the content becomes fixed and a placeholder of the same size is left in place; position and size come from
+     --affix-top / --affix-left / --affix-w / --affix-h (see affix.tsx). This is behavior, not appearance, so it is the same in every theme style;
+     to add a shadow or background to the pinned state, write it yourself with [data-affixed]. */
+  [data-theme-style="shadcn"] [data-slot="affix"][data-affixed] {
+    height: calc(var(--affix-h, 0) * 1px);
+  }
+  [data-theme-style="shadcn"] [data-slot="affix-content"][data-affixed] {
+    position: fixed;
+    z-index: 10;
+    top: calc(var(--affix-top, 0) * 1px);
+    left: calc(var(--affix-left, 0) * 1px);
+    box-sizing: border-box;
+    width: calc(var(--affix-w, 0) * 1px);
+  }
+}

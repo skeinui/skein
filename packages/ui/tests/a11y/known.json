@@ -1,0 +1,31 @@
+[
+  {
+    "rule": "region",
+    "reason": "Menu / Drawer popups render in a portal, outside the page landmarks (main / nav ...); a common axe issue with portal popups, not a library problem"
+  },
+  {
+    "rule": "page-has-heading-one",
+    "reason": "the scan covers the playground's full-page demo; page content comes from the app, the demo page itself has no h1"
+  },
+  {
+    "rule": "color-contrast",
+    "styles": ["heroui"],
+    "reason": "heroui's official --ui-fg-muted (zinc-500) on a grey background (#f5f5f5 / the darker grey of the column layout's icon rail) is 4.0-4.43, below 4.5. Kept because styles follow the latest official version"
+  },
+  {
+    "rule": "color-contrast",
+    "styles": ["shadcn"],
+    "reason": "shadcn's official muted text color (neutral-500) on #f5f5f5 is 4.34, below 4.5. Kept because styles follow the latest official version"
+  },
+  {
+    "rule": "color-contrast",
+    "styles": ["antd"],
+    "reason": "antd officially uses the brand / danger color as text color: active items on a light background are about 3.8-4.2, danger menu items about 4.1. Kept because styles follow the official look"
+  },
+  {
+    "rule": "color-contrast",
+    "states": ["mobile drawer"],
+    "target": "small$",
+    "reason": "the version number in the drawer: axe picks up the mask's grey, the actual background is white (contrast about 5.8), a false positive"
+  }
+]

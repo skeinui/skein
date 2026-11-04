@@ -1,0 +1,49 @@
+{
+  "lead": "单个展开 / 收起的区域：一个触发按钮加一块面板，用于「显示更多」「高级选项」这类单个的折叠。多个一组、同时只展开一个用 [Accordion](/accordion)。",
+  "usage": {
+    "title": "用法",
+    "trigger": "显示更多",
+    "text": "只有你邀请的人能看到这个项目。可随时在项目设置里修改可见范围。"
+  },
+  "controlled": {
+    "title": "受控",
+    "trigger": "高级选项",
+    "text": "重试次数、超时和代理设置都在这里。",
+    "open": "从外部展开",
+    "close": "从外部收起"
+  },
+  "no-icon": {
+    "title": "自定义触发器",
+    "description": "`icon={false}` 去掉箭头；`render` 换成自己的元素。",
+    "trigger": "详情",
+    "text": "构建 #482 在 main 分支上用时 2 分 14 秒完成。"
+  },
+  "disabled": { "title": "禁用", "trigger": "已锁定的区域", "text": "无法展开。" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根；Base UI 写 `data-open` / `data-closed`",
+    "trigger": "触发按钮和展开箭头；按钮展开时有 `data-panel-open`，禁用时有 `data-disabled`",
+    "panel": "面板和里面的内容容器；高度动画用 `--collapsible-panel-height` 加 `data-starting-style` / `data-ending-style`"
+  },
+  "props": {
+    "Collapsible": {
+      "defaultOpen": "面板初始是否展开。受控用法请改用 `open`。",
+      "disabled": "是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用。",
+      "open": "面板当前是否展开。非受控用法请改用 `defaultOpen`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Collapsible_Trigger": {
+      "icon": "触发按钮后面的展开箭头。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Collapsible_Panel": {
+      "hiddenUntilFound": "让浏览器自带的页内搜索能找到并展开面板内容。会覆盖 `keepMounted`，用 `hidden=\"until-found\"` 隐藏元素而不把它移出 DOM。",
+      "keepMounted": "面板隐藏时是否把元素留在 DOM 里。使用 `hiddenUntilFound` 时忽略此项。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

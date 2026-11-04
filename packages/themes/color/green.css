@@ -1,0 +1,34 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * Green theme: the Ant Design preset color #52c41a, with the palette computed by antd's algorithm (theme.getDesignToken),
+ * so both light and dark sets are exact values. Only the primary color changes, so it works on any theme style and can be combined with compact density: data-theme-color="green" data-theme-density="compact".
+ */
+@layer ui-color {
+  [data-theme-color~="green"] {
+    --ui-ring: #52c41a;
+
+    --ui-c-primary: #52c41a;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #f6ffed;
+    --ui-c-primary-text: #52c41a;
+    --ui-c-primary-hover: #73d13d;
+    --ui-c-primary-active: #389e0d;
+    --ui-c-primary-border: #b7eb8f;
+  }
+
+  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-theme-color~="green"][data-mode="dark"],
+  [data-mode="dark"] [data-theme-color~="green"],
+  [data-theme-color~="green"] [data-mode="dark"] {
+    --ui-ring: #49aa19;
+
+    --ui-c-primary: #49aa19;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #274916;
+    --ui-c-primary-text: #49aa19;
+    --ui-c-primary-hover: #6abe39;
+    --ui-c-primary-active: #3c8618;
+    --ui-c-primary-border: #274916;
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Catalog", "version": "2.0.0" },
+  "servers": [{ "url": "https://api.example.com/v1" }],
+  "paths": {
+    "/catalog/products": {
+      "get": {
+        "summary": "Products",
+        "responses": {
+          "200": {
+            "description": "All products",
+            "content": {
+              "application/json": {
+                "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Product" } }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Product" } }
+          }
+        },
+        "responses": { "201": { "description": "Created" } }
+      }
+    },
+    "/catalog/products/{sku}": {
+      "patch": {
+        "requestBody": {
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/Product" } }
+          }
+        },
+        "responses": { "200": { "description": "Saved" } }
+      },
+      "delete": { "responses": { "204": { "description": "Deleted" } } }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "required": ["sku", "title", "price"],
+        "properties": {
+          "sku": { "type": "string" },
+          "title": { "type": "string" },
+          "price": { "type": "number", "minimum": 0 },
+          "in-stock": { "type": "boolean" },
+          "category": { "type": ["string", "null"], "enum": ["books", "games", "music"] },
+          "homepage": { "type": "string", "format": "uri" }
+        }
+      }
+    }
+  }
+}

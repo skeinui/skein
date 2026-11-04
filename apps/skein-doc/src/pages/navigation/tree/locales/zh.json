@@ -1,0 +1,92 @@
+{
+  "lead": "树：数据驱动，展开、选中、勾选都是 id 数组，键盘导航按 WAI-ARIA tree 的约定（上下、左右、Home / End、Enter / Space）。",
+  "usage": { "title": "用法" },
+  "controlled": {
+    "title": "受控",
+    "selected": "选中：",
+    "expanded": "展开：",
+    "none": "无"
+  },
+  "checkable": {
+    "title": "可勾选",
+    "description": "权限树这类场景：勾父节点连带可用的子孙，子孙全勾时父节点自动勾上，部分勾选显示横线。",
+    "checked": "已勾选：",
+    "user": "用户管理",
+    "userRead": "查看用户",
+    "userWrite": "编辑用户",
+    "userDelete": "删除用户",
+    "role": "角色管理",
+    "roleRead": "查看角色",
+    "roleWrite": "编辑角色"
+  },
+  "async": {
+    "title": "异步加载",
+    "description": "节点标 `lazy`，第一次展开时才去取子节点，期间箭头换成转圈；名字叫 `empty` 的目录取回来是空的，会变成叶子。"
+  },
+  "filter": {
+    "title": "搜索过滤",
+    "description": "搜索词一变，只留下命中的节点和它们的祖先，自动展开到命中处并高亮；`filterMode=\"highlight\"` 则全留着。",
+    "search": "搜索文件",
+    "placeholder": "搜索…（试试 “in”）"
+  },
+  "drag": {
+    "title": "拖放",
+    "description": "拖到一行的上沿 / 下沿是放到它前面 / 后面，拖到中间是放进它里面（悬停在收起的节点上一会儿会自动展开）。",
+    "lastMove": "上次移动：",
+    "keyboard": "（键盘：聚焦一行后按 Alt + ↑ / ↓）"
+  },
+  "lines": {
+    "title": "连接线",
+    "description": "目录结构：节点之间带连接线。"
+  },
+  "block": {
+    "title": "整行",
+    "description": "底色铺满整行（antd 默认只包住文字，其余主题风格本来就是整行）。"
+  },
+  "icons": { "title": "图标" },
+  "sizes": { "title": "尺寸" },
+  "colors": { "title": "颜色" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `tree.css` 里处理。",
+    "hook": "钩子",
+    "root": "根（`role=tree`）和子级列表（`role=group`），子级缩进由 `tree-group` 决定",
+    "item": "`role=treeitem`；带 `data-expanded` / `data-selected` / `data-disabled` / `data-leaf`",
+    "row": "一整行，可聚焦（roving tabindex），悬停、聚焦环、选中底都画在它上面",
+    "parts": "展开箭头（展开时父级有 `data-expanded`）、复选框、图标、文字",
+    "spinner": "异步加载期间换掉展开箭头的转圈；所在节点有 `data-loading` 和 `aria-busy`",
+    "match": "搜索命中的文字（`<mark>`）；没有命中时的提示。命中的行有 `data-match`，搜索时根上有 `data-filtering`",
+    "drag": "被拖的节点（`tree-item`）有 `data-dragging`，拖动期间根上也有；被指着的行 `data-drop=before / after / inside`，主题风格据此画放置提示"
+  },
+  "props": {
+    "Tree": {
+      "allowDrop": "过滤能否放到这里；不能放的位置不显示放置提示，也不触发 onMove。",
+      "aria-label": "无障碍名称，没有可见标签时使用。",
+      "aria-labelledby": "用其文字做名称的元素 id。",
+      "block": "选中和悬停的底色铺满整行；不传时由主题风格决定（antd 默认只包住文字）。",
+      "checkable": "每个节点前显示复选框；勾父节点连带所有可用的子孙，子孙全勾时父节点自动勾上。",
+      "checked": "勾选的节点 id（含父节点）。",
+      "color": "语义色，具体颜色由主题风格决定。",
+      "defaultChecked": "非受控时 `checked` 的初始值。",
+      "defaultExpanded": "非受控时 `expanded` 的初始值。",
+      "defaultSelected": "非受控时 `selected` 的初始值。",
+      "draggable": "允许拖动节点调整位置（HTML5 拖放；键盘上 Alt + ↑ / ↓ 在同级挪一位）。",
+      "emptyText": "搜索没有命中时显示的内容。",
+      "expanded": "展开的节点 id。",
+      "expandOnClick": "点击有子节点的行时同时展开 / 收起（像文件管理器）；设为 false 时只能点箭头展开。",
+      "filter": "搜索词：非空时只留下命中的节点（连同祖先和命中节点的子孙），并自动展开到命中处；清空即恢复。展开状态不被改写，搜索期间用户手动收起的节点在搜索词变化前保持收起。",
+      "filterMode": "hide（默认）隐藏没命中的节点；highlight 全部保留，只展开到命中处并标出。",
+      "filterNode": "自定义命中规则；不传时是忽略大小写的包含匹配（节点 label 是字符串时比 label，否则比 id），并高亮文字里命中的部分。",
+      "lines": "画出父子之间的连接线（目录结构那种）；展开箭头在主题风格里换成带框的加减号。",
+      "nodes": "树的数据：顶层节点，每个节点在 `children` 里嵌套子节点。",
+      "onCheckedChange": "传入新的 `checked`；同时传 `checked` 即为受控。",
+      "onExpandedChange": "传入新的 `expanded`；同时传 `expanded` 即为受控。",
+      "onLoadChildren": "展开还没有子节点的 lazy 节点时调用。返回 Promise 的话加载期间节点显示加载指示；使用方拿到数据后更新 nodes（填上 children，没有子节点则去掉 lazy）。",
+      "onMove": "放下时调用；Tree 自己不改 nodes，用 moveTreeNode(nodes, move) 得到新数据再设回去。",
+      "onSelectedChange": "传入新的 `selected`；同时传 `selected` 即为受控。",
+      "selected": "当前选中节点的 id（单选）。",
+      "size": "尺寸档位。"
+    }
+  }
+}

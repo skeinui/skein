@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+*.tsbuildinfo
+*.tgz
+
+# Caches and tool state
+.vite/
+.wrangler/
+vite.config.*.timestamp-*
+.cache/
+.eslintcache
+coverage/
+
+# Logs
+*.log
+
+# Environment files (secrets): only examples are committed
+.env
+.env.*
+!.env.example
+# …and the CLI templates' .env files, which generated projects ship with
+!/packages/cli/templates/**/.env.*
+# Wrangler's local secrets (the .env of a Worker)
+.dev.vars
+.dev.vars.*
+
+# OS and editors
+.DS_Store
+.vscode/settings.json
+
+# AI coding assistants' local settings
+.claude/
+# …except the skills the CLI templates give generated projects
+!/packages/cli/templates/**/.claude/
+
+# Kept local
+/docs/
+/demo/
+/examples/

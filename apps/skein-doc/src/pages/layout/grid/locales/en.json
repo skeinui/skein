@@ -1,0 +1,33 @@
+{
+  "lead": "Two grids. `Row` / `Col` is a 24-column grid (as in Ant Design): a row is split into 24 parts, a Col takes `span` of them, and has `offset`, `order` and responsive props that change with the screen width. Use it for page layout. `Grid` is a two-dimensional CSS grid with a fixed column count or columns that fit a minimum width, suited to card walls. All gaps come from the theme style's spacing scale.",
+  "row-col": { "title": "Row and Col" },
+  "gutter": {
+    "title": "Gutter",
+    "description": "Gaps come from the theme style's scale; give a pair to set the horizontal and vertical gaps separately. Columns beyond 24 parts wrap to the next line."
+  },
+  "offset": { "title": "Offset" },
+  "align": { "title": "Align and justify" },
+  "order": { "title": "Order" },
+  "responsive": {
+    "title": "Responsive",
+    "description": "Resize the browser window: on narrow screens each column fills a row, from 768px two per row, from 992px four per row.",
+    "mdUp": "Shown from md up"
+  },
+  "grid": { "title": "Grid" },
+  "auto-grid": {
+    "title": "Auto-fit grid",
+    "description": "Columns fit a minimum width: narrow the browser window and the column count drops by itself, no breakpoints needed."
+  },
+  "api": {
+    "title": "API Reference",
+    "note": "Every component has `as` to render a different semantic element."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles define the spacing scale in `grid.css`; the responsive breakpoints are one set shared by the whole library (`BREAKPOINTS` in contract.ts).",
+    "hook": "Hook",
+    "row": "`data-gutter` / `data-gutter-y` / `data-justify` / `data-align`, `data-nowrap`",
+    "col": "`data-span` / `data-offset` / `data-order`, plus `data-sm-span` and the like for each breakpoint; the values go into the `--_span` / `--_offset` / `--_order` variables",
+    "grid": "`data-columns` or `data-min-column`, `data-gap`, `data-align`; `data-span` on items"
+  }
+}

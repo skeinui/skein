@@ -1,0 +1,40 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Toolbar: a rounded toolbar with a background color; the buttons inside are small ghost buttons, groups are separated by vertical lines. */
+  [data-theme-style="antd"] [data-slot="toolbar"] {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.25rem * var(--ui-density));
+    box-sizing: border-box;
+    padding: calc(0.25rem * var(--ui-density));
+    border: 1px solid var(--ui-overlay-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-overlay-bg);
+
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="antd"] [data-slot="toolbar"][data-orientation="vertical"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  [data-theme-style="antd"] [data-slot="toolbar-group"] {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.25rem * var(--ui-density));
+  }
+  [data-theme-style="antd"]
+    [data-slot="toolbar"][data-orientation="vertical"]
+    [data-slot="toolbar-group"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toolbar"]
+    > [data-slot="separator"][data-orientation="vertical"],
+  [data-theme-style="antd"]
+    [data-slot="toolbar-group"]
+    > [data-slot="separator"][data-orientation="vertical"] {
+    margin-inline: 0.25rem;
+  }
+}

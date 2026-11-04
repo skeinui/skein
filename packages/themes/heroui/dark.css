@@ -1,0 +1,62 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/* Dark values of the HeroUI v3-style theme style (likewise taken from heroui.com's stylesheet). */
+@layer ui-tokens {
+  [data-theme-style="heroui"][data-mode="dark"],
+  [data-theme-style="heroui"] :where([data-mode="dark"]) {
+    color-scheme: dark;
+
+    --ui-bg: #060607;
+    --ui-surface: #18181b;
+    --ui-fg: #fcfcfc;
+    --ui-fg-muted: #9f9fa9;
+    --ui-border: #28282c;
+    --ui-ring: #0485f7;
+
+    /* Form controls */
+    --ui-field-bg: #18181b;
+    --ui-field-filled-bg: var(--ui-c-neutral);
+    --ui-field-fg: var(--ui-fg);
+    --ui-field-placeholder: var(--ui-fg-muted);
+    --ui-field-border: transparent;
+    --ui-field-shadow: 0 0 0 0 transparent;
+
+    /* Overlay */
+    --ui-overlay-bg: #18181b;
+    --ui-overlay-border: transparent;
+    --ui-overlay-shadow: 0 0 1px 0 #ffffff4d inset;
+    --ui-backdrop: #0009;
+    --ui-tooltip-bg: #18181b;
+    --ui-tooltip-fg: var(--ui-fg);
+
+    --ui-c-neutral: #27272a;
+    --ui-c-neutral-fg: var(--ui-fg);
+    --ui-c-neutral-soft: var(--ui-c-neutral);
+    --ui-c-neutral-text: var(--ui-fg);
+
+    --ui-c-primary: #0485f7;
+    --ui-c-primary-fg: #fcfcfc;
+    --ui-c-primary-soft: color-mix(in oklab, var(--ui-c-primary) 12%, transparent);
+    --ui-c-primary-text: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-fg) 30%);
+
+    --ui-c-secondary: var(--ui-c-neutral);
+    --ui-c-secondary-fg: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-fg) 30%);
+    --ui-c-secondary-soft: var(--ui-c-neutral);
+    --ui-c-secondary-text: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-fg) 30%);
+
+    --ui-c-success: #17c964;
+    --ui-c-success-fg: #18181b;
+    --ui-c-success-soft: color-mix(in oklab, var(--ui-c-success) 12%, transparent);
+    --ui-c-success-text: color-mix(in oklab, var(--ui-c-success) 80%, var(--ui-fg) 30%);
+
+    --ui-c-warning: #f7b750;
+    --ui-c-warning-fg: #18181b;
+    --ui-c-warning-soft: color-mix(in oklab, var(--ui-c-warning) 12%, transparent);
+    --ui-c-warning-text: color-mix(in oklab, var(--ui-c-warning) 80%, var(--ui-fg) 30%);
+
+    --ui-c-danger: #db3b3e;
+    --ui-c-danger-fg: #fcfcfc;
+    --ui-c-danger-soft: color-mix(in oklab, var(--ui-c-danger) 15%, transparent);
+    --ui-c-danger-text: color-mix(in oklab, var(--ui-c-danger) 80%, var(--ui-fg) 30%);
+  }
+}

@@ -1,0 +1,110 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Form: layout only: fields arranged in columns, labels on top or on the left, bottom buttons; the inside of each field (label, control, description, error)
+     is still Field's styling. */
+  [data-theme-style="antd"] [data-slot="form"] {
+    --_gap-y: 1.5rem;
+    --_gap-x: 1rem;
+    --_label-w: 8rem;
+    box-sizing: border-box;
+    display: block;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="antd"] [data-slot="form-fields"] {
+    display: grid;
+    gap: var(--_gap-y) var(--_gap-x);
+  }
+  [data-theme-style="antd"] [data-slot="form-item"] {
+    min-width: 0;
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-columns="1"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-columns="2"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-columns="3"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-columns="4"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  [data-theme-style="antd"] [data-slot="form-item"][data-span="1"] {
+    grid-column: span 1;
+  }
+  [data-theme-style="antd"] [data-slot="form-item"][data-span="2"] {
+    grid-column: span 2;
+  }
+  [data-theme-style="antd"] [data-slot="form-item"][data-span="3"] {
+    grid-column: span 3;
+  }
+  [data-theme-style="antd"] [data-slot="form-item"][data-span="4"] {
+    grid-column: span 4;
+  }
+
+  /* antd's Field reserves 24px each for the description and error (its own approach: the 24px bottom margin is taken up by the message when one appears),
+     so fields with a description / error subtract those 24px from the row gap, keeping the overall spacing from growing. */
+  [data-theme-style="antd"]
+    [data-slot="form-item"]:has([data-slot="field-description"], [data-slot="field-error"]) {
+    margin-block-end: -1.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="form-actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Label on the left: each field is a "label column + control column", with the description and error placed in the control column */
+  [data-theme-style="antd"] [data-slot="form"][data-layout="horizontal"] [data-slot="field"] {
+    display: grid;
+    grid-template-columns: var(--_label-w) minmax(0, 1fr);
+    column-gap: 1rem;
+    align-items: start;
+  }
+  [data-theme-style="antd"]
+    [data-slot="form"][data-layout="horizontal"]
+    [data-slot="field"]
+    > [data-slot="field-label"] {
+    grid-column: 1;
+    padding-top: 0.3125rem;
+    text-align: end;
+  }
+  [data-theme-style="antd"]
+    [data-slot="form"][data-layout="horizontal"]
+    [data-slot="field"]
+    > :not([data-slot="field-label"]) {
+    grid-column: 2;
+  }
+  [data-theme-style="antd"]
+    [data-slot="form"][data-layout="horizontal"]
+    > [data-slot="form-actions"] {
+    margin-inline-start: calc(var(--_label-w) + 1rem);
+  }
+
+  /* Single row: fields and buttons flow in sequence and wrap when they do not fit */
+  [data-theme-style="antd"] [data-slot="form"][data-layout="inline"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--_gap-y) var(--_gap-x);
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-layout="inline"] > [data-slot="form-fields"] {
+    display: contents;
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-layout="inline"] [data-slot="form-item"] {
+    grid-column: auto;
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-layout="inline"] [data-slot="field"] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="form"][data-layout="inline"] > [data-slot="form-actions"] {
+    margin-top: 0;
+  }
+}

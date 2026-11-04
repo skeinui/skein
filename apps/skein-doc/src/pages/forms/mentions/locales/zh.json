@@ -1,0 +1,48 @@
+{
+  "lead": "提及：在输入框里敲触发字符（默认 `@`），光标旁弹出候选列表，方向键选择，<kbd>Enter</kbd> 或 <kbd>Tab</kbd> 确认，<kbd>Esc</kbd> 关闭。值是一段普通文本，想知道提到了谁，自己按前缀从文本里解析。",
+  "usage": { "title": "用法" },
+  "controlled": { "title": "受控", "last": "最近选中：" },
+  "prefix": { "title": "多个触发字符" },
+  "single": { "title": "单行" },
+  "rich": { "title": "富内容选项" },
+  "async": {
+    "title": "异步搜索",
+    "searching": "搜索中…",
+    "hint": "模拟 400ms 的服务端查询"
+  },
+  "states": { "title": "状态" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `mentions.css` 里处理；输入框的外观来自 `input.css`。",
+    "root": "外层容器；里面的输入框就是本主题风格的 input / textarea",
+    "list": "光标旁边浮层里的候选列表，`role=listbox`",
+    "option": "每个候选项，`role=option`；键盘或鼠标高亮时有 `data-active`，禁用时有 `data-disabled`"
+  },
+  "props": {
+    "Mentions": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "aria-labelledby": "用其文字为它命名的元素的 id。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "filterOption": "过滤规则；默认忽略大小写，按 value 和字符串 label 做包含匹配。`false` 表示不过滤（候选项由使用方提供）。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示无效状态。",
+      "multiline": "多行输入（textarea）；`false` 为单行 input。",
+      "name": "字段名，用于原生表单提交。",
+      "onSearch": "触发字符后面的文字变化时回调；候选项要从服务端查时用它，同时把 `filterOption` 设为 `false`。",
+      "onSelect": "选中候选项时回调；`prefix` 是触发它的那个字符。",
+      "onValueChange": "以新的 `value` 调用；同时传 `value` 即为受控。",
+      "options": "候选项；只有名字时可以直接传字符串数组。",
+      "placeholder": "为空时显示的文字。",
+      "prefix": "触发字符；可以给多个，比如 `[\"@\", \"#\"]`。",
+      "readOnly": "文字可以选中、复制，但不能编辑；不会弹出候选列表（禁用时也不会）。",
+      "rows": "textarea 可见的文本行数（仅 `multiline` 时有效）。",
+      "side": "候选列表出现在光标上方还是下方。",
+      "size": "尺寸档位。",
+      "split": "选中后插入内容后面接的字符。",
+      "value": "值，受控（配合 `onValueChange`）。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

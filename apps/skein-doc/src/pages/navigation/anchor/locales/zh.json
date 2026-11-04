@@ -1,0 +1,40 @@
+{
+  "lead": "锚点：页面目录，点击平滑滚到对应位置，滚动时高亮当前所在的那一节，指示线跟着走。链接是真正的 `<a href=\"#id\">`，找不到目标元素时退回浏览器默认行为。",
+  "usage": {
+    "title": "用法",
+    "description": "放在一个会滚动的元素里（用 `container` 指定）；不给 `container` 就是整个窗口。",
+    "placeholder": "Section `#{id}`。这一节的内容只是占位，用来让容器可以滚动，滚到这里时左边（或上面）的目录会高亮对应的链接。"
+  },
+  "nested": { "title": "嵌套链接" },
+  "horizontal": { "title": "横向" },
+  "controlled": {
+    "title": "受控",
+    "active": "当前：`{active}`（受控时不跟着滚动变，点击才变）"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `anchor.css` 里处理这些钩子。",
+    "hook": "钩子",
+    "root": "根（`nav`）；`data-direction`，没有高亮项时 `data-empty`，指示线摆好位置后 `data-ready`；当前链接的位置写在根的 `--anchor-x` / `y` / `w` / `h`（像素，不带单位）",
+    "ink": "随当前链接移动的指示线，位置来自上面的变量",
+    "list": "列表（`data-level` 是第几层）和每一项",
+    "link": "链接；当前的有 `data-active`，同时有 `aria-current=location`"
+  },
+  "props": {
+    "Anchor": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "aria-labelledby": "用来命名它的元素的 id。",
+      "bounds": "目标顶部进入 offset 之下多少像素内就算当前。",
+      "container": "页面的滚动容器：元素、ref 或返回元素的函数。默认是整个窗口。",
+      "defaultValue": "不受控时 `value` 的初始值。",
+      "direction": "vertical 是左侧一条竖线的目录，horizontal 是一排链接、下方一条横线。",
+      "items": "链接（`AnchorItem`：`href` 指向元素 id，`title`，可选的嵌套 `children`）。",
+      "offset": "目标距容器顶部多少像素算「到了」；点击跳转时也留出这段距离（比如页面有固定顶栏）。",
+      "onValueChange": "高亮的链接变了（滚动或点击引起）。",
+      "smooth": "点击跳转时平滑滚动（用户设置了「减少动效」时自动关闭）。",
+      "updateHash": "点击后把 URL 的 hash 改成这个链接（replaceState，不产生历史记录）。",
+      "value": "当前高亮的链接（href），受控；不传时根据滚动自动计算。"
+    }
+  }
+}

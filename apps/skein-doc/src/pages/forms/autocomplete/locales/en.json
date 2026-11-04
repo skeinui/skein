@@ -1,0 +1,23 @@
+{
+  "lead": "An input with suggestions: the value is the text in the input, and the suggestions only help — picking one of them is not required (use [Combobox](/combobox) when it is). The input reuses Input, the popup reuses Select.",
+  "usage": { "title": "Usage", "placeholder": "Search tags", "label": "Tags" },
+  "controlled": { "title": "Controlled", "text": "Text:" },
+  "variants": { "title": "Variants & Sizes" },
+  "in-field": {
+    "title": "In Field",
+    "description": "Inside a [Field](/field), it takes the Field's `variant` / `size` and its disabled / invalid state, unless passed on the Autocomplete.",
+    "label": "Tag",
+    "placeholder": "Type to search",
+    "empty": "No suggestions",
+    "hint": "You can also type something new."
+  },
+  "disabled": { "title": "Disabled & Invalid" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Autocomplete has no CSS file of its own: the input comes from `input.css`, the popup from `select.css`.",
+    "input": "The input, reusing Input's input-group",
+    "popup": "The popup and the suggestions, reusing Select's slots",
+    "empty": "The message when nothing matches, reusing Combobox's slot"
+  }
+}

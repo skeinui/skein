@@ -1,0 +1,42 @@
+{
+  "lead": "穿梭框：数据驱动，只有两个数据——全部的 `items` 和已经在右边的 `value`（key 数组）。勾选后点中间的按钮把整批移过去。",
+  "usage": { "title": "用法" },
+  "controlled": {
+    "title": "受控",
+    "available": "可选",
+    "chosen": "已选",
+    "value": "已选：",
+    "none": "无"
+  },
+  "search": { "title": "可搜索" },
+  "one-way": { "title": "单向" },
+  "sizes": { "title": "尺寸" },
+  "disabled": { "title": "禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `transfer.css` 里处理。",
+    "hook": "钩子",
+    "root": "根（`data-size` / `data-disabled`）和中间的移动按钮区",
+    "list": "一个列表，`data-side` 是 source / target",
+    "header": "列表头（全选、标题、已选数）和可选的搜索框",
+    "body": "可滚动的列表体、每一项（勾上时 `data-checked`）、只读时的文字、空状态"
+  },
+  "props": {
+    "Transfer": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "defaultValue": "非受控时的初始 `value`。",
+      "disabled": "整个穿梭框禁用。",
+      "emptyText": "列表为空（或搜索无结果）时的文字，默认取当前语言的「暂无数据」。",
+      "items": "全部可选项（两边加起来）。",
+      "moveLabels": "两个移动按钮的无障碍文字：[移到右边, 移回左边]。",
+      "oneWay": "只能从左往右移，右边的项不能移回（右边列表没有勾选框）。",
+      "onValueChange": "移动后以新的 key 数组调用；同时传 `value` 即为受控。",
+      "searchable": "每个列表上方显示搜索框，按 label 过滤；此时「全选」只作用在过滤后的项上。",
+      "searchPlaceholder": "搜索框的占位文字（也是它的无障碍名称），默认取当前语言的「搜索」。",
+      "size": "尺寸档位：行高和字号。",
+      "titles": "左右两个列表的标题。",
+      "value": "已经在右边（目标列表）的项的 key。"
+    }
+  }
+}

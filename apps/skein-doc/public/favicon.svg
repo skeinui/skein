@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <radialGradient id="ball" cx="38%" cy="30%" r="80%">
+      <stop stop-color="#7c83f5"/>
+      <stop offset=".5" stop-color="#6366f1"/>
+      <stop offset="1" stop-color="#4f52d9"/>
+    </radialGradient>
+    <radialGradient id="fade" cx="32" cy="32" r="28" gradientUnits="userSpaceOnUse">
+      <stop offset=".55" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".45"/>
+    </radialGradient>
+    <clipPath id="clip"><circle cx="32" cy="32" r="28"/></clipPath>
+    <mask id="m"><rect width="64" height="64" fill="url(#fade)"/></mask>
+  </defs>
+  <circle cx="32" cy="32" r="28" fill="url(#ball)"/>
+  <g clip-path="url(#clip)">
+  <g mask="url(#m)" transform="rotate(-24 32 32)" stroke="#fff" stroke-width="3.6" stroke-linecap="round">
+    <path d="M6.20 16.47A25.80 10.49 0 0 0 57.80 16.47"/>
+    <path d="M2.04 26.52A29.96 12.19 0 0 0 61.96 26.52"/>
+    <path d="M1.88 36.57A30.12 12.25 0 0 0 62.12 36.57"/>
+    <path d="M5.62 46.62A26.38 10.73 0 0 0 58.38 46.62"/>
+  </g>
+  </g>
+  <ellipse cx="22" cy="17" rx="7" ry="4" transform="rotate(-35 22 17)" fill="#fff" fill-opacity=".1"/>
+</svg>

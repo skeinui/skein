@@ -1,0 +1,52 @@
+{
+  "lead": "时间线：数据驱动，竖向排列，每项是时间、圆点或图标（连着下一项的线）和标题说明。",
+  "usage": {
+    "title": "用法",
+    "placed": "已下单",
+    "received": "我们已收到你的订单",
+    "paid": "已付款",
+    "card": "尾号 4242 的 Visa 卡",
+    "shipped": "已发货"
+  },
+  "time": {
+    "title": "带时间",
+    "created": "已创建",
+    "opened": "工单 #1024 已开启",
+    "assigned": "已分配",
+    "to": "分配给 Alex",
+    "resolved": "已解决"
+  },
+  "icons": {
+    "title": "图标与颜色",
+    "created": "已创建",
+    "paid": "已付款",
+    "failed": "配送失败",
+    "notFound": "找不到地址",
+    "retry": "已安排重新配送"
+  },
+  "pending": {
+    "title": "进行中",
+    "placed": "已下单",
+    "packed": "已打包",
+    "shipping": "运输中",
+    "onTheWay": "正在路上"
+  },
+  "sizes": { "title": "尺寸", "size": "尺寸 {size}", "description": "说明文字", "next": "下一步" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `timeline.css` 里处理。",
+    "hook": "钩子",
+    "root": "列表和每一项；有任何一项带 `time` 时根上有 `data-has-time`，每项多出一列时间",
+    "time": "左侧时间文字",
+    "dot": "圆点和连着下一项的线；带图标时圆点有 `data-has-icon`，进行中的项有 `data-pending`",
+    "content": "标题和说明"
+  },
+  "props": {
+    "Timeline": {
+      "color": "没有单独指定颜色的项用这个颜色。",
+      "items": "按显示顺序（从上到下）排列的事件（`{ title, description, time, icon, color, pending }`）。",
+      "size": "圆点、间距和字号的尺寸档位。"
+    }
+  }
+}

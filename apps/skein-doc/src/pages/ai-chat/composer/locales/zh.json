@@ -1,0 +1,106 @@
+{
+  "lead": "AI 对话的输入区：圆角外框里是附件、随内容长高的输入框和工具栏。回车提交、Shift + 回车换行，输入法组字时回车不会误发；生成中发送按钮变成停止按钮。",
+  "usage": {
+    "title": "用法",
+    "placeholder": "你想了解什么？",
+    "footer": "AI 也会出错，重要信息请核实。"
+  },
+  "streaming": {
+    "title": "发送与停止",
+    "description": "`status=\"streaming\"` 时发送按钮变成停止按钮，回车也不能再提交。",
+    "placeholder": "发一条消息，再停止它",
+    "idle": "还没有发送。",
+    "answering": "正在回答“{text}”…",
+    "done": "完成。",
+    "stopped": "已停止。"
+  },
+  "attachments": {
+    "title": "附件和操作按钮",
+    "description": "附件放在 `Composer.Attachments` 里；只带附件没写字也能发时，自己算好 `canSubmit`。",
+    "group": "待发送的文件",
+    "placeholder": "问问这些附件",
+    "attach": "添加文件"
+  },
+  "triggers": {
+    "title": "提及和命令",
+    "description": "`triggers`：敲 `@` 选人、敲 `/` 选命令。候选列表出现在光标上方；列表打开时回车是选中，列表关了回车才提交。",
+    "placeholder": "输入 @ 提及，/ 调出命令",
+    "summarize": "总结这段对话",
+    "translate": "翻译成英文",
+    "sent": "已发送：{text}",
+    "picked": "选中了 {text}",
+    "none": "还没有。"
+  },
+  "submit-on": {
+    "title": "提交快捷键",
+    "description": "`mod-enter`：回车换行，⌘ / Ctrl + 回车提交（长文本输入常用）。",
+    "placeholder": "按 ⌘/Ctrl + 回车发送"
+  },
+  "api": {
+    "title": "API 参考",
+    "part": "部件",
+    "parts": {
+      "Composer": "根（`form`）：持有输入的文字和状态，负责提交",
+      "Shell": "圆角外框；点里面的空白处会聚焦输入框",
+      "Attachments": "输入框上面一行，放待发送的附件",
+      "TextArea": "随内容长高，最多长到 `maxRows` 行，再多就在里面滚动；输入法组字时回车不会误发",
+      "Toolbar": "输入框下面的工具栏，左右两组",
+      "Action": "工具栏里的图标按钮（小号淡色的 Button），`aria-label` 必填，不会提交表单",
+      "Send": "发送按钮：空闲时是提交按钮（没内容就禁用），streaming 时是停止按钮；名称随状态变",
+      "Footer": "外框下面的一行小字"
+    },
+    "element": "元素"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "`form` 根；`data-status` / `data-disabled`",
+    "shell": "外框（聚焦时描边）",
+    "attachments": "附件行",
+    "textarea": "输入框（高度由组件量好写上）",
+    "toolbar": "工具栏和它左右两组",
+    "footer": "外框下面的小字"
+  },
+  "props": {
+    "Composer": {
+      "canSubmit": "能不能提交，默认「有非空白文字」。只带附件、没写字也能发时，自己算好传进来。",
+      "defaultValue": "不受控时 `value` 的初始值。",
+      "disabled": "整个输入区禁用。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onStop": "点了停止按钮（status 为 streaming 时）。",
+      "onSubmit": "提交：回车（或 ⌘ / Ctrl + 回车）或点发送。受控时由你清空 `value`；不受控时发送后自动清空。",
+      "onValueChange": "`value` 变化时以新值调用；同时传 `value` 就是受控。",
+      "status": "idle：空闲，streaming：助手正在回复，此时发送按钮变成停止按钮，不能再提交。",
+      "submitOn": "enter：回车提交、Shift + 回车换行（默认）；mod-enter：⌘ / Ctrl + 回车提交、回车换行。",
+      "value": "输入的文字（受控）。"
+    },
+    "Composer_TextArea": {
+      "maxRows": "最多长到几行，再多就在里面滚动，默认 8。",
+      "onTriggerSelect": "选中一个候选时调用；prefix 是触发它的字符（想知道提及了谁，就在这里记下来）。",
+      "triggers": "触发字符 → 候选：敲 `@` 选人 / 文件，敲 `/` 选命令。键是触发字符，值是它的候选（字符串或 `{ value, label }`）。选中后把 `@ada ` 这样的文字插进输入框；候选列表出现在光标上方。"
+    },
+    "Composer_Action": {
+      "aria-label": "只有图标，所以名称必填。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "children": "内容。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是 `<button>`（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Composer_Send": {
+      "aria-label": "可访问名称，没有可见文字时用。",
+      "children": "内容。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是 `<button>`（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

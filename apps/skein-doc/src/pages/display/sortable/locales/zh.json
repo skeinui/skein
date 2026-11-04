@@ -1,0 +1,39 @@
+{
+  "lead": "可排序列表：拖手柄换位置；键盘上空格拿起、方向键移动、空格放下、Esc 取消，每一步都有读屏播报。顺序由调用方持有，库只告诉你「谁从哪挪到哪」。",
+  "basic": { "title": "基础用法" },
+  "horizontal": { "title": "水平方向" },
+  "rich": { "title": "富内容与禁用项" },
+  "demo": {
+    "list": "任务",
+    "design": "设计评审",
+    "build": "开发功能",
+    "test": "编写测试",
+    "ship": "发布上线",
+    "done": "已完成",
+    "progress": "进行中",
+    "pinned": "Release 2.0（固定）"
+  },
+  "api": { "title": "API 参考" },
+  "helpers": {
+    "title": "辅助函数",
+    "name": "函数",
+    "arrayMove": "把一项挪到新位置，返回新数组（不修改原数组）"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "外层与列表；`data-orientation`；拖动中 `sortable` 带 `data-dragging`",
+    "item": "`data-dragging`（`--sort-offset` 跟随指针）/ `data-grabbed`（键盘拿起）/ `data-drop=before|after`（落点）/ `data-disabled`",
+    "handle": "拖动手柄（`aria-pressed`）与内容",
+    "status": "读屏用的操作说明和播报，视觉上隐藏"
+  },
+  "props": {
+    "Sortable": {
+      "aria-label": "整个列表的名称。",
+      "items": "当前顺序。顺序由调用方持有：拖动或键盘移动后在 `onReorder` 里更新它。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onReorder": "顺序每次变化时调用：传入新的 id 顺序和这一次移动的详情（键盘每动一步调用一次，指针只在松手时调用）。",
+      "orientation": "排列方向，决定哪对方向键有效。"
+    }
+  }
+}

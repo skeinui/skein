@@ -1,0 +1,57 @@
+/* Page-level styles only: components are styled by the theme style, and the tokens (--ui-*) come from it. */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ui-bg);
+  color: var(--ui-fg);
+  font-family: var(--ui-font-family);
+}
+{{#if shell}}
+
+.page {
+  padding: 1.25rem 1.5rem;
+}
+
+.app-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.app-powered a {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.app-powered a:hover {
+  text-decoration: underline;
+}
+
+.login {
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.login-card {
+  width: min(24rem, 100%);
+}
+{{else}}
+
+.home {
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding-inline: 1rem;
+}
+{{/if}}

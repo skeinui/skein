@@ -1,0 +1,44 @@
+{
+  "lead": "Puts a label, a control, a description and an error message together into one form item. Validation, the label association and `aria-describedby` come from Base UI's Field; the examples follow the TextField, Label, Description and FieldError pages of the HeroUI docs.",
+  "usage": { "title": "Usage" },
+  "anatomy": { "title": "Anatomy" },
+  "description": { "title": "With Description" },
+  "required": {
+    "title": "Required",
+    "description": "On the Field, `required` only draws the asterisk; the input needs `required` too to take part in validation."
+  },
+  "validation": {
+    "title": "Validation",
+    "description": "Native constraint validation: with `validationMode=\"onBlur\"` the input is checked when it loses focus, and each `Field.Error` shows for the error type its `match` names. Try typing an invalid email, then click elsewhere."
+  },
+  "controlled-invalid": {
+    "title": "Controlled Invalid",
+    "description": "When you decide validity yourself, control the whole item with `invalid`, and pass `match` to `Field.Error` to decide whether it shows."
+  },
+  "variants": {
+    "title": "Variants & Sizes",
+    "description": "`variant` / `size` on the Field are the defaults of the controls inside."
+  },
+  "textarea": { "title": "With Textarea" },
+  "input-group": { "title": "With Input Group" },
+  "disabled": { "title": "Disabled" },
+  "form": {
+    "title": "A small form",
+    "description": "Several items put together, with a Button at the end."
+  },
+  "api": {
+    "title": "API Reference",
+    "label": "The label, associated with the control inside automatically.",
+    "desc": "The description text, added to the control's `aria-describedby` automatically.",
+    "error": "The error message, shown when validation fails by default; `match` picks which validity error it is for, and `true` lets you control it from outside."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle the label, the description and the error message in `field.css`; the asterisk and the red label of an invalid item are driven by the hooks.",
+    "hook": "Hook",
+    "slot": "Structure hooks",
+    "required": "Present when the Field has `required`; theme styles draw the asterisk with it",
+    "states": "State hooks, written by Base UI; theme styles turn the label red with `:has([data-invalid])`",
+    "transitions": "Animation hooks for `Field.Error` appearing / disappearing"
+  }
+}

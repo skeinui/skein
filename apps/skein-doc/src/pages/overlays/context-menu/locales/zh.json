@@ -1,0 +1,45 @@
+{
+  "lead": "右键菜单：在触发区域上点右键（触屏长按）弹出。菜单项、分组、分隔线都复用 [Menu](/menu) 的部件和主题风格。",
+  "usage": { "title": "用法" },
+  "groups": { "title": "分组与危险项" },
+  "checkbox": { "title": "复选菜单项" },
+  "api": {
+    "title": "API 参考",
+    "items": "`Item` / `CheckboxItem` / `Group` / `GroupLabel` / `Separator` 就是 [Menu](/menu) 的同名部件，用法和 Menu 完全一致。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "ContextMenu 没有自己的 CSS 文件，外观全部来自 `menu.css`；和其他浮层一样，`data-theme-style` 要设在 `<html>` 上。",
+    "hook": "钩子",
+    "trigger": "触发区域（主题风格通常不需要样式）",
+    "menu": "弹层和菜单项，复用 Menu 的 slot"
+  },
+  "props": {
+    "ContextMenu": {
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后，结束菜单的关闭阶段；需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则菜单会自行完成关闭，是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时以命令方式关闭菜单。",
+      "children": "菜单的各部件（Trigger、Content）。",
+      "closeParentOnEsc": "作为子菜单时，按 Esc 是否同时关闭父菜单。",
+      "defaultOpen": "菜单初始是否打开。要受控请改用 `open`。",
+      "disabled": "是否忽略用户交互。",
+      "highlightItemOnHover": "指针移过菜单项时是否高亮它。关掉后可以把 CSS `:hover` 和 `:focus`（`data-highlighted`）状态区分开。",
+      "loopFocus": "用方向键走到列表末尾时，键盘焦点是否回到第一项。",
+      "onItemHighlighted": "菜单项被高亮或取消高亮时调用。参数是被高亮的元素（没有则为 `undefined`）和详情：变化原因、事件和该项的文字标签。`reason` 可能是：`'keyboard'` 键盘导航引起；`'pointer'` 指针悬停引起（事件可能是 `MouseEvent` 而不是 `PointerEvent`）；`'none'` 其他原因，比如过滤时自动高亮、列表变化、弹层打开或关闭。",
+      "onOpenChange": "菜单打开或关闭时调用。",
+      "onOpenChangeComplete": "菜单打开或关闭、动画全部结束后调用。",
+      "open": "菜单当前是否打开。",
+      "orientation": "菜单的视觉方向，决定漫游焦点用上下键还是左右键。"
+    },
+    "ContextMenu_Trigger": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "ContextMenu_Content": {
+      "align": "菜单相对指针位置的对齐方式。",
+      "children": "菜单项。",
+      "side": "菜单在指针位置的哪一侧弹出。",
+      "sideOffset": "指针位置与菜单之间的间距，单位像素。",
+      "finalFocus": "菜单关闭时把焦点移到哪个元素。`false`：不移动焦点；`true`：按默认行为移动（触发元素或之前聚焦的元素）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，返回 `true` 用默认行为，返回 `false` / `undefined` 则什么都不做。",
+      "id": "弹层元素的 `id`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

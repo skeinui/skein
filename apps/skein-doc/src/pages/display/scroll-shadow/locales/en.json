@@ -1,0 +1,16 @@
+{
+  "lead": "A scroll container with fading edges: while the content can still scroll in a direction, the edge on that side fades out to hint that there is more; at the end the fade disappears. Scrolling is native and the scrollbar stays (it can be hidden). It complements [Scroll Area](/scroll-area), which draws its own scrollbar.",
+  "basic": {
+    "title": "Basic",
+    "row": "Notification {n} — something happened in your workspace"
+  },
+  "horizontal": { "title": "Horizontal", "tag": "Tag {n}" },
+  "size": { "title": "Size and hidden scrollbar" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The scroll container; `data-orientation` / `data-scrollbar`; `data-shadow-start` / `data-shadow-end` mean there is more content on that side (faded); `--ss-size` holds the fade length",
+    "content": "Wraps the content (stretched to the content's width when horizontal)"
+  }
+}

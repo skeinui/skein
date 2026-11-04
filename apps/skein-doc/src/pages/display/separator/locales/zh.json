@@ -1,0 +1,17 @@
+{
+  "lead": "分隔线，横竖两种。",
+  "usage": { "title": "用法", "above": "上方", "below": "下方" },
+  "vertical": { "title": "竖向", "docs": "文档", "blog": "博客", "about": "关于" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `separator.css` 里处理。",
+    "hook": "钩子",
+    "slot": "线本体，粗细和颜色由主题风格决定"
+  },
+  "props": {
+    "Separator": {
+      "orientation": "线的方向，同时写进 `aria-orientation`。"
+    }
+  }
+}

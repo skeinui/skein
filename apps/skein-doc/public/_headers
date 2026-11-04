@@ -1,0 +1,13 @@
+# Response headers on Cloudflare (static assets).
+
+# Built files are named by their content hash: a new build gives new names, so they can be cached for good (the
+# default, max-age=0 + must-revalidate, asks the server again for every use)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Without a charset, browsers decode these UTF-8 files with the system's legacy encoding (GBK on Chinese systems),
+# and "—" shows as mojibake
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8

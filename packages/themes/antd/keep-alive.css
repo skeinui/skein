@@ -1,0 +1,61 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* KeepAlive: each item is in its own pane, and the pane scrolls by itself; the current item carries data-active, and the enter animation is chosen by data-transition */
+  [data-theme-style="antd"] [data-slot="keep-alive"] {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+  }
+  [data-theme-style="antd"] [data-slot="keep-alive-pane"] {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+  }
+  [data-theme-style="antd"] [data-transition="fade"] > [data-slot="keep-alive-pane"][data-active] {
+    animation: keep-alive-fade 200ms ease-out;
+  }
+  [data-theme-style="antd"]
+    [data-transition="slide-up"]
+    > [data-slot="keep-alive-pane"][data-active] {
+    animation: keep-alive-slide-up 200ms ease-out;
+  }
+  [data-theme-style="antd"]
+    [data-transition="slide-right"]
+    > [data-slot="keep-alive-pane"][data-active] {
+    animation: keep-alive-slide-right 200ms ease-out;
+  }
+  [data-theme-style="antd"] [data-transition="zoom"] > [data-slot="keep-alive-pane"][data-active] {
+    animation: keep-alive-zoom 200ms ease-out;
+  }
+  @keyframes keep-alive-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes keep-alive-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+  }
+  @keyframes keep-alive-slide-right {
+    from {
+      opacity: 0;
+      transform: translateX(-1rem);
+    }
+  }
+  @keyframes keep-alive-zoom {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="keep-alive-pane"][data-active] {
+      animation: none;
+    }
+  }
+}

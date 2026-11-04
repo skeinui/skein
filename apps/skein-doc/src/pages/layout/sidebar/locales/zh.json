@@ -1,0 +1,80 @@
+{
+  "lead": "应用的侧边栏外壳：头部、可滚动的内容（里面放 [SideMenu](/side-menu)）、底部，三种外观（`sidebar`、`floating`、`inset`）× 三种收起方式（`offcanvas`、`icon`、`none`），窄屏变成抽屉，还有切换按钮、边缘细条和快捷键。每个主题风格各有各的样子。",
+  "usage": {
+    "title": "用法",
+    "body": "头部、可滚动的菜单、底部用户信息；窄屏变成抽屉。"
+  },
+  "app": {
+    "title": "完整示例",
+    "description": "一个完整的应用外壳：菜单数据（分组、子菜单、分隔线）、选中状态、窄屏选完自动关抽屉、头部 Logo（`Sidebar.Label` 收起时只剩图标）、底部头像、`Rail`、`Trigger`。下面的代码可以直接复制；展开状态自己持久化（`localStorage`），库本身不存。这里的演示去掉了 `localStorage` 和 `100svh`。",
+    "dashboard": "仪表盘",
+    "management": "管理",
+    "users": "用户",
+    "allUsers": "全部用户",
+    "roles": "角色",
+    "documents": "文档",
+    "settings": "设置",
+    "content": "页面内容"
+  },
+  "variants": {
+    "title": "外观",
+    "description": "`sidebar` 贴着页面边缘；`floating` 是悬浮的圆角卡片；`inset` 侧边栏融进背景、主内容是一块圆角卡片。"
+  },
+  "collapsible": {
+    "title": "收起方式",
+    "description": "`icon` 收成图标窄条（菜单自动收起，悬停有提示）；`offcanvas` 整个滑出去，收起后面板 `inert`。",
+    "hint": "点左上角的按钮，或按 Ctrl / ⌘ + B。"
+  },
+  "footer-trigger": {
+    "title": "底部折叠按钮",
+    "description": "把 `Sidebar.Trigger` 单独放进 `Sidebar.Footer`：antd 主题风格下它是侧边栏底部通栏的折叠条（和 antd 的 `Layout.Sider` 一样），其余主题风格是普通的图标按钮。",
+    "body": "折叠按钮在侧边栏底部"
+  },
+  "side": { "title": "放在右边" },
+  "theme": {
+    "title": "明暗",
+    "description": "不传 `theme` 用主题风格默认（antd 默认深色，其余浅色）；传 `theme` 强制明暗，里面的 SideMenu 跟着变。"
+  },
+  "api": {
+    "title": "API 参考",
+    "parts": "部件与 hook",
+    "part": "部件",
+    "header": "头部（Logo、工作区切换）、可滚动的内容（放 SideMenu）、底部（用户信息）",
+    "label": "头部 / 底部里只在展开时显示的文字（Logo 图标后面的名字、用户名）：收成图标条时视觉上藏起来，只剩图标，读屏仍然读得到",
+    "inset": "主内容区，自己滚动",
+    "trigger": "切换按钮（桌面展开 / 收起，手机开关抽屉，名称默认 “Toggle sidebar”）；`Rail` 是侧边栏边缘的细条，只给鼠标用，不进 Tab 顺序",
+    "useSidebar": "在 Provider 里读状态、自己切换（比如手机上点了菜单项后 `setOpenMobile(false)` 关抽屉）",
+    "provider": "外壳：管展开 / 收起（受控或非受控）、手机上的抽屉状态和快捷键，把侧边栏和主内容横着排。高度由外面给，主内容区自己滚动。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "provider": "外壳；`data-width`；读 `--_w` / `--_wi`（图标条宽）/ `--_pad`（`floating`、`inset` 的外边距）",
+    "sidebar": "侧边栏根；`data-state`（expanded / collapsed）、`data-collapsible`（收起后才有）、`data-variant`、`data-side`",
+    "gap": "占位（把主内容推开）和贴边的面板",
+    "inner": "面板本体（`aside`）；`data-theme`；手机抽屉里的有 `data-mobile`",
+    "sections": "头部、可滚动内容、底部",
+    "label": "头部 / 底部里只在展开时显示的文字；收成图标条时视觉上藏起来（读屏仍读得到）",
+    "inset": "主内容；`inset` 外观下是带圆角的卡片",
+    "trigger": "切换按钮和边缘细条"
+  },
+  "props": {
+    "Sidebar": {
+      "aria-label": "面板（`aside`）和手机抽屉的名称；默认取语言包里的 “Sidebar”。",
+      "collapsible": "收起的方式：`offcanvas` 整个滑出屏幕；`icon` 收成只剩图标的窄条（里面的 SideMenu 自动跟着收起）；`none` 不能收起。屏幕窄于 md 时一律变成抽屉。",
+      "side": "在左边还是右边。",
+      "theme": "明暗。不给就用主题风格自己的默认（antd 主题风格默认深色，其余浅色）。",
+      "variant": "外观：`sidebar` 贴着页面边缘（和内容之间有一条分隔线）；`floating` 是悬浮的圆角卡片；`inset` 侧边栏融进页面背景，主内容（`Sidebar.Inset`）是一块圆角卡片。"
+    },
+    "Sidebar_Provider": {
+      "defaultOpen": "非受控时的初始状态。",
+      "onOpenChange": "回调新的 `open`；同时传 `open` 就是受控。",
+      "open": "受控的展开状态。",
+      "shortcut": "切换的快捷键（配合 Ctrl / ⌘）；`false` 关闭。",
+      "width": "展开时的宽度档位；实际像素取主题风格的刻度。"
+    },
+    "Sidebar_Trigger": {
+      "children": "自定义图标。"
+    }
+  }
+}

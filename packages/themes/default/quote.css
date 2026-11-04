@@ -1,0 +1,96 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Quote: quoted text (vertical line + at most 3 lines); QuoteSelection: the "Quote" button that appears above the selection after selecting text, position read from --quote-x / --quote-y */
+  [data-theme-style="default"] [data-slot="quote"] {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0;
+    padding: 0.25rem 2rem 0.25rem 0.75rem;
+    border-inline-start: 3px solid color-mix(in srgb, var(--ui-c-primary) 55%, var(--ui-border));
+    border-radius: var(--ui-r-item);
+    background-color: color-mix(in srgb, transparent 96%, var(--ui-fg) 4%);
+    color: var(--ui-fg-muted);
+    font-family: var(--ui-font-family);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="default"] [data-slot="quote-source"] {
+    display: block;
+    color: var(--ui-fg);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  [data-theme-style="default"] [data-slot="quote-text"] {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow-wrap: anywhere;
+  }
+  [data-theme-style="default"] [data-slot="quote-remove"] {
+    position: absolute;
+    inset-block-start: 0.25rem;
+    inset-inline-end: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-r-control);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    cursor: pointer;
+    outline: none;
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="default"] [data-slot="quote-remove"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="default"] [data-slot="quote-remove"]:hover {
+    background-color: color-mix(in srgb, transparent 90%, var(--ui-fg) 10%);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="default"] [data-slot="quote-remove"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="default"] [data-slot="quote-selection"] {
+    position: relative;
+  }
+  [data-theme-style="default"] [data-slot="quote-selection-action"] {
+    position: absolute;
+    inset-block-start: var(--quote-y, 0);
+    inset-inline-start: var(--quote-x, 0);
+    z-index: 1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.25rem 0.625rem;
+    translate: -50% calc(-100% - 0.5rem);
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-r-control);
+    background-color: var(--ui-container);
+    box-shadow: 0 4px 12px color-mix(in srgb, transparent 85%, black 15%);
+    color: var(--ui-fg);
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="default"] [data-slot="quote-selection-action"]:hover {
+    background-color: color-mix(in srgb, var(--ui-container) 92%, var(--ui-fg) 8%);
+  }
+  [data-theme-style="default"] [data-slot="quote-selection-action"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+}

@@ -1,0 +1,62 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Overview
+
+Skein UI is a pnpm monorepo: a React component library built on Base UI with swappable theme styles (`packages/ui`, published as `@skeinui/ui`) and a documentation/playground site (`apps/skein-doc`). The toolchain is [Vite+](https://viteplus.dev) (`vp`), not plain vite/vitest/eslint. Requires Node >= 22.18.
+
+## Commands
+
+Run from the repo root unless noted.
+
+```bash
+vp install                 # install dependencies
+vp run skein-doc#dev       # docs site on http://localhost:5175 (or `pnpm dev`)
+vp check                   # format + lint + type check (type-aware lint)
+vp run -r test             # tests of every package
+vp run -r build            # build every package (skein-doc: tsc && vp build)
+pnpm ready                 # check + test + build, the full pre-merge gate
+pnpm --filter skein-doc run deploy   # build the docs site and upload it to Cloudflare (wrangler.jsonc, skeinui.com)
+```
+
+In `packages/ui`:
+
+```bash
+vp test                              # all contract / separation / component tests
+vp test tests/button.test.ts         # a single test file
+vp test -t "name pattern"            # filter by test name
+vp run typecheck                     # tsc
+vp run snapshot                      # visual regression (needs the docs site running)
+vp run a11y                          # axe-core scan (needs the docs site running)
+```
+
+`snapshot` and `a11y` are not part of `vp test`. Visual baselines (`tests/visual/baseline/**`) are script-generated one-line-per-page files; the formatter ignores them, don't reformat. Lint enforces `vite-plus/prefer-vite-plus-imports`: import from `vite-plus`, not `vite`/`vitest`.
+
+## Architecture
+
+**Components own behaviour and structure only; all visuals live in theme styles.** The two sides communicate through `data-*` attributes and are tied together by one file:
+
+- `packages/ui/src/contract.ts` is the source of truth: value enums (`COLORS`, `SIZES`, `BUTTON_VARIANTS`, …) and `*_SLOTS` lists. Components write these values as `data-slot` / `data-variant` / `data-color` / `data-size` plus state hooks; themes style those attributes. `packages/cli/src/theme/` (`skein theme init|check`, `skein check`; exported as `@skeinui/cli/theme`) checks a theme style covers every contract entry: `coverage.js` lists the selectors each component file must contain (built from the contract in `packages/ui/manifest.json`), and `packages/cli/tests/theme.test.ts` runs the check on every bundled style. When adding a variant/slot, edit `contract.ts` (and `coverage.js`, then `vp run manifest`) first and let the tests list what each theme is missing. `packages/ui/tests/theme-style.test.ts` only keeps style-specific constraints.
+- `packages/ui/src/components/<name>/` — one directory per component (Base UI wrapper + data hooks), exported from `src/index.ts`. Components must not accept or emit `className` / `style` (prop types `Omit` them; `tests/separation.test.ts` scans all components automatically). Variants are passed through as values, never branched on in the component. Props should be serializable (data-driven), with `ReactNode`/`render` only as a supplement. Controlled values use `value`/`onValueChange`, toggles use `open`/`onOpenChange`. Higher-level components (AdminLayout, data table, kanban, agenda, AI chat family) follow the same layout.
+- `packages/themes/<style>/` — theme styles, all in one package `@skeinui/themes` (`default`, `shadcn`, `heroui`, `antd`); a project imports one (`@skeinui/themes/antd/index.css`) and only that one is bundled. Each has `tokens.css`, `dark.css`, one `<component>.css` per component, and an `index.css` entry. Several styles can be imported together; each is scoped by `data-theme-style`.
+- `packages/themes/color/*.css` (colour themes) and `packages/themes/density/*.css` only override token values and work on top of any style; `packages/themes/code/` holds code-block themes. `@skeinui/ui` itself ships no visuals.
+- Theme state (`data-theme-style`, `data-mode`, `data-theme-color`) must be on `<html>` (or an ancestor of the overlay container), because Base UI portals Dialog/Popover/Select content to `<body>`. `ConfigProvider` sets these. Overlay components wrap Portal/Positioner/Popup into a single `Content` part.
+- `packages/cli` (`@skeinui/cli`, bin `skein`): `skein create [dir] --template basic|admin --theme … [--<feature>|--no-<feature>] [--local]`, `skein new page|module`, `skein theme use|add|remove|init|check`, `skein list`, `skein init` (writes the `.skein.json` marker every project command needs, for a project that lacks it: features are detected from the files the commands rely on — e.g. `src/routes/__root.tsx` + the router plugin, not the router dependency — see `src/commands/init.js`). Theme styles: a project without the admin shell imports one in `src/skein.theme.ts`; an admin (shell) project lists the ones users may pick in `themeStyles` of `src/settings.ts` (dynamic `import()` each, so each is its own CSS file loaded on demand; `themeStyle` is the default), switched in the preferences drawer — `theme add` / `remove` edit that list, `theme use` sets the default. Plain JS (no build). Templates follow adoor's layered layout: `templates/_base` + `templates/features/<name>/{feature.json,files/}` (`requires`, deps, scripts) + `templates/pages/_blank` / `modules/_blank`; rendered by `src/engine.js` (`{{var}}`, `{{#if feature}}…{{else}}…{{/if}}`; a file that renders empty is skipped). Templates are excluded from lint/fmt. `scripts/build.ts` (run by test/prepack) generates the gitignored `contract.json` (the contract shipped for theme checks before `@skeinui/ui` is installed). The mock template's `mockServiceWorker.js` is committed; after changing the catalog's msw, `pnpm --filter @skeinui/cli msw-worker` rewrites it (a test checks its version against the catalog). The CLI has no msw dependency of its own: it would give its vite-plus a different peer set and break `vp run` tests. `src/theme/` is the theme checker / blank-theme generator (formerly `@skeinui/theme-kit`). `vp run e2e` generates every preset with `--local`, npm-installs, type-checks, builds and drives the admin app in Chrome (`tests/e2e/`). `packages/create-skein` (`npm create skein`) just calls `skein create`; `packages/skeinui` (`npx skeinui …`, bin `skeinui` only, so it never clashes with the CLI's `skein`) passes every command to it, and holds the unscoped name (npm then refuses `skein-ui` and the like). `@skeinui/*`, `create-skein` and `skeinui` are a changesets `fixed` group because generated projects pin `@skeinui/*` to the CLI's version.
+- AI-facing layer (keep it in sync when components change):
+  - `packages/ui/manifest.json`: every component's props / allowed values / parts / slots / docs-site examples, generated by `packages/ui/scripts/manifest.ts` from the types (`vp run manifest`); `tests/manifest.test.ts` fails when it is stale. The CLI's `skein docs`, the MCP server and the docs site's `llms.txt` / `llms-full.txt` (`apps/skein-doc/scripts/llms.ts`, generated before dev/build, not committed) all read it.
+  - Generated projects carry `AGENTS.md`, `CLAUDE.md` (`@AGENTS.md`), `.claude/skills/skein-{ui,page,theme}` and `.mcp.json`, rendered per feature from `packages/cli/templates/_base/`. `skein check` (`src/commands/check.js`) is the agent's feedback loop: tsc with Skein hints, i18n key parity / missing `t()` keys, hard-coded colors, theme coverage; every command takes `--json`.
+  - `skein new page <path> --from <openapi>` generates a CRUD page (`src/openapi.js` reads the resource, `src/crud.js` writes the files); fixtures in `packages/cli/tests/fixtures/`.
+  - `skein mcp` (`packages/cli/src/mcp/server.js`): the CLI as MCP tools (`skein_docs`, `skein_check`, `skein_new_page`, `skein_theme_init`, …) over stdio. Opt-in: the `mcp` feature (`--mcp`) writes `.mcp.json` and adds `@modelcontextprotocol/sdk` + `zod` to the project's devDependencies; for the CLI they are optional peers, loaded only by `skein mcp`, so `npm create skein` doesn't download them.
+  - `skein preview <route>` (`src/commands/preview.js`; MCP `skein_preview`): starts the project's Vite dev server, opens the route in the installed Chrome via playwright-core (signs in through the login form when the project has auth) and reports exceptions, console errors, failed requests (including data requests answered with index.html, i.e. no API / mock), a blank page and a screenshot path. Opt-in like MCP: the `preview` feature (`--preview`) adds `playwright-core` to the project; for the CLI it is an optional peer.
+- i18n: `src/locales/{en,zh-CN}.ts` with `messages.ts` / `use-labels.ts`, exported as `@skeinui/ui/locales/*`.
+- `@skeinui/ui` has two faces: in the workspace its `exports` point at `src/*.ts`, so the docs site, tests and `--local` projects use the source with no build; `vp pack` (`build` / `prepack`, config in `packages/ui/vite.config.ts`) writes `dist/` (one ES module per source file, `.d.ts`, `"use client"` on component modules) and `publishConfig.exports` points the published package at it. `apps/skein-doc` consumes the source.
+- Docs site (`apps/skein-doc/src`): `site/` (shell, routing, `i18n.tsx`, `locales/`), `doc/` (`Example`, `Lead`, `DocHeading`, `ApiReference`), `home/`, `frames/` (full-page demos), and one directory per page, `pages/<group>/<slug>/`: `meta.ts` (label, origin, TOC ids), `index.tsx` (default export, loaded on demand) and `locales/{en,zh}.json`. `registry.ts` finds pages with `import.meta.glob`, so a new directory is all it takes. English at `/button`, Chinese at `/zh/button`. Every text is a message: `<Example id>` takes `<id>.title` / `<id>.description`, prose may use `` `code` ``, `**bold**`, `[link](/path)`; `<ApiReference component>` builds the props table from the manifest (types, `@default`, English from the JSDoc; Chinese from the page's `props.<Component>.<prop>`). `tests/locales.test.ts` checks key parity, titles and that no Chinese is left in the code. `packages/ui/scripts/manifest.ts` reads the pages' examples and `en.json` titles. Open a combination directly with `?themeStyle=heroui&mode=dark&themeColor=purple`.
+
+### Adding a component
+
+1. Register slots/variants in `contract.ts`.
+2. Write the component in `src/components/<name>/` and export it from `src/index.ts`.
+3. Add `<name>.css` to **every** theme style (`packages/themes/<style>/`) and `@import` it in that style's `index.css`.
+4. Add tests: `renderToStaticMarkup` assertions on data attributes and absence of `class=`; add the new file's selectors to `packages/cli/src/theme/coverage.js`.
+5. Add a docs page: `apps/skein-doc/src/pages/<group>/<slug>/` with `meta.ts`, `index.tsx` and `locales/{en,zh}.json` (copy `pages/buttons/button/`); document defaults with `@default` in the props' JSDoc, then `vp run manifest`.

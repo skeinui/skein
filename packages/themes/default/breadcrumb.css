@@ -1,0 +1,79 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Breadcrumb: links are faint and darken on hover; the current page is in the body-text color; the separator is a faint small arrow. */
+  [data-theme-style="default"] [data-slot="breadcrumb"] {
+    display: block;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-list"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(0.375rem * var(--ui-density));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-item"] {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.375rem * var(--ui-density));
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-link"] {
+    padding: 0;
+    border-radius: var(--ui-radius-sm);
+    color: var(--ui-fg-muted);
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease;
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-link"]:hover {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-link"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-page"] {
+    padding: 0;
+    color: var(--ui-fg);
+    font-weight: 500;
+  }
+  [data-theme-style="default"]
+    [data-slot="breadcrumb-item"]:not(:last-child)
+    [data-slot="breadcrumb-page"] {
+    color: var(--ui-fg-muted);
+    font-weight: 400;
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-separator"] {
+    display: inline-flex;
+    color: var(--ui-fg-muted);
+    opacity: 0.6;
+    user-select: none;
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-separator"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  /* Item with an icon: icon and text on one row, the icon slightly larger than the text */
+  [data-theme-style="default"]
+    :is([data-slot="breadcrumb-link"], [data-slot="breadcrumb-page"]):has(
+      > [data-slot="breadcrumb-icon"]
+    ) {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.375rem * var(--ui-density));
+  }
+  [data-theme-style="default"] [data-slot="breadcrumb-icon"] {
+    display: inline-flex;
+    flex: none;
+    font-size: 1rem;
+  }
+}

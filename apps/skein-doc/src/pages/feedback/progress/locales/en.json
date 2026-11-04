@@ -1,0 +1,26 @@
+{
+  "lead": "A progress bar. The role and `aria-valuenow` come from Base UI's Progress; how the bar is drawn is up to the theme style.",
+  "usage": { "title": "Usage" },
+  "label": { "title": "Label & Value" },
+  "sizes": { "title": "Sizes" },
+  "colors": { "title": "Colors" },
+  "indeterminate": { "title": "Indeterminate" },
+  "radius": { "title": "Radius" },
+  "circle": {
+    "title": "Circle and Dashboard",
+    "description": "A ring and a gauge. Progress is a `stroke-dasharray`, so the arc moves smoothly when the value changes; with indeterminate progress a short arc spins around."
+  },
+  "live": { "title": "Live Update" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `progress.css`. The looping animation of indeterminate progress lives in the theme style too: the component only writes `data-indeterminate`.",
+    "hook": "Hook",
+    "circle": "The ring's container and SVG (`aria-hidden`; accessibility is on `progress`); `data-type=circle|dashboard`",
+    "circleParts": "Base circle, indicator circle (progress is `--pc-value`, 0–100, in `stroke-dasharray`) and the number in the middle of the ring",
+    "root": "Root and text row",
+    "text": "Label and percentage",
+    "track": "Track and indicator; Base UI writes the width inline",
+    "states": "Written on `progress` and the indicator; theme styles draw each state with them"
+  }
+}

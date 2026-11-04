@@ -1,0 +1,38 @@
+{
+  "title": "主题",
+  "lead": "主题风格决定组件的全部外观。在它之上叠加暗色模式、色彩主题、密度和你自己的覆盖值，都不用改组件代码。",
+  "styles": {
+    "title": "主题风格",
+    "p1": "`@skeinui/themes` 自带四个主题风格，每个都覆盖全部组件，亮色和暗色都有：",
+    "name": "风格",
+    "look": "外观",
+    "default": "Skein 自己的风格：品牌蓝、较大圆角、轻阴影。",
+    "shadcn": "shadcn/ui：中性色、紧凑、线条利落。",
+    "heroui": "HeroUI v3：柔和配色、胶囊形控件。",
+    "antd": "Ant Design 6：企业级外观。",
+    "p2": "只引入用到的风格的 CSS，打包时也只包含这些。可以同时引入多个，各自按 `data-theme-style` 隔离，用户可以在运行时切换（admin 模板的偏好设置抽屉就是这么做的）。"
+  },
+  "mode": {
+    "title": "亮色与暗色",
+    "p1": "`mode` 取 `\"light\"`、`\"dark\"` 或 `\"system\"`（跟随系统，并随系统切换）。每个主题风格都自带两套配色，不用额外引入。"
+  },
+  "colors": {
+    "title": "色彩主题与密度",
+    "p1": "色彩主题只改颜色，可以叠加在任何主题风格上：`purple`、`green`、`geekblue`、`volcano`，以及 `contrast`（满足 WCAG AA）。紧凑密度让控件更小。",
+    "p2": "色彩主题可以组合：`themeColor={[\"purple\", \"contrast\"]}`。"
+  },
+  "overrides": {
+    "title": "自定义值",
+    "p1": "要用自己的品牌色、圆角或密度，`themeOverrides` 会把它们叠加在主题风格上。颜色是 `#rrggbb`；`dark` 是暗色模式下的覆盖；圆角单位是 rem；密度是倍数（1 为默认）。"
+  },
+  "own-style": {
+    "title": "自己的主题风格",
+    "p1": "覆盖值不够用时，就写一个主题风格。CLI 会把自带的某个风格以新名字复制到 `src/theme/`，从一个完整的风格开始，改你想改的：",
+    "p2": "`skein theme check` 会对照组件契约，列出它还没有样式的每个 slot、变体和状态。不带 `--from` 则生成一个空白风格，从头填写。"
+  },
+  "how": {
+    "title": "工作原理",
+    "p1": "组件只写 `data-*` 属性、不带 CSS；主题风格就是针对这些属性的 CSS，按 `data-theme-style` 隔离：",
+    "p2": "Token（`--ui-c-primary`、`--ui-radius`、`--ui-density`……）由每个风格在 `tokens.css` 和 `dark.css` 里定义；色彩主题和 `themeOverrides` 只改 token 的值，所以对任何风格都有效。"
+  }
+}

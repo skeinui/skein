@@ -1,0 +1,38 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Masonry: items are absolutely positioned, with horizontal position and width computed from the column count / gap (--ms-cols, --ms-gx), and the vertical position is --ms-y, measured by the component; content is hidden until layout is done */
+  [data-theme-style="antd"] [data-slot="masonry"] {
+    --_w: calc((100% - (var(--ms-cols, 3) - 1) * var(--ms-gx, 0px)) / var(--ms-cols, 3));
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--ms-height, auto);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="antd"] [data-slot="masonry-item"] {
+    position: absolute;
+    top: var(--ms-y, 0px);
+    inset-inline-start: calc(var(--ms-col, 0) * (var(--_w) + var(--ms-gx, 0px)));
+    box-sizing: border-box;
+    width: var(--_w);
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    /* The horizontal position uses inset (percentages are relative to the container width, while translate percentages are relative to the item itself and would be wrong); changing columns, width and height all transition */
+    transition:
+      top 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
+      inset-inline-start 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
+      width 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="masonry"][data-ready] [data-slot="masonry-item"] {
+    visibility: visible;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="masonry-item"] {
+      transition: none;
+    }
+  }
+}

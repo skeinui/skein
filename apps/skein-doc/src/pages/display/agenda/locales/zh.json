@@ -1,0 +1,86 @@
+{
+  "lead": "日程视图：日 / 周 / 月三种视图。日、周是时间轴——顶部是全天和跨天的事件条，下面按时间摆事件块，重叠的并排分列，今天有当前时间线；月视图一行一周，跨天事件横跨多列，放不下的收成「+n more」。事件和视图状态都由调用方持有，日期和时间是不带时区的字符串。",
+  "usage": {
+    "title": "用法",
+    "description": "默认是周视图；点日期头切到那一天，右上角切换视图、前后翻页或回到今天。",
+    "ariaLabel": "周日程",
+    "events": {
+      "holiday": "公司假日",
+      "offsite": "团队外出",
+      "standup": "每日站会",
+      "design": "设计评审",
+      "quick": "快速同步",
+      "client": "客户电话",
+      "one": "与主管一对一",
+      "plan": "迭代规划",
+      "lunch": "团队午餐",
+      "deploy": "发布窗口"
+    }
+  },
+  "interactive": {
+    "title": "交互",
+    "description": "给了 `onEventClick`，事件就是按钮；给了 `onSlotClick`，点时间轴的空白处得到日期和对齐到半小时的时间（月视图只有日期）。",
+    "ariaLabel": "可交互的日程",
+    "hint": "点一个事件，或点时间轴的空白处新建。",
+    "newEvent": "新事件",
+    "added": "已新建：{start}",
+    "clicked": "点击了：{title}"
+  },
+  "drag": {
+    "title": "拖动与调整时长",
+    "description": "给了 `onEventChange` 就能拖：拖事件块移动（跨天、改时间），拖上下边缘调整时长，全天条和月视图里的事件拖到别的日期；Esc 取消。键盘：聚焦事件后 Alt + 方向键移动，Alt + Shift + 上下调整结束时间。",
+    "ariaLabel": "可拖拽的日程",
+    "hint": "拖动事件，或拖事件块的上 / 下边缘调整时长。"
+  },
+  "month": {
+    "title": "月视图",
+    "description": "跨天的事件是横跨多列的条，单天的有时间事件是点；一天放不下的收成「+n more」，点它切到那一天。",
+    "ariaLabel": "月日程"
+  },
+  "range": {
+    "title": "小时范围与语言",
+    "description": "`startHour` / `endHour` 限定小时范围。文字和日期写法来自页头设置里的语言（ConfigProvider）；组件自己传的 `locale` / `labels` 优先于全站的——下面这个故意用另一种语言。",
+    "ariaLabel": "英文日程"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根；`data-view` 是当前视图",
+    "header": "头部：标题（`aria-live`）、视图切换 + 上一个 / 今天 / 下一个",
+    "controls": "视图切换（Segmented）和导航按钮（Button）的包装",
+    "heads": "日 / 周视图的日期头；`data-today`、`data-weekend`",
+    "allday": "全天 / 跨天事件区，没有这类事件时不渲染；事件按 `--seg-col` / `--seg-span` / `--seg-row` 排",
+    "grid": "时间轴：滚动区、左侧小时标签、列；列是 `role=group`，带 `data-today`、`data-weekend`；小时线由主题风格用背景画，`--agenda-hours` 是小时数、`--agenda-cols` 是列数",
+    "now": "当前时间线，位置是 `--ev-start`（分钟）",
+    "event": "事件；`data-kind` 是 `block`（时间轴里，`--ev-start` / `--ev-length` 分钟，`--ev-col` / `--ev-cols` 重叠分列）、`bar`（全天 / 跨天）、`chip`（月视图里单天的有时间事件）；`data-color`；`data-continues-before` / `data-continues-after` 表示在这一段之外还延续",
+    "handle": "可拖拽时：时间块上下边缘的调整手柄（`data-edge` 是 `start` / `end`）；读屏用的播报（视觉上隐藏）。事件上有 `data-draggable`，拖动中的事件有 `data-dragging`，根上也有 `data-dragging`",
+    "month": "月视图：一行一周，`--agenda-lanes` 是这一行用到的事件行数",
+    "day": "月视图的日期格（`data-today` / `data-outside` / `data-weekend`）、日期按钮、「+n more」",
+    "reused": "头部的导航按钮和视图切换，复用 Button、Segmented 的主题风格"
+  },
+  "props": {
+    "Agenda": {
+      "date": "视图围绕的那一天，\"YYYY-MM-DD\"，受控；周视图显示它所在的一周，月视图显示它所在的月。",
+      "defaultDate": "非受控时 `date` 的初始值；不给就是今天。",
+      "defaultView": "非受控时 `view` 的初始值。",
+      "endHour": "日 / 周视图显示的最后一个小时（范围的结束，不含）。",
+      "events": "要显示的事件，由调用方持有（在 `onEventChange` 里更新）。",
+      "labels": "要覆盖的内置文字（见下面的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "locale": "星期、日期和时间的语言，默认取 ConfigProvider 的 `locale`。",
+      "maxEvents": "月视图一天最多放几行事件，多的收成「+n more」。",
+      "now": "「现在」：给了就固定在这个时间（演示、测试用）；不给就用真实时间，每分钟刷新。",
+      "onDateChange": "`date` 变化时调用；要受控就同时传 `date`。",
+      "onEventChange": "事件被拖动，或用键盘移动 / 调整时长后调用，给出新的起止（格式和原事件一致）；事件仍由调用方持有，拿到后更新 `events` 即可。传了才启用拖拽：拖事件块移动，拖上下边缘调整时长，全天条和月视图里的事件拖到别的日期；键盘：聚焦事件后 Alt + 方向键移动（上下 15 分钟、左右 1 天，月视图上下 7 天），Alt + Shift + 上下调整结束时间。",
+      "onEventClick": "点击事件（拖动刚结束时不触发）。",
+      "onMoreClick": "点击月视图的「+n more」。不传时切到那一天的日视图。",
+      "onSlotClick": "点击空白处：日 / 周视图给出日期和对齐到半小时的时间，月视图只给日期。",
+      "onViewChange": "`view` 变化时调用；要受控就同时传 `view`。",
+      "scrollToHour": "日 / 周视图打开时滚动到哪个小时。",
+      "startHour": "日 / 周视图显示的第一个小时。",
+      "view": "当前视图，受控。",
+      "views": "提供哪几种视图，默认三种都有。",
+      "weekStartsOn": "每周从周几开始，0 是周日。"
+    }
+  }
+}

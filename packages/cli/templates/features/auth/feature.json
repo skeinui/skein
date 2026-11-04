@@ -1,0 +1,5 @@
+{
+  "description": "Login page, route guard, session store",
+  "dependencies": { "zustand": "^5.0.3" },
+  "requires": ["router", "query", "i18n"]
+}

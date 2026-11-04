@@ -1,0 +1,28 @@
+{
+  "lead": "结果页：一个大图标（或错误码）、标题、说明和操作按钮，居中排列；用于操作成功 / 失败，以及 404 / 403 / 500 这类整页状态。",
+  "usage": { "title": "用法" },
+  "statuses": { "title": "状态" },
+  "pages": { "title": "页面错误" },
+  "content": { "title": "附加内容" },
+  "icon": { "title": "自定义图标" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `result.css` 里处理；状态色取本主题风格的语义色（success / danger / warning / primary）。",
+    "hook": "钩子",
+    "root": "整体；`data-status`",
+    "icon": "图标容器（颜色取状态色）；403 / 404 / 500 时里面是大号的错误码",
+    "text": "标题和说明",
+    "extra": "操作区；浅色背景的内容块"
+  },
+  "props": {
+    "Result": {
+      "children": "说明之外的内容（比如出错的详情列表），放在一块浅色背景里。",
+      "description": "标题下面的说明。",
+      "extra": "底部的操作区，通常放一两个按钮。",
+      "icon": "自定义图标，替换默认的状态图标（对 403 / 404 / 500 是替换错误码）。",
+      "status": "结果类型：success / error / info / warning 是带图标的状态；403 / 404 / 500 是页面级错误，显示大号错误码。",
+      "title": "结果的标题，例如“Payment successful”或“Page not found”。"
+    }
+  }
+}

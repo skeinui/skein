@@ -1,0 +1,100 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Card: three variants outline / filled / elevated, with 1.5rem padding. */
+  [data-theme-style="antd"] [data-slot="card"] {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: calc(1.5rem * var(--ui-density));
+    --_bd: rgb(5 5 5 / 0.06); /* Official colorBorderSecondary */
+    border: 1px solid transparent;
+    border-radius: var(--_r, var(--ui-radius-lg));
+    background-color: var(--ui-field-bg);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="card"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="card"] {
+    --_bd: var(--ui-border-secondary, rgb(255 255 255 / 0.12));
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-variant="outline"] {
+    border-color: var(--_bd);
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-variant="filled"] {
+    border-color: transparent;
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-variant="elevated"] {
+    border-color: transparent;
+    /* Official hoverable shadow */
+    box-shadow:
+      0 1px 2px -2px rgb(0 0 0 / 0.16),
+      0 3px 6px 0 rgb(0 0 0 / 0.12),
+      0 5px 12px 4px rgb(0 0 0 / 0.09);
+  }
+  /* In dark, the official hoverable shadow is a very faint white (not black) */
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="card"][data-variant="elevated"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="card"][data-variant="elevated"] {
+    box-shadow:
+      0 1px 2px -2px rgb(255 255 255 / 0.03),
+      0 3px 6px 0 rgb(255 255 255 / 0.024),
+      0 5px 12px 4px rgb(255 255 255 / 0.02);
+  }
+  [data-theme-style="antd"] [data-slot="card-header"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* Official head: fills the card width, min-height 56px, 1px divider below */
+    box-sizing: border-box;
+    min-height: 3.5rem;
+    justify-content: center;
+    padding: calc(0.9375rem * var(--ui-density)) calc(1.5rem * var(--ui-density));
+    margin: -1.5rem -1.5rem 1.5rem;
+    border-bottom: 1px solid var(--_bd);
+  }
+  [data-theme-style="antd"] [data-slot="card-title"] {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5714285714285714;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="card-description"] {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="card-body"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: calc(0.25rem * var(--ui-density));
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+  }
+  [data-theme-style="antd"] [data-slot="card-footer"] {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--ui-density));
+    margin-top: 1rem;
+  }
+
+  [data-theme-style="antd"] [data-slot="card"][data-radius="none"] {
+    --_r: 0;
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-radius="sm"] {
+    --_r: var(--ui-radius-sm);
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-radius="md"] {
+    --_r: var(--ui-radius-md);
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-radius="lg"] {
+    --_r: var(--ui-radius-lg);
+  }
+  [data-theme-style="antd"] [data-slot="card"][data-radius="full"] {
+    --_r: var(--ui-radius-full);
+  }
+}

@@ -1,0 +1,33 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Atom One Light / Dark: on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="one"] {
+    --ui-bg: #fafafa;
+    --ui-surface: #fafafa;
+    --ui-fg: #383a42;
+    --ui-fg-muted: #696c77;
+    --ui-border: #e5e5e6;
+    --code-keyword: #a626a4;
+    --code-string: #48804b;
+    --code-number: #986801;
+    --code-property: #3f6ed6;
+    --code-variable: #be5047;
+    --code-comment: #71737a;
+  }
+  [data-mode="dark"] [data-code-theme="one"],
+  [data-code-theme="one"][data-mode="dark"] {
+    --ui-bg: #282c34;
+    --ui-surface: #282c34;
+    --ui-fg: #abb2bf;
+    --ui-fg-muted: #8d939e;
+    --ui-border: #3e4451;
+    --code-keyword: #c678dd;
+    --code-string: #98c379;
+    --code-number: #d19a66;
+    --code-property: #61afef;
+    --code-variable: #db737c;
+    --code-comment: #8d939e;
+    color-scheme: dark;
+  }
+}

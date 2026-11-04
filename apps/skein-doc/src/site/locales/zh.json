@@ -1,0 +1,155 @@
+{
+  "header": {
+    "menu": "菜单",
+    "home": "Skein UI 首页",
+    "switchLang": "切换为 English",
+    "toLight": "切换为亮色",
+    "toDark": "切换为暗色"
+  },
+  "nav": {
+    "breadcrumb": "面包屑",
+    "components": "组件",
+    "overview": "概览",
+    "home": "首页",
+    "docs": "文档"
+  },
+  "sidebar": {
+    "filter": "筛选",
+    "filterLabel": "筛选组件",
+    "empty": "没有匹配“{q}”的组件。"
+  },
+  "search": {
+    "title": "搜索组件",
+    "placeholder": "搜索组件…",
+    "empty": "没有“{q}”的结果。",
+    "move": "选择",
+    "open": "打开"
+  },
+  "groups": {
+    "guides": "开始使用",
+    "all": "全部",
+    "buttons": "按钮",
+    "forms": "表单",
+    "overlays": "浮层",
+    "navigation": "导航",
+    "display": "展示",
+    "layout": "布局",
+    "feedback": "反馈",
+    "data": "数据",
+    "ai-chat": "AI 对话"
+  },
+  "origin": {
+    "Base UI": "Base UI",
+    "Base UINote": "行为来自 Base UI",
+    "Original": "自研",
+    "OriginalNote": "Base UI 里没有这个组件，交互是自己写或组合出来的"
+  },
+  "toc": {
+    "title": "本页内容",
+    "examples": "示例",
+    "beyond": "文档之外",
+    "reference": "参考",
+    "guide": "指南"
+  },
+  "pager": {
+    "previous": "上一个",
+    "next": "下一个"
+  },
+  "doc": {
+    "code": "代码",
+    "copy": "复制",
+    "copied": "已复制",
+    "copyCode": "复制代码",
+    "prop": "属性",
+    "type": "类型",
+    "default": "默认值",
+    "description": "说明",
+    "otherProps": "其余属性会传给底层元素。",
+    "required": "必填",
+    "noProps": "除了它渲染的元素本身的属性，没有自己的属性。"
+  },
+  "themeStyles": {
+    "heroui": "大圆角，柔和阴影",
+    "antd": "紧凑，1px 描边",
+    "default": "蓝色主色，细腻描边",
+    "shadcn": "中性黑白，细 ring"
+  },
+  "customize": {
+    "title": "外观",
+    "description": "主题风格、模式、色彩主题都只是 <html> 上的属性，所有组件即时响应，调用代码不变。",
+    "themeStyle": "主题风格",
+    "mode": "模式",
+    "light": "亮色",
+    "dark": "暗色",
+    "language": "语言",
+    "palette": "色彩主题",
+    "shape": "形状与密度",
+    "compact": "紧凑密度",
+    "density": "密度",
+    "radius": "圆角（rem）",
+    "radiusDefault": "圆角（主题风格默认）",
+    "reset": "全部重置",
+    "done": "完成",
+    "codeTheme": "代码主题",
+    "codeThemeSite": "文档默认"
+  },
+  "home": {
+    "hero": {
+      "start": "开始使用",
+      "styles": "主题风格",
+      "themes": "色彩主题",
+      "title": "一套组件 API。",
+      "subtitle": "适配任何设计语言。",
+      "lead": "`@skeinui/ui` 把行为和无障碍交给 Base UI，把外观交给可替换的主题风格。同一份调用代码，改一个 `data-theme-style`，就是 HeroUI、Ant Design 或 shadcn。",
+      "browse": "浏览组件"
+    },
+    "stats": {
+      "components": "组件",
+      "styles": "主题风格",
+      "colors": "色彩主题",
+      "modes": "模式"
+    },
+    "lab": {
+      "eyebrow": "主题风格实验室",
+      "title": "同一份代码，四种外观。",
+      "lead": "下面每张卡片渲染的是同一段 JSX，只是外层的 `data-theme-style` 不同。点击“使用”把整个站点切过去。",
+      "use": "使用",
+      "inUse": "使用中",
+      "preview": "{name} 预览"
+    },
+    "principles": {
+      "eyebrow": "原则",
+      "title": "三层，严格分离。",
+      "behaviour": {
+        "title": "行为",
+        "body": "焦点管理、键盘、aria、定位都来自 Base UI。组件代码里没有任何样式，也没有 `className` 入口。"
+      },
+      "style": {
+        "title": "主题风格",
+        "body": "一套主题风格就是一组 CSS：选择器、结构、比例。换主题风格不改一行调用代码，测试保证每套主题风格都覆盖全部 slot。"
+      },
+      "palette": {
+        "title": "色彩主题与模式",
+        "body": "色彩主题只换 token 的取值（颜色、圆角、密度），模式管亮暗。三者互相正交，可以任意组合。"
+      }
+    },
+    "index": {
+      "eyebrow": "组件",
+      "title": "全部组件，一览无余。",
+      "filter": "按分组筛选"
+    },
+    "foot": {
+      "current": "当前：",
+      "built": "基于 Base UI 构建",
+      "license": "MIT 许可证",
+      "copyright": "© 2026 Skein UI 版权所有"
+    }
+  },
+  "guides": {
+    "introduction": "介绍",
+    "installation": "安装",
+    "theming": "主题",
+    "cli": "Skein CLI",
+    "ai": "AI 编程"
+  }
+}

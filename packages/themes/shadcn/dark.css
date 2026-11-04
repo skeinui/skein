@@ -1,0 +1,68 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/* Dark values of the shadcn-style theme style, overriding only the color tokens that change with the mode. */
+@layer ui-tokens {
+  [data-theme-style="shadcn"][data-mode="dark"],
+  [data-theme-style="shadcn"] :where([data-mode="dark"]) {
+    color-scheme: dark;
+
+    --ui-bg: #0a0a0a;
+    --ui-surface: #171717;
+    --ui-card: #171717;
+    --ui-invalid-border: rgb(255 100 103 / 0.5); /* destructive/50 */
+    --ui-invalid-ring: rgb(255 100 103 / 0.4); /* destructive/40 */
+    --ui-fg: #fafafa;
+    --ui-fg-muted: #a1a1a1;
+    --ui-border: rgb(255 255 255 / 0.1);
+    --ui-ring: #737373;
+
+    /* Form controls */
+    --ui-field-bg: rgb(255 255 255 / 0.045);
+    --ui-field-filled-bg: var(--ui-c-neutral-soft);
+    --ui-field-fg: var(--ui-fg);
+    --ui-field-placeholder: var(--ui-fg-muted);
+    --ui-field-border: rgb(255 255 255 / 0.15); /* Nova's --input */
+    --ui-outline-bg: var(--ui-field-bg);
+    --ui-field-shadow: 0 0 0 0 transparent;
+
+    /* Overlays */
+    --ui-overlay-bg: #171717;
+    --ui-overlay-border: var(--ui-border);
+    --ui-overlay-shadow:
+      0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Nova dark shadow-md is still black/10 */
+    --ui-backdrop: rgb(0 0 0 / 0.5);
+    --ui-tooltip-bg: #fafafa;
+    --ui-tooltip-fg: #0a0a0a;
+
+    --ui-accent: #404040; /* Nova dark --accent: hover highlight for menu items and options */
+    --ui-c-neutral: #262626;
+    --ui-c-neutral-fg: #fafafa;
+    --ui-c-neutral-soft: #262626;
+    --ui-c-neutral-text: #fafafa;
+
+    --ui-c-primary: #e5e5e5;
+    --ui-c-primary-fg: #171717;
+    --ui-c-primary-soft: #262626;
+    --ui-c-primary-text: #e5e5e5;
+
+    --ui-c-secondary: #8b5cf6;
+    --ui-c-secondary-fg: #fafafa;
+    --ui-c-secondary-soft: #1e1033;
+    --ui-c-secondary-text: #c4b5fd;
+
+    --ui-c-success: #22c55e;
+    --ui-c-success-fg: #052e16;
+    --ui-c-success-soft: #052e16;
+    --ui-c-success-text: #4ade80;
+
+    --ui-c-warning: #f59e0b;
+    --ui-c-warning-fg: #1c1000;
+    --ui-c-warning-soft: #2a1a00;
+    --ui-c-warning-text: #fbbf24;
+
+    --ui-c-danger: #dc2626;
+    --ui-c-danger-fg: #fafafa;
+    --ui-c-danger-soft: rgb(255 100 103 / 0.2);
+    --ui-c-danger-text: #ff6467;
+  }
+}

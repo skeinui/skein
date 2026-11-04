@@ -1,0 +1,18 @@
+{
+  "lead": "A result page: a large icon (or error code), a title, a description and actions, centred. For an operation that succeeded or failed, and for whole-page states such as 404 / 403 / 500.",
+  "usage": { "title": "Usage" },
+  "statuses": { "title": "Statuses" },
+  "pages": { "title": "Page Errors" },
+  "content": { "title": "Extra Content" },
+  "icon": { "title": "Custom Icon" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `result.css`; the status colours are the theme style's semantic colours (success / danger / warning / primary).",
+    "hook": "Hook",
+    "root": "The whole result; `data-status`",
+    "icon": "Icon container (in the status colour); for 403 / 404 / 500 it holds the large error code",
+    "text": "Title and description",
+    "extra": "Actions area; the content block with a light background"
+  }
+}

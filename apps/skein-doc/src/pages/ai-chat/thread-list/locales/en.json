@@ -1,0 +1,33 @@
+{
+  "lead": "A list of conversations for a chat sidebar or conversation picker: each row has an icon, a title, a one-line preview and supplementary info on the right, with the current conversation highlighted. Long titles and previews are truncated, so it fits a narrow sidebar.",
+  "usage": {
+    "title": "Usage",
+    "planning": "Project planning",
+    "planningPreview": "Here is a rough plan for the next two sprints, starting with the data model.",
+    "today": "Today",
+    "recipes": "Recipe ideas for a long weekend",
+    "recipesPreview": "Try a slow-cooked ragù on Saturday and something light on Sunday.",
+    "yesterday": "Yesterday",
+    "debugging": "Debugging a flaky test",
+    "debuggingPreview": "The race is in the setup hook.",
+    "monday": "Mon",
+    "untitled": "Untitled"
+  },
+  "empty": {
+    "title": "Empty",
+    "text": "No conversations yet",
+    "label": "Empty conversations"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root (`nav`)",
+    "items": "The list (`ul`)",
+    "item": "A row (a native `button`); the current conversation has `data-selected` and `aria-current`",
+    "icon": "Icon (decorative)",
+    "content": "Text block, title and preview (truncated when too long)",
+    "meta": "Supplementary info on the right",
+    "emptyHint": "The message shown when there are no conversations"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "lead": "A single-line input, with its behaviour from Base UI's Input (inside a [Field](/field) it gets validation and the a11y links automatically). Multi-line input is Textarea; prefixes and suffixes go in an InputGroup. The examples follow the Input, TextArea and InputGroup pages of the HeroUI docs.",
+  "toc": {
+    "textarea": "Textarea",
+    "input-group": "Input Group",
+    "composed": "Composed Inputs"
+  },
+  "usage": { "title": "Usage" },
+  "variants": {
+    "title": "Variants",
+    "description": "`outline` matches HeroUI v3's primary (white with a shadow), `filled` its secondary (grey)."
+  },
+  "sizes": {
+    "title": "Sizes",
+    "description": "HeroUI v3 has no sizes; this package adds them: 32 / 36 / 40px."
+  },
+  "types": {
+    "title": "Types",
+    "description": "`type` is the native attribute, passed through as is."
+  },
+  "disabled": { "title": "Disabled" },
+  "invalid": {
+    "title": "Invalid",
+    "description": "On its own, mark it with `invalid`; inside a Field, the Field's validation decides — see the [Field](/field) page."
+  },
+  "read-only": {
+    "title": "Read Only",
+    "description": "The native `readOnly`, with no special look; theme styles can tone it down with `:read-only`."
+  },
+  "full-width": { "title": "Full Width" },
+  "controlled": { "title": "Controlled", "current": "Current value:", "empty": "(empty)" },
+  "textarea-heading": { "title": "Textarea" },
+  "textarea": {
+    "title": "Textarea",
+    "description": "The same Base UI Input rendered as a `<textarea>`: it looks like Input and can be resized vertically by default."
+  },
+  "textarea-rows": {
+    "title": "Rows",
+    "description": "`rows`, `cols`, `disabled` and `invalid` are native / shared props."
+  },
+  "textarea-auto": {
+    "title": "Auto size",
+    "description": "Grows with the content; `{ minRows, maxRows }` sets the range, and beyond `maxRows` the height is fixed and it scrolls inside. With it on, the textarea can't be resized by dragging."
+  },
+  "textarea-count": {
+    "title": "Character count",
+    "description": "`showCount` shows the character count below; with `maxLength` it reads \"n / max\" and changes color at the limit. Works together with `autoSize`."
+  },
+  "input-group-heading": { "title": "Input Group" },
+  "input-group": {
+    "title": "Prefix & Suffix",
+    "description": "The group draws the background and the focus ring, and the input inside is transparent; theme styles read the focus, invalid and disabled states from the input with `:has()`."
+  },
+  "input-group-icons": { "title": "With Icons" },
+  "input-group-password": {
+    "title": "Password Toggle",
+    "description": "A button in the suffix: a Button in a group is the same component as any other Button."
+  },
+  "input-group-states": { "title": "States" },
+  "composed": { "title": "Composed Inputs" },
+  "password-input": {
+    "title": "PasswordInput",
+    "description": "InputGroup + a button that shows the text (an `aria-pressed` toggle whose name follows the state)."
+  },
+  "search-input": {
+    "title": "SearchInput",
+    "description": "A search icon, a clear button when there is text, and a search button. <kbd>Enter</kbd> or the button calls `onSearch`, <kbd>Esc</kbd> clears, and nothing fires while `loading`."
+  },
+  "tag-input": {
+    "title": "TagInput",
+    "description": "<kbd>Enter</kbd> or a comma adds a tag, <kbd>Backspace</kbd> in an empty input removes the last one, and pasted text is split on the separators; see also `max` / `validate` / `allowDuplicates`."
+  },
+  "api": {
+    "title": "API Reference",
+    "affixes": "`InputGroup.Prefix` / `InputGroup.Suffix` take a span's native props and hold what goes before / after the input (icons, text, buttons); `InputGroup.Action` is a small icon button in the suffix position, and needs an `aria-label`."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "The components have no styles and only write hooks; theme styles style them in `input.css`, and focus, hover and the placeholder use the native pseudo-classes.",
+    "hook": "Hook",
+    "sameAsProps": "same as the props",
+    "pseudo": "CSS pseudo-class",
+    "slot": "Structure hooks (`input-group-action` is the icon button in the suffix, `input-group-tags` TagInput's tag area)",
+    "variants": "Variant hooks; inside a Field they take the Field's defaults",
+    "states": "State hooks, written by Base UI (the `invalid` prop also writes `data-invalid`)",
+    "pseudoClasses": "Theme styles handle them with the native pseudo-classes"
+  }
+}

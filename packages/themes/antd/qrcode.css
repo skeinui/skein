@@ -1,0 +1,85 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* QRCode: the shell (border, padding, radius) and the status overlay are determined by the theme style; the QR code's own dark / background colors are functional colors for scanning and do not follow the theme.
+     The background of the padding ring reads --qr-bg (see qrcode.tsx), and is white when bgColor is not passed. */
+  [data-theme-style="antd"] [data-slot="qrcode"] {
+    width: calc(var(--qr-size, 160) * 1px);
+    height: calc(var(--qr-size, 160) * 1px);
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    vertical-align: top;
+    line-height: 0;
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+  }
+  [data-theme-style="antd"] [data-slot="qrcode"][data-bordered] {
+    padding: 12px;
+    border: 1px solid var(--ui-border-secondary, color-mix(in srgb, var(--ui-fg) 6.8%, transparent));
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--qr-bg, rgb(255 255 255));
+    box-shadow: none;
+  }
+  [data-theme-style="antd"] [data-slot="qrcode-svg"] {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Module edges are not anti-aliased, so every square stays crisp after scaling (scanning is more reliable) */
+  [data-theme-style="antd"] [data-slot="qrcode-background"],
+  [data-theme-style="antd"] [data-slot="qrcode-modules"] {
+    shape-rendering: crispEdges;
+  }
+  /* The icon and its rounded background need anti-aliasing, so not crispEdges */
+  [data-theme-style="antd"] [data-slot="qrcode-icon-bg"],
+  [data-theme-style="antd"] [data-slot="qrcode-icon"] {
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="qrcode-empty"] {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  [data-theme-style="antd"] [data-slot="qrcode-mask"] {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    border-radius: inherit;
+    background-color: color-mix(in srgb, var(--ui-bg) 96%, transparent);
+    color: var(--ui-fg);
+    line-height: 1.375rem;
+    text-align: center;
+  }
+  [data-theme-style="antd"] [data-slot="qrcode-spinner"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--ui-c-primary);
+    animation: ui-antd-qrcode-spin 800ms linear infinite;
+  }
+  @keyframes ui-antd-qrcode-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  [data-theme-style="antd"] [data-slot="qrcode-status"] {
+    font-weight: 400;
+  }
+  /* The official "scanned" state also uses the body color, not the success color */
+  [data-theme-style="antd"]
+    [data-slot="qrcode-mask"][data-status="scanned"]
+    [data-slot="qrcode-status"] {
+    color: var(--ui-fg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="qrcode-spinner"] {
+      animation-duration: 2s;
+    }
+  }
+}

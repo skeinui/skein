@@ -1,0 +1,44 @@
+{
+  "lead": "The scroll area of a conversation, stuck to the bottom: while you are at the bottom, new messages and streamed output scroll into view; when you scroll up to read history it leaves you alone and shows a back-to-bottom button. The root is `role=log`, so screen readers announce new messages.",
+  "assistant": "Assistant",
+  "usage": {
+    "title": "Usage",
+    "description": "Put it in a parent with a height. Scroll up a little and the back-to-bottom button appears; click \"Add a turn\" and, at the bottom, it follows the new message.",
+    "add": "Add a turn",
+    "label": "Demo conversation",
+    "answer": "Here is an answer for question {n}. It is a bit long so that the conversation needs to scroll: theme styles are plain CSS files, switched with a data attribute on the document, and behaviour comes from Base UI.",
+    "questions": {
+      "q0": "What is Base UI?",
+      "q1": "Does it ship styles?",
+      "q2": "How do theme styles work?",
+      "q3": "Can I switch theme styles at runtime?",
+      "q4": "What about dark mode?",
+      "q5": "Is it accessible?"
+    }
+  },
+  "streaming": {
+    "title": "Streaming",
+    "description": "While a reply streams in, the thread keeps following it as long as you stay at the bottom; scroll up and it stops following.",
+    "start": "Start streaming",
+    "running": "Streaming…",
+    "label": "Streaming conversation",
+    "empty": "Press the button to stream a reply.",
+    "text": "The reply is streaming in word by word and the thread keeps following it as long as you stay at the bottom. Scroll up to read earlier messages: it stops following and a button appears to jump back down."
+  },
+  "api": {
+    "title": "API Reference",
+    "root": "`ChatThread` is a `div` with `role=log`. Put it in a parent with a height: it fills it and scrolls inside; it can be focused with the keyboard.",
+    "scrollButton": "The back-to-bottom button: it appears only when not at the bottom; clicking it scrolls down and sticks to the bottom again. `children` can replace the icon.",
+    "more": "Other parts",
+    "name": "Name",
+    "content": "The centered message column: limits the maximum width and spaces the messages",
+    "hook": "Inside ChatThread, reads \"is at the bottom\" and \"scroll to the bottom\", for a custom back-to-bottom button"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The scroll area; `data-at-bottom` means it is at the bottom now",
+    "content": "The centered message column",
+    "button": "The back-to-bottom button's positioning layer: stuck to the bottom edge of the viewport, taking no height itself; it holds a Button"
+  }
+}

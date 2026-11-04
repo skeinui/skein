@@ -1,0 +1,18 @@
+{
+  "lead": "A number input. min / max / step, the Up / Down arrow keys, press-and-hold on the buttons and formatting come from Base UI's NumberField; the input looks like Input.",
+  "usage": { "title": "Usage" },
+  "range": { "title": "Min, Max & Step" },
+  "format": { "title": "Format" },
+  "variants": { "title": "Variants & Sizes" },
+  "no-stepper": { "title": "Without Stepper" },
+  "in-field": { "title": "In Field" },
+  "invalid": { "title": "Disabled & Invalid" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles only handle the stepper buttons and the centred number in `number-field.css`; the input's look comes from the input-group in `input.css`.",
+    "root": "The root",
+    "input": "The input, sharing Input's look",
+    "buttons": "The decrement / increment buttons"
+  }
+}

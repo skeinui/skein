@@ -1,0 +1,46 @@
+{
+  "lead": "带建议的输入框：值就是输入框里的文字，建议只是辅助，不要求必须选中其中一项（要求必须选中时用 [Combobox](/combobox)）。输入框复用 Input，弹层复用 Select。",
+  "usage": { "title": "用法", "placeholder": "搜索标签", "label": "标签" },
+  "controlled": { "title": "受控", "text": "文字：" },
+  "variants": { "title": "变体与尺寸" },
+  "in-field": {
+    "title": "放进 Field",
+    "description": "放进 [Field](/field) 时，`variant` / `size` 和禁用 / 无效状态取 Field 的，Autocomplete 自己传了则以自己的为准。",
+    "label": "标签",
+    "placeholder": "输入以搜索",
+    "empty": "没有匹配的建议",
+    "hint": "也可以输入新的内容。"
+  },
+  "disabled": { "title": "禁用与无效" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "Autocomplete 没有自己的 CSS 文件：输入框来自 `input.css`，弹层来自 `select.css`。",
+    "input": "输入框，复用 Input 的 input-group",
+    "popup": "弹层和建议项，复用 Select 的 slot",
+    "empty": "没有匹配时的提示，复用 Combobox 的 slot"
+  },
+  "props": {
+    "Autocomplete": {
+      "align": "弹层沿该侧与输入框的对齐方式。",
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "defaultOpen": "非受控时 `open` 的初始值。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "emptyText": "没有匹配建议时显示的提示；不传则没有匹配时弹层不显示。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示无效状态。",
+      "items": "建议列表，纯字符串；用户可以选其中一项，也可以输入列表之外的任意文字。",
+      "name": "字段名，用于原生表单提交。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "onValueChange": "以新的 `value` 调用；同时传 `value` 即为受控。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "placeholder": "为空时显示的文字。",
+      "side": "建议弹层在输入框的哪一侧打开。",
+      "sideOffset": "输入框与建议弹层之间的间距，单位像素。",
+      "size": "尺寸档位。",
+      "value": "输入框里的文字，受控。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

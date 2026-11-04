@@ -1,0 +1,322 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* SideMenu: a side navigation tree. Indentation is computed from data-level (starting at 1), expand / collapse relies on data-open, and collapsing to a narrow strip relies on data-collapsed on the root;
+     light / dark: light is the default; inside a Sidebar (when the Sidebar is not light) or with theme="dark" it uses dark. */
+  [data-theme-style="antd"] [data-slot="sidemenu"] {
+    --_h: 2.5rem;
+    --_mx: 0.25rem;
+    --_my: 0.25rem;
+    --_r: 0.5rem;
+    --_pl: 1.5rem;
+    --_pr: 1rem;
+    --_gap: 0.625rem;
+    --_indent: 1.5rem;
+    --_icon: 0.875rem;
+    --_fg: var(--ui-fg);
+    --_hover-bg: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+    --_hover-fg: var(--ui-fg);
+    --_sel-bg: var(--ui-c-primary-soft);
+    --_sel-fg: var(--_on);
+    --_on: var(--ui-c-primary-text);
+    --_sub-bg: color-mix(in srgb, var(--ui-fg) 2.3%, transparent);
+    --_group-fg: var(--ui-fg-muted);
+    --_line: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+    display: flow-root;
+    box-sizing: border-box;
+    color: var(--_fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+    transition: width 300ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  /* Dark: the theme's primary-text may be too dim on a dark background (the dark primary from antd's algorithm), so it is brightened one step toward the foreground color for readability */
+  [data-mode="dark"] [data-theme-style="antd"] [data-slot="sidemenu"],
+  [data-theme-style="antd"] [data-mode="dark"] [data-slot="sidemenu"],
+  [data-theme-style="antd"][data-mode="dark"] [data-slot="sidemenu"] {
+    --_on: color-mix(in oklab, var(--ui-c-primary-text) 55%, var(--ui-fg));
+  }
+  /* modern (console's "sidebar style"): items are taller with larger radius, selected / hover is a light primary background + primary text, and submenus have no guide line */
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-variant="modern"] {
+    --_h: 2.625rem;
+    --_r: var(--ui-r-item);
+    --_hover-bg: color-mix(in srgb, var(--ui-c-primary) 5%, transparent);
+    --_hover-fg: var(--_on);
+    --_sel-bg: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
+    --_sel-fg: var(--_on);
+    --_line: transparent;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-list"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-item"],
+  [data-theme-style="antd"] [data-slot="sidemenu-submenu"],
+  [data-theme-style="antd"] [data-slot="sidemenu-group"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Row spacing goes on the li, and the link / trigger has no vertical margin of its own: in a row that contains a group, the collapsed panel has height 0, but the trigger's bottom margin stays inside
+     the li, so the row would be one gap taller than a normal row (previously 38 vs 36), making row spacing uneven; when the sidebar collapses the panel disappears and the margins merge again, so the icons below shift up together by one gap */
+  [data-theme-style="antd"] :is([data-slot="sidemenu-item"], [data-slot="sidemenu-submenu"]) {
+    margin-block: var(--_my);
+  }
+  /* Levels: data-level 1–6 */
+  [data-theme-style="antd"] [data-slot="sidemenu"] [data-level="1"] {
+    --_level: 1;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"] [data-level="2"] {
+    --_level: 2;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"] [data-level="3"] {
+    --_level: 3;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"] [data-level="4"] {
+    --_level: 4;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"] [data-level="5"] {
+    --_level: 5;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"] [data-level="6"] {
+    --_level: 6;
+  }
+
+  [data-theme-style="antd"] [data-slot="sidemenu-link"],
+  [data-theme-style="antd"] [data-slot="sidemenu-trigger"] {
+    display: flex;
+    align-items: center;
+    gap: var(--_gap);
+    box-sizing: border-box;
+    width: calc(100% - var(--_mx) * 2);
+    height: var(--_h);
+    margin: 0 var(--_mx);
+    padding-block: 0;
+    padding-inline: calc(var(--_pl) + (var(--_level, 1) - 1) * var(--_indent)) var(--_pr);
+    border: 0;
+    border-radius: var(--_r);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    line-height: var(--_h);
+    text-align: start;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    transition:
+      background-color 300ms,
+      color 300ms;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-trigger"] {
+    padding-inline-end: 2.125rem;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-icon"] {
+    display: inline-flex;
+    flex: none;
+    font-size: var(--_icon);
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-icon"] > svg {
+    width: 1em;
+    height: 1em;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-label"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-arrow"] {
+    display: inline-flex;
+    flex: none;
+    font-size: 0.75rem;
+    transition: rotate 300ms;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidemenu-submenu"][data-open]
+    > [data-slot="sidemenu-trigger"]
+    [data-slot="sidemenu-arrow"] {
+    rotate: 180deg;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-link"]:hover:not([aria-disabled="true"]),
+  [data-theme-style="antd"] [data-slot="sidemenu-trigger"]:hover:not(:disabled) {
+    background-color: var(--_hover-bg);
+    color: var(--_hover-fg);
+  }
+  /* A selected item keeps the selected style when hovered (specificity no lower than the hover rule, written after it) */
+  [data-theme-style="antd"] [data-slot="sidemenu-link"][aria-current="page"],
+  [data-theme-style="antd"]
+    [data-slot="sidemenu-link"][aria-current="page"]:hover:not([aria-disabled="true"]) {
+    background-color: var(--_sel-bg);
+    color: var(--_sel-fg);
+    font-weight: inherit;
+  }
+  /* A submenu contains the selected item: the trigger row changes color (the same when expanded and when collapsed into an overlay) */
+  [data-theme-style="antd"]
+    [data-slot="sidemenu-submenu"][data-has-selected]
+    > [data-slot="sidemenu-trigger"],
+  [data-theme-style="antd"]
+    [data-slot="sidemenu-submenu"][data-has-selected]
+    > [data-slot="sidemenu-trigger"]:hover {
+    color: var(--_sel-fg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidemenu"][data-collapsed]
+    [data-slot="sidemenu-submenu"][data-has-selected]
+    > [data-slot="sidemenu-trigger"] {
+    background-color: var(--_sel-bg);
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-link"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="sidemenu-trigger"]:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-item"][data-danger] > [data-slot="sidemenu-link"],
+  [data-theme-style="antd"]
+    [data-slot="sidemenu-item"][data-danger]
+    > [data-slot="sidemenu-link"]:hover {
+    color: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidemenu-item"][data-danger]
+    > [data-slot="sidemenu-link"]:hover:not([aria-current]) {
+    background-color: color-mix(in srgb, var(--ui-c-danger) 12%, transparent);
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-link"]:disabled,
+  [data-theme-style="antd"] [data-slot="sidemenu-link"][aria-disabled="true"],
+  [data-theme-style="antd"] [data-slot="sidemenu-trigger"]:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  /* Expand / collapse submenu: the height animates with grid row height 0fr → 1fr, and visibility hides it when collapsed so items inside cannot be reached by Tab */
+  [data-theme-style="antd"] [data-slot="sidemenu-panel"] {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows 300ms cubic-bezier(0.2, 0, 0, 1),
+      visibility 0s linear 300ms;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-panel"][data-open] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-panel-inner"] {
+    min-height: 0;
+    overflow: hidden;
+    background-color: var(--_sub-bg);
+  }
+
+  [data-theme-style="antd"] [data-slot="sidemenu-group-title"] {
+    padding: 0.5rem 1rem 0.5rem calc(1rem + (var(--_level, 1) - 1) * 1rem);
+    color: var(--_group-fg);
+    font-size: 0.875rem;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu-divider"] {
+    height: 1px;
+    margin: 1px 0;
+    background-color: var(--_line);
+  }
+
+  /* Collapsed to a narrow strip: only icons remain, centered; text and arrows are not shown */
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-link"],
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-trigger"] {
+    justify-content: center;
+    gap: 0;
+    padding-inline: 0;
+    /* Items in the strip are squares (the hover / selected / focus backgrounds are all square): the width takes the menu's item height, or the strip's width if that does not fit, and the height equals the width */
+    box-sizing: border-box;
+    --_sq: min(100%, var(--_h));
+    inline-size: var(--_sq);
+    block-size: auto;
+    aspect-ratio: 1;
+    margin-inline: auto;
+    /* When the square is shorter than the row (modern's row height is 42, while the square in the strip is only 36), pad above and below so each row still takes the row height:
+       the icons' vertical position is unchanged on collapse / expand, and the rows below do not all shift up */
+    margin-block: calc((var(--_h) - var(--_sq)) / 2);
+  }
+  /* In the collapsed state the li is an independent formatting context: the vertical margins added above for square items do not collapse with the li's own margins (collapsing takes the larger, not the sum,
+     so the row height would not be fully made up and the icons below would shift up) */
+  [data-theme-style="antd"]
+    [data-slot="sidemenu"][data-collapsed]
+    :is([data-slot="sidemenu-item"], [data-slot="sidemenu-submenu"]) {
+    display: flow-root;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-label"],
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-arrow"],
+  [data-theme-style="antd"]
+    [data-slot="sidemenu"][data-collapsed]
+    [data-slot="sidemenu-group-title"] {
+    display: none;
+  }
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-icon"] {
+    font-size: 1rem;
+  }
+  /* Level two and deeper items are one step shorter than level-one items (36px), consistent with the rhythm of other theme styles */
+  [data-theme-style="antd"] [data-slot="sidemenu-panel-inner"] [data-slot="sidemenu-link"],
+  [data-theme-style="antd"] [data-slot="sidemenu-panel-inner"] [data-slot="sidemenu-trigger"] {
+    --_h: 2.25rem;
+  }
+
+  /* Submenu popped out when collapsed to a narrow strip (in an overlay, unaffected by data-collapsed above) */
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-popup] {
+    min-width: 8rem;
+    --_mx: 0rem;
+    /* No level indentation in the overlay: horizontal padding is the same as Menu's menu items */
+    --_pl: 0.75rem;
+    --_pr: 0.75rem;
+  }
+  /* The overlay's padding matches Menu's overlay (menu items themselves no longer leave horizontal margin) */
+  [data-theme-style="antd"] [data-slot="popover"]:has(> [data-slot="sidemenu"][data-popup]) {
+    padding: 4px;
+  }
+
+  /* A standalone light menu has a right border; inside the secondary menu column of Sidebar / AdminLayout they handle the boundary themselves */
+  [data-theme-style="antd"] [data-slot="sidemenu"]:not([data-popup]) {
+    border-inline-end: 1px solid color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+  }
+  [data-theme-style="antd"]
+    :is([data-slot="sidebar-inner"], [data-slot="admin-layout-subnav"])
+    [data-slot="sidemenu"] {
+    border-inline-end: 0;
+  }
+  /* Dark: explicit theme="dark", or inside a Sidebar that is not light */
+  [data-theme-style="antd"] [data-slot="sidemenu"][data-theme="dark"],
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    [data-slot="sidemenu"]:not([data-theme="light"], [data-popup]) {
+    --_fg: rgb(255 255 255 / 0.65);
+    --_hover-bg: rgb(255 255 255 / 0.08);
+    --_hover-fg: white;
+    --_sel-bg: var(--ui-c-primary);
+    --_sel-fg: white;
+    --_sub-bg: color-mix(in srgb, var(--ui-c-primary) 9%, black);
+    --_group-fg: rgb(255 255 255 / 0.45);
+    --_line: rgb(255 255 255 / 0.12);
+    background-color: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    [data-slot="sidemenu"]:not([data-theme="light"], [data-popup]) {
+    background-color: transparent;
+  }
+  /* modern: submenus in a dark sidebar do not get a darker background band (consistent with modern in other theme styles, with levels distinguished by indentation) */
+  [data-theme-style="antd"]
+    [data-slot="sidebar-inner"]:not([data-theme="light"])
+    [data-slot="sidemenu"][data-variant="modern"]:not([data-theme="light"], [data-popup]) {
+    --_sub-bg: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="sidemenu"],
+    [data-theme-style="antd"] [data-slot="sidemenu-link"],
+    [data-theme-style="antd"] [data-slot="sidemenu-trigger"],
+    [data-theme-style="antd"] [data-slot="sidemenu-arrow"],
+    [data-theme-style="antd"] [data-slot="sidemenu-panel"] {
+      transition: none;
+    }
+  }
+}

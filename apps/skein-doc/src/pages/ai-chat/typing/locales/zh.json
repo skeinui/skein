@@ -1,0 +1,21 @@
+{
+  "lead": "助手还没回复出来时的占位：三个点、脉冲点、转圈，或者头像加几行占位文字的骨架。读屏只念一次状态文字，画出来的部分都是装饰；「减少动效」时不动。",
+  "variants": { "title": "变体" },
+  "label": { "title": "无障碍文字", "text": "助手正在输入" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式参考",
+    "hook": "钩子",
+    "root": "根元素（`role=status`）；`data-variant`",
+    "dots": "dots：三个点的容器和每个点（装饰，`aria-hidden`）",
+    "pulse": "pulse：脉冲点",
+    "spinner": "spinner：转圈",
+    "skeleton": "skeleton：头像占位、文字占位容器、每一行占位条"
+  },
+  "props": {
+    "Typing": {
+      "label": "读屏念的文字（根元素是 `role=\"status\"`）；默认是当前语言的文字（中文为「助手正在输入」）。",
+      "variant": "`dots` 三个点（默认），`pulse` 一个脉冲点，`spinner` 转圈，`skeleton` 头像加几行占位文字。"
+    }
+  }
+}

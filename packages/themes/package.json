@@ -1,0 +1,49 @@
+{
+  "name": "@skeinui/themes",
+  "version": "0.0.3",
+  "description": "Theme styles for Skein UI: default, shadcn, heroui, antd, plus colour, density and code themes",
+  "keywords": [
+    "ant-design",
+    "css",
+    "dark-mode",
+    "design-tokens",
+    "heroui",
+    "react",
+    "shadcn",
+    "skein",
+    "skeinui",
+    "themes",
+    "theming"
+  ],
+  "homepage": "https://skeinui.com",
+  "bugs": "https://github.com/skeinui/skein/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skeinui/skein.git",
+    "directory": "packages/themes"
+  },
+  "files": [
+    "default",
+    "shadcn",
+    "heroui",
+    "antd",
+    "color",
+    "density",
+    "code"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    "./*": "./*",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "peerDependencies": {
+    "@skeinui/ui": "workspace:*"
+  }
+}

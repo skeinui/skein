@@ -1,0 +1,375 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Sidebar: the shell (provider) lays the sidebar and main content out horizontally; sidebar = placeholder (gap) + an edge-attached panel (container > inner).
+     Three looks (sidebar / floating / inset) × three collapse modes (offcanvas / icon / none), becoming a drawer on narrow screens.
+     Widths read --_w (expanded) / --_wi (collapsed to icon strip) / --_pad (outer margin for floating / inset). */
+  [data-theme-style="antd"] [data-slot="sidebar-provider"] {
+    --_w: 15rem;
+    --_wi: 3.5rem;
+    --_pad: 0rem;
+    --_page: var(--ui-bg);
+    --_bg: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    background-color: var(--_page);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-provider"][data-width="sm"] {
+    --_w: 10rem;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-provider"][data-width="lg"] {
+    --_w: 16rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has(
+      [data-slot="sidebar"]:is([data-variant="floating"], [data-variant="inset"])
+    ) {
+    --_pad: 0.5rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"]) {
+    --_card: 0.5rem;
+    background-color: var(--_bg);
+  }
+
+  /* Sidebar: placeholder + panel */
+  [data-theme-style="antd"] [data-slot="sidebar"] {
+    flex: none;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar"][data-side="right"] {
+    order: 1;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-gap"] {
+    width: calc(var(--_w) + var(--_pad) * 2);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="offcanvas"]
+    [data-slot="sidebar-gap"] {
+    width: 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-gap"] {
+    width: calc(var(--_wi) + var(--_pad) * 2);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-container"] {
+    position: absolute;
+    inset-block: 0;
+    z-index: 10;
+    display: flex;
+    box-sizing: border-box;
+    width: calc(var(--_w) + var(--_pad) * 2);
+    padding: var(--_pad);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-side="left"]
+    [data-slot="sidebar-container"] {
+    left: 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-side="right"]
+    [data-slot="sidebar-container"] {
+    right: 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="offcanvas"]
+    [data-slot="sidebar-container"] {
+    translate: -100% 0;
+    visibility: hidden;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="offcanvas"][data-side="right"]
+    [data-slot="sidebar-container"] {
+    translate: 100% 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-container"] {
+    width: calc(var(--_wi) + var(--_pad) * 2);
+  }
+  /* Collapse / expand transition: enabled two frames after mount (data-animate), so width changes between the first frame and styles settling do not animate */
+  [data-theme-style="antd"] [data-slot="sidebar"][data-animate] [data-slot="sidebar-gap"] {
+    transition: width 300ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar"][data-animate] [data-slot="sidebar-container"] {
+    transition:
+      width 300ms cubic-bezier(0.2, 0, 0, 1),
+      translate 300ms cubic-bezier(0.2, 0, 0, 1),
+      visibility 300ms;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar"][data-collapsible="none"] {
+    width: calc(var(--_w) + var(--_pad) * 2);
+    padding: var(--_pad);
+    box-sizing: border-box;
+  }
+
+  /* The panel itself */
+  [data-theme-style="antd"] [data-slot="sidebar-inner"] {
+    --_bg: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+    --_fg: white;
+    --_bd: rgb(255 255 255 / 0.12);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--_bg);
+    color: var(--_fg);
+    --ui-fg: white;
+    --ui-fg-muted: rgb(255 255 255 / 0.65);
+    --ui-border: rgb(255 255 255 / 0.12);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-theme="dark"] {
+    --_bg: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+    --_fg: white;
+    --_bd: rgb(255 255 255 / 0.12);
+    --ui-fg: white;
+    --ui-fg-muted: rgb(255 255 255 / 0.65);
+    --ui-border: rgb(255 255 255 / 0.12);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-theme="light"] {
+    --_bg: var(--ui-surface);
+    --_fg: var(--ui-fg);
+    --_bd: var(--ui-border);
+    --ui-fg: unset;
+    --ui-fg-muted: unset;
+    --ui-border: unset;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has([data-slot="sidebar-inner"][data-theme="dark"]) {
+    --_bg: color-mix(in srgb, var(--ui-c-primary) 16%, black);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has([data-slot="sidebar-inner"][data-theme="light"]) {
+    --_bg: var(--ui-surface);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-variant="sidebar"] {
+    border-inline-end: 0px solid var(--_bd);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-variant="sidebar"][data-side="right"] {
+    border-inline-start: 0px solid var(--_bd);
+    border-inline-end: 0;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-variant="floating"] {
+    border: 1px solid var(--_bd);
+    border-radius: var(--ui-radius-lg);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  }
+  /* inset: the content card on the right has a --_card margin above and below, and the sidebar's content also starts and ends at the same heights */
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-variant="inset"]
+    > [data-slot="sidebar-container"] {
+    padding-block: var(--_card, 0rem);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-variant="inset"] {
+    background-color: transparent;
+  }
+  /* Panel in the mobile drawer: not inside the shell, so it fills the drawer itself */
+  [data-theme-style="antd"] [data-slot="sidebar-inner"][data-mobile] {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    background-color: var(--_bg);
+    box-shadow: none;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-header"],
+  [data-theme-style="antd"] [data-slot="sidebar-footer"] {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0.75rem 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-footer"] {
+    padding: 0.5rem 0.75rem 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-content"] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 0;
+    padding: 0;
+    overflow: auto;
+    scrollbar-width: none;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-content"] {
+    overflow-x: hidden;
+  }
+
+  /* Main content */
+  [data-theme-style="antd"] [data-slot="sidebar-inset"] {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    background-color: var(--_page);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
+    [data-slot="sidebar-inset"] {
+    margin-block: var(--_card);
+    margin-inline-end: var(--_card);
+    border-radius: var(--ui-radius-lg);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has(
+      [data-slot="sidebar"][data-variant="inset"][data-side="right"]
+    )
+    [data-slot="sidebar-inset"] {
+    margin-inline: var(--_card) 0;
+  }
+
+  /* After collapsing to offcanvas the sidebar takes no space, and the card has margins on all four sides */
+  [data-theme-style="antd"]
+    [data-slot="sidebar-provider"]:has(
+      [data-slot="sidebar"][data-variant="inset"][data-collapsible="offcanvas"]
+    )
+    [data-slot="sidebar-inset"] {
+    margin-inline: var(--_card);
+  }
+
+  /* Toggle button and edge strip */
+  [data-theme-style="antd"] [data-slot="sidebar-trigger"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 2rem;
+    height: 2rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    cursor: pointer;
+    outline: none;
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-trigger"] > svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-trigger"]:hover {
+    background-color: color-mix(in srgb, transparent 90%, var(--ui-fg) 10%);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-trigger"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-rail"] {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: calc(var(--_pad) - 0.5rem);
+    z-index: 20;
+    width: 1rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: ew-resize;
+    outline: none;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-rail"]::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 50%;
+    width: 2px;
+    background-color: transparent;
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-rail"]:hover::after {
+    background-color: var(--ui-border);
+  }
+  [data-theme-style="antd"] [data-slot="sidebar"][data-side="right"] [data-slot="sidebar-rail"] {
+    inset-inline-end: auto;
+    inset-inline-start: calc(var(--_pad) - 0.5rem);
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-rail"],
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-state="collapsed"]
+    [data-slot="sidebar-rail"] {
+    cursor: e-resize;
+  }
+  /* When collapsed to an icon strip, text that does not fit in the header and footer is simply clipped, without wrapping */
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    :is([data-slot="sidebar-header"], [data-slot="sidebar-footer"]) {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  /* When collapsed to an icon strip: header / footer content is centered, and Sidebar.Label is hidden visually (still readable by screen readers) */
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    :is([data-slot="sidebar-header"], [data-slot="sidebar-footer"]) {
+    align-items: center;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar"][data-collapsible="icon"]
+    [data-slot="sidebar-label"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  /* antd's collapse button: a full-width 48px bar at the bottom of the sidebar (Sidebar.Trigger inside Sidebar.Footer) */
+  [data-theme-style="antd"]
+    [data-slot="sidebar-footer"]:has(> [data-slot="sidebar-trigger"]:only-child) {
+    padding: 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-footer"]
+    > [data-slot="sidebar-trigger"]:only-child {
+    width: 100%;
+    height: 3rem;
+    border-radius: 0;
+    background-color: color-mix(in srgb, var(--ui-c-primary) 25%, black);
+    color: white;
+  }
+  [data-theme-style="antd"]
+    [data-slot="sidebar-footer"]
+    > [data-slot="sidebar-trigger"]:only-child:hover {
+    background-color: color-mix(in srgb, var(--ui-c-primary) 25%, black);
+    color: white;
+  }
+  [data-theme-style="antd"] [data-slot="sidebar-content"]::-webkit-scrollbar {
+    display: none;
+  }
+  /* Mobile drawer: remove the drawer's own 1rem padding, and the panel fills the whole drawer */
+  [data-theme-style="antd"]
+    [data-slot="drawer-content"]:has(> [data-slot="sidebar-inner"][data-mobile]) {
+    padding: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="sidebar"][data-animate] [data-slot="sidebar-gap"],
+    [data-theme-style="antd"] [data-slot="sidebar"][data-animate] [data-slot="sidebar-container"],
+    [data-theme-style="antd"] [data-slot="sidebar-trigger"],
+    [data-theme-style="antd"] [data-slot="sidebar-rail"]::after {
+      transition: none;
+    }
+  }
+}

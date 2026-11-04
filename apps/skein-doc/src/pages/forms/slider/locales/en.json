@@ -1,0 +1,20 @@
+{
+  "lead": "A slider: a number gives a single value, an array a range. Keyboard, touch and aria come from Base UI's Slider; horizontal only for now.",
+  "usage": { "title": "Usage" },
+  "range": { "title": "Range" },
+  "sizes": { "title": "Sizes" },
+  "colors": { "title": "Colors" },
+  "label": { "title": "Label & Value", "volume": "Volume" },
+  "controlled": { "title": "Controlled", "value": "Value:" },
+  "disabled": { "title": "Disabled" },
+  "step": { "title": "Step", "label": "Step 10" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `slider.css`: Ant Design's thumb is white with a 2px border, HeroUI's is white with a shadow.",
+    "hook": "Hook",
+    "root": "Root and text row",
+    "control": "Draggable area, track and selected range",
+    "thumb": "Thumb; `data-dragging` while dragged"
+  }
+}

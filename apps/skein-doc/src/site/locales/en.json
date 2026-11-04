@@ -1,0 +1,155 @@
+{
+  "header": {
+    "menu": "Menu",
+    "home": "Skein UI home",
+    "switchLang": "Switch to 简体中文",
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
+  "nav": {
+    "breadcrumb": "Breadcrumb",
+    "components": "Components",
+    "overview": "Overview",
+    "home": "Home",
+    "docs": "Docs"
+  },
+  "sidebar": {
+    "filter": "Filter",
+    "filterLabel": "Filter components",
+    "empty": "No components match “{q}”."
+  },
+  "search": {
+    "title": "Search components",
+    "placeholder": "Search components…",
+    "empty": "No results for “{q}”.",
+    "move": "navigate",
+    "open": "open"
+  },
+  "groups": {
+    "guides": "Get started",
+    "all": "All",
+    "buttons": "Buttons",
+    "forms": "Forms",
+    "overlays": "Overlays",
+    "navigation": "Navigation",
+    "display": "Display",
+    "layout": "Layout",
+    "feedback": "Feedback",
+    "data": "Data",
+    "ai-chat": "AI Chat"
+  },
+  "origin": {
+    "Base UI": "Base UI",
+    "Base UINote": "The behaviour comes from Base UI",
+    "Original": "Original",
+    "OriginalNote": "Base UI has no such component: its interaction is our own, written or composed"
+  },
+  "toc": {
+    "title": "On this page",
+    "examples": "Examples",
+    "beyond": "Beyond the docs",
+    "reference": "Reference",
+    "guide": "Guide"
+  },
+  "pager": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "doc": {
+    "code": "Code",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyCode": "Copy code",
+    "prop": "Prop",
+    "type": "Type",
+    "default": "Default",
+    "description": "Description",
+    "otherProps": "Other props go to the underlying element.",
+    "required": "required",
+    "noProps": "No props of its own besides those of the element it renders."
+  },
+  "themeStyles": {
+    "heroui": "Large radius, soft shadows",
+    "antd": "Compact, 1px borders",
+    "default": "Blue primary, fine borders",
+    "shadcn": "Neutral black and white, thin ring"
+  },
+  "customize": {
+    "title": "Customize",
+    "description": "Theme style, mode and palette are only attributes on <html>: every component follows at once, the calling code stays the same.",
+    "themeStyle": "Theme style",
+    "mode": "Mode",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "palette": "Palette",
+    "shape": "Shape & density",
+    "compact": "Compact density",
+    "density": "Density",
+    "radius": "Radius (rem)",
+    "radiusDefault": "Radius (theme style default)",
+    "reset": "Reset all",
+    "done": "Done",
+    "codeTheme": "Code theme",
+    "codeThemeSite": "Docs"
+  },
+  "home": {
+    "hero": {
+      "start": "Get started",
+      "styles": "Theme styles",
+      "themes": "Palettes",
+      "title": "One component API.",
+      "subtitle": "Every design language.",
+      "lead": "`@skeinui/ui` leaves behaviour and accessibility to Base UI and the look to a swappable theme style. The same calling code becomes HeroUI, Ant Design or shadcn by changing one `data-theme-style`.",
+      "browse": "Browse components"
+    },
+    "stats": {
+      "components": "Components",
+      "styles": "Theme styles",
+      "colors": "Palettes",
+      "modes": "Modes"
+    },
+    "lab": {
+      "eyebrow": "Theme-style lab",
+      "title": "Same code, four looks.",
+      "lead": "Every card below renders the same JSX; only the `data-theme-style` around it differs. Click Use to switch the whole site.",
+      "use": "Use",
+      "inUse": "In use",
+      "preview": "{name} preview"
+    },
+    "principles": {
+      "eyebrow": "Principles",
+      "title": "Three layers, strictly separated.",
+      "behaviour": {
+        "title": "Behaviour",
+        "body": "Focus management, keyboard, aria and positioning come from Base UI. Component code has no styles and no `className` way in."
+      },
+      "style": {
+        "title": "Theme style",
+        "body": "A theme style is a set of CSS: selectors, structure, proportions. Switching it changes no calling code, and tests make sure every theme style covers every slot."
+      },
+      "palette": {
+        "title": "Palette & mode",
+        "body": "A palette only changes token values (colours, radius, density), the mode switches light and dark. The three are independent and combine freely."
+      }
+    },
+    "index": {
+      "eyebrow": "Components",
+      "title": "Everything, indexed.",
+      "filter": "Filter by group"
+    },
+    "foot": {
+      "current": "Current:",
+      "built": "Built on Base UI",
+      "license": "MIT Licensed",
+      "copyright": "Copyright © 2026 Skein UI. All rights reserved."
+    }
+  },
+  "guides": {
+    "introduction": "Introduction",
+    "installation": "Installation",
+    "theming": "Theming",
+    "cli": "Skein CLI",
+    "ai": "AI coding agents"
+  }
+}

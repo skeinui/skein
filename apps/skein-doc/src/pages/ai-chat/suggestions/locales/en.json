@@ -1,0 +1,33 @@
+{
+  "lead": "Starter prompts for an empty conversation: a heading plus a group of clickable suggestions, laid out as a card grid, a vertical list or a row of small pills. A click hands the item to `onSelect` (usually to fill the input or send it right away).",
+  "grid": {
+    "title": "Grid",
+    "heading": "What can I help with?",
+    "description": "Start from a suggested prompt.",
+    "picked": "Picked: {text}",
+    "none": "Nothing picked yet.",
+    "summarize": "Summarize this document",
+    "summarizeText": "Create a concise summary of the file.",
+    "explain": "Explain a concept",
+    "explainText": "Break down a difficult idea step by step.",
+    "write": "Write a function",
+    "writeText": "Draft code with tests for a given spec.",
+    "plan": "Plan my week",
+    "planText": "Turn a list of tasks into a schedule."
+  },
+  "list": { "title": "List" },
+  "chips": { "title": "Chips" },
+  "api": {
+    "title": "API Reference",
+    "item": "Each `SuggestionItem` is `{ id?, title, description?, prompt?, icon? }`: `title` is the visible text, `description` a line under it (not shown as chips), `prompt` the text to send on click (the title when omitted), `icon` goes before the title."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root (`role=group`); `data-layout`",
+    "header": "The heading area on top",
+    "items": "The container of the suggestions (grid / list / wrapping row)",
+    "item": "One suggestion (a native `button`)",
+    "itemParts": "A suggestion's icon (decorative), text block, title and description"
+  }
+}

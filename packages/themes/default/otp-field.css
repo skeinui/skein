@@ -1,0 +1,71 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* OtpField: one box per digit, with an appearance consistent with that theme style's Input; the focused digit shows a ring. */
+  [data-theme-style="default"] [data-slot="otp-field"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="default"] [data-slot="otp-cell"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="default"] [data-slot="otp-separator"] {
+    color: var(--ui-fg-muted);
+    user-select: none;
+  }
+  [data-theme-style="default"] [data-slot="otp-input"] {
+    --_bg: var(--ui-field-bg);
+    box-sizing: border-box;
+    width: var(--ui-height-md);
+    height: var(--ui-height-md);
+    padding: 0;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-md);
+    background-color: var(--_bg);
+    box-shadow: var(--ui-field-shadow);
+    color: var(--ui-field-fg);
+    font-family: var(--ui-font-mono);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    outline: none;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease,
+      background-color 150ms ease;
+  }
+  [data-theme-style="default"] [data-slot="otp-input"][data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    border-color: transparent;
+    box-shadow: none;
+  }
+  [data-theme-style="default"] [data-slot="otp-input"][data-size="sm"] {
+    width: var(--ui-height-sm);
+    height: var(--ui-height-sm);
+    font-size: 0.875rem;
+  }
+  [data-theme-style="default"] [data-slot="otp-input"][data-size="lg"] {
+    width: var(--ui-height-lg);
+    height: var(--ui-height-lg);
+    font-size: 1.125rem;
+  }
+  [data-theme-style="default"] [data-slot="otp-input"]:focus {
+    border-color: var(--ui-ring);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-ring) 35%, transparent),
+      var(--ui-field-shadow);
+  }
+  [data-theme-style="default"] [data-slot="otp-input"][data-invalid] {
+    border-color: var(--ui-c-danger);
+  }
+  [data-theme-style="default"] [data-slot="otp-input"][data-invalid]:focus {
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-c-danger) 35%, transparent);
+  }
+  [data-theme-style="default"] [data-slot="otp-input"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

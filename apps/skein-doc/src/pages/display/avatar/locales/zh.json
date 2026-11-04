@@ -1,0 +1,42 @@
+{
+  "lead": "头像。图片加载失败或没传图时显示 fallback，加载状态来自 Base UI 的 Avatar。",
+  "usage": { "title": "用法" },
+  "sizes": { "title": "尺寸" },
+  "colors": { "title": "颜色" },
+  "radius": { "title": "圆角" },
+  "group": {
+    "title": "头像组",
+    "description": "叠放在一起，超过 `max` 的折成「+N」；组是 `role=group`，「+N」是带名称的 `role=img`。",
+    "members": "项目成员（{size}）",
+    "reviewers": "评审人"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `avatar.css` 里处理，圆角由尺寸档位里的 `--_r` 决定。",
+    "hook": "钩子",
+    "avatar-group": "叠放的容器；里面的 avatar 靠兄弟选择器叠放，「+N」是带 `data-overflow` 的 avatar",
+    "avatar": "外框：尺寸、圆角、裁切",
+    "avatar-image": "图片，铺满外框",
+    "avatar-fallback": "兜底内容，图片没加载出来时显示"
+  },
+  "props": {
+    "Avatar": {
+      "alt": "图片的替代文字（人名）；默认为空，表示图片是装饰性的。",
+      "color": "fallback 的底色，图片显示时看不到。",
+      "fallback": "兜底内容，通常是姓名首字母；不传时留空。",
+      "radius": "圆角档位；不传时由主题风格的尺寸档位决定（HeroUI 方形，Ant Design 圆形）。",
+      "size": "尺寸档位。",
+      "src": "图片地址；加载失败或不传时显示 fallback。"
+    },
+    "AvatarGroup": {
+      "aria-label": "这一组的名称，给读屏软件用（例如「项目成员」）。",
+      "children": "一组 Avatar。",
+      "color": "组里头像的默认颜色。",
+      "max": "最多显示几个，其余折成「+N」；不给就全部显示。",
+      "overflowLabel": "「+N」的读屏名称，默认 `N more`。",
+      "radius": "组里头像的默认圆角档位。",
+      "size": "组里头像的默认尺寸 / 颜色 / 圆角；头像自己传了就以它为准。"
+    }
+  }
+}

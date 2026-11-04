@@ -1,0 +1,20 @@
+{
+  "lead": "加载指示。带 `role=\"status\"` 和默认可访问名，圈怎么画、转多快由主题风格决定。",
+  "usage": { "title": "用法" },
+  "sizes": { "title": "尺寸" },
+  "colors": { "title": "颜色" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `spinner.css` 里处理；开启 `prefers-reduced-motion` 时放慢转速。",
+    "hook": "钩子",
+    "slot": "转动的圈，颜色取 `currentColor`"
+  },
+  "props": {
+    "Spinner": {
+      "aria-label": "可访问名；不传时是当前语言的「加载中」文字。",
+      "color": "语义色，具体颜色由主题风格决定。",
+      "size": "尺寸档位。"
+    }
+  }
+}

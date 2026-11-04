@@ -1,0 +1,47 @@
+{
+  "lead": "A QR code, drawn as SVG (also rendered on the server, sharp at any scale). The encoder is our own, with no dependencies: numeric / alphanumeric / UTF-8 modes, versions 1–40 and all four error correction levels.",
+  "usage": {
+    "title": "Usage",
+    "qr": "QR code",
+    "content": "Content",
+    "placeholder": "Type something…"
+  },
+  "icon": { "title": "With icon" },
+  "colors": { "title": "Colors" },
+  "levels": { "title": "Error levels", "level": "Level {level}" },
+  "status": {
+    "title": "Status",
+    "login": "Login",
+    "note": "Click Refresh to simulate fetching a new code: after an 800 ms spinner the content changes (token=`{n}`)."
+  },
+  "wechat": {
+    "title": "WeChat login flow",
+    "description": "For a WeChat login, the QR code holds a WeChat link your backend gets, and its status comes from polling the backend; the component's loading / active / scanned / expired map onto that flow. A timer and buttons stand in for it here.",
+    "done": "**Logged in.** Once confirmed on the phone, the backend hands the session to the frontend (usually a token, after polling sees \"confirmed\").",
+    "restart": "Log out and start over",
+    "hint": {
+      "loading": "Getting the QR code…",
+      "active": "Scan with WeChat to log in (expires in {left}s)",
+      "scanned": "Scanned — confirm the login on your phone",
+      "expired": "The QR code expired"
+    },
+    "scanned": "Scanned",
+    "expired": "Expired",
+    "refresh": "Refresh",
+    "phone": "Simulate the phone:",
+    "scan": "1. Scan the code",
+    "confirm": "2. Confirm on phone",
+    "wait": "Do nothing and the countdown runs out: the QR code expires, and Refresh fetches a new one."
+  },
+  "borderless": { "title": "Borderless and size", "small": "Small", "large": "Large" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "A theme style's `qrcode.css` styles the frame (border, padding, radius, shadow) and the status mask; the code's own dark / background colors are functional colors for scanning and don't follow the theme.",
+    "hook": "Hook",
+    "root": "The frame; carries `data-bordered` / `data-status`, and `data-error` when the content doesn't fit; the padding ring's background reads `--qr-bg`",
+    "svg": "The SVG, the background rect and every dark module (one path); their colors are `fill` attributes, not set by the theme style",
+    "icon": "The icon in the middle and its backing",
+    "mask": "The status mask (`data-status`), the spinner and the notice text; the refresh button is a Button"
+  }
+}

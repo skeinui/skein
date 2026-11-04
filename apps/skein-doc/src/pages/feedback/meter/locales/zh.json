@@ -1,0 +1,32 @@
+{
+  "lead": "计量条：表示一个在已知范围内的量（磁盘用量、评分）。和 Progress 的区别是它不表示「任务进行到哪了」。`role=\"meter\"` 来自 Base UI，外观完全复用 Progress 的主题风格。",
+  "usage": { "title": "用法" },
+  "range": { "title": "最小值与最大值" },
+  "colors": { "title": "颜色" },
+  "format": { "title": "格式" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "Meter 没有自己的 CSS 文件，外观全部来自 `progress.css`。要按阈值变色，由调用方根据值切换 `color`。",
+    "hook": "钩子",
+    "shared": "和 Progress 共用同一套 slot",
+    "track": "轨道和指示条",
+    "meter": "写在 `progress` 上，主题风格想区分计量条时用它"
+  },
+  "props": {
+    "Meter": {
+      "color": "语义色，具体颜色由主题风格决定。",
+      "label": "条上方的文字，同时是计量条的无障碍名称。",
+      "radius": "条的圆角档位，不传时由主题风格决定。",
+      "showValue": "在标题行末尾显示格式化后的当前值。",
+      "size": "尺寸档位。",
+      "value": "当前值（必填）。",
+      "aria-valuetext": "为 `aria-valuenow`（计量条的当前值）提供用户友好名称的字符串。",
+      "format": "当前值的格式化选项。",
+      "getAriaValueText": "返回一个字符串的函数，作为 `aria-valuenow`（计量条的当前值）的可读文本替代。",
+      "locale": "格式化当前值时 `Intl.NumberFormat` 使用的语言区域，默认为用户运行环境的语言区域。",
+      "max": "最大值。",
+      "min": "最小值。"
+    }
+  }
+}

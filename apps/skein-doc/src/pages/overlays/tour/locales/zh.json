@@ -1,0 +1,35 @@
+{
+  "lead": "漫游式引导：一次高亮页面上的一个元素，旁边是说明卡片，下一步 / 上一步 / 完成。Esc 或右上角的叉关闭；卡片放不下会自动翻到另一侧，目标滚动或页面缩放时高亮框跟着走。",
+  "usage": { "title": "用法" },
+  "intro": { "title": "居中的开场" },
+  "no-mask": { "title": "无遮罩" },
+  "controlled": { "title": "受控" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `tour.css` 里处理；卡片外壳沿用 `popover.css`。",
+    "hook": "钩子",
+    "root": "遮罩层的根（挂在 `body` 下）；目标矩形写在它的 `--tour-x` / `--tour-y` / `--tour-w` / `--tour-h`（像素，不带单位），摆好后 `data-ready`，没有目标时 `data-no-target`",
+    "mask": "全屏挡点击的层；跟着目标走的高亮框（超大 `box-shadow` 压暗四周）",
+    "center": "没有目标的步骤：整屏居中容器，里面是卡片",
+    "card": "说明卡片，外壳（背景、阴影、箭头）是本主题风格的 popover",
+    "parts": "关闭按钮、封面、标题、描述",
+    "footer": "底栏；进度（当前圆点 `data-active`）；按钮区"
+  },
+  "props": {
+    "Tour": {
+      "closable": "右上角的关闭按钮；Esc 也能关闭。",
+      "current": "当前第几步（从 0 开始），受控。",
+      "defaultCurrent": "非受控时的初始 `current`。",
+      "defaultOpen": "非受控时的初始 `open`。",
+      "indicators": "步骤进度：`dots` 显示圆点，`count` 显示文字“2 / 5”，`false` 不显示。",
+      "labels": "按钮文字（`prev`、`next`、`finish`、`close`），换语言时用。",
+      "mask": "遮罩加目标处的镂空高亮；关掉后只剩卡片。",
+      "onCurrentChange": "以新的 `current` 调用；同时传 `current` 即为受控。",
+      "onFinish": "点最后一步的完成按钮时调用（之后自动关闭）。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "steps": "按顺序排列的步骤：`{ target, title, description, cover, side }`。`target` 可以是选择器、元素、ref 或返回元素的函数；不给就是居中的卡片。"
+    }
+  }
+}

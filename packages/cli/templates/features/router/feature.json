@@ -1,0 +1,10 @@
+{
+  "description": "TanStack Router file routes",
+  "dependencies": { "@tanstack/react-router": "^1.166.0" },
+  "devDependencies": { "@tanstack/router-cli": "^1.166.0", "@tanstack/router-plugin": "^1.166.0" },
+  "scripts": {
+    "build": "tsr generate && tsc && vite build",
+    "typecheck": "tsr generate && tsc"
+  },
+  "requires": []
+}

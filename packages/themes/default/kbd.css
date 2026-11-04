@@ -1,0 +1,41 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Kbd: a keycap, monospace font. */
+  [data-theme-style="default"] [data-slot="kbd"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: calc(1.5rem * var(--ui-density));
+    height: calc(1.5rem * var(--ui-density));
+    padding-inline: calc(0.375rem * var(--ui-density));
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-sm);
+    background-color: var(--ui-c-neutral-soft);
+    box-shadow: 0 1px 0 0 var(--ui-border);
+    color: var(--ui-fg-muted);
+    font-family: var(--ui-font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    user-select: none;
+  }
+  [data-theme-style="default"] [data-slot="kbd"][data-size="sm"] {
+    min-width: calc(1.25rem * var(--ui-density));
+    height: calc(1.25rem * var(--ui-density));
+    padding-inline: calc(0.25rem * var(--ui-density));
+    font-size: 0.6875rem;
+  }
+  [data-theme-style="default"] [data-slot="kbd"][data-size="lg"] {
+    min-width: calc(1.75rem * var(--ui-density));
+    height: calc(1.75rem * var(--ui-density));
+    padding-inline: calc(0.5rem * var(--ui-density));
+    font-size: 0.875rem;
+  }
+  [data-theme-style="default"] [data-slot="kbd-group"] {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.25rem * var(--ui-density));
+  }
+}

@@ -1,0 +1,61 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Mentions: the input is still this theme style's Input / Textarea, this file only handles the outer layer and the candidate list next to the caret (row styles are taken from this theme style's Select items). */
+  [data-theme-style="default"] [data-slot="mentions"] {
+    display: inline-flex;
+    max-width: 100%;
+    vertical-align: top;
+  }
+  [data-theme-style="default"] [data-slot="mentions"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="default"] [data-slot="mentions"][data-disabled] {
+    cursor: not-allowed;
+  }
+  /* The overlay has its own padding, the list brings its own */
+  [data-theme-style="default"] [data-slot="popover"]:has([data-slot="mentions-list"]) {
+    padding: 0;
+    overflow: hidden;
+  }
+  [data-theme-style="default"] [data-slot="mentions-list"] {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 8rem;
+    max-height: 14rem;
+    padding: calc(0.25rem * var(--ui-density));
+    overflow-y: auto;
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="default"] [data-slot="mentions-option"] {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--ui-density));
+    box-sizing: border-box;
+    min-height: auto;
+    padding: calc(0.375rem * var(--ui-density)) calc(0.625rem * var(--ui-density));
+    border-radius: var(--ui-radius-sm);
+    color: var(--ui-fg);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 100ms ease;
+  }
+  [data-theme-style="default"] [data-slot="mentions-option"][data-active] {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="default"] [data-slot="mentions-option"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"] [data-slot="mentions-option"] {
+      transition: none;
+    }
+  }
+}

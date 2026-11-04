@@ -1,0 +1,33 @@
+{
+  "lead": "页面骨架：Header、Content、Footer 竖着排，可以嵌套。带侧边栏的应用外壳用 [Sidebar](/sidebar)；排一排东西用 [Flex](/flex)，分栏用 [Grid](/grid)（Row / Col）；这里只管一个页面（或一块区域）怎么搭。根 Layout 不设高度，由外面给它一个确定的高度才会撑满。",
+  "basic": { "title": "基础" },
+  "nested": {
+    "title": "嵌套",
+    "description": "Layout 里可以再放 Layout，比如一块区域自己有页头和内容。"
+  },
+  "container": {
+    "title": "Container",
+    "description": "限制内容区的最大宽度、水平居中，页面的内容外面套一层。"
+  },
+  "api": {
+    "title": "API 参考",
+    "part": "部件",
+    "parts": "页头 / 内容区 / 页脚；Layout 可以嵌套。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `layout.css` 里定义页头高度、页脚内边距和 Container 的最大宽度刻度。",
+    "hook": "钩子",
+    "layout": "页面骨架，竖着排",
+    "parts": "页头、内容区、页脚",
+    "container": "`data-size`，`data-center`、`data-padded`"
+  },
+  "props": {
+    "Container": {
+      "as": "渲染成哪个元素（语义）。",
+      "center": "水平居中。",
+      "padded": "左右留白。",
+      "size": "最大宽度：sm / md / lg / xl 取主题风格的刻度，full 不限制。"
+    }
+  }
+}

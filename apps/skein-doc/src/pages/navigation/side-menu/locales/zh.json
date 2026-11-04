@@ -1,0 +1,88 @@
+{
+  "lead": "侧边导航树：数据驱动，叶子是链接或按钮，带 `children` 的是可展开的子菜单，还有分组标题和分隔线。可以折叠成只显示图标的窄条（子菜单悬停时弹出），放在 `Sidebar` 里自动跟着折叠。顶部横向的导航用 Navigation Menu。",
+  "basic": {
+    "title": "基础用法",
+    "items": {
+      "dashboard": "仪表盘",
+      "users": "用户",
+      "users-list": "全部用户",
+      "users-roles": "角色",
+      "users-more": "更多",
+      "users-groups": "用户组",
+      "users-invites": "邀请",
+      "content": "内容",
+      "g1": "页面",
+      "pages-all": "全部页面",
+      "pages-new": "新建页面",
+      "g2": "媒体",
+      "media-lib": "媒体库",
+      "security": "安全",
+      "settings": "设置"
+    }
+  },
+  "controlled": {
+    "title": "受控",
+    "description": "`selectedKey` / `openKeys` 由你持有；默认展开选中项的祖先。键盘：上下键移动，右键展开，左键收起 / 回到父项。"
+  },
+  "sidebar": {
+    "title": "放在 Sidebar 里",
+    "description": "放在 `Sidebar`（`collapsible=\"icon\"`）里：点切换按钮，菜单自动收成图标窄条；窄条上叶子悬停出说明，子菜单悬停弹出。"
+  },
+  "collapsed": {
+    "title": "折叠",
+    "description": "不放在 `Sidebar` 里时用 `collapsed` 自己控制。",
+    "expand": "展开",
+    "collapse": "折叠"
+  },
+  "theme": {
+    "title": "明暗",
+    "description": "单独使用默认浅色；`theme=\"dark\"` 是深色。在 `Sidebar` 里不用写，跟着 Sidebar。"
+  },
+  "links": {
+    "title": "链接、禁用、危险",
+    "description": "给 `href` 就是真链接（右键新标签页、复制链接都可用）；用路由的话在 `onSelect` 里 `preventDefault` 再跳转。",
+    "docs": "文档",
+    "billing": "账单",
+    "logout": "退出登录"
+  },
+  "api": {
+    "title": "API 参考",
+    "itemIntro": "`items` 的一项：叶子、子菜单（带 `children`）、`{ type: \"group\" }` 分组，或 `{ type: \"divider\" }` 分隔线。",
+    "field": "字段",
+    "item": {
+      "key": "整个菜单里唯一的 key；`selectedKey`、`openKeys`、`onSelect` 都用它",
+      "label": "显示的文字",
+      "icon": "前面的图标（折叠成窄条后只剩它）",
+      "href": "有 `href` 渲染成链接，否则是按钮",
+      "flags": "置灰、不能选中 / 危险操作的语义色",
+      "title": "折叠后的提示和无障碍名称（`label` 是字符串时可以不写）",
+      "children": "有它就是可展开的子菜单"
+    }
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `side-menu.css` 里定义项高、缩进、选中色和展开动画。antd 主题风格的深色取主色加深；其余主题风格的颜色都取当前文字色的混合，放在深浅两种侧边栏里都能用。",
+    "hook": "钩子",
+    "root": "根（`<nav>`）；`data-collapsed`、`data-theme`，弹出的子菜单上有 `data-popup`",
+    "item": "叶子；`data-level`（层级，从 1 起）、`data-selected` / `data-disabled` / `data-danger`；链接上 `aria-current`",
+    "submenu": "子菜单；`data-open`、`data-has-selected`（里面有选中项）",
+    "panel": "展开收起的区域，`data-open`；用 grid 行高 `0fr` → `1fr` 做动画",
+    "parts": "分组、分组标题、分隔线、图标和文字"
+  },
+  "props": {
+    "SideMenu": {
+      "aria-label": "无障碍名称，没有可见标题时用。",
+      "aria-labelledby": "用哪个元素的文字作名称（元素 id）。",
+      "collapsed": "折叠成只显示图标的窄条。放在 `Sidebar` 里不传就跟着侧边栏的折叠状态。",
+      "defaultOpenKeys": "非受控时初始的 `openKeys`；不传时展开选中项的所有祖先。",
+      "defaultSelectedKey": "非受控时初始的 `selectedKey`。",
+      "items": "菜单树：菜单项（用 `children` 嵌套子菜单）、`{ type: \"group\" }` 分组标题和 `{ type: \"divider\" }` 分隔线。",
+      "onOpenChange": "展开的子菜单变化时调用。",
+      "onSelect": "选中项变化时调用。有 href 的项想自己处理跳转（路由）就在这里调 `event.preventDefault()`。",
+      "openKeys": "受控的展开项。",
+      "selectedKey": "受控的选中项。",
+      "theme": "明暗。不给：放在 Sidebar 里跟着 Sidebar，单独用是浅色。",
+      "variant": "外观：`default` 是各主题风格自己的菜单样式；`modern` 项更高（42px）、圆角更大，选中 / 悬停是主色淡底 + 主色文字，子菜单左边没有引导线。"
+    }
+  }
+}

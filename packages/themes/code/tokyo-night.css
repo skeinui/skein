@@ -1,0 +1,19 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Tokyo Night (always dark): on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="tokyo-night"] {
+    --ui-bg: #1a1b26;
+    --ui-surface: #1a1b26;
+    --ui-fg: #c0caf5;
+    --ui-fg-muted: #8089b0;
+    --ui-border: #292e42;
+    --code-keyword: #bb9af7;
+    --code-string: #9ece6a;
+    --code-number: #ff9e64;
+    --code-property: #7aa2f7;
+    --code-variable: #f7768e;
+    --code-comment: #7881ac;
+    color-scheme: dark;
+  }
+}

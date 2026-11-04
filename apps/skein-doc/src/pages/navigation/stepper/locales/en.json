@@ -1,0 +1,20 @@
+{
+  "lead": "A data-driven step indicator. Each step is complete / current / upcoming / error: completed steps show a check, failed ones a cross, the others their number.",
+  "usage": { "title": "Usage" },
+  "vertical": { "title": "Vertical" },
+  "error": { "title": "Error" },
+  "clickable": {
+    "title": "Clickable",
+    "current": "Current: `{current}` (click a completed step to go back)"
+  },
+  "colors": { "title": "Colors" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `stepper.css`.",
+    "hook": "Hook",
+    "step": "The list and each step; on a step, `data-status` is its status and `aria-current=step` marks the current one",
+    "parts": "Clickable area, numbered dot and text area",
+    "text": "Title, description and connector line"
+  }
+}

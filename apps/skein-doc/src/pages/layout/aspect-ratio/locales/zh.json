@@ -1,0 +1,19 @@
+{
+  "lead": "宽高比容器：宽度占满父元素，高度按比例算出来，里面的图片、视频、地图或占位撑满它。图片还没加载时容器就占好了位置，页面不会跳。",
+  "basic": { "title": "基础" },
+  "ratios": { "title": "比例" },
+  "radius": { "title": "圆角" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "slot": "宽度占满，高度由 `--ar-ratio`（组件写的变量）算出；`data-radius`"
+  },
+  "props": {
+    "AspectRatio": {
+      "children": "内容。撑满容器，img / video / canvas / iframe 按 cover 裁切。",
+      "radius": "圆角，默认没有。",
+      "ratio": "宽 / 高：16 / 9、1、4 / 3……也可以写成 \"16/9\" 这样的字符串。"
+    }
+  }
+}

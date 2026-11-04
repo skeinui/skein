@@ -1,0 +1,33 @@
+{
+  "lead": "A checkbox, with its behaviour from Base UI's Checkbox. A `<label>` wraps the control and its text; the states sit on the control, and theme styles use `:has()` to restyle the whole label. The examples follow the Checkbox and CheckboxGroup pages of the HeroUI docs.",
+  "usage": { "title": "Usage" },
+  "default-selected": { "title": "Default Selected" },
+  "indeterminate": { "title": "Indeterminate" },
+  "disabled": { "title": "Disabled" },
+  "with-description": { "title": "With Description" },
+  "controlled": { "title": "Controlled" },
+  "invalid": { "title": "Invalid" },
+  "variants": {
+    "title": "Variants",
+    "description": "`outline` matches HeroUI v3's primary, `filled` its secondary."
+  },
+  "checkbox-group": { "title": "Checkbox Group" },
+  "select-all": {
+    "title": "Select All",
+    "description": "The parent uses `indeterminate` for a partial selection; you keep the selected set yourself."
+  },
+  "in-field": {
+    "title": "In a Field",
+    "description": "Inside a [Field](/field), the invalid state comes from the Field's validation."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `checkbox.css`. The check mark and the dash are two SVGs in the component; which one shows and how it animates is up to the theme style.",
+    "hook": "Hook",
+    "slot": "Structure hooks. `checkbox` is the outer `<label>`, `checkbox-control` the actual control",
+    "variant": "Written on `checkbox` (the label)",
+    "states": "State hooks, written on `checkbox-control` and `checkbox-indicator`; theme styles read them with `:has()` to restyle the whole label (dimming it when disabled, say)",
+    "orientation": "Direction of a CheckboxGroup"
+  }
+}

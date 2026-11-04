@@ -1,0 +1,15 @@
+{
+  "lead": "A placeholder while the assistant's reply hasn't started: three dots, a pulsing dot, a spinner, or a skeleton of an avatar and a few lines of text. Screen readers read the status text once; everything drawn is decoration, and nothing moves with \"reduced motion\".",
+  "variants": { "title": "Variants" },
+  "label": { "title": "Accessible label", "text": "Assistant is typing" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root element (`role=status`); `data-variant`",
+    "dots": "dots: the container of the three dots and each dot (decorative, `aria-hidden`)",
+    "pulse": "pulse: the pulsing dot",
+    "spinner": "spinner: the spinning ring",
+    "skeleton": "skeleton: the avatar placeholder, the container of the text placeholders and each placeholder bar"
+  }
+}

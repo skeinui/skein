@@ -1,0 +1,50 @@
+{
+  "lead": "A timeline: data-driven and vertical; each item has a time, a dot or icon (with a line to the next item), a title and a description.",
+  "usage": {
+    "title": "Usage",
+    "placed": "Order placed",
+    "received": "We received your order",
+    "paid": "Paid",
+    "card": "Visa ending 4242",
+    "shipped": "Shipped"
+  },
+  "time": {
+    "title": "With time",
+    "created": "Created",
+    "opened": "Ticket #1024 opened",
+    "assigned": "Assigned",
+    "to": "To Alex",
+    "resolved": "Resolved"
+  },
+  "icons": {
+    "title": "Icons and colors",
+    "created": "Created",
+    "paid": "Paid",
+    "failed": "Delivery failed",
+    "notFound": "Address not found",
+    "retry": "Retry scheduled"
+  },
+  "pending": {
+    "title": "Pending",
+    "placed": "Order placed",
+    "packed": "Packed",
+    "shipping": "Shipping",
+    "onTheWay": "On its way"
+  },
+  "sizes": {
+    "title": "Sizes",
+    "size": "Size {size}",
+    "description": "Description",
+    "next": "Next"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `timeline.css`.",
+    "hook": "Hook",
+    "root": "The list and each item; when any item has a `time`, the root gets `data-has-time` and every item an extra time column",
+    "time": "The time text on the left",
+    "dot": "The dot and the line to the next item; the dot gets `data-has-icon` when it holds an icon, and a pending item `data-pending`",
+    "content": "The title and the description"
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "lead": "表格的语义结构和外观。不依赖任何表格库：排序、选择、分页的状态由调用方持有（TanStack Table、服务端分页、自己写都行），这里只管画。",
+  "usage": { "title": "用法" },
+  "sorting": { "title": "排序" },
+  "resize": {
+    "title": "可调列宽",
+    "description": "列宽由调用方持有：`Head` 传 `width`、`resizable`、`onResize`。拖右边缘，或聚焦手柄用左右方向键（Shift 步长更大，Home / End 到最小 / 最大）。最后一列不设宽度，吸收剩余空间。"
+  },
+  "selection": { "title": "行选择" },
+  "pagination": { "title": "配合分页" },
+  "striped": { "title": "斑马纹和外框" },
+  "sizes": { "title": "尺寸" },
+  "sticky": { "title": "固定表头" },
+  "fixed": { "title": "固定列" },
+  "expand": {
+    "title": "可展开行",
+    "description": "展开了哪些行由调用方持有。数据行里放 `Table.ExpandButton`（`kind=\"expand\"` 的列），展开时在它后面渲染 `Table.ExpandedRow`；表头那一格放一个同样的按钮就是「全部展开 / 全部收起」：全部展开了就收起，否则全部展开。"
+  },
+  "editable": {
+    "title": "可编辑单元格",
+    "description": "行内编辑：平时是显示值的按钮，点击 / Enter / F2 进入编辑；Enter 或失焦提交，Esc 取消，校验不过就停在编辑里显示错误（失焦则还原）。值由调用方持有，`type` 有 text / number / select。"
+  },
+  "empty": { "title": "空状态和加载中" },
+  "footer": { "title": "表尾和标题" },
+  "demo": {
+    "name": "姓名",
+    "email": "邮箱",
+    "role": "角色",
+    "status": "状态",
+    "logins": "登录次数",
+    "team": "团队",
+    "region": "地区",
+    "plan": "套餐",
+    "actions": "操作",
+    "edit": "编辑",
+    "selectAll": "全选",
+    "selectRow": "选择 {name}",
+    "expandAll": "展开所有行",
+    "collapseAll": "收起所有行",
+    "expandRow": "展开 {name}",
+    "collapseRow": "收起 {name}",
+    "loginCount": "登录 {n} 次",
+    "nameRequired": "姓名必填",
+    "noData": "暂无数据",
+    "caption": "用户列表。",
+    "total": "合计"
+  },
+  "api": {
+    "title": "API 参考",
+    "sections": "`Table.Header` / `Table.Body` / `Table.Footer` / `Table.Caption` 对应 `thead` / `tbody` / `tfoot` / `caption`，接受原生属性。下面是有自己 props 的部件："
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `table.css` 里处理。默认主题风格的外观：浅底表头、列间短分隔线、悬停和选中用主色淡底、排序图标悬停才出现。",
+    "hook": "钩子",
+    "root": "容器管滚动和外框，`table` 写 `data-size` / `striped` / `hoverable` / `loading`",
+    "sections": "表头、表体、表尾和标题",
+    "cells": "行（`data-selected`）、表头（`data-sortable` / `data-sort`）、单元格（`data-align` / `data-kind` / `data-fixed`；固定列的 `--tbl-fixed` 偏移、最靠内一格的 `data-fixed-edge`；容器的 `data-scroll-x`）",
+    "sort": "可排序表头里的按钮、文字和图标；图标里两个 path 用 `data-part=\"up\"` / `\"down\"`",
+    "empty": "空状态单元格"
+  },
+  "props": {
+    "Table": {
+      "bordered": "外框：描边 + 圆角。",
+      "hoverable": "悬停高亮行。",
+      "loading": "加载中：表体变淡、不可点，表格写 `aria-busy`。",
+      "size": "行高和内边距档位。",
+      "stickyHeader": "表头固定：Table 要放进有限定高度的父元素，容器在里面滚动。",
+      "striped": "斑马纹。"
+    },
+    "Table_Row": {
+      "expanded": "这一行已展开（后面跟着 `Table.ExpandedRow`）：只影响外观；展开按钮的状态由 `Table.ExpandButton` 自己带。",
+      "selected": "选中态：高亮这一行并写 aria-selected。"
+    },
+    "Table_Head": {
+      "align": "内容的水平对齐。",
+      "fixed": "固定列：横向滚动时贴住容器的左（start）/ 右（end）边。一行里的固定列必须在最前（最后），表格还要有足够的横向宽度（比如给列设最小宽度）才会真的滚动。",
+      "kind": "select：多选框列，固定窄宽、居中；expand：展开按钮列。",
+      "maxWidth": "调整列宽时的最大宽度（px）；不传不限。",
+      "minWidth": "调整列宽时的最小宽度（px）。",
+      "onResize": "拖动或按键产生了新宽度：存起来再传回 `width`。",
+      "onResizeEnd": "一次调整结束：指针松开（宽度是最后的值；没动过不触发），或每次按键之后。适合存盘 / 发请求。",
+      "onSort": "点排序按钮时调用；下一个方向由调用方决定并更新 `sort`。",
+      "resizable": "可调列宽：表头右边缘加一个拖动手柄（指针拖动；聚焦后左右方向键，Shift 步长更大，Home / End 到最小 / 最大）。",
+      "resizeLabel": "手柄的无障碍名称，默认 \"Resize column\"。",
+      "sort": "当前排序方向；不传表示没按这一列排序。",
+      "sortable": "可排序：表头多一个按钮和排序图标。",
+      "width": "列宽（px），由调用方持有；设了之后这一列宽度固定。要让宽度跟着拖动变，配合 `resizable` + `onResize`。"
+    },
+    "Table_Cell": {
+      "align": "内容的水平对齐；和这一列的 `Table.Head` 写同一个值。",
+      "fixed": "固定列，同 `Table.Head` 的 `fixed`：表头和这一列的每个单元格都要写。",
+      "kind": "select：多选框列；expand：展开按钮列（`Table.ExpandButton`）。"
+    },
+    "Table_EditableCell": {
+      "align": "内容的水平对齐，同 `Table.Cell` 的 `align`。",
+      "children": "平时显示的内容；不传显示值本身（select 显示选项的文字）。",
+      "disabled": "禁用交互。",
+      "fixed": "固定列，同 `Table.Cell` 的 `fixed`。",
+      "label": "这一列的名称：会进按钮和输入框的无障碍名称（让读屏知道在编辑哪一列）。",
+      "onCommit": "提交了新值（Enter、失焦、选中选项）：存起来再传回 `value`。值没变不触发。",
+      "options": "下拉选择（`type=\"select\"`）的选项，`{ value, label }`。",
+      "placeholder": "值为空时显示的占位文字。",
+      "type": "编辑控件：text、number（空文字提交 null）、select（要给 `options`）。",
+      "validate": "校验：返回错误文字就不提交，停在编辑里显示错误；返回空表示通过。",
+      "value": "当前值，由调用方持有。"
+    },
+    "Table_ExpandButton": {
+      "expanded": "是否已展开，由调用方持有。",
+      "onToggle": "点击时调用：翻转这一行的 `expanded`。"
+    },
+    "Table_ExpandedRow": {
+      "colSpan": "占几列（包括展开按钮那一列）。"
+    },
+    "Table_Empty": {
+      "colSpan": "占几列。"
+    }
+  }
+}

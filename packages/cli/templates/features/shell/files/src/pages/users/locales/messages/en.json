@@ -1,0 +1,35 @@
+{
+  "title": "Users",
+  "description": "A full CRUD example: filters, pagination, create / edit dialog, delete confirmation",
+  "create": "New user",
+  "createTitle": "New user",
+  "editTitle": "Edit user",
+  "edit": "Edit",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "deleteConfirm": "Delete {{user}}?",
+  "created": "Created {{user}}",
+  "updated": "Saved {{user}}",
+  "deleted": "Deleted {{user}}",
+  "empty": "No users match",
+  "loading": "Loading…",
+  "filter": {
+    "keyword": "Keyword",
+    "keywordPlaceholder": "Name or email",
+    "status": "Status",
+    "all": "All",
+    "search": "Search",
+    "reset": "Reset"
+  },
+  "col": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "createdAt": "Created",
+    "actions": "Actions"
+  },
+  "role": { "admin": "Admin", "editor": "Editor", "viewer": "Viewer" },
+  "status": { "active": "Active", "disabled": "Disabled" }
+}

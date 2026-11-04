@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info: { title: Shop API, version: 1.0.0 }
+servers:
+  - url: /api
+paths:
+  /orders:
+    get:
+      summary: Orders
+      parameters:
+        - { name: page, in: query, schema: { type: integer } }
+        - { name: pageSize, in: query, schema: { type: integer } }
+        - { name: q, in: query, schema: { type: string }, description: Search }
+        - { name: status, in: query, schema: { $ref: "#/components/schemas/OrderStatus" } }
+      responses:
+        "200":
+          description: A page of orders
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      items: { type: array, items: { $ref: "#/components/schemas/Order" } }
+                      total: { type: integer }
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/OrderInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            {
+              application/json:
+                {
+                  schema:
+                    { type: object, properties: { data: { $ref: "#/components/schemas/Order" } } },
+                },
+            }
+  /orders/{id}:
+    put:
+      parameters: [{ name: id, in: path, required: true, schema: { type: integer } }]
+      requestBody:
+        content: { application/json: { schema: { $ref: "#/components/schemas/OrderInput" } } }
+      responses: { "200": { description: Saved } }
+    delete:
+      parameters: [{ name: id, in: path, required: true, schema: { type: integer } }]
+      responses: { "200": { description: Deleted } }
+components:
+  schemas:
+    OrderStatus: { type: string, enum: [pending, paid, shipped, cancelled] }
+    OrderInput:
+      type: object
+      required: [customer, email, status, amount]
+      properties:
+        customer: { type: string, title: Customer, minLength: 2, maxLength: 60 }
+        email: { type: string, format: email, title: Email }
+        status: { $ref: "#/components/schemas/OrderStatus" }
+        amount: { type: number, title: Amount, minimum: 0, maximum: 10000 }
+        paid: { type: boolean, title: Paid }
+        deliverOn: { type: string, format: date, title: Deliver on }
+        note: { type: string, title: Note, maxLength: 500 }
+    Order:
+      allOf:
+        - { $ref: "#/components/schemas/OrderInput" }
+        - type: object
+          required: [id]
+          properties:
+            id: { type: integer, readOnly: true }
+            createdAt: { type: string, format: date-time, readOnly: true, title: Created }

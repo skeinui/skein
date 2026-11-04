@@ -1,0 +1,39 @@
+{
+  "title": "介绍",
+  "lead": "Skein UI 是基于 [Base UI](https://base-ui.com) 的 React 组件库：同一套组件 API，切换主题风格就能得到 HeroUI、Ant Design、shadcn 或你自己品牌的外观。",
+  "what": {
+    "title": "它是什么",
+    "p1": "100 多个组件：按钮和表单、浮层、导航、数据展示，还有后台布局、数据表格、看板、日程和一组 AI 对话组件。Base UI 有的组件，行为和无障碍直接来自 Base UI；其余的按同样的标准自己实现。",
+    "p2": "组件库之外还有一个 CLI，用来创建项目和页面；以及一套让 AI 编程助手写对 Skein 代码的工具：描述每个组件的 manifest、`skein check`、`skein preview` 和 MCP 服务。"
+  },
+  "split": {
+    "title": "行为与外观分离",
+    "p1": "组件只负责行为和结构，所有视觉都在主题风格里。两者通过 `data-*` 属性对接：组件写出 `data-slot`、`data-variant`、`data-color`、`data-size` 和状态属性，主题风格的 CSS 给这些属性加样式。",
+    "side": "包",
+    "owns": "负责",
+    "ui": "行为、结构、无障碍、键盘交互、`data-*` 属性。不含 CSS。",
+    "themes": "全部视觉：token、亮色与暗色、每个主题风格每个组件一个 CSS 文件。",
+    "p2": "所以切换主题风格、色彩主题或暗色模式，只是改 `<html>` 上的几个属性：组件代码和行为完全不变。"
+  },
+  "packages": {
+    "title": "包",
+    "name": "包",
+    "what": "内容",
+    "ui": "组件（React 19）。",
+    "themes": "主题风格 `default`、`shadcn`、`heroui`、`antd`，色彩主题、密度、代码块主题。只引入用到的。",
+    "cli": "`skein` 命令：创建项目、添加页面、管理主题风格，以及给 AI 用的文档和检查。",
+    "create": "`npm create skein`：调用 `skein create`。",
+    "alias": "`npx skeinui …`：同一套命令的另一个名字。"
+  },
+  "conventions": {
+    "title": "约定",
+    "style": "**组件不接受 `className` / `style`。** 外观来自属性（`variant`、`color`、`size`）和主题风格。要自己的外观，就调整或编写主题风格。",
+    "data": "**数据驱动的属性。** 列表、菜单、表格、表单都接收普通数据（`items`、`columns`、`options`）；数据不够用时再用 `ReactNode` 和 `render`。",
+    "state": "**状态属性处处一致。** 值用 `value` / `defaultValue` / `onValueChange`；能打开的用 `open` / `defaultOpen` / `onOpenChange`。",
+    "overlay": "**浮层只有一个部件。** `Dialog.Content`、`Popover.Content`、`Menu.Content`……把 Base UI 的 portal、positioner 和 popup 包在一起。"
+  },
+  "next": {
+    "title": "下一步",
+    "p1": "从[安装](/installation)开始，了解[主题](/theming)如何工作，或用 [Skein CLI](/cli) 直接创建整个项目。用 AI 编程助手？看 [AI 编程](/ai)。"
+  }
+}

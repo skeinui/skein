@@ -1,0 +1,16 @@
+{
+  "lead": "A meter shows an amount within a known range (disk usage, a rating). Unlike Progress, it doesn't say how far a task has got. `role=\"meter\"` comes from Base UI; the look fully reuses Progress's theme style.",
+  "usage": { "title": "Usage" },
+  "range": { "title": "Min & Max" },
+  "colors": { "title": "Colors" },
+  "format": { "title": "Format" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Meter has no CSS file of its own: its whole look comes from `progress.css`. To change colour at a threshold, the caller switches `color` by value.",
+    "hook": "Hook",
+    "shared": "The same slots as Progress",
+    "track": "Track and indicator bar",
+    "meter": "Written on `progress`, for theme styles that want to tell a meter apart"
+  }
+}

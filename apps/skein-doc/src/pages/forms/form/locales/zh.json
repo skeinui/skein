@@ -1,0 +1,63 @@
+{
+  "lead": "数据驱动表单：用 `fields` 描述每个字段（名字、类型、标签、校验规则），Form 负责布局、取值、校验、错误提示、提交状态。值由 Form 持有，不依赖控件是否接入原生表单，所以日期、评分、分段这类控件也一样用；需要更多自由时字段用 `custom` 加 `render`，或直接用 [Field](/field) 自己拼。",
+  "result": "— 提交后在这里看到值 —",
+  "usage": {
+    "title": "用法",
+    "description": "离开字段时校验，出过错的字段改动后立刻重新校验；密码确认用 `validate` 拿到整个表单的值，再用 `dependencies` 让它在「密码」改动时重新校验；提交是异步的，按钮转圈。"
+  },
+  "layouts": { "title": "布局" },
+  "columns": { "title": "多列" },
+  "types": { "title": "字段类型" },
+  "conditional": {
+    "title": "条件字段与服务端错误",
+    "hint": "试试 \"admin\"：“服务端”会拒绝它。"
+  },
+  "instance": { "title": "命令式接口" },
+  "api": { "title": "Form API" },
+  "field": {
+    "title": "Field API",
+    "description": "`fields` 的每一项是一个 `FormField` 对象：",
+    "name": "字段名，也是值对象的键；支持点路径 `'address.city'`",
+    "type": "控件类型；`custom` 用 `render` 接自己的控件。`email` / `url` 会自动校验格式",
+    "label": "标签（checkbox 和 switch 的 label 是控件自己的文字）、控件下面的说明、占位文字",
+    "required": "必填；给字符串就当提示文字",
+    "rules": "内置规则（文字或数组的长度、数字的大小、正则）",
+    "validate": "自定义校验，返回错误文字表示不通过；第二个参数是整个表单的值（「确认密码」要和「密码」比）；可以是异步的",
+    "messages": "只覆盖这个字段的提示文字",
+    "dependencies": "依赖的其他字段名：它们的值变了，这个字段重新校验（「确认密码」依赖「密码」）。只重新校验已经校验过的字段（离开过、提交过、或已有错误），没碰过的字段不会因为别处改动就冒出错误",
+    "hidden": "条件显示 / 禁用；隐藏的字段不校验、不进提交的值（值保留，再显示时恢复）",
+    "options": "select / radio / checkbox-group / segmented 的选项",
+    "span": "多列时跨几列；初始值；直接传给控件的属性（textarea 的 `rows`、number 的 `step`、rating 的 `allowHalf`…）",
+    "render": "`type` 为 `custom` 时渲染控件：`control` 有 `value` / `onChange` / `onBlur` / `invalid` / `disabled`"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `form.css` 里只处理布局；每个字段内部（标签、控件、说明、错误）还是 `field.css` 和各控件自己的样式。",
+    "form": "`<form>`；`data-layout` / `data-columns`，提交中有 `aria-busy`",
+    "fields": "字段区（grid）；每个字段一项（`data-span`、`data-field-name`），里面是 Field",
+    "actions": "底部操作区（提交 / 重置）"
+  },
+  "props": {
+    "Form": {
+      "actions": "完全自定义底部操作区（替换默认按钮）。",
+      "columns": "一行几列（1–4）；字段用 `span` 跨列。",
+      "defaultValues": "非受控时 `values` 的初始值。",
+      "disabled": "禁用所有字段和提交按钮。",
+      "errors": "外部给的字段错误（服务端校验），没有内部错误时显示。",
+      "fields": "按顺序排列的字段（`FormField`：`name`、`type`、`label`，`required` / `min` / `pattern` 这类校验规则，`options`、`hidden`）。",
+      "instanceRef": "填入命令式 `FormInstance` 的 ref（`submit`、`validate`、`reset`、`getValues`、`setValues`、`setErrors`、`focus`）。",
+      "layout": "vertical：标签在上；horizontal：标签在左；inline：一行排开。",
+      "messages": "校验提示文字（换语言用）；只传要改的。",
+      "onInvalid": "提交时校验没通过：参数是 { 字段名: 错误 }；焦点会落到第一个出错的字段。",
+      "onReset": "表单重置为默认值之后调用（重置按钮，或 `instanceRef` 实例的 `reset()`）。",
+      "onSubmit": "校验通过后调用，参数是（可见字段的）值。返回 Promise 时提交按钮转圈，完成前不能重复提交；抛错会往外抛（不吞），状态恢复。",
+      "onValuesChange": "以新的 `values` 调用；同时传 `values` 即为受控。",
+      "resetLabel": "重置按钮的文字；给了才显示重置按钮。",
+      "size": "所有字段的默认尺寸。",
+      "submitLabel": "提交按钮的文字；重置按钮只在给了 `resetLabel` 时显示。",
+      "validateOn": "校验时机：submit 只在提交时；blur 离开字段时；change 每次输入。出过错的字段之后改动就会重新校验，选择类控件（没有「离开」这个动作）改动时也立刻校验。",
+      "values": "值，受控；不传则由 Form 自己管理。",
+      "variant": "所有字段的默认变体。"
+    }
+  }
+}

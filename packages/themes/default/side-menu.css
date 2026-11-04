@@ -1,0 +1,311 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* SideMenu: side navigation tree. Indentation is computed from data-level (starting at 1), expand / collapse relies on data-open, collapsing to a narrow rail relies on data-collapsed on the root;
+     light / dark: colors are blends of the current text color, so it adapts automatically inside a dark or light Sidebar, no theme needed. */
+  [data-theme-style="default"] [data-slot="sidemenu"] {
+    --_h: 2rem;
+    --_mx: 0.5rem;
+    --_my: 0.125rem;
+    --_r: var(--ui-radius-md);
+    --_pl: 0.5rem;
+    --_pr: 0.5rem;
+    --_gap: 0.5rem;
+    --_indent: 0rem;
+    --_icon: 1rem;
+    --_fg: inherit;
+    --_hover-bg: var(--ui-c-neutral-soft);
+    --_hover-fg: inherit;
+    --_sel-bg: var(--ui-c-primary-soft);
+    --_sel-fg: var(--_on);
+    --_on: var(--ui-c-primary-text);
+    --_sub-bg: transparent;
+    --_group-fg: color-mix(in srgb, currentcolor 65%, transparent);
+    --_line: color-mix(in srgb, currentcolor 14%, transparent);
+    display: flow-root;
+    box-sizing: border-box;
+    color: var(--_fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    transition: width 300ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  /* Dark: the theme's primary-text may be too dim on a dark background (the dark primary of the antd algorithm), so it is brightened one step toward the foreground color for readability */
+  [data-mode="dark"] [data-theme-style="default"] [data-slot="sidemenu"],
+  [data-theme-style="default"] [data-mode="dark"] [data-slot="sidemenu"],
+  [data-theme-style="default"][data-mode="dark"] [data-slot="sidemenu"] {
+    --_on: color-mix(in oklab, var(--ui-c-primary-text) 55%, var(--ui-fg));
+  }
+  /* modern (console's "sidebar style"): items are taller with larger radius, selected / hover is a light primary background + primary text, submenus have no guide line */
+  [data-theme-style="default"] [data-slot="sidemenu"][data-variant="modern"] {
+    --_h: 2.625rem;
+    --_r: var(--ui-r-item);
+    --_hover-bg: color-mix(in srgb, var(--ui-c-primary) 5%, transparent);
+    --_hover-fg: var(--_on);
+    --_sel-bg: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
+    --_sel-fg: var(--_on);
+    --_line: transparent;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-list"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-item"],
+  [data-theme-style="default"] [data-slot="sidemenu-submenu"],
+  [data-theme-style="default"] [data-slot="sidemenu-group"] {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Row spacing goes on the li, links / triggers have no vertical margin of their own: in a row containing a group, the collapsed panel has height 0 but the trigger's bottom margin stays inside
+     the li, so the row is one gap taller than a normal row (formerly 38 vs 36), making row spacing uneven; when the sidebar collapses the panel disappears and the margins collapse again, so the icons below shift up by one gap */
+  [data-theme-style="default"] :is([data-slot="sidemenu-item"], [data-slot="sidemenu-submenu"]) {
+    margin-block: var(--_my);
+  }
+  /* Levels: data-level 1-6 */
+  [data-theme-style="default"] [data-slot="sidemenu"] [data-level="1"] {
+    --_level: 1;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"] [data-level="2"] {
+    --_level: 2;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"] [data-level="3"] {
+    --_level: 3;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"] [data-level="4"] {
+    --_level: 4;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"] [data-level="5"] {
+    --_level: 5;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"] [data-level="6"] {
+    --_level: 6;
+  }
+
+  [data-theme-style="default"] [data-slot="sidemenu-link"],
+  [data-theme-style="default"] [data-slot="sidemenu-trigger"] {
+    display: flex;
+    align-items: center;
+    gap: var(--_gap);
+    box-sizing: border-box;
+    width: calc(100% - var(--_mx) * 2);
+    height: var(--_h);
+    margin: 0 var(--_mx);
+    padding-block: 0;
+    padding-inline: calc(var(--_pl) + (var(--_level, 1) - 1) * var(--_indent)) var(--_pr);
+    border: 0;
+    border-radius: var(--_r);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: inherit;
+    line-height: var(--_h);
+    text-align: start;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    transition:
+      background-color 300ms,
+      color 300ms;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-trigger"] {
+    padding-inline-end: 0.5rem;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-icon"] {
+    display: inline-flex;
+    flex: none;
+    font-size: var(--_icon);
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-icon"] > svg {
+    width: 1em;
+    height: 1em;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-label"] {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-arrow"] {
+    display: inline-flex;
+    flex: none;
+    font-size: 0.75rem;
+    transition: rotate 300ms;
+  }
+  [data-theme-style="default"]
+    [data-slot="sidemenu-submenu"][data-open]
+    > [data-slot="sidemenu-trigger"]
+    [data-slot="sidemenu-arrow"] {
+    rotate: 180deg;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-link"]:hover:not([aria-disabled="true"]),
+  [data-theme-style="default"] [data-slot="sidemenu-trigger"]:hover:not(:disabled) {
+    background-color: var(--_hover-bg);
+    color: var(--_hover-fg);
+  }
+  /* The selected item keeps its selected style on hover (specificity not lower than the hover rule, written after it) */
+  [data-theme-style="default"] [data-slot="sidemenu-link"][aria-current="page"],
+  [data-theme-style="default"]
+    [data-slot="sidemenu-link"][aria-current="page"]:hover:not([aria-disabled="true"]) {
+    background-color: var(--_sel-bg);
+    color: var(--_sel-fg);
+    font-weight: 500;
+  }
+  /* A submenu contains the selected item: the trigger row changes color (same when expanded and when collapsed into an overlay) */
+  [data-theme-style="default"]
+    [data-slot="sidemenu-submenu"][data-has-selected]
+    > [data-slot="sidemenu-trigger"],
+  [data-theme-style="default"]
+    [data-slot="sidemenu-submenu"][data-has-selected]
+    > [data-slot="sidemenu-trigger"]:hover {
+    color: var(--_sel-fg);
+  }
+  [data-theme-style="default"]
+    [data-slot="sidemenu"][data-collapsed]
+    [data-slot="sidemenu-submenu"][data-has-selected]
+    > [data-slot="sidemenu-trigger"] {
+    background-color: var(--_sel-bg);
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-link"]:focus-visible,
+  [data-theme-style="default"] [data-slot="sidemenu-trigger"]:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="default"]
+    [data-slot="sidemenu-item"][data-danger]
+    > [data-slot="sidemenu-link"],
+  [data-theme-style="default"]
+    [data-slot="sidemenu-item"][data-danger]
+    > [data-slot="sidemenu-link"]:hover {
+    color: var(--ui-c-danger);
+  }
+  [data-theme-style="default"]
+    [data-slot="sidemenu-item"][data-danger]
+    > [data-slot="sidemenu-link"]:hover:not([aria-current]) {
+    background-color: color-mix(in srgb, var(--ui-c-danger) 12%, transparent);
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-link"]:disabled,
+  [data-theme-style="default"] [data-slot="sidemenu-link"][aria-disabled="true"],
+  [data-theme-style="default"] [data-slot="sidemenu-trigger"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Expand / collapse submenu: height animates with grid row height 0fr -> 1fr, when collapsed visibility hides it so the items inside cannot be reached by Tab */
+  [data-theme-style="default"] [data-slot="sidemenu-panel"] {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows 300ms cubic-bezier(0.2, 0, 0, 1),
+      visibility 0s linear 300ms;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-panel"][data-open] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-panel-inner"] {
+    min-height: 0;
+    overflow: hidden;
+    background-color: var(--_sub-bg);
+  }
+
+  [data-theme-style="default"] [data-slot="sidemenu-group-title"] {
+    padding: 0.5rem 1rem 0.5rem calc(0.5rem + (var(--_level, 1) - 1) * 0rem);
+    color: var(--_group-fg);
+    font-size: 0.75rem;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-divider"] {
+    height: 1px;
+    margin: 1px 0;
+    background-color: var(--_line);
+  }
+
+  /* Collapsed to a narrow rail: only icons remain, centered; text and arrows are not shown */
+  [data-theme-style="default"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-link"],
+  [data-theme-style="default"]
+    [data-slot="sidemenu"][data-collapsed]
+    [data-slot="sidemenu-trigger"] {
+    justify-content: center;
+    gap: 0;
+    padding-inline: 0;
+    /* Items in the narrow rail are square (hover / selected / focus backgrounds are all square): width takes the menu's item height, or the rail's width if it does not fit, height equals width.
+       With a 3rem rail and a 1px sidebar border the menu is only 47px: leave 11px (not 12px), so that both 47 and 48 get the full item height,
+       the row height does not change on collapse / expand, and the icons below do not jump */
+    box-sizing: border-box;
+    --_sq: min(calc(100% - 0.6875rem), var(--_h));
+    inline-size: var(--_sq);
+    block-size: auto;
+    aspect-ratio: 1;
+    margin-inline: auto;
+    /* When the square is shorter than the row (modern's row height is 42, the square in the rail is only 36) pad above and below so each row still occupies the row height:
+       the icons' vertical position does not change on collapse / expand, and the rows below do not shift up as a whole */
+    margin-block: calc((var(--_h) - var(--_sq)) / 2);
+  }
+  /* In the collapsed state the li is an independent formatting context: the vertical margins added above for square items do not collapse with the li's own margins (collapsing takes the larger value, not the sum,
+     so the row height would not be fully made up and the icons below would shift up) */
+  [data-theme-style="default"]
+    [data-slot="sidemenu"][data-collapsed]
+    :is([data-slot="sidemenu-item"], [data-slot="sidemenu-submenu"]) {
+    display: flow-root;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-label"],
+  [data-theme-style="default"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-arrow"],
+  [data-theme-style="default"]
+    [data-slot="sidemenu"][data-collapsed]
+    [data-slot="sidemenu-group-title"] {
+    display: none;
+  }
+  [data-theme-style="default"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-icon"] {
+    font-size: 1rem;
+  }
+  /* Submenu popped out when collapsed to a narrow rail (inside an overlay, not affected by data-collapsed above) */
+  [data-theme-style="default"] [data-slot="sidemenu"][data-popup] {
+    min-width: 8rem;
+    --_mx: 0rem;
+  }
+  /* The overlay's padding matches the Menu's overlay (menu items no longer keep a horizontal margin themselves) */
+  [data-theme-style="default"] [data-slot="popover"]:has(> [data-slot="sidemenu"][data-popup]) {
+    padding: 0.25rem;
+  }
+
+  /* A guide line on the left of the submenu (Sidebar's approach), which handles the indentation, so --_indent is 0 */
+  [data-theme-style="default"]
+    [data-slot="sidemenu-submenu"]
+    > [data-slot="sidemenu-panel"]
+    > [data-slot="sidemenu-panel-inner"] {
+    /* The guide line sits directly below the parent's icon, child icons align with the parent's text, and the right edge aligns with the parent (all computed from the menu's own spacing variables) */
+    margin-inline: calc(var(--_mx) + var(--_pl) + var(--_icon) / 2 - 0.5px) var(--_mx);
+    padding-inline-start: calc(var(--_gap) + var(--_icon) / 2 - var(--_pl) - 0.5px);
+    border-inline-start: 1px solid var(--_line);
+  }
+  [data-theme-style="default"] [data-slot="sidemenu-panel-inner"] [data-slot="sidemenu-link"],
+  [data-theme-style="default"] [data-slot="sidemenu-panel-inner"] [data-slot="sidemenu-trigger"] {
+    width: 100%;
+    margin-inline: 0;
+    --_h: 1.75rem;
+  }
+  /* modern: child items are one step shorter than level-1 items (36px) */
+  [data-theme-style="default"]
+    [data-slot="sidemenu"][data-variant="modern"]
+    [data-slot="sidemenu-panel-inner"]
+    [data-slot="sidemenu-link"],
+  [data-theme-style="default"]
+    [data-slot="sidemenu"][data-variant="modern"]
+    [data-slot="sidemenu-panel-inner"]
+    [data-slot="sidemenu-trigger"] {
+    --_h: 2.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"] [data-slot="sidemenu"],
+    [data-theme-style="default"] [data-slot="sidemenu-link"],
+    [data-theme-style="default"] [data-slot="sidemenu-trigger"],
+    [data-theme-style="default"] [data-slot="sidemenu-arrow"],
+    [data-theme-style="default"] [data-slot="sidemenu-panel"] {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "lead": "The sources an AI reply cites: a small pill (icon + title) that opens in a new tab; with a description, hovering shows a preview card. Document sources are not links, and a pile of sources can be folded into a \"3 sources\" group.",
+  "usage": { "title": "Usage", "noIcon": "No icon" },
+  "preview": {
+    "title": "Hover preview",
+    "description": "Give a `description` and hovering or focusing the pill with the keyboard shows a preview card."
+  },
+  "document": { "title": "Documents" },
+  "group": { "title": "Group", "label": "3 sources" },
+  "api": {
+    "title": "API Reference",
+    "marker": "The citation marker in the body text (a small numbered badge): `index` is its number, the rest is the same as Citation; its name is \"Source n: title\". Markdown's `citations` use it, and it can be used on its own.",
+    "citations": "Folds sources into one group: the trigger reads \"3 sources\" and expands to a row of Citations. Closed by default; the open state works like Base UI's Collapsible."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "citation": "The source pill (`a` / `button` / `span`); `data-type`",
+    "icon": "The round icon slot, the site icon and the initial-letter fallback",
+    "title": "The title (truncated when too long)",
+    "preview": "The content of the preview card (the card's shell borrows Popover's slots)",
+    "marker": "The citation marker in the body text (`a` / `span`)",
+    "citations": "Root of a group of sources",
+    "trigger": "The trigger and its expand arrow; `data-panel-open`",
+    "panel": "The expanded panel and the wrapping list of sources in it"
+  }
+}

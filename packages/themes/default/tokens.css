@@ -1,0 +1,129 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/* Skein default theme style: brand blue, larger border radius, subtle shadows. Light values. */
+@layer ui-tokens {
+  [data-theme-style="default"] {
+    color-scheme: light;
+
+    --ui-font-family:
+      "Geist Variable", ui-sans-serif, system-ui, -apple-system, "PingFang SC", "Microsoft YaHei",
+      sans-serif;
+    /* Code font: same as the HeroUI docs site (i.e. Tailwind's default monospace stack) */
+    --ui-font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
+    --ui-density: 1;
+    --ui-radius: 0.625rem;
+    --ui-duration: 150ms;
+    --ui-easing: cubic-bezier(0.2, 0, 0, 1);
+
+    /* "Raised" layering: the page (canvas) is slightly gray, while containers such as cards / overlays / sidebars are white and float above the page; dark mode already works this way (surface is lighter than bg) */
+    --ui-bg: #f8fafc;
+    --ui-surface: #ffffff;
+    /* A container's own fill (sections inside cards, table background, segmented controls...): white in light mode, follows the page background in dark mode */
+    --ui-container: #ffffff;
+    --ui-fg: #0f172a;
+    --ui-fg-muted: #5b6b80; /* 5.4:1 on white, 5.0:1 on slate-100 (WCAG AA requires 4.5) */
+    --ui-border: #e2e8f0;
+    --ui-ring: #3b82f6;
+
+    /* Form controls */
+    --ui-field-bg: var(--ui-container);
+    --ui-field-filled-bg: var(--ui-c-neutral-soft);
+    --ui-field-fg: var(--ui-fg);
+    --ui-field-placeholder: var(--ui-fg-muted);
+    --ui-field-border: var(--ui-border);
+    --ui-field-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+
+    /* Overlay */
+    --ui-overlay-bg: #ffffff;
+    --ui-overlay-border: var(--ui-border);
+    --ui-overlay-shadow: 0 10px 30px -10px rgb(15 23 42 / 0.25), 0 2px 8px 0 rgb(15 23 42 / 0.08);
+    --ui-backdrop: rgb(15 23 42 / 0.5);
+    --ui-tooltip-bg: #0f172a;
+    --ui-tooltip-fg: #f8fafc;
+
+    --ui-c-neutral: #e2e8f0;
+    --ui-c-neutral-fg: #0f172a;
+    --ui-c-neutral-soft: #f1f5f9;
+    --ui-c-neutral-text: #334155;
+
+    --ui-c-primary: #2563eb;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #dbeafe;
+    --ui-c-primary-text: #1d4ed8;
+
+    --ui-c-secondary: #4f46e5;
+    --ui-c-secondary-fg: #ffffff;
+    --ui-c-secondary-soft: #e0e7ff;
+    --ui-c-secondary-text: #4338ca;
+
+    --ui-c-success: #15803d; /* White text 5.0:1 (the original #16a34a was only 3.3:1) */
+    --ui-c-success-fg: #ffffff;
+    --ui-c-success-soft: #dcfce7;
+    --ui-c-success-text: #166534;
+
+    --ui-c-warning: #f59e0b;
+    --ui-c-warning-fg: #451a03;
+    --ui-c-warning-soft: #fef3c7;
+    --ui-c-warning-text: #b45309;
+
+    --ui-c-danger: #dc2626;
+    --ui-c-danger-fg: #ffffff;
+    --ui-c-danger-soft: #fee2e2;
+    --ui-c-danger-text: #b91c1c;
+  }
+
+  /*
+   * Derived tokens. A theme only overrides base values such as --ui-radius / --ui-density;
+   derived values must be computed again on both the "element carrying the theme style" and "descendants with data-theme-color or data-theme-density",
+   otherwise a theme set on a descendant would get the stale inherited values.
+   */
+  [data-theme-style="default"],
+  [data-theme-style="default"] :is([data-theme-color], [data-theme-density]) {
+    /* State colors: hover / pressed / border, derived from the base and foreground colors so they follow when a theme changes the base color */
+    --ui-c-neutral-hover: color-mix(in oklab, var(--ui-c-neutral) 90%, var(--ui-c-neutral-fg) 10%);
+    --ui-c-neutral-active: color-mix(in oklab, var(--ui-c-neutral) 80%, var(--ui-c-neutral-fg) 20%);
+    --ui-c-neutral-border: color-mix(in oklab, var(--ui-c-neutral) 40%, transparent);
+    --ui-c-primary-hover: color-mix(in oklab, var(--ui-c-primary) 90%, var(--ui-c-primary-fg) 10%);
+    --ui-c-primary-active: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-c-primary-fg) 20%);
+    --ui-c-primary-border: color-mix(in oklab, var(--ui-c-primary) 40%, transparent);
+    --ui-c-secondary-hover: color-mix(
+      in oklab,
+      var(--ui-c-secondary) 90%,
+      var(--ui-c-secondary-fg) 10%
+    );
+    --ui-c-secondary-active: color-mix(
+      in oklab,
+      var(--ui-c-secondary) 80%,
+      var(--ui-c-secondary-fg) 20%
+    );
+    --ui-c-secondary-border: color-mix(in oklab, var(--ui-c-secondary) 40%, transparent);
+    --ui-c-success-hover: color-mix(in oklab, var(--ui-c-success) 90%, var(--ui-c-success-fg) 10%);
+    --ui-c-success-active: color-mix(in oklab, var(--ui-c-success) 80%, var(--ui-c-success-fg) 20%);
+    --ui-c-success-border: color-mix(in oklab, var(--ui-c-success) 40%, transparent);
+    --ui-c-warning-hover: color-mix(in oklab, var(--ui-c-warning) 90%, var(--ui-c-warning-fg) 10%);
+    --ui-c-warning-active: color-mix(in oklab, var(--ui-c-warning) 80%, var(--ui-c-warning-fg) 20%);
+    --ui-c-warning-border: color-mix(in oklab, var(--ui-c-warning) 40%, transparent);
+    --ui-c-danger-hover: color-mix(in oklab, var(--ui-c-danger) 90%, var(--ui-c-danger-fg) 10%);
+    --ui-c-danger-active: color-mix(in oklab, var(--ui-c-danger) 80%, var(--ui-c-danger-fg) 20%);
+    --ui-c-danger-border: color-mix(in oklab, var(--ui-c-danger) 40%, transparent);
+
+    --ui-radius-sm: max(0px, calc(var(--ui-radius) - 4px));
+    --ui-radius-md: max(0px, calc(var(--ui-radius) - 2px));
+    --ui-radius-lg: var(--ui-radius);
+    --ui-radius-full: 9999px;
+
+    /* Semantic radius: reuses this theme style's official sm / md / lg steps. surface overlay / block content block = lg;
+       entries inside an item block = md; one level deeper inside a small entry = sm; control small button = md. */
+    --ui-r-surface: var(--ui-radius-lg);
+    --ui-r-block: var(--ui-radius-lg);
+    --ui-r-item: var(--ui-radius-md);
+    --ui-r-small: var(--ui-radius-sm);
+    --ui-r-control: var(--ui-radius-md);
+
+    --ui-height-sm: calc(2rem * var(--ui-density));
+    --ui-height-md: calc(2.5rem * var(--ui-density));
+    --ui-height-lg: calc(3rem * var(--ui-density));
+  }
+}

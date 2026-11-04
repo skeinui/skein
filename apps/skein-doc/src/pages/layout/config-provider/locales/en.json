@@ -1,0 +1,21 @@
+{
+  "lead": "App-wide configuration: placed once at the app root, it writes the theme style, mode and color theme to `<html>` (overlays render in a Portal, so the attributes must be there), and gives date components and components with text a default locale and labels. It only changes attributes, never the structure, so the subtree is not remounted.",
+  "root": {
+    "title": "App root",
+    "note": "This site's theme style, mode and color theme are set by the switches at the top right, so this example doesn't add another layer that would fight them."
+  },
+  "locale": {
+    "title": "Locale and labels",
+    "description": "Every Calendar, Pagination and Carousel inside takes the locale and labels from the provider; a component's own `locale` / `labels` still win. Here: German.",
+    "locale": "de-DE",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "previousSlide": "Vorheriges Bild",
+    "nextSlide": "Nächstes Bild",
+    "carousel": "Example"
+  },
+  "api": {
+    "title": "API Reference",
+    "useConfig": "`useConfig()` returns `{ locale?, labels? }`: use it when your own components should read the same configuration."
+  }
+}

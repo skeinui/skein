@@ -1,0 +1,39 @@
+{
+  "title": "Introduction",
+  "lead": "Skein UI is a React component library on [Base UI](https://base-ui.com): one component API, and the look of HeroUI, Ant Design, shadcn or your own brand by switching a theme style.",
+  "what": {
+    "title": "What it is",
+    "p1": "More than 100 components: buttons and forms, overlays, navigation, data display, an admin layout, a data table, kanban, agenda, and a family of AI chat components. Behaviour and accessibility come from Base UI where it has the component; the rest are written to the same standard.",
+    "p2": "Around the library there is a CLI that creates projects and pages, and a set of tools that let AI coding agents write correct Skein code: a machine-readable manifest of every component, `skein check`, `skein preview` and an MCP server."
+  },
+  "split": {
+    "title": "Behaviour and looks, apart",
+    "p1": "Components own behaviour and structure only; every visual lives in a theme style. The two meet in `data-*` attributes: a component writes `data-slot`, `data-variant`, `data-color`, `data-size` and its state, and the theme style's CSS styles those attributes.",
+    "side": "Package",
+    "owns": "Owns",
+    "ui": "Behaviour, structure, accessibility, keyboard, the `data-*` attributes. No CSS.",
+    "themes": "Every visual: tokens, light and dark, one CSS file per component, per theme style.",
+    "p2": "So switching the theme style, the colour theme or dark mode only changes a few attributes on `<html>`: component code and behaviour stay exactly the same."
+  },
+  "packages": {
+    "title": "Packages",
+    "name": "Package",
+    "what": "What",
+    "ui": "The components (React 19).",
+    "themes": "Theme styles `default`, `shadcn`, `heroui`, `antd`, colour themes, density, code-block themes. Import only what you use.",
+    "cli": "The `skein` command: create projects, add pages, manage theme styles, docs and checks for agents.",
+    "create": "`npm create skein`: runs `skein create`.",
+    "alias": "`npx skeinui …`: the same commands under another name."
+  },
+  "conventions": {
+    "title": "Conventions",
+    "style": "**No `className` / `style` on components.** Looks come from props (`variant`, `color`, `size`) and the theme style. For a look of your own, adjust or write a theme style.",
+    "data": "**Data-driven props.** Lists, menus, tables and forms take plain data (`items`, `columns`, `options`); `ReactNode` and `render` props are there when data isn't enough.",
+    "state": "**The same state props everywhere.** Values are `value` / `defaultValue` / `onValueChange`; anything that opens is `open` / `defaultOpen` / `onOpenChange`.",
+    "overlay": "**Overlays are one part.** `Dialog.Content`, `Popover.Content`, `Menu.Content`… wrap Base UI's portal, positioner and popup."
+  },
+  "next": {
+    "title": "Next",
+    "p1": "Start with [Installation](/installation), see how [theming](/theming) works, or create a whole project with the [Skein CLI](/cli). Using an AI coding agent? Read [AI coding agents](/ai)."
+  }
+}

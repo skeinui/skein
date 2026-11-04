@@ -1,0 +1,34 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * Volcano theme: the Ant Design preset color #fa541c, with the palette computed by antd's algorithm (theme.getDesignToken),
+ * so both light and dark sets are exact values. Only the primary color changes, so it works on any theme style and can be combined with compact density: data-theme-color="volcano" data-theme-density="compact".
+ */
+@layer ui-color {
+  [data-theme-color~="volcano"] {
+    --ui-ring: #fa541c;
+
+    --ui-c-primary: #fa541c;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #fff2e8;
+    --ui-c-primary-text: #fa541c;
+    --ui-c-primary-hover: #ff7a45;
+    --ui-c-primary-active: #d4380d;
+    --ui-c-primary-border: #ffbb96;
+  }
+
+  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-theme-color~="volcano"][data-mode="dark"],
+  [data-mode="dark"] [data-theme-color~="volcano"],
+  [data-theme-color~="volcano"] [data-mode="dark"] {
+    --ui-ring: #d84a1b;
+
+    --ui-c-primary: #d84a1b;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #592716;
+    --ui-c-primary-text: #d84a1b;
+    --ui-c-primary-hover: #e87040;
+    --ui-c-primary-active: #aa3e19;
+    --ui-c-primary-border: #592716;
+  }
+}

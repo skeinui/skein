@@ -1,0 +1,22 @@
+{
+  "lead": "A display-only status label: three variants × six semantic colours × three sizes. For a removable or clickable label, see [Tag](/tag).",
+  "variants": { "title": "Variants" },
+  "colors": {
+    "title": "Colors",
+    "description": "Every `variant` × `color` combination."
+  },
+  "sizes": { "title": "Sizes" },
+  "radius": {
+    "title": "Radius",
+    "description": "Without `radius`, the theme style decides."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `badge.css`; colours come from the four `--ui-c-*` tokens: solid / soft / text / border.",
+    "hook": "Hook",
+    "sameAsProps": "same as the props",
+    "slot": "The badge itself",
+    "variants": "Theme styles pick the look with them; `data-radius` appears only when `radius` is passed"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "lead": "Cascading selection: the trigger looks like a Select and opens side-by-side columns of menus; the value is a path. Keyboard: up / down to move, right to enter the next column, left to go back, Enter to select.",
+  "usage": { "title": "Usage" },
+  "controlled": { "title": "Controlled", "path": "Path:", "none": "none" },
+  "hover": { "title": "Hover to Expand" },
+  "change-on-select": {
+    "title": "Change on Select",
+    "description": "Clicking an option at any level commits it; there is no need to reach the last level."
+  },
+  "multiple": {
+    "title": "Multiple",
+    "description": "Checking a parent checks every available leaf under it. The trigger shows one removable tag per path, and `maxTagCount` collapses the extra ones."
+  },
+  "search": {
+    "title": "Searchable",
+    "description": "After typing, the list becomes the matching full paths; from the keyboard, the down arrow moves from the search box into the results."
+  },
+  "async": {
+    "title": "Async Loading",
+    "description": "Options marked `lazy` load their next level the first time they are expanded, showing a spinner instead of the arrow meanwhile. Options whose name contains \"leaf\" come back empty and become leaves."
+  },
+  "clearable": { "title": "Clearable" },
+  "variants": { "title": "Variants & Sizes" },
+  "invalid": { "title": "Invalid & Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `cascader.css`; the trigger's look comes straight from each theme style's Select trigger.",
+    "hook": "Hook",
+    "trigger": "The trigger, which looks like this theme style's Select trigger; `cascader-value` has `data-placeholder` while empty, and the trigger has `data-popup-open` while the popup is open",
+    "clear": "Clear button, shown when there is a value and `clearable` is set",
+    "tags": "The tag area of the trigger in multiple selection (the trigger has `data-multiple`; the tags are Tag components)",
+    "search": "The search box at the top of the popup and the columns side by side below it; while searching the panel has `data-searching`",
+    "check": "The checkbox of multiple selection, and the spinner that replaces the arrow while loading (the option has `data-loading`)",
+    "panel": "The columns side by side in the popup; `data-level` on a menu is its column index (from 0)",
+    "option": "Option: `data-active` when expanded, `data-selected` on the selected path, `data-has-children` with a next level, `data-disabled` when disabled",
+    "empty": "Empty state when there are no options"
+  }
+}

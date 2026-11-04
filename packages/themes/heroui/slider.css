@@ -1,0 +1,158 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Slider: track + selected range + thumb; a range slider has two thumbs. The size step decides track thickness and thumb size. */
+  [data-theme-style="heroui"] [data-slot="slider"][data-color="neutral"] {
+    --_c: var(--ui-c-neutral-fg);
+    --_c-border: var(--ui-c-neutral-border);
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-color="primary"] {
+    --_c: var(--ui-c-primary);
+    --_c-border: var(--ui-c-primary-border);
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary);
+    --_c-border: var(--ui-c-secondary-border);
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-color="success"] {
+    --_c: var(--ui-c-success);
+    --_c-border: var(--ui-c-success-border);
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-color="warning"] {
+    --_c: var(--ui-c-warning);
+    --_c-border: var(--ui-c-warning-border);
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-color="danger"] {
+    --_c: var(--ui-c-danger);
+    --_c-border: var(--ui-c-danger-border);
+  }
+  /* v3: a 20px-thick pill track, the thumb is a primary 28x20 pill with a small white 24x16 pill embedded in it. */
+  [data-theme-style="heroui"] [data-slot="slider"] {
+    --_track: calc(1.25rem * var(--ui-density));
+    --_inset: calc(0.75rem * var(--ui-density));
+    --_thumb-w: calc(1.75rem * var(--ui-density));
+    --_knob-w: calc(1.5rem * var(--ui-density));
+    --_knob-h: calc(1rem * var(--ui-density));
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-size="sm"] {
+    --_track: calc(1rem * var(--ui-density));
+    --_inset: calc(0.625rem * var(--ui-density));
+    --_thumb-w: calc(1.5rem * var(--ui-density));
+    --_knob-w: calc(1.25rem * var(--ui-density));
+    --_knob-h: calc(0.75rem * var(--ui-density));
+  }
+  [data-theme-style="heroui"] [data-slot="slider"][data-size="lg"] {
+    --_track: calc(1.5rem * var(--ui-density));
+    --_inset: calc(0.875rem * var(--ui-density));
+    --_thumb-w: calc(2rem * var(--ui-density));
+    --_knob-w: calc(1.75rem * var(--ui-density));
+    --_knob-h: calc(1.25rem * var(--ui-density));
+  }
+  [data-theme-style="heroui"] [data-slot="slider-header"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="heroui"] [data-slot="slider-label"] {
+    color: var(--ui-fg);
+    font-weight: 500;
+  }
+  [data-theme-style="heroui"] [data-slot="slider-value"] {
+    color: var(--ui-fg);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="heroui"] [data-slot="slider-control"] {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--_track);
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+  }
+  [data-theme-style="heroui"] [data-slot="slider-control"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  /* Leave a transparent border segment at each end of the track, so the thumb's center still lies entirely inside the track at 0% / 100% */
+  [data-theme-style="heroui"] [data-slot="slider-track"] {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--_track);
+    border-radius: var(--ui-radius-full);
+    border-inline: var(--_inset) solid transparent;
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="heroui"] [data-slot="slider-indicator"] {
+    border-radius: inherit;
+    background-color: var(--_c);
+    pointer-events: none;
+  }
+  /* Single-value slider: the selected color starts from the far left of the track (a range slider starts from the first thumb) */
+  [data-theme-style="heroui"]
+    [data-slot="slider-track"]:not(:has([data-index="1"]))
+    [data-slot="slider-indicator"] {
+    box-sizing: content-box;
+    margin-inline-start: calc(var(--_inset) * -1);
+    padding-inline-start: var(--_inset);
+  }
+  [data-theme-style="heroui"] [data-slot="slider-thumb"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--_thumb-w);
+    height: 100%;
+    border: 0;
+    border-radius: var(--ui-radius-full);
+    background-color: var(--_c);
+    cursor: grab;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color 250ms ease,
+      transform 250ms cubic-bezier(0, 0, 0.2, 1),
+      box-shadow 150ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  [data-theme-style="heroui"] [data-slot="slider-thumb"]::after {
+    content: "";
+    position: relative;
+    z-index: 10;
+    width: var(--_knob-w);
+    height: var(--_knob-h);
+    border-radius: calc(var(--_knob-h) / 2);
+    background-color: var(--ui-c-primary-fg);
+    box-shadow: var(--ui-field-shadow);
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  [data-theme-style="heroui"] [data-slot="slider-thumb"][data-dragging] {
+    cursor: grabbing;
+  }
+  [data-theme-style="heroui"] [data-slot="slider-thumb"][data-dragging]::after {
+    scale: 0.9;
+  }
+  [data-theme-style="heroui"] [data-slot="slider-thumb"]:has(:focus-visible) {
+    z-index: 10;
+    box-shadow:
+      0 0 0 2px var(--ui-bg),
+      0 0 0 4px var(--ui-ring);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="slider-thumb"],
+    [data-theme-style="heroui"] [data-slot="slider-thumb"]::after {
+      transition: none;
+    }
+  }
+}

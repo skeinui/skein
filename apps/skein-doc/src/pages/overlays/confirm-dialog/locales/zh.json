@@ -1,0 +1,30 @@
+{
+  "lead": "确认对话框：AlertDialog 加上常见的标题 / 描述 / 取消 / 确认，一个组件代替十几行样板；`onConfirm` 可以是异步的，进行中按钮转圈、对话框不会被关掉。需要更多自定义时直接用 AlertDialog。外观复用 Dialog 的主题风格。",
+  "usage": { "title": "用法" },
+  "async": {
+    "title": "异步确认",
+    "hint": "第一次请求会失败：对话框保持打开，可以再点一次重试。最近结果："
+  },
+  "body": { "title": "额外内容" },
+  "api": {
+    "title": "API 参考",
+    "note": "没有自己的 slot 和主题风格文件，全部复用 `alert-dialog` / `dialog` 的。"
+  },
+  "props": {
+    "ConfirmDialog": {
+      "cancelLabel": "取消按钮的文字，默认取语言包的“取消”。",
+      "children": "标题和描述之外的内容，放在正文区（比如要用户输入名字确认）。",
+      "confirmLabel": "确认按钮的文字，默认取语言包的“确认”。",
+      "defaultOpen": "非受控时的初始 `open`。",
+      "description": "标题下方的说明（后果、哪些操作无法撤销）。",
+      "onCancel": "未确认就关闭对话框时调用（取消按钮、Esc、关闭）。",
+      "onConfirm": "点确认时调用。返回 Promise 时确认按钮进入加载状态，期间取消和关闭都被挡住；成功后自动关闭，失败（reject）保持打开，错误由调用方提示。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "size": "宽度档位，同 AlertDialog。",
+      "title": "要确认的问题或操作，比如“删除这个项目？”。",
+      "tone": "为 danger 时确认按钮用危险色（删除之类）。",
+      "trigger": "点击后打开对话框的元素（比如一个按钮）；不给就只靠 `open` 控制。"
+    }
+  }
+}

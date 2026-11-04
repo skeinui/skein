@@ -1,0 +1,20 @@
+{
+  "lead": "Rating a reply: thumbs up / thumbs down toggle buttons. After a thumbs down, a small form can ask why (multi-select reasons + a comment), and once sent it is replaced by a short confirmation. The caller owns the rating; the component only handles the interaction and the screen reader texts.",
+  "usage": { "title": "Usage" },
+  "reasons": {
+    "title": "Ask why",
+    "description": "Pass `reasons` and a thumbs down expands a form; once sent, the form collapses and a confirmation appears.",
+    "notSent": "(nothing sent yet)"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root; `data-value` is the current rating",
+    "group": "The button group (`role=group`) and the two buttons (`data-value`: up / down; `aria-pressed`)",
+    "form": "The form shown after a thumbs down",
+    "reasons": "The reasons' fieldset, its legend and each checkbox",
+    "comment": "The comment field and the send button",
+    "thanks": "The confirmation after sending (`role=status`, always in the DOM, hidden while empty)"
+  }
+}

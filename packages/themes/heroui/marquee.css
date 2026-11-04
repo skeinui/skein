@@ -1,0 +1,125 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Marquee: scrolls only when the content is wider than the container (data-overflow); the track holds two copies of the content joined end to end, and shifting left by one copy's width makes a seamless loop. The duration is --marquee-duration computed by the component from width / speed */
+  [data-theme-style="heroui"] [data-slot="marquee"] {
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="heroui"] [data-slot="marquee-viewport"] {
+    overflow: hidden;
+  }
+  [data-theme-style="heroui"] [data-slot="marquee-track"] {
+    display: flex;
+    width: max-content;
+  }
+  [data-theme-style="heroui"] [data-slot="marquee-content"] {
+    flex: none;
+    white-space: nowrap;
+    padding-inline-end: 2rem;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="marquee"]:not([data-overflow])
+    [data-slot="marquee-content"] {
+    padding-inline-end: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="marquee"][data-overflow] [data-slot="marquee-viewport"] {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 1.5rem,
+      black calc(100% - 1.5rem),
+      transparent
+    );
+  }
+  [data-theme-style="heroui"] [data-slot="marquee"][data-overflow] [data-slot="marquee-track"] {
+    animation: ui-marquee-heroui var(--marquee-duration, 10s) linear infinite;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="marquee"][data-overflow][data-direction="end"]
+    [data-slot="marquee-track"] {
+    animation-direction: reverse;
+  }
+  [data-theme-style="heroui"] [data-slot="marquee"][data-paused] [data-slot="marquee-track"],
+  [data-theme-style="heroui"]
+    [data-slot="marquee"][data-pause-on-hover]:hover
+    [data-slot="marquee-track"],
+  [data-theme-style="heroui"]
+    [data-slot="marquee"][data-pause-on-hover]:focus-within
+    [data-slot="marquee-track"] {
+    animation-play-state: paused;
+  }
+  @keyframes ui-marquee-heroui {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  [dir="rtl"] [data-theme-style="heroui"] [data-slot="marquee-track"],
+  [data-theme-style="heroui"] [dir="rtl"] [data-slot="marquee-track"] {
+    animation-name: ui-marquee-rtl-heroui;
+  }
+  @keyframes ui-marquee-rtl-heroui {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(50%);
+    }
+  }
+
+  [data-theme-style="heroui"] [data-slot="marquee-pause"] {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: 0;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0;
+    padding: 0;
+    translate: 0 -50%;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    background-color: var(--ui-surface);
+    color: var(--ui-fg);
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="marquee-pause"]:hover {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="heroui"] [data-slot="marquee-pause"]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: 2px;
+  }
+
+  /* System asks for reduced motion: no scrolling, switch to manual horizontal scrolling (content is not cut off) */
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="marquee"][data-overflow] [data-slot="marquee-track"] {
+      animation: none;
+    }
+    [data-theme-style="heroui"]
+      [data-slot="marquee"][data-overflow]
+      [data-slot="marquee-viewport"] {
+      overflow-x: auto;
+      mask-image: none;
+    }
+    [data-theme-style="heroui"]
+      [data-slot="marquee"][data-overflow]
+      [data-slot="marquee-content"][aria-hidden="true"],
+    [data-theme-style="heroui"] [data-slot="marquee-pause"] {
+      display: none;
+    }
+  }
+}

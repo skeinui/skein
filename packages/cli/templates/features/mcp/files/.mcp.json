@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "skein": {
+      "command": "npx",
+      "args": ["skein", "mcp"]
+    }
+  }
+}

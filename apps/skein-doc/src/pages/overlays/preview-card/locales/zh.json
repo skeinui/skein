@@ -1,0 +1,49 @@
+{
+  "lead": "悬停卡片：鼠标悬停或键盘聚焦在链接上时出现的预览。外观完全复用 [Popover](/popover) 的主题风格。",
+  "usage": {
+    "title": "用法",
+    "before": "详见",
+    "link": "文档",
+    "after": "。"
+  },
+  "placement": { "title": "位置" },
+  "delay": { "title": "延迟" },
+  "api": {
+    "title": "API 参考",
+    "parts": "`PreviewCard.Title` / `PreviewCard.Description` 是普通的 `h2` / `p`，外观同 Popover 里的标题和说明。别用 `Popover.Title`：它依赖 Popover 的上下文，放进悬停卡片会报错。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "PreviewCard 没有自己的 CSS 文件，外观全部来自 `popover.css`；和其他浮层一样，`data-theme-style` 要设在 `<html>` 上。",
+    "hook": "钩子",
+    "slots": "复用 Popover 的 slot，不需要额外样式",
+    "preview": "写在 `popover` 上，主题风格想区分悬停卡片时用它"
+  },
+  "props": {
+    "PreviewCard": {
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后，结束卡片的关闭阶段；需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则卡片会自行完成关闭，是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时以命令方式关闭卡片。",
+      "children": "卡片的内容。可以是普通的 React 节点，也可以是一个渲染函数，参数是当前触发元素的 `payload`。",
+      "defaultOpen": "卡片初始是否打开。要受控请改用 `open`。",
+      "defaultTriggerId": "卡片关联的触发元素 ID。和 `defaultOpen` 一起用，可以做一个初始就打开的卡片。",
+      "handle": "把卡片和触发元素关联起来的 handle。指定后，外部的触发元素也能控制卡片的打开状态。用 `PreviewCard.createHandle()` 创建。",
+      "onOpenChange": "卡片打开或关闭时调用。",
+      "onOpenChangeComplete": "卡片打开或关闭、动画全部结束后调用。",
+      "open": "卡片当前是否打开。",
+      "triggerId": "卡片关联的触发元素 ID。和 `open` 一起用，可以做受控卡片；非受控（没传 `open`）时不需要。"
+    },
+    "PreviewCard_Trigger": {
+      "closeDelay": "关闭卡片前等待多久，单位毫秒。",
+      "delay": "多久之后打开卡片，单位毫秒。",
+      "handle": "把触发元素和卡片关联起来的 handle。",
+      "payload": "打开卡片时传给它的数据。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "PreviewCard_Content": {
+      "align": "卡片相对触发元素的对齐方式。",
+      "children": "卡片的内容。",
+      "side": "卡片在触发元素的哪一侧弹出。",
+      "sideOffset": "触发元素与卡片之间的间距，单位像素。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

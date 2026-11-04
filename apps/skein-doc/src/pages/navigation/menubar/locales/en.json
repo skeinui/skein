@@ -1,0 +1,17 @@
+{
+  "lead": "A menu bar: a row of top-level menus. Once one is open, moving the pointer to a neighbour switches to it directly, and the Left / Right arrow keys move between them. The popups and items reuse Menu's theme style.",
+  "usage": { "title": "Usage" },
+  "checkbox": { "title": "Checkbox Items" },
+  "danger": { "title": "Danger Item" },
+  "api": {
+    "title": "API Reference",
+    "description": "`Menubar` is the `role=menubar` row, `Menubar.Menu` the root of each top-level menu and `Menubar.Trigger` its button. `Content` / `Item` / `CheckboxItem` / `Group` / `GroupLabel` / `Separator` are the parts of the same name from [Menu](/menu)."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles style the bar and its triggers in `menubar.css`; the popups and items come from `menu.css`. As for every overlay, `data-theme-style` must be set on `<html>`.",
+    "hook": "Hook",
+    "menubar": "The bar and its top-level triggers; the open one has `data-popup-open`",
+    "menu-positioner": "The popup and its items, reusing Menu's slots"
+  }
+}

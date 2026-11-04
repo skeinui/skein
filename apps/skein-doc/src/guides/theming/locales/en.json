@@ -1,0 +1,38 @@
+{
+  "title": "Theming",
+  "lead": "A theme style is the whole look of the components. On top of it go dark mode, a colour theme, a density and your own overrides, all without touching component code.",
+  "styles": {
+    "title": "Theme styles",
+    "p1": "Four theme styles ship in `@skeinui/themes`. Each covers every component, in light and dark:",
+    "name": "Style",
+    "look": "Look",
+    "default": "Skein's own: brand blue, larger radius, subtle shadows.",
+    "shadcn": "shadcn/ui: neutral, compact, sharp lines.",
+    "heroui": "HeroUI v3: soft colours, pill-shaped controls.",
+    "antd": "Ant Design 6: the enterprise look.",
+    "p2": "Import the CSS of the ones you use; only those are bundled. Several can be imported together, each scoped by `data-theme-style`, so users can switch between them at runtime (the admin template's preferences drawer does that)."
+  },
+  "mode": {
+    "title": "Light and dark",
+    "p1": "`mode` is `\"light\"`, `\"dark\"` or `\"system\"` (follows the OS and updates when it changes). Every theme style has both palettes; nothing else to import."
+  },
+  "colors": {
+    "title": "Colour themes and density",
+    "p1": "Colour themes change only colours and work on top of any theme style: `purple`, `green`, `geekblue`, `volcano`, and `contrast` (WCAG AA). The compact density makes controls smaller.",
+    "p2": "Colour themes combine: `themeColor={[\"purple\", \"contrast\"]}`."
+  },
+  "overrides": {
+    "title": "Your own values",
+    "p1": "For a brand colour, a radius or a density of your own, `themeOverrides` sets them on top of the theme style. Colours are `#rrggbb`; `dark` overrides them in dark mode; radius is in rem; density is a multiplier (1 = default)."
+  },
+  "own-style": {
+    "title": "A theme style of your own",
+    "p1": "When overrides aren't enough, write a theme style. The CLI copies a bundled one into `src/theme/` under a new name, so you start from something complete and change what you want:",
+    "p2": "`skein theme check` compares it with the components' contract and lists every slot, variant and state it doesn't style yet. Without `--from` you get a blank style to fill."
+  },
+  "how": {
+    "title": "How it works",
+    "p1": "Components write `data-*` attributes and no CSS; a theme style is CSS that targets them, scoped by `data-theme-style`:",
+    "p2": "Tokens (`--ui-c-primary`, `--ui-radius`, `--ui-density`…) are defined per style in `tokens.css` and `dark.css`; colour themes and `themeOverrides` only change token values, which is why they work with any style."
+  }
+}

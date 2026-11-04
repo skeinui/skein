@@ -1,0 +1,9 @@
+{
+  "title": "Sign in to {{app}}",
+  "subtitle": "Welcome back, enter your account and password",
+  "username": "Username",
+  "password": "Password",
+  "submit": "Sign in",
+  "failed": "Sign-in failed",
+  "mockHint": "Demo account: admin / admin123 (mocked by MSW)"
+}

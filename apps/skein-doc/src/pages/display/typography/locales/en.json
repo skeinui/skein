@@ -1,0 +1,58 @@
+{
+  "lead": "Typography: `Title`, `Text` and `Paragraph` handle single text elements (colour semantics, truncation, copying), while the `Typography` container lays out the native elements of a longer piece of content. The components have no outer margins: leave spacing to `Flex` or `Typography`.",
+  "title": {
+    "title": "Title",
+    "heading": "Heading level {level}"
+  },
+  "text": {
+    "title": "Text",
+    "default": "Default",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "strikethrough": "Strikethrough",
+    "combined": "Combined"
+  },
+  "tones": {
+    "title": "Tones"
+  },
+  "ellipsis": {
+    "title": "Ellipsis",
+    "description": "Single or multiple lines; truncated text can be expanded (the button only appears when the text is really truncated), and hovering a truncated single line shows the full text.",
+    "long": "Skein UI separates behaviour from looks: components render semantic markup with data attributes, and every look — spacing, colour, radius, shadow — lives in a swappable skin. Change one attribute on the root element and the whole page changes design language, without touching a single call site.",
+    "short": "Short enough to fit — no button."
+  },
+  "copy": {
+    "title": "Copyable",
+    "sentence": "Copy this sentence",
+    "heading": "Copyable heading"
+  },
+  "prose": {
+    "title": "Typography container",
+    "description": "Write native elements inside (or HTML rendered from Markdown): headings, paragraphs, lists, quotes, code and tables all get their typography automatically.",
+    "heading": "Why skins",
+    "p1": "Components describe **structure and behaviour**; a skin describes how they look. Read more in ",
+    "link": "the architecture notes",
+    "p2": ", or use `data-theme-style` on the root element.",
+    "li1": "One call site, many looks",
+    "li2": "No style hooks — no per-page patches",
+    "li3": "Dark mode comes with the skin",
+    "quote": "Consistency is a property of the system, not of each page.",
+    "tokens": "Tokens",
+    "name": "Name",
+    "usedFor": "Used for",
+    "radius": "Corner radius",
+    "ring": "Focus ring"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `typography.css`: the type scale, colour semantics, inline styles, truncation and buttons, and the typography of native elements inside the Typography container.",
+    "hook": "Hook",
+    "text": "`data-tone`, `data-disabled`; when truncating `data-ellipsis` / `data-rows`, `data-truncated` while truncated and `data-expanded` while expanded",
+    "parts": "The text itself (truncation applies to it); the copy button (`data-copied` after copying); the expand / collapse button",
+    "container": "The content container; its h1–h6, p, ul / ol, blockquote, code, pre, a, hr and table are styled per element by the theme style"
+  }
+}

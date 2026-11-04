@@ -1,0 +1,19 @@
+{
+  "lead": "A guided tour: it highlights one element of the page at a time, with a description card beside it and next / previous / finish. Esc or the × in the top right closes it; the card flips to the other side when it doesn't fit, and the highlight follows the target when it scrolls or the page resizes.",
+  "usage": { "title": "Usage" },
+  "intro": { "title": "Centered intro" },
+  "no-mask": { "title": "Without mask" },
+  "controlled": { "title": "Controlled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `tour.css`; the card's shell comes from `popover.css`.",
+    "hook": "Hook",
+    "root": "Root of the mask layer (under `body`). The target's rectangle is written to its `--tour-x` / `--tour-y` / `--tour-w` / `--tour-h` (pixels, unitless); `data-ready` once placed, `data-no-target` when the step has no target",
+    "mask": "The full-screen layer that blocks clicks; the highlight box that follows the target (a huge `box-shadow` dims everything around it)",
+    "center": "A step without a target: a full-screen centering container holding the card",
+    "card": "The description card; its shell (background, shadow, arrow) is the theme style's popover",
+    "parts": "Close button, cover, title, description",
+    "footer": "The footer; the progress (the current dot has `data-active`); the buttons"
+  }
+}

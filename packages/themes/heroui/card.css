@@ -1,0 +1,77 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Card: three variants outline / filled / elevated, padding 1rem. */
+  [data-theme-style="heroui"] [data-slot="card"] {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: calc(0.75rem * var(--ui-density));
+    padding: calc(1rem * var(--ui-density));
+    border: 0 solid transparent;
+    border-radius: var(--_r, var(--ui-r-surface));
+    background-color: var(--ui-surface);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-variant="outline"] {
+    border-color: transparent;
+    box-shadow: var(--ui-field-shadow);
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-variant="filled"] {
+    border-color: transparent;
+    /* Official secondary background (closer to surface than neutral-soft) */
+    background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 75%, var(--ui-surface));
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-variant="elevated"] {
+    border-color: transparent;
+    box-shadow: var(--ui-overlay-shadow);
+  }
+  [data-theme-style="heroui"] [data-slot="card-header"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="card-title"] {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="card-description"] {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="heroui"] [data-slot="card-body"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: calc(0.25rem * var(--ui-density));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="heroui"] [data-slot="card-footer"] {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--ui-density));
+  }
+
+  [data-theme-style="heroui"] [data-slot="card"][data-radius="none"] {
+    --_r: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-radius="sm"] {
+    --_r: var(--ui-radius-sm);
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-radius="md"] {
+    --_r: var(--ui-radius-md);
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-radius="lg"] {
+    --_r: var(--ui-radius-lg);
+  }
+  [data-theme-style="heroui"] [data-slot="card"][data-radius="full"] {
+    --_r: var(--ui-radius-full);
+  }
+}

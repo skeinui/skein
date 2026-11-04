@@ -1,0 +1,61 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* ScrollShadow: native scrolling; when it can still scroll in a direction the edge on that side fades out with a mask (the component writes data-shadow-start / data-shadow-end and --ss-size) */
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"] {
+    --_start: 0px;
+    --_end: 0px;
+    box-sizing: border-box;
+    max-width: 100%;
+    max-height: 100%;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"][data-orientation="vertical"] {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      black var(--_start),
+      black calc(100% - var(--_end)),
+      transparent 100%
+    );
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"][data-orientation="horizontal"] {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      black var(--_start),
+      black calc(100% - var(--_end)),
+      transparent 100%
+    );
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"][data-shadow-start] {
+    --_start: var(--ss-size, 40px);
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"][data-shadow-end] {
+    --_end: var(--ss-size, 40px);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="scroll-shadow"][data-orientation="horizontal"]
+    [data-slot="scroll-shadow-content"] {
+    width: max-content;
+    min-width: 100%;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"][data-scrollbar="hidden"] {
+    scrollbar-width: none;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="scroll-shadow"][data-scrollbar="hidden"]::-webkit-scrollbar {
+    display: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="scroll-shadow"]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: -2px;
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "lead": "复选框，行为来自 Base UI 的 Checkbox。结构是 `<label>` 包住「控件 + 文字」，状态都在控件上，主题风格用 `:has()` 让整个标签跟着变。示例参照 HeroUI 文档的 Checkbox 和 CheckboxGroup 页。",
+  "usage": { "title": "用法" },
+  "default-selected": { "title": "默认选中" },
+  "indeterminate": { "title": "半选" },
+  "disabled": { "title": "禁用" },
+  "with-description": { "title": "带说明" },
+  "controlled": { "title": "受控" },
+  "invalid": { "title": "无效" },
+  "variants": {
+    "title": "变体",
+    "description": "`outline` 对应 HeroUI v3 的 primary，`filled` 对应 secondary。"
+  },
+  "checkbox-group": { "title": "复选框组" },
+  "select-all": {
+    "title": "全选",
+    "description": "父级用 `indeterminate` 表示部分选中，选中集合由自己维护。"
+  },
+  "in-field": {
+    "title": "放进 Field",
+    "description": "放进 [Field](/field) 后，无效状态由 Field 的校验决定。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `checkbox.css` 里处理。勾和横线是组件里的两个 svg，哪个显示、怎么动画都由主题风格决定。",
+    "hook": "钩子",
+    "slot": "结构钩子。`checkbox` 是外层 `<label>`，`checkbox-control` 是真正的控件",
+    "variant": "写在 `checkbox`（label）上",
+    "states": "状态钩子，写在 `checkbox-control` 和 `checkbox-indicator` 上；整个 label 的变化（比如禁用时变暗）由主题风格用 `:has()` 读取",
+    "orientation": "CheckboxGroup 的方向"
+  },
+  "props": {
+    "Checkbox": {
+      "children": "标签文字，放在控件右边。",
+      "description": "标签下面的说明，点它同样会切换。",
+      "invalid": "不在 Field 里时手动标记无效；放进 Field 时由 Field 的校验状态决定。",
+      "variant": "控件底色：`outline` 是白底加阴影，`filled` 是灰底（HeroUI v3 的 primary / secondary）。",
+      "checked": "复选框当前是否勾选。要做非受控的复选框，改用 `defaultChecked`。",
+      "defaultChecked": "复选框初始是否勾选。要做受控的复选框，改用 `checked`。",
+      "disabled": "是否忽略用户交互。",
+      "form": "隐藏 input 所属表单的标识。复选框渲染在表单外面时有用。",
+      "id": "input 元素的 id。",
+      "indeterminate": "复选框是否处于混合状态：既不是勾选，也不是未勾选。",
+      "inputRef": "用来访问隐藏 `<input>` 元素的 ref。",
+      "name": "表单提交时标识这个字段。",
+      "nativeButton": "用 `render` 替换元素时，组件是否渲染为原生 `<button>`。渲染的元素是原生按钮时设为 `true`。",
+      "onCheckedChange": "复选框勾选或取消勾选时调用的事件处理函数。",
+      "parent": "复选框是否控制一组子复选框。必须放在 [Checkbox Group](https://base-ui.com/react/components/checkbox-group) 里使用。",
+      "readOnly": "用户是否不能勾选或取消勾选。",
+      "required": "提交表单前是否必须勾选。",
+      "uncheckedValue": "未勾选时随表单提交的值。默认未勾选的复选框不提交任何值，与原生复选框一致。",
+      "value": "复选框的值。在 [Checkbox Group](https://base-ui.com/react/components/checkbox-group) 里用来标识它，省略时退回到 `name`。提交表单时，勾选的复选框提交 `value`；没有 `value` 时提交原生的 \"on\"。"
+    },
+    "CheckboxGroup": {
+      "orientation": "复选框的排列方向。",
+      "allValues": "组内所有复选框的名称。做父级（全选）复选框时使用。",
+      "defaultValue": "组内初始勾选的复选框名称。要做受控的复选框组，改用 `value`。",
+      "disabled": "是否忽略用户交互。",
+      "onValueChange": "组内有复选框勾选或取消勾选时调用的事件处理函数，参数是新的值。",
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。",
+      "value": "组内应当勾选的复选框名称。要做非受控的复选框组，改用 `defaultValue`。"
+    }
+  }
+}

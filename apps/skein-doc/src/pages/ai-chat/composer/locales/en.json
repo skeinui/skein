@@ -1,0 +1,64 @@
+{
+  "lead": "The input area of an AI chat: a rounded shell holding attachments, a textarea that grows with its content, and a toolbar. Enter submits and Shift + Enter inserts a newline, an Enter while an input method is composing doesn't send, and the send button becomes a stop button while the reply is generated.",
+  "usage": {
+    "title": "Usage",
+    "placeholder": "What do you want to know?",
+    "footer": "AI can make mistakes. Check important info."
+  },
+  "streaming": {
+    "title": "Send and stop",
+    "description": "With `status=\"streaming\"` the send button becomes a stop button, and Enter can't submit either.",
+    "placeholder": "Send a message, then stop it",
+    "idle": "Nothing sent yet.",
+    "answering": "Answering “{text}”…",
+    "done": "Done.",
+    "stopped": "Stopped."
+  },
+  "attachments": {
+    "title": "Attachments and actions",
+    "description": "Attachments go in `Composer.Attachments`; when a message with attachments but no text may be sent, compute `canSubmit` yourself.",
+    "group": "Files to send",
+    "placeholder": "Ask about the attachments",
+    "attach": "Attach file"
+  },
+  "triggers": {
+    "title": "Mentions and commands",
+    "description": "`triggers`: type `@` to pick a person, `/` to pick a command. The candidates appear above the caret; while the list is open Enter selects, and only once it is closed does Enter submit.",
+    "placeholder": "Type @ to mention, / for commands",
+    "summarize": "Summarize this chat",
+    "translate": "Translate to English",
+    "sent": "Sent: {text}",
+    "picked": "Picked {text}",
+    "none": "Nothing yet."
+  },
+  "submit-on": {
+    "title": "Submit shortcut",
+    "description": "`mod-enter`: Enter inserts a newline and ⌘ / Ctrl + Enter submits (common for long text).",
+    "placeholder": "Press ⌘/Ctrl + Enter to send"
+  },
+  "api": {
+    "title": "API Reference",
+    "part": "Part",
+    "parts": {
+      "Composer": "Root (`form`): holds the value and the status, and submits",
+      "Shell": "The rounded shell; clicking an empty spot inside focuses the textarea",
+      "Attachments": "The row above the textarea, for the attachments to send",
+      "TextArea": "Grows with its content up to `maxRows`, then scrolls inside; Enter while an input method is composing doesn't send",
+      "Toolbar": "The toolbar below the textarea, with a start and an end group",
+      "Action": "An icon button in the toolbar (a small, muted Button); `aria-label` is required and it doesn't submit the form",
+      "Send": "Send button: a submit button when idle (disabled with nothing to send), a stop button while streaming; its name follows the status",
+      "Footer": "A line of small print below the shell"
+    },
+    "element": "Element"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "`form` root; `data-status` / `data-disabled`",
+    "shell": "The shell (outlined when focused)",
+    "attachments": "The attachments row",
+    "textarea": "The textarea (its height is measured and set by the component)",
+    "toolbar": "The toolbar and its two groups",
+    "footer": "The small print below the shell"
+  }
+}

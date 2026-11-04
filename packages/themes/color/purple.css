@@ -1,0 +1,31 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * Purple theme: only changes the primary color and leaves form alone, so it works on any theme style.
+ * The theme lives in the ui-color layer, which comes after ui-tokens in layer order, so it overrides the theme style's values regardless of selector specificity.
+ */
+@layer ui-color {
+  [data-theme-color~="purple"] {
+    --ui-ring: #8b5cf6;
+
+    --ui-c-primary: #7c3aed;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #ede9fe;
+    --ui-c-primary-text: #6d28d9;
+    --ui-c-primary-hover: color-mix(in oklab, var(--ui-c-primary) 90%, var(--ui-c-primary-fg) 10%);
+    --ui-c-primary-active: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-c-primary-fg) 20%);
+    --ui-c-primary-border: color-mix(in oklab, var(--ui-c-primary) 40%, transparent);
+  }
+
+  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-theme-color~="purple"][data-mode="dark"],
+  [data-mode="dark"] [data-theme-color~="purple"],
+  [data-theme-color~="purple"] [data-mode="dark"] {
+    --ui-ring: #a78bfa;
+
+    --ui-c-primary: #8b5cf6;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #2e1065;
+    --ui-c-primary-text: #c4b5fd;
+  }
+}

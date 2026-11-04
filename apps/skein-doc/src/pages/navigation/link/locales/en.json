@@ -1,0 +1,15 @@
+{
+  "lead": "A text link. To use a router, call its navigation in `onClick`, or wrap the router library's Link around it.",
+  "usage": { "title": "Usage" },
+  "variants": { "title": "Variants" },
+  "colors": { "title": "Colors" },
+  "external": { "title": "External" },
+  "disabled": { "title": "Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles style this hook in `link.css`.",
+    "hook": "Hook",
+    "link": "The `<a>`, with `data-variant` / `data-color` / `data-external` / `data-disabled`"
+  }
+}

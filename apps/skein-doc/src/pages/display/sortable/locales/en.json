@@ -1,0 +1,30 @@
+{
+  "lead": "A sortable list: drag the handle to move an item; with the keyboard, Space picks it up, the arrow keys move it, Space drops it and Esc cancels, and screen readers announce every step. The caller owns the order: the library only tells you which item moved from where to where.",
+  "basic": { "title": "Basic" },
+  "horizontal": { "title": "Horizontal" },
+  "rich": { "title": "Rich content and disabled" },
+  "demo": {
+    "list": "Tasks",
+    "design": "Design review",
+    "build": "Build the feature",
+    "test": "Write tests",
+    "ship": "Ship it",
+    "done": "done",
+    "progress": "in progress",
+    "pinned": "Release 2.0 (pinned)"
+  },
+  "api": { "title": "API Reference" },
+  "helpers": {
+    "title": "Helpers",
+    "name": "Function",
+    "arrayMove": "Moves one item to a new position and returns a new array (the original is not modified)"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The outer box and the list; `data-orientation`; `sortable` gets `data-dragging` during a drag",
+    "item": "`data-dragging` (`--sort-offset` follows the pointer) / `data-grabbed` (picked up with the keyboard) / `data-drop=before|after` (drop position) / `data-disabled`",
+    "handle": "The drag handle (`aria-pressed`) and the content",
+    "status": "The instructions and announcements for screen readers, visually hidden"
+  }
+}

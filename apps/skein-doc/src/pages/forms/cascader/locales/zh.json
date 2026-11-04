@@ -1,0 +1,63 @@
+{
+  "lead": "级联选择：触发器像 Select，点开是并排的多列菜单，值是一条路径。键盘上下移动、右键进下一列、左键退回、回车选中。",
+  "usage": { "title": "用法" },
+  "controlled": { "title": "受控", "path": "路径：", "none": "无" },
+  "hover": { "title": "悬停展开" },
+  "change-on-select": {
+    "title": "选中即提交",
+    "description": "点中任何一级都会提交，不必走到最后一级。"
+  },
+  "multiple": {
+    "title": "多选",
+    "description": "勾父节点会连带它下面所有可用的叶子；触发器里每条路径一个可删除的标签，`maxTagCount` 可以折叠多出来的。"
+  },
+  "search": {
+    "title": "可搜索",
+    "description": "输入后列表变成匹配的完整路径，键盘上用向下键从搜索框进入结果。"
+  },
+  "async": {
+    "title": "异步加载",
+    "description": "选项标 `lazy`，第一次展开时才去取下一级，期间箭头换成转圈；名字带 leaf 的取回来是空的，会变成叶子。"
+  },
+  "clearable": { "title": "可清除" },
+  "variants": { "title": "变体与尺寸" },
+  "invalid": { "title": "校验失败与禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `cascader.css` 里处理，触发器的外观直接取自各主题风格的 Select 触发器。",
+    "hook": "钩子",
+    "trigger": "触发器的外观取自本主题风格的 Select 触发器；占位时 `cascader-value` 带 `data-placeholder`，浮层打开时触发器带 `data-popup-open`",
+    "clear": "清除按钮，有值且 `clearable` 时出现",
+    "tags": "多选时触发器里的标签区（触发器带 `data-multiple`，里面是 Tag 组件）",
+    "search": "浮层顶部的搜索框，和下面并排的各列；搜索时面板带 `data-searching`",
+    "check": "多选的复选框，和异步加载时换掉箭头的转圈（选项带 `data-loading`）",
+    "panel": "浮层里并排的各列，菜单上 `data-level` 是第几列（从 0 开始）",
+    "option": "选项：当前展开的 `data-active`、已选路径上的 `data-selected`、有下一级的 `data-has-children`、禁用的 `data-disabled`",
+    "empty": "没有选项时的空状态"
+  },
+  "props": {
+    "Cascader": {
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "changeOnSelect": "单选时允许选中非叶子节点（点中即提交，不必走到最后一级）。",
+      "clearable": "有值时显示清除按钮。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "emptyText": "没有选项（或搜索无结果）时的文字；默认取语言包的「No data」。",
+      "expandTrigger": "点击展开，或鼠标移上去就展开。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示校验失败状态。",
+      "multiple": "多选：每个选项前有复选框，勾父节点连带它下面所有可用的叶子，`value` 变成叶子路径的数组。",
+      "onLoadChildren": "展开一个 `lazy` 且还没有子节点的选项时调用，参数是到它为止的路径。返回 Promise 时，加载期间该选项显示转圈；拿到数据后由使用方更新 options（补上 children，没有子节点就去掉 lazy）。",
+      "onValueChange": "`value` 变化时以新值调用；同时传 `value` 即为受控。",
+      "options": "选项树（`CascaderOption`：`value`、`label`、嵌套的 `children`，异步加载用 `lazy`），每一级一列。",
+      "placeholder": "没有值时的占位文字；默认取语言包的「Select」。",
+      "searchable": "浮层顶部显示搜索框：输入后列表变成匹配的完整路径。",
+      "searchPlaceholder": "`searchable` 时搜索框的占位文字（也是它的无障碍名称）；默认取语言包的「Search」。",
+      "separator": "触发器里路径各级之间的分隔符。",
+      "size": "尺寸档位。",
+      "value": "选中的路径：从第一级到最后一级的 value 数组。多选时是选中的叶子路径数组。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

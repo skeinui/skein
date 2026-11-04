@@ -1,0 +1,5 @@
+{
+  "description": "TanStack Query + a fetch wrapper",
+  "dependencies": { "@tanstack/react-query": "^5.90.0" },
+  "requires": []
+}

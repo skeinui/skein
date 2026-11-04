@@ -1,0 +1,22 @@
+{
+  "lead": "A keyboard key hint, such as ⌘ K.",
+  "usage": { "title": "Usage" },
+  "group": {
+    "title": "Group",
+    "description": "`Kbd.Group` lays out a key combination with spacing between the keys."
+  },
+  "sizes": { "title": "Sizes" },
+  "inline": {
+    "title": "Inline",
+    "description": "Keys sit inside running text.",
+    "before": "Press",
+    "after": "to search."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `kbd.css`; the font is `--ui-font-mono`.",
+    "hook": "Hook",
+    "slot": "A key cap and a group of keys"
+  }
+}

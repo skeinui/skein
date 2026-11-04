@@ -1,0 +1,55 @@
+{
+  "lead": "The assistant's reasoning: a collapsible region whose trigger is one sentence (\"Thought for 4s\") and which expands into a vertical timeline of steps. While streaming, the trigger text shimmers, and each step can be marked done / in progress / not started.",
+  "usage": {
+    "title": "Usage",
+    "trigger": "Thought for 2s",
+    "explore": "Explore",
+    "exploreText": "Read layout and globals.",
+    "plan": "Plan",
+    "planText": "Add a sidebar slot to the layout."
+  },
+  "streaming": {
+    "title": "Streaming",
+    "description": "With `streaming` the trigger shimmers; the steps come in one by one and the last one is `active`.",
+    "thinking": "Thinking…",
+    "done": "Thought for 5s",
+    "replay": "Replay",
+    "understand": "Understand",
+    "understandText": "The user asks how to validate a form on submit.",
+    "explore": "Explore",
+    "exploreText": "Read the existing form components and their validation hooks.",
+    "plan": "Plan",
+    "planText": "Use a schema, validate on submit, show errors inline.",
+    "write": "Write",
+    "writeText": "Drafting the answer with a short code sample…"
+  },
+  "status": {
+    "title": "Step status",
+    "trigger": "Working on it",
+    "search": "Search",
+    "searchText": "Found 3 relevant documents.",
+    "summarize": "Summarize",
+    "summarizeText": "Reading the first document…",
+    "answer": "Answer",
+    "answerText": "Not started yet."
+  },
+  "api": {
+    "title": "API Reference",
+    "root": "The root takes the open state of Base UI's Collapsible: `defaultOpen` uncontrolled, or `open` + `onOpenChange` controlled.",
+    "trigger": "The trigger (`button`): one sentence plus an expand arrow; the text shimmers only when it is a string.",
+    "content": "The expanded panel (`div`).",
+    "steps": "The vertical timeline of steps (`ol`), with no props of its own.",
+    "step": "One step (`li`): `label` is its title; `status` sets the dot: `done` filled, `active` pulsing (with `aria-current=\"step\"`), `pending` hollow."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root element; `data-open` / `data-streaming`",
+    "trigger": "The trigger; `data-panel-open` when expanded",
+    "icon": "The expand arrow (flipped when expanded)",
+    "panel": "The expanded panel (its height animation reads `--collapsible-panel-height`) and the content inside it",
+    "steps": "The list of steps",
+    "step": "One step; `data-status`",
+    "stepParts": "A step's title and content"
+  }
+}

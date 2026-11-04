@@ -1,0 +1,97 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Pagination: the summary is on the left, and on the right are the page info, paging buttons and page size; the buttons themselves use Button's theme style. */
+  [data-theme-style="antd"] [data-slot="pagination"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    width: 100%;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5714;
+  }
+  [data-theme-style="antd"] [data-slot="pagination-info"] {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="pagination-controls"] {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="pagination-page-info"] {
+    color: var(--ui-fg);
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="pagination-nav"],
+  [data-theme-style="antd"] [data-slot="pagination-pages"] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="pagination-ellipsis"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--ui-height-md);
+    height: var(--ui-height-md);
+    color: color-mix(in srgb, var(--ui-fg) 28%, transparent);
+    user-select: none;
+  }
+  [data-theme-style="antd"]
+    [data-slot="pagination"][data-size="sm"]
+    [data-slot="pagination-ellipsis"] {
+    min-width: var(--ui-height-sm);
+    height: var(--ui-height-sm);
+  }
+  [data-theme-style="antd"]
+    [data-slot="pagination"][data-size="lg"]
+    [data-slot="pagination-ellipsis"] {
+    min-width: var(--ui-height-lg);
+    height: var(--ui-height-lg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="pagination"][data-variant="pages"]
+    [data-slot="pagination-controls"] {
+    gap: 0.5rem 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="pagination-size"] {
+    display: inline-flex;
+    color: var(--ui-fg);
+  }
+
+  /* Official current page: container background + primary stroke + primary text (not solid primary), and on hover the stroke and text change to the primary hover color */
+  [data-theme-style="antd"] [data-slot="pagination"] [data-slot="button"][aria-current="page"] {
+    --_bg: var(--ui-bg);
+    --_bg-hover: var(--ui-bg);
+    --_bg-active: var(--ui-bg);
+    --_fg: var(--ui-c-primary-text);
+    --_bd: var(--ui-c-primary);
+    --_shadow: 0 0 0 0 transparent;
+  }
+  [data-theme-style="antd"]
+    [data-slot="pagination"]
+    [data-slot="button"][aria-current="page"]:hover:not([data-disabled]) {
+    border-color: var(--ui-c-primary-hover);
+    color: var(--ui-c-primary-hover);
+  }
+
+  /* Official page-item hover is colorBgTextHover: in light 6% black (0.88 fg takes 6.8%), darker than a text button's 4% */
+  [data-theme-style="antd"] [data-slot="pagination"] [data-slot="button"][data-color="neutral"] {
+    --_ghost-hover: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
+  }
+  /* Official page-item hover is colorBgTextHover (12% white in dark), brighter than a text button's 8% */
+  [data-theme-style="antd"][data-mode="dark"]
+    [data-slot="pagination"]
+    [data-slot="button"][data-color="neutral"],
+  [data-theme-style="antd"]
+    [data-mode="dark"]
+    [data-slot="pagination"]
+    [data-slot="button"][data-color="neutral"] {
+    --_ghost-hover: var(--ui-fill-secondary);
+  }
+}

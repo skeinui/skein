@@ -1,0 +1,94 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* BorderBeam: a decorative flowing light along the border. The layer is an SVG covering the container, where each beam is a series of small segments running along the rounded-rectangle border
+     (stroke-dash, path normalized with pathLength=1000), with color / opacity changing segment by segment and start times staggered segment by segment, so the tail can bend around corners.
+     All values are --bb-* variables written by the component */
+  [data-theme-style="shadcn"] [data-slot="border-beam"] {
+    --_r: var(--ui-radius-lg);
+    position: relative;
+    display: block;
+    border-radius: var(--_r);
+  }
+  /* fit: sized to the content, not stretched by flex / grid (otherwise the beam is drawn on the stretched container, away from the content's border) */
+  [data-theme-style="shadcn"] [data-slot="border-beam"][data-fit] {
+    display: inline-block;
+    align-self: flex-start;
+    justify-self: start;
+    width: fit-content;
+    max-width: 100%;
+    vertical-align: top;
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam"][data-radius="none"] {
+    --_r: 0px;
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam"][data-radius="sm"] {
+    --_r: var(--ui-radius-sm);
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam"][data-radius="md"] {
+    --_r: var(--ui-radius-md);
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam"][data-radius="lg"] {
+    --_r: var(--ui-radius-lg);
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam"][data-radius="full"] {
+    --_r: var(--ui-radius-full);
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam-layer"] {
+    position: absolute;
+    top: calc(var(--bb-outset, 0px) * -1);
+    left: calc(var(--bb-outset, 0px) * -1);
+    width: calc(100% + var(--bb-outset, 0px) * 2);
+    height: calc(100% + var(--bb-outset, 0px) * 2);
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="border-beam-beam"] {
+    x: calc(var(--bb-line, 1px) / 2);
+    y: calc(var(--bb-line, 1px) / 2);
+    width: calc(100% - var(--bb-line, 1px));
+    height: calc(100% - var(--bb-line, 1px));
+    rx: max(0px, calc(var(--bb-r, var(--_r)) + var(--bb-outset, 0px) - var(--bb-line, 1px) / 2));
+    ry: max(0px, calc(var(--bb-r, var(--_r)) + var(--bb-outset, 0px) - var(--bb-line, 1px) / 2));
+    fill: none;
+    stroke: var(--bb-c, var(--ui-c-primary));
+    stroke-opacity: var(--bb-o, 1);
+    stroke-width: var(--bb-line, 1px);
+    stroke-dasharray: var(--bb-seg, 20) calc(1000 - var(--bb-seg, 20));
+    stroke-dashoffset: 0;
+    animation: ui-border-beam-shadcn var(--bb-duration, 6s) linear infinite;
+    /* The i-th beam is evenly offset by i / count of a full loop; the k-th segment starts k segment-lengths later than the head, i.e. it trails behind */
+    animation-delay: calc(
+      var(--bb-duration, 6s) *
+        (var(--bb-k, 0) * var(--bb-segfrac, 0.01) - var(--bb-i, 0) / var(--bb-count, 1))
+    );
+  }
+  @keyframes ui-border-beam-shadcn {
+    to {
+      stroke-dashoffset: -1000;
+    }
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="border-beam"][data-trigger="always"]
+    [data-slot="border-beam-layer"] {
+    opacity: 1;
+  }
+  /* Shown only when hover / focus enters */
+  [data-theme-style="shadcn"]
+    [data-slot="border-beam"][data-trigger="hover"]
+    [data-slot="border-beam-layer"] {
+    opacity: 0;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="border-beam"][data-trigger="hover"]:is(:hover, :focus-within)
+    [data-slot="border-beam-layer"] {
+    opacity: 1;
+  }
+  /* Purely decorative: the whole layer is hidden when the system requests reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="border-beam-layer"] {
+      display: none;
+    }
+  }
+}

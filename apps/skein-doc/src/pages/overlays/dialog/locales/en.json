@@ -1,0 +1,25 @@
+{
+  "lead": "A modal dialog. Focus trapping, closing on Esc and the background scroll lock come from Base UI's Dialog.",
+  "usage": { "title": "Usage" },
+  "sizes": {
+    "title": "Sizes",
+    "body": "Width step {size}; the actual width comes from the theme style."
+  },
+  "controlled": { "title": "Controlled", "body": "The state is held outside the dialog." },
+  "no-close-button": {
+    "title": "Without Close Button",
+    "body": "Close it with the button below or with Esc."
+  },
+  "scrolling": { "title": "Scrolling Content" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle these in `dialog.css`. The dialog renders in a portal, so `data-theme-style` must be on `<html>` or `<body>`, not on a local container.",
+    "hook": "Hook",
+    "backdrop": "Full-screen backdrop, its colour from `--ui-backdrop`",
+    "viewport": "Fixed-position scroll container that centres the dialog",
+    "dialog": "The dialog itself; `data-size` sets its max width",
+    "parts": "Structural parts",
+    "close": "Close button in the top right"
+  }
+}

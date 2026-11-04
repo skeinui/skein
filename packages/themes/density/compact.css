@@ -1,0 +1,11 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * Compact theme: corresponds to Ant Design's compactAlgorithm, multiplying control heights by 0.875 (32 → 28, 24 → 21, 40 → 35).
+ * Only changes density and leaves colors alone, so it can be combined with a color theme: data-theme-density="compact".
+ */
+@layer ui-color {
+  [data-theme-density="compact"] {
+    --ui-density: 0.875;
+  }
+}

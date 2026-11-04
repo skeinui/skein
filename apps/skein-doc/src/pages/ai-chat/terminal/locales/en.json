@@ -1,0 +1,27 @@
+{
+  "lead": "Command output: a dark terminal panel with the title, the status (running / done / failed + exit code) and a copy button in its header, and the output below. It understands ANSI colors and styles, follows new output while running if you are at the bottom, and copies plain text with the escape sequences removed.",
+  "usage": { "title": "Usage" },
+  "streaming": {
+    "title": "Streaming",
+    "description": "Append the output line by line with `status=\"running\"`, then switch to `done` when it finishes.",
+    "replay": "Replay"
+  },
+  "failed": { "title": "Failed" },
+  "api": {
+    "title": "API Reference",
+    "helpers": "Helpers, also exported for your own use:",
+    "function": "Function",
+    "ansi": "Parses the output into lines of styled segments (color, bold…) / returns the plain text with every escape sequence removed"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "terminal": "Panel root (dark in both light and dark mode); `data-status`",
+    "header": "Header and title",
+    "status": "Status (`data-status`: running / done / error)",
+    "copy": "Copy button; `data-copied` right after a successful copy",
+    "output": "Output area (`pre`, `role=region`, focusable); its height limit reads `--term-lines`",
+    "line": "A line, and the `$` before the command line",
+    "text": "A styled segment: `data-fg` / `data-bg` (colors 0–15), `data-bold`, `data-dim`, `data-italic`, `data-underline`, `data-inverse`"
+  }
+}

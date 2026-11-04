@@ -1,0 +1,252 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Tabs: underline / solid (solid slider) / soft (light slider). The indicator position comes from the --active-tab-* variables written by Base UI. */
+  [data-theme-style="antd"] [data-slot="tabs"][data-color="neutral"] {
+    --_c: var(--ui-c-neutral);
+    --_c-fg: var(--ui-c-neutral-fg);
+    --_c-soft: var(--ui-c-neutral-soft);
+    --_c-text: var(--ui-c-neutral-text);
+    --_c-hover: var(--ui-c-neutral-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-color="primary"] {
+    --_c: var(--ui-c-primary);
+    --_c-fg: var(--ui-c-primary-fg);
+    --_c-soft: var(--ui-c-primary-soft);
+    --_c-text: var(--ui-c-primary-text);
+    --_c-hover: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary);
+    --_c-fg: var(--ui-c-secondary-fg);
+    --_c-soft: var(--ui-c-secondary-soft);
+    --_c-text: var(--ui-c-secondary-text);
+    --_c-hover: var(--ui-c-secondary-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-color="success"] {
+    --_c: var(--ui-c-success);
+    --_c-fg: var(--ui-c-success-fg);
+    --_c-soft: var(--ui-c-success-soft);
+    --_c-text: var(--ui-c-success-text);
+    --_c-hover: var(--ui-c-success-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-color="warning"] {
+    --_c: var(--ui-c-warning);
+    --_c-fg: var(--ui-c-warning-fg);
+    --_c-soft: var(--ui-c-warning-soft);
+    --_c-text: var(--ui-c-warning-text);
+    --_c-hover: var(--ui-c-warning-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-color="danger"] {
+    --_c: var(--ui-c-danger);
+    --_c-fg: var(--ui-c-danger-fg);
+    --_c-soft: var(--ui-c-danger-soft);
+    --_c-text: var(--ui-c-danger-text);
+    --_c-hover: var(--ui-c-danger-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"] {
+    display: flex;
+    flex-direction: column;
+    gap: calc(1rem * var(--ui-density));
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-orientation="vertical"] {
+    flex-direction: row;
+  }
+  [data-theme-style="antd"] [data-slot="tabs-list"] {
+    position: relative;
+    z-index: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: calc(2rem * var(--ui-density));
+    box-sizing: border-box;
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-orientation="vertical"]
+    [data-slot="tabs-list"] {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-full-width] [data-slot="tabs-list"] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-full-width] [data-slot="tabs-tab"] {
+    flex: 1;
+  }
+  [data-theme-style="antd"] [data-slot="tabs-tab"] {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: auto;
+    padding: calc(0.75rem * var(--ui-density)) 0;
+    line-height: 1.5714;
+    border: 0;
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 400;
+    white-space: nowrap;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      color 300ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="tabs-tab"]:hover:not([data-active], [data-disabled]) {
+    color: var(--_c-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs-tab"][data-active] {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="tabs-tab"]:focus-visible {
+    outline: 3px solid var(--ui-c-primary-border);
+    outline-offset: 1px;
+  }
+  [data-theme-style="antd"] [data-slot="tabs-tab"][data-disabled] {
+    color: var(--ui-field-placeholder);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-size="sm"] [data-slot="tabs-tab"] {
+    height: auto;
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-size="lg"] [data-slot="tabs-tab"] {
+    height: auto;
+    font-size: 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="tabs-indicator"] {
+    position: absolute;
+    z-index: 0;
+    left: var(--active-tab-left);
+    top: var(--active-tab-top);
+    width: var(--active-tab-width);
+    height: var(--active-tab-height);
+    pointer-events: none;
+    transition:
+      left 300ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      top 300ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      width 300ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      height 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  /* underline: a thin line under the whole list, and a primary line under the selected item */
+  [data-theme-style="antd"] [data-slot="tabs"][data-variant="underline"] [data-slot="tabs-list"] {
+    border-bottom: 1px solid
+      var(--ui-border-secondary, color-mix(in srgb, var(--ui-fg) 6%, transparent));
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-orientation="vertical"][data-variant="underline"]
+    [data-slot="tabs-list"] {
+    border-bottom: 0;
+    border-inline-end: 1px solid
+      var(--ui-border-secondary, color-mix(in srgb, var(--ui-fg) 6%, transparent));
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-variant="underline"]
+    [data-slot="tabs-tab"][data-active] {
+    color: var(--_c);
+    text-shadow: 0 0 0.25px currentcolor;
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-variant="underline"]
+    [data-slot="tabs-tab"]:not([data-active], [data-disabled]) {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-variant="underline"]
+    [data-slot="tabs-tab"]:hover:not([data-active], [data-disabled]) {
+    color: var(--_c-hover);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-variant="underline"] [data-slot="tabs-tab"] {
+    border-radius: 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-variant="underline"]
+    [data-slot="tabs-indicator"] {
+    top: auto;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--_c);
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-orientation="vertical"][data-variant="underline"]
+    [data-slot="tabs-indicator"] {
+    top: var(--active-tab-top);
+    bottom: auto;
+    left: auto;
+    right: 0;
+    width: 2px;
+    height: var(--active-tab-height);
+  }
+
+  /* solid / soft: the whole list has a light background, and a block slides under the selected item */
+  [data-theme-style="antd"]
+    [data-slot="tabs"]:is([data-variant="solid"], [data-variant="soft"])
+    [data-slot="tabs-list"] {
+    padding: 0;
+    border-radius: 0;
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"]:is([data-variant="solid"], [data-variant="soft"])
+    [data-slot="tabs-indicator"] {
+    border-radius: var(--ui-radius-md);
+  }
+
+  /* antd's underline tabs are text with no padding, while the slider variants need their own padding and height */
+  [data-theme-style="antd"]
+    [data-slot="tabs"]:is([data-variant="solid"], [data-variant="soft"])
+    [data-slot="tabs-list"] {
+    gap: 0;
+    padding: 2px;
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"]:is([data-variant="solid"], [data-variant="soft"])
+    [data-slot="tabs-tab"] {
+    height: 28px;
+    padding: 0 calc(12px * var(--ui-density));
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-variant="solid"] [data-slot="tabs-indicator"] {
+    background-color: var(--_c);
+    box-shadow: var(--ui-field-shadow);
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-variant="solid"]
+    [data-slot="tabs-tab"][data-active] {
+    color: var(--_c-fg);
+  }
+  [data-theme-style="antd"] [data-slot="tabs"][data-variant="soft"] [data-slot="tabs-indicator"] {
+    background-color: var(--_c-soft);
+  }
+  [data-theme-style="antd"]
+    [data-slot="tabs"][data-variant="soft"]
+    [data-slot="tabs-tab"][data-active] {
+    color: var(--_c-text);
+  }
+
+  [data-theme-style="antd"] [data-slot="tabs-panel"] {
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    outline: none;
+  }
+  [data-theme-style="antd"] [data-slot="tabs-panel"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+    border-radius: var(--ui-radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="tabs-indicator"],
+    [data-theme-style="antd"] [data-slot="tabs-tab"] {
+      transition: none;
+    }
+  }
+}

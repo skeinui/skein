@@ -1,0 +1,23 @@
+{
+  "lead": "文字链接。接入路由时在 `onClick` 里调用路由跳转，或用路由库的 Link 包一层。",
+  "usage": { "title": "用法" },
+  "variants": { "title": "变体" },
+  "colors": { "title": "颜色" },
+  "external": { "title": "外部链接" },
+  "disabled": { "title": "禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `link.css` 里处理。",
+    "hook": "钩子",
+    "link": "`<a>`；`data-variant` / `data-color` / `data-external` / `data-disabled`"
+  },
+  "props": {
+    "Link": {
+      "color": "语义色，具体颜色由主题风格决定。",
+      "disabled": "去掉 `href`，链接不可点。",
+      "external": "外部链接：在新窗口打开，带 `rel=\"noopener noreferrer\"`；主题风格可以补一个外链图标。",
+      "variant": "`default` 常驻颜色；`subtle` 平时是正文色带淡下划线，悬停才变色。"
+    }
+  }
+}

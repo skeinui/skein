@@ -1,0 +1,5 @@
+{
+  "description": "MSW mock API",
+  "devDependencies": { "msw": "^3.0.3" },
+  "requires": []
+}

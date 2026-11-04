@@ -1,0 +1,30 @@
+{
+  "lead": "Context usage: a small ring with a percentage that opens a breakdown: the total, how much is used and what it is made of. The higher the usage, the more it stands out (warning color from 70%, danger color from 90%).",
+  "usage": {
+    "title": "Usage",
+    "system": "System prompt",
+    "messages": "Messages",
+    "tools": "Tool results"
+  },
+  "levels": {
+    "title": "Levels",
+    "description": "`data-level` is ok below 70%, warn from 70% and danger from 90%; usage above 100% is drawn as 100%."
+  },
+  "composer": {
+    "title": "In a composer",
+    "placeholder": "Ask anything…"
+  },
+  "api": {
+    "title": "API Reference",
+    "formatTokens": "The `formatTokens(n)` helper used for the numbers is exported too: `12345` → `\"12.3K\"`, `128000` → `\"128K\"`. Used tokens not covered by `segments` show as \"Other\", the rest as \"Free\"."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The trigger (a button); `data-level` is ok / warn / danger (warning from 70%, danger from 90%)",
+    "ring": "The small ring (SVG), its track, the progress arc and the percentage text",
+    "popup": "The popover content, its heading and the total",
+    "bar": "The stacked bar and each segment (width from `--ctx-w`, color from `data-index`)",
+    "list": "The breakdown list: swatch, name and value (`data-free` marks the remaining row)"
+  }
+}

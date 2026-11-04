@@ -1,0 +1,148 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* NavigationMenu: a top-level row of links / triggers, the dropdown panels share one overlay, and width and height transition smoothly when switching. */
+  [data-theme-style="heroui"] [data-slot="navigation-menu"] {
+    position: relative;
+    display: inline-flex;
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-list"] {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-trigger"],
+  [data-theme-style="heroui"]
+    [data-slot="navigation-menu-item"]
+    > [data-slot="navigation-menu-link"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    box-sizing: border-box;
+    height: var(--ui-height-md);
+    padding-inline: calc(0.75rem * var(--ui-density));
+    border: 0;
+    border-radius: var(--ui-radius-md);
+    background: transparent;
+    color: var(--ui-fg);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-trigger"]:hover,
+  [data-theme-style="heroui"] [data-slot="navigation-menu-trigger"][data-popup-open],
+  [data-theme-style="heroui"]
+    [data-slot="navigation-menu-item"]
+    > [data-slot="navigation-menu-link"]:hover {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-trigger"]:focus-visible,
+  [data-theme-style="heroui"] [data-slot="navigation-menu-link"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-link"][data-active] {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-icon"] {
+    display: inline-flex;
+    color: var(--ui-fg-muted);
+    transition: rotate 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-icon"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="navigation-menu-trigger"][data-popup-open]
+    [data-slot="navigation-menu-icon"] {
+    rotate: 180deg;
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-positioner"] {
+    z-index: 100000;
+    max-width: var(--available-width);
+    transition:
+      top 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      left 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      width 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      height 250ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-popup"] {
+    box-sizing: border-box;
+    width: var(--popup-width);
+    height: var(--popup-height);
+    overflow: hidden;
+    border: 0px solid var(--ui-overlay-border);
+    border-radius: var(--ui-r-surface);
+    background-color: var(--ui-overlay-bg);
+    color: var(--ui-fg);
+    box-shadow: var(--ui-overlay-shadow);
+    transform-origin: var(--transform-origin);
+    opacity: 1;
+    transition:
+      width 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      height 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 250ms cubic-bezier(0.32, 0.72, 0, 1),
+      transform 250ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-popup"][data-starting-style],
+  [data-theme-style="heroui"] [data-slot="navigation-menu-popup"][data-ending-style] {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-viewport"] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-content"] {
+    box-sizing: border-box;
+    width: max-content;
+    min-width: 12rem;
+    padding: 0.375rem;
+    transition: opacity 250ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  [data-theme-style="heroui"] [data-slot="navigation-menu-content"][data-starting-style],
+  [data-theme-style="heroui"] [data-slot="navigation-menu-content"][data-ending-style] {
+    opacity: 0;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="navigation-menu-content"]
+    [data-slot="navigation-menu-link"] {
+    display: block;
+    min-height: 2.25rem;
+    box-sizing: border-box;
+    padding: 0.375rem 0.625rem;
+    border-radius: var(--ui-r-block);
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-decoration: none;
+    outline: none;
+    transition: background-color 150ms ease;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="navigation-menu-content"]
+    [data-slot="navigation-menu-link"]:hover {
+    background-color: var(--ui-c-neutral-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="navigation-menu-positioner"],
+    [data-theme-style="heroui"] [data-slot="navigation-menu-popup"],
+    [data-theme-style="heroui"] [data-slot="navigation-menu-content"] {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "lead": "命令面板：一个搜索框加一个按匹配度排序的命令列表，数据驱动（`items`：命令、分组、图标、快捷键提示、别名）。焦点始终留在输入框里，列表用 combobox 的方式读。`Command` 是内联版，`CommandDialog` 是弹出版（可以绑全局快捷键）。键盘：↑ ↓ 移动（首尾循环、跳过禁用项），Home / End，回车执行。",
+  "demo": {
+    "home": "前往仪表盘",
+    "files": "文件",
+    "new-file": "新建文件",
+    "open-file": "打开文件…",
+    "archive": "归档（不可用）",
+    "account": "账号",
+    "profile": "编辑资料",
+    "settings": "设置",
+    "last": "上一条命令：{key}"
+  },
+  "inline": {
+    "title": "内联",
+    "label": "命令"
+  },
+  "dialog": {
+    "title": "弹出和快捷键",
+    "description": "`hotkey=\"mod+j\"` 全局切换（这里没用 `mod+k`，避开文档站自己的搜索）；打开时焦点进输入框，Esc 关闭，关闭后焦点回到按钮。",
+    "open": "打开命令面板",
+    "press": "或在本页按",
+    "onPage": ""
+  },
+  "search": {
+    "title": "搜索和别名",
+    "description": "试试输入 add、name、仪表、新文：按「完全相同 > 开头 > 词首 > 包含 > 别名 > 字母按顺序出现」排序；没有结果显示 `emptyText`。",
+    "label": "搜索示例",
+    "empty": "没有匹配的命令。"
+  },
+  "api": {
+    "title": "API 参考",
+    "entries": "`items` 的每一项是一条命令 `{ key, label, icon?, shortcut?, keywords?, disabled?, onSelect? }`，或一个分组 `{ type: \"group\", key, label, items }`。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根、输入行（含搜索图标）、输入框（`role=combobox`）",
+    "list": "列表（`role=listbox`）、分组（`role=group`）和分组标题",
+    "item": "`data-active`（当前项）、`data-disabled`；子元素 `command-icon` / `command-label` / `command-shortcut`",
+    "empty": "没有匹配",
+    "dialog": "弹出版本的遮罩和对话框（`data-starting-style` / `data-ending-style`）"
+  },
+  "props": {
+    "Command": {
+      "aria-label": "输入框和列表的无障碍名称。",
+      "autoFocus": "打开时自动聚焦输入框（在 Dialog 里由 Dialog 管理，一般不用传）。",
+      "emptyText": "没有匹配时显示的文字。",
+      "items": "命令：普通项和 / 或 `{ type: \"group\" }` 分组。不在分组里的项排在分组前面。",
+      "onQueryChange": "用新的 `query` 调用；要受控就同时传 `query`。",
+      "onSelect": "执行命令时（回车或点击）用这一项的 key 和这一项调用；这一项自己的 `onSelect` 也会调用。",
+      "placeholder": "输入框为空时显示的文字。",
+      "query": "受控的搜索词。"
+    },
+    "CommandDialog": {
+      "aria-label": "输入框和列表的无障碍名称。",
+      "autoFocus": "打开时自动聚焦输入框（在 Dialog 里由 Dialog 管理，一般不用传）。",
+      "closeOnSelect": "选中后关闭面板。",
+      "defaultOpen": "非受控时初始的 `open`。",
+      "emptyText": "没有匹配时显示的文字。",
+      "hotkey": "切换打开 / 关闭的全局快捷键，如 `\"mod+k\"`（mod 在 Mac 是 ⌘，其他是 Ctrl）。",
+      "items": "命令：普通项和 / 或 `{ type: \"group\" }` 分组。不在分组里的项排在分组前面。",
+      "onOpenChange": "用新的 `open` 调用；要受控就同时传 `open`。",
+      "onQueryChange": "用新的 `query` 调用；要受控就同时传 `query`。",
+      "onSelect": "执行命令时（回车或点击）用这一项的 key 和这一项调用；这一项自己的 `onSelect` 也会调用。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "placeholder": "输入框为空时显示的文字。",
+      "query": "受控的搜索词。",
+      "title": "对话框的无障碍名称；默认 \"Command palette\"（取 ConfigProvider 的语言）。"
+    }
+  }
+}

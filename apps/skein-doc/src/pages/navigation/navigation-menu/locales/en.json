@@ -1,0 +1,17 @@
+{
+  "lead": "Site navigation: the top level holds links or triggers with a drop-down panel. All panels share one popup, which moves and resizes smoothly when you switch between items. The root renders the popup automatically.",
+  "usage": { "title": "Usage" },
+  "links-only": { "title": "Links Only" },
+  "api": {
+    "title": "API Reference",
+    "description": "The popup (portal + positioner + viewport) is rendered by `NavigationMenu` itself. `NavigationMenu.Trigger` comes with its own expand arrow; a `NavigationMenu.Link` in an `Item` is a top-level link, one in a `Content` a link in the panel."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles style these hooks in `navigation-menu.css`. As for every overlay, `data-theme-style` must be set on `<html>`.",
+    "hook": "Hook",
+    "navigation-menu": "The wrapper, the list and the list items",
+    "navigation-menu-trigger": "The trigger, its expand arrow and the links",
+    "navigation-menu-positioner": "The shared popup and the content; its size transitions through `--popup-width` / `--popup-height`"
+  }
+}

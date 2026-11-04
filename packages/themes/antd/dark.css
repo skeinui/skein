@@ -1,0 +1,96 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/* Values of Ant Design 6's dark algorithm (theme.darkAlgorithm). */
+@layer ui-tokens {
+  [data-theme-style="antd"][data-mode="dark"],
+  [data-theme-style="antd"] :where([data-mode="dark"]) {
+    color-scheme: dark;
+
+    /* Solid colors of colorBgContainer / colorFillQuaternary layered on the container (table header, row hover) */
+    --ui-bg: #141414;
+    --ui-surface: #1d1d1d;
+    --ui-fill-weak: #1d1d1d;
+    --ui-fill-strong: #303030;
+    /* colorFillSecondary / colorBgTextHover: progress bar track, breadcrumb hover */
+    --ui-fill-tertiary: rgb(255 255 255 / 0.08);
+    --ui-fill-secondary: rgb(255 255 255 / 0.12);
+    --ui-fg: rgb(255 255 255 / 0.85);
+    /* colorTextSecondary / colorTextTertiary / colorTextQuaternary */
+    --ui-fg-secondary: rgb(255 255 255 / 0.65);
+    --ui-fg-muted: rgb(255 255 255 / 0.45);
+    --ui-fg-quaternary: rgb(255 255 255 / 0.25);
+    --ui-border: #424242;
+    /* colorBorderSecondary: dividers, Tabs bottom line, Card outer frame */
+    --ui-border-secondary: #303030;
+    /* colorSplit: menu dividers, overlay header / footer dividers */
+    --ui-split: rgb(253 253 253 / 0.12);
+    --ui-ring: #1668dc;
+    --ui-rating-fill: #d8bd14;
+
+    --ui-field-bg: #141414;
+    --ui-field-filled-bg: rgb(255 255 255 / 0.08);
+    --ui-field-fg: rgb(255 255 255 / 0.85);
+    --ui-field-placeholder: rgb(255 255 255 / 0.25);
+    --ui-field-border: #424242;
+    --ui-field-shadow: 0 0 0 0 transparent;
+    /* Focus ring opacity: antd uses 31% in dark (10% in light) */
+    --ui-glow: 31%;
+
+    /* Overlay */
+    --ui-overlay-bg: #1f1f1f;
+    --ui-overlay-border: transparent;
+    --ui-overlay-shadow:
+      0 6px 16px 0 rgb(255 255 255 / 0.016), 0 3px 6px -4px rgb(255 255 255 / 0.024),
+      0 9px 28px 8px rgb(255 255 255 / 0.01);
+    --ui-backdrop: rgb(0 0 0 / 0.45);
+    --ui-tooltip-bg: #424242;
+    --ui-tooltip-fg: #ffffff;
+
+    --ui-c-neutral: rgb(255 255 255 / 0.95);
+    --ui-c-neutral-fg: #000000;
+    --ui-c-neutral-soft: rgb(255 255 255 / 0.08);
+    --ui-c-neutral-text: rgb(255 255 255 / 0.85);
+    --ui-c-neutral-hover: rgb(255 255 255);
+    --ui-c-neutral-active: rgb(255 255 255 / 0.9);
+    --ui-c-neutral-border: #424242;
+    --ui-c-primary: #1668dc;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #15325b;
+    /* colorInfoBg (the info background of Alert / Tag), darker than colorPrimaryBg in dark */
+    --ui-c-info-soft: #111a2c;
+    /* controlItemBgActiveHover: hovering / highlighting an already selected item */
+    --ui-c-primary-soft-hover: #15417e;
+    --ui-c-primary-text: #1668dc;
+    --ui-c-primary-hover: #3c89e8;
+    --ui-c-primary-active: #1554ad;
+    --ui-c-primary-border: #15325b;
+    --ui-c-secondary: #642ab5;
+    --ui-c-secondary-fg: #ffffff;
+    --ui-c-secondary-soft: #1a1325;
+    --ui-c-secondary-text: #854eca;
+    --ui-c-secondary-hover: #854eca;
+    --ui-c-secondary-active: #51258f;
+    --ui-c-secondary-border: #301c4d;
+    --ui-c-success: #49aa19;
+    --ui-c-success-fg: #ffffff;
+    --ui-c-success-soft: #162312;
+    --ui-c-success-text: #49aa19;
+    --ui-c-success-hover: #6abe39;
+    --ui-c-success-active: #3c8618;
+    --ui-c-success-border: #274916;
+    --ui-c-warning: #d89614;
+    --ui-c-warning-fg: #ffffff;
+    --ui-c-warning-soft: #2b2111;
+    --ui-c-warning-text: #d89614;
+    --ui-c-warning-hover: #e8b339;
+    --ui-c-warning-active: #aa7714;
+    --ui-c-warning-border: #594214;
+    --ui-c-danger: #dc4446;
+    --ui-c-danger-fg: #ffffff;
+    --ui-c-danger-soft: #2c1618;
+    --ui-c-danger-text: #dc4446;
+    --ui-c-danger-hover: #e86e6b;
+    --ui-c-danger-active: #ad393a;
+    --ui-c-danger-border: #5b2526;
+  }
+}

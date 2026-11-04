@@ -1,0 +1,63 @@
+{
+  "lead": "悬浮按钮：固定在视口一角的圆形 / 方形按钮，放全局性的动作（回到顶部、客服、新建）。位置取主题风格的边距，多个竖着叠放用 `FloatButton.Group`，回到顶部用 `FloatButton.BackTop`。下面的示例都收在各自的框里，真实使用时是固定在整个窗口的角上。",
+  "demo": {
+    "help": "帮助",
+    "add": "新建",
+    "chat": "聊天"
+  },
+  "basic": {
+    "title": "基础用法",
+    "note": "默认在右下角。"
+  },
+  "shapes": { "title": "形状和变体" },
+  "group": {
+    "title": "按钮组",
+    "description": "圆形成组各自带阴影、留间距；方形成组首尾相连。",
+    "tools": "工具"
+  },
+  "back-top": {
+    "title": "回到顶部",
+    "description": "滚动超过 `visibilityHeight` 才出现，点一下平滑滚回顶部；系统要求减少动效时直接跳。`target` 指定滚动容器。",
+    "area": "滚动这里",
+    "line": "第 {n} 行 — 往下滚，超过 120px 后按钮出现。",
+    "tooltip": "回到顶部"
+  },
+  "corner": {
+    "title": "位置和文字",
+    "description": "`corner` 选四个角；方形按钮可以带文字。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `float-button.css` 里定义尺寸、离角的边距（`--_ix` / `--_iy`）和成组的间距；阴影用主题风格的浮层阴影。antd 主题风格按官网实测：40px、图标 18px、距右 24px 距下 48px、圆形组间距 16px。",
+    "hook": "钩子",
+    "button": "`data-shape` / `data-variant` / `data-corner`；成组时 `data-in-group`（不再自己固定）；有文字时 `data-has-label`",
+    "group": "`data-shape` / `data-corner`，固定在角上，按钮竖着排",
+    "parts": "图标和文字"
+  },
+  "props": {
+    "FloatButton": {
+      "corner": "固定在视口的哪个角，边距取主题风格的值。在 `FloatButton.Group` 里由 Group 决定位置。",
+      "href": "给了就渲染成链接 `<a>`。",
+      "icon": "图标。只有图标、没有 `label` 时必须给 `aria-label`。",
+      "label": "图标下面的文字（只有方形按钮放得下，圆形按钮不显示）。",
+      "shape": "圆形或方形。在 `FloatButton.Group` 里默认跟随 Group，否则默认圆形。",
+      "tooltip": "悬停时左边出现的说明气泡。",
+      "variant": "default 是白底（跟随主题风格的浮层颜色），primary 是主色底。"
+    },
+    "FloatButton_Group": {
+      "corner": "按钮组固定在视口的哪个角。",
+      "shape": "组里每个按钮的形状：圆形之间留间距，方形连成一条。"
+    },
+    "FloatButton_BackTop": {
+      "corner": "固定在视口的哪个角，边距取主题风格的值。在 `FloatButton.Group` 里由 Group 决定位置。",
+      "icon": "图标。只有图标、没有 `label` 时必须给 `aria-label`。",
+      "label": "图标下面的文字（只有方形按钮放得下，圆形按钮不显示）。",
+      "shape": "圆形或方形。在 `FloatButton.Group` 里默认跟随 Group，否则默认圆形。",
+      "target": "在哪个滚动容器里监听，默认整个窗口。",
+      "tooltip": "悬停时左边出现的说明气泡。",
+      "variant": "default 是白底（跟随主题风格的浮层颜色），primary 是主色底。",
+      "visibilityHeight": "滚动超过多少像素才出现。"
+    }
+  }
+}

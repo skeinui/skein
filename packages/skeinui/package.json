@@ -1,0 +1,48 @@
+{
+  "name": "skeinui",
+  "version": "0.0.3",
+  "description": "npx skeinui: an alias of the skein command (@skeinui/cli)",
+  "keywords": [
+    "cli",
+    "components",
+    "react",
+    "skein",
+    "skein-ui",
+    "skeinui"
+  ],
+  "homepage": "https://skeinui.com",
+  "bugs": "https://github.com/skeinui/skein/issues",
+  "license": "MIT",
+  "author": "Skein UI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skeinui/skein.git",
+    "directory": "packages/skeinui"
+  },
+  "bin": {
+    "skeinui": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "README.zh-CN.md"
+  ],
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "vp test"
+  },
+  "dependencies": {
+    "@skeinui/cli": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

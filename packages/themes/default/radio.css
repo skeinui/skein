@@ -1,0 +1,115 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Radio: 1.125rem circle, when selected the border turns primary and a primary dot appears in the middle. */
+  [data-theme-style="default"] [data-slot="radio"] {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  [data-theme-style="default"] [data-slot="radio-control"] {
+    --_bg: var(--ui-field-bg);
+    position: relative;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: calc(1.125rem * var(--ui-density));
+    height: calc(1.125rem * var(--ui-density));
+    margin-top: calc((1.25rem - 1.125rem) / 2);
+    padding: 0;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-full);
+    background-color: var(--_bg);
+    box-shadow: var(--ui-field-shadow);
+    outline: none;
+    cursor: pointer;
+    transition:
+      background-color 150ms var(--ui-easing),
+      border-color 150ms var(--ui-easing),
+      box-shadow 150ms var(--ui-easing);
+  }
+  [data-theme-style="default"]
+    [data-slot="radio-group"][data-variant="filled"]
+    [data-slot="radio-control"] {
+    --_bg: var(--ui-field-filled-bg);
+    border-color: transparent;
+    box-shadow: none;
+  }
+  [data-theme-style="default"] [data-slot="radio-control"][data-checked] {
+    border-color: var(--ui-c-primary);
+  }
+  [data-theme-style="default"] [data-slot="radio-control"]:focus-visible {
+    border-color: var(--ui-ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 35%, transparent);
+  }
+  [data-theme-style="default"] [data-slot="radio-control"][data-invalid] {
+    border-color: var(--ui-c-danger);
+  }
+  [data-theme-style="default"] [data-slot="radio-indicator"] {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  [data-theme-style="default"] [data-slot="radio-indicator"]::before {
+    width: 50%;
+    height: 50%;
+    border-radius: var(--ui-radius-full);
+    background-color: var(--ui-c-primary);
+    content: "";
+    scale: 0;
+    transition: scale 150ms var(--ui-easing);
+  }
+  [data-theme-style="default"] [data-slot="radio-indicator"][data-checked]::before {
+    scale: 1;
+  }
+  [data-theme-style="default"]
+    [data-slot="radio-control"][data-invalid]
+    [data-slot="radio-indicator"]::before {
+    background-color: var(--ui-c-danger);
+  }
+  [data-theme-style="default"] [data-slot="radio-content"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    font-family: var(--ui-font-family);
+    user-select: none;
+  }
+  [data-theme-style="default"] [data-slot="radio-label"] {
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="default"] [data-slot="radio-description"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    overflow-wrap: break-word;
+  }
+  [data-theme-style="default"] [data-slot="radio"]:has([data-slot="radio-control"][data-disabled]) {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="default"] [data-slot="radio-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  [data-theme-style="default"] [data-slot="radio-group"][data-orientation="horizontal"] {
+    flex-flow: row wrap;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"] [data-slot="radio-control"],
+    [data-theme-style="default"] [data-slot="radio-indicator"]::before {
+      transition: none;
+    }
+  }
+}

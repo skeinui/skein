@@ -1,0 +1,42 @@
+{
+  "lead": "描述列表：一组「名称 — 内容」，多列排布，常用来展示详情页的字段。每一行都会排满（放不下的项换到下一行，行尾那一项撑满剩下的列）；横向时名称和内容各占一格、列对齐，像表格。",
+  "usage": {
+    "title": "用法"
+  },
+  "bordered": {
+    "title": "带边框"
+  },
+  "span": {
+    "title": "跨列"
+  },
+  "vertical": {
+    "title": "纵向"
+  },
+  "sizes": {
+    "title": "尺寸"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `descriptions.css` 里处理；格子线是 1px 的间隙露出的底色，所以跨列的格子线也是对的。",
+    "hook": "钩子",
+    "root": "整体；`data-bordered` / `data-layout` / `data-size` / `data-column`，有冒号时 `data-colon`",
+    "header": "标题行、标题、右边的内容",
+    "list": "`<dl>` 和每一项（`data-span` 是它占的列数）",
+    "cell": "`<dt>` 和 `<dd>`"
+  },
+  "props": {
+    "Descriptions": {
+      "bordered": "画出格子线，名称有底色（表格式）。",
+      "colon": "名称后面加冒号；有边框或纵向时不加。",
+      "column": "一行放几项（1–8），一项的名称和内容算一项；每一行都会排满，最后一项撑满剩下的列。",
+      "extra": "标题行右边的内容（比如「编辑」按钮）。",
+      "items": "名称 / 内容列表，按每行 `column` 项排布（`DescriptionsItem`：`label`、`value`、`span`）。",
+      "layout": "horizontal：名称在内容左边；vertical：名称在内容上面。",
+      "size": "尺寸档位：行距 / 格子内边距。",
+      "title": "列表上方的标题。"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "lead": "The semantic structure and look of a table, with no table library behind it: the caller owns the sorting, selection and pagination state (TanStack Table, server-side pagination or your own code all work), and this component only draws.",
+  "usage": { "title": "Usage" },
+  "sorting": { "title": "Sorting" },
+  "resize": {
+    "title": "Resizable Columns",
+    "description": "The caller owns the column widths: pass `width`, `resizable` and `onResize` to `Head`. Drag the right edge, or focus the handle and use the left / right arrow keys (Shift for a larger step, Home / End for the min / max). The last column has no width and takes the remaining space."
+  },
+  "selection": { "title": "Row Selection" },
+  "pagination": { "title": "With Pagination" },
+  "striped": { "title": "Striped & Bordered" },
+  "sizes": { "title": "Sizes" },
+  "sticky": { "title": "Sticky Header" },
+  "fixed": { "title": "Fixed Columns" },
+  "expand": {
+    "title": "Expandable Rows",
+    "description": "The caller owns which rows are expanded. Put a `Table.ExpandButton` in each data row (the `kind=\"expand\"` column) and render a `Table.ExpandedRow` after the row when it is expanded. The same button in the header cell is \"expand all / collapse all\": it collapses every row when all are expanded, and expands them all otherwise."
+  },
+  "editable": {
+    "title": "Editable Cells",
+    "description": "Inline editing: a cell is a button showing its value; click, Enter or F2 starts editing. Enter or blur commits, Esc cancels, and a value that fails validation stays in edit mode with the error (restored on blur). The caller owns the value; `type` is text, number or select."
+  },
+  "empty": { "title": "Empty & Loading" },
+  "footer": { "title": "Footer & Caption" },
+  "demo": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "logins": "Logins",
+    "team": "Team",
+    "region": "Region",
+    "plan": "Plan",
+    "actions": "Actions",
+    "edit": "Edit",
+    "selectAll": "Select all",
+    "selectRow": "Select {name}",
+    "expandAll": "Expand all rows",
+    "collapseAll": "Collapse all rows",
+    "expandRow": "Expand {name}",
+    "collapseRow": "Collapse {name}",
+    "loginCount": "{n} logins",
+    "nameRequired": "Name is required",
+    "noData": "No data",
+    "caption": "A list of users.",
+    "total": "Total"
+  },
+  "api": {
+    "title": "API Reference",
+    "sections": "`Table.Header` / `Table.Body` / `Table.Footer` / `Table.Caption` render `thead` / `tbody` / `tfoot` / `caption` and take their native attributes. The parts with props of their own:"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `table.css`. The default theme style has a light header, short dividers between columns, a light primary background on hover and selection, and sort icons that show on hover.",
+    "hook": "Hook",
+    "root": "The container handles scrolling and the outer frame; `table` writes `data-size` / `striped` / `hoverable` / `loading`",
+    "sections": "Header, body, footer and caption",
+    "cells": "Row (`data-selected`), header cell (`data-sortable` / `data-sort`), cell (`data-align` / `data-kind` / `data-fixed`; fixed columns get a `--tbl-fixed` offset and the innermost one `data-fixed-edge`; the container gets `data-scroll-x`)",
+    "sort": "The button, text and icon of a sortable header; the icon's two paths carry `data-part=\"up\"` / `\"down\"`",
+    "empty": "The empty-state cell"
+  }
+}

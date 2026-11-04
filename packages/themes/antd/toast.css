@@ -1,0 +1,308 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Toast: a message bar fixed in a screen corner; data-position selects the corner, data-type decides the icon color. */
+  [data-theme-style="antd"] [data-slot="toast-viewport"] {
+    position: fixed;
+    z-index: 1050;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-sizing: border-box;
+    width: 24rem;
+    max-width: calc(100vw - 2 * 1.5rem);
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position="top-left"] {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position="top-center"] {
+    top: 1.5rem;
+    left: 50%;
+    translate: -50% 0;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position="top-right"] {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position="bottom-left"] {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position="bottom-center"] {
+    bottom: 1.5rem;
+    left: 50%;
+    translate: -50% 0;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position="bottom-right"] {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-position^="bottom"] {
+    flex-direction: column-reverse;
+  }
+  [data-theme-style="antd"] [data-slot="toast"] {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.25rem 1.5rem;
+    border: 0px solid var(--ui-overlay-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-overlay-bg);
+    color: var(--ui-fg);
+    box-shadow: var(--ui-overlay-shadow);
+    font-family: var(--ui-font-family);
+    pointer-events: auto;
+    user-select: none;
+    opacity: 1;
+    transform: translateX(var(--toast-swipe-movement-x, 0px))
+      translateY(var(--toast-swipe-movement-y, 0px));
+    transition:
+      opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-starting-style],
+  [data-theme-style="antd"] [data-slot="toast"][data-ending-style] {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.96);
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-swiping] {
+    transition: none;
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-limited] {
+    display: none;
+  }
+  [data-theme-style="antd"] [data-slot="toast-icon"] {
+    display: inline-flex;
+    flex: none;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="toast-icon"] > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-type="info"] [data-slot="toast-icon"] {
+    color: var(--ui-c-primary);
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-type="success"] [data-slot="toast-icon"] {
+    color: var(--ui-c-success);
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-type="warning"] [data-slot="toast-icon"] {
+    color: var(--ui-c-warning);
+  }
+  [data-theme-style="antd"] [data-slot="toast"][data-type="danger"] [data-slot="toast-icon"] {
+    color: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"] [data-slot="toast-content"] {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+  [data-theme-style="antd"] [data-slot="toast-title"] {
+    margin: 0;
+    padding-inline-end: 1.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  [data-theme-style="antd"] [data-slot="toast-description"] {
+    margin: 0;
+    color: var(--ui-fg);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+  }
+  /* Action button: in antd notifications it is a small primary button, 24px tall, aligned right */
+  [data-theme-style="antd"] [data-slot="toast-action"] {
+    align-self: flex-end;
+    height: 1.5rem;
+    margin-top: 0.25rem;
+    padding: 0 7px;
+    border: 0;
+    border-radius: var(--ui-radius-sm);
+    background-color: var(--ui-c-primary);
+    color: var(--ui-c-primary-fg);
+    box-shadow: 0 2px 0 color-mix(in srgb, var(--ui-c-primary) 10%, transparent);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.375rem;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 200ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="toast-action"]:hover {
+    background-color: var(--ui-c-primary-hover);
+  }
+  [data-theme-style="antd"] [data-slot="toast-action"]:focus-visible,
+  [data-theme-style="antd"] [data-slot="toast-close"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="antd"] [data-slot="toast-close"] {
+    position: absolute;
+    top: 1.25rem;
+    inset-inline-end: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-sm);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="antd"] [data-slot="toast-close"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="antd"] [data-slot="toast-close"]:hover {
+    background-color: var(--ui-fill-secondary, var(--ui-c-neutral-soft));
+    color: var(--ui-fg);
+  }
+
+  /* Stack mode (data-layout="stack"): the toasts behind are scaled down and hidden under the frontmost one, and expand on hover or focus.
+     --toast-index / --toast-offset-y / --toast-height / --toast-frontmost-height are set by Base UI. */
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-layout="stack"] {
+    display: block;
+    height: 0;
+    --_s: -1;
+    --_gap: 1rem;
+    --_peek: 0.75rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"][data-position^="top"] {
+    --_s: 1;
+  }
+  [data-theme-style="antd"] [data-slot="toast-viewport"][data-layout="stack"] [data-slot="toast"] {
+    --_scale: max(0, calc(1 - var(--toast-index) * 0.1));
+    --_height: var(--toast-frontmost-height, var(--toast-height));
+    position: absolute;
+    left: 0;
+    margin: 0;
+    height: var(--_height);
+    z-index: calc(1000 - var(--toast-index));
+    transform-origin: bottom center;
+    transform: translateX(var(--toast-swipe-movement-x, 0px))
+      translateY(
+        calc(
+          var(--toast-swipe-movement-y, 0px) + var(--_s) *
+            (var(--toast-index) * var(--_peek) + (1 - var(--_scale)) * var(--_height))
+        )
+      )
+      scale(var(--_scale));
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"][data-position^="bottom"]
+    [data-slot="toast"] {
+    bottom: 0;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"][data-position^="top"]
+    [data-slot="toast"] {
+    top: 0;
+    transform-origin: top center;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast"][data-expanded] {
+    height: var(--toast-height);
+    transform: translateX(var(--toast-swipe-movement-x, 0px))
+      translateY(
+        calc(
+          var(--toast-swipe-movement-y, 0px) + var(--_s) *
+            (var(--toast-offset-y) + var(--toast-index) * var(--_gap))
+        )
+      );
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast"][data-starting-style],
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast"][data-ending-style] {
+    opacity: 1;
+    transform: translateY(calc(var(--_s) * -150%));
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast"][data-limited] {
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Hover bridge: the gap between adjacent toasts also counts as hover, otherwise they collapse as soon as the mouse moves */
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: calc(var(--_gap) + 1px);
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"][data-position^="bottom"]
+    [data-slot="toast"]::after {
+    top: 100%;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"][data-position^="top"]
+    [data-slot="toast"]::after {
+    bottom: 100%;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast-content"] {
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast-content"][data-behind] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast-viewport"][data-layout="stack"]
+    [data-slot="toast-content"][data-expanded] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* loading: the icon is a spinner in the primary color; no auto-dismiss, the caller does update / close */
+  [data-theme-style="antd"] [data-slot="toast"][data-type="loading"] [data-slot="toast-icon"] {
+    color: var(--ui-c-primary-text, var(--ui-c-primary));
+  }
+  [data-theme-style="antd"]
+    [data-slot="toast"][data-type="loading"]
+    [data-slot="toast-icon"]
+    > svg {
+    animation: ui-toast-spin-antd 0.9s linear infinite;
+  }
+  @keyframes ui-toast-spin-antd {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"]
+      [data-slot="toast"][data-type="loading"]
+      [data-slot="toast-icon"]
+      > svg {
+      animation: none;
+    }
+    [data-theme-style="antd"] [data-slot="toast"] {
+      transition: none;
+    }
+  }
+}

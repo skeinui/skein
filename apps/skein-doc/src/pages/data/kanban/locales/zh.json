@@ -1,0 +1,92 @@
+{
+  "lead": "看板：几列卡片，卡片可以在列之间、列内拖动换位置。数据是平铺的 `columns` + `cards`（卡片有 `columnId`，数组顺序就是列内顺序），状态由调用方持有，拖完通过 `onCardsChange` 交回新数组。拖动时卡片实时落到新位置，键盘用 Alt + 方向键，每次移动都有读屏播报。",
+  "usage": {
+    "title": "用法",
+    "description": "拖动卡片到另一列或列内换位置；聚焦卡片后 Alt + 左右键换列、Alt + 上下键调顺序。",
+    "board": "项目看板",
+    "hint": "拖动卡片到别的列或调整顺序；拖列头可以换列的顺序。"
+  },
+  "actions": {
+    "title": "点击与添加",
+    "description": "`onCardClick` 让卡片变成按钮（回车打开）；`onAddCard` 在每列底部加「添加卡片」（就地输入，回车连续添加）。",
+    "board": "可点击的看板",
+    "hint": "点一张卡，或点列底的按钮添加。",
+    "opened": "打开了：{title}",
+    "added": "已添加到 {column}：{title}"
+  },
+  "sizes": {
+    "title": "尺寸",
+    "description": "`size` 控制列宽和间距：sm 240px、md 280px、lg 320px。",
+    "board": "小尺寸看板"
+  },
+  "column-menu": {
+    "title": "添加、编辑与管理",
+    "description": "`onAddCard` / `onAddColumn`：行内添加；`onCardEdit`：点卡片弹出对话框，改标题、说明、标签、进度、页脚（像 Trello）；`onColumnRename` / `onColumnDelete` / `collapsible` 打开列头的「…」菜单：重命名（双击标题也行）、折叠成窄条（卡片仍能拖进去）、删除（先确认，列和卡片由页面去掉）。",
+    "board": "带列菜单的看板",
+    "hint": "点列头右边的「…」，或双击列标题改名；点卡片弹出对话框编辑（里面可以删除，卡片上按 Delete 键也行）。",
+    "deleted": "已删除 {title}"
+  },
+  "height": {
+    "title": "固定高度",
+    "description": "给 `height`：每列最高到这个值，列头和「添加」固定，卡片在列里自己滚动，整个看板只有横向滚动；拖到列的上下边缘会自动滚。"
+  },
+  "readonly": {
+    "title": "只读",
+    "description": "不传 `onCardsChange` / `onCardMove` 就不能拖，卡片只是展示；空列显示提示。",
+    "board": "只读看板"
+  },
+  "demo": {
+    "open": "待办",
+    "doing": "进行中",
+    "done": "已完成",
+    "low": "低优先级",
+    "high": "高优先级",
+    "feature": "功能",
+    "design": "设计",
+    "doneLabel": "完成",
+    "comments": "8 条评论",
+    "c1": { "title": "用户资料接口", "description": "对接第三方接口服务" },
+    "c2": { "title": "登录页改版", "description": "优化登录流程，提升转化" },
+    "c3": { "title": "深色模式", "description": "跟随系统偏好自动切换" },
+    "c4": { "title": "组件库搭建", "description": "沉淀可复用的设计系统组件" },
+    "c5": { "title": "数据库连接异常", "description": "修复预发环境偶发断连" },
+    "c6": { "title": "性能优化", "description": "懒加载并减小首包体积" }
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "看板根（`section`）；`data-size`，拖动中有 `data-dragging`",
+    "column": "列和列头；列有 `data-column-id`，被拖到这一列上方时有 `data-over`；状态点 `data-color`",
+    "body": "列体（浅色底）、卡片列表、列表项、空列提示、底部「添加」按钮",
+    "card": "卡片；`data-card-id`、`data-column-id`；可拖时有 `data-draggable`，拖动中有 `data-dragging`",
+    "cardParts": "卡片的标题、说明、页脚",
+    "labels": "标签一排；每个标签 `data-color`",
+    "progress": "进度条（`role=progressbar`）；填充读 `--kanban-progress`",
+    "status": "读屏用的播报（视觉上隐藏）"
+  },
+  "props": {
+    "Kanban": {
+      "cards": "平铺的卡片，每张有 `columnId`；数组顺序就是列内顺序。",
+      "collapsedColumns": "折叠着的列的 id（受控）。",
+      "collapsible": "列头菜单里有「折叠」：折叠后是一条窄列，标题竖排，点上面的按钮展开；卡片仍然可以拖进去（落在最后）。",
+      "columns": "从左到右的列（`KanbanColumn`：`id`、`title`、`color`），由调用方持有。",
+      "defaultCollapsedColumns": "非受控时 `collapsedColumns` 的初始值。",
+      "height": "看板高度（数字是 px，也可以是 `\"calc(100vh - 12rem)\"` 这样的长度）。给了：每列最高到它，列头和「添加」固定，中间的卡片在列里滚动，整个看板只有横向滚动（像 Trello）；不给：列随内容长高。",
+      "labels": "要覆盖的内置文字（见下面的 Labels 类型），默认跟随 ConfigProvider 的语言。",
+      "onAddCard": "给了，每一列底部出现「添加卡片」：点了就在列底就地出现输入框，回车添加（输入框留着，可以接着输入），Esc 收起。回调给出在哪一列、标题是什么，卡片（id 等）由调用方生成并加进 `cards`。",
+      "onAddColumn": "给了，看板末尾出现「添加另一列」：点了就地出现输入框，回车添加；列由调用方生成并加进 `columns`。",
+      "onCardClick": "给了，卡片就是按钮（回车打开）；不给（也没给 `onCardEdit`）时就是普通的块。",
+      "onCardDelete": "给了，卡片聚焦时按 `Delete` 键，或在编辑对话框里点「删除」（需要同时给 `onCardEdit`），先弹确认，确认后调用。**卡片要由调用方去掉**（从 `cards` 里删掉），组件不替你删。",
+      "onCardEdit": "给了，点卡片（回车 / 空格也行）弹出编辑对话框（像 Trello）：改标题和说明，回车 / 保存提交，Esc / 取消放弃。标题为空不能保存，没改不通知。由调用方更新 `cards`；同时给了 `onCardClick` 时两个都会触发。",
+      "onCardMove": "同上，但给出这一次移动的前后位置（用于同步到后端）。",
+      "onCardsChange": "卡片被拖动 / 用键盘移动后，给出移动后的整个数组，拿它更新 `cards` 即可。传了才能拖动。",
+      "onCollapsedColumnsChange": "带着新的 `collapsedColumns` 调用；要受控时同时传 `collapsedColumns`。",
+      "onColumnDelete": "给了，列头菜单里有「删除」：点了先弹确认，确认后调用。**列和它的卡片都要由调用方去掉**（从 `columns` 删掉列、从 `cards` 删掉它的卡片），组件不替你删。",
+      "onColumnMove": "同上，但给出这一次移动的前后位置。",
+      "onColumnRename": "给了，列头菜单里有「重命名」（双击列标题也行）：改完给出新标题，由调用方更新 `columns`。",
+      "onColumnsChange": "列被拖动 / 用键盘移动后，给出移动后的整个数组，拿它更新 `columns` 即可。传了，拖列头就能换列的顺序。",
+      "size": "列宽和间距的档位：sm 240px、md 280px、lg 320px（由主题风格决定）。"
+    }
+  }
+}

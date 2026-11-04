@@ -1,0 +1,34 @@
+{
+  "lead": "水印：在内容上盖一层半透明的重复文字或图片，不挡鼠标。图案用 canvas 画出来，亮暗模式或主题风格切换时自动重画；水印层被删掉或改了属性时会自动恢复（`antiTamper`）。",
+  "usage": { "title": "用法" },
+  "multiline": { "title": "多行文字" },
+  "custom": { "title": "自定义样式" },
+  "image": { "title": "图片" },
+  "panel": {
+    "p1": "水印盖在这块内容上面，不挡点击和选中文字。切换亮色 / 暗色或换主题风格，水印的颜色会跟着变。",
+    "p2": "水印层是用 canvas 画出的重复、旋转的图案，作为背景使用。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `watermark.css` 里处理；它管的是定位和背景，不是外观，各主题风格一样。",
+    "hook": "钩子",
+    "root": "外层容器（`position: relative`），里面是内容和水印层",
+    "layer": "盖在内容上、不挡鼠标的一层，背景是 canvas 画出的图案；图案、尺寸、偏移、层级写在它的 `--wm-image` / `--wm-w` / `--wm-h` / `--wm-ox` / `--wm-oy` / `--wm-z`"
+  },
+  "props": {
+    "Watermark": {
+      "antiTamper": "水印层被删掉或改了属性时自动恢复。",
+      "children": "内容。",
+      "content": "水印文字；数组是多行。",
+      "font": "文字水印的样式：`{ color, fontSize, fontWeight, fontStyle, fontFamily }`。不给 `color` 就取内容区的文字色并淡到 15%，亮暗色都合适。",
+      "gap": "水印之间的水平 / 垂直间距。",
+      "height": "每个水印的高度（像素）；见 `width`。",
+      "image": "图片地址；给了就画图片（不再画文字）。需要同源或允许跨域的图片，否则画不进去。",
+      "offset": "整体偏移。",
+      "rotate": "旋转角度。",
+      "width": "每个水印的宽高（像素）。文字不给就按文字量，图片默认 120 × 64。",
+      "zIndex": "水印层的 z-index（盖在内容上，但在弹层之下）。"
+    }
+  }
+}

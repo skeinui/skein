@@ -1,0 +1,61 @@
+{
+  "lead": "The app's sidebar shell: a header, scrollable content (holding a [SideMenu](/side-menu)) and a footer, in three looks (`sidebar`, `floating`, `inset`) × three ways to collapse (`offcanvas`, `icon`, `none`). On narrow screens it becomes a drawer; it also has a toggle button, an edge rail and a keyboard shortcut. Each theme style gives it its own look.",
+  "usage": {
+    "title": "Usage",
+    "body": "A header, a scrollable menu and the user in the footer; on narrow screens it becomes a drawer."
+  },
+  "app": {
+    "title": "Full example",
+    "description": "A complete app shell: menu data (groups, submenus, a divider), the selected item, closing the drawer after a pick on narrow screens, a logo in the header (`Sidebar.Label` leaves only the icon when collapsed), an avatar in the footer, `Rail` and `Trigger`. The code below can be copied as it is; it persists the expanded state itself (`localStorage`), the library stores nothing. The demo here leaves out `localStorage` and `100svh`.",
+    "dashboard": "Dashboard",
+    "management": "Management",
+    "users": "Users",
+    "allUsers": "All users",
+    "roles": "Roles",
+    "documents": "Documents",
+    "settings": "Settings",
+    "content": "Page content"
+  },
+  "variants": {
+    "title": "Variants",
+    "description": "`sidebar` sits against the page edge; `floating` is a floating rounded card; `inset` blends the sidebar into the background, with the main content as a rounded card."
+  },
+  "collapsible": {
+    "title": "Collapsible",
+    "description": "`icon` collapses to a narrow icon rail (the menu collapses with it, with tooltips on hover); `offcanvas` slides the whole panel out, and the collapsed panel is `inert`.",
+    "hint": "Click the button at the top left, or press Ctrl / ⌘ + B."
+  },
+  "footer-trigger": {
+    "title": "Footer trigger",
+    "description": "`Sidebar.Trigger` on its own in `Sidebar.Footer`: in the antd theme style it is a full-width collapse bar at the bottom of the sidebar (as in antd's `Layout.Sider`); the other theme styles show a plain icon button.",
+    "body": "The collapse button is at the bottom of the sidebar"
+  },
+  "side": { "title": "Right side" },
+  "theme": {
+    "title": "Theme",
+    "description": "Without `theme` the theme style's default is used (dark in antd, light in the others); `theme` forces light or dark, and the SideMenu inside follows."
+  },
+  "api": {
+    "title": "API Reference",
+    "parts": "Parts and hook",
+    "part": "Part",
+    "header": "Header (logo, workspace switcher), scrollable content (holds the SideMenu), footer (user info)",
+    "label": "Text in the header / footer shown only when expanded (the name after the logo icon, the user name): visually hidden on the icon rail, leaving only the icon, still read by screen readers",
+    "inset": "The main content area; it scrolls on its own",
+    "trigger": "The toggle button (expand / collapse on desktop, open / close the drawer on mobile; named “Toggle sidebar” by default); `Rail` is a thin strip on the sidebar's edge, for the mouse only, not in the Tab order",
+    "useSidebar": "Inside the Provider: read the state and toggle it yourself (e.g. `setOpenMobile(false)` to close the drawer after a menu pick on mobile)",
+    "provider": "The shell: holds expanded / collapsed (controlled or uncontrolled), the mobile drawer state and the shortcut, and lays the sidebar and the main content out side by side. Its height comes from outside; the main area scrolls on its own."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "provider": "The shell; `data-width`; reads `--_w` / `--_wi` (icon rail width) / `--_pad` (outer margin of `floating` and `inset`)",
+    "sidebar": "The sidebar root; `data-state` (expanded / collapsed), `data-collapsible` (only when collapsed), `data-variant`, `data-side`",
+    "gap": "The spacer (pushes the main content aside) and the panel against the edge",
+    "inner": "The panel itself (`aside`); `data-theme`; the one in the mobile drawer has `data-mobile`",
+    "sections": "Header, scrollable content, footer",
+    "label": "Text in the header / footer shown only when expanded; visually hidden on the icon rail (still read by screen readers)",
+    "inset": "The main content; a rounded card in the `inset` look",
+    "trigger": "The toggle button and the edge rail"
+  }
+}

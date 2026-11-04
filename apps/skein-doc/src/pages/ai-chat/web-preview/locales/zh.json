@@ -1,0 +1,41 @@
+{
+  "lead": "网页预览：沙箱 iframe 加地址栏（回车跳转）、刷新、在新标签页打开。内容可以是地址或一段 HTML。默认只开脚本和表单、不同源，读不到宿主的数据；地址只认 http(s)。",
+  "usage": {
+    "title": "用法",
+    "description": "很多网站禁止被嵌入（`X-Frame-Options`），这里用的是允许嵌入的页面。",
+    "frame": "示例"
+  },
+  "html": {
+    "title": "HTML 内容",
+    "description": "`html` 用 `srcdoc` 渲染，AI 生成的页面片段可以直接预览。",
+    "frame": "生成的页面",
+    "heading": "来自沙箱的问候",
+    "text": "这是 srcdoc 里的页面，跑在不同源的沙箱里。",
+    "button": "点我",
+    "clicked": "已点击"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根；载入中有 `data-loading`",
+    "toolbar": "顶部工具栏",
+    "action": "刷新按钮和新标签页打开链接",
+    "url": "地址栏（`input`；`aria-invalid` 表示地址不合法）",
+    "error": "地址不合法的提示（`role=alert`）",
+    "viewport": "预览区；高度读 `--web-height`",
+    "frame": "iframe 和载入中的进度条（`role=status`）"
+  },
+  "props": {
+    "WebPreview": {
+      "editable": "地址栏可编辑，默认 true；false 时只读。回车跳转（没写协议的补上 `https://`；http(s) 以外的地址，如 `javascript:` / `data:` / `file:`，一律拒绝），Esc 还原当前地址。",
+      "height": "预览区高度（px），默认 360。",
+      "html": "用 srcdoc 在 iframe 里渲染的完整 HTML 文档（比如模型生成的代码）。`src` 和 `html` 二选一。传 `html` 时工具栏显示标题而不是地址，也没有新标签页打开的链接。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onNavigate": "用户在地址栏跳转后触发。",
+      "sandbox": "iframe 的沙箱。默认 `allow-scripts allow-forms`：能跑脚本和表单，但不同源（读不到宿主的 cookie / 存储）、不能弹窗、不能导航宿主。同时给 `allow-scripts` 和 `allow-same-origin` 等于没有沙箱，只在内容完全可信时才加。",
+      "src": "iframe 里要载入的地址（只认 http(s)），显示在地址栏里。`src` 和 `html` 二选一。",
+      "title": "iframe 的名称（读屏用），默认 \"Preview\"。"
+    }
+  }
+}

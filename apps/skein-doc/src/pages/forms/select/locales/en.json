@@ -1,0 +1,28 @@
+{
+  "lead": "A dropdown select. The trigger looks like Input; the keyboard, type-ahead search and collision flipping come from Base UI's Select.",
+  "usage": { "title": "Usage", "placeholder": "Select a fruit" },
+  "variants": { "title": "Variants" },
+  "sizes": { "title": "Sizes" },
+  "groups": { "title": "Groups" },
+  "controlled": { "title": "Controlled", "selected": "Selected:" },
+  "in-field": {
+    "title": "In Field",
+    "label": "Favorite fruit",
+    "placeholder": "Select",
+    "hint": "Pick one."
+  },
+  "disabled": { "title": "Disabled & Invalid" },
+  "full-width": { "title": "Full Width" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `select.css`: the trigger reuses the input's look, the popup reuses Menu's item look.",
+    "hook": "Hook",
+    "trigger": "The trigger, looks like Input; `data-popup-open` while open",
+    "value": "Shows the selected text; `data-placeholder` when there is no value",
+    "icon": "The dropdown arrow on the right",
+    "popup": "The popup and the option list",
+    "item": "An option; highlighted with `data-highlighted`",
+    "group": "A group and its heading"
+  }
+}

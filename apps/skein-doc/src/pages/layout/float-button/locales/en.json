@@ -1,0 +1,38 @@
+{
+  "lead": "A floating button: a circular or square button fixed to a corner of the viewport, for page-wide actions (back to top, support, create). Its position uses the theme style's margins; stack several vertically with `FloatButton.Group`, and use `FloatButton.BackTop` for back to top. The examples below are each contained in their own box; in real use they are fixed to a corner of the whole window.",
+  "demo": {
+    "help": "Help",
+    "add": "Add",
+    "chat": "Chat"
+  },
+  "basic": {
+    "title": "Basic",
+    "note": "Bottom right by default."
+  },
+  "shapes": { "title": "Shape and variant" },
+  "group": {
+    "title": "Group",
+    "description": "In a circular group each button keeps its own shadow and a gap; a square group is joined end to end.",
+    "tools": "Tools"
+  },
+  "back-top": {
+    "title": "Back to top",
+    "description": "Appears once scrolled past `visibilityHeight`; a click scrolls smoothly back to the top, or jumps when the system asks for reduced motion. `target` sets the scroll container.",
+    "area": "Scroll me",
+    "line": "Line {n} — scroll down, the button appears after 120px.",
+    "tooltip": "Back to top"
+  },
+  "corner": {
+    "title": "Corner and label",
+    "description": "`corner` picks one of the four corners; a square button can carry a label."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles define in `float-button.css` the size, the distance from the corner (`--_ix` / `--_iy`) and the gap inside a group; the shadow is the theme style's overlay shadow. The antd theme style follows measurements of the antd site: 40px, an 18px icon, 24px from the right and 48px from the bottom, a 16px gap in a circular group.",
+    "hook": "Hook",
+    "button": "`data-shape` / `data-variant` / `data-corner`; `data-in-group` inside a group (then it is no longer fixed itself); `data-has-label` when it has a label",
+    "group": "`data-shape` / `data-corner`; fixed to the corner, with the buttons stacked vertically",
+    "parts": "The icon and the label"
+  }
+}

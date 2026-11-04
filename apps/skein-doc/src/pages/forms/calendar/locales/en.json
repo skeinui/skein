@@ -1,0 +1,26 @@
+{
+  "lead": "A calendar for one date or a range, with dates as \"YYYY-MM-DD\" strings. Keyboard: arrow keys move, Home / End go to the start / end of the week, PageUp / PageDown change the month (with Shift, the year). Month and weekday names come from `Intl`, no date library needed.",
+  "usage": { "title": "Usage" },
+  "range": { "title": "Range" },
+  "week": { "title": "Week Starts On" },
+  "limits": {
+    "title": "Min, Max & Disabled",
+    "description": "`min` / `max` bound the selectable dates; `isDateDisabled` adds a rule of its own, here: no weekends."
+  },
+  "controlled": { "title": "Controlled", "selected": "Selected:" },
+  "sizes": { "title": "Sizes & Colors" },
+  "locale": {
+    "title": "Locale",
+    "description": "`locale` sets the language of the month and weekday names; without it the browser's is used."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `calendar.css`: the selected day is solid primary, today has a light background or outline, and the middle of a range is a light band.",
+    "hook": "Hook",
+    "root": "The wrapper, the header, the month title and the month navigation buttons",
+    "grid": "The table, the weekday header, the rows and the cells",
+    "day": "Day button: `data-selected` / `data-today` / `data-outside` / `data-disabled`",
+    "range": "Written on `calendar-cell`; theme styles draw the range band with it"
+  }
+}

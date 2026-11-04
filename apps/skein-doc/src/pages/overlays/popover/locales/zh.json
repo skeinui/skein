@@ -1,0 +1,62 @@
+{
+  "lead": "点击触发的浮层，可以放任意内容。焦点管理、外部点击关闭、Esc 来自 Base UI 的 Popover。",
+  "usage": { "title": "用法" },
+  "placement": { "title": "位置" },
+  "arrow": { "title": "箭头" },
+  "close": { "title": "关闭按钮" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `popover.css` 里处理，底色和阴影来自 `--ui-overlay-*`。",
+    "hook": "钩子",
+    "positioner": "定位容器，主题风格放 z-index",
+    "popup": "浮层本体：背景、描边、圆角、阴影、内边距",
+    "arrow": "箭头",
+    "text": "标题与说明文字",
+    "close": "关闭按钮"
+  },
+  "props": {
+    "Popover": {
+      "actionsRef": "命令式操作的 ref。`unmount`：在外部控制的关闭动画结束后，结束浮层的关闭阶段；需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则浮层会自行完成关闭，是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时以命令方式关闭浮层。",
+      "children": "浮层的内容。可以是普通的 React 节点，也可以是一个渲染函数，参数是当前触发元素的 `payload`。",
+      "defaultOpen": "浮层初始是否打开。要受控请改用 `open`。",
+      "defaultTriggerId": "浮层关联的触发元素 ID。和 `defaultOpen` 一起用，可以做一个初始就打开的浮层。",
+      "handle": "把浮层和触发元素关联起来的 handle。指定后，外部的触发元素也能控制浮层的打开状态。",
+      "modal": "打开时是否进入模态。`true`：只能和浮层交互，页面滚动被锁定、外部元素不响应指针；`false`：可以和页面其余部分交互；`'trap-focus'`：焦点锁在浮层内，但页面滚动不锁定，外部指针交互仍然可用。在触屏设备上，`true` 会挡住外部点按，但除非弹层几乎占满视口宽度，页面仍可滚动，与 iOS 原生行为一致。`modal` 为 `true` 时，只有弹层里渲染了 `<Popover.Close>` 才会锁定焦点（需要时可以用自己的 CSS 把它视觉隐藏，比如 Tailwind 的 `sr-only`）。`modal` 为 `'trap-focus'` 时，请在弹层里渲染 `<Popover.Close>`，让触屏读屏器能离开弹层。",
+      "onOpenChange": "浮层打开或关闭时调用。",
+      "onOpenChangeComplete": "浮层打开或关闭、动画全部结束后调用。",
+      "open": "浮层当前是否打开。",
+      "triggerId": "浮层关联的触发元素 ID。和 `open` 一起用，可以做受控浮层；非受控（没传 `open`）时不需要。"
+    },
+    "Popover_Trigger": {
+      "closeDelay": "悬停打开的浮层在关闭前等待多久，单位毫秒。需要 `openOnHover`。",
+      "delay": "悬停多久后才打开浮层，单位毫秒。需要 `openOnHover`。",
+      "handle": "把触发元素和浮层关联起来的 handle。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "openOnHover": "悬停在触发元素上时是否也打开浮层。",
+      "payload": "打开浮层时传给它的数据。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Popover_Content": {
+      "align": "浮层相对触发元素的对齐方式。",
+      "anchor": "不以触发元素为锚点时，传一个元素或虚拟元素（`{ getBoundingClientRect }`），比如跟随输入框里的光标。",
+      "arrow": "画一个指向触发元素的箭头。",
+      "children": "浮层的内容。",
+      "side": "浮层在触发元素的哪一侧弹出。",
+      "sideOffset": "触发元素（或锚点）与浮层之间的间距，单位像素。",
+      "finalFocus": "浮层关闭时把焦点移到哪个元素。`false`：不移动焦点；`true`：按默认行为移动（触发元素或之前聚焦的元素）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，返回 `true` 用默认行为，返回 `false` / `undefined` 则什么都不做。",
+      "initialFocus": "浮层打开时把焦点移到哪个元素。默认移到弹层里第一个可聚焦元素；但用触摸打开时聚焦弹层本身，以免弹出虚拟键盘。`false`：不移动焦点；`true`：按默认行为移动（第一个可聚焦元素或弹层本身）；`RefObject`：移到该 ref 的元素；函数：以交互类型（`mouse`、`touch`、`pen` 或 `keyboard`）调用，返回要聚焦的元素，返回 `true` 或 `null` 用默认行为，返回 `false` / `undefined` 则什么都不做。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Popover_Title": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Popover_Description": {
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Popover_Close": {
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

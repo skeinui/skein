@@ -1,0 +1,167 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Tour: mask + cutout highlight + description card. The target position comes from --tour-x / --tour-y / --tour-w / --tour-h (see tour.tsx),
+     this file only draws; the card shell (background, shadow, arrow) reuses this theme style's Popover. */
+  /* Distance from card to target: officially 12px from the cutout edge, plus the 6px cutout padding */
+  [data-theme-style="antd"] [data-slot="tour"] {
+    --tour-offset: 18px;
+  }
+  [data-theme-style="antd"] [data-slot="tour-mask"] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+  }
+  [data-theme-style="antd"] [data-slot="tour"][data-no-target] [data-slot="tour-mask"] {
+    background-color: rgb(0 0 0 / 0.5);
+  }
+  [data-theme-style="antd"] [data-slot="tour-spotlight"] {
+    --_gap: 6px;
+    position: fixed;
+    z-index: 40;
+    left: calc(var(--tour-x, 0) * 1px - var(--_gap));
+    top: calc(var(--tour-y, 0) * 1px - var(--_gap));
+    width: calc(var(--tour-w, 0) * 1px + var(--_gap) * 2);
+    height: calc(var(--tour-h, 0) * 1px + var(--_gap) * 2);
+    box-sizing: border-box;
+    border-radius: calc(var(--ui-radius-sm) - 2px);
+    /* A huge box-shadow darkens everything outside the cutout */
+    box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.5);
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="tour"][data-ready] [data-slot="tour-spotlight"] {
+    transition:
+      left 200ms ease,
+      top 200ms ease,
+      width 200ms ease,
+      height 200ms ease;
+  }
+  /* Step without a target: the card is centered */
+  [data-theme-style="antd"] [data-slot="tour-center"] {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+  }
+  [data-theme-style="antd"] [data-slot="tour-center"] > [data-slot="popover"] {
+    box-sizing: border-box;
+    border-radius: var(--ui-r-surface);
+    background-color: var(--ui-overlay-bg);
+    box-shadow: var(--_tour-shadow);
+    pointer-events: auto;
+  }
+  [data-theme-style="antd"] [data-slot="popover"]:has([data-slot="tour-card"]) {
+    --_tour-shadow:
+      0 1px 2px 0 rgb(0 0 0 / 0.05), 0 1px 6px -1px rgb(0 0 0 / 0.03), 0 2px 4px 0 rgb(0 0 0 / 0.03);
+    padding: 0;
+    box-shadow: var(--_tour-shadow);
+  }
+
+  [data-theme-style="antd"] [data-slot="tour-card"] {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /* Width is driven by content (capped by the cover image when there is one), official maximum 520px */
+    width: max-content;
+    max-width: min(32.5rem, calc(100vw - 2rem));
+    padding: 0;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.375rem;
+  }
+  [data-theme-style="antd"] [data-slot="tour-close"] {
+    position: absolute;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.375rem;
+    height: 1.375rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-sm);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    outline: none;
+    cursor: pointer;
+    transition:
+      color 200ms,
+      background-color 200ms;
+  }
+  [data-theme-style="antd"] [data-slot="tour-close"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="antd"] [data-slot="tour-close"]:hover {
+    background-color: color-mix(in srgb, var(--ui-fg) 7%, transparent);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="tour-close"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="antd"] [data-slot="tour-cover"] {
+    padding: 2.875rem 1rem 0;
+  }
+  [data-theme-style="antd"] [data-slot="tour-cover"] img {
+    display: block;
+    width: 100%;
+  }
+  [data-theme-style="antd"] [data-slot="tour-title"] {
+    padding: 1rem 2.375rem 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.375rem;
+  }
+  [data-theme-style="antd"] [data-slot="tour-description"] {
+    padding: 0 1rem;
+    color: var(--ui-fg);
+  }
+  /* Without a cover and title, the description text sits right under the close button */
+  [data-theme-style="antd"] [data-slot="tour-close"] + [data-slot="tour-description"] {
+    padding: 1rem 2.375rem 0 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="tour-footer"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 1rem 1rem;
+  }
+  [data-theme-style="antd"] [data-slot="tour-indicators"] {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--ui-fg-muted);
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="antd"] [data-slot="tour-indicator"] {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--ui-fg) 17%, transparent);
+    transition: background-color 200ms;
+  }
+  [data-theme-style="antd"] [data-slot="tour-indicator"][data-active] {
+    background-color: var(--ui-c-primary);
+  }
+  [data-theme-style="antd"] [data-slot="tour-actions"] {
+    display: flex;
+    gap: 0.5rem;
+    margin-inline-start: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="tour"][data-ready] [data-slot="tour-spotlight"],
+    [data-theme-style="antd"] [data-slot="tour-close"],
+    [data-theme-style="antd"] [data-slot="tour-indicator"] {
+      transition: none;
+    }
+  }
+}

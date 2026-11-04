@@ -1,0 +1,34 @@
+{
+  "name": "skein-doc",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/llms.ts && vp dev",
+    "build": "node scripts/llms.ts && tsc && vp build",
+    "preview": "vp preview",
+    "deploy": "pnpm build && node scripts/prerender.ts && wrangler deploy",
+    "test": "vp test"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.2.8",
+    "@skeinui/themes": "workspace:*",
+    "@skeinui/ui": "workspace:*",
+    "katex": "catalog:",
+    "mermaid": "catalog:",
+    "prism-react-renderer": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "catalog:",
+    "@skeinui/cli": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "playwright-core": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:",
+    "wrangler": "catalog:"
+  }
+}

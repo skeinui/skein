@@ -1,0 +1,30 @@
+{
+  "lead": "A code block: a header with the language (or a title) and a copy button, above scrollable code. It ships a lightweight highlighter and depends on no library like shiki; for more precise highlighting, plug in your own with `highlight`. Mostly used for fenced code in Markdown.",
+  "usage": { "title": "Usage" },
+  "languages": {
+    "title": "Languages",
+    "description": "Built in: js / ts / json / python / bash / css / html / sql; an unrecognized language is plain text."
+  },
+  "line-numbers": { "title": "Line numbers and wrapping" },
+  "themes": {
+    "title": "Themes",
+    "description": "8 popular themes built in: GitHub, One, Solarized and Catppuccin follow light / dark mode; Dracula, Nord, Monokai and Tokyo Night are always dark. They are independent of the theme style: switching the theme style keeps the code block's colors. Colors of the official palettes with a contrast below 4.5 have been nudged just enough to pass."
+  },
+  "custom": {
+    "title": "Custom highlighter",
+    "description": "Pass a function to `highlight` that returns the highlighted content line by line (here it only bolds each line's first word; in practice, use something like shiki)."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root element; `data-language` / `data-line-numbers` / `data-wrap`",
+    "header": "Header: language + copy button",
+    "language": "The language / title text in the header",
+    "copy": "Copy button; `data-copied` means a copy just succeeded (the icon becomes a check mark)",
+    "status": "The text announced after a copy (`role=status`, visually hidden)",
+    "pre": "The scrollable, focusable code area (`role=region`)",
+    "code": "The code and each line (line numbers come from a CSS counter)",
+    "token": "A highlighted piece: keyword / string / comment / number / property / variable"
+  }
+}

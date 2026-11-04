@@ -1,0 +1,78 @@
+{
+  "lead": "助手的思考过程：一个可折叠的区域，触发器是一句话（「Thought for 4s」），展开后是竖向的步骤时间线。流式时触发器文字流光，步骤可以标记「已完成 / 进行中 / 未开始」。",
+  "usage": {
+    "title": "用法",
+    "trigger": "思考了 2 秒",
+    "explore": "探索",
+    "exploreText": "读了 layout 和全局样式。",
+    "plan": "计划",
+    "planText": "给 layout 加一个侧边栏插槽。"
+  },
+  "streaming": {
+    "title": "流式",
+    "description": "`streaming` 时触发器流光；步骤一步步加进来，最后一步是 `active`。",
+    "thinking": "思考中…",
+    "done": "思考了 5 秒",
+    "replay": "重播",
+    "understand": "理解",
+    "understandText": "用户问怎样在提交时校验表单。",
+    "explore": "探索",
+    "exploreText": "读现有的表单组件和它们的校验 hook。",
+    "plan": "计划",
+    "planText": "用 schema，提交时校验，错误就地显示。",
+    "write": "撰写",
+    "writeText": "正在写回答，附一小段示例代码…"
+  },
+  "status": {
+    "title": "步骤状态",
+    "trigger": "处理中",
+    "search": "搜索",
+    "searchText": "找到 3 篇相关文档。",
+    "summarize": "总结",
+    "summarizeText": "正在读第一篇文档…",
+    "answer": "回答",
+    "answerText": "还没开始。"
+  },
+  "api": {
+    "title": "API 参考",
+    "root": "根组件的展开状态同 Base UI Collapsible：不受控用 `defaultOpen`，受控用 `open` + `onOpenChange`。",
+    "trigger": "触发器（`button`）：一句话加展开箭头；文字是字符串时才会流光。",
+    "content": "展开的内容面板（`div`）。",
+    "steps": "竖向的步骤时间线（`ol`），没有自己的 props。",
+    "step": "一步（`li`）：`label` 是标题；`status` 决定圆点——`done` 实心、`active` 脉冲（并带 `aria-current=\"step\"`）、`pending` 空心。"
+  },
+  "styling": {
+    "title": "样式参考",
+    "hook": "钩子",
+    "root": "根元素；`data-open` / `data-streaming`",
+    "trigger": "触发器；`data-panel-open` 表示已展开",
+    "icon": "展开箭头（展开时翻转）",
+    "panel": "展开面板（高度动画读 `--collapsible-panel-height`）和里面的内容",
+    "steps": "步骤列表",
+    "step": "一步；`data-status`",
+    "stepParts": "一步的标题和内容"
+  },
+  "props": {
+    "Reasoning": {
+      "streaming": "还在思考 / 生成中：触发器上的文字流光。",
+      "defaultOpen": "面板初始是否展开。要做受控的折叠面板，改用 `open` prop。",
+      "disabled": "组件是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用的事件处理函数。",
+      "open": "面板当前是否展开。要做不受控的折叠面板，改用 `defaultOpen` prop。",
+      "render": "把组件的 HTML 元素换成别的标签，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+    },
+    "Reasoning_Trigger": {
+      "nativeButton": "通过 `render` prop 替换元素时，组件是否渲染原生 `<button>` 元素。渲染的元素不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+    },
+    "Reasoning_Content": {
+      "hiddenUntilFound": "让浏览器自带的页内搜索能找到并展开面板内容。会覆盖 `keepMounted` prop，用 `hidden=\"until-found\"` 隐藏元素而不把它从 DOM 中移除。",
+      "keepMounted": "面板隐藏时是否把元素保留在 DOM 中。使用 `hiddenUntilFound` 时忽略此 prop。",
+      "render": "把组件的 HTML 元素换成别的标签，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+    },
+    "Reasoning_Step": {
+      "label": "步骤的标题，显示在内容上方。",
+      "status": "`done` 是已完成（默认），`active` 是进行中（脉冲圆点，并带 `aria-current=\"step\"`），`pending` 是未开始（空心圆点）。"
+    }
+  }
+}

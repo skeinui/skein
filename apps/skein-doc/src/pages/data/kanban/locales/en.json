@@ -1,0 +1,83 @@
+{
+  "lead": "A board: columns of cards that can be dragged between columns and within one. The data is flat `columns` + `cards` (each card has a `columnId`; the array order is the order within the column); the caller owns the state and gets the new array back through `onCardsChange`. While dragging, cards move to their new place live; with the keyboard use Alt + arrow keys, and every move is announced to screen readers.",
+  "usage": {
+    "title": "Usage",
+    "description": "Drag a card to another column or within its column; with a card focused, Alt + Left / Right moves it to another column and Alt + Up / Down reorders it.",
+    "board": "Project board",
+    "hint": "Drag a card to another column or reorder it; drag a column header to reorder columns."
+  },
+  "actions": {
+    "title": "Click and Add",
+    "description": "`onCardClick` makes a card a button (Enter opens it); `onAddCard` adds \"Add card\" at the bottom of each column (typed in place, Enter keeps adding).",
+    "board": "Clickable board",
+    "hint": "Click a card, or add one at the bottom of a column.",
+    "opened": "Opened: {title}",
+    "added": "Added to {column}: {title}"
+  },
+  "sizes": {
+    "title": "Sizes",
+    "description": "`size` sets the column width and gap: sm 240px, md 280px, lg 320px.",
+    "board": "Small board"
+  },
+  "column-menu": {
+    "title": "Add, Edit and Manage",
+    "description": "`onAddCard` / `onAddColumn` add in place; `onCardEdit` opens a dialog on click to edit the title, description, labels, progress and footer (like Trello); `onColumnRename` / `onColumnDelete` / `collapsible` turn on the column header's … menu: rename (double-clicking the title works too), collapse into a narrow strip (cards can still be dragged in), delete (after a confirmation; the page removes the column and its cards).",
+    "board": "Board with column menu",
+    "hint": "Use the … on a column header, or double-click a title; click a card to edit it in a dialog (it has a Delete button; the Delete key works too).",
+    "deleted": "Deleted {title}"
+  },
+  "height": {
+    "title": "Fixed Height",
+    "description": "With `height`, each column is at most that tall: the header and \"Add\" stay fixed, the cards scroll inside the column and the board only scrolls horizontally; dragging to a column's top or bottom edge scrolls it."
+  },
+  "readonly": {
+    "title": "Read Only",
+    "description": "Without `onCardsChange` / `onCardMove` cards can't be dragged and are only shown; an empty column shows a hint.",
+    "board": "Read only board"
+  },
+  "demo": {
+    "open": "Open",
+    "doing": "In progress",
+    "done": "Closed",
+    "low": "Low priority",
+    "high": "High priority",
+    "feature": "Feature",
+    "design": "Design",
+    "doneLabel": "Done",
+    "comments": "8 comments",
+    "c1": {
+      "title": "Develop API for user profiles",
+      "description": "Integrate third-party API services"
+    },
+    "c2": {
+      "title": "Login page redesign",
+      "description": "Redesign the login flow for better conversion"
+    },
+    "c3": { "title": "Feature: dark mode", "description": "Follow the system preference" },
+    "c4": {
+      "title": "Component library setup",
+      "description": "Reusable components for the design system"
+    },
+    "c5": {
+      "title": "Database connection error",
+      "description": "Fix intermittent errors on staging"
+    },
+    "c6": {
+      "title": "Performance optimization",
+      "description": "Lazy loading and a smaller bundle"
+    }
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The board root (`section`); `data-size`, and `data-dragging` while dragging",
+    "column": "The column and its header; the column has `data-column-id`, and `data-over` while a card is dragged over it; the status dot has `data-color`",
+    "body": "The column body (light background), the card list, a list item, the empty-column hint, the \"Add\" button at the bottom",
+    "card": "A card; `data-card-id`, `data-column-id`; `data-draggable` when it can be dragged, `data-dragging` while dragged",
+    "cardParts": "The card's title, description and footer",
+    "labels": "The row of labels; each label has `data-color`",
+    "progress": "The progress bar (`role=progressbar`); the fill reads `--kanban-progress`",
+    "status": "Screen reader announcements (visually hidden)"
+  }
+}

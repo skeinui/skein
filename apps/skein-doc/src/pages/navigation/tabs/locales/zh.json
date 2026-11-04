@@ -1,0 +1,48 @@
+{
+  "lead": "标签页。键盘导航、选中状态、面板关联来自 Base UI 的 Tabs，指示器的位置由 Base UI 写成 CSS 变量。",
+  "usage": { "title": "用法" },
+  "variants": { "title": "变体" },
+  "colors": { "title": "颜色" },
+  "sizes": { "title": "尺寸" },
+  "vertical": { "title": "纵向" },
+  "disabled": { "title": "禁用" },
+  "full-width": { "title": "占满宽度" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `tabs.css` 里处理；`underline` 画一根线，`solid` 和 `soft` 在列表里滑动一块底。",
+    "hook": "钩子",
+    "parts": "结构部件",
+    "indicator": "选中指示，位置取 `--active-tab-left` / `top` / `width` / `height`",
+    "active": "写在选中的 `tabs-tab` 上"
+  },
+  "props": {
+    "Tabs": {
+      "color": "选中指示和高亮的语义色，具体颜色由主题风格决定。",
+      "fullWidth": "列表撑满宽度，标签平分。",
+      "size": "尺寸档位。",
+      "variant": "视觉变体：下划线 / 实心滑块 / 浅色滑块，具体画法由主题风格决定。",
+      "defaultValue": "默认值，非受控时使用。值为 `null` 时没有标签处于选中状态。",
+      "onValueChange": "设置新值时调用。用户操作（点击、键盘导航）引起的变化，事件的 `reason` 为 `'none'`；非受控且未传 `defaultValue` 时的首次自动选中或回退为 `'initial'`（包括隐式初始值被禁用或不存在的情况）；非受控时选中的标签变为禁用而自动回退为 `'disabled'`；选中的标签被移除、或显式的 `defaultValue` 始终没有对应的标签而自动回退为 `'missing'`。自动变化时，如果没有可用的标签可回退，选中值可能为 `null`。自动变化不能取消：对 `'initial'`、`'disabled'`、`'missing'` 调用 `eventDetails.cancel()` 无效。",
+      "orientation": "组件的方向（布局流向）。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "当前选中的 `Tab` 的值，受控时使用。值为 `null` 时没有标签处于选中状态。"
+    },
+    "Tabs_List": {
+      "activateOnFocus": "方向键移动焦点时是否自动切换选中的标签；否则用 `Enter` 或 `Space` 键选中。",
+      "loopFocus": "用方向键移到列表末尾时，是否让键盘焦点回到第一项。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "Tabs_Tab": {
+      "disabled": "是否禁用该标签。如果 `<Tabs.List>` 的第一个标签被禁用，它不会被初始选中，而是选中下一个可用的标签。但服务端渲染时不是这样，因为预渲染时不知道哪些标签被禁用；要避免这个问题，把 `<Tabs.Root>` 的 `defaultValue` 或 `value` 设为一个可用标签的值。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "标签的值。"
+    },
+    "Tabs_Panel": {
+      "keepMounted": "面板隐藏时是否仍把 HTML 元素保留在 DOM 中。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。",
+      "value": "面板的值，值对应的 Tab 选中时显示。"
+    }
+  }
+}

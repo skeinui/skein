@@ -1,0 +1,73 @@
+{
+  "lead": "把标签、控件、说明和错误提示拼成一个表单项。校验、label 关联、`aria-describedby` 都来自 Base UI 的 Field，示例参照 HeroUI 文档的 TextField、Label、Description、FieldError。",
+  "usage": { "title": "用法" },
+  "anatomy": { "title": "结构" },
+  "description": { "title": "带说明" },
+  "required": {
+    "title": "必填",
+    "description": "`required` 在 Field 上只画星号；输入框自己也要传 `required` 才会真正参与校验。"
+  },
+  "validation": {
+    "title": "校验",
+    "description": "原生约束校验：这里用 `validationMode=\"onBlur\"`，输入框失焦时校验，`Field.Error` 按 `match` 指定的错误类型显示。试试输入一个不合法的邮箱再点别处。"
+  },
+  "controlled-invalid": {
+    "title": "受控的无效状态",
+    "description": "自己判断对错时用 `invalid` 控制整个表单项，`Field.Error` 传 `match` 决定是否显示。"
+  },
+  "variants": {
+    "title": "变体与尺寸",
+    "description": "Field 上的 `variant` / `size` 是里面控件的默认值。"
+  },
+  "textarea": { "title": "配合 Textarea" },
+  "input-group": { "title": "配合 Input Group" },
+  "disabled": { "title": "禁用" },
+  "form": {
+    "title": "一个小表单",
+    "description": "把几项拼起来的样子（Button 在最后）。"
+  },
+  "api": {
+    "title": "API 参考",
+    "label": "标签，自动关联到里面的控件。",
+    "desc": "说明文字，自动加到控件的 `aria-describedby`。",
+    "error": "错误提示，默认在校验失败时出现；传 `match` 可指定对应哪种校验错误，传 `true` 则由外部控制。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `field.css` 里处理标签、说明、错误提示；星号和无效时标签变红都由钩子驱动。",
+    "hook": "钩子",
+    "slot": "结构钩子",
+    "required": "Field 传了 `required` 时出现，主题风格用它画星号",
+    "states": "状态钩子，由 Base UI 写入；主题风格用 `:has([data-invalid])` 让标签变红",
+    "transitions": "`Field.Error` 出现 / 消失时的动画钩子"
+  },
+  "props": {
+    "Field": {
+      "children": "内容。",
+      "required": "只影响标签后面的星号；真正的必填校验要在控件上传 `required`。",
+      "size": "里面所有控件的默认尺寸；控件自己传了就以控件为准。",
+      "variant": "里面所有控件的默认外观；控件自己传了就以控件为准。",
+      "actionsRef": "命令式操作的 ref。`validate`：调用时校验该字段。",
+      "dirty": "字段的值是否已与初始值不同。字段状态由外部库控制时有用。",
+      "disabled": "是否忽略用户交互。优先于 `<Field.Control>` 上的 `disabled`。",
+      "invalid": "字段是否无效。字段状态由外部库控制时有用。",
+      "name": "表单提交时标识这个字段。优先于 `<Field.Control>` 上的 `name`。",
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。",
+      "touched": "字段是否被触碰过。字段状态由外部库控制时有用。",
+      "validate": "自定义校验函数。值无效时返回错误信息字符串或字符串数组；不返回、返回 `null`、空字符串或空数组表示有效。支持异步函数，但使用 `validationMode=\"onSubmit\"` 时不会阻止表单提交。",
+      "validationDebounceTime": "`validationMode=\"onChange\"` 时两次 `validate` 调用之间的等待时间，单位毫秒。",
+      "validationMode": "何时校验字段，优先于 `<Form>` 上的 `validationMode`。`onSubmit`：表单提交时校验，提交后每次变化重新校验；`onBlur`：控件失焦时校验；`onChange`：控件值每次变化时校验。"
+    },
+    "Field_Label": {
+      "nativeLabel": "用 `render` 替换元素时，组件是否渲染为原生 `<label>`。渲染的元素不是 label（比如 `<div>`）时设为 `false`。在 `<button>` 类控件（如 `<Select.Trigger>`、`<Combobox.Trigger>`）上可以避免继承 label 的行为，包括悬停在标签上时按钮出现 `:hover`、点击标签时触发按钮点击。",
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+    },
+    "Field_Description": {
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+    },
+    "Field_Error": {
+      "match": "按字段的 [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) 决定是否显示错误信息。传 `true` 则始终显示，交给外部库控制显示与否。",
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+    }
+  }
+}

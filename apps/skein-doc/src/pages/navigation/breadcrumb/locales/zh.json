@@ -1,0 +1,24 @@
+{
+  "lead": "面包屑，数据驱动。最后一项自动标记为当前页。",
+  "usage": { "title": "用法" },
+  "separator": { "title": "自定义分隔符" },
+  "onclick": { "title": "点击处理" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `breadcrumb.css` 里处理；Ant Design 悬停有浅底。接入路由时在 `onClick` 里调用路由跳转即可。",
+    "hook": "钩子",
+    "breadcrumb": "`nav`、有序列表和列表项",
+    "breadcrumb-link": "链接和当前页（`aria-current`）",
+    "breadcrumb-icon": "项前面的图标（`BreadcrumbItem.icon`）",
+    "breadcrumb-separator": "分隔符"
+  },
+  "props": {
+    "Breadcrumb": {
+      "icons": "图标显示方式。在 AdminLayout 里默认取布局的设置，这个属性优先。",
+      "items": "从根到当前页的路径（`BreadcrumbItem`：`label`、`href` / `onClick`、`icon`），最后一项是当前页。",
+      "separator": "自定义分隔符；给了它就忽略 `separatorStyle`。",
+      "separatorStyle": "分隔符样式：`chevron`（向右的小箭头）或 `slash`（斜杠）。"
+    }
+  }
+}

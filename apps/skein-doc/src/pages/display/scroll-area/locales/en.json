@@ -1,0 +1,16 @@
+{
+  "lead": "A scroll container with a custom scrollbar: scrolling itself is native, while the scrollbar (track and thumb) is drawn by the theme style. There is no height prop: put it in a parent with a height and it fills the parent and scrolls inside it.",
+  "usage": { "title": "Usage", "item": "Item {n}" },
+  "horizontal": { "title": "Horizontal", "tag": "Tag {n}" },
+  "both": { "title": "Both", "line": "A wide line of text that overflows both ways — {n}" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `scroll-area.css`: the thumb uses 25% of the foreground colour and darkens on hover.",
+    "hook": "Hook",
+    "root": "The outer box (clips the content) and the viewport that actually scrolls",
+    "scrollbar": "The scrollbar and its thumb; `data-orientation` tells the direction, and Base UI writes the thumb size as CSS variables",
+    "corner": "The bottom-right corner when both scrollbars are shown",
+    "states": "Written on the scrollbar while hovered or scrolling, so it can fade in"
+  }
+}

@@ -1,0 +1,271 @@
+import { execFileSync } from "node:child_process";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
+import { findProjectRoot, readProject } from "../project.js";
+import { checkTheme } from "../theme/index.js";
+
+/**
+ * `skein check`: one command that tells an agent (or a person) everything that is wrong with a Skein project,
+ * as a list of issues with file, line and a hint on how Skein wants it done. Exits non-zero on errors.
+ *
+ * - typecheck: `tsc` (after `tsr generate` when the project has routes), with Skein-specific hints
+ * - i18n: zh / en message files have the same keys, and every literal `t("key")` exists
+ * - style: no hard-coded colors in the project's CSS or inline styles (use var(--ui-*))
+ * - theme: a theme style written in the project (src/theme/) covers the @skeinui/ui contract
+ */
+export const CHECKS = ["typecheck", "i18n", "style", "theme"];
+
+/** @typedef {{ check: string; severity: "error" | "warning"; file?: string; line?: number; message: string; hint?: string }} Issue */
+
+const HINTS = [
+  [
+    /Property '(className|style)' does not exist/,
+    "Skein components take no className / style: visuals come from the theme style. Lay out with Flex / Grid, or wrap the component in your own element.",
+  ],
+  [
+    /Type '"[^"]*"' is not assignable to type '"/,
+    "A variant / color / size value that doesn't exist: `skein docs <Component>` lists the allowed values.",
+  ],
+  [
+    /has no exported member named '(\w+)'.*@skeinui\/ui|Module '"@skeinui\/ui"' has no exported member '(\w+)'/,
+    "Not a Skein component: `skein docs --search <word>` finds the right one.",
+  ],
+];
+
+function walk(dir, filter) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).flatMap((entry) => {
+    const file = join(dir, entry);
+    if (entry === "node_modules" || entry.startsWith(".")) return [];
+    return statSync(file).isDirectory() ? walk(file, filter) : filter(file) ? [file] : [];
+  });
+}
+
+/** A package's command from node_modules/.bin, looking up from `root` (packages' `exports` hide their bin files). */
+function bin(root, name) {
+  const file = process.platform === "win32" ? `${name}.cmd` : name;
+  for (let dir = root; ; dir = dirname(dir)) {
+    const candidate = join(dir, "node_modules", ".bin", file);
+    if (existsSync(candidate)) return candidate;
+    if (dirname(dir) === dir) return null;
+  }
+}
+
+const run = (command, args, cwd) =>
+  execFileSync(command, args, {
+    cwd,
+    stdio: "pipe",
+    encoding: "utf8",
+    shell: process.platform === "win32",
+  });
+
+function typecheck(root, project) {
+  const tsc = bin(root, "tsc");
+  if (!tsc) {
+    return [
+      {
+        check: "typecheck",
+        severity: "error",
+        message: "typescript is not installed: run npm install",
+      },
+    ];
+  }
+  if (project.features?.includes("router")) {
+    // routeTree.gen.ts must match src/routes/ before tsc can check the routes
+    try {
+      const tsr = bin(root, "tsr");
+      if (!tsr) throw new Error("@tanstack/router-cli is not installed: run npm install");
+      run(tsr, ["generate"], root);
+    } catch (error) {
+      return [
+        {
+          check: "typecheck",
+          severity: "error",
+          message: `tsr generate failed: ${String(error.stderr ?? error.message).trim()}`,
+        },
+      ];
+    }
+  }
+  let output = "";
+  try {
+    run(tsc, ["--noEmit", "--pretty", "false"], root);
+  } catch (error) {
+    output = `${error.stdout ?? ""}${error.stderr ?? ""}`;
+  }
+  const issues = [];
+  for (const line of output.split("\n")) {
+    const m = line.match(/^(.+?)\((\d+),\d+\): error (TS\d+): (.*)$/);
+    if (m) {
+      issues.push({
+        check: "typecheck",
+        severity: "error",
+        file: m[1],
+        line: Number(m[2]),
+        message: `${m[3]}: ${m[4]}`,
+      });
+    } else if (line.startsWith(" ") && issues.length > 0) {
+      issues[issues.length - 1].message += `\n${line}`;
+    }
+  }
+  for (const issue of issues) {
+    const hint = HINTS.find(([re]) => re.test(issue.message))?.[1];
+    if (hint) issue.hint = hint;
+  }
+  return issues;
+}
+
+const flatten = (obj, prefix = "") =>
+  Object.entries(obj ?? {}).flatMap(([k, v]) =>
+    v && typeof v === "object" ? flatten(v, `${prefix}${k}.`) : [`${prefix}${k}`],
+  );
+
+function i18n(root) {
+  const issues = [];
+  const messageDirs = walk(join(root, "src"), (f) => f.endsWith("locales/messages/zh.json")).map(
+    dirname,
+  );
+  for (const dir of messageDirs) {
+    const load = (lng) => {
+      const file = join(dir, `${lng}.json`);
+      return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : null;
+    };
+    const zh = load("zh");
+    const en = load("en");
+    const rel = relative(root, dir);
+    if (!en) {
+      issues.push({
+        check: "i18n",
+        severity: "error",
+        file: `${rel}/en.json`,
+        message: "en.json is missing",
+      });
+      continue;
+    }
+    const zhKeys = new Set(flatten(zh));
+    const enKeys = new Set(flatten(en));
+    for (const key of zhKeys) {
+      if (!enKeys.has(key))
+        issues.push({
+          check: "i18n",
+          severity: "error",
+          file: `${rel}/en.json`,
+          message: `missing key "${key}" (it is in zh.json)`,
+        });
+    }
+    for (const key of enKeys) {
+      if (!zhKeys.has(key))
+        issues.push({
+          check: "i18n",
+          severity: "error",
+          file: `${rel}/zh.json`,
+          message: `missing key "${key}" (it is in en.json)`,
+        });
+    }
+    // Literal keys used by the page / module these messages belong to (locales/messages → its owner)
+    const owner = dirname(dirname(dir));
+    const sources = walk(owner, (f) => /\.tsx?$/.test(f) && !f.includes(`${owner}/locales/`));
+    for (const file of sources) {
+      readFileSync(file, "utf8")
+        .split("\n")
+        .forEach((text, i) => {
+          for (const m of text.matchAll(/\bt\(\s*["']([\w.-]+)["']/g)) {
+            const key = m[1];
+            const isPrefix = [...zhKeys].some((k) => k.startsWith(`${key}.`));
+            if (!zhKeys.has(key) && !isPrefix) {
+              issues.push({
+                check: "i18n",
+                severity: "error",
+                file: relative(root, file),
+                line: i + 1,
+                message: `t("${key}") has no message in ${relative(root, dir)}/`,
+                hint: "Add the key to both zh.json and en.json of this page's locales/messages/.",
+              });
+            }
+          }
+        });
+    }
+  }
+  return issues;
+}
+
+const HEX = /#[0-9a-fA-F]{3,8}\b/g;
+
+function style(root) {
+  const issues = [];
+  const own = (f) => !f.includes(`${join(root, "src", "theme")}/`);
+  for (const file of walk(join(root, "src"), (f) => f.endsWith(".css") && own(f))) {
+    readFileSync(file, "utf8")
+      .split("\n")
+      .forEach((text, i) => {
+        if (text.trim().startsWith("/*") || text.trim().startsWith("*")) return;
+        for (const m of text.match(HEX) ?? []) {
+          issues.push({
+            check: "style",
+            severity: "warning",
+            file: relative(root, file),
+            line: i + 1,
+            message: `hard-coded color ${m}`,
+            hint: "Use a token such as var(--ui-c-primary) or var(--ui-fg) so it follows the theme style and dark mode.",
+          });
+        }
+      });
+  }
+  for (const file of walk(join(root, "src"), (f) => f.endsWith(".tsx"))) {
+    readFileSync(file, "utf8")
+      .split("\n")
+      .forEach((text, i) => {
+        if (!/style=\{\{/.test(text)) return;
+        for (const m of text.match(HEX) ?? []) {
+          issues.push({
+            check: "style",
+            severity: "warning",
+            file: relative(root, file),
+            line: i + 1,
+            message: `hard-coded color ${m} in an inline style`,
+            hint: "Use a token such as var(--ui-c-primary) so it follows the theme style and dark mode.",
+          });
+        }
+      });
+  }
+  return issues;
+}
+
+async function theme(root) {
+  const dir = join(root, "src", "theme");
+  const tokens = join(dir, "tokens.css");
+  if (!existsSync(tokens)) return [];
+  const name = readFileSync(tokens, "utf8").match(/\[data-theme-style="([^"]+)"\]/)?.[1];
+  if (!name)
+    return [
+      {
+        check: "theme",
+        severity: "error",
+        file: "src/theme/tokens.css",
+        message: 'no [data-theme-style="…"] selector',
+      },
+    ];
+  return checkTheme(dir, name).map((issue) => ({
+    check: "theme",
+    severity: "error",
+    file: `src/theme/${issue.file}`,
+    message: `[${issue.rule}] ${issue.message}`,
+  }));
+}
+
+/**
+ * @param {{ cwd?: string; only?: string[] }} options
+ * @returns {Promise<{ root: string; ok: boolean; errors: number; warnings: number; issues: Issue[]; ran: string[] }>}
+ */
+export async function check({ cwd = process.cwd(), only } = {}) {
+  const root = findProjectRoot(cwd);
+  if (!root) throw new Error("not inside a Skein project (no .skein.json found here or above)");
+  const project = readProject(root);
+  const ran = only?.length ? CHECKS.filter((c) => only.includes(c)) : CHECKS;
+  const issues = [];
+  if (ran.includes("typecheck")) issues.push(...typecheck(root, project));
+  if (ran.includes("i18n")) issues.push(...i18n(root));
+  if (ran.includes("style")) issues.push(...style(root));
+  if (ran.includes("theme")) issues.push(...(await theme(root)));
+  const errors = issues.filter((i) => i.severity === "error").length;
+  return { root, ok: errors === 0, errors, warnings: issues.length - errors, issues, ran };
+}

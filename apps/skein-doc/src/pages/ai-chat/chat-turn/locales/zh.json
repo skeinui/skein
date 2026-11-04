@@ -1,0 +1,133 @@
+{
+  "lead": "聊天里的一条消息：助手是「头像 + 内容列」，用户是靠右的气泡；内容里可以放 Markdown、来源、工具调用，下面是一排淡出的操作按钮。每条是一个有名称的 article，放进 Chat Thread 里读屏能逐条读。",
+  "assistant": "助手",
+  "usage": {
+    "title": "用法",
+    "question": "怎么校验表单？",
+    "answer": "用一个 schema，在提交时校验。"
+  },
+  "markdown": {
+    "title": "配合 Markdown",
+    "reply": "好的！简单的计划：\n\n1. **解析**输入\n2. 逐个字段**校验**\n3. 返回带类型的结果\n\n```ts\nconst result = validate(parse(input));\n```"
+  },
+  "actions": {
+    "title": "操作按钮",
+    "description": "操作按钮平时淡出，悬停或键盘聚焦到这一条时显示（触屏一直显示）；点赞这类开关用 `pressed`。",
+    "message": "悬停（或聚焦）到这条消息上，显示操作按钮。",
+    "copy": "复制",
+    "retry": "重试",
+    "like": "点赞"
+  },
+  "grouped": {
+    "title": "连续消息",
+    "description": "连续几条助手消息只有第一条显示头像，其余 `show={false}` 留出空位，文字才对齐。",
+    "first": "第一条消息。",
+    "second": "第二条消息，和第一条对齐。"
+  },
+  "edit": {
+    "title": "编辑后重发",
+    "description": "点铅笔编辑：⌘ / Ctrl + 回车保存，Esc 取消，空文字不能保存。",
+    "edit": "编辑消息"
+  },
+  "pager": {
+    "title": "回复版本",
+    "description": "重新生成后同一个问题有多个回复，用 `Pager` 在版本之间切换。",
+    "v0": "用一个 schema，在提交时校验。",
+    "v1": "失焦时校验，用户输入时就在字段旁显示错误。",
+    "v2": "优先用现成的库：schema、异步规则和带类型的错误都有了。",
+    "regenerate": "重新生成"
+  },
+  "status": {
+    "title": "状态和时间",
+    "description": "发送失败是 `role=alert` 并可重试；成功后换成时间戳。",
+    "question": "离线能用吗？",
+    "fail": "再失败一次"
+  },
+  "api": {
+    "title": "API 参考",
+    "Assistant": "助手消息的根：一个有名称的 `article`（`aria-label`，默认 \"Assistant\"）。",
+    "User": "用户消息的根：一个有名称的 `article`（`aria-label`，默认 \"You\"）。",
+    "Avatar": "助手头像（`src` / `alt` / `fallback`）；连续几条助手消息时，后面的传 `show={false}`：留出同样宽度的空位，文字对齐。",
+    "Actions": "一排操作按钮（`role=group`，`aria-label` 默认 \"Message actions\"）；平时淡出，悬停 / 聚焦到这一条显示，触屏一直显示。",
+    "Action": "一个图标按钮（小号、淡色的 Button），`aria-label` 必填；`pressed` 写成 `aria-pressed`，用于点赞 / 点踩。",
+    "Edit": "编辑用户消息：放在 `ChatTurn.User` 里代替 `Bubble`。`defaultValue` / `onSave(value)` / `onCancel`；随内容长高，回车换行，⌘ / Ctrl + 回车保存，Esc 取消，挂载时聚焦；空文字不能保存；`labels` 换按钮文字。",
+    "Pager": "同一个问题的多个回复版本之间切换「‹ 2 / 3 ›」：`index` 从 0 数，少于 2 个版本不渲染，到头的方向禁用，数字变化会被播报；放在 `Actions` 里。",
+    "Status": "消息的发送状态：发送中 `role=status`，失败 `role=alert` 并可重试。",
+    "Time": "时间戳：`<time datetime>`，按 `locale` 格式化（默认取 ConfigProvider），`title` 是完整日期；`display=\"datetime\"` 带日期。",
+    "more": "其他部件",
+    "name": "部件",
+    "Body": "助手的内容列。",
+    "Bubble": "用户的气泡。",
+    "Content": "消息内容（可以放 Markdown、文字）。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "一条消息的根；`data-role=assistant | user`",
+    "avatar": "头像位（`data-hidden` 表示只留空位）",
+    "body": "助手的内容列",
+    "bubble": "用户的气泡",
+    "content": "消息内容",
+    "actions": "操作按钮组",
+    "edit": "编辑用户消息的表单、输入框和保存取消按钮行",
+    "pager": "回复版本切换和「2 / 3」",
+    "status": "发送状态（`data-state`）和重试按钮",
+    "time": "时间戳"
+  },
+  "props": {
+    "ChatTurn_Assistant": {
+      "aria-label": "这条消息的名称，给读屏用；默认助手是 \"Assistant\"，用户是 \"You\"。"
+    },
+    "ChatTurn_User": {
+      "aria-label": "这条消息的名称，给读屏用；默认助手是 \"Assistant\"，用户是 \"You\"。"
+    },
+    "ChatTurn_Avatar": {
+      "alt": "图片的替代文字（人名）；默认为空，表示图片是装饰性的。",
+      "color": "语义色，具体颜色由主题风格决定。",
+      "fallback": "后备内容，通常是名字的首字母；不传时留空。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "show": "连续几条助手消息时，只有第一条显示头像，其余传 `false`：留出同样宽度的空位，文字对齐。默认显示。",
+      "src": "图片地址；加载失败或不传时显示后备内容。"
+    },
+    "ChatTurn_Actions": {
+      "aria-label": "这组操作按钮的名称，给读屏用，默认 \"Message actions\"。"
+    },
+    "ChatTurn_Action": {
+      "aria-label": "只有图标，所以名称必填。",
+      "children": "按钮内容。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "pressed": "开关类操作（点赞 / 点踩）的状态，写成 `aria-pressed`。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。渲染的不是按钮（比如 `<div>`）时设为 `false`。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "ChatTurn_Edit": {
+      "aria-label": "输入框的名称，默认 \"Edit message\"。",
+      "defaultValue": "编辑前的文字。",
+      "labels": "要覆盖的内置文字（类型见下面的 Labels），默认跟随 ConfigProvider 的语言。",
+      "maxRows": "最多长到几行，默认 10。",
+      "onCancel": "取消（取消按钮或 Esc）。",
+      "onSave": "保存：参数是编辑后的文字（保存按钮或 ⌘ / Ctrl + 回车）。"
+    },
+    "ChatTurn_Pager": {
+      "count": "版本总数；少于 2 个时不渲染。",
+      "index": "当前版本的序号（从 0 数）。",
+      "labels": "要覆盖的内置文字（类型见下面的 Labels），默认跟随 ConfigProvider 的语言。",
+      "onIndexChange": "用新的 `index` 调用；要受控就同时传 `index`。"
+    },
+    "ChatTurn_Status": {
+      "labels": "要覆盖的内置文字（类型见下面的 Labels），默认跟随 ConfigProvider 的语言。",
+      "onRetry": "失败时点「重试」；不传就没有重试按钮。",
+      "state": "sending：发送中；failed：发送失败（可重试）。"
+    },
+    "ChatTurn_Time": {
+      "display": "time 只显示时间（默认），datetime 带上日期。",
+      "locale": "语言区域，默认取 ConfigProvider 的 locale，再退到浏览器的。",
+      "value": "时间：Date、时间戳或 ISO 字符串。"
+    }
+  }
+}

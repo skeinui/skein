@@ -1,0 +1,29 @@
+{
+  "lead": "Page navigation, data-driven: the caller owns the current page and the total, so it works for both server- and client-side paging. The buttons and the dropdown reuse the theme style of Button and Select.",
+  "usage": { "title": "Usage" },
+  "pages": { "title": "Numbered Pages" },
+  "page-size": { "title": "Page Size" },
+  "selected": { "title": "Selected Count" },
+  "sizes": { "title": "Sizes" },
+  "labels": {
+    "title": "Custom Labels",
+    "total": "{n} orders",
+    "selected": "{n} rows selected",
+    "page": "Page {current} of {count}",
+    "pageSize": "{n} per page",
+    "first": "First page",
+    "previous": "Previous page",
+    "next": "Next page",
+    "last": "Last page"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "In `pagination.css` a theme style only handles layout and text: the buttons look like `button.css`, the page-size dropdown like `select.css`.",
+    "hook": "Hook",
+    "root": "The outer element: the two sides laid out apart",
+    "info": "The summary text and \"Page x / y\"",
+    "controls": "The controls on the right, the navigation buttons, the page numbers",
+    "extras": "The ellipsis and the page-size dropdown"
+  }
+}

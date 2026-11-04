@@ -1,0 +1,43 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Kbd: a keycap, monospace font. */
+  [data-theme-style="shadcn"] [data-slot="kbd"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: calc(1.25rem * var(--ui-density));
+    height: calc(1.25rem * var(--ui-density));
+    padding-inline: calc(0.25rem * var(--ui-density));
+    border: 0px solid var(--ui-border);
+    border-radius: var(--ui-radius-sm);
+    background-color: var(--ui-c-neutral-soft);
+    box-shadow: none;
+    color: var(--ui-fg-muted);
+    font-family: var(--ui-font-family);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+    user-select: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="kbd"][data-size="sm"] {
+    min-width: calc(1rem * var(--ui-density));
+    height: calc(1rem * var(--ui-density));
+    padding-inline: calc(0.25rem * var(--ui-density));
+    font-size: 0.625rem;
+    line-height: 0.75rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="kbd"][data-size="lg"] {
+    min-width: calc(1.5rem * var(--ui-density));
+    height: calc(1.5rem * var(--ui-density));
+    padding-inline: calc(0.375rem * var(--ui-density));
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="kbd-group"] {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.25rem * var(--ui-density));
+  }
+}

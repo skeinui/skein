@@ -1,0 +1,25 @@
+{
+  "lead": "Quote replies: select a passage in an assistant reply and a \"Quote\" button appears above the selection; click it and the passage is attached to the input area as a quote, so the next message replies to it. `QuoteSelection` handles the selection and the button, `Quote` is the block that shows the quote.",
+  "usage": {
+    "title": "Usage",
+    "description": "Works with the mouse or the keyboard (<kbd>Shift</kbd> + arrow keys to select, <kbd>Tab</kbd> to the button).",
+    "text": "Skins are plain CSS files, so switching the look never touches component code. Behaviour comes from Base UI; every visual decision lives in the skin.",
+    "hint": "Select some of the text above, then click the \"Quote\" button that appears:",
+    "empty": "(No quote yet)"
+  },
+  "quote": {
+    "title": "Quote",
+    "description": "Without `onRemove` (as in sent messages) it is a read-only quote block.",
+    "text": "Skins are plain CSS files, so switching the look never touches component code. Behaviour comes from Base UI; every visual decision lives in the skin and nothing else needs to change when the look changes."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "quote": "The quoted block (`blockquote`)",
+    "text": "The source and the text (the text is clamped to 3 lines)",
+    "remove": "The remove button",
+    "selection": "The container of the quotable content; the component writes the position variables `--quote-x` / `--quote-y`",
+    "action": "The \"Quote\" button above the selection"
+  }
+}

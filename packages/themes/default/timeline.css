@@ -1,0 +1,159 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Timeline: time | dot (with a line connecting to the next item) | title and description. The dot is a solid dot in the item's color, replaced by a light-background circle when it has an icon; the dot of an in-progress item has a breathing ring. */
+  [data-theme-style="default"] [data-slot="timeline-item"][data-color="neutral"] {
+    --_c: var(--ui-c-neutral);
+    --_c-fg: var(--ui-c-neutral-fg);
+    --_soft: var(--ui-c-neutral-soft);
+    --_text: var(--ui-c-neutral-text);
+  }
+  [data-theme-style="default"] [data-slot="timeline-item"][data-color="primary"] {
+    --_c: var(--ui-c-primary);
+    --_c-fg: var(--ui-c-primary-fg);
+    --_soft: var(--ui-c-primary-soft);
+    --_text: var(--ui-c-primary-text);
+  }
+  [data-theme-style="default"] [data-slot="timeline-item"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary);
+    --_c-fg: var(--ui-c-secondary-fg);
+    --_soft: var(--ui-c-secondary-soft);
+    --_text: var(--ui-c-secondary-text);
+  }
+  [data-theme-style="default"] [data-slot="timeline-item"][data-color="success"] {
+    --_c: var(--ui-c-success);
+    --_c-fg: var(--ui-c-success-fg);
+    --_soft: var(--ui-c-success-soft);
+    --_text: var(--ui-c-success-text);
+  }
+  [data-theme-style="default"] [data-slot="timeline-item"][data-color="warning"] {
+    --_c: var(--ui-c-warning);
+    --_c-fg: var(--ui-c-warning-fg);
+    --_soft: var(--ui-c-warning-soft);
+    --_text: var(--ui-c-warning-text);
+  }
+  [data-theme-style="default"] [data-slot="timeline-item"][data-color="danger"] {
+    --_c: var(--ui-c-danger);
+    --_c-fg: var(--ui-c-danger-fg);
+    --_soft: var(--ui-c-danger-soft);
+    --_text: var(--ui-c-danger-text);
+  }
+  [data-theme-style="default"] [data-slot="timeline"] {
+    --_dot: 0.625rem;
+    --_icon: 1.5rem;
+    --_gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="default"] [data-slot="timeline"][data-size="sm"] {
+    --_dot: 0.5rem;
+    --_icon: 1.25rem;
+    --_gap: 1rem;
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="default"] [data-slot="timeline"][data-size="lg"] {
+    --_dot: 0.75rem;
+    --_icon: 1.75rem;
+    --_gap: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  [data-theme-style="default"] [data-slot="timeline-item"] {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    column-gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+  }
+  [data-theme-style="default"] [data-slot="timeline"][data-has-time] [data-slot="timeline-item"] {
+    grid-template-columns: 6rem 1.75rem minmax(0, 1fr);
+  }
+  [data-theme-style="default"] [data-slot="timeline-time"] {
+    padding-top: 0.0625rem;
+    color: var(--ui-fg-muted);
+    font-size: 0.8125rem;
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="default"] [data-slot="timeline-separator"] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  [data-theme-style="default"] [data-slot="timeline-dot"] {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--_dot);
+    height: var(--_dot);
+    margin-top: calc((1.25rem - var(--_dot)) / 2);
+    border-radius: var(--ui-radius-full);
+    background-color: var(--_c);
+  }
+  [data-theme-style="default"] [data-slot="timeline-dot"][data-has-icon] {
+    width: var(--_icon);
+    height: var(--_icon);
+    margin-top: calc((1.25rem - var(--_icon)) / 2);
+    background-color: var(--_soft);
+    color: var(--_text);
+  }
+  [data-theme-style="default"] [data-slot="timeline-dot"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="default"] [data-slot="timeline-connector"] {
+    flex: 1;
+    width: 2px;
+    min-height: 0.75rem;
+    margin-block: 0.25rem;
+    background-color: var(--ui-border);
+  }
+  [data-theme-style="default"] [data-slot="timeline-content"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 0;
+    padding-bottom: var(--_gap);
+  }
+  [data-theme-style="default"]
+    [data-slot="timeline-item"]:last-child
+    [data-slot="timeline-content"] {
+    padding-bottom: 0;
+  }
+  [data-theme-style="default"] [data-slot="timeline-title"] {
+    font-weight: 500;
+  }
+  [data-theme-style="default"] [data-slot="timeline-description"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="default"]
+    [data-slot="timeline-item"][data-pending]
+    [data-slot="timeline-dot"] {
+    animation: ui-default-timeline-pulse 1.6s ease-out infinite;
+  }
+  @keyframes ui-default-timeline-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--_c) 45%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 0.5rem transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="default"]
+      [data-slot="timeline-item"][data-pending]
+      [data-slot="timeline-dot"] {
+      animation: none;
+    }
+  }
+}

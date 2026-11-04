@@ -1,0 +1,38 @@
+{
+  "lead": "The artifact panel: the area beside the conversation that shows what the model produced (a document, code, a web page). Its header holds a title, a view switch (preview / code), actions and a close button; in the conversation, an `ArtifactCard` points to it.",
+  "usage": {
+    "title": "Usage",
+    "description": "The body takes anything: here the preview is `Markdown` and the code view a `CodeBlock`.",
+    "preview": "Preview",
+    "code": "Code",
+    "copy": "Copy",
+    "content": "report.md content"
+  },
+  "card": {
+    "title": "Card and panel",
+    "description": "An `ArtifactCard` in the conversation: `aria-pressed` tells whether its artifact is open beside it.",
+    "open": "Open: {id}"
+  },
+  "api": {
+    "title": "API Reference",
+    "description": "`Artifact` is a compound component; the parts without props of their own take the props of the element they render.",
+    "part": "Part",
+    "root": "Root of the panel: a `section` (region) named by its Title. Put it in a parent with a height: it fills it and scrolls its content inside",
+    "header": "Header: title, note, view switch, actions",
+    "titlePart": "Title, also the name of the whole panel",
+    "meta": "A short note next to the title (\"Document · v2\")",
+    "views": "View switch (preview / code), the library's `Segmented`; `aria-label` defaults to \"View\"",
+    "actions": "A row of actions (`role=group`, `aria-label` defaults to \"Actions\")",
+    "action": "An icon button (`aria-label` required) / the close button (named \"Close\" by default)",
+    "body": "Content area: keyboard focusable, scrolls inside when the content overflows; `aria-label` defaults to \"Content\"",
+    "card": "A small card in the conversation pointing to an artifact: a button whose `aria-pressed` tells whether the artifact is open; clicking it opens the `Artifact` beside it."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root of the panel (a bordered vertical flex)",
+    "header": "The header and its title, note and action group",
+    "body": "Content area (scrollable, focusable)",
+    "card": "The artifact card in the conversation; `data-selected` when its artifact is open"
+  }
+}

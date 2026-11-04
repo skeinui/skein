@@ -1,0 +1,50 @@
+{
+  "lead": "数字输入。min / max / step、键盘上下键、按住加减连续变化、格式化来自 Base UI 的 NumberField；输入框外观复用 Input。",
+  "usage": { "title": "用法" },
+  "range": { "title": "最小值、最大值与步长" },
+  "format": { "title": "格式化" },
+  "variants": { "title": "变体与尺寸" },
+  "no-stepper": { "title": "不带加减按钮" },
+  "in-field": { "title": "放进 Field" },
+  "invalid": { "title": "禁用与无效" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `number-field.css` 里只处理加减按钮和数字居中；输入框外观来自 `input.css` 里的 input-group。",
+    "root": "外层",
+    "input": "输入框，和 Input 共用同一套外观",
+    "buttons": "加减按钮"
+  },
+  "props": {
+    "NumberField": {
+      "aria-label": "给当前元素命名的字符串。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示无效状态。",
+      "placeholder": "为空时显示的文字。",
+      "size": "尺寸档位。",
+      "stepper": "两侧的加减按钮，默认显示。",
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "allowOutOfRange": "为 true 时，直接输入的文字可以超出 `min` / `max` 而不被夹紧，从而触发原生的范围下溢 / 上溢校验。按步长的操作（方向键、按钮、滚轮、拖动）仍会夹紧。",
+      "allowWheelScrub": "聚焦且鼠标悬停在输入框上时，是否允许用滚轮调整数值。",
+      "defaultValue": "首次渲染时的非受控值。要做受控的数字输入，改用 `value`。",
+      "disabled": "是否忽略用户交互。",
+      "form": "隐藏 input 所属表单的标识。数字输入渲染在表单外面时有用。",
+      "format": "输入值的格式化选项。",
+      "id": "input 元素的 id。",
+      "inputRef": "用来访问隐藏 input 元素的 ref。",
+      "largeStep": "按住 Shift 增减时的大步长。开启 `snapOnStep` 时吸附到它的整数倍。",
+      "locale": "输入框的语言区域，默认取用户运行环境的语言区域。",
+      "max": "允许的最大值。",
+      "min": "允许的最小值。",
+      "name": "表单提交时的字段名。",
+      "onValueChange": "数值变化时的回调。`eventDetails.reason` 表示触发原因：`'input-change'` 可解析的输入或程序修改文字；`'input-clear'` 输入框被清空；`'input-blur'` 失焦时格式化（以及夹紧，如果开启）；`'input-paste'` 粘贴；`'keyboard'` 方向键 / Home / End 步进（输入数字算 `'input-change'` / `'input-clear'`）；`'increment-press'` / `'decrement-press'` 按加减按钮；`'wheel'` 滚轮调整；`'scrub'` 在拖动区域拖动。",
+      "onValueCommitted": "值提交时的回调。比 `onValueChange` 晚：输入后失焦时，或拖动 / 按加减按钮后松开指针时。用键盘或滚轮操作时与 `onValueChange` 同时触发。**注意**：这是一个普通事件，不是 change 事件。",
+      "readOnly": "用户是否不能修改值。",
+      "required": "提交表单前是否必须填写。",
+      "smallStep": "按住 Alt 增减时的小步长。开启 `snapOnStep` 时吸附到它的整数倍。",
+      "snapOnStep": "增减时是否吸附到最近的步长整数倍。",
+      "step": "按钮和方向键每次增减的量，也是在拖动区域拖动时的步长。要在表单提交时始终做步长校验，同时显式传 `min`。传 `step=\"any\"` 则始终不做步长校验，此时交互步进的基础量是 `1`，Alt 和 Shift 仍按 `smallStep` 和 `largeStep` 步进。",
+      "value": "字段的原始数值。"
+    }
+  }
+}

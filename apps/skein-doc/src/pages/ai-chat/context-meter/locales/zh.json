@@ -1,0 +1,40 @@
+{
+  "lead": "上下文用量：一个小小的圆环加百分比，点开是明细——一共多少、已用多少、由哪几部分构成。用量越高越醒目（70% 起警告色，90% 起危险色）。",
+  "usage": {
+    "title": "用法",
+    "system": "系统提示",
+    "messages": "消息",
+    "tools": "工具结果"
+  },
+  "levels": {
+    "title": "等级",
+    "description": "`data-level` 低于 70% 是 ok，70% 起是 warn，90% 起是 danger；占用率超过 100% 按 100% 画。"
+  },
+  "composer": {
+    "title": "放进输入框",
+    "placeholder": "随便问点什么…"
+  },
+  "api": {
+    "title": "API 参考",
+    "formatTokens": "数字用的 `formatTokens(n)` 也导出了：`12345` → `\"12.3K\"`、`128000` → `\"128K\"`。已用但没归进 `segments` 的算「Other」，剩下的算「Free」。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "触发器（按钮）；`data-level` 是 ok / warn / danger（70% 起警告、90% 起危险）",
+    "ring": "小圆环（SVG）、轨道、进度弧、百分比文字",
+    "popup": "弹层里的内容、标题、合计",
+    "bar": "堆叠条和每一段（宽度读 `--ctx-w`，`data-index` 决定颜色）",
+    "list": "构成列表：色块、名称、数值（`data-free` 是剩余那一行）"
+  },
+  "props": {
+    "ContextMeter": {
+      "align": "弹层沿这一边怎么和触发器对齐。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "max": "上下文窗口一共多少 token。",
+      "segments": "已用部分的构成（消息、工具结果、系统提示…），在弹层里显示为堆叠条和列表。",
+      "side": "弹层在触发器的哪一边打开。",
+      "used": "已用多少 token。"
+    }
+  }
+}

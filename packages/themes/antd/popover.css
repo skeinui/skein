@@ -1,0 +1,74 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Popover: a click-triggered overlay with 12px padding and radius var(--ui-radius-lg). */
+  [data-theme-style="antd"] [data-slot="popover-positioner"] {
+    z-index: 1030;
+  }
+  [data-theme-style="antd"] [data-slot="popover"] {
+    box-sizing: border-box;
+    padding: calc(12px * var(--ui-density));
+    border: 0px solid var(--ui-overlay-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--ui-overlay-bg);
+    color: var(--ui-fg);
+    box-shadow: var(--ui-overlay-shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+    outline: none;
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: var(--transform-origin);
+    transition:
+      opacity 200ms cubic-bezier(0.645, 0.045, 0.355, 1),
+      transform 200ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  [data-theme-style="antd"] [data-slot="popover"][data-starting-style],
+  [data-theme-style="antd"] [data-slot="popover"][data-ending-style] {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  [data-theme-style="antd"] [data-slot="popover"][data-ending-style] {
+    transition-duration: 200ms;
+  }
+  [data-theme-style="antd"] [data-slot="popover-title"] {
+    margin: 0 0 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5714285714285714;
+  }
+  [data-theme-style="antd"] [data-slot="popover-description"] {
+    margin: 0;
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="popover-close"] {
+    cursor: pointer;
+  }
+
+  [data-theme-style="antd"] [data-slot="popover-arrow"] {
+    width: 0.7rem;
+    height: 0.7rem;
+    background-color: var(--ui-overlay-bg);
+    rotate: 45deg;
+    border-radius: 0 0 2px 0;
+  }
+  [data-theme-style="antd"] [data-slot="popover-arrow"][data-side="top"] {
+    bottom: -0.35rem;
+  }
+  [data-theme-style="antd"] [data-slot="popover-arrow"][data-side="bottom"] {
+    top: -0.35rem;
+  }
+  [data-theme-style="antd"] [data-slot="popover-arrow"][data-side="left"] {
+    right: -0.35rem;
+  }
+  [data-theme-style="antd"] [data-slot="popover-arrow"][data-side="right"] {
+    left: -0.35rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="popover"] {
+      transition: none;
+    }
+  }
+}

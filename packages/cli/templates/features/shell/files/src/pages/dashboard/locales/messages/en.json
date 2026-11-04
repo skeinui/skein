@@ -1,0 +1,12 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Welcome back, here is an overview",
+  "stats": { "users": "Users", "active": "Active", "disabled": "Disabled", "admins": "Admins" },
+  "recent": {
+    "title": "Recently joined",
+    "description": "The 5 newest users",
+    "name": "Name",
+    "email": "Email",
+    "createdAt": "Created"
+  }
+}

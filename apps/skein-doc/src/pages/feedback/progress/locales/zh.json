@@ -1,0 +1,43 @@
+{
+  "lead": "进度条。role 和 `aria-valuenow` 来自 Base UI 的 Progress，条怎么画由主题风格决定。",
+  "usage": { "title": "用法" },
+  "label": { "title": "标签与数值" },
+  "sizes": { "title": "尺寸" },
+  "colors": { "title": "颜色" },
+  "indeterminate": { "title": "不确定进度" },
+  "radius": { "title": "圆角" },
+  "circle": {
+    "title": "环形与仪表盘",
+    "description": "环形和仪表盘：进度是 `stroke-dasharray`，所以值变化时圆弧是平滑过渡的；不确定进度时一小段弧绕着转。"
+  },
+  "live": { "title": "实时更新" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `progress.css` 里处理；不确定进度的循环动画也在主题风格里，组件只给 `data-indeterminate`。",
+    "hook": "钩子",
+    "circle": "环形的容器和 SVG（`aria-hidden`，可访问性在 `progress` 上）；`data-type=circle|dashboard`",
+    "circleParts": "底圈、指示圈（进度是 `stroke-dasharray` 里的 `--pc-value`，0–100）、环中间的数字",
+    "root": "外层与文字行",
+    "text": "标签与百分比",
+    "track": "轨道与指示器，宽度由 Base UI 写成内联宽度",
+    "states": "写在 `progress` 和指示器上，主题风格用它们画不同状态"
+  },
+  "props": {
+    "Progress": {
+      "color": "指示器的语义色，具体颜色由主题风格决定。",
+      "label": "条形：条上方的文字；环形：环下面的文字。",
+      "radius": "只对条形有效（环的两端是圆的）；不传时是胶囊形。",
+      "showValue": "条形：文字行右侧显示百分比；环形：显示在环中间（由 Base UI 格式化）。",
+      "size": "尺寸档位：条的粗细 / 环的直径（3 / 5 / 7.5rem）。",
+      "type": "line 是条形；circle 是环形；dashboard 是留一个缺口的仪表盘（270°）。",
+      "value": "当前值；传 null 表示不确定进度（循环动画）。",
+      "aria-valuetext": "为 `aria-valuenow`（进度条的当前值）提供用户友好名称的字符串。",
+      "format": "当前值的格式化选项。",
+      "getAriaValueText": "接收一个函数，返回的字符串作为进度条当前值的可读文本替代。",
+      "locale": "格式化当前值时 `Intl.NumberFormat` 使用的语言区域，默认为用户运行环境的语言区域。",
+      "max": "最大值。",
+      "min": "最小值。"
+    }
+  }
+}

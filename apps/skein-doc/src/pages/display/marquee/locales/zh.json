@@ -1,0 +1,39 @@
+{
+  "lead": "跑马灯：一行放不下的公告 / 动态循环滚动。内容放得下就静止；鼠标和焦点进来时暂停，有暂停按钮；系统要求减少动效时不滚，改成可以手动横向滚动。",
+  "basic": {
+    "title": "基础用法",
+    "label": "公告",
+    "new": "新",
+    "news": "Sortable、Marquee、TagInput 和 Statistic.Countdown 已加入组件库 · DatePicker 支持周、月、季度和年 · Table 支持固定列 ·"
+  },
+  "direction": { "title": "方向和速度", "label": "反向快速" },
+  "controlled": { "title": "受控暂停", "paused": "暂停" },
+  "short": {
+    "title": "放得下的内容",
+    "description": "放得下就不滚动、不复制内容、也没有暂停按钮。",
+    "label": "短内容",
+    "text": "短文字"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根元素，带 `data-overflow` / `data-paused` / `data-pause-on-hover` / `data-direction` 和 `--marquee-duration`",
+    "parts": "裁剪窗口、动画的轨道、内容（滚动时有两份，副本 `aria-hidden` + `inert`）",
+    "pause": "暂停按钮；`data-paused` 不在按钮上，读 `aria-pressed`"
+  },
+  "props": {
+    "Marquee": {
+      "aria-label": "区域名称，供读屏软件使用。",
+      "children": "滚动的内容。",
+      "defaultPaused": "非受控时 `paused` 的初始值。",
+      "direction": "start 向起始方向滚动（从右往左，RTL 下相反），end 相反。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onPausedChange": "暂停状态变化时以新的 `paused` 调用；同时传 `paused` 即为受控。",
+      "pausable": "显示暂停按钮。WCAG 2.2.2：自动滚动超过 5 秒的内容必须能暂停；除非别处有等效的控制，否则不要关掉。",
+      "paused": "受控的暂停状态。",
+      "pauseOnHover": "鼠标移上去 / 焦点在里面时暂停。",
+      "speed": "滚动速度，像素 / 秒：时长 = 内容宽度 / 速度，写成 `--marquee-duration`。"
+    }
+  }
+}

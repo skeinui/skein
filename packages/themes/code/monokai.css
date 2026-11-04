@@ -1,0 +1,19 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Monokai (always dark): on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="monokai"] {
+    --ui-bg: #272822;
+    --ui-surface: #272822;
+    --ui-fg: #f8f8f2;
+    --ui-fg-muted: #a6a69c;
+    --ui-border: #3e3d32;
+    --code-keyword: #f94a88;
+    --code-string: #e6db74;
+    --code-number: #ae81ff;
+    --code-property: #a6e22e;
+    --code-variable: #fd971f;
+    --code-comment: #928f7f;
+    color-scheme: dark;
+  }
+}

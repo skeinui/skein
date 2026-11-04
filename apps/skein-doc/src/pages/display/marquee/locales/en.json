@@ -1,0 +1,25 @@
+{
+  "lead": "A one-line strip that loops announcements or updates too long to fit. It stays still when the content fits; it pauses when the pointer or focus enters and has a pause button; when the system asks for reduced motion it doesn't scroll and becomes manually scrollable instead.",
+  "basic": {
+    "title": "Basic",
+    "label": "Announcements",
+    "new": "New",
+    "news": "Sortable, Marquee, TagInput and Statistic.Countdown are now in the library · DatePicker learns weeks, months, quarters and years · Table gets fixed columns ·"
+  },
+  "direction": { "title": "Direction and speed", "label": "Reverse and fast" },
+  "controlled": { "title": "Controlled pause", "paused": "Paused" },
+  "short": {
+    "title": "Content that fits",
+    "description": "When the content fits, it doesn't scroll, isn't duplicated and has no pause button.",
+    "label": "Short",
+    "text": "Short text"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root; carries `data-overflow` / `data-paused` / `data-pause-on-hover` / `data-direction` and `--marquee-duration`",
+    "parts": "The clipping window, the animated track and the content (two copies while scrolling, the copy `aria-hidden` + `inert`)",
+    "pause": "The pause button; `data-paused` isn't on it, read `aria-pressed`"
+  }
+}

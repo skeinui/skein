@@ -1,0 +1,20 @@
+// The docs site on Cloudflare: static assets only, no Worker code. `pnpm run deploy` builds and uploads it.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "skein-doc",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    // Routes are the app's (/button, /zh/button): any path that isn't a file gets index.html
+    "not_found_handling": "single-page-application",
+  },
+  "routes": [
+    {
+      "pattern": "skeinui.com",
+      "custom_domain": true,
+    },
+    {
+      "pattern": "www.skeinui.com",
+      "custom_domain": true,
+    },
+  ],
+}

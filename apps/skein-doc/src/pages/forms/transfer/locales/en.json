@@ -1,0 +1,25 @@
+{
+  "lead": "A transfer list, data-driven with just two pieces of data: all the `items`, and the `value` (keys) of those already on the right. Check items, then click a button in the middle to move them across as a batch.",
+  "usage": { "title": "Usage" },
+  "controlled": {
+    "title": "Controlled",
+    "available": "Available",
+    "chosen": "Chosen",
+    "value": "Chosen:",
+    "none": "none"
+  },
+  "search": { "title": "Searchable" },
+  "one-way": { "title": "One way" },
+  "sizes": { "title": "Sizes" },
+  "disabled": { "title": "Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `transfer.css`.",
+    "hook": "Hook",
+    "root": "The root (`data-size` / `data-disabled`) and the move buttons in the middle",
+    "list": "One list; `data-side` is source / target",
+    "header": "List header (select all, title, checked count) and the optional search box",
+    "body": "Scrollable list body, each item (`data-checked` when checked), the read-only text, the empty state"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "lead": "A switch whose behaviour comes from Base UI's Switch. Its structure and state conventions match [Checkbox](/checkbox). The examples follow the Switch page of the HeroUI docs.",
+  "usage": {
+    "title": "Usage",
+    "notifications": "Enable notifications"
+  },
+  "default-selected": {
+    "title": "Default Selected"
+  },
+  "sizes": {
+    "title": "Sizes"
+  },
+  "disabled": {
+    "title": "Disabled",
+    "off": "Disabled off",
+    "on": "Disabled on"
+  },
+  "with-description": {
+    "title": "With Description",
+    "sample": "Receive alerts when someone mentions you."
+  },
+  "controlled": {
+    "title": "Controlled",
+    "airplane": "Airplane mode",
+    "selected": "Selected:"
+  },
+  "without-label": {
+    "title": "Without Label",
+    "description": "Without text, give the control an `aria-label`."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `switch.css`. The thumb slides to the other end with `margin`; the track and thumb sizes come from the size step.",
+    "hook": "Hook",
+    "slot": "Structure hooks: `switch` is the outer `<label>`, `switch-control` the track, `switch-thumb` the thumb",
+    "size": "Written on `switch` (the label)",
+    "states": "State hooks, written on `switch-control` and `switch-thumb`; theme styles read changes of the whole label with `:has()`"
+  }
+}

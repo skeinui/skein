@@ -1,0 +1,18 @@
+{
+  "lead": "A click-triggered overlay that can hold any content. Focus management, closing on outside click and Esc come from Base UI's Popover.",
+  "usage": { "title": "Usage" },
+  "placement": { "title": "Placement" },
+  "arrow": { "title": "Arrow" },
+  "close": { "title": "Close Button" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `popover.css`; the background and shadow come from `--ui-overlay-*`.",
+    "hook": "Hook",
+    "positioner": "The positioner; theme styles set its z-index",
+    "popup": "The popup itself: background, border, radius, shadow, padding",
+    "arrow": "The arrow",
+    "text": "Title and description text",
+    "close": "Close button"
+  }
+}

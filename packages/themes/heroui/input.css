@@ -1,0 +1,185 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /*
+   * Follows HeroUI v3's input / textarea / input-group:
+   * 36px high, 12px radius, no border, white background + three-layer shadow; hover darkens the background slightly, focus is a 2px primary ring,
+   * invalid is a 1px red outline, disabled is 50% + non-interactive. filled corresponds to v3's secondary: gray background, no shadow.
+   */
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"]) {
+    --_bg: var(--ui-field-bg);
+    --_shadow: var(--ui-field-shadow);
+    --_bg-hover: color-mix(in oklab, var(--_bg) 90%, var(--ui-field-fg) 2%);
+    box-sizing: border-box;
+    min-width: 0;
+    padding-inline: calc(0.75rem * var(--ui-density));
+    border: 0 solid var(--ui-field-border);
+    border-radius: var(--ui-r-item);
+    background-color: var(--_bg);
+    color: var(--ui-field-fg);
+    box-shadow: var(--_shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    outline: none;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      box-shadow 150ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"])::placeholder {
+    color: var(--ui-field-placeholder);
+    opacity: 1;
+  }
+  /* input's height reads the control height step (--ui-height-sm/md/lg), text is centered by height; textarea height follows its content and only uses top / bottom padding */
+  [data-theme-style="heroui"] [data-slot="input"] {
+    height: var(--ui-height-md);
+    padding-block: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="textarea"] {
+    min-height: 38px;
+    padding-block: 0.5rem;
+    resize: vertical;
+  }
+
+  [data-theme-style="heroui"] [data-slot="input"][data-size="sm"] {
+    height: var(--ui-height-sm);
+  }
+  [data-theme-style="heroui"] [data-slot="input"][data-size="lg"] {
+    height: var(--ui-height-lg);
+  }
+  [data-theme-style="heroui"] [data-slot="textarea"][data-size="sm"] {
+    padding-block: 0.375rem;
+  }
+  [data-theme-style="heroui"] [data-slot="textarea"][data-size="lg"] {
+    padding-block: 0.625rem;
+  }
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"])[data-full-width] {
+    width: 100%;
+  }
+
+  [data-theme-style="heroui"]
+    :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    --_shadow: 0 0 0 0 transparent;
+    --_bg-hover: color-mix(in oklab, var(--_bg) 96%, var(--ui-field-fg) 4%);
+  }
+
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"]):hover:not(:focus) {
+    background-color: var(--_bg-hover);
+  }
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"]):focus {
+    box-shadow:
+      0 0 0 2px var(--ui-ring),
+      var(--_shadow);
+  }
+
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid] {
+    outline: 1px solid var(--ui-c-danger);
+  }
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid]:focus {
+    box-shadow:
+      0 0 0 2px var(--ui-c-danger),
+      var(--_shadow);
+  }
+
+  [data-theme-style="heroui"] :is([data-slot="input"], [data-slot="textarea"])[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* InputGroup: the group draws the background and focus ring, and the input inside is transparent */
+  [data-theme-style="heroui"] [data-slot="input-group"] {
+    --_bg: var(--ui-field-bg);
+    --_shadow: var(--ui-field-shadow);
+    --_bg-hover: color-mix(in oklab, var(--_bg) 90%, var(--ui-field-fg) 2%);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--ui-height-md);
+    border-radius: var(--ui-r-item);
+    background-color: var(--_bg);
+    color: var(--ui-field-fg);
+    box-shadow: var(--_shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    transition:
+      background-color 150ms ease,
+      box-shadow 150ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  [data-theme-style="heroui"] [data-slot="input-group"][data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    --_shadow: 0 0 0 0 transparent;
+    --_bg-hover: color-mix(in oklab, var(--_bg) 96%, var(--ui-field-fg) 4%);
+  }
+  [data-theme-style="heroui"] [data-slot="input-group"][data-size="sm"] {
+    min-height: var(--ui-height-sm);
+  }
+  [data-theme-style="heroui"] [data-slot="input-group"][data-size="lg"] {
+    min-height: var(--ui-height-lg);
+  }
+  [data-theme-style="heroui"] [data-slot="input-group"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="input-group"]:hover:not(:has([data-slot="input-group-input"]:focus)) {
+    background-color: var(--_bg-hover);
+  }
+  [data-theme-style="heroui"] [data-slot="input-group"]:has([data-slot="input-group-input"]:focus) {
+    box-shadow:
+      0 0 0 2px var(--ui-ring),
+      var(--_shadow);
+  }
+  [data-theme-style="heroui"]
+    [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]) {
+    outline: 1px solid var(--ui-c-danger);
+  }
+  [data-theme-style="heroui"]
+    [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]:focus) {
+    box-shadow:
+      0 0 0 2px var(--ui-c-danger),
+      var(--_shadow);
+  }
+  [data-theme-style="heroui"]
+    [data-slot="input-group"]:has([data-slot="input-group-input"][data-disabled]) {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  [data-theme-style="heroui"] [data-slot="input-group-input"] {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    padding-block: 0.5rem;
+    padding-inline: calc(0.75rem * var(--ui-density));
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    outline: none;
+  }
+  [data-theme-style="heroui"] [data-slot="input-group-input"]::placeholder {
+    color: var(--ui-field-placeholder);
+    opacity: 1;
+  }
+  [data-theme-style="heroui"] [data-slot="input-group-prefix"],
+  [data-theme-style="heroui"] [data-slot="input-group-suffix"] {
+    display: inline-flex;
+    align-items: center;
+    align-self: stretch;
+    padding-inline: calc(0.75rem * var(--ui-density));
+    color: var(--ui-field-placeholder);
+  }
+  [data-theme-style="heroui"] [data-slot="input-group-prefix"] + [data-slot="input-group-input"] {
+    padding-inline-start: 0;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="input-group-input"]:has(+ [data-slot="input-group-suffix"]) {
+    padding-inline-end: 0;
+  }
+}

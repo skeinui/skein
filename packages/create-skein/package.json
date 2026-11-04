@@ -1,0 +1,49 @@
+{
+  "name": "create-skein",
+  "version": "0.0.3",
+  "description": "npm create skein: scaffold a Skein UI project",
+  "keywords": [
+    "cli",
+    "create",
+    "react",
+    "scaffold",
+    "skein",
+    "skeinui",
+    "template"
+  ],
+  "homepage": "https://skeinui.com",
+  "bugs": "https://github.com/skeinui/skein/issues",
+  "license": "MIT",
+  "author": "Skein UI",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skeinui/skein.git",
+    "directory": "packages/create-skein"
+  },
+  "bin": {
+    "create-skein": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "README.zh-CN.md"
+  ],
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "vp test"
+  },
+  "dependencies": {
+    "@skeinui/cli": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

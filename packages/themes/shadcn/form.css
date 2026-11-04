@@ -1,0 +1,106 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Form: layout only - how many columns fields use, label on top or on the left, bottom buttons; the inside of each field (label, control, description, error)
+     is still Field's styles. */
+  [data-theme-style="shadcn"] [data-slot="form"] {
+    --_gap-y: 1.5rem;
+    --_gap-x: 1rem;
+    --_label-w: 8rem;
+    box-sizing: border-box;
+    display: block;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="shadcn"] [data-slot="form-fields"] {
+    display: grid;
+    gap: var(--_gap-y) var(--_gap-x);
+  }
+  [data-theme-style="shadcn"] [data-slot="form-item"] {
+    min-width: 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-columns="1"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-columns="2"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-columns="3"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-columns="4"] > [data-slot="form-fields"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  [data-theme-style="shadcn"] [data-slot="form-item"][data-span="1"] {
+    grid-column: span 1;
+  }
+  [data-theme-style="shadcn"] [data-slot="form-item"][data-span="2"] {
+    grid-column: span 2;
+  }
+  [data-theme-style="shadcn"] [data-slot="form-item"][data-span="3"] {
+    grid-column: span 3;
+  }
+  [data-theme-style="shadcn"] [data-slot="form-item"][data-span="4"] {
+    grid-column: span 4;
+  }
+
+  [data-theme-style="shadcn"] [data-slot="form-actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* Label on the left: each field is "label column + control column", with the description and error in the control column */
+  [data-theme-style="shadcn"] [data-slot="form"][data-layout="horizontal"] [data-slot="field"] {
+    display: grid;
+    grid-template-columns: var(--_label-w) minmax(0, 1fr);
+    column-gap: 1rem;
+    align-items: start;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="form"][data-layout="horizontal"]
+    [data-slot="field"]
+    > [data-slot="field-label"] {
+    grid-column: 1;
+    padding-top: 0.375rem;
+    text-align: end;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="form"][data-layout="horizontal"]
+    [data-slot="field"]
+    > :not([data-slot="field-label"]) {
+    grid-column: 2;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="form"][data-layout="horizontal"]
+    > [data-slot="form-actions"] {
+    margin-inline-start: calc(var(--_label-w) + 1rem);
+  }
+
+  /* Inline: fields and buttons flow in a row, wrapping when they do not fit */
+  [data-theme-style="shadcn"] [data-slot="form"][data-layout="inline"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--_gap-y) var(--_gap-x);
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-layout="inline"] > [data-slot="form-fields"] {
+    display: contents;
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-layout="inline"] [data-slot="form-item"] {
+    grid-column: auto;
+  }
+  [data-theme-style="shadcn"] [data-slot="form"][data-layout="inline"] [data-slot="field"] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="form"][data-layout="inline"]
+    > [data-slot="form-actions"] {
+    margin-top: 0;
+  }
+}

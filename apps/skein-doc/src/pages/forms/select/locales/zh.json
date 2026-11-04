@@ -1,0 +1,63 @@
+{
+  "lead": "下拉选择。触发器外观和 Input 一致；键盘、类型搜索、碰撞翻转来自 Base UI 的 Select。",
+  "usage": { "title": "用法", "placeholder": "选择一种水果" },
+  "variants": { "title": "变体" },
+  "sizes": { "title": "尺寸" },
+  "groups": { "title": "分组" },
+  "controlled": { "title": "受控", "selected": "已选：" },
+  "in-field": {
+    "title": "放进 Field",
+    "label": "最喜欢的水果",
+    "placeholder": "请选择",
+    "hint": "选一个。"
+  },
+  "disabled": { "title": "禁用与无效" },
+  "full-width": { "title": "占满宽度" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `select.css` 里处理：触发器复用输入框的外观，弹层复用 Menu 的选项外观。",
+    "hook": "钩子",
+    "trigger": "触发器，外观与 Input 一致；打开时 `data-popup-open`",
+    "value": "显示选中文字；没有值时带 `data-placeholder`",
+    "icon": "右侧的展开箭头",
+    "popup": "弹层与选项列表",
+    "item": "选项，高亮用 `data-highlighted`",
+    "group": "分组与标题"
+  },
+  "props": {
+    "Select": {
+      "align": "弹层沿触发器的对齐方式。",
+      "aria-label": "无可见标签时的无障碍名称。",
+      "fullWidth": "撑满父元素的宽度。",
+      "invalid": "不在 Field 里时用 invalid 手动标记无效；在 Field 里由 Field 的校验状态决定。",
+      "options": "选项：普通选项，或带标题的分组。用数据而不是一堆子元素描述选项，这样能直接读到选中项的文字，以后从数据生成页面也更方便。",
+      "placeholder": "没有值时显示的文字。",
+      "side": "弹层在触发器的哪一侧打开。",
+      "sideOffset": "触发器与弹层之间的间距，单位 px。",
+      "size": "尺寸档位；在 Field 里不传时取 Field 的。",
+      "variant": "触发器的外观；在 Field 里不传时取 Field 的。",
+      "actionsRef": "指向命令式操作的 ref。`unmount`：外部控制的关闭动画结束后，结束 select 的关闭阶段，需先在 `onOpenChange` 里调用 `preventUnmountOnClose()`，否则 select 会自行完成关闭；是否离开 DOM 由 portal 的 `keepMounted` 决定。`close`：调用时以命令方式关闭 select。",
+      "autoComplete": "给浏览器的自动填充提示。",
+      "defaultOpen": "select 弹层初始是否打开。要受控地渲染弹层，请改用 `open` prop。",
+      "defaultValue": "非受控时 select 初次渲染的值。要受控，请改用 `value` prop。",
+      "disabled": "组件是否忽略用户交互。",
+      "form": "指定拥有隐藏 input 的表单。select 渲染在表单外时有用。",
+      "highlightItemOnHover": "指针移过选项时是否高亮它。关掉后可以把 CSS `:hover` 与 `:focus`（`data-highlighted`）状态区分开。",
+      "id": "Select 的 id。",
+      "inputRef": "访问隐藏 input 元素的 ref。",
+      "isItemEqualToValue": "自定义比较逻辑，判断某个选项的值是否与当前选中值相等。选项值是引用不同的对象时有用。默认用 `Object.is` 比较。",
+      "itemToStringLabel": "选项值是对象时（`<Select.Item value={object}>`），把对象转成字符串，显示在触发器里。对象形如 `{ value, label }` 时会自动使用 label，无需传这个 prop。",
+      "itemToStringValue": "选项值是对象时（`<Select.Item value={object}>`），把对象转成字符串，用于表单提交。对象形如 `{ value, label }` 时会自动使用 value，无需传这个 prop。",
+      "modal": "打开时 select 是否进入模态状态。`true`：用户交互限于 select，页面滚动被锁定，外部元素的指针交互被禁用；`false`：允许与文档其余部分交互。在触屏设备上，`true` 的模态会挡住外部点按，但页面仍可滚动，除非弹层几乎占满视口宽度，与原生 iOS 的行为一致。",
+      "name": "表单提交时标识该字段。",
+      "onOpenChange": "select 弹层打开或关闭时调用的事件处理函数。",
+      "onOpenChangeComplete": "select 弹层打开或关闭、动画全部结束后调用的事件处理函数。",
+      "onValueChange": "select 的值变化时调用的事件处理函数。",
+      "open": "select 弹层当前是否打开。",
+      "readOnly": "用户是否不能从弹层里选择其他选项。",
+      "required": "提交表单前用户是否必须选择一个值。",
+      "value": "select 的值，受控时使用。"
+    }
+  }
+}

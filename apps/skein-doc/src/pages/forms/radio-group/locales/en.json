@@ -1,0 +1,26 @@
+{
+  "lead": "A group of radio buttons. Its behaviour comes from Base UI's RadioGroup and Radio, which handle the arrow keys and keep one choice per group. Its structure and state hooks match Checkbox. The examples follow the RadioGroup page of the HeroUI docs.",
+  "usage": { "title": "Usage" },
+  "horizontal": { "title": "Horizontal" },
+  "with-description": { "title": "With Description" },
+  "controlled": { "title": "Controlled", "selected": "Selected:" },
+  "disabled": { "title": "Disabled" },
+  "invalid": {
+    "title": "Invalid",
+    "description": "Inside a Field marked `invalid`, every Radio gets `data-invalid`."
+  },
+  "variants": {
+    "title": "Variants",
+    "description": "`outline` matches HeroUI v3's primary, `filled` its secondary."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `radio.css`. The selected dot is drawn on a pseudo-element of `radio-indicator`; the component has no dot element.",
+    "hook": "Hook",
+    "sameAsProps": "same as the props",
+    "slot": "Structure hooks. `radio` is the outer `<label>`, `radio-control` the actual control, and the theme style draws the dot inside `radio-indicator`",
+    "group": "Written on `radio-group`",
+    "states": "State hooks, written on `radio-control` and `radio-indicator`; theme styles read them with `:has()` to style the whole label"
+  }
+}

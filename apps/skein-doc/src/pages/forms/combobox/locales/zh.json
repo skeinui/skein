@@ -1,0 +1,45 @@
+{
+  "lead": "可输入筛选的下拉。输入框复用 Input，弹层复用 Select，所以两者在每个主题风格里自动一致；筛选、键盘导航来自 Base UI 的 Combobox。",
+  "usage": { "title": "用法" },
+  "groups": { "title": "分组" },
+  "controlled": { "title": "受控", "selected": "选中：" },
+  "variants": { "title": "变体与尺寸" },
+  "in-field": {
+    "title": "放进 Field",
+    "description": "放进 [Field](/field) 时，`variant` / `size` 和禁用 / 无效状态取 Field 的，Combobox 自己传了则以自己的为准。"
+  },
+  "empty": { "title": "空状态文字" },
+  "disabled": { "title": "禁用与无效" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `combobox.css` 里只处理展开按钮和空状态；输入框外观来自 `input.css`，弹层来自 `select.css`。浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "input": "输入框，复用 Input 的 input-group",
+    "trigger": "展开箭头按钮，打开时有 `data-popup-open`",
+    "popup": "弹层和选项，复用 Select 的 slot",
+    "empty": "没有匹配项时的提示"
+  },
+  "props": {
+    "Combobox": {
+      "align": "弹层沿该侧与输入框的对齐方式。",
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "defaultOpen": "非受控时 `open` 的初始值。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "emptyText": "没有匹配项时显示的提示。",
+      "fullWidth": "占满父元素的宽度。",
+      "invalid": "显示无效状态。",
+      "name": "字段名，用于原生表单提交。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "onValueChange": "以新的 `value` 调用；同时传 `value` 即为受控。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "options": "选项：普通选项，或带标题的分组。用数据描述，与 Select 一致。",
+      "placeholder": "为空时显示的文字。",
+      "side": "弹层在输入框的哪一侧打开。",
+      "sideOffset": "输入框与弹层之间的间距，单位像素。",
+      "size": "尺寸档位。",
+      "value": "选中项的 value；`null` 表示没选。受控。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

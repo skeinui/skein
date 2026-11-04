@@ -1,0 +1,24 @@
+{
+  "lead": "加载占位。形状有文字、圆形、块三种；没有宽高入口，要定尺寸就把它放进有尺寸的容器。",
+  "usage": { "title": "用法" },
+  "lines": { "title": "多行文字" },
+  "card": { "title": "卡片占位" },
+  "radius": { "title": "圆角" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `skeleton.css` 里处理；HeroUI 是流光，shadcn 和默认主题风格是呼吸，开启 `prefers-reduced-motion` 时停掉。",
+    "hook": "钩子",
+    "skeleton": "占位块，动画在这里",
+    "group": "多行文字的容器",
+    "states": "主题风格用它们决定尺寸；`data-last` 是多行里的最后一行"
+  },
+  "props": {
+    "Skeleton": {
+      "lines": "`shape` 为 text 时的行数，最后一行较短。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "shape": "text：一行文字高；circle：正圆（头像）；rect：撑满父元素的块，尺寸由父元素决定。调用方不能直接设宽高（没有 style 入口），要定尺寸就把 Skeleton 放进有尺寸的容器。",
+      "size": "尺寸档位：text 的行高 / circle 的直径。"
+    }
+  }
+}

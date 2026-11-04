@@ -1,0 +1,62 @@
+{
+  "lead": "A calendar of events with day, week and month views. Day and week are time grids: all-day and multi-day events run as bars along the top, timed events sit as blocks below, overlapping ones side by side, and today has a current-time line. The month view has one week per row, multi-day events span several columns, and what doesn't fit collapses into \"+n more\". The caller owns the events and the view state; dates and times are strings without a time zone.",
+  "usage": {
+    "title": "Usage",
+    "description": "The week view is the default. Click a day header to open that day; the controls at the top right switch the view, page back and forth, or return to today.",
+    "ariaLabel": "Week agenda",
+    "events": {
+      "holiday": "Company holiday",
+      "offsite": "Team offsite",
+      "standup": "Standup",
+      "design": "Design review",
+      "quick": "Quick sync",
+      "client": "Client call",
+      "one": "1:1 with manager",
+      "plan": "Sprint planning",
+      "lunch": "Team lunch",
+      "deploy": "Release window"
+    }
+  },
+  "interactive": {
+    "title": "Interactive",
+    "description": "With `onEventClick`, events are buttons. With `onSlotClick`, clicking empty space in the time grid gives the date and the time rounded to half an hour (only the date in the month view).",
+    "ariaLabel": "Interactive agenda",
+    "hint": "Click an event or an empty slot.",
+    "newEvent": "New event",
+    "added": "Added {start}",
+    "clicked": "Clicked: {title}"
+  },
+  "drag": {
+    "title": "Drag and Resize",
+    "description": "With `onEventChange`, events can be dragged: drag a block to move it (to another day or time), drag its top or bottom edge to change its length, and drag all-day bars and month-view events to other dates; Esc cancels. Keyboard: focus an event, then Alt + arrow keys move it and Alt + Shift + Up / Down change its end time.",
+    "ariaLabel": "Draggable agenda",
+    "hint": "Drag an event, or drag a block's top or bottom edge."
+  },
+  "month": {
+    "title": "Month",
+    "description": "Multi-day events are bars across several columns, timed single-day events are dots; what doesn't fit in a day collapses into \"+n more\", which opens that day.",
+    "ariaLabel": "Month agenda"
+  },
+  "range": {
+    "title": "Hours and Locale",
+    "description": "`startHour` / `endHour` limit the hours shown. Texts and date formats follow the language set in the page header (ConfigProvider); `locale` / `labels` passed to the component win over the app's. This one deliberately uses the other language.",
+    "ariaLabel": "Agenda in Chinese"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root; `data-view` is the current view",
+    "header": "The header: the title (`aria-live`), the view switcher and previous / today / next",
+    "controls": "Wrappers of the view switcher (Segmented) and the navigation buttons (Button)",
+    "heads": "Day headers of the day / week views; `data-today`, `data-weekend`",
+    "allday": "The all-day / multi-day event area, not rendered when there are no such events; events are placed with `--seg-col` / `--seg-span` / `--seg-row`",
+    "grid": "The time grid: scroll area, hour labels on the left, columns. A column is `role=group` with `data-today`, `data-weekend`; theme styles draw the hour lines as backgrounds, `--agenda-hours` is the number of hours and `--agenda-cols` the number of columns",
+    "now": "The current-time line, positioned by `--ev-start` (minutes)",
+    "event": "An event. `data-kind` is `block` (in the time grid: `--ev-start` / `--ev-length` in minutes, `--ev-col` / `--ev-cols` for overlap columns), `bar` (all-day / multi-day) or `chip` (a timed single-day event in the month view); `data-color`; `data-continues-before` / `data-continues-after` mark an event that goes on beyond this segment",
+    "handle": "When draggable: the resize handles on a block's top and bottom edges (`data-edge` is `start` / `end`), and the screen reader announcement (visually hidden). Events carry `data-draggable`, the dragged event `data-dragging`, and so does the root",
+    "month": "The month view: one row per week; `--agenda-lanes` is the number of event rows the week uses",
+    "day": "A day cell of the month view (`data-today` / `data-outside` / `data-weekend`), its date button, and \"+n more\"",
+    "reused": "The header's navigation buttons and view switcher, styled by the Button and Segmented theme styles"
+  }
+}

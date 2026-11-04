@@ -1,0 +1,65 @@
+{
+  "lead": "两种栅格。`Row` / `Col` 是 24 栅格（和 Ant Design 一样）：一行分 24 份，Col 用 `span` 占几份，有 `offset`、`order` 和随屏幕宽度变化的响应式属性，用来做页面排版。`Grid` 是二维的 CSS grid，固定列数或按最小列宽自适应，适合卡片墙。间距都取主题风格的刻度。",
+  "row-col": { "title": "Row 与 Col" },
+  "gutter": {
+    "title": "间距",
+    "description": "间距取主题风格的刻度；给一对值分开设水平和垂直。超过 24 份会自动换行。"
+  },
+  "offset": { "title": "偏移" },
+  "align": { "title": "对齐与分布" },
+  "order": { "title": "排序" },
+  "responsive": {
+    "title": "响应式",
+    "description": "缩放浏览器窗口看效果：窄屏每列占满一行，≥ 768 一行两个，≥ 992 一行四个。",
+    "mdUp": "md 以上才显示"
+  },
+  "grid": { "title": "Grid" },
+  "auto-grid": {
+    "title": "自适应列数",
+    "description": "按最小列宽自适应：缩小浏览器窗口，列数自己变少，不用写断点。"
+  },
+  "api": {
+    "title": "API 参考",
+    "note": "所有组件都有 `as`，渲染成别的语义元素。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `grid.css` 里定义间距刻度；响应式断点是整个库共用的一组（contract.ts 里的 `BREAKPOINTS`）。",
+    "hook": "钩子",
+    "row": "`data-gutter` / `data-gutter-y` / `data-justify` / `data-align`，`data-nowrap`",
+    "col": "`data-span` / `data-offset` / `data-order`，以及每个断点的 `data-sm-span` 等；值写进 `--_span` / `--_offset` / `--_order` 变量",
+    "grid": "`data-columns` 或 `data-min-column`、`data-gap`、`data-align`；项的 `data-span`"
+  },
+  "props": {
+    "Row": {
+      "align": "交叉轴对齐（上下）。",
+      "as": "渲染成哪个元素（语义）。",
+      "gutter": "列与列的间距，取主题风格的刻度；给一对 `[水平, 垂直]` 可以分开设。",
+      "justify": "主轴分布（左右）。",
+      "wrap": "一行放满时是否换行。"
+    },
+    "Col": {
+      "as": "渲染成哪个元素（语义）。",
+      "lg": "屏幕宽度 ≥ 992px 时的设置（数字即 span）。",
+      "md": "屏幕宽度 ≥ 768px 时的设置（数字即 span）。",
+      "offset": "左边空出几份（0–24）。",
+      "order": "排序，小的在前（0–24）。",
+      "sm": "屏幕宽度 ≥ 576px 时的设置（数字即 span）。",
+      "span": "占 24 份中的几份（0–24）；0 是隐藏；不给就按内容宽度。",
+      "xl": "屏幕宽度 ≥ 1200px 时的设置（数字即 span）。",
+      "xs": "屏幕宽度 ≥ 对应断点时的设置，数字是 span 的简写；断点见 BREAKPOINTS，往大的档位逐级覆盖。",
+      "xxl": "屏幕宽度 ≥ 1600px 时的设置（数字即 span）。"
+    },
+    "Grid": {
+      "align": "单元格内的对齐。",
+      "as": "渲染成哪个元素（语义）。",
+      "columns": "固定列数（1–12）。与 minColumnWidth 二选一；都不给时为 1 列。",
+      "gap": "单元格之间的间距，取主题风格的刻度。",
+      "minColumnWidth": "按列宽自适应：每列至少这么宽，放得下几列就几列（屏幕变窄自动变少）。想要响应式又不写断点就用它。"
+    },
+    "Grid_Item": {
+      "as": "渲染成哪个元素（语义）。",
+      "span": "跨几列（1–12）；超过总列数时占满整行。"
+    }
+  }
+}

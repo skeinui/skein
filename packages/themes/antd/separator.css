@@ -1,0 +1,19 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Separator: a 1px line, filling the width horizontally and the height vertically. */
+  [data-theme-style="antd"] [data-slot="separator"] {
+    flex: none;
+    background-color: var(--ui-split, color-mix(in srgb, var(--ui-fg) 6.8%, transparent));
+  }
+  [data-theme-style="antd"] [data-slot="separator"][data-orientation="horizontal"] {
+    width: 100%;
+    height: 1px;
+  }
+  [data-theme-style="antd"] [data-slot="separator"][data-orientation="vertical"] {
+    align-self: stretch;
+    width: 1px;
+    height: auto;
+    min-height: 1em;
+  }
+}

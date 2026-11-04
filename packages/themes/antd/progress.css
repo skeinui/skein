@@ -1,0 +1,207 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Progress: a bar + an optional text row. When null is passed (data-indeterminate) the indicator slides in a loop. */
+  [data-theme-style="antd"] [data-slot="progress"][data-color="neutral"] {
+    --_c: var(--ui-c-neutral);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-color="primary"] {
+    --_c: var(--ui-c-primary);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-color="success"] {
+    --_c: var(--ui-c-success);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-color="warning"] {
+    --_c: var(--ui-c-warning);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-color="danger"] {
+    --_c: var(--ui-c-danger);
+  }
+  [data-theme-style="antd"] [data-slot="progress"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    width: 100%;
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="antd"] [data-slot="progress-header"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="antd"] [data-slot="progress-label"] {
+    color: var(--ui-fg);
+  }
+  [data-theme-style="antd"] [data-slot="progress-value"] {
+    color: var(--ui-fg);
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="antd"] [data-slot="progress-track"] {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: calc(8px * var(--ui-density));
+    overflow: hidden;
+    border-radius: var(--_r, var(--ui-radius-full));
+    background-color: var(--ui-fill-secondary, color-mix(in srgb, var(--ui-fg) 6%, transparent));
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-size="sm"] [data-slot="progress-track"] {
+    height: calc(6px * var(--ui-density));
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-size="lg"] [data-slot="progress-track"] {
+    height: calc(10px * var(--ui-density));
+  }
+  [data-theme-style="antd"] [data-slot="progress-indicator"] {
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--_c);
+    transition: width 300ms cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+  [data-theme-style="antd"]
+    [data-slot="progress"][data-indeterminate]
+    [data-slot="progress-indicator"] {
+    position: absolute;
+    width: 40%;
+    animation: ui-progress-slide 1.4s ease-in-out infinite;
+    transition: none;
+  }
+  /* antd: turns the success color when complete */
+  [data-theme-style="antd"] [data-slot="progress"][data-color="primary"][data-complete] {
+    --_c: var(--ui-c-success);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-radius="none"] {
+    --_r: 0;
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-radius="sm"] {
+    --_r: var(--ui-radius-sm);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-radius="md"] {
+    --_r: var(--ui-radius-md);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-radius="lg"] {
+    --_r: var(--ui-radius-lg);
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-radius="full"] {
+    --_r: var(--ui-radius-full);
+  }
+
+  @keyframes ui-progress-slide {
+    from {
+      left: -40%;
+    }
+    to {
+      left: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="progress-indicator"] {
+      transition: none;
+    }
+  }
+
+  /* Ring (circle / dashboard): the SVG has a base ring and an indicator ring, with pathLength=100, so progress is just --pc-value (0–100) in stroke-dasharray.
+     circle goes clockwise from 12 o'clock; dashboard draws only 270°, with the gap at the bottom (starting at the 7:30 position) */
+  [data-theme-style="antd"] [data-slot="progress"]:not([data-type="line"]) {
+    --_span: 1;
+    --_rotate: -90deg;
+    --_stroke: 6;
+    align-items: center;
+    width: auto;
+    gap: 0.5rem;
+    display: inline-flex;
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-type="circle"] {
+    --_span: 1;
+    --_rotate: -90deg;
+  }
+  [data-theme-style="antd"] [data-slot="progress"][data-type="dashboard"] {
+    --_span: 0.75;
+    --_rotate: 135deg;
+  }
+  [data-theme-style="antd"] [data-slot="progress-circle-body"] {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--_d, 5rem);
+    height: var(--_d, 5rem);
+  }
+  [data-theme-style="antd"]
+    [data-slot="progress"][data-size="sm"]
+    [data-slot="progress-circle-body"] {
+    --_d: 3rem;
+  }
+  [data-theme-style="antd"]
+    [data-slot="progress"][data-size="lg"]
+    [data-slot="progress-circle-body"] {
+    --_d: 7.5rem;
+  }
+  [data-theme-style="antd"] [data-slot="progress-circle"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  [data-theme-style="antd"] [data-slot="progress-circle-track"],
+  [data-theme-style="antd"] [data-slot="progress-circle-indicator"] {
+    fill: none;
+    stroke-width: var(--_stroke);
+    stroke-linecap: round;
+    transform: rotate(var(--_rotate));
+    transform-origin: 50px 50px;
+  }
+  [data-theme-style="antd"] [data-slot="progress-circle-track"] {
+    /* Measured on the official site: base ring rgba(0,0,0,0.06) */
+    stroke: color-mix(in srgb, var(--ui-fg) 6%, transparent);
+    stroke-dasharray: calc(100 * var(--_span)) 100;
+  }
+  [data-theme-style="antd"] [data-slot="progress-circle-indicator"] {
+    stroke: var(--_c);
+    stroke-dasharray: calc(var(--pc-value, 0) * var(--_span)) 100;
+    transition: stroke-dasharray 300ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  /* Indeterminate: a short arc rotates around */
+  [data-theme-style="antd"]
+    [data-slot="progress"][data-indeterminate]
+    [data-slot="progress-circle-indicator"] {
+    stroke-dasharray: calc(25 * var(--_span)) 100;
+    transform-box: view-box;
+    animation: ui-progress-circle-antd 1.2s linear infinite;
+    transition: none;
+  }
+  @keyframes ui-progress-circle-antd {
+    from {
+      transform: rotate(var(--_rotate));
+    }
+    to {
+      transform: rotate(calc(var(--_rotate) + 360deg));
+    }
+  }
+  [data-theme-style="antd"] [data-slot="progress-circle-value"] {
+    position: relative;
+    color: var(--ui-fg);
+    font-size: calc(var(--_d, 5rem) * 0.2);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="progress-circle-indicator"] {
+      transition: none;
+    }
+    [data-theme-style="antd"]
+      [data-slot="progress"][data-indeterminate]
+      [data-slot="progress-circle-indicator"] {
+      animation-duration: 6s;
+    }
+  }
+}

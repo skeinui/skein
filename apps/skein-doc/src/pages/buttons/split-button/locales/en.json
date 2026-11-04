@@ -1,0 +1,18 @@
+{
+  "lead": "A split button: the main action on the left, joined to an arrow button on the right that opens more related actions (antd's `Dropdown.Button`). It is put together with ButtonGroup, and the menu is a Menu: arrow keys, first-letter jumps and Esc to close all come from Base UI.",
+  "basic": {
+    "title": "Basic",
+    "main": "Save (main button)",
+    "last": "Last action: {action}"
+  },
+  "variants": { "title": "Variants and sizes" },
+  "danger": { "title": "Danger, disabled, separator" },
+  "loading": { "title": "Loading and disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "existing": "existing slots",
+    "composed": "SplitButton is ButtonGroup + Button + Menu and has no slot of its own: its look comes from the theme styles of those three (seam corners, overlapping borders, the menu popup)"
+  }
+}

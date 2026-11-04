@@ -1,0 +1,55 @@
+{
+  "title": "Skein CLI",
+  "lead": "The `skein` command creates projects, adds pages and modules, manages theme styles, and checks the code. It needs Node 22.18 or later.",
+  "run": {
+    "title": "Running it",
+    "p1": "There is nothing to install globally:"
+  },
+  "create": {
+    "title": "Creating a project",
+    "p1": "Without a directory it asks for the name, the template, the theme style and the optional features. `--theme none` starts a blank theme style of your own in `src/theme/`.",
+    "template": "Template",
+    "gives": "What you get",
+    "basic": "Vite + React + one theme style.",
+    "admin": "Layout, menu, tabs, KeepAlive, preferences, login, a dashboard and a users CRUD page.",
+    "feature": "Feature",
+    "adds": "What it adds",
+    "router": "TanStack Router file routes (`src/routes/`).",
+    "query": "TanStack Query and a fetch wrapper (`src/lib/http.ts`).",
+    "i18n": "i18next, English and Chinese, each page with its own `locales/`.",
+    "mock": "MSW, each page with its own `mocks/handlers.ts`.",
+    "auth": "Login page, route guard, session store. Needs router, query, i18n.",
+    "shell": "AdminLayout, menu, tabs, KeepAlive, preferences drawer. Needs auth, i18n.",
+    "mcp": "`.mcp.json`: the skein commands as MCP tools for AI agents.",
+    "preview": "`playwright-core` for `skein preview` (uses the Chrome you have).",
+    "p2": "`admin` turns on `shell` and `mock`. `mcp` and `preview` are off by default; their packages are installed only in projects that turn them on."
+  },
+  "layout": {
+    "title": "An admin project",
+    "p1": "An admin project is laid out like this:",
+    "p2": "Each page registers itself: its route by file, its menu entry by `_meta.ts`, its mocks by `mocks/handlers.ts`. Adding a page never edits an existing file."
+  },
+  "pages": {
+    "title": "Pages and modules",
+    "p1": "`--from` reads one resource of an OpenAPI 3 document (JSON or YAML) and writes a list with filters, create, edit and delete, typed, with mocks. Pick the resource with `--resource /orders` when there are several."
+  },
+  "theme-commands": {
+    "title": "Theme styles",
+    "p1": "A basic project imports one theme style in `src/skein.theme.ts`. An admin project lists them in `themeStyles` of `src/settings.ts`; each is its own CSS file, loaded only when picked in the preferences drawer. See [Theming](/theming)."
+  },
+  "tools": {
+    "title": "Docs and checks",
+    "command": "Command",
+    "does": "What it does",
+    "docs": "What a component is for, its props and allowed values, examples. `--search <words>` finds components.",
+    "check": "Type errors with hints, missing translations, hard-coded colours, theme coverage.",
+    "preview": "Opens the page in Chrome (signed in) and reports errors, failed requests, a blank page, and a screenshot.",
+    "list": "Templates, features and theme styles.",
+    "init": "Writes `.skein.json` for a project that lacks it, detecting its features from its files.",
+    "mcp": "All of the above, plus `new page`, `theme` and `create`, as MCP tools. See [AI coding agents](/ai)."
+  },
+  "options": {
+    "title": "Common options",
+    "p1": "Every command takes `--json` (machine-readable output, never asks). Commands that write take `--dry-run` (list what would be written) and only overwrite existing files with `--force`. `skein create` writes `.skein.json` (template, theme style, features), which the other commands read: keep it committed."
+  }
+}

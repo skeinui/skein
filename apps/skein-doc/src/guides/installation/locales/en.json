@@ -1,0 +1,27 @@
+{
+  "title": "Installation",
+  "lead": "Start a new project with the CLI, or add the two packages to a React 19 app you already have.",
+  "new-project": {
+    "title": "A new project",
+    "p1": "`npm create skein` asks for a name, a template, a theme style and the features you want, and writes a Vite + React project:",
+    "p2": "The `admin` template comes with a layout, menu, tabs, login, a dashboard and a users page. See the [Skein CLI](/cli) for every template and feature."
+  },
+  "existing": {
+    "title": "An existing project",
+    "p1": "Install the components and the theme styles:",
+    "p2": "Import one theme style's CSS once, at the entry of the app, and wrap the app in `ConfigProvider`:"
+  },
+  "provider": {
+    "title": "ConfigProvider",
+    "p1": "`ConfigProvider` writes the theme state to `<html>`: `data-theme-style`, `data-mode`, `data-theme-color`, `data-theme-density`. It has to be on `<html>` because dialogs, popovers and selects are rendered into `<body>`, outside your app's element, and must follow the same theme.",
+    "p2": "It also takes `themeOverrides` (colours, radius, density), `locale` for the date components, and `labels` for the components' built-in texts. See [Theming](/theming)."
+  },
+  "language": {
+    "title": "Language",
+    "p1": "Built-in texts (empty states, pagination, date pickers…) are English by default. Pass a language pack to `ConfigProvider` to change them:"
+  },
+  "next": {
+    "title": "Next",
+    "p1": "Pick a look in [Theming](/theming), or browse the components in the sidebar: every page has live examples and the full props table."
+  }
+}

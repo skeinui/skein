@@ -1,0 +1,32 @@
+{
+  "lead": "A content card with structure only: padding, outline and shadow are all up to the theme style.",
+  "usage": {
+    "title": "Usage",
+    "description": "Every part is optional.",
+    "cardTitle": "Card title",
+    "cardDescription": "Short description",
+    "body": "Body content",
+    "action": "Action"
+  },
+  "variants": {
+    "title": "Variants",
+    "description": "`outline` draws a border, `filled` a grey background, `elevated` a shadow.",
+    "content": "Content"
+  },
+  "radius": {
+    "title": "Radius",
+    "description": "Without `radius`, the theme style decides."
+  },
+  "api": {
+    "title": "API Reference",
+    "parts": "`Card.Header` / `Card.Title` / `Card.Description` / `Card.Body` / `Card.Footer` are structural parts with no props of their own (they take the HTML attributes of their element); all of them can be left out."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `card.css`; Ant Design's header has a divider, HeroUI's doesn't.",
+    "hook": "Hook",
+    "card": "The frame: padding, outline, radius and background",
+    "header": "The header with its title and description",
+    "body": "The content and the footer actions"
+  }
+}

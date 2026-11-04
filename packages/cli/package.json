@@ -1,0 +1,92 @@
+{
+  "name": "@skeinui/cli",
+  "version": "0.0.3",
+  "description": "The skein command: create Skein UI projects, add pages, manage themes; docs, check, preview and MCP for AI agents",
+  "keywords": [
+    "admin",
+    "ai-agents",
+    "cli",
+    "create",
+    "crud",
+    "mcp",
+    "openapi",
+    "react",
+    "scaffold",
+    "skein",
+    "skeinui",
+    "template",
+    "vite"
+  ],
+  "homepage": "https://skeinui.com",
+  "bugs": "https://github.com/skeinui/skein/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skeinui/skein.git",
+    "directory": "packages/cli"
+  },
+  "bin": {
+    "skein": "./bin/skein.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "contract.json"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./docs": {
+      "types": "./src/docs.d.ts",
+      "default": "./src/docs.js"
+    },
+    "./theme": {
+      "types": "./src/theme/index.d.ts",
+      "default": "./src/theme/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "node scripts/build.ts",
+    "prepack": "node scripts/build.ts",
+    "test": "node scripts/build.ts && vp test",
+    "typecheck": "tsc",
+    "e2e": "node tests/e2e/run.mjs",
+    "msw-worker": "node scripts/msw-worker.ts"
+  },
+  "dependencies": {
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "catalog:",
+    "@types/node": "catalog:",
+    "playwright-core": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:",
+    "zod": "catalog:"
+  },
+  "peerDependencies": {
+    "@modelcontextprotocol/sdk": "catalog:",
+    "playwright-core": "catalog:",
+    "zod": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/sdk": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    },
+    "playwright-core": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}

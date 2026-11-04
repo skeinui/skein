@@ -1,0 +1,298 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"] {
+    --_bg: var(--ui-field-bg);
+    --_shadow: var(--ui-field-shadow);
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(0.375rem * var(--ui-density));
+    min-width: 0;
+    height: var(--ui-height-md);
+    padding-inline: calc(0.625rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-radius-lg);
+    background-color: var(--_bg);
+    color: var(--ui-field-fg);
+    box-shadow: var(--_shadow);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    text-align: start;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      border-color 150ms var(--ui-easing),
+      box-shadow 150ms var(--ui-easing),
+      background-color 150ms var(--ui-easing);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-variant="filled"] {
+    --_bg: var(--ui-field-filled-bg);
+    --_shadow: 0 0 0 0 transparent;
+    border-color: transparent;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-size="sm"] {
+    height: var(--ui-height-sm);
+    border-radius: var(--ui-radius-md);
+    font-size: 0.875rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-size="lg"] {
+    height: var(--ui-height-lg);
+    font-size: 1rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-popup-open] {
+    outline: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"]:focus-visible {
+    border-color: var(--ui-ring);
+    box-shadow:
+      0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent),
+      var(--_shadow);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-invalid] {
+    border-color: var(--ui-invalid-border);
+    box-shadow:
+      0 0 0 3px var(--ui-invalid-ring),
+      var(--_shadow);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+    [data-slot="cascader-trigger"]:not([data-variant="filled"], [data-disabled]):hover {
+    background-color: rgb(255 255 255 / 0.075);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-value"] {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-value"][data-placeholder] {
+    color: var(--ui-field-placeholder);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-icon"] {
+    display: inline-flex;
+    flex: none;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-icon"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* Cascader: the trigger's appearance comes from this theme style's Select trigger (see above), below are the clear button and the multi-column menu in the overlay */
+  [data-theme-style="shadcn"] [data-slot="cascader"] {
+    position: relative;
+    display: inline-flex;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"] {
+    cursor: pointer;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-clear"] {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    margin: auto 0;
+    height: 1.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-radius-full);
+    background: transparent;
+    color: var(--ui-fg-muted);
+    cursor: pointer;
+    outline: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-clear"] > svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-clear"]:hover {
+    background-color: var(--ui-c-neutral-soft);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-clear"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  /* The overlay holds several side-by-side columns, so it does not want the overlay's own padding */
+  [data-theme-style="shadcn"] [data-slot="popover"]:has([data-slot="cascader-panel"]) {
+    padding: 0;
+    overflow: hidden;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-panel"] {
+    display: flex;
+    align-items: stretch;
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-menu"] {
+    box-sizing: border-box;
+    min-width: 9rem;
+    max-height: 16rem;
+    padding: calc(0.25rem * var(--ui-density));
+    overflow-y: auto;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-menu"] + [data-slot="cascader-menu"] {
+    border-inline-start: 1px solid var(--ui-border);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(0.75rem * var(--ui-density));
+    min-height: 1.75rem;
+    box-sizing: border-box;
+    padding: calc(0.25rem * var(--ui-density)) calc(0.375rem * var(--ui-density))
+      calc(0.25rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
+    border-radius: var(--ui-radius-md);
+    color: var(--ui-fg);
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition: background-color 120ms ease;
+  }
+  /* Nova is monochrome: hover, the expanded path and selection all use accent, selection adds font weight, no primary color */
+  [data-theme-style="shadcn"] [data-slot="cascader-option"]:hover,
+  [data-theme-style="shadcn"] [data-slot="cascader-option"]:focus-visible,
+  [data-theme-style="shadcn"] [data-slot="cascader-option"][data-active],
+  [data-theme-style="shadcn"] [data-slot="cascader-option"][data-selected] {
+    background-color: var(--ui-accent);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option"][data-selected] {
+    font-weight: 500;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option"]:focus-visible {
+    box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--ui-ring) 50%, transparent);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option"][data-disabled]:hover {
+    background-color: transparent;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option-label"] {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option-arrow"] {
+    display: inline-flex;
+    flex: none;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option-arrow"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-empty"] {
+    padding: calc(1.5rem * var(--ui-density)) calc(2rem * var(--ui-density));
+    color: var(--ui-fg-muted);
+    text-align: center;
+  }
+
+  /* When there is a clear button, leave room for it after the text (or tags) so the button does not cover the text */
+  [data-theme-style="shadcn"]
+    [data-slot="cascader"]:has([data-slot="cascader-clear"])
+    [data-slot="cascader-value"],
+  [data-theme-style="shadcn"]
+    [data-slot="cascader"]:has([data-slot="cascader-clear"])
+    [data-slot="cascader-tags"] {
+    padding-inline-end: 1.5rem;
+  }
+  /* Multiple selection: the trigger grows taller as tags wrap, tags sit next to each other */
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-multiple] {
+    height: auto;
+    min-height: var(--ui-height-md);
+    padding-block: calc(0.25rem * var(--ui-density));
+    text-align: start;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-multiple][data-size="sm"] {
+    min-height: var(--ui-height-sm);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-trigger"][data-multiple][data-size="lg"] {
+    min-height: var(--ui-height-lg);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-tags"] {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: calc(0.25rem * var(--ui-density));
+    min-width: 0;
+  }
+  /* Search box and columns */
+  [data-theme-style="shadcn"] [data-slot="cascader-panel"] {
+    flex-direction: column;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-search"] {
+    padding: calc(0.5rem * var(--ui-density)) calc(0.5rem * var(--ui-density))
+      calc(0.25rem * var(--ui-density));
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-columns"] {
+    display: flex;
+    align-items: stretch;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="cascader-panel"][data-searching]
+    [data-slot="cascader-menu"] {
+    min-width: 14rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-option-check"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="cascader-option"]:has([data-slot="cascader-option-check"]) {
+    justify-content: flex-start;
+    gap: calc(0.5rem * var(--ui-density));
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="cascader-option"]:has([data-slot="cascader-option-check"])
+    [data-slot="cascader-option-label"] {
+    flex: 1;
+  }
+  /* Async loading: a spinner replaces the arrow */
+  [data-theme-style="shadcn"]
+    [data-slot="cascader-option"][data-loading]
+    [data-slot="cascader-option-arrow"] {
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="shadcn"] [data-slot="cascader-spinner"] {
+    width: 0.875rem;
+    height: 0.875rem;
+    animation: ui-shadcn-cascader-spin 700ms linear infinite;
+  }
+  @keyframes ui-shadcn-cascader-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="cascader-option"] {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "name": "@skeinui/ui",
+  "version": "0.0.3",
+  "description": "100+ React components on Base UI, with swappable and customizable theme styles",
+  "keywords": [
+    "accessibility",
+    "admin",
+    "ai-chat",
+    "base-ui",
+    "component-library",
+    "components",
+    "dark-mode",
+    "data-table",
+    "design-system",
+    "headless",
+    "react",
+    "skein",
+    "skeinui",
+    "theming",
+    "ui-library"
+  ],
+  "homepage": "https://skeinui.com",
+  "bugs": "https://github.com/skeinui/skein/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skeinui/skein.git",
+    "directory": "packages/ui"
+  },
+  "files": [
+    "dist",
+    "manifest.json"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./contract": "./src/contract.ts",
+    "./manifest.json": "./manifest.json",
+    "./locales/en": "./src/locales/en.ts",
+    "./locales/zh-CN": "./src/locales/zh-CN.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "./contract": {
+        "types": "./dist/contract.d.ts",
+        "default": "./dist/contract.js"
+      },
+      "./manifest.json": "./manifest.json",
+      "./locales/en": {
+        "types": "./dist/locales/en.d.ts",
+        "default": "./dist/locales/en.js"
+      },
+      "./locales/zh-CN": {
+        "types": "./dist/locales/zh-CN.d.ts",
+        "default": "./dist/locales/zh-CN.js"
+      },
+      "./package.json": "./package.json"
+    },
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "prepack": "vp pack",
+    "test": "vp test",
+    "check": "vp check",
+    "typecheck": "tsc",
+    "snapshot": "node tests/visual/snapshot.mjs",
+    "a11y": "node tests/a11y/axe.mjs",
+    "manifest": "node scripts/manifest.ts"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "axe-core": "catalog:",
+    "jsdom": "catalog:",
+    "playwright-core": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

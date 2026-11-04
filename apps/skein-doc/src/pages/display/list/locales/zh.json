@@ -1,0 +1,50 @@
+{
+  "lead": "列表：一列带头像 / 标题 / 描述 / 操作的条目，用于消息、动态、搜索结果这类纵向的内容流。语义是 `<ul>` 里的 `<li>`。需要行列对齐用 Table。",
+  "basic": {
+    "title": "基础用法",
+    "note1": "写出了第一个程序",
+    "note2": "提出了通用图灵机",
+    "note3": "发明了第一个编译器"
+  },
+  "bordered": { "title": "边框、头部和尾部", "header": "先驱", "footer": "3 人" },
+  "sizes": { "title": "尺寸" },
+  "actions": {
+    "title": "操作和附加内容",
+    "new": "新",
+    "time1": "2 分钟前",
+    "time2": "1 小时前",
+    "time3": "昨天",
+    "edit": "编辑",
+    "more": "更多"
+  },
+  "state": { "title": "加载中和空状态", "loading": "加载中", "empty": "这里还什么都没有" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根元素，带 `data-bordered` / `data-split` / `data-size` / `data-loading`",
+    "parts": "头、尾、空状态、加载遮罩",
+    "items": "`ul` / `li`",
+    "meta": "项左边的一块",
+    "extra": "项右边的附加内容和操作"
+  },
+  "props": {
+    "List": {
+      "bordered": "外框，项左右留白。",
+      "empty": "没有项时显示的内容：字符串放进 `Empty` 显示，节点原样显示。默认是当前语言的「No data」。",
+      "footer": "列表下方的内容（如「加载更多」按钮）。",
+      "header": "列表上方的内容（如标题或工具栏）。",
+      "items": "数据驱动：每项是 `List.Item` 的属性加 `key`。也可以不传，自己把 `List.Item` 作为 children 放进去。",
+      "loading": "加载中：列表变淡、不可点击，中间显示转圈。",
+      "size": "项的上下内边距。",
+      "split": "项之间的分隔线。"
+    },
+    "List_Item": {
+      "actions": "最右边的操作（链接、按钮），之间自动加分隔线。",
+      "avatar": "左边的头像 / 图标。",
+      "description": "标题下面的次要文字。",
+      "extra": "右边的附加内容（时间、状态、缩略图）。",
+      "title": "项的主行。"
+    }
+  }
+}

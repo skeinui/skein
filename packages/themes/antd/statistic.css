@@ -1,0 +1,116 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Statistic: a small title, a large value (with prefix / suffix), and optional small descriptive text. The value uses tabular digits so it does not jitter when changing. */
+  [data-theme-style="antd"] [data-slot="statistic"] {
+    --_vs: 1.5rem;
+    --_c: var(--ui-fg);
+    display: inline-block;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.5714285714285714;
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-size="sm"] {
+    --_vs: 1.125rem;
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-size="lg"] {
+    --_vs: 2rem;
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-color="primary"] {
+    --_c: var(--ui-c-primary-text);
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-color="secondary"] {
+    --_c: var(--ui-c-secondary-text);
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-color="success"] {
+    --_c: var(--ui-c-success-text);
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-color="warning"] {
+    --_c: var(--ui-c-warning-text);
+  }
+  [data-theme-style="antd"] [data-slot="statistic"][data-color="danger"] {
+    --_c: var(--ui-c-danger-text);
+  }
+  [data-theme-style="antd"] [data-slot="statistic-title"] {
+    margin-bottom: 0;
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="antd"] [data-slot="statistic-content"] {
+    display: flex;
+    align-items: baseline;
+    color: var(--_c);
+    font-size: var(--_vs);
+    font-weight: 400;
+    line-height: 1.5714285714285714;
+    font-variant-numeric: tabular-nums;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-value"] {
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-prefix"] {
+    margin-inline-end: 0.25rem;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-suffix"] {
+    margin-inline-start: 0.25rem;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-description"] {
+    margin-top: 0.25rem;
+    color: var(--ui-fg-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-skeleton"] {
+    display: block;
+    width: 6rem;
+    height: calc(var(--_vs) * 1.2);
+    margin-block: 0.25rem;
+  }
+
+  /* Number roll (animated): each digit is a column of 0–9, --stat-digit is the current digit, and shifting one step = 10% of the column height;
+     the scrolling visual layer is hidden from screen readers, and the real text stays in statistic-text (visually hidden) */
+  [data-theme-style="antd"] [data-slot="statistic-value"][data-animated] {
+    position: relative;
+    display: inline-block;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-text"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-digits"] {
+    display: inline-flex;
+    align-items: flex-start;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-digit"] {
+    display: inline-block;
+    height: 1lh;
+    overflow: hidden;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-digit-strip"] {
+    display: flex;
+    flex-direction: column;
+    translate: 0 calc(var(--stat-digit, 0) * -10%);
+    transition: translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-theme-style="antd"] [data-slot="statistic-digit-strip"] > span {
+    display: block;
+    height: 1lh;
+    text-align: center;
+  }
+  [data-theme-style="antd"] [data-slot="statistic-char"] {
+    display: inline-block;
+    height: 1lh;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="antd"] [data-slot="statistic-digit-strip"] {
+      transition: none;
+    }
+  }
+}

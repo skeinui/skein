@@ -1,0 +1,16 @@
+{
+  "lead": "A loading placeholder, in three shapes: text, circle and block. There is no width or height prop: to size it, put it in a sized container.",
+  "usage": { "title": "Usage" },
+  "lines": { "title": "Text Lines" },
+  "card": { "title": "Card Placeholder" },
+  "radius": { "title": "Radius" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `skeleton.css`: HeroUI uses a shimmer, shadcn and the default style a pulse, and both stop under `prefers-reduced-motion`.",
+    "hook": "Hook",
+    "skeleton": "The placeholder block; the animation is here",
+    "group": "Container of multiple text lines",
+    "states": "Theme styles size it with these; `data-last` marks the last of several lines"
+  }
+}

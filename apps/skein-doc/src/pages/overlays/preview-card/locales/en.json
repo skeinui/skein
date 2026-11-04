@@ -1,0 +1,22 @@
+{
+  "lead": "A hover card: a preview shown when the pointer hovers over a link or the keyboard focuses it. Its look fully reuses the theme styles of [Popover](/popover).",
+  "usage": {
+    "title": "Usage",
+    "before": "Read the ",
+    "link": "documentation",
+    "after": " for details."
+  },
+  "placement": { "title": "Placement" },
+  "delay": { "title": "Delay" },
+  "api": {
+    "title": "API Reference",
+    "parts": "`PreviewCard.Title` / `PreviewCard.Description` are a plain `h2` / `p` that look like Popover's title and description. Don't use `Popover.Title` here: it depends on Popover's context and throws inside a hover card."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "PreviewCard has no CSS file of its own: its whole look comes from `popover.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "hook": "Hook",
+    "slots": "Popover's slots, reused; no extra styles needed",
+    "preview": "Set on `popover`, for theme styles that want to tell hover cards apart"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "lead": "A toolbar: a row of buttons, toggles and inputs. Arrow keys move focus between them, so the whole toolbar is a single Tab stop. The buttons reuse Button's look.",
+  "usage": { "title": "Usage" },
+  "groups": { "title": "Groups & Separator" },
+  "toggle": { "title": "With Toggle" },
+  "vertical": { "title": "Vertical" },
+  "api": {
+    "title": "API Reference",
+    "separator": "A vertical line between groups, reusing Separator. It takes no props."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles only handle the frame and spacing in `toolbar.css`; the buttons' look comes from `button.css`.",
+    "hook": "Hook",
+    "toolbar": "The toolbar itself (background, border, radius) and its groups",
+    "reused": "The buttons and lines inside, reusing the theme styles of Button and Separator"
+  }
+}

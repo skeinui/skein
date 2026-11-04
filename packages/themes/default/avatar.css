@@ -1,0 +1,129 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Avatar: square / round is decided by the size step's --_r, data-radius can override it individually; when the image fails the fallback is shown. */
+  [data-theme-style="default"] [data-slot="avatar"] {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    box-sizing: border-box;
+    overflow: hidden;
+    vertical-align: middle;
+    border-radius: var(--_r);
+    background-color: var(--ui-c-neutral-soft);
+    font-family: var(--ui-font-family);
+    user-select: none;
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-size="sm"] {
+    --_r: var(--ui-radius-full);
+    width: calc(1.75rem * var(--ui-density));
+    height: calc(1.75rem * var(--ui-density));
+    font-size: 0.6875rem;
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-size="md"] {
+    --_r: var(--ui-radius-full);
+    width: calc(2.25rem * var(--ui-density));
+    height: calc(2.25rem * var(--ui-density));
+    font-size: 0.8125rem;
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-size="lg"] {
+    --_r: var(--ui-radius-full);
+    width: calc(3rem * var(--ui-density));
+    height: calc(3rem * var(--ui-density));
+    font-size: 1rem;
+  }
+  [data-theme-style="default"] [data-slot="avatar-image"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  [data-theme-style="default"] [data-slot="avatar-fallback"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--ui-c-neutral-soft);
+    color: var(--ui-c-neutral-text);
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  [data-theme-style="default"]
+    [data-slot="avatar"][data-color="primary"]
+    [data-slot="avatar-fallback"] {
+    background-color: var(--ui-c-primary-soft);
+    color: var(--ui-c-primary-text);
+  }
+  [data-theme-style="default"]
+    [data-slot="avatar"][data-color="secondary"]
+    [data-slot="avatar-fallback"] {
+    background-color: var(--ui-c-secondary-soft);
+    color: var(--ui-c-secondary-text);
+  }
+  [data-theme-style="default"]
+    [data-slot="avatar"][data-color="success"]
+    [data-slot="avatar-fallback"] {
+    background-color: var(--ui-c-success-soft);
+    color: var(--ui-c-success-text);
+  }
+  [data-theme-style="default"]
+    [data-slot="avatar"][data-color="warning"]
+    [data-slot="avatar-fallback"] {
+    background-color: var(--ui-c-warning-soft);
+    color: var(--ui-c-warning-text);
+  }
+  [data-theme-style="default"]
+    [data-slot="avatar"][data-color="danger"]
+    [data-slot="avatar-fallback"] {
+    background-color: var(--ui-c-danger-soft);
+    color: var(--ui-c-danger-text);
+  }
+
+  [data-theme-style="default"] [data-slot="avatar"][data-radius="none"] {
+    --_r: 0;
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-radius="sm"] {
+    --_r: var(--ui-radius-sm);
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-radius="md"] {
+    --_r: var(--ui-radius-md);
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-radius="lg"] {
+    --_r: var(--ui-radius-lg);
+  }
+  [data-theme-style="default"] [data-slot="avatar"][data-radius="full"] {
+    --_r: var(--ui-radius-full);
+  }
+
+  /* AvatarGroup: avatars overlap, later ones covering earlier ones, each avatar has a ring of the background color around it to separate them; the spacing varies with the size step; "+N" is the data-overflow version of the same avatar */
+  [data-theme-style="default"] [data-slot="avatar-group"] {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+  [data-theme-style="default"] [data-slot="avatar-group"] > [data-slot="avatar"] {
+    box-shadow: 0 0 0 2px var(--ui-container);
+  }
+  [data-theme-style="default"]
+    [data-slot="avatar-group"]
+    > [data-slot="avatar"]
+    ~ [data-slot="avatar"] {
+    margin-inline-start: calc(var(--_overlap, 0.5rem) * -1);
+  }
+  [data-theme-style="default"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="sm"] {
+    --_overlap: calc(0.5rem * 0.75);
+  }
+  [data-theme-style="default"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="lg"] {
+    --_overlap: calc(0.5rem * 1.25);
+  }
+  [data-theme-style="default"] [data-slot="avatar-group"] > [data-slot="avatar"][data-overflow] {
+    background-color: var(--ui-c-neutral-soft);
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-weight: 500;
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "lead": "A Mermaid diagram: a header with the title, a view-source and a copy button, and the rendered diagram below. The library doesn't bundle Mermaid: you pass in the render function. The result goes into an `<img>` as an image, so no SVG is injected into the page. It re-renders when the light / dark mode changes, and shows a loading and an error state.",
+  "usage": {
+    "title": "Usage",
+    "description": "On this page Mermaid is loaded on demand (dynamic `import()`), downloaded only when a diagram is shown.",
+    "flowchart": "Flowchart",
+    "sequence": "Sequence diagram"
+  },
+  "error": {
+    "title": "Error",
+    "description": "A syntax error shows the error message next to the source.",
+    "broken": "Broken diagram"
+  },
+  "markdown": {
+    "title": "In Markdown",
+    "description": "`codeRenderers` turns `mermaid` fenced code into a diagram. While streaming, an unclosed fence shows as a plain code block and is rendered once the fence closes. Pass a stable object.",
+    "replay": "Replay"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root (`figure`); `data-state`: loading / ready / error, `data-view`: diagram / source",
+    "header": "Header, title and button group",
+    "action": "View-source (`aria-pressed`) and copy (`data-copied`) buttons",
+    "body": "The diagram's scroll area (focusable) and its `<img>`; `data-stale` while the previous diagram is kept",
+    "status": "Rendering notice (`role=status`)",
+    "error": "Render failure notice (`role=alert`)",
+    "source": "Source area (`pre`, focusable)"
+  }
+}

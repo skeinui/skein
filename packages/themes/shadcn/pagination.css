@@ -1,0 +1,68 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Pagination: summary on the left, on the right page info, page buttons and page size; the buttons themselves use Button's theme style. */
+  [data-theme-style="shadcn"] [data-slot="pagination"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    width: 100%;
+    color: var(--ui-fg-muted);
+    font-family: var(--ui-font-family);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="pagination-info"] {
+    color: var(--ui-fg-muted);
+  }
+  [data-theme-style="shadcn"] [data-slot="pagination-controls"] {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="pagination-page-info"] {
+    color: var(--ui-fg-muted);
+    white-space: nowrap;
+  }
+  [data-theme-style="shadcn"] [data-slot="pagination-nav"],
+  [data-theme-style="shadcn"] [data-slot="pagination-pages"] {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="pagination-ellipsis"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--ui-height-md);
+    height: var(--ui-height-md);
+    color: var(
+      --ui-fg
+    ); /* The official site's ellipsis is not dimmed, it inherits the body color */
+    user-select: none;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="pagination"][data-size="sm"]
+    [data-slot="pagination-ellipsis"] {
+    min-width: var(--ui-height-sm);
+    height: var(--ui-height-sm);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="pagination"][data-size="lg"]
+    [data-slot="pagination-ellipsis"] {
+    min-width: var(--ui-height-lg);
+    height: var(--ui-height-lg);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="pagination"][data-variant="pages"]
+    [data-slot="pagination-controls"] {
+    gap: 0.5rem 1rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="pagination-size"] {
+    display: inline-flex;
+    color: var(--ui-fg);
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "lead": "A confirmation bubble: click an element and a small bubble beside it asks \"Are you sure?\". It doesn't interrupt the page and is lighter than a dialog, suited to inline delete or disable actions. `onConfirm` can be async. For a strong, full-screen confirmation use [Confirm Dialog](/confirm-dialog).",
+  "usage": { "title": "Usage" },
+  "placement": { "title": "Placement" },
+  "async": {
+    "title": "Async confirm",
+    "left": "Items left: `{n}` (after confirming, the request takes 900 ms and the button spins meanwhile)"
+  },
+  "custom": { "title": "Icon and buttons" },
+  "disabled": { "title": "Disabled" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles lay out the content in `popconfirm.css`; the shell comes from `popover.css`.",
+    "hook": "Hook",
+    "root": "The content of the bubble, with `data-tone`; the shell (background, shadow, arrow) is the theme style's popover",
+    "parts": "Icon, title, description (indented to line up with the title) and the button row"
+  }
+}

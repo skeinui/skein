@@ -1,0 +1,51 @@
+{
+  "lead": "颜色选择：触发器是色块，点开是浮层，里面有饱和度和明度面板、色相条、可选的透明度条、数值输入框和预设色；内部用 HSV 保存，所以把饱和度拖到 0 时色相不会丢。",
+  "usage": { "title": "用法" },
+  "controlled": { "title": "受控", "value": "值：" },
+  "formats": {
+    "title": "格式",
+    "description": "面板里可以切换 HEX / RGB / HSB；`format` 决定输入框的样子和 `onValueChange` 给出的字符串，`defaultFormat` 设初始格式，`formats` 限定可切换的范围。"
+  },
+  "alpha": {
+    "title": "透明度",
+    "description": "开了 `alpha` 会多一条透明度滑块，和一个百分数的透明度输入框（任何格式下都有）。"
+  },
+  "presets": { "title": "预设色" },
+  "show-value": { "title": "显示色值" },
+  "sizes": { "title": "尺寸" },
+  "disabled": { "title": "禁用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `color-picker.css` 里处理。颜色是动态值，组件不写 style，而是把当前颜色拆成 `--cp-*` 变量设在面板和色块上，主题风格用它们定位圆点、画渐变。",
+    "trigger": "触发器（浮层打开时有 `data-popup-open`）、色块和 hex 文字",
+    "panel": "浮层里的面板；上面有 `--cp-x` / `--cp-y` / `--cp-hue` / `--cp-alpha` / `--cp-hue-color` / `--cp-solid` / `--cp-color` 这些变量",
+    "area": "饱和度 × 明度面板和上面的圆点，`role=slider`，方向键调整",
+    "controls": "预览圆和右边的滑块组",
+    "sliders": "色相条和透明度条，及它们的圆点",
+    "formats": "格式切换（里面是 ToggleGroup）",
+    "input": "输入框一行（`data-format` 是格式）和每个输入框的容器（`data-field` 是 hex / r / g / b / h / s / alpha）",
+    "presets": "预设色列表和每个预设（当前色有 `data-selected`）"
+  },
+  "props": {
+    "ColorPicker": {
+      "alpha": "显示透明度滑块和透明度输入框（百分数）。",
+      "aria-label": "没有可见标签时的无障碍名称。",
+      "defaultFormat": "非受控时 `format` 的初始值。",
+      "defaultOpen": "非受控时 `open` 的初始值。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "disabled": "禁用交互。",
+      "format": "当前格式（受控）：hex 一个输入框，rgb 三个（R G B），hsb 三个（H S B）；`onValueChange` 也按它输出。",
+      "formats": "面板里可以切换的格式；只给一个就不显示切换。",
+      "name": "写一个隐藏 input，随原生表单提交。",
+      "onFormatChange": "在面板里切换格式时的回调；随后会按新格式再调用一次 `onValueChange`。",
+      "onOpenChange": "以新的 `open` 调用；同时传 `open` 即为受控。",
+      "onValueChange": "以新的 `value` 调用；同时传 `value` 即为受控。",
+      "open": "是否打开，受控（配合 `onOpenChange`）。",
+      "presets": "预设颜色，每个是 hex；不合法的会被忽略。",
+      "showValue": "在触发器里色块旁边显示 hex 文字。",
+      "size": "触发器的尺寸。",
+      "value": "当前颜色；字符串格式跟着 `format`：hex 是 #rrggbb（不透明度小于 1 时是 #rrggbbaa），rgb 是 `rgb(22 119 255 / 0.5)`，hsb 是 `hsb(215 91% 100%)`。读取时三种格式都认。"
+    }
+  }
+}

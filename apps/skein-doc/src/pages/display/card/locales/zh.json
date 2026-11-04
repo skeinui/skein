@@ -1,0 +1,38 @@
+{
+  "lead": "内容卡片，只有结构。内边距、描边、阴影都由主题风格决定。",
+  "usage": {
+    "title": "用法",
+    "description": "各个部件都可以省略。",
+    "cardTitle": "卡片标题",
+    "cardDescription": "简短说明",
+    "body": "正文内容",
+    "action": "操作"
+  },
+  "variants": {
+    "title": "变体",
+    "description": "`outline` 描边，`filled` 灰底，`elevated` 带阴影。",
+    "content": "内容"
+  },
+  "radius": {
+    "title": "圆角",
+    "description": "不传 `radius` 时由主题风格决定。"
+  },
+  "api": {
+    "title": "API 参考",
+    "parts": "`Card.Header` / `Card.Title` / `Card.Description` / `Card.Body` / `Card.Footer` 是结构部件，没有自己的 props（接受对应元素的 HTML 属性），都可以省略。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `card.css` 里处理；Ant Design 的头部带分隔线，HeroUI 没有。",
+    "hook": "钩子",
+    "card": "外框：内边距、描边、圆角、底色",
+    "header": "头部与标题说明",
+    "body": "内容和底部操作区"
+  },
+  "props": {
+    "Card": {
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "variant": "视觉变体，具体画法由主题风格决定。"
+    }
+  }
+}

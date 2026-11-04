@@ -1,0 +1,145 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * HeroUI v3 style theme style; values are taken from the stylesheet actually loaded by the heroui.com docs page (v3.2.6).
+ * Traits: pill radius (--radius × 3), flat and borderless, background change on hover, scale on press, focus ring of a 2px halo + 2px gap.
+ * v3's soft / text colors are computed from the primary color (color-mix); they are written as expressions here too, so they follow when the theme changes the primary color.
+ * Light values.
+ */
+@layer ui-tokens {
+  [data-theme-style="heroui"] {
+    color-scheme: light;
+
+    --ui-font-family:
+      "Inter", "Geist Variable", ui-sans-serif, system-ui, -apple-system, "PingFang SC",
+      "Microsoft YaHei", sans-serif;
+    /* Code font: same as the HeroUI docs site (i.e. Tailwind's default monospace stack) */
+    --ui-font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+      monospace;
+    --ui-density: 1;
+    --ui-radius: 0.5rem;
+    --ui-duration: 250ms;
+    --ui-easing: ease;
+
+    /* Page / foreground (v3's background, surface, eclipse, muted, border) */
+    --ui-bg: #f5f5f5;
+    --ui-surface: #ffffff;
+    --ui-fg: #18181b;
+    --ui-fg-muted: #71717a;
+    --ui-border: #dedee0;
+    --ui-ring: #0485f7;
+
+    /* Form controls */
+    --ui-field-bg: #ffffff;
+    --ui-field-filled-bg: var(--ui-c-neutral);
+    --ui-field-fg: var(--ui-fg);
+    --ui-field-placeholder: var(--ui-fg-muted);
+    --ui-field-border: transparent;
+    --ui-field-shadow: 0 2px 4px 0 #0000000a, 0 1px 2px 0 #0000000f, 0 0 1px 0 #0000000f;
+
+    /* Overlay */
+    --ui-overlay-bg: #ffffff;
+    --ui-overlay-border: transparent;
+    --ui-overlay-shadow: 0 2px 8px 0 #0000000f, 0 -6px 12px 0 #00000008, 0 14px 28px 0 #00000014;
+    --ui-backdrop: #00000080;
+    --ui-tooltip-bg: #ffffff;
+    --ui-tooltip-fg: var(--ui-fg);
+
+    /* default: gray background, foreground takes the page foreground color */
+    --ui-c-neutral: #ebebec;
+    --ui-c-neutral-fg: var(--ui-fg);
+    --ui-c-neutral-soft: var(--ui-c-neutral);
+    --ui-c-neutral-text: var(--ui-fg);
+
+    /* accent */
+    --ui-c-primary: #0485f7;
+    --ui-c-primary-fg: #fcfcfc;
+    --ui-c-primary-soft: color-mix(in oklab, var(--ui-c-primary) 15%, transparent);
+    --ui-c-primary-text: color-mix(in oklab, var(--ui-c-primary) 70%, var(--ui-fg) 30%);
+
+    /*
+     * v3 has no secondary color; its secondary variant is "gray background + primary-colored text".
+     * Here the secondary color expresses that combination; the playground's Secondary is soft + secondary.
+     */
+    --ui-c-secondary: var(--ui-c-neutral);
+    --ui-c-secondary-fg: color-mix(in oklab, var(--ui-c-primary) 70%, var(--ui-fg) 30%);
+    --ui-c-secondary-soft: var(--ui-c-neutral);
+    --ui-c-secondary-text: color-mix(in oklab, var(--ui-c-primary) 70%, var(--ui-fg) 30%);
+
+    --ui-c-success: #17c964;
+    --ui-c-success-fg: #18181b;
+    --ui-c-success-soft: color-mix(in oklab, var(--ui-c-success) 15%, transparent);
+    --ui-c-success-text: color-mix(in oklab, var(--ui-c-success) 80%, var(--ui-fg) 60%);
+
+    --ui-c-warning: #f5a524;
+    --ui-c-warning-fg: #18181b;
+    --ui-c-warning-soft: color-mix(in oklab, var(--ui-c-warning) 15%, transparent);
+    --ui-c-warning-text: color-mix(in oklab, var(--ui-c-warning) 80%, var(--ui-fg) 70%);
+
+    --ui-c-danger: #ff383c;
+    --ui-c-danger-fg: #fcfcfc;
+    --ui-c-danger-soft: color-mix(in oklab, var(--ui-c-danger) 15%, transparent);
+    --ui-c-danger-text: color-mix(in oklab, var(--ui-c-danger) 70%, var(--ui-fg) 40%);
+  }
+
+  /* Derived tokens: radii are multiples of --radius (buttons use ×3 = 24px, i.e. a pill) */
+  [data-theme-style="heroui"],
+  [data-theme-style="heroui"] :is([data-theme-color], [data-theme-density]) {
+    /* State colors: hover / pressed / stroke, derived from the background and foreground colors, so they follow when the theme changes the background */
+    --ui-c-neutral-hover: color-mix(in oklab, var(--ui-c-neutral) 90%, var(--ui-c-neutral-fg) 10%);
+    --ui-c-neutral-active: color-mix(in oklab, var(--ui-c-neutral) 80%, var(--ui-c-neutral-fg) 20%);
+    --ui-c-neutral-border: color-mix(in oklab, var(--ui-c-neutral) 40%, transparent);
+    --ui-c-primary-hover: color-mix(in oklab, var(--ui-c-primary) 90%, var(--ui-c-primary-fg) 10%);
+    --ui-c-primary-active: color-mix(in oklab, var(--ui-c-primary) 80%, var(--ui-c-primary-fg) 20%);
+    --ui-c-primary-border: color-mix(in oklab, var(--ui-c-primary) 40%, transparent);
+    --ui-c-secondary-hover: color-mix(
+      in oklab,
+      var(--ui-c-secondary) 90%,
+      var(--ui-c-secondary-fg) 10%
+    );
+    --ui-c-secondary-active: color-mix(
+      in oklab,
+      var(--ui-c-secondary) 80%,
+      var(--ui-c-secondary-fg) 20%
+    );
+    --ui-c-secondary-border: color-mix(in oklab, var(--ui-c-secondary) 40%, transparent);
+    --ui-c-success-hover: color-mix(in oklab, var(--ui-c-success) 90%, var(--ui-c-success-fg) 10%);
+    --ui-c-success-active: color-mix(in oklab, var(--ui-c-success) 80%, var(--ui-c-success-fg) 20%);
+    --ui-c-success-border: color-mix(in oklab, var(--ui-c-success) 40%, transparent);
+    --ui-c-warning-hover: color-mix(in oklab, var(--ui-c-warning) 90%, var(--ui-c-warning-fg) 10%);
+    --ui-c-warning-active: color-mix(in oklab, var(--ui-c-warning) 80%, var(--ui-c-warning-fg) 20%);
+    --ui-c-warning-border: color-mix(in oklab, var(--ui-c-warning) 40%, transparent);
+    --ui-c-danger-hover: color-mix(in oklab, var(--ui-c-danger) 90%, var(--ui-c-danger-fg) 10%);
+    --ui-c-danger-active: color-mix(in oklab, var(--ui-c-danger) 80%, var(--ui-c-danger-fg) 20%);
+    --ui-c-danger-border: color-mix(in oklab, var(--ui-c-danger) 40%, transparent);
+
+    --ui-radius-sm: calc(var(--ui-radius) * 2);
+    --ui-radius-md: calc(var(--ui-radius) * 3);
+    --ui-radius-lg: calc(var(--ui-radius) * 4);
+    --ui-radius-full: 9999px;
+
+    /* Semantic radii (aligned with HeroUI v3's radius system, base value --ui-radius = 8px):
+       surface overlays / standalone containers 24px; block content blocks in a conversation 16px; item entries inside blocks, input types 12px;
+       small one more level inside an entry 8px; pill controls (buttons, small labels) are made as pills, not relying on "a too-large radius being clamped by the browser". */
+    --ui-r-surface: min(2rem, calc(var(--ui-radius) * 3));
+    --ui-r-block: calc(var(--ui-radius) * 2);
+    --ui-r-item: calc(var(--ui-radius) * 1.5);
+    --ui-r-small: var(--ui-radius);
+    --ui-r-control: 9999px;
+
+    /* Larger touch targets on narrow screens: 40 / 36 / 44px; at ≥ 768px they are 36 / 32 / 40px */
+    --ui-height-sm: calc(2.25rem * var(--ui-density));
+    --ui-height-md: calc(2.5rem * var(--ui-density));
+    --ui-height-lg: calc(2.75rem * var(--ui-density));
+  }
+
+  @media (min-width: 48rem) {
+    [data-theme-style="heroui"],
+    [data-theme-style="heroui"] :is([data-theme-color], [data-theme-density]) {
+      --ui-height-sm: calc(2rem * var(--ui-density));
+      --ui-height-md: calc(2.25rem * var(--ui-density));
+      --ui-height-lg: calc(2.5rem * var(--ui-density));
+    }
+  }
+}

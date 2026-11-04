@@ -1,0 +1,105 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/* Group: radius merging and border overlap at the seams. The appearance of buttons in the group is still decided by button.css. */
+@layer ui-style {
+  [data-theme-style="shadcn"] [data-slot="button-group"] {
+    display: inline-flex;
+    align-items: stretch;
+    max-width: 100%;
+  }
+  [data-theme-style="shadcn"] [data-slot="button-group"][data-orientation="vertical"] {
+    flex-direction: column;
+  }
+
+  [data-theme-style="shadcn"] [data-slot="button-group"][data-full-width] {
+    display: flex;
+    width: 100%;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-full-width][data-orientation="horizontal"]
+    > [data-slot="button"] {
+    flex: 1 1 0;
+  }
+
+  /* A hovered / focused button is raised above its neighbors so its border is not covered */
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"]
+    > [data-slot="button"]:is(:hover, :focus-visible) {
+    z-index: 1;
+  }
+
+  /* Horizontal: middle buttons lose their radius, the two ends keep their outer radius */
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="horizontal"]
+    > [data-slot="button"]:is([data-slot="button"] ~ *) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="horizontal"]
+    > [data-slot="button"]:has(~ [data-slot="button"]) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  /* Vertical */
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="vertical"]
+    > [data-slot="button"]:is([data-slot="button"] ~ *) {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="vertical"]
+    > [data-slot="button"]:has(~ [data-slot="button"]) {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  /* Variants with a border make adjacent borders overlap into a single line */
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="horizontal"]
+    > [data-slot="button"]:is([data-variant="outline"], [data-variant="faded"]):is(
+      [data-slot="button"] ~ *
+    ) {
+    margin-inline-start: -1px;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="vertical"]
+    > [data-slot="button"]:is([data-variant="outline"], [data-variant="faded"]):is(
+      [data-slot="button"] ~ *
+    ) {
+    margin-block-start: -1px;
+  }
+
+  /*
+   * Separator: <ButtonGroup.Separator /> is placed inside a button, against the side nearest the previous button.
+   * Variants with a border get a single line from overlapping borders and do not need it, so it is hidden.
+   */
+  [data-theme-style="shadcn"] [data-slot="button-group-separator"] {
+    position: absolute;
+    inset-block: 25%;
+    inset-inline-start: 0;
+    width: 1px;
+    background-color: color-mix(in oklab, currentColor 30%, transparent);
+    pointer-events: none;
+  }
+  /* Dark (Nova): the separator uses input (white 15%), no longer text color at 30% */
+  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+    [data-slot="button-group-separator"] {
+    background-color: var(--ui-field-border);
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="button-group"][data-orientation="vertical"]
+    [data-slot="button-group-separator"] {
+    inset-block: 0 auto;
+    inset-inline: 25%;
+    width: auto;
+    height: 1px;
+  }
+  [data-theme-style="shadcn"]
+    [data-slot="button"]:is([data-variant="outline"], [data-variant="faded"])
+    > [data-slot="button-group-separator"] {
+    display: none;
+  }
+}

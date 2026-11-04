@@ -1,0 +1,23 @@
+{
+  "lead": "Shimmering text for short labels such as \"Thinking\" or \"Generating\": the text is muted, with an identical copy on top that shows a highlight only within the glyphs, sweeping from left to right in a loop. With \"reduced motion\" the highlight is hidden and the text is solid.",
+  "basic": { "title": "Basic", "text": "Thinking…" },
+  "states": {
+    "title": "Active and finished",
+    "description": "With `active` off it is plain muted text, e.g. once thinking has ended.",
+    "searching": "Searching the web…",
+    "finished": "Thought for 4s"
+  },
+  "speed": {
+    "title": "Speed",
+    "fast": "Generating a quick answer…",
+    "slow": "Reading a very long document…"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The root element; `data-active` while shimmering; `--sh-duration`",
+    "label": "The copy of the text that screen readers read",
+    "highlight": "The identical text on top (`aria-hidden`), showing the highlight only within the glyphs; hidden with reduced motion"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "lead": "A data-driven tree: expanded, selected and checked nodes are arrays of ids, and keyboard navigation follows the WAI-ARIA tree pattern (up / down, left / right, Home / End, Enter / Space).",
+  "usage": { "title": "Usage" },
+  "controlled": {
+    "title": "Controlled",
+    "selected": "Selected:",
+    "expanded": "Expanded:",
+    "none": "none"
+  },
+  "checkable": {
+    "title": "Checkable",
+    "description": "For permission trees and the like: checking a parent checks its available descendants, a parent is checked once all its descendants are, and a partly checked parent shows a dash.",
+    "checked": "Checked:",
+    "user": "User management",
+    "userRead": "View users",
+    "userWrite": "Edit users",
+    "userDelete": "Delete users",
+    "role": "Role management",
+    "roleRead": "View roles",
+    "roleWrite": "Edit roles"
+  },
+  "async": {
+    "title": "Async loading",
+    "description": "A `lazy` node fetches its children the first time it is expanded, with a spinner in place of the arrow meanwhile. Folders named `empty` come back empty and turn into leaves."
+  },
+  "filter": {
+    "title": "Filter",
+    "description": "As the search term changes, only the matching nodes and their ancestors stay, expanded down to the matches, which are highlighted. With `filterMode=\"highlight\"` every node stays.",
+    "search": "Search files",
+    "placeholder": "Search… (try “in”)"
+  },
+  "drag": {
+    "title": "Drag and drop",
+    "description": "Drop on the top / bottom edge of a row to place the node before / after it, on the middle to put it inside (hovering over a collapsed node expands it after a moment).",
+    "lastMove": "Last move:",
+    "keyboard": "(keyboard: focus a row, then Alt + ↑ / ↓)"
+  },
+  "lines": {
+    "title": "Lines",
+    "description": "A directory structure: connecting lines between the nodes."
+  },
+  "block": {
+    "title": "Block",
+    "description": "The background fills the whole row (antd only wraps the text by default; the other theme styles fill the row anyway)."
+  },
+  "icons": { "title": "Icons" },
+  "sizes": { "title": "Sizes" },
+  "colors": { "title": "Colors" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle these in `tree.css`.",
+    "hook": "Hook",
+    "root": "The root (`role=tree`) and the child lists (`role=group`); `tree-group` sets the indentation of the children",
+    "item": "`role=treeitem`, with `data-expanded` / `data-selected` / `data-disabled` / `data-leaf`",
+    "row": "The whole row, focusable (roving tabindex); hover, the focus ring and the selected background are drawn on it",
+    "parts": "The expand arrow (its parent has `data-expanded` when expanded), the checkbox, the icon and the label",
+    "spinner": "Replaces the expand arrow while children load; the node has `data-loading` and `aria-busy`",
+    "match": "The matching text of a search (`<mark>`), and the text shown when nothing matches. Matching rows have `data-match`, the root has `data-filtering` while searching",
+    "drag": "The dragged node (`tree-item`) has `data-dragging`, as does the root during the drag; the row pointed at has `data-drop=before / after / inside`, which theme styles use to draw the drop hint"
+  }
+}

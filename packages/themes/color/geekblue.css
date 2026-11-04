@@ -1,0 +1,34 @@
+@layer ui-tokens, ui-color, ui-style;
+
+/*
+ * Geek blue theme: the Ant Design preset color #2f54eb, with the palette computed by antd's algorithm (theme.getDesignToken),
+ * so both light and dark sets are exact values. Only the primary color changes, so it works on any theme style and can be combined with compact density: data-theme-color="geekblue" data-theme-density="compact".
+ */
+@layer ui-color {
+  [data-theme-color~="geekblue"] {
+    --ui-ring: #2f54eb;
+
+    --ui-c-primary: #2f54eb;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #f0f5ff;
+    --ui-c-primary-text: #2f54eb;
+    --ui-c-primary-hover: #597ef7;
+    --ui-c-primary-active: #1d39c4;
+    --ui-c-primary-border: #adc6ff;
+  }
+
+  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-theme-color~="geekblue"][data-mode="dark"],
+  [data-mode="dark"] [data-theme-color~="geekblue"],
+  [data-theme-color~="geekblue"] [data-mode="dark"] {
+    --ui-ring: #2b4acb;
+
+    --ui-c-primary: #2b4acb;
+    --ui-c-primary-fg: #ffffff;
+    --ui-c-primary-soft: #1c2755;
+    --ui-c-primary-text: #2b4acb;
+    --ui-c-primary-hover: #5273e0;
+    --ui-c-primary-active: #263ea0;
+    --ui-c-primary-border: #1c2755;
+  }
+}

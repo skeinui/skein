@@ -1,0 +1,30 @@
+{
+  "lead": "对一条回复的评价：赞 / 踩两个切换按钮，点踩后可以展开小表单问原因（多选 + 补充说明），发送后换成一句确认。评价由调用方持有，组件只管交互和读屏文字。",
+  "usage": { "title": "用法" },
+  "reasons": {
+    "title": "询问原因",
+    "description": "传 `reasons`，点踩后展开表单；发送后表单收起、出现确认。",
+    "notSent": "（还没提交）"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "根；`data-value` 是当前评价",
+    "group": "按钮组（`role=group`）和两个按钮（`data-value`：up / down；`aria-pressed`）",
+    "form": "点踩后的表单",
+    "reasons": "原因的 fieldset、标题和每个复选项",
+    "comment": "补充说明输入框和发送按钮",
+    "thanks": "提交后的确认（`role=status`，一直在 DOM 里，没内容时隐藏）"
+  },
+  "props": {
+    "Feedback": {
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "onSubmit": "发送了原因表单。",
+      "onValueChange": "`value` 变化时调用，参数是新值；要受控就同时传 `value`。",
+      "reasons": "点踩后是否询问原因：给了就在按钮下方展开小表单（原因多选 + 补充说明 + 发送），不给就只记点踩。原因文字和有哪些原因由调用方决定。",
+      "value": "当前评价；不传就由组件自己管（非受控）。再点一次同一个按钮取消评价（null）。"
+    }
+  }
+}

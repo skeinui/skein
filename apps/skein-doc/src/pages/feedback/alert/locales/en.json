@@ -1,0 +1,22 @@
+{
+  "lead": "An inline banner for static information, warnings and errors. Three variants × six semantic colours, with an optional action area and close button.",
+  "usage": { "title": "Usage" },
+  "variants": { "title": "Variants", "message": "Variant description" },
+  "colors": { "title": "Colors", "message": "Something to tell you." },
+  "action": {
+    "title": "Action & Close",
+    "showAgain": "Show alert again",
+    "saved": "Changes saved",
+    "message": "Your profile was updated."
+  },
+  "no-icon": { "title": "Without Icon", "alertTitle": "No icon", "message": "Plain text only." },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `alert.css`; the colours come from the solid / soft / text / border values of `--ui-c-*`.",
+    "hook": "Hook",
+    "frame": "The frame, the icon and the text area",
+    "text": "Title and description",
+    "action": "Action area and close button"
+  }
+}

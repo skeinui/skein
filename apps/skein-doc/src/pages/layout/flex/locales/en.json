@@ -1,0 +1,32 @@
+{
+  "lead": "Flex layout: lays out a row (or a column) of things. The spacing comes from the theme style's scale and alignment is a prop, so no `className` or `style` is needed. The component has no margins of its own; `gap` sets all the spacing. For a page-level grid (widths in 24ths that change with the screen) use `Row` / `Col`, see [Grid](/grid).",
+  "basic": {
+    "title": "Basic",
+    "description": "`direction=\"column\"` is a Stack.",
+    "one": "One",
+    "two": "Two",
+    "three": "Three",
+    "stacked": "Stacked {n}"
+  },
+  "gap": { "title": "Gap scale" },
+  "align": { "title": "Align and justify" },
+  "toolbar": {
+    "title": "Spacer and wrap",
+    "description": "`Flex.Spacer` pushes what follows it to the other end; `wrap` moves what doesn't fit to the next line.",
+    "users": "Users",
+    "export": "Export",
+    "newUser": "New user",
+    "tag": "Tag {n}"
+  },
+  "api": {
+    "title": "API Reference",
+    "spacer": "`Flex.Spacer` takes no props: it fills the remaining space and pushes what follows it to the other end."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles define the spacing scale in `flex.css`: to make a theme style's spacing looser or tighter overall, change the scale there.",
+    "hook": "Hook",
+    "flex": "`data-direction` / `data-gap` / `data-align` / `data-justify`, `data-wrap`, `data-inline`",
+    "spacer": "`flex: 1 1 auto`"
+  }
+}

@@ -1,0 +1,118 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* ModelPicker: a compact trigger in the input toolbar (icon + model name + arrow); the expanded list reuses Select's theme style, and this file only handles the extra icon / name / tag / description in items */
+  [data-theme-style="heroui"] [data-slot="model-picker-trigger"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    box-sizing: border-box;
+    max-width: 14rem;
+    height: 2rem;
+    margin: 0;
+    padding: 0 0.5rem;
+    border: 0;
+    border-radius: var(--ui-r-control);
+    background: transparent;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-family: var(--ui-font-family);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    outline: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-trigger"]:hover:not([data-disabled]) {
+    background-color: color-mix(in srgb, transparent 92%, var(--ui-fg) 8%);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-trigger"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-trigger"][data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-name"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-icon"],
+  [data-theme-style="heroui"] [data-slot="model-picker-item-icon"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-icon"] > svg,
+  [data-theme-style="heroui"] [data-slot="model-picker-item-icon"] > svg {
+    width: 100%;
+    height: 100%;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-caret"] {
+    display: inline-flex;
+    flex: none;
+    transition: rotate 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-caret"] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="model-picker-trigger"][data-popup-open]
+    [data-slot="model-picker-caret"] {
+    rotate: 180deg;
+  }
+  /* List item: name (with tag) on top, description below */
+  [data-theme-style="heroui"] [data-model-picker] [data-slot="select-item"] {
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-item-icon"] {
+    margin-top: 0.125rem;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-item-body"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    min-width: 12rem;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-item-name"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 500;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-item-badge"] {
+    padding: 0.0625rem 0.375rem;
+    border-radius: 999px;
+    background-color: var(--ui-c-primary-soft);
+    color: var(--ui-c-primary-text);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  [data-theme-style="heroui"] [data-slot="model-picker-item-description"] {
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.35;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="model-picker-trigger"],
+    [data-theme-style="heroui"] [data-slot="model-picker-caret"] {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,152 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* CodeBlock: the header holds the language and copy button, below is scrollable code; colored tokens use data-token, line numbers use CSS counters */
+  [data-theme-style="heroui"] [data-slot="code-block"] {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-r-block);
+    background-color: var(--ui-surface);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-header"] {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.25rem;
+    padding: 0.25rem 0.5rem 0.25rem 0.875rem;
+    border-bottom: 1px solid var(--ui-border);
+    background-color: color-mix(in srgb, var(--ui-surface) 98%, var(--ui-fg) 2%);
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-language"] {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-family: var(--ui-font-mono);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-copy"] {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--ui-r-control);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-copy"] > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-copy"]:hover {
+    background-color: color-mix(in srgb, transparent 92%, var(--ui-fg) 8%);
+    color: var(--ui-fg);
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-copy"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-copy"][data-copied] {
+    color: var(--ui-c-success);
+  }
+  /* Text for announcements, not displayed */
+  [data-theme-style="heroui"] [data-slot="code-block-status"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-pre"] {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.75rem 0.875rem;
+    overflow: auto;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    tab-size: 2;
+    outline: none;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-pre"]:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--ui-ring);
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-code"] {
+    display: block;
+    min-width: max-content;
+    font: inherit;
+    counter-reset: ui-code-line;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block"][data-wrap] [data-slot="code-block-pre"] {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block"][data-wrap] [data-slot="code-block-code"] {
+    min-width: 0;
+  }
+  [data-theme-style="heroui"] [data-slot="code-block-line"] {
+    display: block;
+  }
+  [data-theme-style="heroui"]
+    [data-slot="code-block"][data-line-numbers]
+    [data-slot="code-block-line"]::before {
+    content: counter(ui-code-line);
+    counter-increment: ui-code-line;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 2rem;
+    margin-inline-end: 0.875rem;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    text-align: end;
+    user-select: none;
+  }
+  /* Coloring: mix a bit of the semantic color into the foreground color, so the contrast ratio is sufficient in both light and dark modes */
+  [data-theme-style="heroui"] [data-token="keyword"] {
+    color: color-mix(
+      in srgb,
+      color-mix(in srgb, var(--ui-c-primary) 50%, var(--ui-c-danger)) 80%,
+      var(--ui-fg)
+    );
+  }
+  [data-theme-style="heroui"] [data-token="string"] {
+    color: color-mix(in srgb, var(--ui-c-success) 75%, var(--ui-fg));
+  }
+  [data-theme-style="heroui"] [data-token="number"] {
+    color: color-mix(in srgb, var(--ui-c-warning) 55%, var(--ui-fg));
+  }
+  [data-theme-style="heroui"] [data-token="property"] {
+    color: color-mix(in srgb, var(--ui-c-primary) 75%, var(--ui-fg));
+  }
+  [data-theme-style="heroui"] [data-token="variable"] {
+    color: color-mix(in srgb, var(--ui-c-danger) 65%, var(--ui-fg));
+  }
+  [data-theme-style="heroui"] [data-token="comment"] {
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-style: italic;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="heroui"] [data-slot="code-block-copy"] {
+      transition: none;
+    }
+  }
+}

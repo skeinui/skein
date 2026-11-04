@@ -1,0 +1,43 @@
+{
+  "lead": "对话空状态里的起始提示：一个标题加一组可点的建议，有卡片网格、竖排列表、小胶囊三种布局。点击把那一条交给 `onSelect`（通常是填进输入框或直接发送）。",
+  "grid": {
+    "title": "网格",
+    "heading": "有什么可以帮你？",
+    "description": "从一条建议的提示开始。",
+    "picked": "选了：{text}",
+    "none": "还没选。",
+    "summarize": "总结这份文档",
+    "summarizeText": "给文件写一段简明的摘要。",
+    "explain": "解释一个概念",
+    "explainText": "一步步拆解一个难懂的想法。",
+    "write": "写一个函数",
+    "writeText": "按给定的规格写出代码和测试。",
+    "plan": "安排我的一周",
+    "planText": "把一串任务排成日程。"
+  },
+  "list": { "title": "列表" },
+  "chips": { "title": "胶囊" },
+  "api": {
+    "title": "API 参考",
+    "item": "每个 `SuggestionItem` 是 `{ id?, title, description?, prompt?, icon? }`：`title` 是标题，`description` 是一句说明（胶囊布局不显示），`prompt` 是点击时要发的文字（不传就是 title），`icon` 在标题前。"
+  },
+  "styling": {
+    "title": "样式参考",
+    "hook": "钩子",
+    "root": "根（`role=group`）；`data-layout`",
+    "header": "顶上的标题区",
+    "items": "建议的容器（网格 / 列表 / 换行排列）",
+    "item": "一条建议（原生 `button`）",
+    "itemParts": "一条建议里的图标（装饰）、文字块、标题和说明"
+  },
+  "props": {
+    "Suggestions": {
+      "aria-label": "没有 `title` 时这一组的名称（读屏用）；默认是当前语言的「建议」。",
+      "description": "标题下面的说明。",
+      "items": "这一组建议。",
+      "layout": "`grid` 卡片网格（默认），`list` 竖排列表，`chips` 一排小胶囊（不显示说明）。",
+      "onSelect": "点了某一条：参数是这一条（要发的文字用 `item.prompt ?? item.title`）。",
+      "title": "顶上的大标题，比如「有什么可以帮你？」。"
+    }
+  }
+}

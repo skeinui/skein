@@ -1,0 +1,34 @@
+{
+  "lead": "A stack of sections that expand and collapse. Expanding, keyboard navigation and the aria wiring come from Base UI's Accordion.",
+  "usage": { "title": "Usage" },
+  "variants": {
+    "title": "Variants",
+    "description": "`divided` draws a line between items, `bordered` an outer frame, `filled` a light card per item."
+  },
+  "multiple": {
+    "title": "Multiple",
+    "description": "With `multiple`, several items can be open at once."
+  },
+  "default-open": {
+    "title": "Default Open",
+    "description": "`defaultValue` lists the items open at first; use `value` / `onValueChange` to control them."
+  },
+  "disabled": { "title": "Disabled", "description": "A `disabled` item can't be opened." },
+  "demo": {
+    "q1": "How do I get started?",
+    "a1": "Install the package, import a theme style, and render a component.",
+    "q2": "Can I switch the design language?",
+    "a2": "Yes: set data-theme-style on the html element and nothing else changes.",
+    "q3": "Is it accessible?",
+    "a3": "Behaviour and aria come from Base UI."
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `accordion.css`; the height animation uses `data-starting-style` / `data-ending-style` and the `--accordion-panel-height` Base UI writes.",
+    "hook": "Hook",
+    "root": "The root and each item",
+    "header": "The title row, its button and the arrow; the trigger has `data-panel-open` while open",
+    "panel": "The panel (animates its height with `--accordion-panel-height`) and its padded inner layer"
+  }
+}

@@ -1,0 +1,89 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Composer: a rounded outer frame (bordered on focus) containing attachments, an input that grows with its content, and a toolbar; a line of small text can follow below the frame */
+  [data-theme-style="shadcn"] [data-slot="composer"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-shell"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    box-sizing: border-box;
+    padding: 0.5rem;
+    border: 1px solid var(--ui-field-border);
+    border-radius: var(--ui-r-block);
+    background-color: var(--ui-field-bg);
+    box-shadow: var(--ui-field-shadow);
+    cursor: text;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-shell"]:focus-within {
+    border-color: var(--ui-ring);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
+  }
+  [data-theme-style="shadcn"] [data-slot="composer"][data-disabled] [data-slot="composer-shell"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-attachments"] {
+    padding: 0.25rem 0.25rem 0;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-textarea"] {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 2.5rem;
+    margin: 0;
+    padding: 0.5rem 0.5rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    resize: none;
+    outline: none;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-textarea"]::placeholder {
+    color: var(--ui-field-placeholder);
+    opacity: 1;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-textarea"]:disabled {
+    cursor: not-allowed;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-toolbar"] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0 0.125rem;
+  }
+  [data-theme-style="shadcn"]
+    :is([data-slot="composer-toolbar-start"], [data-slot="composer-toolbar-end"]) {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  [data-theme-style="shadcn"] [data-slot="composer-footer"] {
+    margin: 0;
+    color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
+    font-size: 0.75rem;
+    line-height: 1.25rem;
+    text-align: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-theme-style="shadcn"] [data-slot="composer-shell"] {
+      transition: none;
+    }
+  }
+}

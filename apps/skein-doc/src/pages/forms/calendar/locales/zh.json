@@ -1,0 +1,45 @@
+{
+  "lead": "日历，单选或范围选，日期用 \"YYYY-MM-DD\" 字符串。键盘：方向键移动，Home / End 到行首尾，PageUp / PageDown 切月（加 Shift 切年）。月份和星期名用 `Intl`，不依赖日期库。",
+  "usage": { "title": "用法" },
+  "range": { "title": "范围选择" },
+  "week": { "title": "每周起始日" },
+  "limits": {
+    "title": "最早、最晚与禁用日期",
+    "description": "`min` / `max` 限定可选范围；`isDateDisabled` 再加自定义规则，这里是周末不可选。"
+  },
+  "controlled": { "title": "受控", "selected": "已选：" },
+  "sizes": { "title": "尺寸与颜色" },
+  "locale": {
+    "title": "语言",
+    "description": "`locale` 决定月份和星期名的语言，不传时取浏览器的。"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `calendar.css` 里处理：选中是实心主色，今天是浅底或描边，范围中间是一条浅色带。",
+    "hook": "钩子",
+    "root": "外层、头部、月份标题和翻月按钮",
+    "grid": "表格、星期表头、行和格子",
+    "day": "日期按钮：`data-selected` / `data-today` / `data-outside` / `data-disabled`",
+    "range": "写在 `calendar-cell` 上，主题风格用它画范围色带"
+  },
+  "props": {
+    "Calendar": {
+      "color": "语义色，具体颜色由主题风格决定。",
+      "defaultMonth": "非受控时 `month` 的初始值。",
+      "defaultValue": "非受控时 `value` 的初始值。",
+      "isDateDisabled": "额外的禁用规则，例如周末不可选。",
+      "locale": "月份和星期名的语言，默认取浏览器的。",
+      "max": "可选的最晚日期，\"YYYY-MM-DD\"；之后的日期禁用。",
+      "min": "可选的最早日期，\"YYYY-MM-DD\"；之前的日期禁用。",
+      "mode": "选择方式：单个日期、一个范围（`{ start, end }`），或整周（值是这一周的第一天）。",
+      "month": "显示的月份 \"YYYY-MM\"，受控；不传时组件自己管理。",
+      "onMonthChange": "`month` 变化时以新值调用；同时传 `month` 即为受控。",
+      "onValueChange": "`value` 变化时以新值调用；同时传 `value` 即为受控。",
+      "showOutsideDays": "是否显示首尾两周里补位的上月 / 下月日期。",
+      "size": "尺寸档位，决定格子大小。",
+      "value": "值，受控：日期是 \"YYYY-MM-DD\" 字符串（范围是 `{ start, end }`），可序列化，也没有时区问题。",
+      "weekStartsOn": "每周从周几开始，0 = 周日，1 = 周一。"
+    }
+  }
+}

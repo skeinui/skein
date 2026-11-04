@@ -1,0 +1,19 @@
+{
+  "lead": "Tabs. Keyboard navigation, the selected state and the tab–panel association come from Base UI's Tabs; Base UI writes the indicator's position as CSS variables.",
+  "usage": { "title": "Usage" },
+  "variants": { "title": "Variants" },
+  "colors": { "title": "Colors" },
+  "sizes": { "title": "Sizes" },
+  "vertical": { "title": "Vertical" },
+  "disabled": { "title": "Disabled" },
+  "full-width": { "title": "Full Width" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `tabs.css`: `underline` draws a line, `solid` and `soft` slide a background block along the list.",
+    "hook": "Hook",
+    "parts": "Structural parts",
+    "indicator": "Selection indicator, positioned with `--active-tab-left` / `top` / `width` / `height`",
+    "active": "Written on the selected `tabs-tab`"
+  }
+}

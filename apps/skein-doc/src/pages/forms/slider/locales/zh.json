@@ -1,0 +1,47 @@
+{
+  "lead": "滑块。传数字是单值，传数组是范围。键盘、触摸、aria 来自 Base UI 的 Slider，目前只做横向。",
+  "usage": { "title": "用法" },
+  "range": { "title": "范围" },
+  "sizes": { "title": "尺寸" },
+  "colors": { "title": "颜色" },
+  "label": { "title": "标签与数值", "volume": "音量" },
+  "controlled": { "title": "受控", "value": "当前值：" },
+  "disabled": { "title": "禁用" },
+  "step": { "title": "步长", "label": "步长 10" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `slider.css` 里处理；Ant Design 的把手是白底 2px 描边，HeroUI 是白底阴影。",
+    "hook": "钩子",
+    "root": "外层和文字行",
+    "control": "可拖动区域、轨道和已选区间",
+    "thumb": "把手，拖动时带 `data-dragging`"
+  },
+  "props": {
+    "Slider": {
+      "aria-label": "没有 `label` 时必须提供无障碍名称（滑块把手是 `<input type=\"range\">`，没有名称读屏软件无法说明它是什么）。范围滑块的每个把手名为“名称 1”“名称 2”；用 `thumbLabels` 自己命名。",
+      "color": "已选区间和把手的语义色，具体颜色由主题风格决定。",
+      "formatValue": "当前值的显示方式（比如加单位）；不传时用 Base UI 默认的数字格式。范围滑块对每个值各调用一次，用 – 连接。",
+      "label": "滑块上方的文字。",
+      "showValue": "在文字行右侧显示当前值（范围滑块显示 a – b）。",
+      "size": "尺寸档位：轨道粗细和把手大小。",
+      "thumbLabels": "按序号给每个把手的无障碍名称（如 [\"最低价\", \"最高价\"]），覆盖默认的“名称 1”“名称 2”。",
+      "defaultValue": "滑块首次渲染时的非受控值。要做受控滑块，改用 `value`。",
+      "disabled": "滑块是否忽略用户交互。",
+      "form": "指定滑块输入所属的表单。滑块渲染在表单外部时有用。",
+      "format": "数值的格式化选项。",
+      "largeStep": "按 Page Up/Page Down 或 Shift + 方向键时滑块的步进粒度。",
+      "locale": "`Intl.NumberFormat` 格式化数值时使用的区域设置，默认为用户运行环境的区域设置。",
+      "max": "滑块允许的最大值，不应等于 min。",
+      "min": "滑块允许的最小值，不应等于 max。",
+      "minStepsBetweenValues": "范围滑块中各值之间的最小步数。",
+      "name": "提交表单时标识该字段。",
+      "onValueChange": "滑块的值改变时触发的回调。第一个参数是新值；原始事件在 `eventDetails.event` 上，值也会反映到 `eventDetails.event.target.value` 上以便表单集成。`eventDetails.reason` 表示触发原因：`'input-change'` 隐藏的 range 输入框发出 change 事件（如表单集成）；`'track-press'` 按下轨道；`'drag'` 拖动把手；`'keyboard'` 键盘输入；`'none'` 没有具体交互。",
+      "onValueCommitted": "值的改变被提交时触发的回调。值没变或改变被取消时不触发。**注意**：这是一个通用事件，不是 change 事件。`eventDetails.reason` 表示提交原因：`'drag'` 拖动把手；`'track-press'` 按下轨道；`'keyboard'` 键盘输入；`'input-change'` 隐藏的 range 输入框发出 change 事件（如表单集成）；`'none'` 没有具体交互。",
+      "step": "滑块取值的步进粒度（“离散”滑块）。`min` 是合法取值的起点，建议 (max - min) 能被 step 整除。",
+      "thumbAlignment": "值在 `min` 或 `max` 时把手相对 `Slider.Control` 的对齐方式：`center` 把手中心对齐控件边缘；`edge` 把手内缩，使其边缘对齐控件边缘；`edge-client-only` 同 `edge`，但在 React 水合后才在客户端渲染，以换取更小的包体积。",
+      "thumbCollisionBehavior": "指针交互中把手相撞时的行为：`'push'`（默认）把手互相推动，拖回时不恢复原位置；`'swap'` 拖过对方时交换位置；`'none'` 把手不能越过彼此，多余的移动被忽略。",
+      "value": "滑块的值。范围滑块传数组，每个把手一个值。"
+    }
+  }
+}

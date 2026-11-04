@@ -1,0 +1,19 @@
+{
+  "lead": "A queue of messages to send: what the user types while the assistant is still answering waits here in order, and can be reordered by dragging the handle (or with the keyboard) or removed. Dragging, keyboard moves and screen reader announcements come from [Sortable](/sortable).",
+  "usage": {
+    "title": "Usage",
+    "description": "Drag the handle on the left, or focus it and press <kbd>Space</kbd> to pick up, the arrow keys to move and <kbd>Space</kbd> to drop.",
+    "reset": "Reset"
+  },
+  "empty": { "title": "Empty" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "root": "Root",
+    "header": "Header, title and count",
+    "empty": "Hint shown when the queue is empty",
+    "item": "One message (inside Sortable's content area) and its text",
+    "remove": "Remove button",
+    "sortable": "The list itself, the handle and the dragging state keep Sortable's theme styles"
+  }
+}

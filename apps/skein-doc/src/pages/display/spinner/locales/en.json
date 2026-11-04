@@ -1,0 +1,13 @@
+{
+  "lead": "A loading indicator. It has `role=\"status\"` and a default accessible name; how the ring is drawn and how fast it spins are up to the theme style.",
+  "usage": { "title": "Usage" },
+  "sizes": { "title": "Sizes" },
+  "colors": { "title": "Colors" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `spinner.css`; with `prefers-reduced-motion` it spins more slowly.",
+    "hook": "Hook",
+    "slot": "The spinning ring, coloured with `currentColor`"
+  }
+}

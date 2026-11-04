@@ -1,0 +1,59 @@
+{
+  "lead": "一次工具调用的卡片：触发器是「状态图标 + 工具名 + 状态文字」，展开后是入参和结果（JSON）、错误详情，需要用户批准时还有批准 / 拒绝按钮。出错和待批准时默认展开，几次调用可以收成一组。",
+  "usage": { "title": "用法", "prefix": "调用了工具：" },
+  "states": {
+    "title": "状态",
+    "results": "3 条结果",
+    "rateLimited": "触发限流：30 秒后再试。"
+  },
+  "approval": {
+    "title": "批准",
+    "description": "`requires-action` 时显示批准 / 拒绝；点完以后由你把 `state` 换成结果。",
+    "rejected": "用户拒绝了这次工具调用。",
+    "reset": "重置"
+  },
+  "group": { "title": "分组", "label": "3 次工具调用" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "root": "卡片根；`data-state`",
+    "trigger": "触发器（整行）；`data-panel-open` 表示已展开",
+    "status": "状态图标（`data-state`）；运行中是转圈",
+    "name": "工具名（含前缀）和状态文字",
+    "icon": "展开箭头",
+    "panel": "展开面板、里面的内容、入参 / 结果的每一块（CodeBlock）",
+    "error": "错误详情和它的小标题",
+    "actions": "批准 / 拒绝按钮组（`role=group`）",
+    "groupHooks": "一组工具调用"
+  },
+  "props": {
+    "ToolCall": {
+      "toolName": "工具名，显示在触发器上。",
+      "state": "状态：input-streaming 参数还在生成，input-available 参数齐了正在执行，output-available 有结果了，output-error 出错了，requires-action 要用户批准才能继续。出错和待批准时面板默认展开。",
+      "input": "工具入参（任意可序列化的值，显示成 JSON；字符串原样显示）。",
+      "output": "工具结果（同上）。",
+      "argsText": "已经格式化好的入参文字，流式生成参数、JSON 还不完整时用；传了它就不用 `input`。",
+      "errorText": "state 为 output-error 时显示的错误详情。",
+      "triggerPrefix": "触发器上工具名前面的文字，比如 \"Used tool: \"。",
+      "onApprove": "用户批准这次调用时触发（state 为 requires-action）；传了它才显示批准按钮。",
+      "onReject": "用户拒绝这次调用时触发（state 为 requires-action）；传了它才显示拒绝按钮。",
+      "labels": "要覆盖的内置文字（见下方的 Labels 类型）；默认跟随 ConfigProvider 的语言。",
+      "children": "面板里额外的内容，放在入参 / 结果后面。",
+      "defaultOpen": "面板初始是否展开。要做受控的折叠面板，改用 `open` prop。",
+      "disabled": "组件是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用。",
+      "open": "面板当前是否展开。要做不受控的折叠面板，改用 `defaultOpen` prop。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    },
+    "ToolCallGroup": {
+      "children": "内容。",
+      "label": "一组工具调用的概述，显示在触发器上，比如 \"3 tool calls\"。",
+      "defaultOpen": "面板初始是否展开。要做受控的折叠面板，改用 `open` prop。",
+      "disabled": "组件是否忽略用户交互。",
+      "onOpenChange": "面板展开或收起时调用。",
+      "open": "面板当前是否展开。要做不受控的折叠面板，改用 `defaultOpen` prop。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。可以传一个 `ReactElement`，或者一个返回元素的函数。"
+    }
+  }
+}

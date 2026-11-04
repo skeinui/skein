@@ -1,0 +1,19 @@
+@layer ui-tokens, ui-color, ui-style, ui-code;
+
+/* Code theme Nord (always dark): on code blocks (CodeBlock / DiffView), redefines this area's color tokens and --code-* coloring variables; colors in the official palette with a contrast ratio below 4.5 are nudged toward the foreground color just enough to pass */
+@layer ui-code {
+  [data-code-theme="nord"] {
+    --ui-bg: #2e3440;
+    --ui-surface: #2e3440;
+    --ui-fg: #d8dee9;
+    --ui-fg-muted: #a9b3c6;
+    --ui-border: #3b4252;
+    --code-keyword: #81a1c1;
+    --code-string: #a3be8c;
+    --code-number: #b590af;
+    --code-property: #88c0d0;
+    --code-variable: #d08a74;
+    --code-comment: #929cb0;
+    color-scheme: dark;
+  }
+}

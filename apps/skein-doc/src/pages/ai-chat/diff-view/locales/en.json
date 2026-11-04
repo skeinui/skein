@@ -1,0 +1,35 @@
+{
+  "lead": "A code change comparison: give it two texts (or a unified diff) and it shows the added, removed and unchanged lines with old and new line numbers. The header has the file name and +n −m stats, and unchanged lines far from any change are folded into one bar. Additions and removals have a + / − sign and a screen reader prefix besides their background, so color isn't the only cue.",
+  "usage": { "title": "Usage" },
+  "patch": {
+    "title": "Unified patch",
+    "description": "Pass the output of `git diff` as is: the file header is ignored and line numbers come from the `@@` lines."
+  },
+  "collapsed": {
+    "title": "Collapsed context",
+    "description": "Unchanged lines between and around the changes are folded; click the bar to expand them."
+  },
+  "api": { "title": "API Reference" },
+  "helpers": {
+    "title": "Helpers",
+    "description": "The functions DiffView is built on are exported too, for your own rendering.",
+    "function": "Function",
+    "diffLines": "Compares two texts line by line (LCS)",
+    "parsePatch": "Parses a unified diff, ignoring the file header and numbering lines from the `@@` headers",
+    "collapse": "Folds unchanged lines further than `context` lines from a change into gaps"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "Root",
+    "header": "The header and the file name",
+    "stats": "The added / removed counts; `data-type` of `diff-stat` is add / del",
+    "scroll": "The focusable, horizontally scrollable code area",
+    "row": "A line; `data-type`: add / del / ctx / gap (the row holding a fold bar)",
+    "gutter": "The two columns of old / new line numbers",
+    "code": "The code and its + / − sign (`aria-hidden`)",
+    "label": "The \"Added: / Removed: \" prefix, for screen readers only, visually hidden",
+    "gap": "The fold bar and the expand button in it",
+    "token": "A highlighted piece, same values as CodeBlock (keyword / string / number…)"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "lead": "The page skeleton: Header, Content and Footer stacked vertically, and nestable. For an app shell with a sidebar use [Sidebar](/sidebar); to lay things out in a row use [Flex](/flex), for columns use [Grid](/grid) (Row / Col). Layout only covers how one page (or one area) is put together. The root Layout sets no height: it fills only when the outside gives it a definite height.",
+  "basic": { "title": "Basic" },
+  "nested": {
+    "title": "Nested",
+    "description": "A Layout can hold another Layout, e.g. an area with its own header and content."
+  },
+  "container": {
+    "title": "Container",
+    "description": "Limits the content's maximum width and centers it horizontally: wrap it around a page's content."
+  },
+  "api": {
+    "title": "API Reference",
+    "part": "Part",
+    "parts": "Header / content area / footer; a Layout can be nested in another."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles define the header height, the footer padding and Container's maximum-width scale in `layout.css`.",
+    "hook": "Hook",
+    "layout": "The page skeleton, stacked vertically",
+    "parts": "The header, content area and footer",
+    "container": "`data-size`, `data-center`, `data-padded`"
+  }
+}
