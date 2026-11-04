@@ -4,7 +4,8 @@
     "home": "Skein UI home",
     "switchLang": "Switch to 简体中文",
     "toLight": "Switch to light mode",
-    "toDark": "Switch to dark mode"
+    "toDark": "Switch to dark mode",
+    "github": "GitHub repository"
   },
   "nav": {
     "breadcrumb": "Breadcrumb",

@@ -4,7 +4,8 @@
     "home": "Skein UI 首页",
     "switchLang": "切换为 English",
     "toLight": "切换为亮色",
-    "toDark": "切换为暗色"
+    "toDark": "切换为暗色",
+    "github": "GitHub 仓库"
   },
   "nav": {
     "breadcrumb": "面包屑",

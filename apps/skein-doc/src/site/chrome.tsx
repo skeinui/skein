@@ -1,12 +1,20 @@
 import { Button, Dialog, Drawer, Segmented, Slider, Switch } from "@skeinui/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { CheckIcon, MoonIcon, SearchIcon, SlidersIcon, SunIcon, MenuIcon } from "@/doc/icons.tsx";
+import {
+  CheckIcon,
+  GitHubIcon,
+  MoonIcon,
+  SearchIcon,
+  SlidersIcon,
+  SunIcon,
+  MenuIcon,
+} from "@/doc/icons.tsx";
 import { SkinIcon } from "@/site/skin-icons.tsx";
 import { PgLink, useNavigate } from "@/site/nav.tsx";
 import { pageLabel, useLang, usePageT, useSiteT } from "@/site/i18n.tsx";
 import { GUIDES, PAGE_GROUPS, PAGES, type PageDef, type PageOrigin } from "@/registry.ts";
-import { NPM_URL, VERSION } from "@/site/links.ts";
+import { GITHUB_API, GITHUB_URL, NPM_URL, VERSION } from "@/site/links.ts";
 import {
   CODE_THEMES,
   CODE_THEME_NAMES,
@@ -80,6 +88,7 @@ export function Header({
               {s.mode}
             </span>
           </button>
+          <GitHubLink />
           <button
             type="button"
             className="pg-icon-btn pg-lang-btn"
@@ -104,6 +113,65 @@ export function Header({
 }
 
 /* ---------------------------------------------------------------- Sidebar */
+
+const STARS_KEY = "skein-doc:github-stars";
+
+/** The repository's star count: read from GitHub's API once a session (kept in sessionStorage); null until it comes, or if it doesn't. */
+function useGitHubStars() {
+  const [stars, setStars] = useState<number | null>(() => {
+    try {
+      const saved = sessionStorage.getItem(STARS_KEY);
+      return saved === null ? null : Number(saved);
+    } catch {
+      return null;
+    }
+  });
+  useEffect(() => {
+    if (stars !== null) return;
+    let current = true;
+    fetch(GITHUB_API)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((repo: { stargazers_count?: number } | null) => {
+        const count = repo?.stargazers_count;
+        if (!current || typeof count !== "number") return;
+        setStars(count);
+        try {
+          sessionStorage.setItem(STARS_KEY, String(count));
+        } catch {
+          // storage blocked: read again next time
+        }
+      })
+      .catch(() => {});
+    return () => {
+      current = false;
+    };
+  }, [stars]);
+  return stars;
+}
+
+/** The repository, with its star count (hidden on narrow screens, and when GitHub's API doesn't answer). */
+function GitHubLink() {
+  const t = useSiteT();
+  const lang = useLang();
+  const stars = useGitHubStars();
+  return (
+    <a
+      className="pg-icon-btn pg-github"
+      href={GITHUB_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={t("header.github")}
+      title={t("header.github")}
+    >
+      <GitHubIcon />
+      {stars === null ? null : (
+        <span className="pg-github-stars">
+          {new Intl.NumberFormat(lang, { notation: "compact" }).format(stars)}
+        </span>
+      )}
+    </a>
+  );
+}
 
 export function Sidebar({ current, onNavigate }: { current: string; onNavigate?: () => void }) {
   const t = useSiteT();
