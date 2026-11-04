@@ -300,20 +300,24 @@ interface ManifestProp {
   required?: boolean;
   from?: string;
 }
-type ManifestComponents = Record<
-  string,
-  {
-    props: Record<string, ManifestProp>;
-    parts?: Record<string, { props: Record<string, ManifestProp> }>;
-  }
->;
+interface ApiComponent {
+  props: Record<string, ManifestProp>;
+  parts: Record<string, { props: Record<string, ManifestProp> }>;
+}
 
-/** manifest.json is big (every component's props): loaded once, when the first API table is shown. */
-let manifest: Promise<ManifestComponents> | undefined;
-const loadManifest = () =>
-  (manifest ??= import("@skeinui/ui/manifest.json").then(
-    (m) => (m.default as { components: ManifestComponents }).components,
-  ));
+/**
+ * One component's props from the manifest, `/api/<Component>.json` (written by scripts/llms.ts): a few KB each,
+ * where the whole manifest is 650 KB. Loaded once per component.
+ */
+const apiFiles = new Map<string, Promise<ApiComponent>>();
+function loadApi(name: string) {
+  let file = apiFiles.get(name);
+  if (!file) {
+    file = fetch(`/api/${name}.json`).then((response) => response.json() as Promise<ApiComponent>);
+    apiFiles.set(name, file);
+  }
+  return file;
+}
 
 /**
  * The props of `component` (or of one of its parts, `Card.Header`) from @skeinui/ui's manifest: types, defaults
@@ -327,9 +331,7 @@ export function ApiReference({ component }: { component: string }) {
   const [props, setProps] = useState<Record<string, ManifestProp> | null>(null);
   useEffect(() => {
     const [name, part] = component.split(".");
-    void loadManifest().then((all) =>
-      setProps(part ? all[name]!.parts![component]!.props : all[name]!.props),
-    );
+    void loadApi(name).then((api) => setProps(part ? api.parts[component]!.props : api.props));
   }, [component]);
   if (!props) return null;
   if (Object.keys(props).length === 0) return <p className="pg-desc">{site("doc.noProps")}</p>;
