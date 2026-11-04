@@ -2,7 +2,8 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Grid",
-  origin: "Original",
+  origin: "Skein",
+  source: "layout",
   toc: [
     {
       group: "examples",

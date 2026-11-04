@@ -2,7 +2,7 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Watermark",
-  origin: "Original",
+  origin: "Skein",
   toc: [
     { group: "examples", items: ["usage", "multiline", "custom", "image"] },
     { group: "reference", items: ["api", "styling"] },

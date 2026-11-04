@@ -2,7 +2,7 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Queue",
-  origin: "Original",
+  origin: "Skein",
   toc: [
     { group: "examples", items: ["usage", "empty"] },
     { group: "reference", items: ["api", "styling"] },

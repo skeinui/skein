@@ -42,8 +42,8 @@
   "origin": {
     "Base UI": "Base UI",
     "Base UINote": "行为来自 Base UI",
-    "Original": "自研",
-    "OriginalNote": "Base UI 里没有这个组件，交互是自己写或组合出来的"
+    "Skein": "自研",
+    "SkeinNote": "Base UI 里没有这个组件，交互是自己写或组合出来的"
   },
   "toc": {
     "title": "本页内容",
@@ -152,5 +152,24 @@
     "theming": "主题",
     "cli": "Skein CLI",
     "ai": "AI 编程"
+  },
+  "pageLinks": {
+    "label": "此页在 GitHub 上",
+    "edit": "在 GitHub 上编辑此页",
+    "source": "查看源码",
+    "issue": "反馈问题"
+  },
+  "announcement": {
+    "label": "公告",
+    "text": "Skein UI 现已开源。",
+    "link": "去 GitHub 点个 Star →",
+    "close": "关闭公告"
+  },
+  "notFound": {
+    "title": "页面不存在",
+    "text": "这个页面不存在，或者已经移动到别处。可以回到首页、查看文档，或者搜索一下。",
+    "home": "返回首页",
+    "docs": "查看文档",
+    "search": "搜索"
   }
 }

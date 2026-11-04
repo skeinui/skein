@@ -3,10 +3,10 @@ import type { Messages } from "@/site/i18n.tsx";
 import type { Lang } from "@/site/settings.ts";
 
 /**
- * Component origin: Base UI = behavior comes from the same-named Base UI component; Original = Base UI doesn't have it,
+ * Component origin: Base UI = behavior comes from the same-named Base UI component; Skein = Base UI doesn't have it,
  * we wrote the interaction ourselves or composed it from existing components (behavior and accessibility have to be maintained by us).
  */
-export type PageOrigin = "Base UI" | "Original";
+export type PageOrigin = "Base UI" | "Skein";
 
 /**
  * A page's `meta.ts`: what the navigation needs before the page itself is loaded. The page lives next to it in
@@ -21,6 +21,11 @@ export interface PageMeta {
    * (`radio-group` documents Radio and RadioGroup). packages/ui/scripts/manifest.ts reads it.
    */
   components?: string[];
+  /**
+   * The component's directory in packages/ui/src/components, linked as "View source", when it isn't named like the
+   * page (`radio-group` → `radio`); false for a page without one directory (the AI chat overview).
+   */
+  source?: string | false;
   /**
    * The right-hand table of contents. A group is a key of the site's `toc.*` messages (examples, beyond,
    * reference); an item is an example id, labelled by the page's `<id>.title` message.
@@ -52,9 +57,13 @@ export interface GuideMeta {
   toc: PageMeta["toc"];
 }
 
-export interface PageDef extends Omit<PageMeta, "origin"> {
+export interface PageDef extends Omit<PageMeta, "origin" | "source"> {
   /** `/button`: the same for every language (the Chinese site adds `/zh` in front). */
   path: string;
+  /** The page's directory under apps/skein-doc/src (`pages/buttons/button`), linked as "Edit this page". */
+  dir: string;
+  /** The component's directory under packages/ui/src/components; null for a guide or a page without one. */
+  source: string | null;
   group: PageGroup | "guides";
   /** Components only; a guide has none. */
   origin?: PageOrigin;
@@ -72,6 +81,8 @@ export const PAGES: (PageDef & { origin: PageOrigin })[] = Object.entries(metas)
     return {
       ...meta,
       path: `/${slug}`,
+      dir: `pages/${group}/${slug}`,
+      source: meta.source === false ? null : (meta.source ?? slug),
       group: group as PageGroup,
       load: components[file.replace(/meta\.ts$/, "index.tsx")]!,
     };
@@ -97,6 +108,8 @@ export const GUIDES: PageDef[] = Object.entries(guideMetas)
       label: slug,
       toc: meta.toc,
       path: `/${slug}`,
+      dir: `guides/${slug}`,
+      source: null,
       group: "guides",
       load: guideComponents[file.replace(/meta\.ts$/, "index.tsx")]!,
     };
@@ -109,10 +122,9 @@ const locales = import.meta.glob<Messages>(
 
 /** The page's texts in `lang` (`locales/en.json` / `zh.json`, loaded with the page). */
 export function loadMessages(page: PageDef, lang: Lang): Promise<Messages> {
-  const dir =
-    page.group === "guides" ? `./guides${page.path}` : `./pages/${page.group}${page.path}`;
   return (
-    locales[`${dir}/locales/${lang === "zh-CN" ? "zh" : "en"}.json`]?.() ?? Promise.resolve({})
+    locales[`./${page.dir}/locales/${lang === "zh-CN" ? "zh" : "en"}.json`]?.() ??
+    Promise.resolve({})
   );
 }
 

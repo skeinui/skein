@@ -32,6 +32,27 @@ describe("docs site texts", () => {
     expect(keys(json(SRC, "site", "locales", "zh.json")).sort()).toEqual(en.sort());
   });
 
+  test('every component page\'s "View source" directory exists in packages/ui', () => {
+    for (const group of readdirSync(PAGES))
+      for (const slug of readdirSync(join(PAGES, group))) {
+        // meta.ts `source`: a directory name, false for none; without it the directory is named like the page
+        const source = read(PAGES, group, slug, "meta.ts").match(/source:\s*(false|"([^"]+)")/);
+        if (source?.[1] === "false") continue;
+        const dir = join(
+          SRC,
+          "..",
+          "..",
+          "..",
+          "packages",
+          "ui",
+          "src",
+          "components",
+          source?.[2] ?? slug,
+        );
+        expect(existsSync(dir), `${slug} → ${dir}`).toBe(true);
+      }
+  });
+
   test("every page has meta.ts, index.tsx and its texts in English and Chinese", () => {
     for (const { slug, dir } of pages) {
       for (const file of ["meta.ts", "index.tsx", "locales/en.json", "locales/zh.json"])

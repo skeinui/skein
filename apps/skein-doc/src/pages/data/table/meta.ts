@@ -2,7 +2,7 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Table",
-  origin: "Original",
+  origin: "Skein",
   toc: [
     {
       group: "examples",

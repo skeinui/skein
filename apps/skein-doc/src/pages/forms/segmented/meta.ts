@@ -2,7 +2,7 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Segmented",
-  origin: "Original",
+  origin: "Skein",
   toc: [
     {
       group: "examples",

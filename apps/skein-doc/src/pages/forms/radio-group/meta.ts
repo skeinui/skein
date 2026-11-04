@@ -3,6 +3,7 @@ import type { PageMeta } from "@/registry.ts";
 export default {
   label: "Radio Group",
   origin: "Base UI",
+  source: "radio",
   components: ["Radio", "RadioGroup"],
   toc: [
     {

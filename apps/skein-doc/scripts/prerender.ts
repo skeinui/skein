@@ -40,7 +40,8 @@ function paths() {
 
 const withLang = (path: string, zh: boolean) => (zh ? (path === "/" ? "/zh" : `/zh${path}`) : path);
 
-const outFile = (url: string) => join(DIST, url === "/" ? "index.html" : `${url.slice(1)}.html`);
+const outFile = (url: string) =>
+  join(DIST, url === "/" ? "index.html" : url === NOT_FOUND ? "404.html" : `${url.slice(1)}.html`);
 
 // The built app, served the way Cloudflare does: files as they are, every other path gets the (unrendered) index.html
 const template = readFileSync(join(DIST, "index.html"));
@@ -59,6 +60,9 @@ const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}`;
 
 const browser = await chromium.launch({ channel: "chrome" });
 const urls = paths().flatMap((path) => [withLang(path, false), withLang(path, true)]);
+// A path with no page: the app shows its 404 page, saved as 404.html (see outFile)
+const NOT_FOUND = "/__not-found";
+urls.push(NOT_FOUND);
 const rendered = new Map<string, string>();
 const failed: string[] = [];
 
@@ -70,7 +74,7 @@ await Promise.all(
     for (let url = queue.shift(); url; url = queue.shift()) {
       try {
         await page.goto(base + url, { waitUntil: "load" });
-        await page.waitForSelector(".pg-doc, .pg-home", { timeout: 15000 });
+        await page.waitForSelector(".pg-doc, .pg-home, .pg-not-found", { timeout: 15000 });
         // The API tables come from the manifest, loaded lazily
         if (await page.locator("#api").count())
           await page.waitForSelector("#api tbody tr", { timeout: 15000 });
@@ -135,4 +139,4 @@ ${paths().map(entry).join("\n")}
 `,
 );
 
-console.log(`prerendered ${rendered.size} pages, sitemap.xml with ${urls.length} URLs`);
+console.log(`prerendered ${rendered.size} pages, sitemap.xml with ${paths().length * 2} URLs`);

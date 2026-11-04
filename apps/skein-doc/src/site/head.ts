@@ -45,20 +45,30 @@ export function setHead({
   description,
   path,
   lang,
+  noindex = false,
 }: {
   title: string;
   description: string;
   path: string;
   lang: Lang;
+  /** A page that isn't one (the 404 page): kept out of search results, with no canonical or other-language links. */
+  noindex?: boolean;
 }) {
   const url = SITE_URL + withLang(path, lang);
   document.title = title;
   document.documentElement.lang = lang;
   meta("name", "description", description);
-  link("canonical", url);
-  link("alternate", SITE_URL + withLang(path, "en"), "en");
-  link("alternate", SITE_URL + withLang(path, "zh-CN"), "zh-CN");
-  link("alternate", SITE_URL + withLang(path, "en"), "x-default");
+  if (noindex) {
+    meta("name", "robots", "noindex");
+    for (const el of document.head.querySelectorAll('link[rel="canonical"], link[rel="alternate"]'))
+      el.remove();
+  } else {
+    document.head.querySelector('meta[name="robots"]')?.remove();
+    link("canonical", url);
+    link("alternate", SITE_URL + withLang(path, "en"), "en");
+    link("alternate", SITE_URL + withLang(path, "zh-CN"), "zh-CN");
+    link("alternate", SITE_URL + withLang(path, "en"), "x-default");
+  }
   meta("property", "og:type", "website");
   meta("property", "og:site_name", "Skein UI");
   meta("property", "og:title", title);

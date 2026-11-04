@@ -2,6 +2,13 @@
 <html lang="en" data-theme-style="heroui" data-mode="light">
   <head>
     <meta charset="UTF-8" />
+    <!-- A closed announcement (site/chrome.tsx) stays hidden from the first paint -->
+    <script>
+      try {
+        if (localStorage.getItem("skein-doc:announcement:open-source") !== null)
+          document.documentElement.dataset.announcementClosed = "";
+      } catch {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Defaults: each page sets its own (site/head.ts), and scripts/prerender.ts bakes them into its HTML -->

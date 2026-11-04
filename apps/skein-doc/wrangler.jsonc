@@ -4,8 +4,9 @@
   "name": "skein-doc",
   "compatibility_date": "2026-11-01",
   "assets": {
-    // Routes are the app's (/button, /zh/button): any path that isn't a file gets index.html
-    "not_found_handling": "single-page-application",
+    // Every page is a prerendered file (scripts/prerender.ts: /button -> button.html); any other path is a real
+    // 404, answered with 404.html (the app's "page not found", not indexed)
+    "not_found_handling": "404-page",
   },
   "routes": [
     {

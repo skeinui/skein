@@ -42,8 +42,8 @@
   "origin": {
     "Base UI": "Base UI",
     "Base UINote": "The behaviour comes from Base UI",
-    "Original": "Original",
-    "OriginalNote": "Base UI has no such component: its interaction is our own, written or composed"
+    "Skein": "Skein",
+    "SkeinNote": "Base UI has no such component: Skein implements its interaction, written or composed"
   },
   "toc": {
     "title": "On this page",
@@ -152,5 +152,24 @@
     "theming": "Theming",
     "cli": "Skein CLI",
     "ai": "AI coding agents"
+  },
+  "pageLinks": {
+    "label": "This page on GitHub",
+    "edit": "Edit this page on GitHub",
+    "source": "View source",
+    "issue": "Report an issue"
+  },
+  "announcement": {
+    "label": "Announcement",
+    "text": "Skein UI is now open source.",
+    "link": "Star it on GitHub →",
+    "close": "Close the announcement"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page doesn't exist, or it has moved. Try the home page, the docs or the search.",
+    "home": "Home",
+    "docs": "Read the docs",
+    "search": "Search"
   }
 }

@@ -13,6 +13,7 @@ import {
   PageFooter,
   Sidebar,
   Toc,
+  Announcement,
 } from "@/site/chrome.tsx";
 import {
   LangContext,
@@ -25,6 +26,7 @@ import {
   type Messages,
 } from "@/site/i18n.tsx";
 import { plain, setHead } from "@/site/head.ts";
+import { NotFound } from "@/site/not-found.tsx";
 import { NavContext, PgLink, type Nav } from "@/site/nav.tsx";
 import {
   CODE_THEMES,
@@ -73,6 +75,8 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
   // The language is part of the URL: /button, /zh/button
   const { lang, path } = splitPath(pathname);
   const page = findPage(path);
+  // A path with no page (the home page is "/"): the 404 page
+  const notFound = !page && path !== "/";
 
   useEffect(() => {
     const onPop = () => setPathname(window.location.pathname);
@@ -126,7 +130,15 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
 
   // Title, description (a page's lead), canonical and hreflang links, social card; a page's once its texts are in
   useEffect(() => {
-    if (!page)
+    if (notFound)
+      setHead({
+        title: `${siteText(lang, "notFound.title")} · Skein UI`,
+        description: siteText(lang, "notFound.text"),
+        path,
+        lang,
+        noindex: true,
+      });
+    else if (!page)
       setHead({
         // "One component API. Every design language." / "一套组件 API。适配任何设计语言。" (no space in Chinese)
         title: `Skein UI · ${siteText(lang, "home.hero.title")}${lang === "zh-CN" ? "" : " "}${siteText(lang, "home.hero.subtitle")}`,
@@ -141,7 +153,7 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
         path,
         lang,
       });
-  }, [page, shown, path, lang]);
+  }, [page, notFound, shown, path, lang]);
 
   // Theme style, mode, color theme, density and radius are all just attributes / variables on <html>
   // Use a layout effect: write the theme style attribute to <html> before the first paint, avoiding a one-frame flash of the default theme style
@@ -208,6 +220,7 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
           <NavContext.Provider value={nav}>
             <PageMessagesContext.Provider value={shown?.messages ?? {}}>
               <div className="pg-page">
+                <Announcement />
                 <Header
                   onSearch={() => setPaletteOpen(true)}
                   onCustomize={() => setCustomizeOpen(true)}
@@ -226,6 +239,10 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
                       {shown ? <Toc page={shown.page} /> : null}
                     </aside>
                   </div>
+                ) : notFound ? (
+                  <main className="pg-home-wrap">
+                    <NotFound onSearch={() => setPaletteOpen(true)} />
+                  </main>
                 ) : (
                   <main className="pg-home-wrap">
                     <Home />

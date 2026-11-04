@@ -2,7 +2,7 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Terminal",
-  origin: "Original",
+  origin: "Skein",
   toc: [
     { group: "examples", items: ["usage", "streaming", "failed"] },
     { group: "reference", items: ["api", "styling"] },

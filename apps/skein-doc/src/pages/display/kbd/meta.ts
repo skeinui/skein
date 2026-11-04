@@ -2,7 +2,7 @@ import type { PageMeta } from "@/registry.ts";
 
 export default {
   label: "Kbd",
-  origin: "Original",
+  origin: "Skein",
   toc: [
     { group: "examples", items: ["usage", "group", "sizes", "inline"] },
     { group: "reference", items: ["api", "styling"] },

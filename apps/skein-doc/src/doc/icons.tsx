@@ -201,6 +201,12 @@ export const MoonIcon = () => (
   </Svg>
 );
 
+export const XIcon = () => (
+  <Svg>
+    <path d="M18 6 6 18M6 6l12 12" />
+  </Svg>
+);
+
 /** The GitHub mark, filled. */
 export const GitHubIcon = () => (
   <Svg fill>

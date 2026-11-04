@@ -183,7 +183,7 @@ export function Home() {
                 {PAGES.filter((p) => p.origin === "Base UI").length} {t("origin.Base UI")}
               </span>
               <span>
-                {PAGES.filter((p) => p.origin === "Original").length} {t("origin.Original")}
+                {PAGES.filter((p) => p.origin === "Skein").length} {t("origin.Skein")}
               </span>
             </p>
           </div>

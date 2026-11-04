@@ -4,11 +4,12 @@ import type { ReactNode } from "react";
 import {
   CheckIcon,
   GitHubIcon,
+  MenuIcon,
   MoonIcon,
   SearchIcon,
   SlidersIcon,
   SunIcon,
-  MenuIcon,
+  XIcon,
 } from "@/doc/icons.tsx";
 import { SkinIcon } from "@/site/skin-icons.tsx";
 import { PgLink, useNavigate } from "@/site/nav.tsx";
@@ -114,20 +115,83 @@ export function Header({
 
 /* ---------------------------------------------------------------- Sidebar */
 
-const STARS_KEY = "skein-doc:github-stars";
+/**
+ * The announcement over the header, until the reader closes it. The key names this announcement, so a new one shows
+ * again; index.html hides a closed one before the first paint (data-announcement-closed on <html>), so the
+ * prerendered bar never flashes.
+ */
+export const ANNOUNCEMENT_KEY = "skein-doc:announcement:open-source";
 
-/** The repository's star count: read from GitHub's API once a session (kept in sessionStorage); null until it comes, or if it doesn't. */
-function useGitHubStars() {
-  const [stars, setStars] = useState<number | null>(() => {
+export function Announcement() {
+  const t = useSiteT();
+  const [closed, setClosed] = useState(() => {
     try {
-      const saved = sessionStorage.getItem(STARS_KEY);
-      return saved === null ? null : Number(saved);
+      return localStorage.getItem(ANNOUNCEMENT_KEY) !== null;
     } catch {
-      return null;
+      return false;
     }
   });
+  if (closed) return null;
+  return (
+    <div className="pg-announcement" role="region" aria-label={t("announcement.label")}>
+      <p>
+        <span>{t("announcement.text")}</span>
+        <a href={GITHUB_URL} target="_blank" rel="noreferrer">
+          <GitHubIcon />
+          {t("announcement.link")}
+        </a>
+      </p>
+      <button
+        type="button"
+        className="pg-announcement-close"
+        aria-label={t("announcement.close")}
+        onClick={() => {
+          try {
+            localStorage.setItem(ANNOUNCEMENT_KEY, "closed");
+          } catch {
+            // storage blocked: closed until the next visit
+          }
+          document.documentElement.dataset.announcementClosed = "";
+          setClosed(true);
+        }}
+      >
+        <XIcon />
+      </button>
+    </div>
+  );
+}
+
+const STARS_KEY = "skein-doc:github-stars";
+/** How long a star count read from GitHub is shown before it is read again. */
+const STARS_FRESH_MS = 5 * 60 * 1000;
+
+/** The count in the prerendered HTML (`data-stars`), taken before React replaces the page. */
+const prerenderedStars = (() => {
+  const value = document.querySelector<HTMLElement>(".pg-github")?.dataset.stars;
+  return value ? Number(value) : null;
+})();
+
+function savedStars(): { count: number; at: number } | null {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STARS_KEY) ?? "null") as unknown;
+    return saved && typeof saved === "object" && "count" in saved && "at" in saved
+      ? (saved as { count: number; at: number })
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The repository's star count from GitHub's API, kept 5 minutes in localStorage (GitHub allows 60 requests an hour
+ * per visitor): the last one read, else the prerendered one, shows at once and is replaced when GitHub answers.
+ * Null if there is none.
+ */
+function useGitHubStars() {
+  const [stars, setStars] = useState<number | null>(() => savedStars()?.count ?? prerenderedStars);
   useEffect(() => {
-    if (stars !== null) return;
+    const saved = savedStars();
+    if (saved && Date.now() - saved.at < STARS_FRESH_MS) return;
     let current = true;
     fetch(GITHUB_API)
       .then((response) => (response.ok ? response.json() : null))
@@ -136,7 +200,7 @@ function useGitHubStars() {
         if (!current || typeof count !== "number") return;
         setStars(count);
         try {
-          sessionStorage.setItem(STARS_KEY, String(count));
+          localStorage.setItem(STARS_KEY, JSON.stringify({ count, at: Date.now() }));
         } catch {
           // storage blocked: read again next time
         }
@@ -145,7 +209,7 @@ function useGitHubStars() {
     return () => {
       current = false;
     };
-  }, [stars]);
+  }, []);
   return stars;
 }
 
@@ -162,6 +226,7 @@ function GitHubLink() {
       rel="noreferrer"
       aria-label={t("header.github")}
       title={t("header.github")}
+      data-stars={stars ?? undefined}
     >
       <GitHubIcon />
       {stars === null ? null : (
@@ -181,9 +246,16 @@ export function Sidebar({ current, onNavigate }: { current: string; onNavigate?:
   const lang = useLang();
   const guides = GUIDES.filter((p) => !q || pageLabel(p, lang).toLowerCase().includes(q));
 
-  // Scroll the current page into the sidebar's visible range
+  // Scroll the current page into the sidebar's visible range: the sidebar only (scrollIntoView would scroll the
+  // window too, hiding what is above the header)
   useEffect(() => {
-    nav.current?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: "nearest" });
+    const box = nav.current;
+    const item = box?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!box || !item) return;
+    const view = box.getBoundingClientRect();
+    const at = item.getBoundingClientRect();
+    if (at.top < view.top || at.bottom > view.bottom)
+      box.scrollTop += at.top - view.top - (view.height - at.height) / 2;
   }, [current]);
 
   return (
@@ -237,8 +309,8 @@ export function Sidebar({ current, onNavigate }: { current: string; onNavigate?:
                 onNavigate={onNavigate}
               >
                 {p.label}
-                {p.origin === "Original" ? (
-                  <span className="pg-nav-dot" title={t("origin.Original")} />
+                {p.origin === "Skein" ? (
+                  <span className="pg-nav-dot" title={t("origin.Skein")} />
                 ) : null}
               </PgLink>
             ))}
@@ -254,13 +326,13 @@ export function Sidebar({ current, onNavigate }: { current: string; onNavigate?:
 
 /* ------------------------------------------------------- Right table of contents + scroll sync */
 
-/** Component source marker: Base UI means the behavior comes from Base UI, Original means written or composed by ourselves. */
+/** Component source marker: Base UI means the behavior comes from Base UI, Skein means Skein writes or composes it. */
 export function OriginBadge({ origin }: { origin: PageOrigin }) {
   const t = useSiteT();
   return (
     <span
       className="pg-origin"
-      data-origin={origin === "Original" ? "original" : "base-ui"}
+      data-origin={origin === "Skein" ? "skein" : "base-ui"}
       title={t(`origin.${origin}Note`)}
     >
       {t(`origin.${origin}`)}
@@ -332,23 +404,58 @@ export function PageFooter({ page }: { page: PageDef }) {
   const i = all.indexOf(page);
   const prev = all[i - 1];
   const next = all[i + 1];
+  const label = pageLabel(page, lang);
   return (
-    <footer className="pg-pager">
-      {prev ? (
-        <PgLink to={prev.path} className="pg-pager-link pg-pager-prev">
-          <span className="pg-pager-dir">← {t("pager.previous")}</span>
-          <span className="pg-pager-name">{pageLabel(prev, lang)}</span>
-        </PgLink>
-      ) : (
-        <span />
-      )}
-      {next ? (
-        <PgLink to={next.path} className="pg-pager-link pg-pager-next">
-          <span className="pg-pager-dir">{t("pager.next")} →</span>
-          <span className="pg-pager-name">{pageLabel(next, lang)}</span>
-        </PgLink>
+    <>
+      <PageLinks page={page} label={label} />
+      <footer className="pg-pager">
+        {prev ? (
+          <PgLink to={prev.path} className="pg-pager-link pg-pager-prev">
+            <span className="pg-pager-dir">← {t("pager.previous")}</span>
+            <span className="pg-pager-name">{pageLabel(prev, lang)}</span>
+          </PgLink>
+        ) : (
+          <span />
+        )}
+        {next ? (
+          <PgLink to={next.path} className="pg-pager-link pg-pager-next">
+            <span className="pg-pager-dir">{t("pager.next")} →</span>
+            <span className="pg-pager-name">{pageLabel(next, lang)}</span>
+          </PgLink>
+        ) : null}
+      </footer>
+    </>
+  );
+}
+
+/**
+ * Where to take a page further on GitHub: edit its text (the locale file of the language shown), the component's
+ * source, a new issue about it.
+ */
+function PageLinks({ page, label }: { page: PageDef; label: string }) {
+  const t = useSiteT();
+  const lang = useLang();
+  const locale = `apps/skein-doc/src/${page.dir}/locales/${lang === "zh-CN" ? "zh" : "en"}.json`;
+  const issue = `${GITHUB_URL}/issues/new?title=${encodeURIComponent(`[docs] ${label}: `)}`;
+  return (
+    <nav className="pg-page-links" aria-label={t("pageLinks.label")}>
+      <a href={`${GITHUB_URL}/edit/main/${locale}`} target="_blank" rel="noreferrer">
+        <GitHubIcon />
+        {t("pageLinks.edit")}
+      </a>
+      {page.source ? (
+        <a
+          href={`${GITHUB_URL}/tree/main/packages/ui/src/components/${page.source}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {t("pageLinks.source")}
+        </a>
       ) : null}
-    </footer>
+      <a href={issue} target="_blank" rel="noreferrer">
+        {t("pageLinks.issue")}
+      </a>
+    </nav>
   );
 }
 
