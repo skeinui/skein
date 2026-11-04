@@ -40,6 +40,18 @@ function paths() {
 
 const withLang = (path: string, zh: boolean) => (zh ? (path === "/" ? "/zh" : `/zh${path}`) : path);
 
+/** Preload links for the stylesheets in declarative shadow roots that the head doesn't load already. */
+function shadowSheets(html: string) {
+  const head = html.slice(0, html.indexOf("</head>"));
+  const inShadow = [...html.matchAll(/<template shadowrootmode[\s\S]*?<\/template>/g)].flatMap(
+    (t) => [...t[0].matchAll(/<link rel="stylesheet"[^>]*href="([^"]+)"/g)].map((m) => m[1]),
+  );
+  return [...new Set(inShadow)]
+    .filter((href) => !head.includes(`href="${href}"`))
+    .map((href) => `<link rel="preload" as="style" href="${href}">`)
+    .join("");
+}
+
 const outFile = (url: string) =>
   join(DIST, url === "/" ? "index.html" : url === NOT_FOUND ? "404.html" : `${url.slice(1)}.html`);
 
@@ -92,7 +104,10 @@ await Promise.all(
             .replaceAll(base, "")
             // Frames of the site's own pages (/__admin-layout) load once the app has started: React recreates them
             // then, so frames in the static HTML would only load twice
-            .replace(/(<iframe\b[^>]*?) src="\/__[^"]*"/g, "$1")}`,
+            .replace(/(<iframe\b[^>]*?) src="\/__[^"]*"/g, "$1")
+            // The stylesheets of shadow roots (the home page's theme cards, one theme style each) are found only
+            // when the parser reaches each card: preload them all from the head, so they download together
+            .replace("</head>", () => `${shadowSheets(html)}</head>`)}`,
         );
       } catch (error) {
         failed.push(`${url}: ${(error as Error).message.split("\n")[0]}`);

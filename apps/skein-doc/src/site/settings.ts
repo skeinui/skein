@@ -84,6 +84,11 @@ export function useSettings() {
   return value;
 }
 
+/** The theme style shown first: `?themeStyle=` or HeroUI's. main.tsx loads its stylesheet before the first render. */
+export function initialThemeStyle(): ThemeStyle {
+  return fromQuery("themeStyle", THEME_STYLES, "heroui");
+}
+
 /** Allows opening a combination directly with ?themeStyle=heroui&mode=dark&themeColor=purple, convenient for screenshots and sharing. */
 export function fromQuery<T extends string>(key: string, options: readonly T[], fallback: T): T {
   const value = new URLSearchParams(window.location.search).get(key);

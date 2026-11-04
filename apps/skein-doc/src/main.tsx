@@ -1,9 +1,6 @@
 import "@fontsource-variable/geist";
-// All theme styles, color themes and densities are loaded at once: styles are scoped by [data-theme-style], switching only changes attributes and doesn't swap stylesheets.
-import "@skeinui/themes/default/index.css";
-import "@skeinui/themes/shadcn/index.css";
-import "@skeinui/themes/heroui/index.css";
-import "@skeinui/themes/antd/index.css";
+// Color themes, densities and code themes are small and loaded at once (scoped by data-* attributes, switching only
+// changes attributes); the theme styles are a stylesheet each, loaded when shown (site/theme-styles.ts)
 import "@skeinui/themes/color/purple.css";
 import "@skeinui/themes/color/green.css";
 import "@skeinui/themes/color/geekblue.css";
@@ -18,6 +15,8 @@ import { createRoot } from "react-dom/client";
 import { App, type OpenPage } from "@/site/App.tsx";
 import { splitPath } from "@/site/i18n.tsx";
 import { findPage, loadMessages } from "@/registry.ts";
+import { initialThemeStyle } from "@/site/settings.ts";
+import { loadThemeStyle } from "@/site/theme-styles.ts";
 
 /**
  * The first URL's page, code and texts, before React mounts: the prerendered HTML (scripts/prerender.ts) stays on
@@ -37,6 +36,7 @@ const view: Promise<ReactNode> =
     ? import("@/frames/admin-layout.tsx").then(({ AdminLayoutFull }) => <AdminLayoutFull />)
     : firstPage().then((initial) => <App initial={initial} />);
 
-void view.then((node) =>
+// The first theme style's stylesheet is in before the first render (in the prerendered HTML it is already)
+void Promise.all([view, loadThemeStyle(initialThemeStyle())]).then(([node]) =>
   createRoot(document.getElementById("root")!).render(<StrictMode>{node}</StrictMode>),
 );

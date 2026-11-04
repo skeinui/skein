@@ -2,7 +2,8 @@ import { ConfigProvider, en } from "@skeinui/ui";
 import { zhCN } from "@skeinui/ui/locales/zh-CN";
 import { useLayoutEffect, useMemo, useState } from "react";
 import { ShellDemo } from "@/pages/layout/admin-layout/index.tsx";
-import { LANGS, MODES, THEME_STYLES, SettingsContext, fromQuery } from "@/site/settings.ts";
+import { LANGS, MODES, SettingsContext, fromQuery, initialThemeStyle } from "@/site/settings.ts";
+import { loadThemeStyle } from "@/site/theme-styles.ts";
 import type { Lang, Mode, Settings, ThemeStyle } from "@/site/settings.ts";
 
 /**
@@ -11,9 +12,7 @@ import type { Lang, Mode, Settings, ThemeStyle } from "@/site/settings.ts";
  * `?themeStyle=antd&mode=dark&lang=zh-CN`.
  */
 export function AdminLayoutFull() {
-  const [themeStyle, setThemeStyle] = useState<ThemeStyle>(() =>
-    fromQuery("themeStyle", THEME_STYLES, "heroui"),
-  );
+  const [themeStyle, setThemeStyle] = useState<ThemeStyle>(initialThemeStyle);
   const [mode, setMode] = useState<Mode>(() => fromQuery("mode", MODES, "light"));
   const [lang, setLang] = useState<Lang>(() => fromQuery("lang", LANGS, "en"));
 
@@ -36,7 +35,7 @@ export function AdminLayoutFull() {
       radius: null,
       codeTheme: "site",
       set: {
-        themeStyle: setThemeStyle,
+        themeStyle: (next) => void loadThemeStyle(next).then(() => setThemeStyle(next)),
         mode: setMode,
         themeColor: () => {},
         compact: () => {},

@@ -27,15 +27,16 @@ import {
 } from "@/site/i18n.tsx";
 import { plain, setHead } from "@/site/head.ts";
 import { NotFound } from "@/site/not-found.tsx";
+import { loadThemeStyle } from "@/site/theme-styles.ts";
 import { NavContext, PgLink, type Nav } from "@/site/nav.tsx";
 import {
   CODE_THEMES,
   COMPACT,
   MODES,
-  THEME_STYLES,
   SettingsContext,
   THEME_COLORS,
   fromQuery,
+  initialThemeStyle,
   type CodeTheme,
   type Compact,
   type Lang,
@@ -55,9 +56,7 @@ export interface OpenPage {
 
 /** `initial`: the page of the first URL, loaded before the first render (main.tsx), so it never shows empty. */
 export function App({ initial = null }: { initial?: OpenPage | null }) {
-  const [themeStyle, setThemeStyle] = useState<ThemeStyle>(() =>
-    fromQuery("themeStyle", THEME_STYLES, "heroui"),
-  );
+  const [themeStyle, setThemeStyle] = useState<ThemeStyle>(initialThemeStyle);
   const [mode, setMode] = useState<Mode>(() => fromQuery("mode", MODES, "light"));
   const [themeColor, setThemeColor] = useState<ThemeColor>(() =>
     fromQuery("themeColor", THEME_COLORS, "none"),
@@ -191,7 +190,8 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
       radius,
       codeTheme,
       set: {
-        themeStyle: setThemeStyle,
+        // The next theme style's stylesheet first, then the switch: no frame without its styles
+        themeStyle: (next) => void loadThemeStyle(next).then(() => setThemeStyle(next)),
         mode: setMode,
         themeColor: setThemeColor,
         compact: setCompact,

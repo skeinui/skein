@@ -2334,6 +2334,10 @@ body {
 }
 
 /* No transitions for the frame where the theme style / mode / color theme switches (see App.tsx), to avoid page-wide fading and scrollbar flicker */
+/* A home page theme card whose stylesheets are still loading (ThemeIsland): no transitions */
+[data-island-loading] *,
+[data-island-loading] *::before,
+[data-island-loading] *::after,
 :root[data-switching] *,
 :root[data-switching] *::before,
 :root[data-switching] *::after {

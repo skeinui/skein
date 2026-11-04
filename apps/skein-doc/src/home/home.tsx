@@ -9,6 +9,7 @@ import { PgLink, useNavigate } from "@/site/nav.tsx";
 import { PAGE_GROUPS, PAGES } from "@/registry.ts";
 import { GITHUB_URL, LICENSE_URL, NPM_URL } from "@/site/links.ts";
 import { THEME_STYLES, THEME_STYLE_INFO, useSettings, type ThemeStyle } from "@/site/settings.ts";
+import { THEME_STYLE_CSS } from "@/site/theme-styles.ts";
 
 /** Demo content inside the card, in the card's own theme style (ThemeIsland). */
 function SkinCardContent() {
@@ -79,18 +80,32 @@ function ThemeIsland({
       island = document.createElement("div");
       island.dataset.island = themeStyle;
       const shadow = island.attachShadow({ mode: "open", serializable: true });
-      const sheets = [...document.head.querySelectorAll('link[rel="stylesheet"], style')].map(
-        (n) => n.cloneNode(true) as HTMLElement,
-      );
+      // The page's stylesheets but the theme styles, and this card's theme style (its own file, site/theme-styles.ts)
+      const sheets = [
+        ...document.head.querySelectorAll(
+          'link[rel="stylesheet"]:not([data-theme-style-css]), style',
+        ),
+      ].map((n) => n.cloneNode(true) as HTMLElement);
+      const own = document.createElement("link");
+      own.rel = "stylesheet";
+      own.href = THEME_STYLE_CSS[themeStyle];
+      sheets.push(own);
       container = document.createElement("div");
       container.style.height = "100%";
       // Hidden until its stylesheet files are in, so it never shows unstyled
       const links = sheets.filter((n): n is HTMLLinkElement => n instanceof HTMLLinkElement);
+      // ...and without transitions until a frame after: the styles arriving would animate from none (a theme's
+      // button transitions its colour and radius), showing it unstyled for a moment
       let pending = links.length;
-      if (pending) container.style.visibility = "hidden";
+      if (pending) {
+        container.style.visibility = "hidden";
+        container.dataset.islandLoading = "";
+      }
       for (const link of links) {
         const done = () => {
-          if (--pending === 0) container.style.visibility = "";
+          if (--pending > 0) return;
+          container.style.visibility = "";
+          requestAnimationFrame(() => delete container.dataset.islandLoading);
         };
         link.addEventListener("load", done, { once: true });
         link.addEventListener("error", done, { once: true });
