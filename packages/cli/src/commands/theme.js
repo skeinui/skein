@@ -268,7 +268,7 @@ export function addThemes({ themes, cwd = process.cwd(), dryRun }) {
     needsInstall,
     plugin,
     added: ids.filter((id) => !before.includes(id)),
-    themeStyles: themeList(readFileSync(join(root, SETTINGS), "utf8")),
+    themeStyles: themeList(writer.read(SETTINGS)),
   };
 }
 

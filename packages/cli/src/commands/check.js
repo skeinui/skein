@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
-import { findProjectRoot, readProject } from "../project.js";
+import { findProjectRoot, readProject, toPosix } from "../project.js";
 import { checkTheme } from "../theme/index.js";
 
 /**
@@ -268,6 +268,8 @@ export async function check({ cwd = process.cwd(), only } = {}) {
   if (ran.includes("i18n")) issues.push(...i18n(root));
   if (ran.includes("style")) issues.push(...style(root));
   if (ran.includes("theme")) issues.push(...(await theme(root)));
+  // Paths with `/` on every platform, as --json and MCP report them
+  for (const issue of issues) if (issue.file) issue.file = toPosix(issue.file);
   const errors = issues.filter((i) => i.severity === "error").length;
   return { root, ok: errors === 0, errors, warnings: issues.length - errors, issues, ran };
 }

@@ -265,7 +265,8 @@ describe("in dev", () => {
       server: { middlewareMode: true, hmr: false, ws: false },
     });
     const css = async () =>
-      (await server.transformRequest(`/@fs${THEMES}/antd/index.css`))?.code ?? "";
+      (await server.transformRequest(`/@fs/${THEMES.replace(/^\//, "")}/antd/index.css`))?.code ??
+      "";
     const settle = () => new Promise((done) => setTimeout(done, 50));
     try {
       expect(styles(await css(), "button")).toBe(true);

@@ -4,7 +4,14 @@ import { dirname, join, relative } from "node:path";
 /**
  * Collects file writes for a command, then applies them all at once: nothing is written when a file
  * would be overwritten without `force`, and `dryRun` only reports. Paths are relative to `root`.
+ *
+ * Commands see LF line endings only: `read` gives a CRLF file (Windows) with LF, and writing it back restores
+ * its CRLF, so their edits needn't care and the file keeps its line endings. New files are written with LF.
+ * Paths are kept with `/` on every platform (what `created` / `changed`, --json and MCP report).
  */
+/** `a\\b` (Windows `join`) as `a/b`. */
+const toPosix = (path) => path.replace(/\\/g, "/");
+
 export class Writer {
   constructor(root, { force = false, dryRun = false } = {}) {
     this.root = root;
@@ -12,24 +19,37 @@ export class Writer {
     this.dryRun = dryRun;
     /** @type {Map<string, string>} */
     this.files = new Map();
+    /** Files read with CRLF line endings, written back with them */
+    this.crlf = new Set();
   }
 
   write(path, content) {
-    this.files.set(path, content);
+    this.files.set(toPosix(path), content);
   }
 
   /** The current content: a pending write, else the file on disk, else undefined. */
   read(path) {
+    path = toPosix(path);
     if (this.files.has(path)) return this.files.get(path);
     const file = join(this.root, path);
-    return existsSync(file) ? readFileSync(file, "utf8") : undefined;
+    if (!existsSync(file)) return undefined;
+    const text = readFileSync(file, "utf8");
+    if (!text.includes("\r\n")) return text;
+    this.crlf.add(path);
+    return text.replace(/\r\n/g, "\n");
+  }
+
+  /** What `path` is written with: its content, CRLF again for a file read with it. */
+  output(path) {
+    const content = this.files.get(path);
+    return this.crlf.has(path) ? content.replace(/\r?\n/g, "\r\n") : content;
   }
 
   /** Files that exist with other content and would be overwritten. */
   conflicts() {
     return [...this.files.keys()].filter((path) => {
       const file = join(this.root, path);
-      return existsSync(file) && readFileSync(file, "utf8") !== this.files.get(path);
+      return existsSync(file) && readFileSync(file, "utf8") !== this.output(path);
     });
   }
 
@@ -38,15 +58,17 @@ export class Writer {
    * expected to change (package.json, …): they are not conflicts. Returns `{ created, changed }`.
    */
   commit({ edits = [] } = {}) {
-    const conflicts = this.conflicts().filter((p) => !edits.includes(p));
+    const expected = edits.map(toPosix);
+    const conflicts = this.conflicts().filter((p) => !expected.includes(p));
     if (conflicts.length > 0 && !this.force) {
       const list = conflicts.map((p) => `  ${p}`).join("\n");
       throw new Error(`these files already exist, pass --force to overwrite them:\n${list}`);
     }
     const created = [];
     const changed = [];
-    for (const [path, content] of this.files) {
+    for (const path of this.files.keys()) {
       const file = join(this.root, path);
+      const content = this.output(path);
       if (existsSync(file)) {
         if (readFileSync(file, "utf8") === content) continue;
         changed.push(path);

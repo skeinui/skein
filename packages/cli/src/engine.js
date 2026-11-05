@@ -48,10 +48,11 @@ function renderNodes(nodes, flags) {
 
 /**
  * Renders a template. `flags` decide `{{#if}}` blocks (unknown flags are false), `vars` fill `{{name}}`
- * (unknown names are left as they are).
+ * (unknown names are left as they are). The output has LF line endings, whatever the template's (a checkout on
+ * Windows may have CRLF).
  */
 export function render(text, { flags = {}, vars = {} } = {}) {
-  const body = renderNodes(parse(ownLine(text)), flags);
+  const body = renderNodes(parse(ownLine(text.replace(/\r\n/g, "\n"))), flags);
   return body.replace(/\{\{(\w+)\}\}/g, (m, name) => (name in vars ? String(vars[name]) : m));
 }
 

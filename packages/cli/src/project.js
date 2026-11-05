@@ -1,5 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, relative, resolve } from "node:path";
+import { dirname, join, relative, resolve, sep } from "node:path";
 import { render, isEmpty } from "./engine.js";
 import { REPO_PACKAGES_DIR, TEMPLATES_DIR, VERSION } from "./paths.js";
 import { THEMES_PACKAGE } from "./themes.js";
@@ -23,11 +23,14 @@ export function readProject(root) {
 
 export const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
 
-/** Every file under `dir`, as paths relative to it. */
+/** A relative path with `/`, whatever the platform's separator (what commands report, --json and MCP). */
+export const toPosix = (path) => path.split(sep).join("/");
+
+/** Every file under `dir`, as paths relative to it, with `/` on every platform (`public/…` below). */
 function walk(dir, base = dir) {
   return readdirSync(dir).flatMap((entry) => {
     const file = join(dir, entry);
-    return statSync(file).isDirectory() ? walk(file, base) : [relative(base, file)];
+    return statSync(file).isDirectory() ? walk(file, base) : [toPosix(relative(base, file))];
   });
 }
 

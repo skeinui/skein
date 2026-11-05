@@ -1,5 +1,6 @@
 import {
   existsSync,
+  mkdirSync,
   mkdtempSync,
   readFileSync,
   readdirSync,
@@ -22,6 +23,7 @@ import {
   withThemesPlugin,
 } from "../src/commands/theme.js";
 import { render } from "../src/engine.js";
+import { Writer } from "../src/writer.js";
 import { loadFeatures, resolveFeatures } from "../src/features.js";
 import { pagePath, pascal, toPackageName, toThemeStyleName } from "../src/names.js";
 import { packageJson } from "../src/project.js";
@@ -55,6 +57,19 @@ const leftovers = (root: string) =>
 const PACKAGES_DIR = join(import.meta.dirname, "..", "..");
 const COVERAGE = coverageFor(loadContract());
 
+describe("Writer", () => {
+  test("paths are reported with / whatever the separator they come with (Windows join)", () => {
+    const dir = target("writer-paths");
+    mkdirSync(dir, { recursive: true });
+    const writer = new Writer(dir);
+    writer.write("src\\pages\\a.ts", "a\n");
+    writer.write("src/pages/b.ts", "b\n");
+    expect(writer.read("src\\pages\\a.ts")).toBe("a\n");
+    expect(writer.commit().created.sort()).toEqual(["src/pages/a.ts", "src/pages/b.ts"]);
+    expect(read(dir, "src", "pages", "a.ts")).toBe("a\n");
+  });
+});
+
 describe("template engine", () => {
   test("variables and conditional blocks, nestable, with else", () => {
     const text = "a {{name}} {{#if x}}X{{#if y}}Y{{else}}-y{{/if}}{{else}}-x{{/if}} z";
@@ -65,6 +80,12 @@ describe("template engine", () => {
 
   test("tags on their own line are removed with the newline, leaving no blank line", () => {
     const text = "one\n  {{#if x}}\ntwo\n  {{/if}}\nthree\n";
+    expect(render(text, { flags: { x: true } })).toBe("one\ntwo\nthree\n");
+    expect(render(text)).toBe("one\nthree\n");
+  });
+
+  test("a template with CRLF line endings (a Windows checkout) renders like its LF self", () => {
+    const text = "one\r\n  {{#if x}}\r\ntwo\r\n  {{/if}}\r\nthree\r\n";
     expect(render(text, { flags: { x: true } })).toBe("one\ntwo\nthree\n");
     expect(render(text)).toBe("one\nthree\n");
   });
@@ -661,6 +682,31 @@ describe("theme use", () => {
     const madeAdmin = target("antd-admin");
     createProject({ dir: madeAdmin, template: "admin", theme: "antd" });
     expect(read(admin, "vite.config.ts")).toBe(read(madeAdmin, "vite.config.ts"));
+  });
+
+  test("a project with CRLF line endings (Windows): theme use / add edit it and keep its line endings", () => {
+    const toCrlf = (dir: string, ...files: string[]) => {
+      for (const file of files)
+        writeFileSync(join(dir, file), read(dir, file).replace(/\r?\n/g, "\r\n"));
+    };
+    const lfOnly = (text: string) => /(?<!\r)\n/.test(text);
+
+    const admin = target("crlf-admin");
+    createProject({ dir: admin, template: "admin", theme: "antd" });
+    toCrlf(admin, "src/settings.ts", "index.html", "package.json");
+    expect(addThemes({ themes: ["heroui"], cwd: admin }).themeStyles).toEqual(["antd", "heroui"]);
+    expect(useTheme({ theme: "shadcn", cwd: admin }).changed).toContain("src/settings.ts");
+    for (const file of ["src/settings.ts", "index.html"])
+      expect(lfOnly(read(admin, file))).toBe(false);
+    expect(read(admin, "index.html")).toContain('data-skein-theme="shadcn"');
+
+    const blank = target("crlf-blank");
+    createProject({ dir: blank, theme: "none" });
+    toCrlf(blank, "vite.config.ts", "package.json", "index.html");
+    useTheme({ theme: "antd", cwd: blank });
+    const made = target("crlf-made");
+    createProject({ dir: made, theme: "antd" });
+    expect(read(blank, "vite.config.ts")).toBe(read(made, "vite.config.ts").replace(/\n/g, "\r\n"));
   });
 
   test("withThemesPlugin: other Vite configs", () => {
