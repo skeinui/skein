@@ -11,8 +11,12 @@
 # provenance. Each package is set up on npmjs.com (Settings → Trusted publishing: skeinui/skein, release.yml,
 # environment npm).
 name: Release
-# Not the commit message (CI shows it for the same commit): the two runs of a push read apart in the Actions list
-run-name: Release (${{ github.ref_name }})
+# Not the commit message (CI shows it for the same commit), so the two runs of a push read apart in the Actions list;
+# a release commit titled "Skein UI 0.0.6" (the version pull request merged with that title) gives "Release Skein UI 0.0.6"
+run-name: >-
+  ${{ startsWith(github.event.head_commit.message, 'Skein UI ')
+    && format('Release {0}', github.event.head_commit.message)
+    || format('Release ({0})', github.ref_name) }}
 
 on:
   push:
@@ -34,6 +38,7 @@ jobs:
     outputs:
       changesets: ${{ steps.changesets.outputs.has-changesets }}
       unpublished: ${{ steps.npm.outputs.unpublished }}
+      version: ${{ steps.npm.outputs.version }}
     steps:
       - uses: actions/checkout@v7.0.1
       - uses: pnpm/action-setup@v6.1.0
@@ -63,6 +68,8 @@ jobs:
           done
           unpublished="${unpublished# }"
           echo "unpublished=$unpublished" >> "$GITHUB_OUTPUT"
+          # The packages are one fixed group: one version
+          echo "version=$(node -p "require('./packages/ui/package.json').version")" >> "$GITHUB_OUTPUT"
           echo "Not on npm yet: ${unpublished:-none}"
 
   # Before anything is published, the tests on the three platforms (as ci.yml: a Windows-only bug fails here), and
@@ -94,6 +101,7 @@ jobs:
       - run: pnpm exec vp run -r test
 
   publish:
+    name: publish v${{ needs.version.outputs.version }}
     needs: [version, test]
     if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
     runs-on: ubuntu-latest
