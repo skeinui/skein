@@ -13,6 +13,7 @@ import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import * as contract from "../src/contract.ts";
+import { BASE_STYLES, stylesOf } from "./styles.ts";
 
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "src");
@@ -55,6 +56,11 @@ export interface Manifest {
   components: Record<string, ComponentInfo>;
   /** Every value list of src/contract.ts (COLORS, SIZES, BUTTON_VARIANTS, IMAGE_GRID_COLUMNS…). */
   contract: Record<string, readonly (string | number)[]>;
+  /**
+   * The stylesheets of a theme style (`<style>/<name>.css`) each export needs, for @skeinui/themes/vite: `base`
+   * always, then those of the exports a project imports (scripts/styles.ts).
+   */
+  styles: { base: string[]; exports: Record<string, string[]> };
 }
 
 /** House rules an agent needs before writing any Skein code. */
@@ -392,7 +398,14 @@ export function buildManifest(): Manifest {
       .sort(([a], [b]) => a.localeCompare(b)),
   ) as Record<string, readonly (string | number)[]>;
   const { version } = JSON.parse(readFileSync(join(ROOT, "package.json"), "utf8"));
-  return { package: "@skeinui/ui", version, rules: RULES, components, contract: contractLists };
+  return {
+    package: "@skeinui/ui",
+    version,
+    rules: RULES,
+    components,
+    contract: contractLists,
+    styles: { base: BASE_STYLES, exports: stylesOf() },
+  };
 }
 
 export const serialize = (manifest: Manifest) => `${JSON.stringify(manifest, null, 2)}\n`;

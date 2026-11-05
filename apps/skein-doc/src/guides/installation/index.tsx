@@ -38,6 +38,21 @@ export function App() {
         />
       </GuideSection>
 
+      <GuideSection id="vite">
+        <P k="vite.p1" />
+        <Code
+          code={`// vite.config.ts
+import { skeinThemes } from "@skeinui/themes/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [react(), skeinThemes()],
+});`}
+        />
+        <P k="vite.p2" />
+      </GuideSection>
+
       <GuideSection id="provider">
         <P k="provider.p1" />
         <P k="provider.p2" />

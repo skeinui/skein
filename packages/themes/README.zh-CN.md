@@ -37,6 +37,19 @@ import "@skeinui/themes/code/index.css"; // 可选：代码块主题
 
 色彩主题可以组合，例如 `data-theme-color="purple contrast"`。
 
+## Vite：只打包用到的 CSS
+
+主题风格的 `index.css` 包含所有组件的样式。用 Vite 时，`skeinThemes` 只保留 `src/` 里从 `@skeinui/ui` 导入的组件（及其内部渲染的组件）的样式表：
+
+```ts
+// vite.config.ts
+import { skeinThemes } from "@skeinui/themes/vite";
+
+export default defineConfig({ plugins: [react(), skeinThemes()] });
+```
+
+选项：`include`（扫描导入的目录，默认 `["src"]`），`themes`（同样要裁剪的自有主题风格目录，如 `["src/theme"]`）。用 `import * as` 导入整个包时保留全部。
+
 ## 自定义
 
 - 只改几个值（颜色、圆角、密度）：`<ConfigProvider themeOverrides>`。

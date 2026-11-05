@@ -37,6 +37,19 @@ import "@skeinui/themes/code/index.css"; // optional: code-block themes
 
 Colour themes can be combined, e.g. `data-theme-color="purple contrast"`.
 
+## Vite: only the CSS you use
+
+A theme style's `index.css` styles every component. With Vite, `skeinThemes` keeps only the stylesheets of the components your `src/` imports from `@skeinui/ui` (and of those they render):
+
+```ts
+// vite.config.ts
+import { skeinThemes } from "@skeinui/themes/vite";
+
+export default defineConfig({ plugins: [react(), skeinThemes()] });
+```
+
+Options: `include` (directories scanned for imports, default `["src"]`), `themes` (directories of theme styles of your own to prune too, e.g. `["src/theme"]`). `import * as` of the whole package keeps everything.
+
 ## Customising
 
 - A few values (colours, radius, density): `<ConfigProvider themeOverrides>`.

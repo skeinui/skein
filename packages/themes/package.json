@@ -30,18 +30,31 @@
     "antd",
     "color",
     "density",
-    "code"
+    "code",
+    "vite.js",
+    "vite.d.ts"
   ],
+  "type": "module",
   "sideEffects": [
     "**/*.css"
   ],
   "exports": {
+    "./vite": {
+      "types": "./vite.d.ts",
+      "default": "./vite.js"
+    },
     "./*": "./*",
     "./package.json": "./package.json"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "test": "vp test"
+  },
+  "devDependencies": {
+    "vite-plus": "catalog:"
   },
   "peerDependencies": {
     "@skeinui/ui": "workspace:*"

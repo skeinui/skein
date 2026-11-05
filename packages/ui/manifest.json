@@ -21331,5 +21331,718 @@
       "web-preview-frame",
       "web-preview-loading"
     ]
+  },
+  "styles": {
+    "base": [
+      "tokens",
+      "dark",
+      "scrollbar"
+    ],
+    "exports": {
+      "Accordion": [
+        "accordion"
+      ],
+      "activeTopOf": [],
+      "ADMIN_LAYOUT_SETTINGS_VERSION": [],
+      "ADMIN_LAYOUT_THEME_COLORS": [],
+      "AdminLayout": [
+        "admin-layout",
+        "breadcrumb",
+        "dialog",
+        "drawer",
+        "menu",
+        "popover",
+        "side-menu",
+        "sidebar",
+        "tooltip"
+      ],
+      "AdminLayoutSettings": [
+        "admin-layout",
+        "button",
+        "color-picker",
+        "input",
+        "input-addons",
+        "popover",
+        "segmented",
+        "slider",
+        "spinner",
+        "switch",
+        "tag",
+        "toggle"
+      ],
+      "Affix": [
+        "affix"
+      ],
+      "Agenda": [
+        "agenda",
+        "button",
+        "segmented"
+      ],
+      "Alert": [
+        "alert"
+      ],
+      "AlertDialog": [
+        "dialog"
+      ],
+      "Anchor": [
+        "anchor"
+      ],
+      "applyPreset": [],
+      "applyThemeColor": [],
+      "applyThemeVars": [],
+      "arrayMove": [
+        "sortable"
+      ],
+      "Artifact": [
+        "artifact",
+        "button",
+        "segmented"
+      ],
+      "ArtifactCard": [
+        "artifact",
+        "button",
+        "segmented"
+      ],
+      "AspectRatio": [
+        "aspect-ratio"
+      ],
+      "Attachment": [
+        "attachment"
+      ],
+      "AttachmentGroup": [
+        "attachment"
+      ],
+      "attachmentKind": [
+        "attachment"
+      ],
+      "Autocomplete": [
+        "combobox",
+        "input",
+        "select"
+      ],
+      "Avatar": [
+        "avatar"
+      ],
+      "AvatarGroup": [
+        "avatar"
+      ],
+      "Badge": [
+        "badge"
+      ],
+      "BorderBeam": [
+        "border-beam"
+      ],
+      "Breadcrumb": [
+        "breadcrumb"
+      ],
+      "Button": [
+        "button"
+      ],
+      "ButtonGroup": [
+        "button-group"
+      ],
+      "Calendar": [
+        "calendar"
+      ],
+      "canHighlight": [],
+      "Card": [
+        "card"
+      ],
+      "cardsOf": [],
+      "Carousel": [
+        "carousel"
+      ],
+      "Cascader": [
+        "cascader",
+        "checkbox",
+        "input",
+        "input-addons",
+        "popover",
+        "spinner",
+        "tag"
+      ],
+      "ChatThread": [
+        "button",
+        "chat-thread"
+      ],
+      "ChatTurn": [
+        "avatar",
+        "button",
+        "chat-turn"
+      ],
+      "Checkbox": [
+        "checkbox"
+      ],
+      "CheckboxGroup": [
+        "checkbox"
+      ],
+      "Citation": [
+        "citation",
+        "popover"
+      ],
+      "CitationMarker": [
+        "citation",
+        "popover"
+      ],
+      "Citations": [
+        "citation",
+        "popover"
+      ],
+      "clampTime": [],
+      "closeTabs": [],
+      "CodeBlock": [
+        "code-block"
+      ],
+      "Col": [
+        "grid"
+      ],
+      "collapse": [],
+      "Collapsible": [
+        "collapsible"
+      ],
+      "ColorPicker": [
+        "color-picker",
+        "input",
+        "input-addons",
+        "popover",
+        "spinner",
+        "tag",
+        "toggle"
+      ],
+      "Combobox": [
+        "combobox",
+        "input",
+        "select"
+      ],
+      "Command": [
+        "command"
+      ],
+      "CommandDialog": [
+        "command"
+      ],
+      "Composer": [
+        "button",
+        "composer",
+        "mentions",
+        "popover"
+      ],
+      "ConfigProvider": [],
+      "ConfirmDialog": [
+        "button",
+        "dialog"
+      ],
+      "Container": [
+        "layout"
+      ],
+      "ContextMenu": [
+        "menu",
+        "page-tabs"
+      ],
+      "ContextMeter": [
+        "context-meter",
+        "popover"
+      ],
+      "copyToClipboard": [],
+      "DatePicker": [
+        "button",
+        "calendar",
+        "popover",
+        "select",
+        "time-picker"
+      ],
+      "DEFAULT_ADMIN_LAYOUT_SETTINGS": [],
+      "DEFAULT_MESSAGES": [],
+      "Descriptions": [
+        "descriptions"
+      ],
+      "Dialog": [
+        "dialog"
+      ],
+      "diffLines": [],
+      "DiffView": [
+        "code-block",
+        "diff-view"
+      ],
+      "displayTime": [],
+      "Drawer": [
+        "dialog",
+        "drawer"
+      ],
+      "Empty": [
+        "empty"
+      ],
+      "en": [],
+      "encodeQR": [],
+      "Feedback": [
+        "feedback"
+      ],
+      "Field": [
+        "field"
+      ],
+      "Fieldset": [
+        "fieldset"
+      ],
+      "firstLeaf": [],
+      "Flex": [
+        "flex"
+      ],
+      "FloatButton": [
+        "float-button",
+        "tooltip"
+      ],
+      "Form": [
+        "button",
+        "calendar",
+        "checkbox",
+        "field",
+        "form",
+        "input",
+        "input-addons",
+        "number-field",
+        "popover",
+        "radio",
+        "rating",
+        "segmented",
+        "select",
+        "slider",
+        "spinner",
+        "switch",
+        "tag",
+        "time-picker"
+      ],
+      "formatCountdown": [
+        "skeleton",
+        "statistic"
+      ],
+      "formatDate": [],
+      "formatFileSize": [
+        "attachment"
+      ],
+      "formatNumber": [
+        "skeleton",
+        "statistic"
+      ],
+      "formatPeriod": [],
+      "formatTime": [],
+      "formatTokens": [
+        "context-meter",
+        "popover"
+      ],
+      "getIn": [],
+      "getPageItems": [],
+      "Grid": [
+        "grid"
+      ],
+      "Image": [
+        "image"
+      ],
+      "ImageGrid": [
+        "image",
+        "image-grid"
+      ],
+      "Input": [
+        "input",
+        "input-addons"
+      ],
+      "InputGroup": [
+        "input",
+        "input-addons"
+      ],
+      "isClosable": [],
+      "isEmpty": [],
+      "isSafeUrl": [],
+      "Kanban": [
+        "button",
+        "dialog",
+        "field",
+        "input",
+        "input-addons",
+        "kanban",
+        "menu",
+        "spinner",
+        "tag"
+      ],
+      "Kbd": [
+        "kbd"
+      ],
+      "KeepAlive": [
+        "keep-alive"
+      ],
+      "keysToClose": [],
+      "Layout": [
+        "layout"
+      ],
+      "layoutMasonry": [
+        "masonry"
+      ],
+      "Link": [
+        "link"
+      ],
+      "List": [
+        "empty",
+        "list",
+        "spinner"
+      ],
+      "Markdown": [
+        "citation",
+        "code-block",
+        "markdown",
+        "popover"
+      ],
+      "Marquee": [
+        "marquee"
+      ],
+      "Masonry": [
+        "masonry"
+      ],
+      "matchesPreset": [],
+      "matchesThemeColor": [],
+      "matchNav": [],
+      "Mentions": [
+        "input",
+        "input-addons",
+        "mentions",
+        "popover",
+        "spinner",
+        "tag"
+      ],
+      "Menu": [
+        "menu"
+      ],
+      "Menubar": [
+        "menu",
+        "menubar"
+      ],
+      "MermaidBlock": [
+        "mermaid-block"
+      ],
+      "Meter": [
+        "progress"
+      ],
+      "ModelPicker": [
+        "model-picker",
+        "select"
+      ],
+      "moveCard": [],
+      "moveColumn": [],
+      "moveTab": [],
+      "moveTreeNode": [
+        "checkbox",
+        "tree"
+      ],
+      "NavigationMenu": [
+        "navigation-menu"
+      ],
+      "normalizeSettings": [],
+      "NumberField": [
+        "input",
+        "number-field"
+      ],
+      "openTab": [],
+      "OtpField": [
+        "otp-field"
+      ],
+      "PageTabs": [
+        "menu",
+        "page-tabs"
+      ],
+      "Pagination": [
+        "button",
+        "pagination",
+        "select"
+      ],
+      "Paragraph": [
+        "typography"
+      ],
+      "parseAnsi": [],
+      "parsePatch": [],
+      "parseSettings": [],
+      "parseTime": [],
+      "PasswordInput": [
+        "input",
+        "input-addons"
+      ],
+      "PeriodCalendar": [
+        "calendar"
+      ],
+      "periodEnd": [],
+      "periodOf": [],
+      "periodStart": [],
+      "pinTab": [],
+      "Plan": [
+        "plan"
+      ],
+      "Popconfirm": [
+        "button",
+        "popconfirm",
+        "popover"
+      ],
+      "Popover": [
+        "popover"
+      ],
+      "positionOf": [],
+      "presetFrom": [],
+      "PreviewCard": [
+        "popover"
+      ],
+      "Progress": [
+        "progress"
+      ],
+      "QRCode": [
+        "button",
+        "qrcode"
+      ],
+      "QRTooLongError": [],
+      "Queue": [
+        "queue",
+        "sortable"
+      ],
+      "Quote": [
+        "quote"
+      ],
+      "QuoteSelection": [
+        "quote"
+      ],
+      "Radio": [
+        "radio"
+      ],
+      "RadioGroup": [
+        "radio"
+      ],
+      "Rating": [
+        "rating"
+      ],
+      "Reasoning": [
+        "reasoning",
+        "shimmer-text"
+      ],
+      "resolveResponsive": [
+        "masonry"
+      ],
+      "Result": [
+        "result"
+      ],
+      "Row": [
+        "grid"
+      ],
+      "ScrollArea": [
+        "scroll-area"
+      ],
+      "ScrollShadow": [
+        "scroll-shadow"
+      ],
+      "SearchInput": [
+        "input",
+        "input-addons",
+        "spinner"
+      ],
+      "Segmented": [
+        "segmented"
+      ],
+      "Select": [
+        "select"
+      ],
+      "Separator": [
+        "separator"
+      ],
+      "serializeSettings": [],
+      "setIn": [],
+      "settingsToCode": [],
+      "shiftPeriod": [],
+      "ShimmerText": [
+        "shimmer-text"
+      ],
+      "Sidebar": [
+        "dialog",
+        "drawer",
+        "sidebar"
+      ],
+      "sidebarTheme": [],
+      "SideMenu": [
+        "admin-layout",
+        "dialog",
+        "drawer",
+        "popover",
+        "side-menu",
+        "sidebar",
+        "tooltip"
+      ],
+      "Skeleton": [
+        "skeleton"
+      ],
+      "Slider": [
+        "slider"
+      ],
+      "Sortable": [
+        "sortable"
+      ],
+      "Spinner": [
+        "spinner"
+      ],
+      "SplitButton": [
+        "button",
+        "button-group",
+        "menu"
+      ],
+      "Splitter": [
+        "splitter"
+      ],
+      "Statistic": [
+        "skeleton",
+        "statistic"
+      ],
+      "Stepper": [
+        "stepper"
+      ],
+      "stripAnsi": [],
+      "Suggestions": [
+        "suggestions"
+      ],
+      "Switch": [
+        "switch"
+      ],
+      "Table": [
+        "input",
+        "input-addons",
+        "select",
+        "spinner",
+        "table",
+        "tag"
+      ],
+      "Tabs": [
+        "tabs"
+      ],
+      "Tag": [
+        "tag"
+      ],
+      "TagInput": [
+        "input",
+        "input-addons",
+        "tag"
+      ],
+      "Terminal": [
+        "terminal"
+      ],
+      "Text": [
+        "typography"
+      ],
+      "Textarea": [
+        "input",
+        "input-addons"
+      ],
+      "themeVars": [],
+      "ThreadList": [
+        "thread-list"
+      ],
+      "Timeline": [
+        "timeline"
+      ],
+      "TimePanel": [
+        "time-picker"
+      ],
+      "TimePicker": [
+        "button",
+        "popover",
+        "select",
+        "time-picker"
+      ],
+      "Title": [
+        "typography"
+      ],
+      "toast": [
+        "toast"
+      ],
+      "Toaster": [
+        "toast"
+      ],
+      "Toggle": [
+        "toggle"
+      ],
+      "ToggleGroup": [
+        "toggle"
+      ],
+      "tokenize": [],
+      "Toolbar": [
+        "button",
+        "separator",
+        "toolbar"
+      ],
+      "ToolCall": [
+        "button",
+        "code-block",
+        "tool-call"
+      ],
+      "ToolCallGroup": [
+        "button",
+        "code-block",
+        "tool-call"
+      ],
+      "Tooltip": [
+        "tooltip"
+      ],
+      "Tour": [
+        "button",
+        "popover",
+        "tour"
+      ],
+      "trailOf": [],
+      "Transfer": [
+        "button",
+        "checkbox",
+        "input",
+        "input-addons",
+        "spinner",
+        "tag",
+        "transfer"
+      ],
+      "Tree": [
+        "checkbox",
+        "tree"
+      ],
+      "TreeSelect": [
+        "checkbox",
+        "input",
+        "input-addons",
+        "popover",
+        "spinner",
+        "tag",
+        "tree",
+        "tree-select"
+      ],
+      "Typing": [
+        "typing"
+      ],
+      "Typography": [
+        "typography"
+      ],
+      "Upload": [
+        "progress",
+        "upload"
+      ],
+      "useAdminLayoutSettings": [],
+      "useChatThread": [
+        "button",
+        "chat-thread"
+      ],
+      "useConfig": [],
+      "useSidebar": [
+        "dialog",
+        "drawer",
+        "sidebar"
+      ],
+      "useSidebarPanel": [
+        "dialog",
+        "drawer",
+        "sidebar"
+      ],
+      "validateValue": [],
+      "Watermark": [
+        "watermark"
+      ],
+      "WebPreview": [
+        "web-preview"
+      ],
+      "weekStartOf": []
+    }
   }
 }

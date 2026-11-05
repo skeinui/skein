@@ -11,6 +11,11 @@
     "p1": "Install the components and the theme styles:",
     "p2": "Import one theme style's CSS once, at the entry of the app, and wrap the app in `ConfigProvider`:"
   },
+  "vite": {
+    "title": "Vite: only the CSS you use",
+    "p1": "A theme style's `index.css` styles all 120-odd components. With Vite, the `skeinThemes` plugin keeps only the stylesheets of the components your code imports from `@skeinui/ui` (and of those they render), so the bundle carries a few dozen KB of the theme style instead of all of it:",
+    "p2": "It reads the imports in `src/` (option `include`) and follows them as you edit in dev. An `import * as` of the whole package keeps every stylesheet. Projects made with `npm create skein` have it already; a theme style of your own in `src/theme` is pruned too with `skeinThemes({ themes: [\"src/theme\"] })`."
+  },
   "provider": {
     "title": "ConfigProvider",
     "p1": "`ConfigProvider` writes the theme state to `<html>`: `data-theme-style`, `data-mode`, `data-theme-color`, `data-theme-density`. It has to be on `<html>` because dialogs, popovers and selects are rendered into `<body>`, outside your app's element, and must follow the same theme.",

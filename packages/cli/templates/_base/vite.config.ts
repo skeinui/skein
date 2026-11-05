@@ -2,6 +2,10 @@ import { fileURLToPath } from "node:url";
 {{#if router}}
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 {{/if}}
+{{#if customTheme}}
+{{else}}
+import { skeinThemes } from "@skeinui/themes/vite";
+{{/if}}
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -12,6 +16,12 @@ export default defineConfig({
     tanstackRouter({ target: "react", autoCodeSplitting: false }),
 {{/if}}
     react(),
+{{#if customTheme}}
+{{else}}
+    // A theme style bundles only the stylesheets of the components the app imports from @skeinui/ui (src/theme:
+    // a theme style of the app's own, `skein theme init`)
+    skeinThemes({ themes: ["src/theme"] }),
+{{/if}}
   ],
   build: {
     rolldownOptions: {

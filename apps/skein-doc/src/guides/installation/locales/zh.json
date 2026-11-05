@@ -11,6 +11,11 @@
     "p1": "安装组件和主题风格：",
     "p2": "在应用入口引入一次主题风格的 CSS，并用 `ConfigProvider` 包住应用："
   },
+  "vite": {
+    "title": "Vite：只打包用到的 CSS",
+    "p1": "一套主题风格的 `index.css` 包含全部 120 多个组件的样式。用 Vite 时，`skeinThemes` 插件只保留代码里从 `@skeinui/ui` 导入的组件（以及它们内部渲染的组件）的样式表，打包产物里的主题风格从整套降到几十 KB：",
+    "p2": "它读取 `src/` 中的导入（选项 `include`），开发时随编辑自动更新。用 `import * as` 导入整个包时保留全部样式表。`npm create skein` 生成的项目已经配好；`src/theme` 里自己的主题风格用 `skeinThemes({ themes: [\"src/theme\"] })` 也会一起裁剪。"
+  },
   "provider": {
     "title": "ConfigProvider",
     "p1": "`ConfigProvider` 把主题状态写到 `<html>` 上：`data-theme-style`、`data-mode`、`data-theme-color`、`data-theme-density`。必须写在 `<html>` 上，因为对话框、弹出层和下拉选择会渲染到 `<body>` 里，在应用根元素之外，也要跟随同一套主题。",
