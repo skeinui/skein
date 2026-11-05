@@ -30,12 +30,18 @@ import { packageJson } from "../src/project.js";
 import { parse as parseYaml } from "yaml";
 import { THEMES } from "../src/themes.js";
 
-let tmp: string | undefined;
+// Every directory a test makes (a test may make several), removed after it
+const tmps: string[] = [];
 afterEach(() => {
-  if (tmp) rmSync(tmp, { recursive: true, force: true });
-  tmp = undefined;
+  for (const dir of tmps.splice(0)) rmSync(dir, { recursive: true, force: true });
 });
-const target = (name = "my-app") => join((tmp = mkdtempSync(join(tmpdir(), "skein-cli-"))), name);
+const target = (name = "my-app") => {
+  const dir = mkdtempSync(join(tmpdir(), "skein-cli-"));
+  tmps.push(dir);
+  return join(dir, name);
+};
+/** The directory the last `target()` made: a test puts a second project beside its first */
+const lastTmp = () => tmps.at(-1)!;
 const read = (...parts: string[]) => readFileSync(join(...parts), "utf8");
 const pkgOf = (dir: string) => JSON.parse(read(dir, "package.json"));
 const walk = (dir: string): string[] =>
@@ -309,7 +315,7 @@ describe("new page / module", () => {
     const { created } = newPage({ name: "orders", cwd: dir });
     expect(created.some((f) => f.includes("mocks"))).toBe(false);
 
-    const basic = join(tmp!, "basic");
+    const basic = join(lastTmp(), "basic");
     createProject({ dir: basic });
     expect(() => newPage({ name: "orders", cwd: basic })).toThrow("router feature");
     expect(() => newPage({ name: "orders", cwd: tmpdir() })).toThrow("not inside a Skein project");
@@ -349,7 +355,7 @@ describe("instructions for AI", () => {
       expect(md.startsWith(`---\nname: ${skill}\ndescription: `), skill).toBe(true);
     }
 
-    const basic = join(tmp!, "basic");
+    const basic = join(lastTmp(), "basic");
     createProject({ dir: basic });
     const basicAgents = read(basic, "AGENTS.md");
     for (const text of ["skein new page", "_meta.ts", "mocks/", "admin / admin123"]) {
@@ -370,7 +376,7 @@ describe("instructions for AI", () => {
     expect(read(plain, "AGENTS.md")).not.toContain("MCP");
     expect(read(plain, "AGENTS.md")).not.toMatch(/\n\n\n/);
 
-    const withMcp = join(tmp!, "with-mcp");
+    const withMcp = join(lastTmp(), "with-mcp");
     createProject({ dir: withMcp, add: ["mcp"] });
     expect(JSON.parse(read(withMcp, ".mcp.json")).mcpServers.skein).toEqual({
       command: "npx",
@@ -391,7 +397,7 @@ describe("instructions for AI", () => {
     expect(read(plain, "AGENTS.md")).not.toContain("skein preview");
     expect(read(plain, ".claude", "skills", "skein-ui", "SKILL.md")).not.toContain("preview");
 
-    const withPreview = join(tmp!, "with-preview");
+    const withPreview = join(lastTmp(), "with-preview");
     createProject({ dir: withPreview, template: "admin", add: ["preview"] });
     expect(pkgOf(withPreview).devDependencies["playwright-core"]).toBeDefined();
     expect(read(withPreview, "AGENTS.md")).toContain("`npx skein preview <route>`");
@@ -515,7 +521,7 @@ describe("OpenAPI → CRUD page", () => {
     expect(() =>
       newPage({ name: "shipments", cwd: dir, from: join(FIXTURES, "orders.yaml") }),
     ).toThrow("--resource");
-    const basic = join(tmp!, "basic");
+    const basic = join(lastTmp(), "basic");
     createProject({ dir: basic, add: ["router"] });
     expect(() =>
       newPage({ name: "orders", cwd: basic, from: join(FIXTURES, "orders.yaml") }),
@@ -546,7 +552,7 @@ describe("theme init --from --use", () => {
     await expect(themeKit("init", { name: "acme", from: "shadcn", cwd: dir })).rejects.toThrow(
       "is not empty",
     );
-    await expect(themeKit("init", { name: "Acme", cwd: join(tmp!, "x") })).rejects.toThrow(
+    await expect(themeKit("init", { name: "Acme", cwd: join(lastTmp(), "x") })).rejects.toThrow(
       "invalid theme style name",
     );
     useTheme({ theme: "heroui", cwd: dir });
