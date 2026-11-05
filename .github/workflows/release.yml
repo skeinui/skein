@@ -11,6 +11,8 @@
 # provenance. Each package is set up on npmjs.com (Settings → Trusted publishing: skeinui/skein, release.yml,
 # environment npm).
 name: Release
+# Not the commit message (CI shows it for the same commit): the two runs of a push read apart in the Actions list
+run-name: Release (${{ github.ref_name }})
 
 on:
   push:
