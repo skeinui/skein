@@ -34,7 +34,10 @@ export function AppLayout({ items, logo, logoMark, context, actions, footer }: A
   /** A tab's title: its menu item's label, else the title its page gave itself (`<Page title>`). */
   const titleOf = (key: string) => {
     const item = trailOf(items, key)?.at(-1);
-    return { title: textOf(item?.label) ?? titles[key], icon: item?.icon ?? matchNav(items, key)?.icon };
+    return {
+      title: textOf(item?.label) ?? titles[key],
+      icon: item?.icon ?? matchNav(items, key)?.icon,
+    };
   };
 
   // Every page visited gets a tab (pages not in the menu too, e.g. a detail page)
@@ -97,7 +100,10 @@ export function AppLayout({ items, logo, logoMark, context, actions, footer }: A
       onMaximizedChange={setMaximized}
       onRefresh={() => refresh(pathname)}
     >
-      <KeepAliveOutlet keepKeys={layout.showTabs ? tabs.map((t) => t.key) : [pathname]} versions={versions} />
+      <KeepAliveOutlet
+        keepKeys={layout.showTabs ? tabs.map((t) => t.key) : [pathname]}
+        versions={versions}
+      />
     </AdminLayout>
   );
 }

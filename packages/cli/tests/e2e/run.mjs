@@ -115,12 +115,27 @@ function themesSplit(dir, expected) {
     throw new Error(`theme styles per CSS file: ${JSON.stringify(perFile)}`);
 }
 
-async function serve(cwd, port, command = ["vite", "--port", String(port), "--strictPort"]) {
-  const server = spawn("npx", command, {
+/**
+ * The project's dev server (`vp dev`, Vite+). Its own process group, so kill() stops the server vp starts too
+ * (killing only vp leaves it running).
+ */
+async function serve(cwd, port, command = ["vp", "dev", "--port", String(port), "--strictPort"]) {
+  const child = spawn("npx", command, {
     cwd,
     stdio: "ignore",
     env: { ...process.env, PORT: String(port) },
+    detached: true,
   });
+  const server = {
+    kill() {
+      try {
+        if (child.pid === undefined) throw new Error("not started");
+        process.kill(-child.pid, "SIGTERM");
+      } catch {
+        child.kill();
+      }
+    },
+  };
   for (let i = 0; i < 60; i++) {
     try {
       if ((await fetch(`http://localhost:${port}/`)).ok) return server;

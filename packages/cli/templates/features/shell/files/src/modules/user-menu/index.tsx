@@ -32,8 +32,15 @@ export function UserMenu() {
 
   return (
     <Menu>
-      <Menu.Trigger render={<Button variant="ghost" color="neutral" size="sm" iconOnly />} aria-label={t("account")}>
-        <Avatar size="sm" alt={user?.name ?? ""} fallback={user?.name.slice(0, 1).toUpperCase() ?? "?"} />
+      <Menu.Trigger
+        render={<Button variant="ghost" color="neutral" size="sm" iconOnly />}
+        aria-label={t("account")}
+      >
+        <Avatar
+          size="sm"
+          alt={user?.name ?? ""}
+          fallback={user?.name.slice(0, 1).toUpperCase() ?? "?"}
+        />
       </Menu.Trigger>
       <Menu.Content align="end">
         <Menu.Group>
@@ -48,7 +55,11 @@ export function UserMenu() {
           </Menu.GroupLabel>
           {LANGUAGES.map((lang) => (
             <Menu.Item key={lang.id} onClick={() => void i18n.changeLanguage(lang.id)}>
-              {i18n.language.startsWith(lang.id) ? <Check size={14} /> : <span style={{ width: 14 }} />}
+              {i18n.language.startsWith(lang.id) ? (
+                <Check size={14} />
+              ) : (
+                <span style={{ width: 14 }} />
+              )}
               {lang.label}
             </Menu.Item>
           ))}

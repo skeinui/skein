@@ -1,4 +1,5 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { render, isEmpty } from "./engine.js";
 import { REPO_PACKAGES_DIR, TEMPLATES_DIR, VERSION } from "./paths.js";
@@ -21,7 +22,41 @@ export function readProject(root) {
   return JSON.parse(readFileSync(join(root, MARKER), "utf8"));
 }
 
-export const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
+/** Oxfmt's line width (Vite+'s default): `vp check` expects the files the CLI writes formatted as it would. */
+const PRINT_WIDTH = 100;
+const SCALAR = String.raw`(?:"(?:[^"\\]|\\.)*"|-?\d[\d.eE+-]*|true|false|null)`;
+/** An array of plain values that JSON.stringify spread over lines: its indent, key, items, and trailing comma */
+const SPREAD_ARRAY = new RegExp(
+  String.raw`^( *)((?:"(?:[^"\\]|\\.)*": )?)\[\n((?: *${SCALAR},?\n)+) *\](,?)$`,
+  "gm",
+);
+
+/** The path of command `name` of package `pkg` installed in the project at `root` (a Node script); throws if absent. */
+export function packageBin(root, pkg, name) {
+  const require = createRequire(join(root, "package.json"));
+  const pkgFile = require.resolve(`${pkg}/package.json`);
+  const { bin } = JSON.parse(readFileSync(pkgFile, "utf8"));
+  const path = typeof bin === "string" ? bin : bin?.[name];
+  if (!path) throw new Error(`${pkg} has no ${name} command`);
+  return join(dirname(pkgFile), path);
+}
+
+/** package.json as Oxfmt writes it (json-stringify, as Prettier: every array spread over lines). */
+export const manifest = (value) => `${JSON.stringify(value, null, 2)}\n`;
+
+/**
+ * Any other JSON as Oxfmt writes it: 2 spaces, and an array of plain values on one line when that line fits
+ * (`"features": ["router", "query"]`), objects one key per line.
+ */
+export const json = (value) =>
+  `${JSON.stringify(value, null, 2).replace(SPREAD_ARRAY, (whole, indent, key, items, comma) => {
+    const line = `${indent}${key}[${items
+      .trim()
+      .split("\n")
+      .map((item) => item.trim().replace(/,$/, ""))
+      .join(", ")}]${comma}`;
+    return line.length <= PRINT_WIDTH ? line : whole;
+  })}\n`;
 
 /** A relative path with `/`, whatever the platform's separator (what commands report, --json and MCP). */
 export const toPosix = (path) => path.split(sep).join("/");
@@ -59,19 +94,29 @@ export function themeFile(context) {
   );
 }
 
+/**
+ * The Vite+ release generated projects use (`vp`: Vite, Rolldown, Vitest, Oxlint, Oxfmt): the one this repository
+ * builds with, a test keeps them equal. `vite` itself is its core, so plugins that import vite get the same one.
+ */
+export const VITE_PLUS_VERSION = "1.5.0";
+const VITE_CORE = `npm:@voidzero-dev/vite-plus-core@${VITE_PLUS_VERSION}`;
+
 /** Where `@skeinui/*` come from: the registry, or this checkout (`--local`). */
 export function skeinVersion(name, local) {
   return local ? `file:${join(REPO_PACKAGES_DIR, name.replace("@skeinui/", ""))}` : `^${VERSION}`;
 }
 
 /**
- * pnpm-workspace.yaml (pnpm's project settings), or null when there is nothing to set:
+ * pnpm-workspace.yaml (pnpm's project settings; npm and bun read `overrides` in package.json instead):
+ * - vite is Vite+'s core for every package that depends on it, as `vp migrate` sets it up
  * - msw's install script is allowed (pnpm blocks install scripts and fails the install otherwise)
  * - with --local, every @skeinui/* package of this checkout is linked: they depend on each other with
  *   `workspace:*`, which pnpm can only resolve through overrides outside the monorepo
  */
 export function pnpmWorkspace({ features, local }) {
   const lines = [];
+  // Vite+: every package that depends on vite (plugins, Vitest) gets its core, without peer warnings
+  const overrides = [`  vite@*: "${VITE_CORE}"`];
   if (features.some((f) => f.name === "mock")) {
     lines.push(
       "# msw's install script keeps public/mockServiceWorker.js in step with the installed msw; pnpm blocks",
@@ -87,16 +132,23 @@ export function pnpmWorkspace({ features, local }) {
       .map((file) => JSON.parse(readFileSync(file, "utf8")).name)
       .filter((name) => name?.startsWith("@skeinui/"))
       .sort((a, b) => a.localeCompare(b));
-    if (lines.length > 0) lines.push("");
-    lines.push(
-      "# --local: the @skeinui/* packages of the Skein checkout (they refer to each other with workspace:*)",
-      "overrides:",
+    overrides.push(
+      "  # --local: the @skeinui/* packages of the Skein checkout (they refer to each other with workspace:*)",
       ...packages.map(
         (name) => `  "${name}": "link:${join(REPO_PACKAGES_DIR, name.replace("@skeinui/", ""))}"`,
       ),
     );
   }
-  return lines.length > 0 ? `# pnpm settings for this project.\n${lines.join("\n")}\n` : null;
+  if (lines.length > 0) lines.push("");
+  lines.push(
+    "# Vite+: vite is its core (vite-plus-core) for every package, plugins and Vitest included",
+    "overrides:",
+    ...overrides,
+    "peerDependencyRules:",
+    "  allowAny:",
+    "    - vite",
+  );
+  return `# pnpm settings for this project.\n${lines.join("\n")}\n`;
 }
 
 const sorted = (deps) =>
@@ -122,14 +174,18 @@ export function packageJson({ name, theme, features, local }) {
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
     typescript: "^6.0.2",
-    vite: "^8.0.0",
+    vite: VITE_CORE,
+    "vite-plus": VITE_PLUS_VERSION,
   };
   const scripts = {
-    dev: "vite",
-    build: "tsc && vite build",
-    preview: "vite preview",
+    dev: "vp dev",
+    build: "vp build",
+    preview: "vp preview",
     typecheck: "tsc",
-    check: "skein check",
+    // skein check first: it generates the route tree (src/routeTree.gen.ts) that the type check needs
+    check: "skein check && vp check",
+    // Installs the git hook that runs `vp check --fix` on the staged files (vite.config.ts `staged`)
+    prepare: "vp config",
   };
   for (const feature of features) {
     Object.assign(dependencies, feature.dependencies);
@@ -138,14 +194,17 @@ export function packageJson({ name, theme, features, local }) {
     Object.assign(devDependencies, feature.devDependencies);
     Object.assign(scripts, feature.scripts);
   }
+  // Keys in package.json's usual order (Oxfmt sorts them so)
   return {
     name,
-    private: true,
     version: "0.0.0",
+    private: true,
     type: "module",
     scripts,
     dependencies: sorted(dependencies),
     devDependencies: sorted(devDependencies),
+    // npm and bun: the packages that depend on vite (plugins, Vitest) get the Vite+ core too
+    overrides: { vite: VITE_CORE },
     // MSW keeps public/mockServiceWorker.js in step with the installed version (where install scripts run)
     ...(has("mock") ? { msw: { workerDirectory: ["public"] } } : {}),
     // bun runs dependencies' install scripts only for these (pnpm: pnpm-workspace.yaml allowBuilds)

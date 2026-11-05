@@ -42,7 +42,9 @@ export function UsersPage() {
     >
       <Card>
         <Card.Body>
-          <UserFilter onSearch={(filter) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))} />
+          <UserFilter
+            onSearch={(filter) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))}
+          />
         </Card.Body>
       </Card>
       <Card>
@@ -52,7 +54,12 @@ export function UsersPage() {
               users={data?.items ?? []}
               loading={isFetching}
               onEdit={setEditing}
-              onDelete={(user) => remove.mutateAsync(user).then(() => undefined, () => undefined)}
+              onDelete={(user) =>
+                remove.mutateAsync(user).then(
+                  () => undefined,
+                  () => undefined,
+                )
+              }
             />
             <Flex justify="end">
               <Pagination

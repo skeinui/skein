@@ -2,7 +2,15 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { createRequire } from "node:module";
 import { dirname, join, relative, resolve } from "node:path";
 import { REPO_PACKAGES_DIR } from "../paths.js";
-import { findProjectRoot, json, readProject, skeinVersion, themeFile, MARKER } from "../project.js";
+import {
+  findProjectRoot,
+  json,
+  manifest,
+  readProject,
+  skeinVersion,
+  themeFile,
+  MARKER,
+} from "../project.js";
 import { contextFor } from "./create.js";
 import {
   CUSTOM_THEME_DIR,
@@ -11,6 +19,7 @@ import {
   THEMES_PACKAGE,
   themeImportPath,
   themeLabel,
+  themeStyleEntry,
 } from "../themes.js";
 import { checkTheme, initTheme } from "../theme/index.js";
 import { Writer } from "../writer.js";
@@ -36,25 +45,29 @@ function projectAt(cwd) {
 const hasShell = (project) => project.features.includes("shell");
 
 /**
- * The `themeStyles` list of src/settings.ts (shell projects): one line per theme style,
- * `"antd": { label: "…", load: () => import("…") },`. Edited in place, the rest of the file is left as it is.
+ * The `themeStyles` list of src/settings.ts (shell projects): one entry per theme style,
+ * `antd: { label: "…", load: () => import("…") },` (themeStyleEntry), or spread over lines when long or formatted
+ * so. Edited in place, the rest of the file is left as it is.
  */
-const LIST = /(themeStyles: \{\n)([\s\S]*?)(\n\s*\})/;
-const entryLine = (id, label, from) =>
-  `    "${id}": { label: "${label}", load: () => import("${from}") },`;
+const LIST = /(themeStyles: \{\n)([\s\S]*?)(\n {2}\})/;
+/** An entry's first line: its key (quoted or not) and the opening brace of its object */
+const ENTRY = /^ {4}"?([\w$-]+)"?: \{/;
 
 function themeList(source) {
   const match = source.match(LIST);
   if (!match)
     throw new Error(`could not find the themeStyles list in ${SETTINGS}; edit it by hand`);
-  return [...match[2].matchAll(/^\s*"?([\w-]+)"?\s*:/gm)].map((m) => m[1]);
+  return match[2]
+    .split("\n")
+    .map((line) => line.match(ENTRY)?.[1])
+    .filter(Boolean);
 }
 
 function addToList(source, entries) {
   const listed = themeList(source);
   const lines = entries
     .filter((e) => !listed.includes(e.id))
-    .map((e) => entryLine(e.id, e.label, e.from));
+    .map((e) => themeStyleEntry(e.id, e.label, e.from));
   if (lines.length === 0) return source;
   return source.replace(
     LIST,
@@ -64,7 +77,20 @@ function addToList(source, entries) {
 
 function removeFromList(source, id) {
   return source.replace(LIST, (_, open, body, close) => {
-    const kept = body.split("\n").filter((line) => !new RegExp(`^\\s*"?${id}"?\\s*:`).test(line));
+    const kept = [];
+    let skipping = false;
+    for (const line of body.split("\n")) {
+      if (skipping) {
+        // The entry spread over lines ends with its closing brace at the entry's indent
+        if (/^ {4}\},?$/.test(line)) skipping = false;
+        continue;
+      }
+      if (line.match(ENTRY)?.[1] === id) {
+        skipping = !/\},?$/.test(line);
+        continue;
+      }
+      kept.push(line);
+    }
     return `${open}${kept.join("\n")}${close}`;
   });
 }
@@ -88,7 +114,7 @@ function ensureThemesPackage(writer, project) {
       [THEMES_PACKAGE]: skeinVersion(THEMES_PACKAGE, Boolean(project.local)),
     }).sort(([a], [b]) => a.localeCompare(b)),
   );
-  writer.write("package.json", json(pkg));
+  writer.write("package.json", manifest(pkg));
   return true;
 }
 
@@ -124,11 +150,12 @@ function closingBracket(source, open) {
 
 /**
  * A Vite config with the skeinThemes() plugin (as `skein create` writes it): the source as it is when it has it
- * already, null when there is no `plugins: [` to put it in.
+ * already, null when there is no `plugins: [` (or `plugins: lazyPlugins(() => [`) to put it in.
  */
 export function withThemesPlugin(source) {
   if (source.includes("skeinThemes")) return source;
-  const plugins = /\bplugins\s*:\s*\[/.exec(source);
+  // `plugins: [` or, Vite+, `plugins: lazyPlugins(() => [`
+  const plugins = /\bplugins\s*:\s*(?:lazyPlugins\s*\(\s*\(\s*\)\s*=>\s*)?\[/.exec(source);
   if (!plugins) return null;
   const bracket = closingBracket(source, plugins.index + plugins[0].length - 1);
   if (!bracket) return null;

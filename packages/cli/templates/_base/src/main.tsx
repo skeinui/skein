@@ -28,7 +28,7 @@ function mount() {
 {{#if mock}}
 // VITE_ENABLE_MOCK (.env.development) decides whether MSW answers the API requests
 if (import.meta.env.VITE_ENABLE_MOCK === "true") {
-  import("./mocks").then(({ startMocking }) => startMocking().then(mount));
+  void import("./mocks").then(({ startMocking }) => startMocking().then(mount));
 } else {
   mount();
 }

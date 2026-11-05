@@ -13,7 +13,14 @@ export function PreferencesButton() {
   const reset = usePreferencesStore((s) => s.reset);
   return (
     <>
-      <Button variant="ghost" color="neutral" size="sm" iconOnly aria-label={t("title")} onClick={() => setOpen(true)}>
+      <Button
+        variant="ghost"
+        color="neutral"
+        size="sm"
+        iconOnly
+        aria-label={t("title")}
+        onClick={() => setOpen(true)}
+      >
         <Settings2 size={16} />
       </Button>
       <Drawer open={open} onOpenChange={setOpen} side="right">

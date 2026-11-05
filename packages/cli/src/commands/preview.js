@@ -1,10 +1,9 @@
-import { spawn } from "node:child_process";
-import { mkdirSync, readFileSync } from "node:fs";
-import { createRequire } from "node:module";
+import { spawn, spawnSync } from "node:child_process";
+import { mkdirSync } from "node:fs";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
-import { findProjectRoot, readProject } from "../project.js";
+import { findProjectRoot, packageBin, readProject } from "../project.js";
 
 /**
  * `skein preview <route>`: opens a page of the app in Chrome and reports what a person would see go wrong:
@@ -42,30 +41,59 @@ const freePort = () =>
     });
   });
 
-/** The project's Vite dev server on a free port; resolves once it answers. */
-async function startDevServer(root) {
-  const require = createRequire(join(root, "package.json"));
-  let viteBin;
+/**
+ * The command that starts the project's dev server: `vp dev` (Vite+), else `vite` for a project made before Skein
+ * used Vite+. Both are Node scripts, run with this Node.
+ */
+function devCommand(root) {
   try {
-    const pkgFile = require.resolve("vite/package.json");
-    const { bin } = JSON.parse(readFileSync(pkgFile, "utf8"));
-    viteBin = join(dirname(pkgFile), typeof bin === "string" ? bin : bin.vite);
+    return [packageBin(root, "vite-plus", "vp"), "dev"];
+  } catch {
+    // A project on plain Vite
+  }
+  try {
+    return [packageBin(root, "vite", "vite")];
   } catch {
     throw new Error(
-      "vite is not installed in this project: run the package manager's install first",
+      "neither vite-plus nor vite is installed in this project: run the package manager's install first",
     );
   }
+}
+
+/** The project's dev server on a free port; resolves once it answers. */
+async function startDevServer(root) {
+  const command = devCommand(root);
   const port = await freePort();
   const url = `http://127.0.0.1:${port}`;
   const child = spawn(
     process.execPath,
-    [viteBin, "--port", String(port), "--strictPort", "--host", "127.0.0.1"],
-    { cwd: root, stdio: ["ignore", "pipe", "pipe"], env: { ...process.env, BROWSER: "none" } },
+    [...command, "--port", String(port), "--strictPort", "--host", "127.0.0.1"],
+    {
+      cwd: root,
+      stdio: ["ignore", "pipe", "pipe"],
+      env: { ...process.env, BROWSER: "none" },
+      // A group of its own: `vp dev` runs the server in a process of its own, which must stop with it
+      detached: process.platform !== "win32",
+    },
   );
   let output = "";
   child.stdout.on("data", (d) => (output += d));
   child.stderr.on("data", (d) => (output += d));
-  const stop = () => child.kill();
+  const stop = () => {
+    const { pid } = child;
+    try {
+      if (pid === undefined) throw new Error("not started");
+      // The whole tree: the vp launcher and the dev server it started (else the server keeps running and
+      // holds this process's pipes open)
+      if (process.platform === "win32")
+        spawnSync("taskkill", ["/pid", String(pid), "/T", "/F"], { stdio: "ignore" });
+      else process.kill(-pid, "SIGTERM");
+    } catch {
+      child.kill();
+    }
+    child.stdout.destroy();
+    child.stderr.destroy();
+  };
 
   const deadline = Date.now() + 60_000;
   while (Date.now() < deadline) {

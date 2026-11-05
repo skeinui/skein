@@ -27,17 +27,21 @@ export function AppProviders({ children }: { children: ReactNode }) {
 {{#if shell}}
   const mode = usePreferencesStore((s) => s.mode);
   // The theme style picked in the preferences drawer; it takes effect once its CSS has loaded
-  const themeStyle = useThemeStyle(resolveThemeStyle(usePreferencesStore((s) => s.layout.themeStyle)));
+  const themeStyle = useThemeStyle(
+    resolveThemeStyle(usePreferencesStore((s) => s.layout.themeStyle)),
+  );
 {{/if}}
   return (
+{{#if i18n}}
     <ConfigProvider
       themeStyle={themeStyle}
       mode={{#if shell}}{mode}{{else}}"system"{{/if}}
-{{#if i18n}}
       locale={zh ? "zh-CN" : "en"}
       labels={zh ? zhCN.labels : en.labels}
-{{/if}}
     >
+{{else}}
+    <ConfigProvider themeStyle={themeStyle} mode={{#if shell}}{mode}{{else}}"system"{{/if}}>
+{{/if}}
 {{#if query}}
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 {{else}}

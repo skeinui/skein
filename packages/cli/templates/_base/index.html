@@ -18,7 +18,8 @@
           mode = saved.state?.mode ?? mode;
         } catch {}
 {{/if}}
-        if (mode === "system") mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        if (mode === "system")
+          mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.skeinMode = mode;
       })();
     </script>

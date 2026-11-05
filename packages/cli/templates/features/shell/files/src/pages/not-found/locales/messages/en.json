@@ -1,1 +1,5 @@
-{ "title": "Page not found", "description": "There is no page at this address", "home": "Back home" }
+{
+  "title": "Page not found",
+  "description": "There is no page at this address",
+  "home": "Back home"
+}

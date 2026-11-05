@@ -5,7 +5,13 @@ import type { User, UserInput } from "../api";
 import { useUsersTranslation } from "../locales";
 
 /** Creates a user (`user` is null) or edits one; closed when `user` is undefined. */
-export function UserFormDialog({ user, onClose }: { user: User | null | undefined; onClose: () => void }) {
+export function UserFormDialog({
+  user,
+  onClose,
+}: {
+  user: User | null | undefined;
+  onClose: () => void;
+}) {
   const { t } = useUsersTranslation();
   const queryClient = useQueryClient();
   const save = useMutation({
@@ -45,7 +51,10 @@ export function UserFormDialog({ user, onClose }: { user: User | null | undefine
           ]}
           submitLabel={t("save")}
           onSubmit={(values) =>
-            save.mutateAsync(values as unknown as UserInput).then(() => undefined, () => undefined)
+            save.mutateAsync(values as unknown as UserInput).then(
+              () => undefined,
+              () => undefined,
+            )
           }
         />
       </Dialog.Content>

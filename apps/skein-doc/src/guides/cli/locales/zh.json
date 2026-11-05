@@ -10,7 +10,7 @@
     "p1": "不给目录时，会依次询问项目名、模板、主题风格和可选功能。`--theme none` 会在 `src/theme/` 里生成一个空白的自有主题风格。",
     "template": "模板",
     "gives": "内容",
-    "basic": "Vite + React + 一个主题风格。",
+    "basic": "React + Vite+（`vp`）+ 一个主题风格。",
     "admin": "布局、菜单、标签页、KeepAlive、偏好设置、登录、仪表盘和用户增删改查页。",
     "feature": "功能",
     "adds": "添加的内容",

@@ -23,7 +23,11 @@ export const handlers = [
   }),
   http.post("*/api/users", async ({ request }) => {
     const input = (await request.json()) as UserInput;
-    const user = { ...input, id: Math.max(0, ...users.map((u) => u.id)) + 1, createdAt: new Date().toISOString() };
+    const user = {
+      ...input,
+      id: Math.max(0, ...users.map((u) => u.id)) + 1,
+      createdAt: new Date().toISOString(),
+    };
     users.unshift(user);
     return HttpResponse.json({ data: user }, { status: 201 });
   }),

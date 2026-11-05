@@ -7,7 +7,12 @@ export function LoginForm({ onSubmit }: { onSubmit: (input: LoginInput) => Promi
   return (
     <Form
       fields={[
-        { name: "username", label: t("username"), required: true, props: { autoComplete: "username" } },
+        {
+          name: "username",
+          label: t("username"),
+          required: true,
+          props: { autoComplete: "username" },
+        },
         {
           name: "password",
           label: t("password"),

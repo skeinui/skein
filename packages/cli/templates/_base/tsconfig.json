@@ -2,18 +2,11 @@
   "compilerOptions": {
     "target": "ES2023",
     "jsx": "react-jsx",
-    "lib": [
-      "ES2023",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "moduleDetection": "force",
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "types": [
-      "vite/client",
-      "node"
-    ],
+    "types": ["vite/client", "node"],
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "strict": true,
@@ -25,14 +18,8 @@
     "erasableSyntaxOnly": true,
     "skipLibCheck": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src",
-    "server",
-    "vite.config.ts"
-  ]
+  "include": ["src", "server", "vite.config.ts"]
 }

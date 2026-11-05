@@ -42,7 +42,7 @@ Without a directory it asks for the name, template, theme style and optional fea
 
 | Template | What you get                                                             |
 | -------- | ------------------------------------------------------------------------ |
-| `basic`  | Vite + React + one theme style                                           |
+| `basic`  | React on Vite+ (`vp`) + one theme style                                  |
 | `admin`  | Layout, menu, tabs, KeepAlive, preferences, login, dashboard, users CRUD |
 
 | Feature   | What it adds                                                       | Requires            |

@@ -36,7 +36,14 @@ export function KeepAliveOutlet({
     .map((match) => routes[match.routeId]?.options.component as ComponentType | undefined)
     .filter((component): component is ComponentType => Boolean(component));
   const page = chain.reduceRight<ReactNode>(
-    (inner, Component) => (inner === null ? <Component /> : <Inner.Provider value={inner}><Component /></Inner.Provider>),
+    (inner, Component) =>
+      inner === null ? (
+        <Component />
+      ) : (
+        <Inner.Provider value={inner}>
+          <Component />
+        </Inner.Provider>
+      ),
     null,
   );
   return (

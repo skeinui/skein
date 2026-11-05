@@ -31,25 +31,36 @@ export interface RequestOptions extends Omit<RequestInit, "body" | "method"> {
 
 function queryString(params?: Params) {
   if (!params) return "";
-  const entries = Object.entries(params).filter(([, v]) => v !== undefined && v !== null && v !== "");
-  return entries.length > 0 ? `?${new URLSearchParams(entries.map(([k, v]) => [k, String(v)]))}` : "";
+  const entries = Object.entries(params).filter(
+    ([, v]) => v !== undefined && v !== null && v !== "",
+  );
+  return entries.length > 0
+    ? `?${new URLSearchParams(entries.map(([k, v]) => [k, String(v)]))}`
+    : "";
 }
 
-async function request<T>(method: string, url: string, body?: unknown, options: RequestOptions = {}) {
+async function request<T>(
+  method: string,
+  url: string,
+  body?: unknown,
+  options: RequestOptions = {},
+) {
   const { params, headers, ...init } = options;
 {{#if auth}}
   const token = useAuthStore.getState().token;
 {{/if}}
+  // The caller's headers win over these defaults (HeadersInit: an object, a Headers or [name, value] pairs)
+  const requestHeaders = new Headers(headers);
+  if (body !== undefined && !requestHeaders.has("Content-Type"))
+    requestHeaders.set("Content-Type", "application/json");
+{{#if auth}}
+  if (token && !requestHeaders.has("Authorization"))
+    requestHeaders.set("Authorization", `Bearer ${token}`);
+{{/if}}
   const res = await fetch(`${BASE_URL}${url}${queryString(params)}`, {
     ...init,
     method,
-    headers: {
-      ...(body === undefined ? {} : { "Content-Type": "application/json" }),
-{{#if auth}}
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-{{/if}}
-      ...headers,
-    },
+    headers: requestHeaders,
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const text = await res.text();
@@ -75,10 +86,14 @@ async function request<T>(method: string, url: string, body?: unknown, options: 
 
 const http = {
   get: <T>(url: string, options?: RequestOptions) => request<T>("GET", url, undefined, options),
-  post: <T>(url: string, body?: unknown, options?: RequestOptions) => request<T>("POST", url, body, options),
-  put: <T>(url: string, body?: unknown, options?: RequestOptions) => request<T>("PUT", url, body, options),
-  patch: <T>(url: string, body?: unknown, options?: RequestOptions) => request<T>("PATCH", url, body, options),
-  delete: <T>(url: string, options?: RequestOptions) => request<T>("DELETE", url, undefined, options),
+  post: <T>(url: string, body?: unknown, options?: RequestOptions) =>
+    request<T>("POST", url, body, options),
+  put: <T>(url: string, body?: unknown, options?: RequestOptions) =>
+    request<T>("PUT", url, body, options),
+  patch: <T>(url: string, body?: unknown, options?: RequestOptions) =>
+    request<T>("PATCH", url, body, options),
+  delete: <T>(url: string, options?: RequestOptions) =>
+    request<T>("DELETE", url, undefined, options),
 };
 
 export default http;

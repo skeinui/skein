@@ -12,7 +12,10 @@ export const handlers = [
   http.post("*/api/auth/login", async ({ request }) => {
     const { username, password } = (await request.json()) as LoginInput;
     if (username !== "admin" || password !== "admin123") {
-      return HttpResponse.json({ message: "用户名或密码错误 / Wrong username or password" }, { status: 400 });
+      return HttpResponse.json(
+        { message: "用户名或密码错误 / Wrong username or password" },
+        { status: 400 },
+      );
     }
     return HttpResponse.json({ data: { token: TOKEN, user: ADMIN } });
   }),

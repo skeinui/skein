@@ -15,7 +15,12 @@ export function DashboardPage() {
   return (
     <Page title={t("title")} description={t("subtitle")}>
       <Grid columns={4} minColumnWidth="sm" gap="md">
-        <StatCard title={t("stats.users")} value={stats.data?.users} icon={<Users size={18} />} loading={stats.isPending} />
+        <StatCard
+          title={t("stats.users")}
+          value={stats.data?.users}
+          icon={<Users size={18} />}
+          loading={stats.isPending}
+        />
         <StatCard
           title={t("stats.active")}
           value={stats.data?.active}

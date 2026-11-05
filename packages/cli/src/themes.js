@@ -21,3 +21,20 @@ export const themeLabel = (theme, themeStyle) =>
     : theme === "default"
       ? "Skein"
       : (THEMES.find((t) => t.id === theme)?.label ?? theme);
+
+/**
+ * A theme style's entry in `themeStyles` of src/settings.ts (shell projects), formatted as Oxfmt formats it, so
+ * `vp check` accepts it: the key quoted only when it must be, one line up to 100 columns, else one key per line.
+ */
+export function themeStyleEntry(id, label, from) {
+  const key = /^[A-Za-z_$][\w$]*$/.test(id) ? id : JSON.stringify(id);
+  const load = `load: () => import(${JSON.stringify(from)})`;
+  const line = `    ${key}: { label: ${JSON.stringify(label)}, ${load} },`;
+  if (line.length <= 100) return line;
+  return [
+    `    ${key}: {`,
+    `      label: ${JSON.stringify(label)},`,
+    `      ${load},`,
+    "    },",
+  ].join("\n");
+}

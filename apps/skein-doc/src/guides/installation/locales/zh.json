@@ -3,8 +3,8 @@
   "lead": "用 CLI 新建项目，或者把两个包加进已有的 React 19 项目。",
   "new-project": {
     "title": "新项目",
-    "p1": "`npm create skein` 会询问项目名、模板、主题风格和要开启的功能，然后生成一个 Vite + React 项目：",
-    "p2": "`admin` 模板自带布局、菜单、标签页、登录、仪表盘和用户管理页。所有模板和功能见 [Skein CLI](/cli)。"
+    "p1": "`npm create skein` 会询问项目名、模板、主题风格和要开启的功能，然后生成一个基于 [Vite+](https://viteplus.dev/guide/) 的 React 项目（`vp`：Vite、Rolldown、Vitest、Oxlint、Oxfmt 一套工具链）：",
+    "p2": "`admin` 模板自带布局、菜单、标签页、登录、仪表盘和用户管理页。所有模板和功能见 [Skein CLI](/cli)。`npm run dev` / `npm run build` 运行 `vp dev` / `vp build`；`npm run check` 先运行 `skein check` 再运行 `vp check`（格式、lint、类型），提交前 git hook 会对暂存的文件运行 `vp check --fix`。"
   },
   "existing": {
     "title": "已有项目",

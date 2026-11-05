@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, join, relative, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { check } from "./commands/check.js";
 import { createProject, isEmptyDir } from "./commands/create.js";
@@ -96,6 +96,13 @@ const packageManager = () => {
   const agent = process.env.npm_config_user_agent?.split("/")[0] ?? "npm";
   return ["pnpm", "yarn", "bun"].includes(agent) ? agent : "npm";
 };
+/** Whether `dir` is in a git repository (a .git here or above). */
+const insideGit = (dir) => {
+  for (let up = resolve(dir); ; up = dirname(up)) {
+    if (existsSync(join(up, ".git"))) return true;
+    if (dirname(up) === up) return false;
+  }
+};
 const runScript = (pm, script) => (pm === "npm" ? `npm run ${script}` : `${pm} ${script}`);
 
 /**
@@ -168,6 +175,8 @@ async function create(values, [dirArg]) {
       if (dryRun) return report(project, { dryRun });
       console.log("  Next:");
       if (project.relativeRoot !== ".") console.log(`    cd ${project.relativeRoot}`);
+      // Before the install: its prepare script (vp config) sets up the git hook only in a repository
+      if (!insideGit(project.root)) console.log("    git init");
       console.log(`    ${pm} install`);
       console.log(`    ${runScript(pm, "dev")}`);
       if (project.features.includes("auth")) {

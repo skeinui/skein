@@ -21,7 +21,11 @@ export function UserFilter({ onSearch }: { onSearch: (filter: UserFilterValue) =
     <Form
       layout="inline"
       fields={[
-        { name: "keyword", label: t("filter.keyword"), placeholder: t("filter.keywordPlaceholder") },
+        {
+          name: "keyword",
+          label: t("filter.keyword"),
+          placeholder: t("filter.keywordPlaceholder"),
+        },
         {
           name: "status",
           label: t("filter.status"),

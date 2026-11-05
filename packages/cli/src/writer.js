@@ -1,5 +1,7 @@
+import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
+import { packageBin } from "./project.js";
 
 /**
  * Collects file writes for a command, then applies them all at once: nothing is written when a file
@@ -9,6 +11,30 @@ import { dirname, join, relative } from "node:path";
  * its CRLF, so their edits needn't care and the file keeps its line endings. New files are written with LF.
  * Paths are kept with `/` on every platform (what `created` / `changed`, --json and MCP report).
  */
+/** The files Oxfmt formats. */
+const FORMATTED = /\.(?:[cm]?[jt]sx?|jsonc?|md|css|scss|less|html|ya?ml|toml)$/;
+
+/**
+ * Formats the files a command wrote with the project's Vite+ (`vp fmt`), so `vp check` accepts what the CLI
+ * generates (a page from an OpenAPI document, an edited settings.ts…). A project without vite-plus installed is
+ * left as written; a formatter failure doesn't fail the command.
+ */
+function formatWithVitePlus(root, paths) {
+  const files = paths.filter((path) => FORMATTED.test(path));
+  if (files.length === 0) return;
+  let vp;
+  try {
+    vp = packageBin(root, "vite-plus", "vp");
+  } catch {
+    return;
+  }
+  try {
+    execFileSync(process.execPath, [vp, "fmt", ...files], { cwd: root, stdio: "ignore" });
+  } catch {
+    // Left as written: `vp check` reports what is still to format
+  }
+}
+
 /** `a\\b` (Windows `join`) as `a/b`. */
 const toPosix = (path) => path.replace(/\\/g, "/");
 
@@ -79,6 +105,7 @@ export class Writer {
       mkdirSync(dirname(file), { recursive: true });
       writeFileSync(file, content);
     }
+    if (!this.dryRun) formatWithVitePlus(this.root, [...created, ...changed]);
     return { created, changed };
   }
 }

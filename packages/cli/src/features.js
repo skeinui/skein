@@ -26,7 +26,7 @@ export function loadFeatures() {
  * (`--no-mock`), so it is not something the shell requires.
  */
 export const TEMPLATES = {
-  basic: { label: "Vite + React + one theme style", features: [] },
+  basic: { label: "React on Vite+ (vp) + one theme style", features: [] },
   admin: { label: "Layout, menu, tabs, login, CRUD example", features: ["shell", "mock"] },
 };
 export const DEFAULT_TEMPLATE = "basic";

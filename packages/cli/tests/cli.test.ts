@@ -163,8 +163,23 @@ describe("create", () => {
       theme: "default",
       features: [],
     });
-    expect(pkg.scripts.check).toBe("skein check");
     expect(Object.keys(pkg.devDependencies)).toContain("@skeinui/cli");
+    // Vite+: vp for every task, vite is its core (for this project and, through overrides, its dependencies)
+    expect(pkg.scripts).toMatchObject({
+      dev: "vp dev",
+      build: "vp build",
+      check: "skein check && vp check",
+      prepare: "vp config",
+    });
+    expect(pkg.devDependencies["vite-plus"]).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(pkg.devDependencies.vite).toBe(
+      `npm:@voidzero-dev/vite-plus-core@${pkg.devDependencies["vite-plus"]}`,
+    );
+    expect(pkg.overrides).toEqual({ vite: pkg.devDependencies.vite });
+    expect(read(dir, "pnpm-workspace.yaml")).toContain(`vite@*: "${pkg.devDependencies.vite}"`);
+    const viteConfig = read(dir, "vite.config.ts");
+    expect(viteConfig).toContain('import { defineConfig, lazyPlugins } from "vite-plus";');
+    expect(viteConfig).toContain('const generated = ["dist/**"];');
     expect(leftovers(dir)).toEqual([]);
   });
 
@@ -196,7 +211,11 @@ describe("create", () => {
     expect(existsSync(join(dir, "src", "pages", "home"))).toBe(false);
     expect(read(dir, ".env.development")).toContain("VITE_ENABLE_MOCK=true");
     const pkg = pkgOf(dir);
-    expect(pkg.scripts.build).toBe("tsr generate && tsc && vite build");
+    // The router plugin writes the route tree during vp build; skein check runs tsr generate before tsc
+    expect(pkg.scripts.build).toBe("vp build");
+    expect(read(dir, "vite.config.ts")).toContain(
+      'const generated = ["dist/**", "src/routeTree.gen.ts", "public/mockServiceWorker.js"];',
+    );
     expect(pkg.msw).toEqual({ workerDirectory: ["public"] });
     // pnpm blocks msw's install script unless it is allowed (and fails the install); bun likewise
     expect(read(dir, "pnpm-workspace.yaml")).toMatch(/allowBuilds:\n  msw: true/);
@@ -220,7 +239,8 @@ describe("create", () => {
     const files = walk(dir).map((f) => relative(dir, f));
     expect(files.filter((f) => f.includes("mock"))).toEqual([]);
     expect(pkgOf(dir).devDependencies.msw).toBeUndefined();
-    expect(existsSync(join(dir, "pnpm-workspace.yaml"))).toBe(false);
+    // Only the Vite+ overrides: no msw to allow
+    expect(read(dir, "pnpm-workspace.yaml")).not.toContain("msw");
     expect(read(dir, "src", "main.tsx")).not.toContain("mocks");
     expect(read(dir, ".env.development")).not.toContain("VITE_ENABLE_MOCK");
     expect(read(dir, "src", "pages", "login", "components", "login-form.tsx")).not.toContain(
@@ -574,8 +594,8 @@ describe("dependency versions match", () => {
       local: false,
     });
     const template: Record<string, string> = { ...pkg.dependencies, ...pkg.devDependencies };
-    // In the workspace vite is Vite+'s alias; generated projects use vite itself
-    const shared = Object.keys(template).filter((n) => n in catalog && n !== "vite");
+    // vite-plus and vite (its core) included: generated projects build with this repo's Vite+
+    const shared = Object.keys(template).filter((n) => n in catalog);
     expect(shared.length).toBeGreaterThan(5);
     const differ = shared
       .filter((n) => template[n] !== catalog[n])
@@ -758,7 +778,7 @@ describe("theme use", () => {
 
 describe("admin: several theme styles (themeStyles in settings.ts, switched in preferences)", () => {
   const listOf = (dir: string) =>
-    [...read(dir, "src", "settings.ts").matchAll(/^ {4}"([\w-]+)": \{ label/gm)].map((m) => m[1]);
+    [...read(dir, "src", "settings.ts").matchAll(/^ {4}"?([\w-]+)"?: \{/gm)].map((m) => m[1]);
   const defaultOf = (dir: string) =>
     read(dir, "src", "settings.ts").match(/\bthemeStyle: "([^"]+)"/)?.[1];
 
@@ -781,7 +801,8 @@ describe("admin: several theme styles (themeStyles in settings.ts, switched in p
     const added = addThemes({ themes: ["heroui", "skein", "antd"], cwd: dir });
     expect(added.added).toEqual(["heroui", "default"]);
     expect(listOf(dir)).toEqual(["antd", "heroui", "default"]);
-    expect(read(dir, "src", "settings.ts")).toContain('"default": { label: "Skein"');
+    // Written as Oxfmt writes it: the key unquoted (vp check accepts the file as is)
+    expect(read(dir, "src", "settings.ts")).toContain('    default: { label: "Skein", load: () =>');
     expect(defaultOf(dir)).toBe("antd");
 
     const used = useTheme({ theme: "shadcn", cwd: dir });
@@ -801,6 +822,34 @@ describe("admin: several theme styles (themeStyles in settings.ts, switched in p
     );
   });
 
+  test("themeStyles as a formatter left it (keys quoted or not, an entry over several lines): add, remove, use", () => {
+    const dir = target();
+    createProject({ dir, template: "admin", theme: "antd" });
+    const file = join(dir, "src", "settings.ts");
+    writeFileSync(
+      file,
+      read(file).replace(
+        /themeStyles: \{\n[\s\S]*?\n {2}\}/,
+        [
+          "themeStyles: {",
+          '    "antd": { label: "Ant Design 6", load: () => import("@skeinui/themes/antd/index.css") },',
+          "    heroui: {",
+          '      label: "HeroUI v3",',
+          '      load: () => import("@skeinui/themes/heroui/index.css"),',
+          "    },",
+          "  }",
+        ].join("\n"),
+      ),
+    );
+    expect(listOf(dir)).toEqual(["antd", "heroui"]);
+    expect(addThemes({ themes: ["shadcn", "heroui"], cwd: dir }).added).toEqual(["shadcn"]);
+    expect(removeThemes({ themes: ["heroui"], cwd: dir }).themeStyles).toEqual(["antd", "shadcn"]);
+    // The whole entry is gone, not only its first line
+    expect(read(file)).not.toContain("HeroUI");
+    useTheme({ theme: "shadcn", cwd: dir });
+    expect(defaultOf(dir)).toBe("shadcn");
+  });
+
   test("theme init --use: own theme style added to the list as default, bundled ones still selectable", async () => {
     const dir = target();
     createProject({ dir, template: "admin", theme: "antd" });
@@ -808,7 +857,7 @@ describe("admin: several theme styles (themeStyles in settings.ts, switched in p
     expect(listOf(dir)).toEqual(["antd", "acme"]);
     expect(defaultOf(dir)).toBe("acme");
     expect(read(dir, "src", "settings.ts")).toContain(
-      '"acme": { label: "Acme", load: () => import("./theme/index.css") }',
+      'acme: { label: "Acme", load: () => import("./theme/index.css") }',
     );
   });
 });

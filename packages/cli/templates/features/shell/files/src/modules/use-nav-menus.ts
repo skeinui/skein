@@ -7,7 +7,11 @@ import type { PageEntry } from "@/lib/page-meta";
 import { fetchUserMenus } from "@/pages/login/api";
 import { settings } from "@/settings";
 
-function toItems(entries: PageEntry[], lang: "zh" | "en", allowed: Set<string> | null): AdminNavItem[] {
+function toItems(
+  entries: PageEntry[],
+  lang: "zh" | "en",
+  allowed: Set<string> | null,
+): AdminNavItem[] {
   return entries.flatMap((entry): AdminNavItem[] => {
     const { meta, path } = entry;
     if (meta.hidden) return [];

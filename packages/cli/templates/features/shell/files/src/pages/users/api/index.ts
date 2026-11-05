@@ -34,7 +34,9 @@ export const userKeys = {
   list: (query: UserQuery) => ["users", "list", query] as const,
 };
 
-export const fetchUsers = (query: UserQuery) => http.get<Paged<User>>("/api/users", { params: { ...query } });
+export const fetchUsers = (query: UserQuery) =>
+  http.get<Paged<User>>("/api/users", { params: { ...query } });
 export const createUser = (input: UserInput) => http.post<User>("/api/users", input);
-export const updateUser = (id: number, input: UserInput) => http.put<User>(`/api/users/${id}`, input);
+export const updateUser = (id: number, input: UserInput) =>
+  http.put<User>(`/api/users/${id}`, input);
 export const deleteUser = (id: number) => http.delete<null>(`/api/users/${id}`);

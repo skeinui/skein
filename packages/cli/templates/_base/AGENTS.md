@@ -5,7 +5,7 @@ A React app built with [Skein UI](https://github.com/skeinui/skein){{#if shell}}
 ## Commands
 
 - `npm run dev`: start the app{{#if mock}} (the API is mocked by MSW, see `.env.development`){{/if}}{{#if auth}}; sign in with admin / admin123{{/if}}.
-- `npm run check`: **run after every change.** Type errors, missing translations, hard-coded colors and theme coverage, each with a hint on the Skein way to fix it. Repeat until it reports no errors. `npm run build` must pass too.
+- `npm run check`: **run after every change.** First `skein check` (type errors, missing translations, hard-coded colors and theme coverage, each with a hint on the Skein way to fix it), then `vp check` (format, lint, types). `npx vp check --fix` formats and fixes what it can. Repeat until it reports no errors. `npm run build` must pass too.
 {{#if preview}}
 - `npx skein preview <route>`: **after changing a page, open it.** It starts the dev server, opens the route in Chrome{{#if auth}} (signed in){{/if}} and lists exceptions, console errors, failed requests and a blank page, then saves a screenshot (path in the output) to look at. Fix what it reports until it says ✓; `--json` for the details.
 {{/if}}
@@ -24,6 +24,8 @@ A React app built with [Skein UI](https://github.com/skeinui/skein){{#if shell}}
 {{/if}}
 
 Every `skein` command takes `--json` for machine-readable output and `--dry-run` to only list what it would write.
+
+The toolchain is [Vite+](https://viteplus.dev/guide/) (`vp`): `vp dev`, `vp build`, `vp check`, `vp test` (Vite, Rolldown, Vitest, Oxlint, Oxfmt), set up in `vite.config.ts`. Import its APIs from `vite-plus` (`defineConfig`) and `vite-plus/test` (`describe`, `expect`…), not from `vite` or `vitest`: lint reports those. A git hook runs `vp check --fix` on the staged files before each commit.
 {{#if mcp}}
 
 The same commands are MCP tools (`.mcp.json` starts `npx skein mcp`); use them when your client has MCP:
@@ -95,17 +97,17 @@ src/
 
 1. `npx skein new page orders`{{#if shell}}; it shows up in the menu right away{{/if}}.
 {{#if query}}
-2. Write the requests in `src/pages/orders/api/index.ts` with `http` and export query keys; use them with `useQuery` / `useMutation` in the page.
+1. Write the requests in `src/pages/orders/api/index.ts` with `http` and export query keys; use them with `useQuery` / `useMutation` in the page.
 {{/if}}
 {{#if mock}}
-3. Mock the same endpoints in `src/pages/orders/mocks/handlers.ts` (`http.get("*/api/orders", …)` from msw).
+1. Mock the same endpoints in `src/pages/orders/mocks/handlers.ts` (`http.get("*/api/orders", …)` from msw).
 {{/if}}
 {{#if i18n}}
-4. Put every text in `locales/messages/zh.json` and `en.json` (same keys in both) and use `t("key")`.
+1. Put every text in `locales/messages/zh.json` and `en.json` (same keys in both) and use `t("key")`.
 {{/if}}
 {{#if shell}}
-5. Wrap the page in `<Page title description actions>` from `@/skein-shell`. For a list with filters, a table, pagination and a create / edit dialog, copy the structure of `src/pages/users/`.
-6. Set the menu label, icon (lucide-react) and order in `_meta.ts`.
+1. Wrap the page in `<Page title description actions>` from `@/skein-shell`. For a list with filters, a table, pagination and a create / edit dialog, copy the structure of `src/pages/users/`.
+1. Set the menu label, icon (lucide-react) and order in `_meta.ts`.
 
 A layout route under `routes/_auth/` that wraps a set of pages (e.g. `$tenant.tsx` around `$tenant.orders.tsx`) renders `<PageOutlet />` from `@/skein-shell` where its pages go, not `<Outlet />`: the shell keeps pages alive in tabs and hands each layout its own page.
 {{/if}}

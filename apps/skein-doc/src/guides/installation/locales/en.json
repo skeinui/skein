@@ -3,8 +3,8 @@
   "lead": "Start a new project with the CLI, or add the two packages to a React 19 app you already have.",
   "new-project": {
     "title": "A new project",
-    "p1": "`npm create skein` asks for a name, a template, a theme style and the features you want, and writes a Vite + React project:",
-    "p2": "The `admin` template comes with a layout, menu, tabs, login, a dashboard and a users page. See the [Skein CLI](/cli) for every template and feature."
+    "p1": "`npm create skein` asks for a name, a template, a theme style and the features you want, and writes a React project on [Vite+](https://viteplus.dev/guide/) (`vp`: Vite, Rolldown, Vitest, Oxlint and Oxfmt in one toolchain):",
+    "p2": "The `admin` template comes with a layout, menu, tabs, login, a dashboard and a users page. See the [Skein CLI](/cli) for every template and feature. `npm run dev` / `npm run build` run `vp dev` / `vp build`; `npm run check` runs `skein check` then `vp check` (format, lint, types), and a git hook runs `vp check --fix` on the staged files before each commit."
   },
   "existing": {
     "title": "An existing project",

@@ -29,7 +29,7 @@ export const settings = {
    * its own CSS file, downloaded only when it is used. `npx skein theme add <name…>` / `theme remove` edit this list.
    */
   themeStyles: {
-    "{{themeStyle}}": { label: "{{themeLabel}}", load: () => import("{{themeImport}}") },
+{{themeStyleEntry}}
   } as Record<string, ThemeStyleEntry>,
   /** The theme style used until the user picks another; `npx skein theme use <name>` sets it. */
   themeStyle: "{{themeStyle}}",

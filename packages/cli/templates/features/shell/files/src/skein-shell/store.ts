@@ -44,7 +44,8 @@ export const useTabsStore = create<TabsState>()(
       tabs: [HOME_TAB],
       versions: {},
       setTabs: (tabs) => set({ tabs }),
-      refresh: (key) => set((s) => ({ versions: { ...s.versions, [key]: (s.versions[key] ?? 0) + 1 } })),
+      refresh: (key) =>
+        set((s) => ({ versions: { ...s.versions, [key]: (s.versions[key] ?? 0) + 1 } })),
     }),
     {
       name: `${settings.storageKey}-tabs`,

@@ -10,7 +10,7 @@
     "p1": "Without a directory it asks for the name, the template, the theme style and the optional features. `--theme none` starts a blank theme style of your own in `src/theme/`.",
     "template": "Template",
     "gives": "What you get",
-    "basic": "Vite + React + one theme style.",
+    "basic": "React on Vite+ (`vp`) + one theme style.",
     "admin": "Layout, menu, tabs, KeepAlive, preferences, login, a dashboard and a users CRUD page.",
     "feature": "Feature",
     "adds": "What it adds",

@@ -4,7 +4,7 @@ import { DEFAULT_TEMPLATE, TEMPLATES, loadFeatures, resolveFeatures } from "../f
 import { pascal, title, toPackageName, toThemeStyleName } from "../names.js";
 import { TEMPLATES_DIR, VERSION } from "../paths.js";
 import { blankThemeFiles, loadContract } from "../theme/index.js";
-import { MARKER, json, packageJson, pnpmWorkspace, renderDir } from "../project.js";
+import { MARKER, json, manifest, packageJson, pnpmWorkspace, renderDir } from "../project.js";
 import {
   CUSTOM_THEME_DIR,
   DEFAULT_THEME,
@@ -12,6 +12,7 @@ import {
   THEMES,
   themeImportPath,
   themeLabel,
+  themeStyleEntry,
 } from "../themes.js";
 import { Writer } from "../writer.js";
 
@@ -64,6 +65,12 @@ export function contextFor({ packageName, theme, themeStyle, features, local }) 
       themeStyle,
       themeImport: theme === "none" ? "./theme/index.css" : themeImportPath(theme),
       themeLabel: themeLabel(theme, themeStyle),
+      // settings.ts (shell): its first entry in themeStyles, as theme add writes the next ones
+      themeStyleEntry: themeStyleEntry(
+        themeStyle,
+        themeLabel(theme, themeStyle),
+        theme === "none" ? "./theme/index.css" : themeImportPath(theme),
+      ),
       storageKey: packageName.replace(/^@[^/]+\//, ""),
     },
   };
@@ -104,7 +111,10 @@ export function createProject(options) {
       writer.write(join(CUSTOM_THEME_DIR, file), css);
     }
   }
-  writer.write("package.json", json(packageJson({ name: packageName, theme, features, local })));
+  writer.write(
+    "package.json",
+    manifest(packageJson({ name: packageName, theme, features, local })),
+  );
   const pnpm = pnpmWorkspace({ features, local });
   if (pnpm) writer.write("pnpm-workspace.yaml", pnpm);
   writer.write(

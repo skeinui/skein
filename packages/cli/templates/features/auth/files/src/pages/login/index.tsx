@@ -32,7 +32,12 @@ export function LoginPage() {
               </Flex>
               <LoginForm
                 // The error is shown by onError; don't let the rejection escape the form
-                onSubmit={(input) => signIn.mutateAsync(input).then(() => undefined, () => undefined)}
+                onSubmit={(input) =>
+                  signIn.mutateAsync(input).then(
+                    () => undefined,
+                    () => undefined,
+                  )
+                }
               />
 {{#if mock}}
               <Text tone="secondary">{t("mockHint")}</Text>
