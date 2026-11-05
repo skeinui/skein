@@ -24,8 +24,8 @@ catalog:
   react: ^19.2.0
   react-dom: ^19.2.0
   typescript: ^6.0.2 # 7.x has no compiler API (packages/ui/scripts/manifest.ts)
-  vite: npm:@voidzero-dev/vite-plus-core@1.4.0
-  vite-plus: 1.4.0
+  vite: npm:@voidzero-dev/vite-plus-core@1.5.0
+  vite-plus: 1.5.0
   wrangler: ^4.156.2
   zod: ^4.0.0
 
