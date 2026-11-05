@@ -48,7 +48,15 @@ import { skeinThemes } from "@skeinui/themes/vite";
 export default defineConfig({ plugins: [react(), skeinThemes()] });
 ```
 
-Options: `include` (directories scanned for imports, default `["src"]`), `themes` (directories of theme styles of your own to prune too, e.g. `["src/theme"]`). `import * as` of the whole package keeps everything.
+It reads the imports with Vite's own parser (Vite 8 or later) in `src/` and in the dependencies that depend on `@skeinui/ui` (a workspace package, a component library of your own), and follows them in dev. `import * as`, `export *` or `import()` of the whole package keeps everything. Works the same on Windows, macOS and Linux.
+
+| Option    | Default   | What                                                                       |
+| --------- | --------- | -------------------------------------------------------------------------- |
+| `include` | `["src"]` | Directories scanned for imports, besides those dependencies                |
+| `themes`  | `[]`      | Directories of theme styles of your own to prune too, e.g. `["src/theme"]` |
+| `prune`   | `true`    | `false` keeps every stylesheet                                             |
+
+A module outside those directories that imports a component is added in dev, and **fails the build** naming the directory to add to `include`: a build never ships a component without its styles.
 
 ## Customising
 

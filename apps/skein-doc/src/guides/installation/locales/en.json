@@ -14,7 +14,7 @@
   "vite": {
     "title": "Vite: only the CSS you use",
     "p1": "A theme style's `index.css` styles all 120-odd components. With Vite, the `skeinThemes` plugin keeps only the stylesheets of the components your code imports from `@skeinui/ui` (and of those they render), so the bundle carries a few dozen KB of the theme style instead of all of it:",
-    "p2": "It reads the imports in `src/` (option `include`) and follows them as you edit in dev. An `import * as` of the whole package keeps every stylesheet. Projects made with `npm create skein` have it already; a theme style of your own in `src/theme` is pruned too with `skeinThemes({ themes: [\"src/theme\"] })`."
+    "p2": "It reads the imports (with Vite 8's parser) in `src/` (option `include`) and in the dependencies that depend on `@skeinui/ui`, and follows them as you edit in dev. An `import * as` of the whole package keeps every stylesheet; a module elsewhere that imports a component fails the build and names the directory to add, and `skeinThemes({ prune: false })` turns pruning off. Projects made with `npm create skein` have it already; a theme style of your own in `src/theme` is pruned too with `skeinThemes({ themes: [\"src/theme\"] })`."
   },
   "provider": {
     "title": "ConfigProvider",

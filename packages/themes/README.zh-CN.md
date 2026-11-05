@@ -48,7 +48,15 @@ import { skeinThemes } from "@skeinui/themes/vite";
 export default defineConfig({ plugins: [react(), skeinThemes()] });
 ```
 
-选项：`include`（扫描导入的目录，默认 `["src"]`），`themes`（同样要裁剪的自有主题风格目录，如 `["src/theme"]`）。用 `import * as` 导入整个包时保留全部。
+它用 Vite 自带的解析器（需要 Vite 8 及以上）读取 `src/` 以及依赖了 `@skeinui/ui` 的依赖包（workspace 包、自己的组件库）中的导入，开发时随编辑更新。对整个包用 `import * as`、`export *` 或 `import()` 时保留全部。在 Windows、macOS、Linux 上行为一致。
+
+| 选项      | 默认值    | 说明                                             |
+| --------- | --------- | ------------------------------------------------ |
+| `include` | `["src"]` | 除上述依赖包外，要扫描导入的目录                 |
+| `themes`  | `[]`      | 同样要裁剪的自有主题风格目录，如 `["src/theme"]` |
+| `prune`   | `true`    | `false` 时保留全部样式表                         |
+
+上述目录之外的模块如果导入了组件：开发时会自动补上，**构建时直接报错**，并指出要加进 `include` 的目录——构建产物里不会出现缺样式的组件。
 
 ## 自定义
 

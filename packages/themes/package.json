@@ -54,9 +54,16 @@
     "test": "vp test"
   },
   "devDependencies": {
+    "vite": "catalog:",
     "vite-plus": "catalog:"
   },
   "peerDependencies": {
-    "@skeinui/ui": "workspace:*"
+    "@skeinui/ui": "workspace:*",
+    "vite": ">=8.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
   }
 }
