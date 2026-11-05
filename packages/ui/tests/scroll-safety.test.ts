@@ -22,7 +22,12 @@ describe("scrolling", () => {
     const used = files(SRC)
       .filter((f) => /\bscrollIntoView\b/.test(readFileSync(f, "utf8").replace(/\/\/.*$/gm, "")))
       // Relative, with `/` on Windows too
-      .map((f) => f.slice(SRC.length + 1).split(sep).join("/"))
+      .map((f) =>
+        f
+          .slice(SRC.length + 1)
+          .split(sep)
+          .join("/"),
+      )
       .filter((f) => !ALLOWED.has(f));
     expect(used).toEqual([]);
   });

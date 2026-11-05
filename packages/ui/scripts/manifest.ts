@@ -205,7 +205,8 @@ function propsOf(
     }
     if (!(prop.flags & ts.SymbolFlags.Optional) && inEvery(prop.name)) info.required = true;
     const description =
-      docOf(prop, checker) || (file.startsWith(SRC_TS) ? conventionDoc(prop.name, names) : undefined);
+      docOf(prop, checker) ||
+      (file.startsWith(SRC_TS) ? conventionDoc(prop.name, names) : undefined);
     if (description) info.description = description;
     const fallback = prop.getJsDocTags(checker).find((tag) => tag.name === "default");
     if (fallback?.text) info.default = ts.displayPartsToString(fallback.text).trim();
