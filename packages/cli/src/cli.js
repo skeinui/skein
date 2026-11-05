@@ -284,6 +284,14 @@ async function checkCommand(values) {
   };
 }
 
+/** What theme use / add did about the skeinThemes() Vite plugin when they added @skeinui/themes. */
+const pluginHint = (plugin) =>
+  !plugin
+    ? ""
+    : plugin.added
+      ? ` ${plugin.file} now uses skeinThemes(): only the stylesheets of the components you import are bundled.`
+      : ` To bundle only the stylesheets of the components you import, add skeinThemes() from @skeinui/themes/vite to the plugins of ${plugin.file}.`;
+
 async function themeCommand(values, [sub, arg, ...more]) {
   if (sub === "add" || sub === "remove") {
     const themes = [arg, ...more].filter(Boolean);
@@ -295,7 +303,8 @@ async function themeCommand(values, [sub, arg, ...more]) {
           ? `Added ${result.added.join(", ")}.`
           : "Already in the list, nothing to add.") +
         ` Users pick from: ${result.themeStyles.join(", ")} (preferences drawer).` +
-        (result.needsInstall ? ` Run ${packageManager()} install.` : "");
+        (result.needsInstall ? ` Run ${packageManager()} install.` : "") +
+        pluginHint(result.plugin);
       return written(result, dryRun, hint);
     }
     const result = removeThemes({ themes, dryRun });
@@ -307,6 +316,7 @@ async function themeCommand(values, [sub, arg, ...more]) {
     const hint =
       `Theme style: ${result.previous} → ${arg}.` +
       (result.needsInstall ? ` Run ${packageManager()} install.` : "") +
+      pluginHint(result.plugin) +
       (result.keptCustom
         ? ` Your own theme style in ${result.keptCustom}/ is kept but no longer imported.`
         : "");

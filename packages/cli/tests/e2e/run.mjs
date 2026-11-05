@@ -180,6 +180,19 @@ for (const c of CASES) {
       const other = result.issues.filter((i) => i.check !== "theme");
       if (result.ok || other.length > 0) throw new Error(JSON.stringify(other.slice(0, 3)));
     });
+    // theme use installs @skeinui/themes and adds its Vite plugin: the build bundles only the stylesheets used
+    if (
+      check(c.id, "theme use default", () =>
+        sh(dir, "npx", ["skein", "theme", "use", "default"]),
+      ) &&
+      check(c.id, `${pm} install`, () => sh(dir, pm, installArgs))
+    ) {
+      check(c.id, "build: skeinThemes() prunes the theme style", () => {
+        const out = sh(dir, "npm", ["run", "build"]);
+        if (!/\[skein-themes\] \d+ of \d+ stylesheets/.test(out)) throw new Error(out.slice(-400));
+      });
+      check(c.id, "dist has only the default theme style", () => onlyTheme(dir, "default"));
+    }
   } else {
     check(c.id, "skein check: no problems", () => sh(dir, "npm", ["run", "check"]));
   }

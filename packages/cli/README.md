@@ -100,7 +100,7 @@ skein theme init --name acme --from antd
 skein theme check
 ```
 
-A basic project imports one theme style in `src/skein.theme.ts`. An admin project lists them in `themeStyles` of `src/settings.ts`; each loads only when picked in the preferences drawer.
+A basic project imports one theme style in `src/skein.theme.ts`. An admin project lists them in `themeStyles` of `src/settings.ts`; each loads only when picked in the preferences drawer. `vite.config.ts` uses `skeinThemes()` from `@skeinui/themes/vite`, so only the stylesheets of the components the app imports are bundled; a project started with `--theme none` gets it from `theme use` / `theme add`, which install `@skeinui/themes`.
 
 ## For AI coding agents
 

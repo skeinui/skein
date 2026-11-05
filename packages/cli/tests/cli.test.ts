@@ -14,7 +14,13 @@ import { afterEach, describe, expect, test } from "vite-plus/test";
 import { createProject, featuresFor } from "../src/commands/create.js";
 import { newModule, newPage } from "../src/commands/new.js";
 import { init } from "../src/commands/init.js";
-import { addThemes, removeThemes, themeKit, useTheme } from "../src/commands/theme.js";
+import {
+  addThemes,
+  removeThemes,
+  themeKit,
+  useTheme,
+  withThemesPlugin,
+} from "../src/commands/theme.js";
 import { render } from "../src/engine.js";
 import { loadFeatures, resolveFeatures } from "../src/features.js";
 import { pagePath, pascal, toPackageName, toThemeStyleName } from "../src/names.js";
@@ -631,6 +637,57 @@ describe("theme use", () => {
     expect(result.needsInstall).toBe(true);
     expect(result.changed).toContain("package.json");
     expect(pkgOf(dir).dependencies["@skeinui/themes"]).toBeDefined();
+  });
+
+  test("--theme none, then theme use / add: vite.config.ts gets skeinThemes(), as skein create writes it", () => {
+    const basic = target("blank-basic");
+    createProject({ dir: basic, theme: "none" });
+    expect(read(basic, "vite.config.ts")).not.toContain("skeinThemes");
+    const used = useTheme({ theme: "antd", cwd: basic });
+    expect(used.plugin).toEqual({ file: "vite.config.ts", added: true });
+    expect(used.changed).toContain("vite.config.ts");
+    const made = target("antd-basic");
+    createProject({ dir: made, theme: "antd" });
+    expect(read(basic, "vite.config.ts")).toBe(read(made, "vite.config.ts"));
+    // Once there, a next theme use leaves it
+    expect(useTheme({ theme: "heroui", cwd: basic }).changed).not.toContain("vite.config.ts");
+
+    const admin = target("blank-admin");
+    createProject({ dir: admin, template: "admin", theme: "none" });
+    expect(addThemes({ themes: ["heroui"], cwd: admin }).plugin).toEqual({
+      file: "vite.config.ts",
+      added: true,
+    });
+    const madeAdmin = target("antd-admin");
+    createProject({ dir: madeAdmin, template: "admin", theme: "antd" });
+    expect(read(admin, "vite.config.ts")).toBe(read(madeAdmin, "vite.config.ts"));
+  });
+
+  test("withThemesPlugin: other Vite configs", () => {
+    // One line, no React plugin, a multi-line import
+    const inline = withThemesPlugin(
+      'import {\n  defineConfig,\n} from "vite";\nimport vue from "@vitejs/plugin-vue";\n\nexport default defineConfig({ plugins: [vue()] });\n',
+    );
+    expect(inline).toBe(
+      'import {\n  defineConfig,\n} from "vite";\nimport vue from "@vitejs/plugin-vue";\nimport { skeinThemes } from "@skeinui/themes/vite";\n\n' +
+        "export default defineConfig({ plugins: [vue(),\n" +
+        "  // A theme style bundles only the stylesheets of the components the app imports from @skeinui/ui (src/theme:\n" +
+        "  // a theme style of the app's own, `skein theme init`)\n" +
+        '  skeinThemes({ themes: ["src/theme"] }),\n] });\n',
+    );
+    // Brackets in strings and comments aren't the array's end
+    const tricky = withThemesPlugin(
+      'import react from "@vitejs/plugin-react";\nexport default {\n  plugins: [\n    react({ include: "]" }), // ]\n    /* ] */\n  ],\n};\n',
+    )!;
+    // react(…) has its comma already: none after the comment
+    expect(tricky).toContain('react({ include: "]" }), // ]\n    /* ] */\n    // A theme style');
+    expect(tricky).toMatch(/skeinThemes\(\{ themes: \["src\/theme"\] \}\),\n {2}\],\n\};\n$/);
+    expect(tricky.indexOf("import { skeinThemes }")).toBe(0);
+    // Nowhere to put it; there already
+    expect(withThemesPlugin("export default {};\n")).toBeNull();
+    const done =
+      'import { skeinThemes } from "@skeinui/themes/vite";\nexport default { plugins: [skeinThemes()] };\n';
+    expect(withThemesPlugin(done)).toBe(done);
   });
 
   test("basic: only changes imports: skein.theme.ts / index.html / .skein.json, no dependency change, no reinstall", () => {

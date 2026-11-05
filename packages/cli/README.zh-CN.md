@@ -100,7 +100,7 @@ skein theme init --name acme --from antd
 skein theme check
 ```
 
-basic 项目在 `src/skein.theme.ts` 里导入一套主题风格。admin 项目在 `src/settings.ts` 的 `themeStyles` 里列出可选的几套，用户在偏好设置抽屉里选中时才加载。
+basic 项目在 `src/skein.theme.ts` 里导入一套主题风格。admin 项目在 `src/settings.ts` 的 `themeStyles` 里列出可选的几套，用户在偏好设置抽屉里选中时才加载。`vite.config.ts` 里的 `skeinThemes()`（来自 `@skeinui/themes/vite`）只打包应用导入的组件的样式表；用 `--theme none` 创建的项目在执行 `theme use` / `theme add` 安装 `@skeinui/themes` 时会一并加上它。
 
 ## 给 AI 编程助手
 

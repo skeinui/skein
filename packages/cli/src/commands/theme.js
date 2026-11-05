@@ -92,6 +92,82 @@ function ensureThemesPackage(writer, project) {
   return true;
 }
 
+const VITE_CONFIGS = ["vite.config.ts", "vite.config.mts", "vite.config.js", "vite.config.mjs"];
+const PLUGIN_IMPORT = 'import { skeinThemes } from "@skeinui/themes/vite";';
+const PLUGIN_CALL = 'skeinThemes({ themes: ["src/theme"] }),';
+
+/**
+ * Where the bracket opened at `open` closes, and the last character before it that isn't space or comment (a
+ * string counts as its quote); strings and comments skipped. null if it doesn't close.
+ */
+function closingBracket(source, open) {
+  let depth = 0;
+  let last = "";
+  for (let i = open; i < source.length; i++) {
+    const char = source[i];
+    if (char === '"' || char === "'" || char === "`") {
+      for (i++; i < source.length && source[i] !== char; i++) if (source[i] === "\\") i++;
+    } else if (char === "/" && source[i + 1] === "/") {
+      const end = source.indexOf("\n", i);
+      i = end === -1 ? source.length : end;
+      continue;
+    } else if (char === "/" && source[i + 1] === "*") {
+      const end = source.indexOf("*/", i + 2);
+      i = end === -1 ? source.length : end + 1;
+      continue;
+    } else if ("([{".includes(char)) depth++;
+    else if (")]}".includes(char) && --depth === 0) return { close: i, last };
+    if (!/\s/.test(char)) last = char;
+  }
+  return null;
+}
+
+/**
+ * A Vite config with the skeinThemes() plugin (as `skein create` writes it): the source as it is when it has it
+ * already, null when there is no `plugins: [` to put it in.
+ */
+export function withThemesPlugin(source) {
+  if (source.includes("skeinThemes")) return source;
+  const plugins = /\bplugins\s*:\s*\[/.exec(source);
+  if (!plugins) return null;
+  const bracket = closingBracket(source, plugins.index + plugins[0].length - 1);
+  if (!bracket) return null;
+  const { close, last } = bracket;
+  // The closing bracket on a line of its own keeps its indent; `plugins: [react()]` gets that of its line
+  const lineOf = (index) => source.slice(source.lastIndexOf("\n", index - 1) + 1, index);
+  const closeLine = lineOf(close);
+  const outer = closeLine.trim() === "" ? closeLine : /^[ \t]*/.exec(lineOf(plugins.index))[0];
+  const indent = `${outer}  `;
+  const before = source.slice(0, close).replace(/\s*$/, "");
+  const comma = last === "," || last === "[" ? "" : ",";
+  const entry =
+    `${indent}// A theme style bundles only the stylesheets of the components the app imports from @skeinui/ui (src/theme:\n` +
+    `${indent}// a theme style of the app's own, \`skein theme init\`)\n${indent}${PLUGIN_CALL}\n`;
+  const withEntry = `${before}${comma}\n${entry}${outer}${source.slice(close)}`;
+  // The import goes where `skein create` writes it, before the React plugin's; else after the last import
+  const react = /^import\b[^\n]*["']@vitejs\/plugin-react["'][^\n]*$/m.exec(withEntry);
+  if (react)
+    return `${withEntry.slice(0, react.index)}${PLUGIN_IMPORT}\n${withEntry.slice(react.index)}`;
+  // (to its module specifier: an import may span lines)
+  const imports = [...withEntry.matchAll(/^import\b[\s\S]*?["'][^"'\n]*["'][^\n]*$/gm)];
+  if (imports.length === 0) return `${PLUGIN_IMPORT}\n${withEntry}`;
+  const at = imports.at(-1).index + imports.at(-1)[0].length;
+  return `${withEntry.slice(0, at)}\n${PLUGIN_IMPORT}${withEntry.slice(at)}`;
+}
+
+/**
+ * Adds skeinThemes() to the project's Vite config, once @skeinui/themes is a dependency (a project made with
+ * --theme none had neither): `{ file, added }`, `added` false when it can't be placed (to add by hand).
+ */
+function ensureThemesPlugin(writer) {
+  const file = VITE_CONFIGS.find((name) => writer.read(name) !== undefined);
+  if (!file) return { file: "vite.config.ts", added: false };
+  const next = withThemesPlugin(writer.read(file));
+  if (next === null) return { file, added: false };
+  writer.write(file, next);
+  return { file, added: true };
+}
+
 const setHtmlThemeStyle = (writer, id) => {
   const html = writer.read("index.html");
   if (html)
@@ -136,11 +212,22 @@ export function useTheme({ theme: requested, cwd = process.cwd(), dryRun }) {
   setHtmlThemeStyle(writer, theme);
   writer.write(MARKER, json({ ...project, theme, themeStyle: undefined }));
 
-  const result = writer.commit({ edits: ["package.json", themeEdit, "index.html", MARKER] });
+  // A project without @skeinui/themes (--theme none) had no plugin for it either
+  const plugin = needsInstall ? ensureThemesPlugin(writer) : null;
+  const result = writer.commit({
+    edits: [
+      "package.json",
+      themeEdit,
+      "index.html",
+      MARKER,
+      ...(plugin?.added ? [plugin.file] : []),
+    ],
+  });
   return {
     ...result,
     root,
     needsInstall,
+    plugin,
     previous: project.theme === "none" ? project.themeStyle : project.theme,
     // With the shell it stays in the list of theme styles to pick from
     keptCustom: project.theme === "none" && !hasShell(project) ? CUSTOM_THEME_DIR : null,
@@ -171,11 +258,15 @@ export function addThemes({ themes, cwd = process.cwd(), dryRun }) {
       ids.map((id) => entryFor(id)),
     ),
   );
-  const result = writer.commit({ edits: ["package.json", SETTINGS] });
+  const plugin = needsInstall ? ensureThemesPlugin(writer) : null;
+  const result = writer.commit({
+    edits: ["package.json", SETTINGS, ...(plugin?.added ? [plugin.file] : [])],
+  });
   return {
     ...result,
     root,
     needsInstall,
+    plugin,
     added: ids.filter((id) => !before.includes(id)),
     themeStyles: themeList(readFileSync(join(root, SETTINGS), "utf8")),
   };
