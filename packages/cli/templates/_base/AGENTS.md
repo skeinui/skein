@@ -90,6 +90,9 @@ src/
 {{#if auth}}
   store/auth-store.ts   the session (zustand, persisted)
 {{/if}}
+{{#if tenant}}
+  store/tenant-store.ts the tenant in use (the address's; persisted for paths without one); requests send it as X-Tenant-Id
+{{/if}}
 ```
 
 {{#if router}}
@@ -106,9 +109,13 @@ src/
 1. Put every text in `locales/messages/zh.json` and `en.json` (same keys in both) and use `t("key")`.
 {{/if}}
 {{#if shell}}
-1. Wrap the page in `<Page title description actions>` from `@/skein-shell`. For a list with filters, a table, pagination and a create / edit dialog, copy the structure of `src/pages/users/`.
+1. Wrap the page in `<Page title description actions>` from `@/skein-shell`. For a list with filters, a table, pagination and a create / edit dialog, copy the structure of `src/pages/users/`. A detail page goes under its list's path (`/users/42`: `src/pages/users/detail.tsx`, route `users_.$id.tsx`, `_` so it isn't nested in the list's route), so the menu, the breadcrumb{{#if tenant}} and switching tenants{{/if}} know which list it belongs to.
 1. Set the menu label, icon (lucide-react) and order in `_meta.ts`.
 
+{{#if tenant}}
+Every page is under its tenant: `/acme/orders`, route files in `routes/_auth/$tenant/` (`new page` puts them there), menu paths and `_meta.ts` without the tenant. `routes/_auth/$tenant.tsx` makes the address's tenant the current one before the page loads, and `src/lib/http.ts` sends it as `X-Tenant-Id` with every request: the API answers for that tenant, so don't pass it to requests by hand. A path without a tenant (`/orders`) gets the one used last. The switcher (`src/modules/tenant-switcher/`, next to the logo) lists `GET /api/tenants` (`[{ id, name }]`{{#if mock}}, mocked{{/if}}) and goes to the same page of the tenant picked (on a detail page, its list); open tabs follow. Links between pages include the tenant (`<Link from="/$tenant/users" to="/$tenant/users/$id">`). Each tenant's pages use a query cache of their own (`src/modules/tenant-switcher/query-clients.ts`), so query keys don't need the tenant.
+
+{{/if}}
 A layout route under `routes/_auth/` that wraps a set of pages (e.g. `$tenant.tsx` around `$tenant.orders.tsx`) renders `<PageOutlet />` from `@/skein-shell` where its pages go, not `<Outlet />`: the shell keeps pages alive in tabs and hands each layout its own page.
 {{/if}}
 

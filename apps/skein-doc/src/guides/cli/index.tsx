@@ -45,6 +45,7 @@ npx skeinui <command>          # the same commands, anywhere`}
             ["`shell`", "create.shell"],
             ["`mcp`", "create.mcp"],
             ["`preview`", "create.preview"],
+            ["`tenant`", "create.tenant"],
           ]}
         />
         <P k="create.p2" />

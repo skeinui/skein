@@ -1,9 +1,9 @@
 import { AdminLayout, Breadcrumb, PageTabs, matchNav, openTab, trailOf } from "@skeinui/ui";
 import type { AdminNavItem } from "@skeinui/ui";
-import { useLocation, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { KeepAliveOutlet } from "./keep-alive-outlet";
+import { KeepAliveOutlet, usePagePath } from "./keep-alive-outlet";
 import { usePageTitles, usePreferencesStore, useTabsStore } from "./store";
 
 export interface AppLayoutProps {
@@ -21,7 +21,7 @@ const textOf = (node: ReactNode) => (typeof node === "string" ? node : undefined
 
 /** AdminLayout wired to the router: the menu and the tabs follow the current path, and navigate on click. */
 export function AppLayout({ items, logo, logoMark, context, actions, footer }: AppLayoutProps) {
-  const { pathname } = useLocation();
+  const pathname = usePagePath();
   const navigate = useNavigate();
   const layout = usePreferencesStore((s) => s.layout);
   const { tabs, versions, setTabs, refresh } = useTabsStore();

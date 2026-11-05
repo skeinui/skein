@@ -34,6 +34,10 @@ const MARKERS = {
   mock: [{ file: "src/mocks/index.ts" }],
   auth: [{ file: "src/routes/_auth.tsx" }, { file: "src/store/auth-store.ts" }],
   shell: [{ file: "src/skein-shell/index.ts" }, { file: "src/lib/page-meta.ts" }],
+  tenant: [
+    { file: "src/store/tenant-store.ts" },
+    { file: "src/modules/tenant-switcher/index.tsx" },
+  ],
   mcp: [{ file: ".mcp.json", contains: '"skein"', why: "a skein MCP server" }],
   preview: [
     { file: "package.json", contains: '"playwright-core"', why: "playwright-core installed" },

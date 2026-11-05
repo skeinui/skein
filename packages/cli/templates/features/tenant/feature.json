@@ -1,0 +1,4 @@
+{
+  "description": "Tenant switcher next to the logo; every request carries the tenant (X-Tenant-Id)",
+  "requires": ["shell"]
+}

@@ -1,6 +1,9 @@
 import { AppLayout } from "@/skein-shell";
 import { settings } from "@/settings";
 import { PreferencesButton } from "./app-preferences";
+{{#if tenant}}
+import { TenantSwitcher } from "./tenant-switcher";
+{{/if}}
 import { useNavMenus } from "./use-nav-menus";
 import { UserMenu } from "./user-menu";
 
@@ -19,6 +22,9 @@ export function RouteLayout() {
           {settings.appName}
         </span>
       }
+{{#if tenant}}
+      context={<TenantSwitcher />}
+{{/if}}
       actions={
         <>
           <PreferencesButton />

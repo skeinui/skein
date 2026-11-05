@@ -17,6 +17,7 @@ import { join } from "node:path";
 import { createRequire } from "node:module";
 import { adminFlow } from "./admin-flow.mjs";
 import { crudFlow } from "./crud-flow.mjs";
+import { tenantFlow } from "./tenant-flow.mjs";
 
 const CLI = join(import.meta.dirname, "..", "..", "bin", "skein.js");
 const args = process.argv.slice(2);
@@ -30,6 +31,7 @@ const CASES = [
     admin: true,
   },
   { id: "admin-no-mock", create: ["--template", "admin", "--no-mock"] },
+  { id: "admin-tenant", create: ["--template", "admin", "--tenant"], tenant: true },
   { id: "basic-default", create: [], page: "basic" },
   { id: "basic-blank-theme", create: ["--theme", "none"], blankTheme: true },
   { id: "basic-router-query-i18n", create: ["--router", "--query", "--i18n"] },
@@ -224,6 +226,26 @@ for (const c of CASES) {
     } finally {
       server.kill();
     }
+  }
+
+  if (c.tenant) {
+    const server = await serve(dir, port++);
+    try {
+      console.log("  browser, tenants:");
+      const steps = await tenantFlow(`http://localhost:${port - 1}`, {
+        log: (l) => console.log(`  ${l}`),
+      });
+      for (const s of steps) results.push({ id: c.id, name: `browser: ${s.name}`, ok: s.ok });
+    } finally {
+      server.kill();
+    }
+    check(c.id, "new page orders + system/logs under $tenant/, check clean", () => {
+      sh(dir, "node", [CLI, "new", "page", "orders"]);
+      sh(dir, "node", [CLI, "new", "page", "system/logs"]);
+      if (!existsSync(join(dir, "src", "routes", "_auth", "$tenant", "system", "logs.tsx")))
+        throw new Error("no route under $tenant/");
+      sh(dir, "npm", ["run", "check"]);
+    });
   }
 
   if (c.admin) {

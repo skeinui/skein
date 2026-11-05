@@ -1,5 +1,5 @@
 import { Avatar, Button, Menu } from "@skeinui/ui";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { Check, Languages, LogOut, Monitor, Moon, Sun } from "lucide-react";
 import { LANGUAGES } from "@/lib/i18n";
@@ -21,10 +21,13 @@ export function UserMenu() {
   const mode = usePreferencesStore((s) => s.mode);
   const setMode = usePreferencesStore((s) => s.setMode);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const signOut = useMutation({
     mutationFn: logout,
     onSettled: () => {
       useAuthStore.getState().reset();
+      // What was loaded belongs to the user who signed out
+      queryClient.clear();
       useTabsStore.getState().setTabs([]);
       void navigate({ to: "/login" });
     },

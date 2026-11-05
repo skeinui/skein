@@ -31,5 +31,10 @@
     "actions": "Actions"
   },
   "role": { "admin": "Admin", "editor": "Editor", "viewer": "Viewer" },
-  "status": { "active": "Active", "disabled": "Disabled" }
+  "status": { "active": "Active", "disabled": "Disabled" },
+  "detail": {
+    "back": "Back to list",
+    "notFound": "User not found",
+    "notFoundHint": "{{#if tenant}}This tenant has{{else}}There is{{/if}} no user with ID {{id}}."
+  }
 }

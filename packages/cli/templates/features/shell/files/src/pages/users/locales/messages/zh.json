@@ -31,5 +31,10 @@
     "actions": "操作"
   },
   "role": { "admin": "管理员", "editor": "编辑", "viewer": "访客" },
-  "status": { "active": "启用", "disabled": "停用" }
+  "status": { "active": "启用", "disabled": "停用" },
+  "detail": {
+    "back": "返回列表",
+    "notFound": "用户不存在",
+    "notFoundHint": "{{#if tenant}}这个租户下{{/if}}没有 ID 为 {{id}} 的用户。"
+  }
 }

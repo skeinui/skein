@@ -32,10 +32,12 @@ export interface Paged<T> {
 export const userKeys = {
   all: ["users"] as const,
   list: (query: UserQuery) => ["users", "list", query] as const,
+  detail: (id: number) => ["users", "detail", id] as const,
 };
 
 export const fetchUsers = (query: UserQuery) =>
   http.get<Paged<User>>("/api/users", { params: { ...query } });
+export const fetchUser = (id: number) => http.get<User>(`/api/users/${id}`);
 export const createUser = (input: UserInput) => http.post<User>("/api/users", input);
 export const updateUser = (id: number, input: UserInput) =>
   http.put<User>(`/api/users/${id}`, input);

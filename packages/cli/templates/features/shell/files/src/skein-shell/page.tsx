@@ -1,7 +1,7 @@
 import { Flex, Text, Title } from "@skeinui/ui";
-import { useLocation } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { usePagePath } from "./keep-alive-outlet";
 import { usePageTitles } from "./store";
 
 /**
@@ -23,7 +23,7 @@ export function Page({
   children?: ReactNode;
 }) {
   // The path the page was opened at: a page kept alive in a background tab must not take the current one's
-  const { pathname } = useLocation();
+  const pathname = usePagePath();
   const [path] = useState(pathname);
   const name = tabTitle ?? (typeof title === "string" ? title : undefined);
   const setTitle = usePageTitles((s) => s.setTitle);

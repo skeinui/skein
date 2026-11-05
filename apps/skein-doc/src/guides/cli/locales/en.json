@@ -22,7 +22,8 @@
     "shell": "AdminLayout, menu, tabs, KeepAlive, preferences drawer. Needs auth, i18n.",
     "mcp": "`.mcp.json`: the skein commands as MCP tools for AI agents.",
     "preview": "`playwright-core` for `skein preview` (uses the Chrome you have).",
-    "p2": "`admin` turns on `shell` and `mock`. `mcp` and `preview` are off by default; their packages are installed only in projects that turn them on."
+    "tenant": "Pages under their tenant (`/acme/orders`), a tenant switcher next to the logo, and the tenant sent as `X-Tenant-Id` with every request. Needs shell.",
+    "p2": "`admin` turns on `shell` and `mock`. `mcp`, `preview` and `tenant` are off by default; `mcp` and `preview` install their packages only in projects that turn them on."
   },
   "layout": {
     "title": "An admin project",

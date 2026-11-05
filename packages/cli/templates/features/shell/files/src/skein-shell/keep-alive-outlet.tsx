@@ -1,8 +1,17 @@
 import { KeepAlive } from "@skeinui/ui";
 import type { AnyRoute } from "@tanstack/react-router";
-import { Outlet, useChildMatches, useLocation, useRouter } from "@tanstack/react-router";
+import { Outlet, useChildMatches, useRouter, useRouterState } from "@tanstack/react-router";
 import { createContext, useContext } from "react";
 import type { ComponentType, ReactNode } from "react";
+
+/**
+ * The path of the page the router has matched. Like `useLocation().pathname`, but it changes with the matched
+ * routes: while a navigation loads (beforeLoad), the location is already the new one but the matches are still
+ * the previous page's, and the tab key, the page shown and what is derived from the path must change together.
+ */
+export function usePagePath() {
+  return useRouterState({ select: (s) => s.matches.at(-1)?.pathname ?? s.location.pathname });
+}
 
 /** What a layout route between the shell and the page renders where its children go (see PageOutlet). */
 const Inner = createContext<ReactNode>(null);
@@ -29,7 +38,7 @@ export function KeepAliveOutlet({
   versions: Record<string, number>;
 }) {
   const router = useRouter();
-  const { pathname } = useLocation();
+  const pathname = usePagePath();
   const routes = router.routesById as unknown as Record<string, AnyRoute>;
   // Outermost first; routes without a component of their own (e.g. pathless ones) are skipped
   const chain = useChildMatches()

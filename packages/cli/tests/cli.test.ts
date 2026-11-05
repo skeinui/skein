@@ -329,6 +329,71 @@ describe("new page / module", () => {
     expect(() => newPage({ name: "system/user-roles", cwd: dir })).toThrow("already exists");
   });
 
+  test("--tenant: pages under routes/_auth/$tenant/, the switcher in the layout, X-Tenant-Id on requests", () => {
+    const plain = target("plain-tenant");
+    createProject({ dir: plain, template: "admin" });
+    expect(existsSync(join(plain, "src", "routes", "_auth", "$tenant.tsx"))).toBe(false);
+    expect(read(plain, "src", "lib", "http.ts")).not.toContain("X-Tenant-Id");
+    expect(read(plain, "src", "modules", "route-layout.tsx")).not.toContain("context=");
+    expect(read(plain, "src", "routes", "_auth", "$.tsx")).not.toContain("enterTenant");
+    expect(read(plain, "AGENTS.md")).not.toContain("X-Tenant-Id");
+    // The users detail page is in every admin project; without tenant at /users/<id>
+    expect(read(plain, "src", "routes", "_auth", "users_.$id.tsx")).toContain(
+      'createFileRoute("/_auth/users_/$id")',
+    );
+    expect(read(plain, "src", "pages", "users", "mocks", "users-data.ts")).not.toContain(
+      "X-Tenant-Id",
+    );
+
+    const dir = join(lastTmp(), "with-tenant");
+    createProject({ dir, template: "admin", add: ["tenant"] });
+    const routes = walk(join(dir, "src", "routes"))
+      .map((f) => relative(join(dir, "src", "routes"), f).replaceAll("\\", "/"))
+      .sort();
+    expect(routes).toEqual(
+      [
+        "$tenant/dashboard.tsx",
+        "$tenant/index.tsx",
+        "$tenant/users.tsx",
+        "$tenant/users_.$id.tsx",
+        "$tenant.tsx",
+        "$.tsx",
+      ]
+        .map((f) => `_auth/${f}`)
+        .concat(["__root.tsx", "_auth.tsx", "index.tsx", "login.tsx"])
+        .sort(),
+    );
+    expect(read(dir, "src", "routes", "_auth", "$tenant", "users.tsx")).toContain(
+      'createFileRoute("/_auth/$tenant/users")',
+    );
+    expect(read(dir, "src", "routes", "_auth", "$tenant.tsx")).toContain("enterTenant(");
+    // Each tenant's pages get a query cache of their own; the users mock answers per tenant
+    expect(read(dir, "src", "routes", "_auth", "$tenant.tsx")).toContain("tenantQueryClient(");
+    expect(read(dir, "src", "pages", "users", "mocks", "users-data.ts")).toContain("X-Tenant-Id");
+    expect(read(dir, "src", "routes", "_auth", "$.tsx")).toContain("enterTenant(");
+    expect(read(dir, "src", "lib", "http.ts")).toContain('requestHeaders.set("X-Tenant-Id"');
+    expect(read(dir, "src", "modules", "route-layout.tsx")).toContain(
+      "context={<TenantSwitcher />}",
+    );
+    expect(read(dir, "src", "modules", "use-nav-menus.ts")).toContain("`${prefix}${path}`");
+    expect(read(dir, "src", "modules", "tenant-switcher", "mocks", "handlers.ts")).toContain(
+      "*/api/tenants",
+    );
+    expect(read(dir, "src", "store", "tenant-store.ts")).toContain('name: "with-tenant-tenant"');
+    expect(read(dir, "AGENTS.md")).toContain("routes/_auth/$tenant/");
+    expect(read(dir, "AGENTS.md")).not.toMatch(/\n\n\n/);
+    expect(leftovers(dir)).toEqual([]);
+
+    const { created } = newPage({ name: "system/logs", cwd: dir });
+    expect(created).toContain("src/routes/_auth/$tenant/system/logs.tsx");
+    expect(read(dir, "src", "routes", "_auth", "$tenant", "system", "logs.tsx")).toContain(
+      'createFileRoute("/_auth/$tenant/system/logs")',
+    );
+    expect(featuresFor({ template: "basic", add: ["tenant"] }).map((f) => f.name)).toContain(
+      "shell",
+    );
+  });
+
   test("no mocks/ without mock; no pages without router; error outside a project", () => {
     const dir = target();
     createProject({ dir, template: "admin", remove: ["mock"] });

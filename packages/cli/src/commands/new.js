@@ -35,6 +35,8 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
   const segments = path.split("/");
   const leaf = segments[segments.length - 1];
   const authed = Boolean(flags.auth);
+  // With tenant, every page is under /<tenant>/ (routes/_auth/$tenant/)
+  const parent = [...(authed ? ["_auth"] : []), ...(flags.tenant ? ["$tenant"] : [])];
   const context = {
     flags,
     vars: {
@@ -44,7 +46,7 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
       routePath: path,
       title: title(leaf),
       path: `/${path}`,
-      routeId: `${authed ? "/_auth" : ""}/${path}`,
+      routeId: `${parent.map((s) => `/${s}`).join("")}/${path}`,
       ns: path.replaceAll("/", "-"),
       order: 100,
     },
@@ -71,7 +73,7 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
     readFileSync(join(TEMPLATES_DIR, "pages", "_blank", "route.tsx"), "utf8"),
     context,
   );
-  writer.write(join("src", "routes", ...(authed ? ["_auth"] : []), `${path}.tsx`), route);
+  writer.write(join("src", "routes", ...parent, `${path}.tsx`), route);
 
   // Menu groups for parents that aren't pages themselves
   for (let i = 1; flags.shell && i < segments.length; i++) {

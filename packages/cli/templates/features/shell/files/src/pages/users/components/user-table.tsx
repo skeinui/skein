@@ -1,4 +1,5 @@
 import { Button, Flex, Popconfirm, Table, Tag } from "@skeinui/ui";
+import { Link } from "@tanstack/react-router";
 import type { User } from "../api";
 import { useUsersTranslation } from "../locales";
 
@@ -32,7 +33,20 @@ export function UserTable({
         ) : (
           users.map((user) => (
             <Table.Row key={user.id}>
-              <Table.Cell>{user.name}</Table.Cell>
+              <Table.Cell>
+{{#if tenant}}
+                {/* From the list's address, so the tenant is kept */}
+                <Link
+                  from="/$tenant/users"
+                  to="/$tenant/users/$id"
+                  params={(prev) => ({ ...prev, id: String(user.id) })}
+                >
+{{else}}
+                <Link to="/users/$id" params={{ id: String(user.id) }}>
+{{/if}}
+                  {user.name}
+                </Link>
+              </Table.Cell>
               <Table.Cell>{user.email}</Table.Cell>
               <Table.Cell>{t(`role.${user.role}`)}</Table.Cell>
               <Table.Cell>

@@ -1,0 +1,64 @@
+import { Button, Card, Descriptions, Tag, Text } from "@skeinui/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate{{#if tenant}}, useParams{{/if}} } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { Page } from "@/skein-shell";
+import { fetchUser, userKeys } from "./api";
+import { useUsersTranslation } from "./locales";
+
+/** {{#if tenant}}/<tenant>{{/if}}/users/<id>: one user{{#if tenant}} of the tenant. A user of another tenant is not found{{else}}; one that doesn't exist is not found{{/if}} (404 from the API). */
+export function UserDetailPage({ id }: { id: number }) {
+  const { t, i18n } = useUsersTranslation();
+  const navigate = useNavigate();
+{{#if tenant}}
+  const { tenant } = useParams({ strict: false });
+{{/if}}
+  const { data: user, error } = useQuery({
+    queryKey: userKeys.detail(id),
+    queryFn: () => fetchUser(id),
+  });
+  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });
+
+  return (
+    <Page
+      title={user?.name ?? (error ? t("detail.notFound") : t("loading"))}
+      actions={
+        <Button
+          startContent={<ArrowLeft size={16} />}
+          onClick={() => void navigate({ to: {{#if tenant}}`/${tenant}/users`{{else}}"/users"{{/if}} })}
+        >
+          {t("detail.back")}
+        </Button>
+      }
+    >
+      <Card>
+        <Card.Body>
+          {error ? (
+            <Text tone="secondary">{t("detail.notFoundHint", { id })}</Text>
+          ) : (
+            <Descriptions
+              column={2}
+              items={[
+                { label: t("col.name"), value: user?.name },
+                { label: t("col.email"), value: user?.email },
+                { label: t("col.role"), value: user ? t(`role.${user.role}`) : undefined },
+                {
+                  label: t("col.status"),
+                  value: user ? (
+                    <Tag variant="soft" color={user.status === "active" ? "success" : "neutral"}>
+                      {t(`status.${user.status}`)}
+                    </Tag>
+                  ) : undefined,
+                },
+                {
+                  label: t("col.createdAt"),
+                  value: user ? date.format(new Date(user.createdAt)) : undefined,
+                },
+              ]}
+            />
+          )}
+        </Card.Body>
+      </Card>
+    </Page>
+  );
+}

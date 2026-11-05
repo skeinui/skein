@@ -1,5 +1,8 @@
 {{#if auth}}
 import { useAuthStore } from "@/store/auth-store";
+{{#if tenant}}
+import { useTenantStore } from "@/store/tenant-store";
+{{/if}}
 
 {{/if}}
 /**
@@ -56,6 +59,11 @@ async function request<T>(
 {{#if auth}}
   if (token && !requestHeaders.has("Authorization"))
     requestHeaders.set("Authorization", `Bearer ${token}`);
+{{/if}}
+{{#if tenant}}
+  // The tenant picked in the switcher (modules/tenant-switcher): the API answers for that tenant
+  const tenantId = useTenantStore.getState().tenantId;
+  if (tenantId && !requestHeaders.has("X-Tenant-Id")) requestHeaders.set("X-Tenant-Id", tenantId);
 {{/if}}
   const res = await fetch(`${BASE_URL}${url}${queryString(params)}`, {
     ...init,

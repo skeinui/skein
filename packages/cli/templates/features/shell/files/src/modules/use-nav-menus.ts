@@ -6,25 +6,32 @@ import { pageTree } from "@/lib/page-meta";
 import type { PageEntry } from "@/lib/page-meta";
 import { fetchUserMenus } from "@/pages/login/api";
 import { settings } from "@/settings";
+{{#if tenant}}
+import { useTenant } from "./tenant-switcher/use-tenant";
+{{/if}}
 
 function toItems(
   entries: PageEntry[],
   lang: "zh" | "en",
   allowed: Set<string> | null,
+{{#if tenant}}
+  /** `/acme`: the pages are under their tenant. */
+  prefix: string,
+{{/if}}
 ): AdminNavItem[] {
   return entries.flatMap((entry): AdminNavItem[] => {
     const { meta, path } = entry;
     if (meta.hidden) return [];
-    const children = toItems(entry.children, lang, allowed);
+    const children = toItems(entry.children, lang, allowed{{#if tenant}}, prefix{{/if}});
     // A group without a visible page is left out; so is a page the user may not open
     if (meta.isGroup && children.length === 0) return [];
     if (!meta.isGroup && allowed && !allowed.has(path)) return [];
     return [
       {
-        key: path,
+        key: {{#if tenant}}`${prefix}${path}`{{else}}path{{/if}},
         label: meta.label[lang],
         icon: meta.icon ? createElement(meta.icon, { size: 16 }) : undefined,
-        ...(meta.isGroup ? { children } : { href: path }),
+        ...(meta.isGroup ? { children } : { href: {{#if tenant}}`${prefix}${path}`{{else}}path{{/if}} }),
       },
     ];
   });
@@ -34,6 +41,10 @@ function toItems(
 export function useNavMenus(): AdminNavItem[] {
   const { i18n } = useTranslation();
   const lang = i18n.language.startsWith("zh") ? "zh" : "en";
+{{#if tenant}}
+  const { tenantId } = useTenant();
+  const prefix = `/${tenantId ?? ""}`;
+{{/if}}
   const { data: allowedPaths } = useQuery({
     queryKey: ["user", "menus"],
     queryFn: fetchUserMenus,
@@ -41,6 +52,6 @@ export function useNavMenus(): AdminNavItem[] {
   });
   return useMemo(() => {
     if (settings.menuPermission && !allowedPaths) return [];
-    return toItems(pageTree(), lang, allowedPaths ? new Set(allowedPaths) : null);
-  }, [lang, allowedPaths]);
+    return toItems(pageTree(), lang, allowedPaths ? new Set(allowedPaths) : null{{#if tenant}}, prefix{{/if}});
+  }, [lang, allowedPaths{{#if tenant}}, prefix{{/if}}]);
 }

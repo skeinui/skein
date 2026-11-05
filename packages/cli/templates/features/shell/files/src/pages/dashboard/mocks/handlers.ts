@@ -1,10 +1,11 @@
 {{#if mock}}
 import { http, HttpResponse, delay } from "msw";
-import { users } from "@/pages/users/mocks/users-data";
+import { usersOf } from "@/pages/users/mocks/users-data";
 
 export const handlers = [
-  http.get("*/api/dashboard/stats", async () => {
+  http.get("*/api/dashboard/stats", async ({ request }) => {
     await delay(200);
+    const users = usersOf(request);
     return HttpResponse.json({
       data: {
         users: users.length,
