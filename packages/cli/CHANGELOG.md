@@ -1,5 +1,11 @@
 # @skeinui/cli
 
+## 0.0.5
+
+### Patch Changes
+
+- c7b2962: Windows: commands that edit a project (`theme use` / `add` / `init --use`, `new page`, …) work on files with CRLF line endings and keep them; the paths `skein create`, `new`, `check` report (`--json`, MCP) use `/`; `skein create` copies `public/` as it is and renames `_gitignore` in every directory.
+
 ## 0.0.4
 
 ### Patch Changes

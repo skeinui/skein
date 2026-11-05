@@ -1,6 +1,6 @@
 {
   "package": "@skeinui/ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "rules": [
     "Components take no className / style: all visuals come from the theme style (@skeinui/themes/<style> or your own). Lay out with Flex / Grid / Row / Col, or wrap in your own element.",
     "Pass variants as values (variant, color, size, radius); the allowed values are listed per prop.",
