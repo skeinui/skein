@@ -3,8 +3,8 @@
 # - A push to main with changesets in .changeset/ opens (or updates) the "Version packages" pull request: the
 #   versions bumped, the CHANGELOGs written, the manifest refreshed (`pnpm version-packages`).
 # - Merging it (or pushing versions bumped locally) leaves versions that npm doesn't have yet: the publish job waits
-#   for an approval in the `npm` environment, runs the checks and the tests, publishes with `changeset publish` and
-#   pushes the tags.
+#   for an approval in the `npm` environment, runs the checks and the tests, publishes with `changeset publish`, then
+#   tags the version (`v0.0.6`: one tag for the five packages) and creates its GitHub Release.
 #
 # Publishing uses npm's trusted publishing: no token, GitHub's OIDC identity of this workflow, and npm adds
 # provenance. Each package is set up on npmjs.com (Settings → Trusted publishing: skeinui/skein, release.yml,
@@ -84,20 +84,28 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: check and test
         run: pnpm exec vp check && pnpm exec vp run -r test
-      # changeset publish tags with `git tag -m` (annotated), which needs an identity; without one each tag fails
-      # and changesets doesn't say so
-      - name: git identity for the tags
+      # The release's tag is annotated (`git tag -a`), which needs an identity: the runner has none
+      - name: git identity for the tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: publish ${{ needs.version.outputs.unpublished }}
         run: pnpm release
-      - name: push the tags
+      # One tag and one GitHub Release per version (the packages are one fixed group), notes from the CHANGELOGs.
+      # Both are skipped when they exist already, so a re-run after a failure finishes the job.
+      - name: tag and GitHub Release
         env:
-          UNPUBLISHED: ${{ needs.version.outputs.unpublished }}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git push origin --tags
-          # Every package published has its tag on GitHub
-          for tag in $UNPUBLISHED; do
-            git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null || { echo "::error::tag $tag is missing"; exit 1; }
-          done
+          version=$(node -p "require('./packages/ui/package.json').version")
+          if git ls-remote --exit-code --tags origin "refs/tags/v$version" > /dev/null; then
+            echo "v$version is on GitHub already"
+          else
+            git tag -a "v$version" -m "Skein UI $version"
+            git push origin "v$version"
+          fi
+          git ls-remote --exit-code --tags origin "refs/tags/v$version" > /dev/null || { echo "::error::tag v$version is missing"; exit 1; }
+          if ! gh release view "v$version" > /dev/null 2>&1; then
+            node scripts/release-notes.mjs "$version" > "$RUNNER_TEMP/notes.md"
+            gh release create "v$version" --verify-tag --title "Skein UI $version" --notes-file "$RUNNER_TEMP/notes.md"
+          fi

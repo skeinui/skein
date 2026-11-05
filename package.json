@@ -9,7 +9,7 @@
     "dev": "vp run skein-doc#dev",
     "changeset": "changeset",
     "version-packages": "changeset version && pnpm --filter @skeinui/ui manifest",
-    "release": "changeset publish",
+    "release": "changeset publish --no-git-tag",
     "clean": "node scripts/clean.mjs"
   },
   "devDependencies": {
