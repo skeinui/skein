@@ -39,7 +39,7 @@
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
-    "description": "组件不带任何样式，只写下面这些钩子；主题风格用属性选择器给它们上样式，例如 `[data-theme-style=\"x\"] [data-slot=\"button\"][data-variant=\"solid\"]`。",
+    "description": "组件不带任何样式，只写下面这些钩子；主题风格用属性选择器给它们上样式，例如 `[data-skein-theme=\"x\"] [data-slot=\"button\"][data-variant=\"solid\"]`。",
     "hook": "钩子",
     "sameAsProps": "同 props",
     "slot": "结构钩子，主题风格用它选中各部件",

@@ -139,7 +139,7 @@ function ToastList() {
  * Place it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear.
  * For a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.
  *
- * Theme style: toasts render in a Portal, so data-theme-style must be set on <html> (ConfigProvider does it).
+ * Theme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).
  */
 export function Toaster({
   position = "bottom-right",

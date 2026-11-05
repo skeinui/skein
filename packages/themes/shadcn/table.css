@@ -2,19 +2,19 @@
 
 @layer ui-style {
   /* Table: the container handles scrolling and the outer frame; header / row / cell heights, dividers and hover colors all live here. */
-  [data-theme-style="shadcn"] [data-slot="table-container"] {
+  [data-skein-theme="shadcn"] [data-slot="table-container"] {
     position: relative;
     width: 100%;
     overflow: auto;
   }
-  [data-theme-style="shadcn"] [data-slot="table-container"][data-bordered] {
+  [data-skein-theme="shadcn"] [data-slot="table-container"][data-bordered] {
     border: 1px solid var(--ui-border);
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="shadcn"] [data-slot="table-container"][data-sticky] {
+  [data-skein-theme="shadcn"] [data-slot="table-container"][data-sticky] {
     height: 100%;
   }
-  [data-theme-style="shadcn"] [data-slot="table"] {
+  [data-skein-theme="shadcn"] [data-slot="table"] {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -24,7 +24,7 @@
     line-height: 1.25rem;
     caption-side: bottom;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"] {
     position: relative;
     height: calc(2.5rem * var(--ui-density));
     padding: 0 calc(0.5rem * var(--ui-density));
@@ -37,31 +37,31 @@
     vertical-align: middle;
     white-space: nowrap;
   }
-  [data-theme-style="shadcn"] [data-slot="table-header"] {
+  [data-skein-theme="shadcn"] [data-slot="table-header"] {
     background-color: transparent;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-container"][data-sticky]
     [data-slot="table-header"] {
     position: sticky;
     top: 0;
     z-index: 10;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-align="center"],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-align="center"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-align="center"],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-align="center"] {
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-align="end"],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-align="end"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-align="end"],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-align="end"] {
     text-align: end;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-kind="select"],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-kind="select"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-kind="select"],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-kind="select"] {
     width: calc(2.5rem * var(--ui-density));
     padding-inline: 0;
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="table-sort-button"] {
+  [data-skein-theme="shadcn"] [data-slot="table-sort-button"] {
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
@@ -78,74 +78,74 @@
     outline: none;
     user-select: none;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-head"][data-align="center"]
     [data-slot="table-sort-button"] {
     justify-content: center;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-head"][data-align="end"]
     [data-slot="table-sort-button"] {
     justify-content: flex-end;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head-content"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head-content"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  [data-theme-style="shadcn"] [data-slot="table-sort-button"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="table-sort-button"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
     border-radius: var(--ui-radius-sm);
   }
-  [data-theme-style="shadcn"] [data-slot="table-sort-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="table-sort-icon"] {
     display: inline-flex;
     flex: none;
     opacity: 0;
     transition: opacity 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="table-sort-icon"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="table-sort-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-head"][data-sortable]:hover
     [data-slot="table-sort-icon"] {
     opacity: 0.6;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-sort] [data-slot="table-sort-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-sort] [data-slot="table-sort-icon"] {
     opacity: 1;
   }
   /* Only the arrow for the current direction lights up; with no sorting both are dim */
-  [data-theme-style="shadcn"] [data-slot="table-sort-icon"] [data-part] {
+  [data-skein-theme="shadcn"] [data-slot="table-sort-icon"] [data-part] {
     opacity: 0.45;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-sort="asc"] [data-part="up"],
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-sort="desc"] [data-part="down"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-sort="asc"] [data-part="up"],
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-sort="desc"] [data-part="down"] {
     opacity: 1;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-sort="asc"] [data-part="down"],
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-sort="desc"] [data-part="up"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-sort="asc"] [data-part="down"],
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-sort="desc"] [data-part="up"] {
     opacity: 0.2;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-sortable]:hover {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-sortable]:hover {
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="table-row"] {
+  [data-skein-theme="shadcn"] [data-slot="table-row"] {
     height: auto;
     transition: background-color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="table-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="table-cell"] {
     padding: calc(0.5rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
     border-bottom: 1px solid var(--ui-border);
     vertical-align: middle;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-body"]
     [data-slot="table-row"]:last-child
     [data-slot="table-cell"] {
     border-bottom-color: transparent;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table"][data-hoverable]
     [data-slot="table-body"]
     [data-slot="table-row"]:hover {
@@ -153,104 +153,104 @@
     --_row-tint: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
   }
   /* Zebra stripes: normally by nth-child; when the body has expanded content rows the row order is thrown off, so the component marks even data rows with data-stripe instead (and the body with data-stripe-managed) */
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table"][data-striped]
     [data-slot="table-body"]:where(:not([data-stripe-managed]))
     [data-slot="table-row"]:nth-child(even),
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table"][data-striped]
     [data-slot="table-body"][data-stripe-managed]
     [data-slot="table-row"][data-stripe] {
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
     --_row-tint: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
   }
-  [data-theme-style="shadcn"] [data-slot="table-row"][data-selected],
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"] [data-slot="table-row"][data-selected],
+  [data-skein-theme="shadcn"]
     [data-slot="table"][data-hoverable]
     [data-slot="table-body"]
     [data-slot="table-row"][data-selected]:hover {
     background-color: var(--ui-c-neutral-soft);
     --_row-tint: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-head"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-head"] {
     height: calc(2.25rem * var(--ui-density));
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-cell"] {
     padding-block: calc(0.25rem * var(--ui-density));
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-row"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-row"] {
     height: auto;
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-head"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-head"] {
     height: calc(2.75rem * var(--ui-density));
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-cell"] {
     padding-block: calc(0.75rem * var(--ui-density));
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-row"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-row"] {
     height: auto;
   }
-  [data-theme-style="shadcn"] [data-slot="table-footer"] [data-slot="table-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="table-footer"] [data-slot="table-cell"] {
     border-top: 1px solid var(--ui-border);
     border-bottom: 0;
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
     --_row-tint: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
     font-weight: 500;
   }
-  [data-theme-style="shadcn"] [data-slot="table-caption"] {
+  [data-skein-theme="shadcn"] [data-slot="table-caption"] {
     margin-top: 1rem;
     padding: 0;
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     text-align: start;
   }
-  [data-theme-style="shadcn"] [data-slot="table-empty"] {
+  [data-skein-theme="shadcn"] [data-slot="table-empty"] {
     padding: calc(2.5rem * var(--ui-density)) calc(1rem * var(--ui-density));
     color: var(--ui-fg-muted);
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="table-row"][data-empty] {
+  [data-skein-theme="shadcn"] [data-slot="table-row"][data-empty] {
     height: auto;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table"][data-hoverable]
     [data-slot="table-row"][data-empty]:hover {
     background-color: transparent;
   }
-  [data-theme-style="shadcn"] [data-slot="table"][data-loading] [data-slot="table-body"] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-loading] [data-slot="table-body"] {
     opacity: 0.5;
     pointer-events: none;
     transition: opacity 150ms ease;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="table-row"],
-    [data-theme-style="shadcn"] [data-slot="table-sort-icon"] {
+    [data-skein-theme="shadcn"] [data-slot="table-row"],
+    [data-skein-theme="shadcn"] [data-slot="table-sort-icon"] {
       transition: none;
     }
   }
 
   /* Fixed columns: sticky to the edge with an opaque background (first --ui-bg, then the color for this row's current state on top, --_row-tint), otherwise scrolled content would show through */
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-fixed],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-fixed] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-fixed],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-fixed] {
     position: sticky;
     z-index: 1;
     background-color: var(--ui-bg);
     background-image: linear-gradient(var(--_row-tint, transparent), var(--_row-tint, transparent));
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-fixed] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-fixed] {
     z-index: 2;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-fixed="start"],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-fixed="start"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-fixed="start"],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-fixed="start"] {
     left: var(--tbl-fixed, 0);
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-fixed="end"],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-fixed="end"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-fixed="end"],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-fixed="end"] {
     right: var(--tbl-fixed, 0);
   }
   /* Scroll shadow next to the innermost fixed column: only appears while content is still hidden on that side */
-  [data-theme-style="shadcn"] [data-fixed-edge]::after {
+  [data-skein-theme="shadcn"] [data-fixed-edge]::after {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -260,19 +260,19 @@
     pointer-events: none;
     transition: opacity 0.2s;
   }
-  [data-theme-style="shadcn"] [data-fixed="start"][data-fixed-edge]::after {
+  [data-skein-theme="shadcn"] [data-fixed="start"][data-fixed-edge]::after {
     right: 0;
     translate: 100% 0;
     background: linear-gradient(to right, rgb(0 0 0 / 0.1), transparent);
   }
-  [data-theme-style="shadcn"] [data-fixed="end"][data-fixed-edge]::after {
+  [data-skein-theme="shadcn"] [data-fixed="end"][data-fixed-edge]::after {
     left: 0;
     translate: -100% 0;
     background: linear-gradient(to left, rgb(0 0 0 / 0.1), transparent);
   }
-  [data-theme-style="shadcn"] [data-scroll-x="middle"] [data-fixed][data-fixed-edge]::after,
-  [data-theme-style="shadcn"] [data-scroll-x="end"] [data-fixed="start"][data-fixed-edge]::after,
-  [data-theme-style="shadcn"] [data-scroll-x="start"] [data-fixed="end"][data-fixed-edge]::after {
+  [data-skein-theme="shadcn"] [data-scroll-x="middle"] [data-fixed][data-fixed-edge]::after,
+  [data-skein-theme="shadcn"] [data-scroll-x="end"] [data-fixed="start"][data-fixed-edge]::after,
+  [data-skein-theme="shadcn"] [data-scroll-x="start"] [data-fixed="end"][data-fixed-edge]::after {
     opacity: 1;
   }
 }
@@ -280,20 +280,20 @@
 /* Resizable column widths (Head's resizable / width) and expanded rows (ExpandButton / ExpandedRow) */
 @layer ui-style {
   /* Columns with a set width: the table uses fixed layout, the overall width is no less than the sum of column widths, and column widths match dragging exactly (leave one column without a width to absorb the remaining space) */
-  [data-theme-style="shadcn"] [data-slot="table"][data-sized] {
+  [data-skein-theme="shadcn"] [data-slot="table"][data-sized] {
     table-layout: fixed;
     width: max(100%, var(--tbl-sum));
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-width] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-width] {
     box-sizing: border-box;
     width: var(--tbl-col-w);
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-resizing] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-resizing] {
     user-select: none;
   }
-  [data-theme-style="shadcn"] [data-slot="table-resize-handle"] {
+  [data-skein-theme="shadcn"] [data-slot="table-resize-handle"] {
     position: absolute;
     inset-block: 0;
     inset-inline-end: 0;
@@ -303,7 +303,7 @@
     touch-action: none;
     outline: none;
   }
-  [data-theme-style="shadcn"] [data-slot="table-resize-handle"]::after {
+  [data-skein-theme="shadcn"] [data-slot="table-resize-handle"]::after {
     content: "";
     position: absolute;
     inset-block: 0.25rem;
@@ -313,25 +313,25 @@
     background-color: transparent;
     transition: background-color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="table-resize-handle"]:hover::after,
-  [data-theme-style="shadcn"] [data-slot="table-resize-handle"]:focus-visible::after,
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"] [data-slot="table-resize-handle"]:hover::after,
+  [data-skein-theme="shadcn"] [data-slot="table-resize-handle"]:focus-visible::after,
+  [data-skein-theme="shadcn"]
     [data-slot="table-head"][data-resizing]
     [data-slot="table-resize-handle"]::after {
     background-color: var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="table-resize-handle"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="table-resize-handle"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
     border-radius: var(--ui-radius-sm);
   }
 
-  [data-theme-style="shadcn"] [data-slot="table-head"][data-kind="expand"],
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-kind="expand"] {
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-kind="expand"],
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-kind="expand"] {
     width: calc(2.5rem * var(--ui-density));
     padding-inline: 0;
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="table-expand-button"] {
+  [data-skein-theme="shadcn"] [data-slot="table-expand-button"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -348,51 +348,51 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="table-expand-button"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="table-expand-button"] > svg {
     width: 1rem;
     height: 1rem;
     transition: rotate 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="table-expand-button"][data-expanded] > svg {
+  [data-skein-theme="shadcn"] [data-slot="table-expand-button"][data-expanded] > svg {
     rotate: 90deg;
   }
-  [data-theme-style="shadcn"] [data-slot="table-expand-button"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="table-expand-button"]:hover {
     background-color: color-mix(in srgb, transparent 92%, var(--ui-fg) 8%);
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="table-expand-button"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="table-expand-button"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [dir="rtl"] [data-slot="table-expand-button"] > svg {
+  [data-skein-theme="shadcn"] [dir="rtl"] [data-slot="table-expand-button"] > svg {
     scale: -1 1;
   }
-  [data-theme-style="shadcn"] [data-slot="table-row"][data-expanded] > [data-slot="table-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="table-row"][data-expanded] > [data-slot="table-cell"] {
     border-bottom-color: transparent;
   }
   /* An expanded data row and its content row are one block: same background (overriding zebra stripes and hover color), no divider between them */
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table"]
     [data-slot="table-body"]
     [data-slot="table-row"][data-expanded][data-expanded] {
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
     --_row-tint: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
   }
-  [data-theme-style="shadcn"] [data-slot="table-expanded-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="table-expanded-cell"] {
     padding: calc(1rem * var(--ui-density));
     border-bottom: 1px solid var(--ui-border);
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-body"]
     [data-slot="table-expanded-row"]:last-child
     > [data-slot="table-expanded-cell"] {
     border-bottom-color: transparent;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="table-expand-button"],
-    [data-theme-style="shadcn"] [data-slot="table-expand-button"] > svg,
-    [data-theme-style="shadcn"] [data-slot="table-resize-handle"]::after {
+    [data-skein-theme="shadcn"] [data-slot="table-expand-button"],
+    [data-skein-theme="shadcn"] [data-slot="table-expand-button"] > svg,
+    [data-skein-theme="shadcn"] [data-slot="table-resize-handle"]::after {
       transition: none;
     }
   }
@@ -400,7 +400,7 @@
 
 /* Inline editing (EditableCell): normally a button showing the value, the "editable" background only appears on hover; while editing the cell holds a small input / dropdown */
 @layer ui-style {
-  [data-theme-style="shadcn"] [data-slot="table-edit-trigger"] {
+  [data-skein-theme="shadcn"] [data-slot="table-edit-trigger"] {
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
@@ -418,21 +418,21 @@
     outline: none;
     transition: background-color 150ms ease;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-cell"][data-align="end"]
     [data-slot="table-edit-trigger"] {
     margin-inline: 0 -0.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="table-edit-trigger"][data-placeholder] {
+  [data-skein-theme="shadcn"] [data-slot="table-edit-trigger"][data-placeholder] {
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="shadcn"] [data-slot="table-edit-trigger"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="table-edit-trigger"]:hover {
     background-color: color-mix(in srgb, transparent 94%, var(--ui-fg) 6%);
   }
-  [data-theme-style="shadcn"] [data-slot="table-edit-trigger"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="table-edit-trigger"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="table-cell"][data-editing] {
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-editing] {
     padding-block: 0;
     /* While editing, lock this cell to its width from before editing (--tbl-edit-w is measured and set by the component), so a wide input never stretches the column */
     box-sizing: border-box;
@@ -440,12 +440,12 @@
     min-width: var(--tbl-edit-w, 0);
     max-width: var(--tbl-edit-w, none);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="table-cell"][data-editing]
     :is(input, [data-slot="select-trigger"]) {
     min-width: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="table-edit-error"] {
+  [data-skein-theme="shadcn"] [data-slot="table-edit-error"] {
     display: block;
     padding-block: calc(0.125rem * var(--ui-density)) calc(0.25rem * var(--ui-density));
     color: var(--ui-c-danger);
@@ -454,7 +454,7 @@
     white-space: normal;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="table-edit-trigger"] {
+    [data-skein-theme="shadcn"] [data-slot="table-edit-trigger"] {
       transition: none;
     }
   }

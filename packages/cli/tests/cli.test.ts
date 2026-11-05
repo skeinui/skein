@@ -119,7 +119,7 @@ describe("create", () => {
     expect(read(dir, "src", "skein.theme.ts")).toContain(
       'import "@skeinui/themes/default/index.css";',
     );
-    expect(read(dir, "index.html")).toContain('data-theme-style="default"');
+    expect(read(dir, "index.html")).toContain('data-skein-theme="default"');
     expect(existsSync(join(dir, "src", "pages", "home", "index.tsx"))).toBe(true);
     expect(existsSync(join(dir, "src", "routes"))).toBe(false);
     expect(existsSync(join(dir, ".gitignore"))).toBe(true);
@@ -504,10 +504,10 @@ describe("theme init --from --use", () => {
     const result = await themeKit("init", { name: "acme", from: "shadcn", use: true, cwd: dir });
     expect(result.files).toContain("button.css");
     const button = read(dir, "src", "theme", "button.css");
-    expect(button).toContain('[data-theme-style="acme"]');
-    expect(button).not.toContain('[data-theme-style="shadcn"]');
+    expect(button).toContain('[data-skein-theme="acme"]');
+    expect(button).not.toContain('[data-skein-theme="shadcn"]');
     expect(read(dir, "src", "skein.theme.ts")).toContain('import "./theme/index.css";');
-    expect(read(dir, "index.html")).toContain('data-theme-style="acme"');
+    expect(read(dir, "index.html")).toContain('data-skein-theme="acme"');
     // @skeinui/themes stays installed (nothing of it is imported any more), so theme use needs no install
     expect(pkgOf(dir).dependencies["@skeinui/themes"]).toBeDefined();
     expect(JSON.parse(read(dir, ".skein.json"))).toMatchObject({
@@ -640,7 +640,7 @@ describe("theme use", () => {
     expect(result.changed.sort()).toEqual([".skein.json", "index.html", "src/skein.theme.ts"]);
     expect(result.needsInstall).toBe(false);
     expect(read(dir, "src", "skein.theme.ts")).toContain('export const themeStyle = "heroui";');
-    expect(read(dir, "index.html")).toContain('data-theme-style="heroui"');
+    expect(read(dir, "index.html")).toContain('data-skein-theme="heroui"');
     expect(JSON.parse(read(dir, ".skein.json")).theme).toBe("heroui");
     expect(() => useTheme({ theme: "none", cwd: dir })).toThrow("unknown theme");
     expect(() => addThemes({ themes: ["shadcn"], cwd: dir })).toThrow("preferences drawer");
@@ -679,7 +679,7 @@ describe("admin: several theme styles (themeStyles in settings.ts, switched in p
     expect(used.changed.sort()).toEqual([".skein.json", "index.html", "src/settings.ts"]);
     expect(listOf(dir)).toEqual(["antd", "heroui", "default", "shadcn"]);
     expect(defaultOf(dir)).toBe("shadcn");
-    expect(read(dir, "index.html")).toContain('data-theme-style="shadcn"');
+    expect(read(dir, "index.html")).toContain('data-skein-theme="shadcn"');
 
     expect(() => removeThemes({ themes: ["shadcn"], cwd: dir })).toThrow("default theme style");
     expect(removeThemes({ themes: ["heroui", "skein"], cwd: dir }).themeStyles).toEqual([

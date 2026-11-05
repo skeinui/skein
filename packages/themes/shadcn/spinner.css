@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Spinner: a stroked arc missing a quarter (matches the official lucide loader-circle), rotation speed 1s; color follows data-color. */
-  [data-theme-style="shadcn"] [data-slot="spinner"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"] {
     display: inline-block;
     flex: none;
     box-sizing: border-box;
@@ -14,32 +14,32 @@
     pointer-events: none;
     animation: ui-spin 1s linear infinite;
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-color="neutral"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-color="neutral"] {
     color: var(
       --ui-fg
     ); /* On the official site Spinner inherits the body color; c-neutral is a light gray background, almost invisible in dark mode */
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-color="primary"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-color="primary"] {
     color: var(--ui-c-primary);
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-color="secondary"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-color="secondary"] {
     color: var(--ui-c-secondary);
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-color="success"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-color="success"] {
     color: var(--ui-c-success);
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-color="warning"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-color="warning"] {
     color: var(--ui-c-warning);
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-color="danger"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-color="danger"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-size="sm"] {
     width: 0.875rem;
     height: 0.875rem;
     border-width: 1.5px;
   }
-  [data-theme-style="shadcn"] [data-slot="spinner"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="spinner"][data-size="lg"] {
     width: 1.5rem;
     height: 1.5rem;
     border-width: 2px;
@@ -52,7 +52,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="spinner"] {
+    [data-skein-theme="shadcn"] [data-slot="spinner"] {
       animation-duration: 3s;
     }
   }

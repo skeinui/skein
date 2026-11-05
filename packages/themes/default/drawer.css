@@ -2,13 +2,13 @@
 
 @layer ui-style {
   /* Drawer: a panel sliding in from the screen edge; direction is decided by data-side, width / height by data-size; the mask and close button reuse dialog's slots. */
-  [data-theme-style="default"] [data-slot="drawer-viewport"] {
+  [data-skein-theme="default"] [data-slot="drawer-viewport"] {
     position: fixed;
     inset: 0;
     z-index: 50;
     pointer-events: none;
   }
-  [data-theme-style="default"] [data-slot="drawer"] {
+  [data-skein-theme="default"] [data-slot="drawer"] {
     position: fixed;
     box-sizing: border-box;
     display: flex;
@@ -21,10 +21,10 @@
     pointer-events: auto;
     transition: transform 250ms cubic-bezier(0.2, 0, 0, 1);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-swiping] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-swiping] {
     transition: none;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"] {
     right: 0;
     top: 0;
     bottom: 0;
@@ -34,23 +34,23 @@
 
     border-inline-start: 1px solid var(--ui-overlay-border);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"][data-starting-style],
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"][data-starting-style],
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"][data-ending-style] {
     transform: translateX(100%);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"][data-size="full"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"][data-size="full"] {
     width: 100%;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"][data-size="sm"] {
     width: 20rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"][data-size="md"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"][data-size="md"] {
     width: 28rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="right"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="right"][data-size="lg"] {
     width: 40rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"] {
     left: 0;
     top: 0;
     bottom: 0;
@@ -60,23 +60,23 @@
 
     border-inline-end: 1px solid var(--ui-overlay-border);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"][data-starting-style],
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"][data-starting-style],
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"][data-ending-style] {
     transform: translateX(-100%);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"][data-size="full"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"][data-size="full"] {
     width: 100%;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"][data-size="sm"] {
     width: 20rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"][data-size="md"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"][data-size="md"] {
     width: 28rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="left"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="left"][data-size="lg"] {
     width: 40rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"] {
     top: 0;
     left: 0;
     right: 0;
@@ -86,23 +86,23 @@
 
     border-block-end: 1px solid var(--ui-overlay-border);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"][data-starting-style],
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"][data-starting-style],
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"][data-ending-style] {
     transform: translateY(-100%);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"][data-size="full"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"][data-size="full"] {
     height: 100%;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"][data-size="sm"] {
     height: 20rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"][data-size="md"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"][data-size="md"] {
     height: 28rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="top"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="top"][data-size="lg"] {
     height: 40rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"] {
     bottom: 0;
     left: 0;
     right: 0;
@@ -112,23 +112,23 @@
 
     border-block-start: 1px solid var(--ui-overlay-border);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"][data-starting-style],
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"][data-starting-style],
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"][data-ending-style] {
     transform: translateY(100%);
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"][data-size="full"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"][data-size="full"] {
     height: 100%;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"][data-size="sm"] {
     height: 20rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"][data-size="md"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"][data-size="md"] {
     height: 28rem;
   }
-  [data-theme-style="default"] [data-slot="drawer"][data-side="bottom"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="drawer"][data-side="bottom"][data-size="lg"] {
     height: 40rem;
   }
-  [data-theme-style="default"] [data-slot="drawer-content"] {
+  [data-skein-theme="default"] [data-slot="drawer-content"] {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -138,28 +138,28 @@
     overflow-y: auto;
   }
   /* When content is too tall it scrolls inside drawer-content, instead of squashing the body and covering the bottom buttons */
-  [data-theme-style="default"] [data-slot="drawer-content"] > * {
+  [data-skein-theme="default"] [data-slot="drawer-content"] > * {
     flex-shrink: 0;
   }
-  [data-theme-style="default"] [data-slot="drawer-content"] > [data-slot="dialog-body"] {
+  [data-skein-theme="default"] [data-slot="drawer-content"] > [data-slot="dialog-body"] {
     /* No shrinking: when content is too tall drawer-content scrolls, the body must not be squashed or cover the bottom buttons */
     flex: 1 0 auto;
   }
-  [data-theme-style="default"] [data-slot="drawer-content"] > [data-slot="dialog-footer"] {
+  [data-skein-theme="default"] [data-slot="drawer-content"] > [data-slot="dialog-footer"] {
     margin-top: auto;
     padding-top: 1.25rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="drawer"] {
+    [data-skein-theme="default"] [data-slot="drawer"] {
       transition: none;
     }
   }
   /* With Drawer.Body: title / description / footer are fixed, only the Body scrolls. The close button is in the fixed header area and does not cover content scrolled up */
-  [data-theme-style="default"] [data-slot="drawer-content"]:has(> [data-slot="dialog-body"]) {
+  [data-skein-theme="default"] [data-slot="drawer-content"]:has(> [data-slot="dialog-body"]) {
     overflow: hidden;
   }
-  [data-theme-style="default"] [data-slot="drawer-content"] > [data-slot="dialog-body"] {
+  [data-skein-theme="default"] [data-slot="drawer-content"] > [data-slot="dialog-body"] {
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
@@ -168,7 +168,7 @@
     margin-inline: -1.5rem;
     padding-inline: 1.5rem;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="drawer-content"]:has(> [data-slot="dialog-body"])
     > [data-slot="dialog-description"] {
     padding-bottom: 0.75rem;

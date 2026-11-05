@@ -14,7 +14,7 @@
   },
   "styling": {
     "title": "Styling Reference",
-    "description": "PreviewCard has no CSS file of its own: its whole look comes from `popover.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "description": "PreviewCard has no CSS file of its own: its whole look comes from `popover.css`. As with every overlay, `data-skein-theme` must be set on `<html>`.",
     "hook": "Hook",
     "slots": "Popover's slots, reused; no extra styles needed",
     "preview": "Set on `popover`, for theme styles that want to tell hover cards apart"

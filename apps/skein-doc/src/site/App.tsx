@@ -164,13 +164,13 @@ export function App({ initial = null }: { initial?: OpenPage | null }) {
     const done = requestAnimationFrame(() =>
       requestAnimationFrame(() => delete root.dataset.switching),
     );
-    root.dataset.themeStyle = themeStyle;
-    root.dataset.mode = mode;
-    // Color theme and density are each one attribute: data-theme-color / data-theme-density
-    if (themeColor === "none") delete root.dataset.themeColor;
-    else root.dataset.themeColor = themeColor;
-    if (compact === "on") root.dataset.themeDensity = "compact";
-    else delete root.dataset.themeDensity;
+    root.dataset.skeinTheme = themeStyle;
+    root.dataset.skeinMode = mode;
+    // Color theme and density are each one attribute: data-skein-color / data-skein-density
+    if (themeColor === "none") delete root.dataset.skeinColor;
+    else root.dataset.skeinColor = themeColor;
+    if (compact === "on") root.dataset.skeinDensity = "compact";
+    else delete root.dataset.skeinDensity;
     // When the density slider hasn't moved (1), don't write an inline value, so the compact density's --ui-density can take effect
     if (density === 1) root.style.removeProperty("--ui-density");
     else root.style.setProperty("--ui-density", String(density));

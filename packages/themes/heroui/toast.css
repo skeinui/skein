@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Toast: a message bar fixed to a screen corner; data-position picks the corner, data-type decides the icon color. */
-  [data-theme-style="heroui"] [data-slot="toast-viewport"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"] {
     position: fixed;
     z-index: 100000;
     display: flex;
@@ -13,36 +13,36 @@
     max-width: calc(100vw - 2 * 1rem);
     pointer-events: none;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position="top-left"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position="top-left"] {
     top: 1rem;
     left: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position="top-center"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position="top-center"] {
     top: 1rem;
     left: 50%;
     translate: -50% 0;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position="top-right"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position="top-right"] {
     top: 1rem;
     right: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position="bottom-left"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position="bottom-left"] {
     bottom: 1rem;
     left: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position="bottom-center"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position="bottom-center"] {
     bottom: 1rem;
     left: 50%;
     translate: -50% 0;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position="bottom-right"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position="bottom-right"] {
     bottom: 1rem;
     right: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-position^="bottom"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-position^="bottom"] {
     flex-direction: column-reverse;
   }
-  [data-theme-style="heroui"] [data-slot="toast"] {
+  [data-skein-theme="heroui"] [data-slot="toast"] {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -65,19 +65,19 @@
       opacity 150ms cubic-bezier(0.32, 0.72, 0, 1),
       transform 350ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-starting-style],
-  [data-theme-style="heroui"] [data-slot="toast"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-starting-style],
+  [data-skein-theme="heroui"] [data-slot="toast"][data-ending-style] {
     opacity: 0;
     transform: translateY(0.5rem) scale(0.96);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-swiping] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-swiping] {
     transition: none;
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-limited] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-limited] {
     display: none;
   }
   /* Icon area 24×24 (4 padding + 16 icon); for success / warning / danger the icon and title share a color, for info only the title is colored */
-  [data-theme-style="heroui"] [data-slot="toast-icon"] {
+  [data-skein-theme="heroui"] [data-slot="toast-icon"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -88,62 +88,62 @@
     padding: 0.25rem;
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="toast-icon"] > svg {
+  [data-skein-theme="heroui"] [data-slot="toast-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="info"] [data-slot="toast-title"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="info"] [data-slot="toast-title"] {
     color: var(--ui-c-primary-text);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="success"] [data-slot="toast-icon"],
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="success"] [data-slot="toast-title"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="success"] [data-slot="toast-icon"],
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="success"] [data-slot="toast-title"] {
     color: var(--ui-c-success-text);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="warning"] [data-slot="toast-icon"],
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="warning"] [data-slot="toast-title"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="warning"] [data-slot="toast-icon"],
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="warning"] [data-slot="toast-title"] {
     color: var(--ui-c-warning-text);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="danger"] [data-slot="toast-icon"],
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="danger"] [data-slot="toast-title"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="danger"] [data-slot="toast-icon"],
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="danger"] [data-slot="toast-title"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="heroui"] [data-slot="toast-content"] {
+  [data-skein-theme="heroui"] [data-slot="toast-content"] {
     display: flex;
     flex: 1;
     flex-direction: column;
     align-self: center;
     min-width: 0;
   }
-  [data-theme-style="heroui"] [data-slot="toast-title"] {
+  [data-skein-theme="heroui"] [data-slot="toast-title"] {
     margin: 0;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast-description"] {
+  [data-skein-theme="heroui"] [data-slot="toast-description"] {
     margin: 0;
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
   /* Action button: in v3 it is a 36px-tall pill button, its background follows the toast type */
-  [data-theme-style="heroui"] [data-slot="toast"] {
+  [data-skein-theme="heroui"] [data-slot="toast"] {
     --_act: var(--ui-c-primary);
     --_act-fg: var(--ui-c-primary-fg);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="success"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="success"] {
     --_act: var(--ui-c-success);
     --_act-fg: var(--ui-c-success-fg);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="warning"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="warning"] {
     --_act: var(--ui-c-warning);
     --_act-fg: var(--ui-c-warning-fg);
   }
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="danger"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="danger"] {
     --_act: var(--ui-c-danger);
     --_act-fg: var(--ui-c-danger-fg);
   }
-  [data-theme-style="heroui"] [data-slot="toast-action"] {
+  [data-skein-theme="heroui"] [data-slot="toast-action"] {
     align-self: center;
     height: 2.25rem;
     padding: 0 1rem;
@@ -158,16 +158,16 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="heroui"] [data-slot="toast-action"]:hover {
+  [data-skein-theme="heroui"] [data-slot="toast-action"]:hover {
     background-color: color-mix(in srgb, var(--_act) 90%, var(--ui-fg));
   }
-  [data-theme-style="heroui"] [data-slot="toast-action"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="toast-action"]:focus-visible {
     box-shadow:
       0 0 0 2px var(--ui-overlay-bg),
       0 0 0 4px var(--ui-ring);
   }
   /* Close button: a small round button overlapping the top-right outer edge, shown only when hovering the toast */
-  [data-theme-style="heroui"] [data-slot="toast-close"] {
+  [data-skein-theme="heroui"] [data-slot="toast-close"] {
     position: absolute;
     top: -0.25rem;
     inset-inline-end: -0.25rem;
@@ -188,36 +188,36 @@
     pointer-events: none;
     transition: opacity 150ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  [data-theme-style="heroui"] [data-slot="toast"]:hover [data-slot="toast-close"],
-  [data-theme-style="heroui"] [data-slot="toast-close"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="toast"]:hover [data-slot="toast-close"],
+  [data-skein-theme="heroui"] [data-slot="toast-close"]:focus-visible {
     opacity: 1;
     pointer-events: auto;
   }
-  [data-theme-style="heroui"] [data-slot="toast-close"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="toast-close"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="toast-close"] > svg {
+  [data-skein-theme="heroui"] [data-slot="toast-close"] > svg {
     width: 0.75rem;
     height: 0.75rem;
   }
-  [data-theme-style="heroui"] [data-slot="toast-close"]:hover {
+  [data-skein-theme="heroui"] [data-slot="toast-close"]:hover {
     background-color: var(--ui-c-neutral-soft);
   }
 
   /* Stack mode (data-layout="stack"): the toasts behind are scaled down and hidden under the front one, and expand on hover or focus.
      --toast-index / --toast-offset-y / --toast-height / --toast-frontmost-height are set by Base UI. */
-  [data-theme-style="heroui"] [data-slot="toast-viewport"][data-layout="stack"] {
+  [data-skein-theme="heroui"] [data-slot="toast-viewport"][data-layout="stack"] {
     display: block;
     height: 0;
     --_s: -1;
     --_gap: 0.5rem;
     --_peek: 0.75rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"][data-position^="top"] {
     --_s: 1;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast"] {
     --_scale: max(0, calc(1 - var(--toast-index) * 0.1));
@@ -237,18 +237,18 @@
       )
       scale(var(--_scale));
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"][data-position^="bottom"]
     [data-slot="toast"] {
     bottom: 0;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"][data-position^="top"]
     [data-slot="toast"] {
     top: 0;
     transform-origin: top center;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast"][data-expanded] {
     height: var(--toast-height);
@@ -260,16 +260,16 @@
         )
       );
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast"][data-starting-style],
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast"][data-ending-style] {
     opacity: 1;
     transform: translateY(calc(var(--_s) * -150%));
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast"][data-limited] {
     display: flex;
@@ -277,7 +277,7 @@
     pointer-events: none;
   }
   /* Hover bridge: the gap between adjacent toasts also counts as hover, otherwise they collapse as soon as the mouse moves */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast"]::after {
     content: "";
@@ -286,30 +286,30 @@
     width: 100%;
     height: calc(var(--_gap) + 1px);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"][data-position^="bottom"]
     [data-slot="toast"]::after {
     top: 100%;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"][data-position^="top"]
     [data-slot="toast"]::after {
     bottom: 100%;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast-content"] {
     overflow: hidden;
     opacity: 1;
     transition: opacity 250ms cubic-bezier(0.32, 0.72, 0, 1);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast-content"][data-behind] {
     opacity: 0;
     pointer-events: none;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast-viewport"][data-layout="stack"]
     [data-slot="toast-content"][data-expanded] {
     opacity: 1;
@@ -317,10 +317,10 @@
   }
 
   /* loading: the icon is a spinner in the primary color; no auto-close, the caller does update / close */
-  [data-theme-style="heroui"] [data-slot="toast"][data-type="loading"] [data-slot="toast-icon"] {
+  [data-skein-theme="heroui"] [data-slot="toast"][data-type="loading"] [data-slot="toast-icon"] {
     color: var(--ui-c-primary-text, var(--ui-c-primary));
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toast"][data-type="loading"]
     [data-slot="toast-icon"]
     > svg {
@@ -332,13 +332,13 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"]
+    [data-skein-theme="heroui"]
       [data-slot="toast"][data-type="loading"]
       [data-slot="toast-icon"]
       > svg {
       animation: none;
     }
-    [data-theme-style="heroui"] [data-slot="toast"] {
+    [data-skein-theme="heroui"] [data-slot="toast"] {
       transition: none;
     }
   }

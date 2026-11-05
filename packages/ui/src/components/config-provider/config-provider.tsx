@@ -6,13 +6,13 @@ import { ConfigContext } from "./context.ts";
 import type { ConfigLabels } from "./context.ts";
 
 export interface ConfigProviderProps {
-  /** Theme style (shape, density baseline, fonts, component look), written to `<html data-theme-style>`. */
+  /** Theme style (shape, density baseline, fonts, component look), written to `<html data-skein-theme>`. */
   themeStyle?: string;
-  /** Light / dark, written to `<html data-mode>`; "system" follows the OS and updates when the OS switches. */
+  /** Light / dark, written to `<html data-skein-mode>`; "system" follows the OS and updates when the OS switches. */
   mode?: "light" | "dark" | "system";
-  /** Color theme (colors only, both light and dark sets), written to `<html data-theme-color>`; multiple can be passed, joined with spaces. */
+  /** Color theme (colors only, both light and dark sets), written to `<html data-skein-color>`; multiple can be passed, joined with spaces. */
   themeColor?: string | string[];
-  /** Density (e.g. "compact"), written to `<html data-theme-density>`; if omitted, it is the theme style's own density. */
+  /** Density (e.g. "compact"), written to `<html data-skein-density>`; if omitted, it is the theme style's own density. */
   themeDensity?: string;
   /**
    * Per-item overrides on top of theme style / color theme / density: colors, three border radius levels (`radiusSm / radius / radiusLg`, rem), density multiplier, and
@@ -27,7 +27,7 @@ export interface ConfigProviderProps {
   children?: ReactNode;
 }
 
-type Attr = "themeStyle" | "mode" | "themeColor" | "themeDensity";
+type Attr = "skeinTheme" | "skeinMode" | "skeinColor" | "skeinDensity";
 
 /** Write the value to a data-* attribute on <html>, restoring the previous one on unmount or value change. Overlays render inside a Portal, so the attribute must be on <html>. */
 function useRootAttribute(name: Attr, value: string | undefined) {
@@ -76,8 +76,8 @@ function useSystemDark(enabled: boolean, read: () => boolean) {
  * translate component text; a component's own `locale` / `labels` win. Omitted settings are left untouched, and changing
  * one does not remount the subtree.
  *
- * Theme style: settings are written to `<html>` as `data-theme-style` / `data-mode` / `data-theme-color` /
- * `data-theme-density` (on `<html>` so portalled overlays follow), `themeOverrides` as inline CSS variables on `<html>`;
+ * Theme style: settings are written to `<html>` as `data-skein-theme` / `data-skein-mode` / `data-skein-color` /
+ * `data-skein-density` (on `<html>` so portalled overlays follow), `themeOverrides` as inline CSS variables on `<html>`;
  * previous values are restored on unmount or change.
  */
 export function ConfigProvider({
@@ -90,14 +90,14 @@ export function ConfigProvider({
   labels,
   children,
 }: ConfigProviderProps) {
-  useRootAttribute("themeStyle", themeStyle);
+  useRootAttribute("skeinTheme", themeStyle);
   const resolvedMode = useResolvedMode(mode);
-  useRootAttribute("mode", resolvedMode);
+  useRootAttribute("skeinMode", resolvedMode);
   useRootAttribute(
-    "themeColor",
+    "skeinColor",
     Array.isArray(themeColor) ? themeColor.join(" ") || undefined : themeColor,
   );
-  useRootAttribute("themeDensity", themeDensity);
+  useRootAttribute("skeinDensity", themeDensity);
   const overridesKey = themeOverrides ? JSON.stringify(themeOverrides) : "";
   useEffect(() => {
     if (!themeOverrides) return;
@@ -105,7 +105,7 @@ export function ConfigProvider({
       document.documentElement,
       themeVars(
         themeOverrides,
-        resolvedMode ?? (document.documentElement.dataset.mode === "dark" ? "dark" : "light"),
+        resolvedMode ?? (document.documentElement.dataset.skeinMode === "dark" ? "dark" : "light"),
       ),
     );
     // themeOverrides is compared by content (overridesKey), so a caller creating the object inline on every render does not cause repeated writes

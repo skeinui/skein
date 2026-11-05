@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Quote: quoted text (vertical line + up to 3 lines); QuoteSelection: the "quote" button that appears above the selection after selecting text, its position reads --quote-x / --quote-y */
-  [data-theme-style="shadcn"] [data-slot="quote"] {
+  [data-skein-theme="shadcn"] [data-slot="quote"] {
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -17,13 +17,13 @@
     font-size: 0.8125rem;
     line-height: 1.5;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-source"] {
+  [data-skein-theme="shadcn"] [data-slot="quote-source"] {
     display: block;
     color: var(--ui-fg);
     font-size: 0.75rem;
     font-weight: 600;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-text"] {
+  [data-skein-theme="shadcn"] [data-slot="quote-text"] {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
@@ -31,7 +31,7 @@
     line-clamp: 3;
     overflow-wrap: anywhere;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-remove"] {
+  [data-skein-theme="shadcn"] [data-slot="quote-remove"] {
     position: absolute;
     inset-block-start: 0.25rem;
     inset-inline-end: 0.25rem;
@@ -51,21 +51,21 @@
     outline: none;
     transition: background-color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-remove"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="quote-remove"] > svg {
     width: 0.875rem;
     height: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-remove"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="quote-remove"]:hover {
     background-color: color-mix(in srgb, transparent 90%, var(--ui-fg) 10%);
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="quote-remove"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="quote-remove"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="quote-selection"] {
+  [data-skein-theme="shadcn"] [data-slot="quote-selection"] {
     position: relative;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-selection-action"] {
+  [data-skein-theme="shadcn"] [data-slot="quote-selection-action"] {
     position: absolute;
     inset-block-start: var(--quote-y, 0);
     inset-inline-start: var(--quote-x, 0);
@@ -87,10 +87,10 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="shadcn"] [data-slot="quote-selection-action"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="quote-selection-action"]:hover {
     background-color: color-mix(in srgb, var(--ui-bg) 92%, var(--ui-fg) 8%);
   }
-  [data-theme-style="shadcn"] [data-slot="quote-selection-action"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="quote-selection-action"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
 }

@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Suggestions: starter prompts in an empty conversation state - a title + a set of clickable suggestions (card grid / vertical list / small pills) */
-  [data-theme-style="shadcn"] [data-slot="suggestions"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions"] {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -11,44 +11,44 @@
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-header"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-header"] {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-title"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-title"] {
     margin: 0;
     font-size: 1.25rem;
     font-weight: 600;
     line-height: 1.4;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-description"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-description"] {
     margin: 0;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-items"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-items"] {
     display: grid;
     gap: 0.5rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="suggestions"][data-layout="grid"]
     [data-slot="suggestions-items"] {
     grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="suggestions"][data-layout="list"]
     [data-slot="suggestions-items"] {
     grid-template-columns: 1fr;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="suggestions"][data-layout="chips"]
     [data-slot="suggestions-items"] {
     display: flex;
     flex-wrap: wrap;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item"] {
     display: flex;
     align-items: flex-start;
     gap: 0.625rem;
@@ -68,13 +68,13 @@
       background-color 150ms ease,
       border-color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item"]:hover {
     background-color: color-mix(in srgb, var(--ui-bg) 94%, var(--ui-fg) 6%);
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="suggestions"][data-layout="chips"]
     [data-slot="suggestions-item"] {
     align-items: center;
@@ -82,34 +82,34 @@
     border-radius: 999px;
     font-size: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item-icon"] {
     display: inline-flex;
     flex: none;
     margin-top: 0.125rem;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item-icon"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item-text"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item-text"] {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
     min-width: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item-title"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item-title"] {
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.4;
   }
-  [data-theme-style="shadcn"] [data-slot="suggestions-item-description"] {
+  [data-skein-theme="shadcn"] [data-slot="suggestions-item-description"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.8125rem;
     line-height: 1.4;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="suggestions-item"] {
+    [data-skein-theme="shadcn"] [data-slot="suggestions-item"] {
       transition: none;
     }
   }

@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Transfer: two bordered lists on the left and right, with move buttons between them. A list = header (select all, title, selected count) + optional search box + scrollable list body. */
-  [data-theme-style="heroui"] [data-slot="transfer"] {
+  [data-skein-theme="heroui"] [data-slot="transfer"] {
     --_item-py: 0.375rem;
     display: inline-flex;
     align-items: stretch;
@@ -12,20 +12,20 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="transfer"][data-size="sm"] {
+  [data-skein-theme="heroui"] [data-slot="transfer"][data-size="sm"] {
     --_item-py: 0.25rem;
     font-size: 0.8125rem;
   }
-  [data-theme-style="heroui"] [data-slot="transfer"][data-size="lg"] {
+  [data-skein-theme="heroui"] [data-slot="transfer"][data-size="lg"] {
     --_item-py: 0.5rem;
     font-size: 1rem;
     line-height: 1.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="transfer"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="transfer"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-list"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-list"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -37,14 +37,14 @@
     /* Like Card outline, the outline is drawn with a shadow, not a real border */
     box-shadow: var(--ui-field-shadow);
   }
-  [data-theme-style="heroui"] [data-slot="transfer-header"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-header"] {
     display: flex;
     flex: none;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 0.875rem 0.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-title"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-title"] {
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -52,17 +52,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-count"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-count"] {
     flex: none;
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-search"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-search"] {
     flex: none;
     padding: 0 0.5rem 0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-body"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-body"] {
     flex: 1;
     min-height: 0;
     display: flex;
@@ -71,7 +71,7 @@
     padding: 0.25rem;
     overflow-y: auto;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-item"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-item"] {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -82,29 +82,29 @@
     transition: background-color 100ms ease;
   }
   /* Same as Select / ListBox items: hover and selected are both neutral-soft */
-  [data-theme-style="heroui"] [data-slot="transfer-item"]:hover,
-  [data-theme-style="heroui"] [data-slot="transfer-item"][data-checked] {
+  [data-skein-theme="heroui"] [data-slot="transfer-item"]:hover,
+  [data-skein-theme="heroui"] [data-slot="transfer-item"][data-checked] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="transfer-item"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="transfer-item"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-item"][data-disabled]:hover {
+  [data-skein-theme="heroui"] [data-slot="transfer-item"][data-disabled]:hover {
     background-color: transparent;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-label"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-label"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-empty"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-empty"] {
     padding: 2rem 1rem;
     color: var(--ui-fg-muted);
     text-align: center;
   }
-  [data-theme-style="heroui"] [data-slot="transfer-actions"] {
+  [data-skein-theme="heroui"] [data-slot="transfer-actions"] {
     display: flex;
     flex: none;
     flex-direction: column;
@@ -114,7 +114,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="transfer-item"] {
+    [data-skein-theme="heroui"] [data-slot="transfer-item"] {
       transition: none;
     }
   }

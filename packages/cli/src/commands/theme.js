@@ -97,7 +97,11 @@ const setHtmlThemeStyle = (writer, id) => {
   if (html)
     writer.write(
       "index.html",
-      html.replace(/(<html\b[^>]*\bdata-theme-style=")[^"]*"/, `$1${id}"`),
+      // data-theme-style: a project made before 0.0.4
+      html.replace(
+        /(<html\b[^>]*\bdata-)(?:skein-theme|theme-style)="[^"]*"/,
+        `$1skein-theme="${id}"`,
+      ),
     );
 };
 
@@ -281,8 +285,8 @@ export async function themeKit(command, { dir, name, from, use, cwd = process.cw
         mkdirSync(target, { recursive: true });
         for (const file of files) {
           const css = readFileSync(join(source, file), "utf8").replaceAll(
-            `[data-theme-style="${from}"]`,
-            `[data-theme-style="${name}"]`,
+            `[data-skein-theme="${from}"]`,
+            `[data-skein-theme="${name}"]`,
           );
           writeFileSync(join(target, file), css);
         }

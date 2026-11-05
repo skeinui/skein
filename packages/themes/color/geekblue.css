@@ -2,10 +2,10 @@
 
 /*
  * Geek blue theme: the Ant Design preset color #2f54eb, with the palette computed by antd's algorithm (theme.getDesignToken),
- * so both light and dark sets are exact values. Only the primary color changes, so it works on any theme style and can be combined with compact density: data-theme-color="geekblue" data-theme-density="compact".
+ * so both light and dark sets are exact values. Only the primary color changes, so it works on any theme style and can be combined with compact density: data-skein-color="geekblue" data-skein-density="compact".
  */
 @layer ui-color {
-  [data-theme-color~="geekblue"] {
+  [data-skein-color~="geekblue"] {
     --ui-ring: #2f54eb;
 
     --ui-c-primary: #2f54eb;
@@ -17,10 +17,10 @@
     --ui-c-primary-border: #adc6ff;
   }
 
-  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
-  [data-theme-color~="geekblue"][data-mode="dark"],
-  [data-mode="dark"] [data-theme-color~="geekblue"],
-  [data-theme-color~="geekblue"] [data-mode="dark"] {
+  /* Dark: data-skein-mode and data-skein-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-skein-color~="geekblue"][data-skein-mode="dark"],
+  [data-skein-mode="dark"] [data-skein-color~="geekblue"],
+  [data-skein-color~="geekblue"] [data-skein-mode="dark"] {
     --ui-ring: #2b4acb;
 
     --ui-c-primary: #2b4acb;

@@ -2,11 +2,11 @@
 
 @layer ui-style {
   /* Collapsible: a trigger button plus an expandable panel. The panel height animation reads Base UI's --collapsible-panel-height. */
-  [data-theme-style="shadcn"] [data-slot="collapsible"] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible"] {
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-trigger"] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-trigger"] {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -25,51 +25,51 @@
     outline: none;
     transition: color 200ms ease-out;
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-trigger"]:hover:not([data-disabled]) {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-trigger"]:hover:not([data-disabled]) {
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-trigger"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-trigger"]:focus-visible {
     border-color: var(--ui-ring);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-trigger"][data-disabled] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-trigger"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-icon"] {
     display: inline-flex;
     flex: none;
     color: var(--ui-fg-muted);
     transition: rotate 200ms ease-out;
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-icon"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="collapsible-trigger"][data-panel-open]
     [data-slot="collapsible-icon"] {
     rotate: 180deg;
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-panel"] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-panel"] {
     height: var(--collapsible-panel-height);
     overflow: hidden;
     transition: height 200ms ease-out;
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-panel"][data-starting-style],
-  [data-theme-style="shadcn"] [data-slot="collapsible-panel"][data-ending-style] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-panel"][data-starting-style],
+  [data-skein-theme="shadcn"] [data-slot="collapsible-panel"][data-ending-style] {
     height: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="collapsible-content"] {
+  [data-skein-theme="shadcn"] [data-slot="collapsible-content"] {
     padding: 0.25rem 0.25rem 0.5rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="collapsible-panel"],
-    [data-theme-style="shadcn"] [data-slot="collapsible-icon"],
-    [data-theme-style="shadcn"] [data-slot="collapsible-trigger"] {
+    [data-skein-theme="shadcn"] [data-slot="collapsible-panel"],
+    [data-skein-theme="shadcn"] [data-slot="collapsible-icon"],
+    [data-skein-theme="shadcn"] [data-slot="collapsible-trigger"] {
       transition: none;
     }
   }

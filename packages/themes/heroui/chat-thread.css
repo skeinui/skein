@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* ChatThread: message area that scrolls pinned to the bottom (role=log). The back-to-bottom button sticks to the bottom edge of the viewport at the end and takes no height itself */
-  [data-theme-style="heroui"] [data-slot="chat-thread"] {
+  [data-skein-theme="heroui"] [data-slot="chat-thread"] {
     box-sizing: border-box;
     height: 100%;
     overflow-x: hidden;
@@ -13,10 +13,10 @@
     font-family: var(--ui-font-family);
     outline: none;
   }
-  [data-theme-style="heroui"] [data-slot="chat-thread"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="chat-thread"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="chat-thread-content"] {
+  [data-skein-theme="heroui"] [data-slot="chat-thread-content"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@
     margin-inline: auto;
     padding: 1.5rem 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="chat-thread-scroll-button-wrap"] {
+  [data-skein-theme="heroui"] [data-slot="chat-thread-scroll-button-wrap"] {
     position: sticky;
     inset-block-end: 0;
     z-index: 1;
@@ -34,7 +34,7 @@
     justify-content: center;
     height: 0;
   }
-  [data-theme-style="heroui"] [data-slot="chat-thread-scroll-button-wrap"] > [data-slot="button"] {
+  [data-skein-theme="heroui"] [data-slot="chat-thread-scroll-button-wrap"] > [data-slot="button"] {
     position: absolute;
     inset-block-end: 1rem;
     background-color: var(--ui-bg);
@@ -48,7 +48,7 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"]
+    [data-skein-theme="heroui"]
       [data-slot="chat-thread-scroll-button-wrap"]
       > [data-slot="button"] {
       animation: none;

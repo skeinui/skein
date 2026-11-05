@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* TreeSelect: the trigger, clear button and tags are taken from the same set as Cascader; the overlay holds a search box and a Tree. */
-  [data-theme-style="default"] [data-slot="treeselect-trigger"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"] {
     --_bg: var(--ui-field-bg);
     --_shadow: var(--ui-field-shadow);
     box-sizing: border-box;
@@ -31,24 +31,24 @@
       box-shadow 150ms var(--ui-easing),
       background-color 150ms var(--ui-easing);
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-variant="filled"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-variant="filled"] {
     --_bg: var(--ui-field-filled-bg);
     --_shadow: 0 0 0 0 transparent;
     border-color: transparent;
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-size="sm"] {
     height: 2rem;
     font-size: 0.8125rem;
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-size="lg"] {
     height: 3rem;
     font-size: 1rem;
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-full-width] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-full-width] {
     display: flex;
     width: 100%;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="treeselect-trigger"]:hover:not(
       [data-popup-open],
       :focus-visible,
@@ -56,58 +56,58 @@
     ) {
     border-color: color-mix(in oklab, var(--ui-field-border) 75%, var(--ui-field-fg) 25%);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="treeselect-trigger"]:is(:focus-visible, [data-popup-open]) {
     border-color: var(--ui-ring);
     box-shadow:
       0 0 0 3px color-mix(in oklab, var(--ui-ring) 35%, transparent),
       var(--_shadow);
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-invalid] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-invalid] {
     border-color: var(--ui-c-danger);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="treeselect-trigger"][data-invalid]:is(:focus-visible, [data-popup-open]) {
     box-shadow:
       0 0 0 3px color-mix(in oklab, var(--ui-c-danger) 25%, transparent),
       var(--_shadow);
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-disabled] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="default"] [data-slot="treeselect-value"] {
+  [data-skein-theme="default"] [data-slot="treeselect-value"] {
     flex: 1;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="default"] [data-slot="treeselect-value"][data-placeholder] {
+  [data-skein-theme="default"] [data-slot="treeselect-value"][data-placeholder] {
     color: var(--ui-field-placeholder);
   }
-  [data-theme-style="default"] [data-slot="treeselect-icon"] {
+  [data-skein-theme="default"] [data-slot="treeselect-icon"] {
     display: inline-flex;
     flex: none;
     color: var(--ui-field-placeholder);
   }
-  [data-theme-style="default"] [data-slot="treeselect-icon"] > svg {
+  [data-skein-theme="default"] [data-slot="treeselect-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="default"] [data-slot="treeselect"] {
+  [data-skein-theme="default"] [data-slot="treeselect"] {
     position: relative;
     display: inline-flex;
   }
-  [data-theme-style="default"] [data-slot="treeselect"][data-full-width] {
+  [data-skein-theme="default"] [data-slot="treeselect"][data-full-width] {
     display: flex;
     width: 100%;
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"] {
     cursor: pointer;
   }
-  [data-theme-style="default"] [data-slot="treeselect-clear"] {
+  [data-skein-theme="default"] [data-slot="treeselect-clear"] {
     position: absolute;
     inset-block: 0;
     inset-inline-end: 2rem;
@@ -125,71 +125,71 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="default"] [data-slot="treeselect-clear"] > svg {
+  [data-skein-theme="default"] [data-slot="treeselect-clear"] > svg {
     width: 0.75rem;
     height: 0.75rem;
   }
-  [data-theme-style="default"] [data-slot="treeselect-clear"]:hover {
+  [data-skein-theme="default"] [data-slot="treeselect-clear"]:hover {
     background-color: var(--ui-c-neutral-soft);
     color: var(--ui-fg);
   }
-  [data-theme-style="default"] [data-slot="treeselect-clear"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="treeselect-clear"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="default"] [data-slot="popover"]:has([data-slot="treeselect-panel"]) {
+  [data-skein-theme="default"] [data-slot="popover"]:has([data-slot="treeselect-panel"]) {
     padding: 0;
     overflow: hidden;
   }
-  [data-theme-style="default"] [data-slot="treeselect-panel"] {
+  [data-skein-theme="default"] [data-slot="treeselect-panel"] {
     display: flex;
     align-items: stretch;
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="treeselect"]:has([data-slot="treeselect-clear"])
     [data-slot="treeselect-value"],
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="treeselect"]:has([data-slot="treeselect-clear"])
     [data-slot="treeselect-tags"] {
     padding-inline-end: 1.5rem;
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-multiple] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-multiple] {
     height: auto;
     min-height: var(--ui-height-md);
     padding-block: calc(0.25rem * var(--ui-density));
     text-align: start;
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-multiple][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-multiple][data-size="sm"] {
     min-height: var(--ui-height-sm);
   }
-  [data-theme-style="default"] [data-slot="treeselect-trigger"][data-multiple][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="treeselect-trigger"][data-multiple][data-size="lg"] {
     min-height: var(--ui-height-lg);
   }
-  [data-theme-style="default"] [data-slot="treeselect-tags"] {
+  [data-skein-theme="default"] [data-slot="treeselect-tags"] {
     display: flex;
     flex: 1;
     flex-wrap: wrap;
     gap: calc(0.25rem * var(--ui-density));
     min-width: 0;
   }
-  [data-theme-style="default"] [data-slot="treeselect-panel"] {
+  [data-skein-theme="default"] [data-slot="treeselect-panel"] {
     flex-direction: column;
   }
-  [data-theme-style="default"] [data-slot="treeselect-search"] {
+  [data-skein-theme="default"] [data-slot="treeselect-search"] {
     padding: calc(0.5rem * var(--ui-density)) calc(0.5rem * var(--ui-density))
       calc(0.25rem * var(--ui-density));
   }
-  [data-theme-style="default"] [data-slot="treeselect-panel"] {
+  [data-skein-theme="default"] [data-slot="treeselect-panel"] {
     min-width: var(--anchor-width);
   }
-  [data-theme-style="default"] [data-slot="treeselect-tree"] {
+  [data-skein-theme="default"] [data-slot="treeselect-tree"] {
     max-height: 18rem;
     overflow: auto;
     padding: calc(0.25rem * var(--ui-density));
   }
-  [data-theme-style="default"] [data-slot="treeselect-tree"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="treeselect-tree"]:focus-visible {
     outline: 2px solid var(--ui-ring);
     outline-offset: -2px;
   }

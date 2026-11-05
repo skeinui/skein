@@ -18,7 +18,7 @@
   },
   "provider": {
     "title": "ConfigProvider",
-    "p1": "`ConfigProvider` 把主题状态写到 `<html>` 上：`data-theme-style`、`data-mode`、`data-theme-color`、`data-theme-density`。必须写在 `<html>` 上，因为对话框、弹出层和下拉选择会渲染到 `<body>` 里，在应用根元素之外，也要跟随同一套主题。",
+    "p1": "`ConfigProvider` 把主题状态写到 `<html>` 上：`data-skein-theme`、`data-skein-mode`、`data-skein-color`、`data-skein-density`。必须写在 `<html>` 上，因为对话框、弹出层和下拉选择会渲染到 `<body>` 里，在应用根元素之外，也要跟随同一套主题。",
     "p2": "它还接受 `themeOverrides`（颜色、圆角、密度）、日期组件用的 `locale`，以及组件内置文案 `labels`。见[主题](/theming)。"
   },
   "language": {

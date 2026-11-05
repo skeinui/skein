@@ -14,7 +14,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "主题风格在 `drawer.css` 里处理；和其他浮层一样，`data-theme-style` 要设在 `<html>` 上。",
+    "description": "主题风格在 `drawer.css` 里处理；和其他浮层一样，`data-skein-theme` 要设在 `<html>` 上。",
     "hook": "钩子",
     "dialog": "遮罩和关闭按钮，和 Dialog 共用",
     "drawer": "固定定位层、抽屉本体（`data-side` / `data-size`）和内容层",

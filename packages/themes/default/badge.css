@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Badge: three variants solid / soft / outline, color is decided by data-color. */
-  [data-theme-style="default"] [data-slot="badge"] {
+  [data-skein-theme="default"] [data-slot="badge"] {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -17,87 +17,87 @@
     line-height: 1rem;
     white-space: nowrap;
   }
-  [data-theme-style="default"] [data-slot="badge"][data-color="neutral"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-color="neutral"] {
     --_solid: var(--ui-c-neutral);
     --_solid-fg: var(--ui-c-neutral-fg);
     --_soft: var(--ui-c-neutral-soft);
     --_text: var(--ui-c-neutral-text);
     --_line: var(--ui-c-neutral-border);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-color="primary"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-color="primary"] {
     --_solid: var(--ui-c-primary);
     --_solid-fg: var(--ui-c-primary-fg);
     --_soft: var(--ui-c-primary-soft);
     --_text: var(--ui-c-primary-text);
     --_line: var(--ui-c-primary-border);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-color="secondary"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-color="secondary"] {
     --_solid: var(--ui-c-secondary);
     --_solid-fg: var(--ui-c-secondary-fg);
     --_soft: var(--ui-c-secondary-soft);
     --_text: var(--ui-c-secondary-text);
     --_line: var(--ui-c-secondary-border);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-color="success"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-color="success"] {
     --_solid: var(--ui-c-success);
     --_solid-fg: var(--ui-c-success-fg);
     --_soft: var(--ui-c-success-soft);
     --_text: var(--ui-c-success-text);
     --_line: var(--ui-c-success-border);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-color="warning"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-color="warning"] {
     --_solid: var(--ui-c-warning);
     --_solid-fg: var(--ui-c-warning-fg);
     --_soft: var(--ui-c-warning-soft);
     --_text: var(--ui-c-warning-text);
     --_line: var(--ui-c-warning-border);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-color="danger"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-color="danger"] {
     --_solid: var(--ui-c-danger);
     --_solid-fg: var(--ui-c-danger-fg);
     --_soft: var(--ui-c-danger-soft);
     --_text: var(--ui-c-danger-text);
     --_line: var(--ui-c-danger-border);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-variant="solid"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-variant="solid"] {
     background-color: var(--_solid);
     color: var(--_solid-fg);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-variant="soft"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-variant="soft"] {
     background-color: var(--_soft);
     color: var(--_text);
     border-color: transparent;
   }
-  [data-theme-style="default"] [data-slot="badge"][data-variant="outline"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-variant="outline"] {
     border-color: var(--_line);
     border-width: 1px;
     background-color: transparent;
     color: var(--_text);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-size="sm"] {
     padding: calc(0.0625rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
     font-size: 0.6875rem;
     line-height: 1rem;
   }
-  [data-theme-style="default"] [data-slot="badge"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-size="lg"] {
     padding: calc(0.1875rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
     font-size: 0.8125rem;
     line-height: 1.25rem;
   }
 
-  [data-theme-style="default"] [data-slot="badge"][data-radius="none"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-radius="none"] {
     --_r: 0;
   }
-  [data-theme-style="default"] [data-slot="badge"][data-radius="sm"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-radius="sm"] {
     --_r: var(--ui-radius-sm);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-radius="md"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-radius="md"] {
     --_r: var(--ui-radius-md);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-radius="lg"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-radius="lg"] {
     --_r: var(--ui-radius-lg);
   }
-  [data-theme-style="default"] [data-slot="badge"][data-radius="full"] {
+  [data-skein-theme="default"] [data-slot="badge"][data-radius="full"] {
     --_r: var(--ui-radius-full);
   }
 }

@@ -11,7 +11,7 @@ export function toPackageName(name) {
   return scoped ? `@${clean(scoped[1])}/${clean(scoped[2])}` : clean(name);
 }
 
-/** A `data-theme-style` value for a blank theme style, taken from the package name. */
+/** A `data-skein-theme` value for a blank theme style, taken from the package name. */
 export function toThemeStyleName(packageName) {
   const name = packageName
     .replace(/^@[^/]+\//, "")

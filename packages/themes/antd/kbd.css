@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Kbd: aligned with antd Typography.Text keyboard: inline, 0.9em monospace, 1px gray border + 2px bottom (key thickness). */
-  [data-theme-style="antd"] [data-slot="kbd"] {
+  [data-skein-theme="antd"] [data-slot="kbd"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -20,13 +20,13 @@
     line-height: 1.571;
     user-select: none;
   }
-  [data-theme-style="antd"] [data-slot="kbd"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="kbd"][data-size="sm"] {
     font-size: 0.8em;
   }
-  [data-theme-style="antd"] [data-slot="kbd"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="kbd"][data-size="lg"] {
     font-size: 1em;
   }
-  [data-theme-style="antd"] [data-slot="kbd-group"] {
+  [data-skein-theme="antd"] [data-slot="kbd-group"] {
     display: inline-flex;
     align-items: center;
     gap: 0.2em;

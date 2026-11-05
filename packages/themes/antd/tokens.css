@@ -7,7 +7,7 @@
  * Light values; for dark see dark.css, for compact density see @skeinui/themes/density/compact.css.
  */
 @layer ui-tokens {
-  [data-theme-style="antd"] {
+  [data-skein-theme="antd"] {
     color-scheme: light;
 
     --ui-font-family:
@@ -97,8 +97,8 @@
   }
 
   /* Derived tokens: radius takes borderRadiusSM / borderRadius / borderRadiusLG, height 24 / 32 / 40 (the compact theme changes --ui-density) */
-  [data-theme-style="antd"],
-  [data-theme-style="antd"] :is([data-theme-color], [data-theme-density]) {
+  [data-skein-theme="antd"],
+  [data-skein-theme="antd"] :is([data-skein-color], [data-skein-density]) {
     --ui-radius-sm: max(0px, calc(var(--ui-radius) - 2px));
     --ui-radius-md: var(--ui-radius);
     --ui-radius-lg: calc(var(--ui-radius) + 2px);

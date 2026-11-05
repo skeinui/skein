@@ -15,8 +15,8 @@
     --code-variable: #be5047;
     --code-comment: #71737a;
   }
-  [data-mode="dark"] [data-code-theme="one"],
-  [data-code-theme="one"][data-mode="dark"] {
+  [data-skein-mode="dark"] [data-code-theme="one"],
+  [data-code-theme="one"][data-skein-mode="dark"] {
     --ui-bg: #282c34;
     --ui-surface: #282c34;
     --ui-fg: #abb2bf;

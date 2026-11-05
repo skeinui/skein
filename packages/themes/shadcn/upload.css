@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Upload: the dropzone is a dashed box whose outline turns primary on drag-over; the button variant is just a button. Below is the file list, errored rows show the reason in red text. */
-  [data-theme-style="shadcn"] [data-slot="upload"] {
+  [data-skein-theme="shadcn"] [data-slot="upload"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -11,10 +11,10 @@
     line-height: 1.25rem;
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="upload"][data-variant="button"] {
+  [data-skein-theme="shadcn"] [data-slot="upload"][data-variant="button"] {
     align-items: flex-start;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-trigger"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-trigger"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -35,18 +35,18 @@
       background-color 150ms ease,
       border-color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-trigger"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="upload-trigger"]:hover {
     background-color: var(--ui-accent);
   }
-  [data-theme-style="shadcn"] [data-slot="upload"][data-dragging] [data-slot="upload-trigger"] {
+  [data-skein-theme="shadcn"] [data-slot="upload"][data-dragging] [data-slot="upload-trigger"] {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary-soft);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-trigger"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="upload-trigger"]:focus-visible {
     border-color: var(--ui-ring);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-ring) 50%, transparent);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="upload"][data-variant="button"]
     [data-slot="upload-trigger"] {
     flex-direction: row;
@@ -58,38 +58,38 @@
     border-style: solid;
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="shadcn"] [data-slot="upload"][data-disabled] [data-slot="upload-trigger"] {
+  [data-skein-theme="shadcn"] [data-slot="upload"][data-disabled] [data-slot="upload-trigger"] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="upload"][data-disabled]
     [data-slot="upload-trigger"]:hover {
     background-color: transparent;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-icon"] {
     display: inline-flex;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-icon"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="upload-icon"] > svg {
     width: 1.5rem;
     height: 1.5rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="upload"][data-variant="button"]
     [data-slot="upload-icon"]
     > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-title"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-title"] {
     font-weight: 500;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-hint"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-hint"] {
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-list"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-list"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -97,7 +97,7 @@
     padding: 0;
     list-style: none;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item"] {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto auto auto;
     align-items: center;
@@ -107,39 +107,39 @@
     border: 1px solid var(--ui-border);
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item"][data-status="error"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item"][data-status="error"] {
     border-color: var(--ui-c-danger);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-icon"] {
     display: inline-flex;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-icon"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-icon"] > svg {
     width: 1.25rem;
     height: 1.25rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="upload-item"][data-status="done"]
     [data-slot="upload-item-icon"] {
     color: var(--ui-c-success-text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="upload-item"][data-status="error"]
     [data-slot="upload-item-icon"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-name"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-name"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-meta"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-meta"] {
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
     white-space: nowrap;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-action"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-action"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -153,43 +153,43 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-action"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-action"] > svg {
     width: 0.875rem;
     height: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-action"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-action"]:hover {
     background-color: var(--ui-c-neutral-soft);
     color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-action"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-action"]:focus-visible {
     border-color: var(--ui-ring);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-ring) 50%, transparent);
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-progress"],
-  [data-theme-style="shadcn"] [data-slot="upload-item-error"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-progress"],
+  [data-skein-theme="shadcn"] [data-slot="upload-item-error"] {
     grid-column: 1 / -1;
   }
-  [data-theme-style="shadcn"] [data-slot="upload-item-error"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-error"] {
     color: var(--ui-c-danger-text);
     font-size: 0.8125rem;
   }
 
-  [data-theme-style="shadcn"] [data-slot="upload"][data-variant="dropzone"] {
+  [data-skein-theme="shadcn"] [data-slot="upload"][data-variant="dropzone"] {
     align-items: stretch;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="upload-item"][data-status="uploading"]
     [data-slot="upload-item-meta"] {
     font-variant-numeric: tabular-nums;
   }
 
   /* File type badge: only the heroui theme style draws it, other theme styles use a generic file icon */
-  [data-theme-style="shadcn"] [data-slot="upload-item-ext"] {
+  [data-skein-theme="shadcn"] [data-slot="upload-item-ext"] {
     display: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="upload-trigger"] {
+    [data-skein-theme="shadcn"] [data-slot="upload-trigger"] {
       transition: none;
     }
   }

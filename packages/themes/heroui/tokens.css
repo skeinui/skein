@@ -7,7 +7,7 @@
  * Light values.
  */
 @layer ui-tokens {
-  [data-theme-style="heroui"] {
+  [data-skein-theme="heroui"] {
     color-scheme: light;
 
     --ui-font-family:
@@ -84,8 +84,8 @@
   }
 
   /* Derived tokens: radii are multiples of --radius (buttons use ×3 = 24px, i.e. a pill) */
-  [data-theme-style="heroui"],
-  [data-theme-style="heroui"] :is([data-theme-color], [data-theme-density]) {
+  [data-skein-theme="heroui"],
+  [data-skein-theme="heroui"] :is([data-skein-color], [data-skein-density]) {
     /* State colors: hover / pressed / stroke, derived from the background and foreground colors, so they follow when the theme changes the background */
     --ui-c-neutral-hover: color-mix(in oklab, var(--ui-c-neutral) 90%, var(--ui-c-neutral-fg) 10%);
     --ui-c-neutral-active: color-mix(in oklab, var(--ui-c-neutral) 80%, var(--ui-c-neutral-fg) 20%);
@@ -135,8 +135,8 @@
   }
 
   @media (min-width: 48rem) {
-    [data-theme-style="heroui"],
-    [data-theme-style="heroui"] :is([data-theme-color], [data-theme-density]) {
+    [data-skein-theme="heroui"],
+    [data-skein-theme="heroui"] :is([data-skein-color], [data-skein-density]) {
       --ui-height-sm: calc(2rem * var(--ui-density));
       --ui-height-md: calc(2.25rem * var(--ui-density));
       --ui-height-lg: calc(2.5rem * var(--ui-density));

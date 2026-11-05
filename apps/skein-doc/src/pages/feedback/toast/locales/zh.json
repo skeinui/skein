@@ -27,7 +27,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "主题风格在 `toast.css` 里处理。toast 渲染在 Portal 里，所以 `data-theme-style` 必须设在 `<html>` 上。",
+    "description": "主题风格在 `toast.css` 里处理。toast 渲染在 Portal 里，所以 `data-skein-theme` 必须设在 `<html>` 上。",
     "hook": "钩子",
     "viewport": "固定定位的容器，`data-position` 决定角落，z-index 放在这里",
     "toast": "单条消息：底色、描边、圆角、阴影；`data-type` 是类型",

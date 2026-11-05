@@ -662,8 +662,8 @@ export function AdminLayout({
     <div
       {...rest}
       ref={rootRef}
-      // data-theme-color: makes the theme style re-derive tokens on this element (hover color, radius steps...); when written to <html> they are recomputed anyway
-      data-theme-color={theme && themeScope === "layout" ? "custom" : undefined}
+      // data-skein-color: makes the theme style re-derive tokens on this element (hover color, radius steps...); when written to <html> they are recomputed anyway
+      data-skein-color={theme && themeScope === "layout" ? "custom" : undefined}
       data-sidebar-color={theme?.colors?.sidebar ? "" : undefined}
       data-semi-dark={semiDark ? "" : undefined}
       data-nav-theme={navTheme}
@@ -706,20 +706,20 @@ export function AdminLayout({
   );
 }
 
-/** Whether it is currently light or dark: takes the nearest ancestor with `data-mode` (or `<html>` if none) and follows it. */
+/** Whether it is currently light or dark: takes the nearest ancestor with `data-skein-mode` (or `<html>` if none) and follows it. */
 function useColorMode(ref: { current: HTMLElement | null }): ColorMode {
   const [mode, setMode] = useState<ColorMode>("light");
   useLayoutEffect(() => {
     const read = () => {
-      const el = ref.current?.closest<HTMLElement>("[data-mode]") ?? document.documentElement;
-      setMode(el.dataset.mode === "dark" ? "dark" : "light");
+      const el = ref.current?.closest<HTMLElement>("[data-skein-mode]") ?? document.documentElement;
+      setMode(el.dataset.skeinMode === "dark" ? "dark" : "light");
     };
     read();
     if (typeof MutationObserver === "undefined") return;
     const observer = new MutationObserver(read);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-mode"],
+      attributeFilter: ["data-skein-mode"],
       subtree: true,
     });
     return () => observer.disconnect();

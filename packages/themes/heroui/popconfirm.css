@@ -4,7 +4,7 @@
   /* Popconfirm: the shell (padding, background, radius, shadow, arrow) fully reuses this theme style's Popover and is not set separately,
      so it matches the other bubble styles in the same theme style; this file only lays out the content inside:
      icon and title on one row, description aligned with the title, bottom buttons on the right. Title / description font size and weight take the values of this theme style's Popover title / description. */
-  [data-theme-style="heroui"] [data-slot="popconfirm"] {
+  [data-skein-theme="heroui"] [data-slot="popconfirm"] {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: start;
@@ -16,39 +16,39 @@
     line-height: inherit;
   }
   /* Icon and the first title line are the same height and centered (the icon itself is 1em, independent of font size) */
-  [data-theme-style="heroui"] [data-slot="popconfirm-icon"] {
+  [data-skein-theme="heroui"] [data-slot="popconfirm-icon"] {
     display: inline-flex;
     align-items: center;
     height: 1lh;
     color: var(--ui-c-warning);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="popconfirm"][data-tone="danger"]
     [data-slot="popconfirm-icon"] {
     color: var(--ui-c-danger);
   }
-  [data-theme-style="heroui"] [data-slot="popconfirm-icon"] > svg {
+  [data-skein-theme="heroui"] [data-slot="popconfirm-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="popconfirm-title"] {
+  [data-skein-theme="heroui"] [data-slot="popconfirm-title"] {
     grid-column: 2;
     font-size: 0.875rem;
     font-weight: 500;
   }
   /* Without an icon, title and description start from the first column */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="popconfirm"]:not(:has([data-slot="popconfirm-icon"]))
     > :is([data-slot="popconfirm-title"], [data-slot="popconfirm-description"]) {
     grid-column: 1 / -1;
   }
-  [data-theme-style="heroui"] [data-slot="popconfirm-description"] {
+  [data-skein-theme="heroui"] [data-slot="popconfirm-description"] {
     grid-column: 2;
     margin-top: 0.25rem;
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
   }
-  [data-theme-style="heroui"] [data-slot="popconfirm-footer"] {
+  [data-skein-theme="heroui"] [data-slot="popconfirm-footer"] {
     grid-column: 1 / -1;
     display: flex;
     justify-content: flex-end;

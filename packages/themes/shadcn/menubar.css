@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Menubar: a row of top-level menu triggers; the open one stays highlighted. The overlay and menu items come from menu.css. */
-  [data-theme-style="shadcn"] [data-slot="menubar"] {
+  [data-skein-theme="shadcn"] [data-slot="menubar"] {
     display: inline-flex;
     align-items: center;
     gap: 0.125rem;
@@ -14,7 +14,7 @@
 
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="shadcn"] [data-slot="menubar-trigger"] {
+  [data-skein-theme="shadcn"] [data-slot="menubar-trigger"] {
     display: inline-flex;
     align-items: center;
     height: calc(1.5rem * var(--ui-density));
@@ -33,15 +33,15 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="shadcn"] [data-slot="menubar-trigger"]:hover,
-  [data-theme-style="shadcn"] [data-slot="menubar-trigger"][data-popup-open] {
+  [data-skein-theme="shadcn"] [data-slot="menubar-trigger"]:hover,
+  [data-skein-theme="shadcn"] [data-slot="menubar-trigger"][data-popup-open] {
     background-color: var(--ui-c-neutral-soft);
   }
   /* Nova: the trigger is outline-hidden, with no focus ring */
-  [data-theme-style="shadcn"] [data-slot="menubar-trigger"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="menubar-trigger"]:focus-visible {
     box-shadow: none;
   }
-  [data-theme-style="shadcn"] [data-slot="menubar-trigger"][data-disabled] {
+  [data-skein-theme="shadcn"] [data-slot="menubar-trigger"][data-disabled] {
     opacity: 0.5;
     pointer-events: none;
   }

@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Input / textarea / input with prefix and suffix: 1px border, on focus the border color changes and a ring is added, invalid turns red, disabled 50%. */
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"]) {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"]) {
     --_bg: var(--ui-field-bg);
     --_shadow: var(--ui-field-shadow);
     box-sizing: border-box;
@@ -24,49 +24,49 @@
       box-shadow 150ms var(--ui-easing),
       background-color 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"])::placeholder {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"])::placeholder {
     color: var(--ui-field-placeholder);
     opacity: 1;
   }
-  [data-theme-style="shadcn"] [data-slot="textarea"] {
+  [data-skein-theme="shadcn"] [data-slot="textarea"] {
     height: auto;
     min-height: 4rem;
     padding-block: 0.5rem;
     resize: vertical;
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-size="sm"] {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-size="sm"] {
     height: var(--ui-height-sm);
     font-size: 0.8125rem;
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-size="lg"] {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-size="lg"] {
     height: var(--ui-height-lg);
     font-size: 1rem;
   }
-  [data-theme-style="shadcn"] [data-slot="textarea"][data-size] {
+  [data-skein-theme="shadcn"] [data-slot="textarea"][data-size] {
     height: auto;
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-full-width] {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-full-width] {
     width: 100%;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"] {
     --_bg: var(--ui-field-filled-bg);
     --_shadow: 0 0 0 0 transparent;
     border-color: transparent;
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"]):focus {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"]):focus {
     border-color: var(--ui-ring);
     box-shadow:
       0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent),
       var(--_shadow);
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid] {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid] {
     border-color: var(--ui-invalid-border);
     box-shadow:
       0 0 0 3px var(--ui-invalid-ring),
       var(--_shadow);
   }
-  [data-theme-style="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-disabled] {
+  [data-skein-theme="shadcn"] :is([data-slot="input"], [data-slot="textarea"])[data-disabled] {
     background-color: color-mix(in oklab, var(--ui-field-border) 50%, transparent);
     opacity: 0.5;
     cursor: not-allowed;
@@ -74,22 +74,31 @@
   }
 
   /* Dark (Nova): disabled background input/80 */
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     :is([data-slot="input"], [data-slot="textarea"])[data-disabled] {
     background-color: rgb(255 255 255 / 0.12);
   }
 
   /* Dark (Nova): input group disabled background input/80; the invalid border is solid destructive (only a single input uses /50) */
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-disabled]) {
     background-color: rgb(255 255 255 / 0.12);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]) {
     border-color: var(--ui-c-danger-text);
   }
 
-  [data-theme-style="shadcn"] [data-slot="input-group"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group"] {
     --_bg: var(--ui-field-bg);
     --_shadow: var(--ui-field-shadow);
     box-sizing: border-box;
@@ -108,41 +117,41 @@
       border-color 150ms var(--ui-easing),
       box-shadow 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"] [data-slot="input-group"][data-variant="filled"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group"][data-variant="filled"] {
     --_bg: var(--ui-field-filled-bg);
     --_shadow: 0 0 0 0 transparent;
     border-color: transparent;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group"][data-size="sm"] {
     min-height: var(--ui-height-sm);
   }
-  [data-theme-style="shadcn"] [data-slot="input-group"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group"][data-size="lg"] {
     min-height: var(--ui-height-lg);
   }
-  [data-theme-style="shadcn"] [data-slot="input-group"][data-full-width] {
+  [data-skein-theme="shadcn"] [data-slot="input-group"][data-full-width] {
     display: flex;
     width: 100%;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group"]:has([data-slot="input-group-input"]:focus) {
+  [data-skein-theme="shadcn"] [data-slot="input-group"]:has([data-slot="input-group-input"]:focus) {
     border-color: var(--ui-ring);
     box-shadow:
       0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent),
       var(--_shadow);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]) {
     border-color: var(--ui-invalid-border);
     box-shadow:
       0 0 0 3px var(--ui-invalid-ring),
       var(--_shadow);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group-input"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group-input"] {
     box-sizing: border-box;
     flex: 1;
     min-width: 0;
@@ -155,30 +164,30 @@
     font: inherit;
     outline: none;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group-input"]::placeholder {
+  [data-skein-theme="shadcn"] [data-slot="input-group-input"]::placeholder {
     color: var(--ui-field-placeholder);
     opacity: 1;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group-prefix"],
-  [data-theme-style="shadcn"] [data-slot="input-group-suffix"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group-prefix"],
+  [data-skein-theme="shadcn"] [data-slot="input-group-suffix"] {
     display: inline-flex;
     align-items: center;
     align-self: stretch;
     color: var(--ui-field-placeholder);
   }
   /* Prefix / suffix leave only 0.5rem on the outer side, and 0.375rem toward the input (Nova: addon pl-2, input 6px) */
-  [data-theme-style="shadcn"] [data-slot="input-group-prefix"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group-prefix"] {
     padding-inline: 0.5rem 0;
     font-weight: 500;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group-suffix"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group-suffix"] {
     padding-inline: 0 0.5rem;
     font-weight: 500;
   }
-  [data-theme-style="shadcn"] [data-slot="input-group-prefix"] + [data-slot="input-group-input"] {
+  [data-skein-theme="shadcn"] [data-slot="input-group-prefix"] + [data-slot="input-group-input"] {
     padding-inline-start: 0.375rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="input-group-input"]:has(+ [data-slot="input-group-suffix"]) {
     padding-inline-end: 0.375rem;
   }

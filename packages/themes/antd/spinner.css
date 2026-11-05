@@ -5,7 +5,7 @@
    * Spinner: antd's four-dot rotation (one full turn in 1.2s overall, with the four dots lighting up in turn).
    * There is only one element, so ::before / ::after each draw two diagonal dots (the second dot uses box-shadow).
    */
-  [data-theme-style="antd"] [data-slot="spinner"] {
+  [data-skein-theme="antd"] [data-slot="spinner"] {
     --_s: 1.25rem;
     --_d: calc((var(--_s) - 2px) / 2);
     --_o: calc((var(--_d) + 2px) / 0.75);
@@ -19,8 +19,8 @@
     transform: rotate(45deg);
     animation: ui-spin-antd-rotate 1.2s linear infinite;
   }
-  [data-theme-style="antd"] [data-slot="spinner"]::before,
-  [data-theme-style="antd"] [data-slot="spinner"]::after {
+  [data-skein-theme="antd"] [data-slot="spinner"]::before,
+  [data-skein-theme="antd"] [data-slot="spinner"]::after {
     content: "";
     position: absolute;
     top: 0;
@@ -32,37 +32,37 @@
     transform: scale(0.75);
     animation: ui-spin-antd-move 1s linear infinite alternate;
   }
-  [data-theme-style="antd"] [data-slot="spinner"]::before {
+  [data-skein-theme="antd"] [data-slot="spinner"]::before {
     left: 0;
     box-shadow: var(--_o) var(--_o) 0 0 currentColor;
   }
-  [data-theme-style="antd"] [data-slot="spinner"]::after {
+  [data-skein-theme="antd"] [data-slot="spinner"]::after {
     right: 0;
     box-shadow: calc(var(--_o) * -1) var(--_o) 0 0 currentColor;
     animation-delay: 0.4s;
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-color="neutral"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-color="neutral"] {
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-color="primary"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-color="primary"] {
     color: var(--ui-c-primary);
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-color="secondary"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-color="secondary"] {
     color: var(--ui-c-secondary);
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-color="success"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-color="success"] {
     color: var(--ui-c-success);
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-color="warning"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-color="warning"] {
     color: var(--ui-c-warning);
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-color="danger"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-color="danger"] {
     color: var(--ui-c-danger);
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-size="sm"] {
     --_s: 0.875rem;
   }
-  [data-theme-style="antd"] [data-slot="spinner"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="spinner"][data-size="lg"] {
     --_s: 2rem;
   }
 
@@ -78,7 +78,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="spinner"] {
+    [data-skein-theme="antd"] [data-slot="spinner"] {
       animation-duration: 3s;
     }
   }

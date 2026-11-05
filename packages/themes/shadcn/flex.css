@@ -3,81 +3,81 @@
 @layer ui-style {
   /* Flex: lays out a row (or column) of things, spacing uses the theme style's scale, no spacing written in app code. */
   /* Layout primitives: the spacing scale (xs / sm / md / lg / xl) and container max width are decided by the theme style, no spacing written in app code. */
-  [data-theme-style="shadcn"] [data-slot="flex"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"] {
     display: flex;
     box-sizing: border-box;
     min-width: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-inline] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-inline] {
     display: inline-flex;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-wrap] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-wrap] {
     flex-wrap: wrap;
   }
-  [data-theme-style="shadcn"] [data-slot="flex-spacer"] {
+  [data-skein-theme="shadcn"] [data-slot="flex-spacer"] {
     flex: 1 1 auto;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-direction="row"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-direction="row"] {
     flex-direction: row;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-direction="column"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-direction="column"] {
     flex-direction: column;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-direction="row-reverse"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-direction="row-reverse"] {
     flex-direction: row-reverse;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-direction="column-reverse"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-direction="column-reverse"] {
     flex-direction: column-reverse;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-align="start"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-align="start"] {
     align-items: flex-start;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-align="center"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-align="center"] {
     align-items: center;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-align="end"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-align="end"] {
     align-items: flex-end;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-align="stretch"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-align="stretch"] {
     align-items: stretch;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-align="baseline"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-align="baseline"] {
     align-items: baseline;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-justify="start"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-justify="start"] {
     justify-content: flex-start;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-justify="center"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-justify="center"] {
     justify-content: center;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-justify="end"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-justify="end"] {
     justify-content: flex-end;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-justify="between"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-justify="between"] {
     justify-content: space-between;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-justify="around"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-justify="around"] {
     justify-content: space-around;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-justify="evenly"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-justify="evenly"] {
     justify-content: space-evenly;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-gap="none"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-gap="none"] {
     gap: 0rem;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-gap="xs"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-gap="xs"] {
     gap: 0.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-gap="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-gap="sm"] {
     gap: 0.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-gap="md"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-gap="md"] {
     gap: 1rem;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-gap="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-gap="lg"] {
     gap: 1.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="flex"][data-gap="xl"] {
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-gap="xl"] {
     gap: 2rem;
   }
 }

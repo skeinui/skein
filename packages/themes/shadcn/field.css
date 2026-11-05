@@ -2,50 +2,50 @@
 
 @layer ui-style {
   /* Form item: font size and color of the label, description and error message. */
-  [data-theme-style="shadcn"] [data-slot="field"] {
+  [data-skein-theme="shadcn"] [data-slot="field"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="shadcn"] [data-slot="field-label"] {
+  [data-skein-theme="shadcn"] [data-slot="field-label"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.375;
   }
-  [data-theme-style="shadcn"] [data-slot="field"][data-required] [data-slot="field-label"]::after {
+  [data-skein-theme="shadcn"] [data-slot="field"][data-required] [data-slot="field-label"]::after {
     margin-inline-start: 0.125rem;
     color: var(--ui-c-danger-text);
     content: "*";
   }
-  [data-theme-style="shadcn"] [data-slot="field"]:has([data-invalid]) [data-slot="field-label"] {
+  [data-skein-theme="shadcn"] [data-slot="field"]:has([data-invalid]) [data-slot="field-label"] {
     color: var(--ui-c-danger-text);
   }
   /* On the official site, a Field with data-invalid makes all its text inherit destructive, and the text inside the input is red too */
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="field"]:has([data-invalid])
     :is([data-slot="input"], [data-slot="textarea"])[data-invalid] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="shadcn"] [data-slot="field"][data-disabled] [data-slot="field-label"] {
+  [data-skein-theme="shadcn"] [data-slot="field"][data-disabled] [data-slot="field-label"] {
     opacity: 0.5;
   }
-  [data-theme-style="shadcn"] [data-slot="field-description"] {
+  [data-skein-theme="shadcn"] [data-slot="field-description"] {
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.5;
     overflow-wrap: break-word;
   }
-  [data-theme-style="shadcn"] [data-slot="field-error"] {
+  [data-skein-theme="shadcn"] [data-slot="field-error"] {
     color: var(--ui-c-danger-text);
     font-size: 0.875rem;
     line-height: 1.25rem;
     overflow-wrap: break-word;
     transition: opacity 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"] [data-slot="field-error"][data-starting-style],
-  [data-theme-style="shadcn"] [data-slot="field-error"][data-ending-style] {
+  [data-skein-theme="shadcn"] [data-slot="field-error"][data-starting-style],
+  [data-skein-theme="shadcn"] [data-slot="field-error"][data-ending-style] {
     opacity: 0;
   }
 }

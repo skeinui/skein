@@ -23,11 +23,11 @@
       "children": "内容。",
       "labels": "组件的文字，换语言时整体替换；组件自己传的 `labels` 优先。传稳定的引用，不要在 render 里内联创建对象。",
       "locale": "日期类组件默认的 locale（BCP 47，如 \"zh-CN\"）；组件自己传的 `locale` 优先。",
-      "mode": "亮 / 暗，写到 `<html data-mode>`；\"system\" 跟随系统，并在系统切换时更新。",
-      "themeColor": "配色（只管颜色，亮暗两套），写到 `<html data-theme-color>`；可以传多个，用空格连接。",
-      "themeDensity": "密度（如 \"compact\"），写到 `<html data-theme-density>`；不传就是主题风格自己的密度。",
+      "mode": "亮 / 暗，写到 `<html data-skein-mode>`；\"system\" 跟随系统，并在系统切换时更新。",
+      "themeColor": "配色（只管颜色，亮暗两套），写到 `<html data-skein-color>`；可以传多个，用空格连接。",
+      "themeDensity": "密度（如 \"compact\"），写到 `<html data-skein-density>`；不传就是主题风格自己的密度。",
       "themeOverrides": "在主题风格 / 配色 / 密度之上逐项覆盖：颜色、三档圆角（`radiusSm / radius / radiusLg`，rem）、密度倍数，和 `AdminLayout` 的 `settings.themeOverrides` 是同一份数据（设置面板导出的就是它）。写到 `<html>` 的内联 CSS 变量（浮层也跟着变），卸载或变化时还原；切换亮暗时重新计算颜色。",
-      "themeStyle": "主题风格（形状、密度基准、字体、组件外观），写到 `<html data-theme-style>`。"
+      "themeStyle": "主题风格（形状、密度基准、字体、组件外观），写到 `<html data-skein-theme>`。"
     }
   }
 }

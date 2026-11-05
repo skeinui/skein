@@ -2,24 +2,24 @@
 
 @layer ui-style {
   /* Mentions: the input is still this theme style's Input / Textarea; this file only handles the outer wrapper and the candidate list next to the caret (row styles are taken from this theme style's Select items). */
-  [data-theme-style="heroui"] [data-slot="mentions"] {
+  [data-skein-theme="heroui"] [data-slot="mentions"] {
     display: inline-flex;
     max-width: 100%;
     vertical-align: top;
   }
-  [data-theme-style="heroui"] [data-slot="mentions"][data-full-width] {
+  [data-skein-theme="heroui"] [data-slot="mentions"][data-full-width] {
     display: flex;
     width: 100%;
   }
-  [data-theme-style="heroui"] [data-slot="mentions"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="mentions"][data-disabled] {
     cursor: not-allowed;
   }
   /* The overlay has its own padding, and the list brings its own */
-  [data-theme-style="heroui"] [data-slot="popover"]:has([data-slot="mentions-list"]) {
+  [data-skein-theme="heroui"] [data-slot="popover"]:has([data-slot="mentions-list"]) {
     padding: 0;
     overflow: hidden;
   }
-  [data-theme-style="heroui"] [data-slot="mentions-list"] {
+  [data-skein-theme="heroui"] [data-slot="mentions-list"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -32,7 +32,7 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="mentions-option"] {
+  [data-skein-theme="heroui"] [data-slot="mentions-option"] {
     display: flex;
     align-items: center;
     gap: calc(0.5rem * var(--ui-density));
@@ -45,16 +45,16 @@
     user-select: none;
     transition: background-color 100ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="mentions-option"][data-active] {
+  [data-skein-theme="heroui"] [data-slot="mentions-option"][data-active] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="mentions-option"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="mentions-option"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="mentions-option"] {
+    [data-skein-theme="heroui"] [data-slot="mentions-option"] {
       transition: none;
     }
   }

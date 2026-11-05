@@ -80,7 +80,7 @@ function bundledThemes(dir) {
   return Object.fromEntries(
     BUNDLED_THEMES.map((t) => [
       t,
-      (css.match(new RegExp(`data-theme-style="?${t}"?\\]`, "g")) ?? []).length,
+      (css.match(new RegExp(`data-skein-theme="?${t}"?\\]`, "g")) ?? []).length,
     ]),
   );
 }
@@ -103,7 +103,7 @@ function themesSplit(dir, expected) {
     .filter((f) => f.endsWith(".css"))
     .map((f) => {
       const css = readFileSync(join(assets, f), "utf8");
-      return BUNDLED_THEMES.filter((t) => new RegExp(`data-theme-style="?${t}"?\\]`).test(css));
+      return BUNDLED_THEMES.filter((t) => new RegExp(`data-skein-theme="?${t}"?\\]`).test(css));
     })
     .filter((themes) => themes.length > 0);
   const byName = (a, b) => a.localeCompare(b);

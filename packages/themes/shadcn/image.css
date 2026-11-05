@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Image: a placeholder while loading, a fallback block on failure, a "preview" mask on hover; the preview is a full-screen dark viewer (zoom / rotation use --pv-* variables, see viewer.tsx) */
-  [data-theme-style="shadcn"] [data-slot="image"] {
+  [data-skein-theme="shadcn"] [data-slot="image"] {
     position: relative;
     display: inline-block;
     box-sizing: border-box;
@@ -19,24 +19,24 @@
     line-height: 0;
     vertical-align: middle;
   }
-  [data-theme-style="shadcn"] button[data-slot="image"] {
+  [data-skein-theme="shadcn"] button[data-slot="image"] {
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="shadcn"] button[data-slot="image"]:focus-visible {
+  [data-skein-theme="shadcn"] button[data-slot="image"]:focus-visible {
     box-shadow:
       0 0 0 2px var(--ui-bg),
       0 0 0 4px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="image-img"] {
+  [data-skein-theme="shadcn"] [data-slot="image-img"] {
     display: block;
     max-width: 100%;
     height: auto;
   }
-  [data-theme-style="shadcn"] [data-slot="image"][data-status="loading"] [data-slot="image-img"] {
+  [data-skein-theme="shadcn"] [data-slot="image"][data-status="loading"] [data-slot="image-img"] {
     opacity: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="image-placeholder"] {
+  [data-skein-theme="shadcn"] [data-slot="image-placeholder"] {
     position: absolute;
     inset: 0;
     display: flex;
@@ -47,11 +47,11 @@
     background-color: var(--ui-c-neutral-soft);
     animation: ui-shadcn-img-pulse 1.5s ease-in-out infinite;
   }
-  [data-theme-style="shadcn"] [data-slot="image"][data-status="loading"] {
+  [data-skein-theme="shadcn"] [data-slot="image"][data-status="loading"] {
     min-width: 6rem;
     min-height: 4rem;
   }
-  [data-theme-style="shadcn"] [data-slot="image-fallback"] {
+  [data-skein-theme="shadcn"] [data-slot="image-fallback"] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -64,7 +64,7 @@
     font-size: 2rem;
     line-height: 1.25;
   }
-  [data-theme-style="shadcn"] [data-slot="image-mask"] {
+  [data-skein-theme="shadcn"] [data-slot="image-mask"] {
     position: absolute;
     inset: 0;
     display: flex;
@@ -78,24 +78,24 @@
     opacity: 0;
     transition: opacity 300ms;
   }
-  [data-theme-style="shadcn"] button[data-slot="image"]:hover [data-slot="image-mask"],
-  [data-theme-style="shadcn"] button[data-slot="image"]:focus-visible [data-slot="image-mask"] {
+  [data-skein-theme="shadcn"] button[data-slot="image"]:hover [data-slot="image-mask"],
+  [data-skein-theme="shadcn"] button[data-slot="image"]:focus-visible [data-slot="image-mask"] {
     opacity: 1;
   }
 
   /* Preview: full-screen viewer with a dark mask that does not follow light / dark mode (photos are always viewed on a dark background) */
-  [data-theme-style="shadcn"] [data-slot="image-preview-backdrop"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-backdrop"] {
     position: fixed;
     inset: 0;
     z-index: 1080;
     background-color: rgb(0 0 0 / 0.8);
     transition: opacity 300ms;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-backdrop"][data-starting-style],
-  [data-theme-style="shadcn"] [data-slot="image-preview-backdrop"][data-ending-style] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-backdrop"][data-starting-style],
+  [data-skein-theme="shadcn"] [data-slot="image-preview-backdrop"][data-ending-style] {
     opacity: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview"] {
     position: fixed;
     inset: 0;
     z-index: 1081;
@@ -105,11 +105,11 @@
     outline: none;
     transition: opacity 300ms;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview"][data-starting-style],
-  [data-theme-style="shadcn"] [data-slot="image-preview"][data-ending-style] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview"][data-starting-style],
+  [data-skein-theme="shadcn"] [data-slot="image-preview"][data-ending-style] {
     opacity: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-stage"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-stage"] {
     position: absolute;
     inset: 0;
     display: flex;
@@ -117,7 +117,7 @@
     justify-content: center;
     overflow: hidden;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-img"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-img"] {
     max-width: 100%;
     max-height: 100%;
     transform: translate(calc(var(--pv-x, 0) * 1px), calc(var(--pv-y, 0) * 1px))
@@ -126,16 +126,16 @@
     user-select: none;
     touch-action: none;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-img"][data-zoomed] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-img"][data-zoomed] {
     cursor: grab;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-img"][data-zoomed]:active {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-img"][data-zoomed]:active {
     cursor: grabbing;
     transition: none;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"],
-  [data-theme-style="shadcn"] [data-slot="image-preview-close"],
-  [data-theme-style="shadcn"] [data-slot="image-preview-button"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"],
+  [data-skein-theme="shadcn"] [data-slot="image-preview-close"],
+  [data-skein-theme="shadcn"] [data-slot="image-preview-button"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -153,7 +153,7 @@
       background-color 300ms,
       color 300ms;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"] {
     position: absolute;
     inset-block-start: 50%;
     width: 2.625rem;
@@ -162,13 +162,13 @@
     border-radius: 50%;
     background-color: rgb(255 255 255 / 0.1);
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"][data-direction="prev"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"][data-direction="prev"] {
     inset-inline-start: 0.75rem;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"][data-direction="next"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"][data-direction="next"] {
     inset-inline-end: 0.75rem;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-toolbar"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-toolbar"] {
     position: absolute;
     inset-block-end: 2rem;
     inset-inline-start: 50%;
@@ -180,7 +180,7 @@
     border-radius: 100px;
     background-color: rgb(0 0 0 / 0.5);
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-counter"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-counter"] {
     position: absolute;
     inset-block-end: calc(100% + 1rem);
     inset-inline-start: 50%;
@@ -189,14 +189,14 @@
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="image-preview-toolbar"]
     > [data-slot="image-preview-button"] {
     width: 2.625rem;
     height: 2.625rem;
   }
   /* The close button is outside the toolbar (the toolbar has a translate, which would make fixed / absolute elements inside use it as their reference) */
-  [data-theme-style="shadcn"] [data-slot="image-preview-close"] {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-close"] {
     position: absolute;
     inset-block-start: 0.75rem;
     inset-inline-end: 0.75rem;
@@ -205,24 +205,24 @@
     border-radius: 50%;
     background-color: rgb(255 255 255 / 0.1);
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"]:hover:not(:disabled),
-  [data-theme-style="shadcn"] [data-slot="image-preview-close"]:hover,
-  [data-theme-style="shadcn"] [data-slot="image-preview-button"]:hover:not(:disabled) {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"]:hover:not(:disabled),
+  [data-skein-theme="shadcn"] [data-slot="image-preview-close"]:hover,
+  [data-skein-theme="shadcn"] [data-slot="image-preview-button"]:hover:not(:disabled) {
     color: white;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"]:focus-visible,
-  [data-theme-style="shadcn"] [data-slot="image-preview-close"]:focus-visible,
-  [data-theme-style="shadcn"] [data-slot="image-preview-button"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"]:focus-visible,
+  [data-skein-theme="shadcn"] [data-slot="image-preview-close"]:focus-visible,
+  [data-skein-theme="shadcn"] [data-slot="image-preview-button"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"]:disabled,
-  [data-theme-style="shadcn"] [data-slot="image-preview-button"]:disabled {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"]:disabled,
+  [data-skein-theme="shadcn"] [data-slot="image-preview-button"]:disabled {
     color: rgb(255 255 255 / 0.25);
     cursor: not-allowed;
   }
-  [data-theme-style="shadcn"] [data-slot="image-preview-button"] > svg,
-  [data-theme-style="shadcn"] [data-slot="image-preview-close"] > svg,
-  [data-theme-style="shadcn"] [data-slot="image-preview-nav"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="image-preview-button"] > svg,
+  [data-skein-theme="shadcn"] [data-slot="image-preview-close"] > svg,
+  [data-skein-theme="shadcn"] [data-slot="image-preview-nav"] > svg {
     width: 1em;
     height: 1em;
   }
@@ -233,16 +233,16 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="image-placeholder"] {
+    [data-skein-theme="shadcn"] [data-slot="image-placeholder"] {
       animation: none;
     }
-    [data-theme-style="shadcn"] [data-slot="image-mask"],
-    [data-theme-style="shadcn"] [data-slot="image-preview-backdrop"],
-    [data-theme-style="shadcn"] [data-slot="image-preview"],
-    [data-theme-style="shadcn"] [data-slot="image-preview-img"],
-    [data-theme-style="shadcn"] [data-slot="image-preview-nav"],
-    [data-theme-style="shadcn"] [data-slot="image-preview-close"],
-    [data-theme-style="shadcn"] [data-slot="image-preview-button"] {
+    [data-skein-theme="shadcn"] [data-slot="image-mask"],
+    [data-skein-theme="shadcn"] [data-slot="image-preview-backdrop"],
+    [data-skein-theme="shadcn"] [data-slot="image-preview"],
+    [data-skein-theme="shadcn"] [data-slot="image-preview-img"],
+    [data-skein-theme="shadcn"] [data-slot="image-preview-nav"],
+    [data-skein-theme="shadcn"] [data-slot="image-preview-close"],
+    [data-skein-theme="shadcn"] [data-slot="image-preview-button"] {
       transition: none;
     }
   }

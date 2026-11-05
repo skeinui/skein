@@ -5,7 +5,7 @@
    * Modeled on Ant Design 6's Input: 32px high, 11px padding, 1px stroke, 6px radius; on hover the stroke turns the primary hover color,
    * on focus the stroke turns primary with a 2px faint ring, invalid turns red, and disabled is gray background and gray text (no reduced opacity). filled corresponds to variant="filled".
    */
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"]) {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"]) {
     --_bg: var(--ui-field-bg);
     box-sizing: border-box;
     min-width: 0;
@@ -28,54 +28,54 @@
       box-shadow var(--ui-duration) var(--ui-easing),
       color var(--ui-duration) var(--ui-easing);
   }
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"])::placeholder {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"])::placeholder {
     color: var(--ui-field-placeholder);
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="textarea"] {
+  [data-skein-theme="antd"] [data-slot="textarea"] {
     height: auto;
     min-height: var(--ui-height-md);
     padding-block: 4px;
     resize: vertical;
   }
-  [data-theme-style="antd"] [data-slot="input"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="input"][data-size="sm"] {
     height: var(--ui-height-sm);
     padding-inline: 7px;
     border-radius: var(--ui-radius-sm);
   }
-  [data-theme-style="antd"] [data-slot="input"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="input"][data-size="lg"] {
     height: var(--ui-height-lg);
     border-radius: var(--ui-radius-lg);
     font-size: 1rem;
     line-height: 1.5;
   }
-  [data-theme-style="antd"] [data-slot="textarea"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="textarea"][data-size="sm"] {
     min-height: var(--ui-height-sm);
     padding-inline: 7px;
     border-radius: var(--ui-radius-sm);
   }
-  [data-theme-style="antd"] [data-slot="textarea"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="textarea"][data-size="lg"] {
     min-height: var(--ui-height-lg);
     padding-block: 7px;
     border-radius: var(--ui-radius-lg);
     font-size: 1rem;
     line-height: 1.5;
   }
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-full-width] {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-full-width] {
     width: 100%;
   }
 
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"] {
     --_bg: var(--ui-field-filled-bg);
     border-color: transparent;
   }
 
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="input"], [data-slot="textarea"]):hover:not(:focus, [data-disabled]) {
     border-color: var(--ui-c-primary-hover);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"]:hover:not(
       :focus,
       [data-disabled]
@@ -83,36 +83,36 @@
     border-color: transparent;
     background-color: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
   }
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"]):focus {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"]):focus {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-field-bg);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-primary) var(--ui-glow, 10%), transparent);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"]:focus {
     box-shadow: none;
   }
 
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid] {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid] {
     border-color: var(--ui-c-danger);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="input"], [data-slot="textarea"])[data-invalid]:hover:not(
       :focus,
       [data-disabled]
     ) {
     border-color: color-mix(in srgb, var(--ui-c-danger) 54%, var(--ui-field-bg));
   }
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid]:focus {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-invalid]:focus {
     border-color: var(--ui-c-danger);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 6%, transparent);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"][data-invalid] {
     background-color: var(--ui-c-danger-soft);
   }
 
-  [data-theme-style="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-disabled] {
+  [data-skein-theme="antd"] :is([data-slot="input"], [data-slot="textarea"])[data-disabled] {
     border-color: var(--ui-border);
     background-color: var(--ui-field-filled-bg);
     color: var(--ui-field-placeholder);
@@ -120,7 +120,7 @@
   }
 
   /* InputGroup corresponds to antd's affix-wrapper: the group draws the stroke and ring, and the inputs inside are transparent with no stroke */
-  [data-theme-style="antd"] [data-slot="input-group"] {
+  [data-skein-theme="antd"] [data-slot="input-group"] {
     --_bg: var(--ui-field-bg);
     box-sizing: border-box;
     display: inline-flex;
@@ -136,62 +136,62 @@
     line-height: 1.5714285714285714;
     transition: all var(--ui-duration) var(--ui-easing);
   }
-  [data-theme-style="antd"] [data-slot="input-group"][data-variant="filled"] {
+  [data-skein-theme="antd"] [data-slot="input-group"][data-variant="filled"] {
     --_bg: var(--ui-field-filled-bg);
     border-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="input-group"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="input-group"][data-size="sm"] {
     height: var(--ui-height-sm);
     padding-inline: 7px;
     border-radius: var(--ui-radius-sm);
   }
-  [data-theme-style="antd"] [data-slot="input-group"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="input-group"][data-size="lg"] {
     height: var(--ui-height-lg);
     border-radius: var(--ui-radius-lg);
     font-size: 1rem;
   }
-  [data-theme-style="antd"] [data-slot="input-group"][data-full-width] {
+  [data-skein-theme="antd"] [data-slot="input-group"][data-full-width] {
     display: flex;
     width: 100%;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="input-group"]:hover:not(
       :has([data-slot="input-group-input"]:focus, [data-slot="input-group-input"][data-disabled])
     ) {
     border-color: var(--ui-c-primary-hover);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="input-group"][data-variant="filled"]:hover:not(
       :has([data-slot="input-group-input"]:focus, [data-slot="input-group-input"][data-disabled])
     ) {
     border-color: transparent;
     background-color: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
   }
-  [data-theme-style="antd"] [data-slot="input-group"]:has([data-slot="input-group-input"]:focus) {
+  [data-skein-theme="antd"] [data-slot="input-group"]:has([data-slot="input-group-input"]:focus) {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-field-bg);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-primary) var(--ui-glow, 10%), transparent);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="input-group"][data-variant="filled"]:has([data-slot="input-group-input"]:focus) {
     box-shadow: none;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]) {
     border-color: var(--ui-c-danger);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]:focus) {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 6%, transparent);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-disabled]) {
     border-color: var(--ui-border);
     background-color: var(--ui-field-filled-bg);
     color: var(--ui-field-placeholder);
     cursor: not-allowed;
   }
-  [data-theme-style="antd"] [data-slot="input-group-input"] {
+  [data-skein-theme="antd"] [data-slot="input-group-input"] {
     box-sizing: border-box;
     flex: 1;
     min-width: 0;
@@ -203,56 +203,56 @@
     font: inherit;
     outline: none;
   }
-  [data-theme-style="antd"] [data-slot="input-group-input"]::placeholder {
+  [data-skein-theme="antd"] [data-slot="input-group-input"]::placeholder {
     color: var(--ui-field-placeholder);
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="input-group-prefix"],
-  [data-theme-style="antd"] [data-slot="input-group-suffix"] {
+  [data-skein-theme="antd"] [data-slot="input-group-prefix"],
+  [data-skein-theme="antd"] [data-slot="input-group-suffix"] {
     display: inline-flex;
     flex: none;
     align-items: center;
     color: var(--ui-field-fg);
   }
-  [data-theme-style="antd"] [data-slot="input-group-prefix"] {
+  [data-skein-theme="antd"] [data-slot="input-group-prefix"] {
     margin-inline-end: 4px;
   }
-  [data-theme-style="antd"] [data-slot="input-group-suffix"] {
+  [data-skein-theme="antd"] [data-slot="input-group-suffix"] {
     margin-inline-start: 4px;
   }
 
   /* Dark: filled hover is 12% white (--ui-fg is 85% white, and 6.8% scaled down gives only 5.8%); the invalid-state ring is 11% (6% in light) */
-  [data-theme-style="antd"][data-mode="dark"]
+  [data-skein-theme="antd"][data-skein-mode="dark"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"]:hover:not(
       :focus,
       [data-disabled]
     ),
-  [data-theme-style="antd"][data-mode="dark"]
+  [data-skein-theme="antd"][data-skein-mode="dark"]
     [data-slot="input-group"][data-variant="filled"]:hover:not(
       :has([data-slot="input-group-input"]:focus, [data-slot="input-group-input"][data-disabled])
     ),
-  [data-theme-style="antd"]
-    [data-mode="dark"]
+  [data-skein-theme="antd"]
+    [data-skein-mode="dark"]
     :is([data-slot="input"], [data-slot="textarea"])[data-variant="filled"]:hover:not(
       :focus,
       [data-disabled]
     ),
-  [data-theme-style="antd"]
-    [data-mode="dark"]
+  [data-skein-theme="antd"]
+    [data-skein-mode="dark"]
     [data-slot="input-group"][data-variant="filled"]:hover:not(
       :has([data-slot="input-group-input"]:focus, [data-slot="input-group-input"][data-disabled])
     ) {
     background-color: rgb(255 255 255 / 0.12);
   }
-  [data-theme-style="antd"][data-mode="dark"]
+  [data-skein-theme="antd"][data-skein-mode="dark"]
     :is([data-slot="input"], [data-slot="textarea"])[data-invalid]:focus,
-  [data-theme-style="antd"]
-    [data-mode="dark"]
+  [data-skein-theme="antd"]
+    [data-skein-mode="dark"]
     :is([data-slot="input"], [data-slot="textarea"])[data-invalid]:focus,
-  [data-theme-style="antd"][data-mode="dark"]
+  [data-skein-theme="antd"][data-skein-mode="dark"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]:focus),
-  [data-theme-style="antd"]
-    [data-mode="dark"]
+  [data-skein-theme="antd"]
+    [data-skein-mode="dark"]
     [data-slot="input-group"]:has([data-slot="input-group-input"][data-invalid]:focus) {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ui-c-danger) 11%, transparent);
   }

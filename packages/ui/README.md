@@ -34,7 +34,7 @@ export function App() {
 }
 ```
 
-`ConfigProvider` writes the theme state to `<html>` (`data-theme-style`, `data-mode`, `data-theme-color`, `data-theme-density`), so dialogs, popovers and selects rendered into `<body>` follow it. It also takes `themeOverrides` (colours, radius, density) and `locale` / `labels` for component text.
+`ConfigProvider` writes the theme state to `<html>` (`data-skein-theme`, `data-skein-mode`, `data-skein-color`, `data-skein-density`), so dialogs, popovers and selects rendered into `<body>` follow it. It also takes `themeOverrides` (colours, radius, density) and `locale` / `labels` for component text.
 
 ## Conventions
 

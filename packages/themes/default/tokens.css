@@ -2,7 +2,7 @@
 
 /* Skein default theme style: brand blue, larger border radius, subtle shadows. Light values. */
 @layer ui-tokens {
-  [data-theme-style="default"] {
+  [data-skein-theme="default"] {
     color-scheme: light;
 
     --ui-font-family:
@@ -76,11 +76,11 @@
 
   /*
    * Derived tokens. A theme only overrides base values such as --ui-radius / --ui-density;
-   derived values must be computed again on both the "element carrying the theme style" and "descendants with data-theme-color or data-theme-density",
+   derived values must be computed again on both the "element carrying the theme style" and "descendants with data-skein-color or data-skein-density",
    otherwise a theme set on a descendant would get the stale inherited values.
    */
-  [data-theme-style="default"],
-  [data-theme-style="default"] :is([data-theme-color], [data-theme-density]) {
+  [data-skein-theme="default"],
+  [data-skein-theme="default"] :is([data-skein-color], [data-skein-density]) {
     /* State colors: hover / pressed / border, derived from the base and foreground colors so they follow when a theme changes the base color */
     --ui-c-neutral-hover: color-mix(in oklab, var(--ui-c-neutral) 90%, var(--ui-c-neutral-fg) 10%);
     --ui-c-neutral-active: color-mix(in oklab, var(--ui-c-neutral) 80%, var(--ui-c-neutral-fg) 20%);

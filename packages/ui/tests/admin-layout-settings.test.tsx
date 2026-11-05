@@ -155,7 +155,7 @@ describe("<AdminLayout theme />", () => {
     );
   }
 
-  test("layout scope: variables on the AdminLayout root, which gets data-theme-color so the theme style recomputes derived tokens", async () => {
+  test("layout scope: variables on the AdminLayout root, which gets data-skein-color so the theme style recomputes derived tokens", async () => {
     await layout({
       settings: {
         themeOverrides: { colors: { primary: "#7c3aed", sidebar: "#001529" }, radius: 1 },
@@ -164,7 +164,7 @@ describe("<AdminLayout theme />", () => {
     const el = q('[data-slot="admin-layout"]')!;
     expect(el.style.getPropertyValue("--ui-c-primary")).toBe("#7c3aed");
     expect(el.style.getPropertyValue("--ui-radius")).toBe("1rem");
-    expect(el.dataset.themeColor).toBe("custom");
+    expect(el.dataset.skeinColor).toBe("custom");
     expect(el.hasAttribute("data-sidebar-color")).toBe(true);
     expect(document.documentElement.style.getPropertyValue("--ui-c-primary")).toBe("");
   });
@@ -175,7 +175,7 @@ describe("<AdminLayout theme />", () => {
       themeScope: "document",
     });
     expect(document.documentElement.style.getPropertyValue("--ui-c-primary")).toBe("#7c3aed");
-    expect(q('[data-slot="admin-layout"]')!.hasAttribute("data-theme-color")).toBe(false);
+    expect(q('[data-slot="admin-layout"]')!.hasAttribute("data-skein-color")).toBe(false);
     await act(async () => root!.unmount());
     root = null;
     expect(document.documentElement.style.getPropertyValue("--ui-c-primary")).toBe("");
@@ -205,19 +205,19 @@ describe("<AdminLayout theme />", () => {
     expect(q('[data-slot="admin-layout"]')!.style.getPropertyValue("--ui-c-primary")).toBe("");
   });
 
-  test("recomputed on light / dark switch (reads the nearest data-mode)", async () => {
-    document.documentElement.dataset.mode = "light";
+  test("recomputed on light / dark switch (reads the nearest data-skein-mode)", async () => {
+    document.documentElement.dataset.skeinMode = "light";
     await layout({ settings: { themeOverrides: { colors: { primary: "#2b4acb" } } } });
     const el = q('[data-slot="admin-layout"]')!;
     const light = el.style.getPropertyValue("--ui-c-primary-soft");
     await act(async () => {
-      document.documentElement.dataset.mode = "dark";
+      document.documentElement.dataset.skeinMode = "dark";
       await Promise.resolve();
     });
     await act(async () => {});
     expect(el.style.getPropertyValue("--ui-c-primary-soft")).not.toBe(light);
     await act(async () => {
-      delete document.documentElement.dataset.mode;
+      delete document.documentElement.dataset.skeinMode;
       await Promise.resolve();
     });
   });

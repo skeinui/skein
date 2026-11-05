@@ -9,7 +9,7 @@
   },
   "styling": {
     "title": "Styling Reference",
-    "description": "AlertDialog has no CSS file of its own: all its styles come from `dialog.css`. As with every overlay, `data-theme-style` must be on `<html>`.",
+    "description": "AlertDialog has no CSS file of its own: all its styles come from `dialog.css`. As with every overlay, `data-skein-theme` must be on `<html>`.",
     "hook": "Hook",
     "slots": "The same slots as Dialog, so theme styles need nothing extra",
     "alert": "Written on the dialog; theme styles can use it to style confirmation dialogs differently"

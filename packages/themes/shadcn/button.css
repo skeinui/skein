@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Structure and size (Nova): h-8 / px-2.5 / rounded-lg, sinks 1px when pressed */
-  [data-theme-style="shadcn"] [data-slot="button"] {
+  [data-skein-theme="shadcn"] [data-slot="button"] {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -29,7 +29,7 @@
       box-shadow var(--ui-duration) var(--ui-easing);
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-size="sm"] {
     height: var(--ui-height-sm);
     gap: 0.25rem;
     padding-inline: calc(0.625rem * var(--ui-density));
@@ -37,48 +37,48 @@
     font-size: 0.8rem;
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-size="lg"] {
     height: var(--ui-height-lg);
     padding-inline: calc(0.625rem * var(--ui-density));
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-icon-only] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-icon-only] {
     padding: 0;
     aspect-ratio: 1;
   }
 
   /* Semantic colors */
-  [data-theme-style="shadcn"] [data-slot="button"][data-color="neutral"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-color="neutral"] {
     --_base: var(--ui-c-neutral);
     --_on: var(--ui-c-neutral-fg);
     --_soft: var(--ui-c-neutral-soft);
     --_text: var(--ui-c-neutral-text);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-color="primary"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-color="primary"] {
     --_base: var(--ui-c-primary);
     --_on: var(--ui-c-primary-fg);
     --_soft: var(--ui-c-primary-soft);
     --_text: var(--ui-c-primary-text);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-color="secondary"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-color="secondary"] {
     --_base: var(--ui-c-secondary);
     --_on: var(--ui-c-secondary-fg);
     --_soft: var(--ui-c-secondary-soft);
     --_text: var(--ui-c-secondary-text);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-color="success"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-color="success"] {
     --_base: var(--ui-c-success);
     --_on: var(--ui-c-success-fg);
     --_soft: var(--ui-c-success-soft);
     --_text: var(--ui-c-success-text);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-color="warning"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-color="warning"] {
     --_base: var(--ui-c-warning);
     --_on: var(--ui-c-warning-fg);
     --_soft: var(--ui-c-warning-soft);
     --_text: var(--ui-c-warning-text);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-color="danger"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-color="danger"] {
     --_base: var(--ui-c-danger);
     --_on: var(--ui-c-danger-fg);
     --_soft: var(--ui-c-danger-soft);
@@ -86,178 +86,193 @@
   }
 
   /* Variants: solid lowers the opacity on hover, outline has no shadow (dark uses a semi-transparent input background) */
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="solid"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="solid"] {
     background-color: var(--_base);
     color: var(--_on);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="solid"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--_base) 80%, transparent);
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="soft"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="soft"] {
     background-color: var(--_soft);
     color: var(--_text);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="soft"]:hover:not([data-disabled]) {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="soft"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--_soft) 80%, transparent);
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="outline"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="outline"] {
     border-color: var(--ui-field-border);
     background-color: var(--ui-outline-bg);
     color: var(--_text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="outline"]:hover:not([data-disabled]) {
     background-color: var(--_soft);
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="ghost"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="ghost"] {
     background-color: transparent;
     color: var(--_text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="ghost"]:hover:not([data-disabled]) {
     background-color: var(--_soft);
   }
 
   /* faded: neutral border + light background, text uses the semantic color */
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="faded"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="faded"] {
     border-color: var(--ui-border);
     background-color: var(--ui-surface);
     color: var(--_text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="faded"]:hover:not([data-disabled]) {
     background-color: var(--_soft);
   }
 
   /* shadow: solid + shadow of the same color */
-  [data-theme-style="shadcn"] [data-slot="button"][data-variant="shadow"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-variant="shadow"] {
     background-color: var(--_base);
     color: var(--_on);
     box-shadow: 0 4px 12px -2px color-mix(in oklab, var(--_base) 40%, transparent);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="shadow"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--_base) 88%, black);
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"]:active:not([data-disabled], [aria-haspopup]) {
+  [data-skein-theme="shadcn"] [data-slot="button"]:active:not([data-disabled], [aria-haspopup]) {
     transform: translateY(1px);
   }
 
   /* Dark (Nova): secondary hover is one step lighter than secondary, outline hover is input/50, ghost hover is muted/50, destructive hover is /30 */
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="soft"][data-color="neutral"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--ui-c-neutral-soft) 95%, var(--ui-c-neutral-fg) 5%);
   }
   /* Light (Nova destructive): background destructive/10, darkens to /20 on hover, focus border /40 + ring /20 */
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="soft"][data-color="danger"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--ui-c-danger) 20%, transparent);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="soft"][data-color="danger"]:focus-visible {
     border-color: color-mix(in oklab, var(--ui-c-danger) 40%, transparent);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-c-danger) 20%, transparent);
   }
   /* aria-expanded: outline / ghost keep the muted background while expanded */
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"]:is(
       [data-variant="outline"],
       [data-variant="ghost"]
     )[data-color="neutral"][aria-expanded="true"] {
     background-color: var(--_soft);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="button"][data-variant="outline"][data-color="neutral"]:hover:not([data-disabled]) {
     background-color: rgb(255 255 255 / 0.075);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="button"][data-variant="outline"]:focus-visible {
     border-color: var(--ui-field-border);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="button"][data-variant="ghost"][data-color="neutral"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--ui-c-neutral-soft) 50%, transparent);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="button"][data-variant="soft"][data-color="danger"]:hover:not([data-disabled]) {
     background-color: rgb(255 100 103 / 0.3);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="button"][data-variant="soft"][data-color="danger"]:focus-visible {
     border-color: rgb(255 100 103 / 0.4);
     box-shadow: 0 0 0 3px rgb(255 100 103 / 0.4);
   }
 
   /* Radius: when explicitly specified it overrides the default */
-  [data-theme-style="shadcn"] [data-slot="button"][data-radius="none"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-radius="none"] {
     border-radius: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-radius="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-radius="sm"] {
     border-radius: var(--ui-radius-sm);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-radius="md"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-radius="md"] {
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-radius="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-radius="lg"] {
     border-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-radius="full"] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-radius="full"] {
     border-radius: var(--ui-radius-full);
   }
 
-  [data-theme-style="shadcn"] [data-slot="button"][data-full-width] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-full-width] {
     display: flex;
     width: 100%;
   }
 
   /* States */
-  [data-theme-style="shadcn"] [data-slot="button"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="button"]:focus-visible {
     outline: none;
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
     border-color: var(--ui-ring);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-variant="solid"][data-color="danger"]:focus-visible {
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-c-danger) 20%, transparent);
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-disabled] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="shadcn"] [data-slot="button"][data-loading] {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-loading] {
     cursor: progress;
   }
 
   /* Leading / trailing content, loading indicator */
-  [data-theme-style="shadcn"] [data-slot="button-start"],
-  [data-theme-style="shadcn"] [data-slot="button-end"] {
+  [data-skein-theme="shadcn"] [data-slot="button-start"],
+  [data-skein-theme="shadcn"] [data-slot="button-end"] {
     display: inline-flex;
     flex: none;
   }
-  [data-theme-style="shadcn"] [data-slot="button-start"] > svg,
-  [data-theme-style="shadcn"] [data-slot="button-end"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="button-start"] > svg,
+  [data-skein-theme="shadcn"] [data-slot="button-end"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="button"][data-size="sm"]
     :is([data-slot="button-start"], [data-slot="button-end"])
     > svg,
-  [data-theme-style="shadcn"] [data-slot="button"][data-size="sm"][data-icon-only] > svg {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-size="sm"][data-icon-only] > svg {
     width: 0.875rem;
     height: 0.875rem;
   }
   /* icon-only: the icon is placed directly in the button, with no start/end wrapper */
-  [data-theme-style="shadcn"] [data-slot="button"][data-icon-only] > svg {
+  [data-skein-theme="shadcn"] [data-slot="button"][data-icon-only] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="shadcn"] [data-slot="button-spinner"] {
+  [data-skein-theme="shadcn"] [data-slot="button-spinner"] {
     flex: none;
     box-sizing: border-box;
     width: 1rem;
@@ -275,10 +290,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="button"] {
+    [data-skein-theme="shadcn"] [data-slot="button"] {
       transition: none;
     }
-    [data-theme-style="shadcn"] [data-slot="button-spinner"] {
+    [data-skein-theme="shadcn"] [data-slot="button-spinner"] {
       animation-duration: 2s;
     }
   }

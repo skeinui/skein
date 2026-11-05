@@ -15,7 +15,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "AlertDialog 没有自己的 CSS 文件，样式全部来自 `dialog.css`；浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "description": "AlertDialog 没有自己的 CSS 文件，样式全部来自 `dialog.css`；浮层同样要求 `data-skein-theme` 设在 `<html>` 上。",
     "hook": "钩子",
     "slots": "和 Dialog 共用一套 slot，主题风格不用额外写",
     "alert": "写在 dialog 上，主题风格想区分确认类对话框时用它"

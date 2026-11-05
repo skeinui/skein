@@ -15,8 +15,8 @@
     --code-variable: #bd4f21;
     --code-comment: #5f747a;
   }
-  [data-mode="dark"] [data-code-theme="solarized"],
-  [data-code-theme="solarized"][data-mode="dark"] {
+  [data-skein-mode="dark"] [data-code-theme="solarized"],
+  [data-code-theme="solarized"][data-skein-mode="dark"] {
     --ui-bg: #002b36;
     --ui-surface: #002b36;
     --ui-fg: #93a1a1;

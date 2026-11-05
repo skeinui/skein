@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Masonry: items are absolutely positioned, horizontal position and width are computed from column count / gap (--ms-cols, --ms-gx), the vertical position is --ms-y measured by the component; content is hidden until layout is done */
-  [data-theme-style="default"] [data-slot="masonry"] {
+  [data-skein-theme="default"] [data-slot="masonry"] {
     --_w: calc((100% - (var(--ms-cols, 3) - 1) * var(--ms-gx, 0px)) / var(--ms-cols, 3));
     position: relative;
     box-sizing: border-box;
@@ -12,7 +12,7 @@
     padding: 0;
     list-style: none;
   }
-  [data-theme-style="default"] [data-slot="masonry-item"] {
+  [data-skein-theme="default"] [data-slot="masonry-item"] {
     position: absolute;
     top: var(--ms-y, 0px);
     inset-inline-start: calc(var(--ms-col, 0) * (var(--_w) + var(--ms-gx, 0px)));
@@ -27,11 +27,11 @@
       inset-inline-start 250ms cubic-bezier(0.2, 0, 0, 1),
       width 250ms cubic-bezier(0.2, 0, 0, 1);
   }
-  [data-theme-style="default"] [data-slot="masonry"][data-ready] [data-slot="masonry-item"] {
+  [data-skein-theme="default"] [data-slot="masonry"][data-ready] [data-slot="masonry-item"] {
     visibility: visible;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="masonry-item"] {
+    [data-skein-theme="default"] [data-slot="masonry-item"] {
       transition: none;
     }
   }

@@ -2,15 +2,15 @@
 
 @layer ui-style {
   /* Separator: a 1px line, fills the width horizontally and the height vertically. */
-  [data-theme-style="heroui"] [data-slot="separator"] {
+  [data-skein-theme="heroui"] [data-slot="separator"] {
     flex: none;
     background-color: color-mix(in oklab, var(--ui-border) 80%, var(--ui-bg) 20%);
   }
-  [data-theme-style="heroui"] [data-slot="separator"][data-orientation="horizontal"] {
+  [data-skein-theme="heroui"] [data-slot="separator"][data-orientation="horizontal"] {
     width: 100%;
     height: 1px;
   }
-  [data-theme-style="heroui"] [data-slot="separator"][data-orientation="vertical"] {
+  [data-skein-theme="heroui"] [data-slot="separator"][data-orientation="vertical"] {
     align-self: stretch;
     width: 1px;
     height: auto;

@@ -2,49 +2,49 @@
 
 @layer ui-style {
   /* Toggle: pressed / unpressed. ghost has a transparent background, outline has a stroke, soft keeps a light background; when pressed it switches to a light background in that color (the soft variant switches to solid). */
-  [data-theme-style="heroui"] [data-slot="toggle"][data-color="neutral"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-color="neutral"] {
     --_solid: var(--ui-c-neutral);
     --_solid-fg: var(--ui-c-neutral-fg);
     --_soft: var(--ui-c-neutral-soft);
     --_text: var(--ui-c-neutral-text);
     --_line: var(--ui-c-neutral-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-color="primary"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-color="primary"] {
     --_solid: var(--ui-c-primary);
     --_solid-fg: var(--ui-c-primary-fg);
     --_soft: var(--ui-c-primary-soft);
     --_text: var(--ui-c-primary-text);
     --_line: var(--ui-c-primary-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-color="secondary"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-color="secondary"] {
     --_solid: var(--ui-c-secondary);
     --_solid-fg: var(--ui-c-secondary-fg);
     --_soft: var(--ui-c-secondary-soft);
     --_text: var(--ui-c-secondary-text);
     --_line: var(--ui-c-secondary-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-color="success"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-color="success"] {
     --_solid: var(--ui-c-success);
     --_solid-fg: var(--ui-c-success-fg);
     --_soft: var(--ui-c-success-soft);
     --_text: var(--ui-c-success-text);
     --_line: var(--ui-c-success-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-color="warning"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-color="warning"] {
     --_solid: var(--ui-c-warning);
     --_solid-fg: var(--ui-c-warning-fg);
     --_soft: var(--ui-c-warning-soft);
     --_text: var(--ui-c-warning-text);
     --_line: var(--ui-c-warning-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-color="danger"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-color="danger"] {
     --_solid: var(--ui-c-danger);
     --_solid-fg: var(--ui-c-danger-fg);
     --_soft: var(--ui-c-danger-soft);
     --_text: var(--ui-c-danger-text);
     --_line: var(--ui-c-danger-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"] {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -72,72 +72,72 @@
       border-color 150ms ease,
       box-shadow 100ms cubic-bezier(0, 0, 0.2, 1);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-size="sm"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-size="sm"] {
     height: var(--ui-height-sm);
     padding-inline: calc(0.75rem * var(--ui-density) - 1px);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-size="lg"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-size="lg"] {
     height: var(--ui-height-lg);
     padding-inline: calc(1rem * var(--ui-density) - 1px);
     font-size: 1rem;
     line-height: 1.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-icon-only] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-icon-only] {
     width: var(--ui-height-md);
     padding: 0;
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-icon-only][data-size="sm"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-icon-only][data-size="sm"] {
     width: var(--ui-height-sm);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-icon-only][data-size="lg"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-icon-only][data-size="lg"] {
     width: var(--ui-height-lg);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"] > svg {
+  [data-skein-theme="heroui"] [data-slot="toggle"] > svg {
     flex: none;
     width: 1.25rem;
     height: 1.25rem;
     margin-inline: -0.125rem;
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-size="sm"] > svg {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-size="sm"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-variant="outline"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-variant="outline"] {
     border-color: var(--ui-border);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-variant="soft"] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-variant="soft"] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"]:hover:not([data-pressed], [data-disabled]) {
+  [data-skein-theme="heroui"] [data-slot="toggle"]:hover:not([data-pressed], [data-disabled]) {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle"][data-variant="soft"]:hover:not([data-pressed], [data-disabled]),
-  [data-theme-style="heroui"] [data-slot="toggle"]:active:not([data-pressed], [data-disabled]) {
+  [data-skein-theme="heroui"] [data-slot="toggle"]:active:not([data-pressed], [data-disabled]) {
     background-color: color-mix(in oklab, var(--ui-c-neutral-soft) 96%, var(--ui-fg) 4%);
   }
   /* ghost / outline use the same color for pressed and hover (in v3 ghost's pressed is default, not default-hover) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle"]:is([data-variant="ghost"], [data-variant="outline"]):active:not(
       [data-pressed],
       [data-disabled]
     ) {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"]:active:not([data-disabled]) {
+  [data-skein-theme="heroui"] [data-slot="toggle"]:active:not([data-disabled]) {
     transform: scale(0.97);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-size="sm"]:active:not([data-disabled]) {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-size="sm"]:active:not([data-disabled]) {
     transform: scale(0.98);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-size="lg"]:active:not([data-disabled]) {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-size="lg"]:active:not([data-disabled]) {
     transform: scale(0.96);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-pressed] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-pressed] {
     background-color: color-mix(in srgb, var(--_soft) 100%, var(--ui-fg) 6%);
     color: var(--_text);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle"][data-pressed]:is(
       [data-color="primary"],
       [data-color="secondary"],
@@ -147,7 +147,7 @@
     ) {
     background-color: var(--_soft);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle"][data-pressed]:hover:is(
       [data-color="primary"],
       [data-color="secondary"],
@@ -158,78 +158,78 @@
     background-color: color-mix(in oklab, var(--_solid) 20%, transparent);
   }
   /* neutral pressed matches the official one: accent-soft background, accent text (the selected state of every official toggle is accent) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle"][data-color="neutral"][data-pressed]:not([data-variant="soft"]) {
     background-color: var(--ui-c-primary-soft);
     color: var(--ui-c-primary-text);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-variant="outline"][data-pressed] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-variant="outline"][data-pressed] {
     border-color: var(--_line);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-variant="soft"][data-pressed] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-variant="soft"][data-pressed] {
     background-color: var(--_solid);
     color: var(--_solid-fg);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="toggle"]:focus-visible {
     box-shadow:
       0 0 0 2px var(--ui-bg),
       0 0 0 4px var(--ui-ring);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached]
     [data-slot="toggle"]:active {
     transform: none;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached]
     [data-slot="toggle"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="toggle"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="toggle"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
 
-  [data-theme-style="heroui"] [data-slot="toggle-group"] {
+  [data-skein-theme="heroui"] [data-slot="toggle-group"] {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="toggle-group"][data-orientation="vertical"] {
+  [data-skein-theme="heroui"] [data-slot="toggle-group"][data-orientation="vertical"] {
     flex-direction: column;
     align-items: stretch;
   }
-  [data-theme-style="heroui"] [data-slot="toggle-group"][data-attached] {
+  [data-skein-theme="heroui"] [data-slot="toggle-group"][data-attached] {
     gap: 0;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached][data-orientation="horizontal"]
     [data-slot="toggle"]:not(:first-child) {
     margin-inline-start: -1px;
     border-start-start-radius: 0;
     border-end-start-radius: 0;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached][data-orientation="horizontal"]
     [data-slot="toggle"]:not(:last-child) {
     border-start-end-radius: 0;
     border-end-end-radius: 0;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached][data-orientation="vertical"]
     [data-slot="toggle"]:not(:first-child) {
     margin-top: -1px;
     border-start-start-radius: 0;
     border-start-end-radius: 0;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached][data-orientation="vertical"]
     [data-slot="toggle"]:not(:last-child) {
     border-end-start-radius: 0;
     border-end-end-radius: 0;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="toggle-group"][data-attached]
     [data-slot="toggle"][data-pressed] {
     position: relative;

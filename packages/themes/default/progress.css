@@ -2,32 +2,32 @@
 
 @layer ui-style {
   /* Progress: bar + optional text row. When null is passed (data-indeterminate) the indicator slides in a loop. */
-  [data-theme-style="default"] [data-slot="progress"][data-color="neutral"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-color="neutral"] {
     --_c: var(--ui-c-neutral);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-color="primary"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-color="primary"] {
     --_c: var(--ui-c-primary);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-color="secondary"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-color="secondary"] {
     --_c: var(--ui-c-secondary);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-color="success"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-color="success"] {
     --_c: var(--ui-c-success);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-color="warning"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-color="warning"] {
     --_c: var(--ui-c-warning);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-color="danger"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-color="danger"] {
     --_c: var(--ui-c-danger);
   }
-  [data-theme-style="default"] [data-slot="progress"] {
+  [data-skein-theme="default"] [data-slot="progress"] {
     display: flex;
     flex-direction: column;
     gap: 0.375rem;
     width: 100%;
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="default"] [data-slot="progress-header"] {
+  [data-skein-theme="default"] [data-slot="progress-header"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -36,14 +36,14 @@
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="default"] [data-slot="progress-label"] {
+  [data-skein-theme="default"] [data-slot="progress-label"] {
     color: var(--ui-fg);
   }
-  [data-theme-style="default"] [data-slot="progress-value"] {
+  [data-skein-theme="default"] [data-slot="progress-value"] {
     color: var(--ui-fg-muted);
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="default"] [data-slot="progress-track"] {
+  [data-skein-theme="default"] [data-slot="progress-track"] {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -52,19 +52,19 @@
     border-radius: var(--_r, var(--ui-radius-full));
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-size="sm"] [data-slot="progress-track"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-size="sm"] [data-slot="progress-track"] {
     height: calc(0.25rem * var(--ui-density));
   }
-  [data-theme-style="default"] [data-slot="progress"][data-size="lg"] [data-slot="progress-track"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-size="lg"] [data-slot="progress-track"] {
     height: calc(0.75rem * var(--ui-density));
   }
-  [data-theme-style="default"] [data-slot="progress-indicator"] {
+  [data-skein-theme="default"] [data-slot="progress-indicator"] {
     height: 100%;
     border-radius: inherit;
     background-color: var(--_c);
     transition: width 300ms var(--ui-easing);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="progress"][data-indeterminate]
     [data-slot="progress-indicator"] {
     position: absolute;
@@ -72,19 +72,19 @@
     animation: ui-progress-slide 1.4s ease-in-out infinite;
     transition: none;
   }
-  [data-theme-style="default"] [data-slot="progress"][data-radius="none"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-radius="none"] {
     --_r: 0;
   }
-  [data-theme-style="default"] [data-slot="progress"][data-radius="sm"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-radius="sm"] {
     --_r: var(--ui-radius-sm);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-radius="md"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-radius="md"] {
     --_r: var(--ui-radius-md);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-radius="lg"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-radius="lg"] {
     --_r: var(--ui-radius-lg);
   }
-  [data-theme-style="default"] [data-slot="progress"][data-radius="full"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-radius="full"] {
     --_r: var(--ui-radius-full);
   }
 
@@ -98,14 +98,14 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="progress-indicator"] {
+    [data-skein-theme="default"] [data-slot="progress-indicator"] {
       transition: none;
     }
   }
 
   /* Ring (circle / dashboard): in the SVG a track ring plus an indicator ring, pathLength=100, so progress is --pc-value (0-100) in stroke-dasharray.
      circle runs clockwise from the 12 o'clock position; dashboard draws only 270°, with the gap at the bottom (starting from the 7:30 position) */
-  [data-theme-style="default"] [data-slot="progress"]:not([data-type="line"]) {
+  [data-skein-theme="default"] [data-slot="progress"]:not([data-type="line"]) {
     --_span: 1;
     --_rotate: -90deg;
     --_stroke: 8;
@@ -114,15 +114,15 @@
     gap: 0.5rem;
     display: inline-flex;
   }
-  [data-theme-style="default"] [data-slot="progress"][data-type="circle"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-type="circle"] {
     --_span: 1;
     --_rotate: -90deg;
   }
-  [data-theme-style="default"] [data-slot="progress"][data-type="dashboard"] {
+  [data-skein-theme="default"] [data-slot="progress"][data-type="dashboard"] {
     --_span: 0.75;
     --_rotate: 135deg;
   }
-  [data-theme-style="default"] [data-slot="progress-circle-body"] {
+  [data-skein-theme="default"] [data-slot="progress-circle-body"] {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -130,42 +130,42 @@
     width: var(--_d, 5rem);
     height: var(--_d, 5rem);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="progress"][data-size="sm"]
     [data-slot="progress-circle-body"] {
     --_d: 3rem;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="progress"][data-size="lg"]
     [data-slot="progress-circle-body"] {
     --_d: 7.5rem;
   }
-  [data-theme-style="default"] [data-slot="progress-circle"] {
+  [data-skein-theme="default"] [data-slot="progress-circle"] {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     overflow: visible;
   }
-  [data-theme-style="default"] [data-slot="progress-circle-track"],
-  [data-theme-style="default"] [data-slot="progress-circle-indicator"] {
+  [data-skein-theme="default"] [data-slot="progress-circle-track"],
+  [data-skein-theme="default"] [data-slot="progress-circle-indicator"] {
     fill: none;
     stroke-width: var(--_stroke);
     stroke-linecap: round;
     transform: rotate(var(--_rotate));
     transform-origin: 50px 50px;
   }
-  [data-theme-style="default"] [data-slot="progress-circle-track"] {
+  [data-skein-theme="default"] [data-slot="progress-circle-track"] {
     stroke: var(--ui-c-neutral-soft);
     stroke-dasharray: calc(100 * var(--_span)) 100;
   }
-  [data-theme-style="default"] [data-slot="progress-circle-indicator"] {
+  [data-skein-theme="default"] [data-slot="progress-circle-indicator"] {
     stroke: var(--_c);
     stroke-dasharray: calc(var(--pc-value, 0) * var(--_span)) 100;
     transition: stroke-dasharray 300ms cubic-bezier(0, 0, 0.2, 1);
   }
   /* Indeterminate: a short arc rotates around */
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="progress"][data-indeterminate]
     [data-slot="progress-circle-indicator"] {
     stroke-dasharray: calc(25 * var(--_span)) 100;
@@ -181,7 +181,7 @@
       transform: rotate(calc(var(--_rotate) + 360deg));
     }
   }
-  [data-theme-style="default"] [data-slot="progress-circle-value"] {
+  [data-skein-theme="default"] [data-slot="progress-circle-value"] {
     position: relative;
     color: var(--ui-fg);
     font-size: calc(var(--_d, 5rem) * 0.2);
@@ -190,10 +190,10 @@
     line-height: 1;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="progress-circle-indicator"] {
+    [data-skein-theme="default"] [data-slot="progress-circle-indicator"] {
       transition: none;
     }
-    [data-theme-style="default"]
+    [data-skein-theme="default"]
       [data-slot="progress"][data-indeterminate]
       [data-slot="progress-circle-indicator"] {
       animation-duration: 6s;

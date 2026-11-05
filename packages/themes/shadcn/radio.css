@@ -2,14 +2,14 @@
 
 @layer ui-style {
   /* Radio: 1rem circle, when selected the border turns primary and a primary dot appears in the middle. */
-  [data-theme-style="shadcn"] [data-slot="radio"] {
+  [data-skein-theme="shadcn"] [data-slot="radio"] {
     display: inline-flex;
     align-items: flex-start;
     gap: 0.5rem;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-control"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-control"] {
     --_bg: var(--ui-field-bg);
     position: relative;
     display: inline-flex;
@@ -32,38 +32,41 @@
       border-color 150ms var(--ui-easing),
       box-shadow 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="radio-group"][data-variant="filled"]
     [data-slot="radio-control"] {
     --_bg: var(--ui-field-filled-bg);
     border-color: transparent;
     box-shadow: none;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-control"][data-checked] {
+  [data-skein-theme="shadcn"] [data-slot="radio-control"][data-checked] {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary);
   }
-  [data-theme-style="shadcn"] [data-slot="radio-control"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="radio-control"]:focus-visible {
     border-color: var(--ui-ring);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent);
   }
   /* Nova: data-checked:border-primary comes after focus-visible:border-ring, so a checked item shows only the ring on focus */
-  [data-theme-style="shadcn"] [data-slot="radio-control"][data-checked]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="radio-control"][data-checked]:focus-visible {
     border-color: var(--ui-c-primary);
   }
-  [data-theme-style="shadcn"] [data-slot="radio-control"][data-invalid] {
+  [data-skein-theme="shadcn"] [data-slot="radio-control"][data-invalid] {
     border-color: var(--ui-invalid-border);
     box-shadow: 0 0 0 3px var(--ui-invalid-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="radio-control"][data-invalid][data-checked] {
+  [data-skein-theme="shadcn"] [data-slot="radio-control"][data-invalid][data-checked] {
     border-color: var(--ui-c-primary);
   }
   /* Dark (Nova): the border of a checked invalid item is also red (dark:aria-invalid:border-destructive/50) */
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="radio-control"][data-invalid][data-checked] {
     border-color: var(--ui-invalid-border);
   }
-  [data-theme-style="shadcn"] [data-slot="radio-indicator"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-indicator"] {
     position: absolute;
     inset: 0;
     display: flex;
@@ -71,7 +74,7 @@
     justify-content: center;
     pointer-events: none;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-indicator"]::before {
+  [data-skein-theme="shadcn"] [data-slot="radio-indicator"]::before {
     width: calc(0.5rem * var(--ui-density));
     height: calc(0.5rem * var(--ui-density));
     border-radius: var(--ui-radius-full);
@@ -80,47 +83,47 @@
     scale: 0;
     transition: scale 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"] [data-slot="radio-indicator"][data-checked]::before {
+  [data-skein-theme="shadcn"] [data-slot="radio-indicator"][data-checked]::before {
     scale: 1;
   }
-  [data-theme-style="shadcn"] [data-slot="radio"]:has([data-slot="radio-description"]) {
+  [data-skein-theme="shadcn"] [data-slot="radio"]:has([data-slot="radio-description"]) {
     gap: 0.75rem;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-content"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-content"] {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
     font-family: var(--ui-font-family);
     user-select: none;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-label"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-label"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-description"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-description"] {
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.5;
     overflow-wrap: break-word;
   }
-  [data-theme-style="shadcn"] [data-slot="radio"]:has([data-slot="radio-control"][data-disabled]) {
+  [data-skein-theme="shadcn"] [data-slot="radio"]:has([data-slot="radio-control"][data-disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-group"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-group"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="radio-group"][data-orientation="horizontal"] {
+  [data-skein-theme="shadcn"] [data-slot="radio-group"][data-orientation="horizontal"] {
     flex-flow: row wrap;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="radio-control"],
-    [data-theme-style="shadcn"] [data-slot="radio-indicator"]::before {
+    [data-skein-theme="shadcn"] [data-slot="radio-control"],
+    [data-skein-theme="shadcn"] [data-slot="radio-indicator"]::before {
       transition: none;
     }
   }

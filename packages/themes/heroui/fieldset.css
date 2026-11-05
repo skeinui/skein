@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Fieldset: removes the native frame, lays out vertically, legend acts as a small title. */
-  [data-theme-style="heroui"] [data-slot="fieldset"] {
+  [data-skein-theme="heroui"] [data-slot="fieldset"] {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -12,7 +12,7 @@
     border: 0;
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="heroui"] [data-slot="fieldset-legend"] {
+  [data-skein-theme="heroui"] [data-slot="fieldset-legend"] {
     margin-bottom: 0;
     padding: 0;
     color: var(--ui-fg);
@@ -20,7 +20,7 @@
     font-weight: 500;
     line-height: 1.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="fieldset"][data-disabled] [data-slot="fieldset-legend"] {
+  [data-skein-theme="heroui"] [data-slot="fieldset"][data-disabled] [data-slot="fieldset-legend"] {
     color: var(--ui-fg-muted);
   }
 }

@@ -2,14 +2,14 @@
 
 @layer ui-style {
   /* Switch: fully rounded track, the thumb slides to the other end via margin, the track turns primary when checked. */
-  [data-theme-style="shadcn"] [data-slot="switch"] {
+  [data-skein-theme="shadcn"] [data-slot="switch"] {
     display: inline-flex;
     align-items: flex-start;
     gap: 0.5rem;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  [data-theme-style="shadcn"] [data-slot="switch-control"] {
+  [data-skein-theme="shadcn"] [data-slot="switch-control"] {
     --_w: calc(2rem * var(--ui-density));
     --_h: calc(1.15rem * var(--ui-density));
     --_thumb: calc(1rem * var(--ui-density));
@@ -33,39 +33,45 @@
       border-color 150ms var(--ui-easing),
       box-shadow 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"] [data-slot="switch"][data-size="sm"] [data-slot="switch-control"] {
+  [data-skein-theme="shadcn"] [data-slot="switch"][data-size="sm"] [data-slot="switch-control"] {
     --_w: calc(1.5rem * var(--ui-density));
     --_h: calc(0.875rem * var(--ui-density));
     --_thumb: calc(0.75rem * var(--ui-density));
   }
-  [data-theme-style="shadcn"] [data-slot="switch"][data-size="lg"] [data-slot="switch-control"] {
+  [data-skein-theme="shadcn"] [data-slot="switch"][data-size="lg"] [data-slot="switch-control"] {
     --_w: calc(2.5rem * var(--ui-density));
     --_h: calc(1.5rem * var(--ui-density));
     --_thumb: calc(1.25rem * var(--ui-density));
   }
   /* Dark (Nova): unchecked track is input/80, thumb is foreground */
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="switch-control"]:not([data-checked]) {
     background-color: rgb(255 255 255 / 0.12);
   }
-  :is([data-theme-style="shadcn"][data-mode="dark"], [data-theme-style="shadcn"] [data-mode="dark"])
+  :is(
+      [data-skein-theme="shadcn"][data-skein-mode="dark"],
+      [data-skein-theme="shadcn"] [data-skein-mode="dark"]
+    )
     [data-slot="switch-thumb"]:not([data-checked]) {
     background-color: var(--ui-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="switch-control"][data-checked] {
+  [data-skein-theme="shadcn"] [data-slot="switch-control"][data-checked] {
     background-color: var(--ui-c-primary);
   }
-  [data-theme-style="shadcn"] [data-slot="switch-control"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="switch-control"]:focus-visible {
     border-color: var(--ui-ring);
     box-shadow:
       0 0 0 3px color-mix(in oklab, var(--ui-ring) 50%, transparent),
       var(--ui-field-shadow);
   }
-  [data-theme-style="shadcn"] [data-slot="switch-control"][data-invalid] {
+  [data-skein-theme="shadcn"] [data-slot="switch-control"][data-invalid] {
     border-color: var(--ui-invalid-border);
     box-shadow: 0 0 0 3px var(--ui-invalid-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="switch-thumb"] {
+  [data-skein-theme="shadcn"] [data-slot="switch-thumb"] {
     display: block;
     width: var(--_thumb);
     height: var(--_thumb);
@@ -74,41 +80,41 @@
     background-color: white;
     transition: margin 150ms var(--ui-easing);
   }
-  [data-theme-style="shadcn"] [data-slot="switch-thumb"][data-checked] {
+  [data-skein-theme="shadcn"] [data-slot="switch-thumb"][data-checked] {
     margin-inline-start: calc(100% - var(--_thumb) - (var(--_h) - 2px - var(--_thumb)) / 2);
     background-color: var(--ui-c-primary-fg);
   }
-  [data-theme-style="shadcn"] [data-slot="switch"]:has([data-slot="switch-description"]) {
+  [data-skein-theme="shadcn"] [data-slot="switch"]:has([data-slot="switch-description"]) {
     gap: 0.75rem;
   }
-  [data-theme-style="shadcn"] [data-slot="switch-content"] {
+  [data-skein-theme="shadcn"] [data-slot="switch-content"] {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
     font-family: var(--ui-font-family);
     user-select: none;
   }
-  [data-theme-style="shadcn"] [data-slot="switch-label"] {
+  [data-skein-theme="shadcn"] [data-slot="switch-label"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="switch-description"] {
+  [data-skein-theme="shadcn"] [data-slot="switch-description"] {
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.5;
     overflow-wrap: break-word;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="switch"]:has([data-slot="switch-control"][data-disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="switch-control"],
-    [data-theme-style="shadcn"] [data-slot="switch-thumb"] {
+    [data-skein-theme="shadcn"] [data-slot="switch-control"],
+    [data-skein-theme="shadcn"] [data-slot="switch-thumb"] {
       transition: none;
     }
   }

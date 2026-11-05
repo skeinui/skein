@@ -2,13 +2,13 @@
 
 @layer ui-style {
   /* FloatButton: a round / square button fixed to a corner of the viewport. Position uses the theme style's margins (--_ix / --_iy); when grouped, the Group is fixed and the buttons themselves are not. */
-  [data-theme-style="heroui"] [data-slot="floatbutton"],
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"],
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"] {
     --_size: 3rem;
     --_ix: 1.5rem;
     --_iy: 1.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"] {
     position: fixed;
     z-index: 1000;
     display: inline-flex;
@@ -34,65 +34,65 @@
       background-color 200ms,
       color 200ms;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-shape="circle"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-shape="circle"] {
     border-radius: 50%;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-shape="square"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-shape="square"] {
     border-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-variant="default"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-variant="default"] {
     background-color: var(--ui-bg);
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-has-label] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-has-label] {
     height: auto;
     min-height: var(--_size);
     padding-block: 0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-corner="bottom-end"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-corner="bottom-end"] {
     inset-block-end: var(--_iy);
     inset-inline-end: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-corner="bottom-start"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-corner="bottom-start"] {
     inset-block-end: var(--_iy);
     inset-inline-start: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-corner="top-end"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-corner="top-end"] {
     inset-block-start: var(--_iy);
     inset-inline-end: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-corner="top-start"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-corner="top-start"] {
     inset-block-start: var(--_iy);
     inset-inline-start: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"]:hover {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"]:hover {
     background-color: color-mix(in srgb, var(--ui-fg) 6%, var(--ui-bg));
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-variant="primary"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-variant="primary"] {
     border-color: transparent;
     background-color: var(--ui-c-primary);
     color: var(--ui-c-primary-fg);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-variant="primary"]:hover {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-variant="primary"]:hover {
     background-color: var(--ui-c-primary-hover);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"]:active {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"]:active {
     transform: scale(0.96);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"]:focus-visible {
     box-shadow:
       var(--ui-overlay-shadow),
       0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-icon"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-icon"] {
     display: inline-flex;
     font-size: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-icon"] > svg {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-icon"] > svg {
     width: 1em;
     height: 1em;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-label"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-label"] {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -100,58 +100,58 @@
   }
 
   /* Grouped: the Group is fixed in the corner and buttons are stacked vertically. Round ones each have a shadow and spacing; square ones are joined end to end and share one outer frame and shadow */
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"] {
     position: fixed;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"][data-corner="bottom-end"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"][data-corner="bottom-end"] {
     inset-block-end: var(--_iy);
     inset-inline-end: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"][data-corner="bottom-start"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"][data-corner="bottom-start"] {
     inset-block-end: var(--_iy);
     inset-inline-start: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"][data-corner="top-end"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"][data-corner="top-end"] {
     inset-block-start: var(--_iy);
     inset-inline-end: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"][data-corner="top-start"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"][data-corner="top-start"] {
     inset-block-start: var(--_iy);
     inset-inline-start: var(--_ix);
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton"][data-in-group] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton"][data-in-group] {
     position: relative;
     z-index: auto;
     animation: none;
   }
-  [data-theme-style="heroui"] [data-slot="floatbutton-group"][data-shape="square"] {
+  [data-skein-theme="heroui"] [data-slot="floatbutton-group"][data-shape="square"] {
     gap: 0;
     border-radius: var(--ui-radius-lg);
     box-shadow: var(--ui-overlay-shadow);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="floatbutton-group"][data-shape="square"]
     > [data-slot="floatbutton"] {
     border-radius: 0;
     box-shadow: none;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="floatbutton-group"][data-shape="square"]
     > [data-slot="floatbutton"]:first-child {
     border-start-start-radius: var(--ui-radius-lg);
     border-start-end-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="floatbutton-group"][data-shape="square"]
     > [data-slot="floatbutton"]:last-child {
     border-end-start-radius: var(--ui-radius-lg);
     border-end-end-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="floatbutton-group"][data-shape="square"]
     > [data-slot="floatbutton"]
     + [data-slot="floatbutton"] {
@@ -165,7 +165,7 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="floatbutton"] {
+    [data-skein-theme="heroui"] [data-slot="floatbutton"] {
       animation: none;
       transition: none;
     }

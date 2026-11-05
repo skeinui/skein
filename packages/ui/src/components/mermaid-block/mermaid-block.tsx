@@ -41,10 +41,10 @@ type State = "loading" | "ready" | "error";
 
 const COPIED_MS = 2000;
 
-/** Whether it is currently light or dark: reads `data-mode` on `<html>`, and follows the system if unset. */
+/** Whether it is currently light or dark: reads `data-skein-mode` on `<html>`, and follows the system if unset. */
 function currentTheme(): MermaidTheme {
   if (typeof document === "undefined") return "light";
-  const mode = document.documentElement.getAttribute("data-mode");
+  const mode = document.documentElement.getAttribute("data-skein-mode");
   if (mode === "dark" || mode === "light") return mode;
   return typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches
     ? "dark"
@@ -59,7 +59,7 @@ function useTheme(): MermaidTheme {
     const observer = new MutationObserver(sync);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-mode"],
+      attributeFilter: ["data-skein-mode"],
     });
     return () => observer.disconnect();
   }, []);
@@ -95,7 +95,7 @@ const icon = (children: React.ReactNode) => (
  * Mermaid diagram block: renders Mermaid `code` as a diagram, with a header holding a title, a "view source" toggle and a copy button.
  * Mermaid is not bundled: pass `render` (code → SVG string), and the result is shown as an `<img>`, so the SVG is never injected into the page.
  * While rendering a status is announced to screen readers; on failure the error is shown with the source; if it rendered before, the previous diagram stays (faded).
- * Switching light / dark mode (`data-mode` on `<html>`) re-renders with the new theme.
+ * Switching light / dark mode (`data-skein-mode` on `<html>`) re-renders with the new theme.
  * For plain source code use CodeBlock.
  *
  * Theme style: `data-state` (loading / ready / error) and `data-view` (diagram / source) on the root, `data-stale` on the image while re-rendering.

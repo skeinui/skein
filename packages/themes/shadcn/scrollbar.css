@@ -7,24 +7,24 @@
      To make an area different, override scrollbar-width / scrollbar-color in your own styles.
      The standard properties cover Chrome 121+, Firefox, Safari 18.2+; the ::-webkit-scrollbar group is for browsers that do not understand the standard properties
      (browsers that do will ignore them), and the corner (where the scrollbar meets the resize handle) must also be transparent, otherwise a patch of background color shows. */
-  [data-theme-style="shadcn"],
-  [data-theme-style="shadcn"] * {
+  [data-skein-theme="shadcn"],
+  [data-skein-theme="shadcn"] * {
     scrollbar-width: thin;
     scrollbar-color: color-mix(in srgb, var(--ui-fg) 28%, transparent) transparent;
   }
-  [data-theme-style="shadcn"]::-webkit-scrollbar,
-  [data-theme-style="shadcn"] *::-webkit-scrollbar {
+  [data-skein-theme="shadcn"]::-webkit-scrollbar,
+  [data-skein-theme="shadcn"] *::-webkit-scrollbar {
     width: 0.625rem;
     height: 0.625rem;
   }
-  [data-theme-style="shadcn"]::-webkit-scrollbar-track,
-  [data-theme-style="shadcn"] *::-webkit-scrollbar-track,
-  [data-theme-style="shadcn"]::-webkit-scrollbar-corner,
-  [data-theme-style="shadcn"] *::-webkit-scrollbar-corner {
+  [data-skein-theme="shadcn"]::-webkit-scrollbar-track,
+  [data-skein-theme="shadcn"] *::-webkit-scrollbar-track,
+  [data-skein-theme="shadcn"]::-webkit-scrollbar-corner,
+  [data-skein-theme="shadcn"] *::-webkit-scrollbar-corner {
     background: transparent;
   }
-  [data-theme-style="shadcn"]::-webkit-scrollbar-thumb,
-  [data-theme-style="shadcn"] *::-webkit-scrollbar-thumb {
+  [data-skein-theme="shadcn"]::-webkit-scrollbar-thumb,
+  [data-skein-theme="shadcn"] *::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     border-radius: 999px;
     background-color: color-mix(in srgb, var(--ui-fg) 28%, transparent);

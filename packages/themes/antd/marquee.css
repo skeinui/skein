@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Marquee: scrolls only when the content is wider than the container (data-overflow); the track holds two copies of the content joined end to end, and shifting left by one copy's width makes a seamless loop. The duration is --marquee-duration, computed by the component from width / speed */
-  [data-theme-style="antd"] [data-slot="marquee"] {
+  [data-skein-theme="antd"] [data-slot="marquee"] {
     position: relative;
     display: block;
     box-sizing: border-box;
@@ -11,24 +11,24 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="antd"] [data-slot="marquee-viewport"] {
+  [data-skein-theme="antd"] [data-slot="marquee-viewport"] {
     overflow: hidden;
   }
-  [data-theme-style="antd"] [data-slot="marquee-track"] {
+  [data-skein-theme="antd"] [data-slot="marquee-track"] {
     display: flex;
     width: max-content;
   }
-  [data-theme-style="antd"] [data-slot="marquee-content"] {
+  [data-skein-theme="antd"] [data-slot="marquee-content"] {
     flex: none;
     white-space: nowrap;
     padding-inline-end: 2rem;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="marquee"]:not([data-overflow])
     [data-slot="marquee-content"] {
     padding-inline-end: 0;
   }
-  [data-theme-style="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-viewport"] {
+  [data-skein-theme="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-viewport"] {
     mask-image: linear-gradient(
       to right,
       transparent,
@@ -37,19 +37,19 @@
       transparent
     );
   }
-  [data-theme-style="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-track"] {
+  [data-skein-theme="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-track"] {
     animation: ui-marquee-antd var(--marquee-duration, 10s) linear infinite;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="marquee"][data-overflow][data-direction="end"]
     [data-slot="marquee-track"] {
     animation-direction: reverse;
   }
-  [data-theme-style="antd"] [data-slot="marquee"][data-paused] [data-slot="marquee-track"],
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"] [data-slot="marquee"][data-paused] [data-slot="marquee-track"],
+  [data-skein-theme="antd"]
     [data-slot="marquee"][data-pause-on-hover]:hover
     [data-slot="marquee-track"],
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="marquee"][data-pause-on-hover]:focus-within
     [data-slot="marquee-track"] {
     animation-play-state: paused;
@@ -62,8 +62,8 @@
       transform: translateX(-50%);
     }
   }
-  [dir="rtl"] [data-theme-style="antd"] [data-slot="marquee-track"],
-  [data-theme-style="antd"] [dir="rtl"] [data-slot="marquee-track"] {
+  [dir="rtl"] [data-skein-theme="antd"] [data-slot="marquee-track"],
+  [data-skein-theme="antd"] [dir="rtl"] [data-slot="marquee-track"] {
     animation-name: ui-marquee-rtl-antd;
   }
   @keyframes ui-marquee-rtl-antd {
@@ -75,7 +75,7 @@
     }
   }
 
-  [data-theme-style="antd"] [data-slot="marquee-pause"] {
+  [data-skein-theme="antd"] [data-slot="marquee-pause"] {
     position: absolute;
     top: 50%;
     inset-inline-end: 0;
@@ -96,27 +96,27 @@
     cursor: pointer;
     transition: background-color 150ms ease;
   }
-  [data-theme-style="antd"] [data-slot="marquee-pause"]:hover {
+  [data-skein-theme="antd"] [data-slot="marquee-pause"]:hover {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="marquee-pause"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="marquee-pause"]:focus-visible {
     outline: 2px solid var(--ui-ring);
     outline-offset: 2px;
   }
 
   /* System requests reduced motion: no scrolling; instead it can be scrolled horizontally by hand (content is not cut off) */
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-track"] {
+    [data-skein-theme="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-track"] {
       animation: none;
     }
-    [data-theme-style="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-viewport"] {
+    [data-skein-theme="antd"] [data-slot="marquee"][data-overflow] [data-slot="marquee-viewport"] {
       overflow-x: auto;
       mask-image: none;
     }
-    [data-theme-style="antd"]
+    [data-skein-theme="antd"]
       [data-slot="marquee"][data-overflow]
       [data-slot="marquee-content"][aria-hidden="true"],
-    [data-theme-style="antd"] [data-slot="marquee-pause"] {
+    [data-skein-theme="antd"] [data-slot="marquee-pause"] {
       display: none;
     }
   }

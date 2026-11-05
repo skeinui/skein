@@ -2,49 +2,49 @@
 
 @layer ui-style {
   /* Tag: a removable label with three variants solid / soft / outline; the remove button is a small cross. */
-  [data-theme-style="antd"] [data-slot="tag"][data-color="neutral"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-color="neutral"] {
     --_solid: var(--ui-c-neutral);
     --_solid-fg: var(--ui-c-neutral-fg);
     --_soft: var(--ui-c-neutral-soft);
     --_text: var(--ui-c-neutral-text);
     --_line: var(--ui-c-neutral-border);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-color="primary"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-color="primary"] {
     --_solid: var(--ui-c-primary);
     --_solid-fg: var(--ui-c-primary-fg);
     --_soft: var(--ui-c-info-soft, var(--ui-c-primary-soft));
     --_text: var(--ui-c-primary-text);
     --_line: var(--ui-c-primary-border);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-color="secondary"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-color="secondary"] {
     --_solid: var(--ui-c-secondary);
     --_solid-fg: var(--ui-c-secondary-fg);
     --_soft: var(--ui-c-secondary-soft);
     --_text: var(--ui-c-secondary-text);
     --_line: var(--ui-c-secondary-border);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-color="success"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-color="success"] {
     --_solid: var(--ui-c-success);
     --_solid-fg: var(--ui-c-success-fg);
     --_soft: var(--ui-c-success-soft);
     --_text: var(--ui-c-success-text);
     --_line: var(--ui-c-success-border);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-color="warning"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-color="warning"] {
     --_solid: var(--ui-c-warning);
     --_solid-fg: var(--ui-c-warning-fg);
     --_soft: var(--ui-c-warning-soft);
     --_text: var(--ui-c-warning-text);
     --_line: var(--ui-c-warning-border);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-color="danger"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-color="danger"] {
     --_solid: var(--ui-c-danger);
     --_solid-fg: var(--ui-c-danger-fg);
     --_soft: var(--ui-c-danger-soft);
     --_text: var(--ui-c-danger-text);
     --_line: var(--ui-c-danger-border);
   }
-  [data-theme-style="antd"] [data-slot="tag"] {
+  [data-skein-theme="antd"] [data-slot="tag"] {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
@@ -60,39 +60,39 @@
     white-space: nowrap;
     user-select: none;
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-size="sm"] {
     height: calc(1.25rem * var(--ui-density));
     padding-inline: calc(0.4375rem * var(--ui-density));
     font-size: 0.75rem;
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-size="lg"] {
     height: calc(1.75rem * var(--ui-density));
     padding-inline: calc(0.625rem * var(--ui-density));
     font-size: 0.875rem;
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-variant="soft"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-variant="soft"] {
     background-color: var(--_soft);
     border-color: transparent;
     color: var(--_text);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-variant="outline"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-variant="outline"] {
     background-color: var(--_soft);
     border-color: var(--_line);
     color: var(--_text);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-variant="solid"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-variant="solid"] {
     background-color: var(--_solid);
     color: var(--_solid-fg);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-disabled] {
     opacity: 0.5;
   }
-  [data-theme-style="antd"] [data-slot="tag-label"] {
+  [data-skein-theme="antd"] [data-slot="tag-label"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  [data-theme-style="antd"] [data-slot="tag-remove"] {
+  [data-skein-theme="antd"] [data-slot="tag-remove"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -112,43 +112,43 @@
       opacity 150ms ease,
       background-color 150ms ease;
   }
-  [data-theme-style="antd"] [data-slot="tag-remove"] > svg {
+  [data-skein-theme="antd"] [data-slot="tag-remove"] > svg {
     width: 0.625rem;
     height: 0.625rem;
   }
-  [data-theme-style="antd"] [data-slot="tag-remove"]:hover:not(:disabled) {
+  [data-skein-theme="antd"] [data-slot="tag-remove"]:hover:not(:disabled) {
     opacity: 1;
   }
   /* Official close icon: for non-solid tags it is colorIcon (45%) throughout, turning the text color on hover */
-  [data-theme-style="antd"] [data-slot="tag"]:not([data-variant="solid"]) [data-slot="tag-remove"] {
+  [data-skein-theme="antd"] [data-slot="tag"]:not([data-variant="solid"]) [data-slot="tag-remove"] {
     color: var(--ui-fg-muted);
     opacity: 1;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="tag"]:not([data-variant="solid"])
     [data-slot="tag-remove"]:hover:not(:disabled) {
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"] [data-slot="tag-remove"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="tag-remove"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="tag-remove"]:disabled {
+  [data-skein-theme="antd"] [data-slot="tag-remove"]:disabled {
     cursor: not-allowed;
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-radius="none"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-radius="none"] {
     --_r: 0;
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-radius="sm"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-radius="sm"] {
     --_r: var(--ui-radius-sm);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-radius="md"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-radius="md"] {
     --_r: var(--ui-radius-md);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-radius="lg"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-radius="lg"] {
     --_r: var(--ui-radius-lg);
   }
-  [data-theme-style="antd"] [data-slot="tag"][data-radius="full"] {
+  [data-skein-theme="antd"] [data-slot="tag"][data-radius="full"] {
     --_r: var(--ui-radius-full);
   }
 }

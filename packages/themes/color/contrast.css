@@ -3,15 +3,15 @@
 /*
  * High-contrast colour theme: replaces "secondary text, placeholder, and the four semantic colors" with values reaching WCAG AA (4.5:1 for text), and can be applied on top of any theme style.
  * Why it is needed: several theme styles follow the official palettes (Ant Design's white text on #1677ff is 4.1:1, the placeholder #bfbfbf is 1.8:1,
- * HeroUI's primary button with white text is 3.6:1), and to stay consistent with the official ones the theme style's palette cannot be changed directly; when compliance is needed, add data-theme-color="contrast" on <html>,
- * which can be used together with other themes (plus data-theme-density="compact"); the cost is that primary, success / warning / danger colors become darker (light) or brighter (dark).
+ * HeroUI's primary button with white text is 3.6:1), and to stay consistent with the official ones the theme style's palette cannot be changed directly; when compliance is needed, add data-skein-color="contrast" on <html>,
+ * which can be used together with other themes (plus data-skein-density="compact"); the cost is that primary, success / warning / danger colors become darker (light) or brighter (dark).
  * These values were all computed with the WCAG formula:
  *   light  secondary text #525252 is 7.8 / 6.6 on white / light gray, placeholder #666 is 5.7 / 4.8 on white / light gray,
  *          solid colors with white text: primary 6.7, success 5.0, warning 4.9, danger 6.5; soft backgrounds with same-color text are all above 4.7
  *   dark   secondary text #b4b4b4 is 8.9 on #141414, placeholder #9a9a9a is 6.6, solid colors with dark text are above 7.1
  */
 @layer ui-color {
-  [data-theme-color~="contrast"] {
+  [data-skein-color~="contrast"] {
     --ui-fg-muted: #525252;
     --ui-field-placeholder: #666666;
     --ui-ring: #1d4ed8;
@@ -49,10 +49,10 @@
     --ui-c-danger-border: #fca5a5;
   }
 
-  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
-  [data-theme-color~="contrast"][data-mode="dark"],
-  [data-mode="dark"] [data-theme-color~="contrast"],
-  [data-theme-color~="contrast"] [data-mode="dark"] {
+  /* Dark: data-skein-mode and data-skein-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-skein-color~="contrast"][data-skein-mode="dark"],
+  [data-skein-mode="dark"] [data-skein-color~="contrast"],
+  [data-skein-color~="contrast"] [data-skein-mode="dark"] {
     --ui-fg-muted: #b4b4b4;
     --ui-field-placeholder: #9a9a9a;
     --ui-ring: #93c5fd;

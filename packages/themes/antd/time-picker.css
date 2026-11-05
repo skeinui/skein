@@ -3,7 +3,7 @@
 @layer ui-style {
   /* TimePicker / date-time: several scrollable columns of hours, minutes, seconds (12-hour format adds an AM / PM column); clicking an item selects it.
      The trigger reuses the select-trigger styles; the overlay shell is this theme style's Popover (data-picker, padding 0). */
-  [data-theme-style="antd"] [data-slot="timepanel"] {
+  [data-skein-theme="antd"] [data-slot="timepanel"] {
     box-sizing: border-box;
     display: flex;
     height: 14rem;
@@ -12,7 +12,7 @@
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
   }
-  [data-theme-style="antd"] [data-slot="timepanel-column"] {
+  [data-skein-theme="antd"] [data-slot="timepanel-column"] {
     box-sizing: border-box;
     flex: none;
     width: calc(3.5rem * var(--ui-density));
@@ -20,16 +20,16 @@
     overflow-y: auto;
     overscroll-behavior: contain;
   }
-  [data-theme-style="antd"] [data-slot="timepanel-column"] + [data-slot="timepanel-column"] {
+  [data-skein-theme="antd"] [data-slot="timepanel-column"] + [data-slot="timepanel-column"] {
     border-inline-start: 1px solid var(--ui-border);
   }
   /* Trailing spacing: lets the last few items scroll to the middle of the column */
-  [data-theme-style="antd"] [data-slot="timepanel-column"]::after {
+  [data-skein-theme="antd"] [data-slot="timepanel-column"]::after {
     display: block;
     height: 11.5rem;
     content: "";
   }
-  [data-theme-style="antd"] [data-slot="timepanel-option"] {
+  [data-skein-theme="antd"] [data-slot="timepanel-option"] {
     display: block;
     box-sizing: border-box;
     width: calc(100% - 0.5rem);
@@ -48,24 +48,24 @@
     font-variant-numeric: tabular-nums;
     transition: background-color 120ms ease;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="timepanel-option"]:hover:not([data-selected], [data-disabled]) {
     background-color: color-mix(in srgb, var(--ui-fg) 4%, transparent);
   }
-  [data-theme-style="antd"] [data-slot="timepanel-option"][data-selected] {
+  [data-skein-theme="antd"] [data-slot="timepanel-option"][data-selected] {
     background-color: var(--ui-c-primary-soft);
     color: var(--ui-fg);
     font-weight: 400;
   }
-  [data-theme-style="antd"] [data-slot="timepanel-option"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="timepanel-option"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="antd"] [data-slot="timepanel-option"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="timepanel-option"][data-disabled] {
     opacity: 0.3;
     cursor: not-allowed;
   }
 
-  [data-theme-style="antd"] [data-slot="timepanel-footer"] {
+  [data-skein-theme="antd"] [data-slot="timepanel-footer"] {
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -74,29 +74,29 @@
     padding: calc(0.5rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
     border-top: 1px solid var(--ui-border);
   }
-  [data-theme-style="antd"] [data-slot="timepanel-footer-end"] {
+  [data-skein-theme="antd"] [data-slot="timepanel-footer-end"] {
     display: inline-flex;
     gap: calc(0.5rem * var(--ui-density));
   }
 
   /* Date + time: calendar on the left, time panel on the right, heights aligned */
-  [data-theme-style="antd"] [data-slot="datetime"] {
+  [data-skein-theme="antd"] [data-slot="datetime"] {
     display: flex;
     align-items: stretch;
   }
-  [data-theme-style="antd"] [data-slot="datetime-time"] {
+  [data-skein-theme="antd"] [data-slot="datetime-time"] {
     display: flex;
     flex-direction: column;
     border-inline-start: 1px solid var(--ui-border);
   }
-  [data-theme-style="antd"] [data-slot="datetime-time"] > [data-slot="timepanel"] {
+  [data-skein-theme="antd"] [data-slot="datetime-time"] > [data-slot="timepanel"] {
     flex: 1 1 0;
     height: auto;
     min-height: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="timepanel-option"] {
+    [data-skein-theme="antd"] [data-slot="timepanel-option"] {
       transition: none;
     }
   }

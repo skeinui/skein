@@ -10,11 +10,11 @@ export const declaredTokens = (css) =>
   new Set([...css.matchAll(/(--ui-[a-z0-9-]+)\s*:/g)].map((m) => m[1]));
 /**
  * Checks a theme style directory against the contract of `@skeinui/ui`. `name` is the value of
- * `data-theme-style` the style is scoped to. Returns every problem found; an empty array means the style is complete.
+ * `data-skein-theme` the style is scoped to. Returns every problem found; an empty array means the style is complete.
  */
 /**
  * @param {string} dir the theme style's directory
- * @param {string} name its `data-theme-style` value
+ * @param {string} name its `data-skein-theme` value
  * @param {Record<string, readonly (string | number)[]>} [contract] default: the @skeinui/ui installed near `dir`
  * @returns {{ rule: string; file: string; message: string }[]}
  */
@@ -46,7 +46,7 @@ export function checkTheme(dir, name, contract = loadContract(dir)) {
   } else {
     report("index-imports", "index.css", "file is missing");
   }
-  const scope = `[data-theme-style="${name}"]`;
+  const scope = `[data-skein-theme="${name}"]`;
   for (const file of files) {
     const css = read(file);
     // Each rule's selector list, split on top-level commas

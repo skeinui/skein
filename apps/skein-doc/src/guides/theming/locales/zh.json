@@ -10,7 +10,7 @@
     "shadcn": "shadcn/ui：中性色、紧凑、线条利落。",
     "heroui": "HeroUI v3：柔和配色、胶囊形控件。",
     "antd": "Ant Design 6：企业级外观。",
-    "p2": "只引入用到的风格的 CSS，打包时也只包含这些。可以同时引入多个，各自按 `data-theme-style` 隔离，用户可以在运行时切换（admin 模板的偏好设置抽屉就是这么做的）。"
+    "p2": "只引入用到的风格的 CSS，打包时也只包含这些。可以同时引入多个，各自按 `data-skein-theme` 隔离，用户可以在运行时切换（admin 模板的偏好设置抽屉就是这么做的）。"
   },
   "mode": {
     "title": "亮色与暗色",
@@ -32,7 +32,7 @@
   },
   "how": {
     "title": "工作原理",
-    "p1": "组件只写 `data-*` 属性、不带 CSS；主题风格就是针对这些属性的 CSS，按 `data-theme-style` 隔离：",
+    "p1": "组件只写 `data-*` 属性、不带 CSS；主题风格就是针对这些属性的 CSS，按 `data-skein-theme` 隔离：",
     "p2": "Token（`--ui-c-primary`、`--ui-radius`、`--ui-density`……）由每个风格在 `tokens.css` 和 `dark.css` 里定义；色彩主题和 `themeOverrides` 只改 token 的值，所以对任何风格都有效。"
   }
 }

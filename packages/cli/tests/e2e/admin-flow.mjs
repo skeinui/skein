@@ -147,12 +147,12 @@ export async function adminFlow(base, { log = console.log } = {}) {
       if ((await page.evaluate(() => document.documentElement.lang)) !== "en")
         throw new Error("html lang");
     });
-    await step("switch to dark: <html data-mode=dark>, kept after reload", async () => {
+    await step("switch to dark: <html data-skein-mode=dark>, kept after reload", async () => {
       await page.getByRole("button", { name: "Account" }).click();
       await page.getByRole("menuitem", { name: "Dark" }).click();
-      await page.waitForFunction(() => document.documentElement.dataset.mode === "dark");
+      await page.waitForFunction(() => document.documentElement.dataset.skeinMode === "dark");
       await page.reload();
-      const mode = await page.evaluate(() => document.documentElement.dataset.mode);
+      const mode = await page.evaluate(() => document.documentElement.dataset.skeinMode);
       if (mode !== "dark") throw new Error(`after reload: ${mode}`);
       await page.getByRole("heading", { name: "Users" }).waitFor();
     });

@@ -234,14 +234,16 @@ async function theme(root) {
   const dir = join(root, "src", "theme");
   const tokens = join(dir, "tokens.css");
   if (!existsSync(tokens)) return [];
-  const name = readFileSync(tokens, "utf8").match(/\[data-theme-style="([^"]+)"\]/)?.[1];
+  const name = readFileSync(tokens, "utf8").match(/\[data-skein-theme="([^"]+)"\]/)?.[1];
   if (!name)
     return [
       {
         check: "theme",
         severity: "error",
         file: "src/theme/tokens.css",
-        message: 'no [data-theme-style="…"] selector',
+        message: /\[data-theme-style=/.test(readFileSync(tokens, "utf8"))
+          ? "selectors use the attributes before 0.0.4: rename data-theme-style → data-skein-theme, data-mode → data-skein-mode, data-theme-color → data-skein-color, data-theme-density → data-skein-density"
+          : 'no [data-skein-theme="…"] selector',
       },
     ];
   return checkTheme(dir, name).map((issue) => ({

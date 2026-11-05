@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Transfer: two bordered lists, left and right, with move buttons in between. List = header (select all, title, selected count) + optional search box + scrollable list body. */
-  [data-theme-style="antd"] [data-slot="transfer"] {
+  [data-skein-theme="antd"] [data-slot="transfer"] {
     --_item-py: 0.375rem;
     display: inline-flex;
     align-items: stretch;
@@ -12,20 +12,20 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="antd"] [data-slot="transfer"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="transfer"][data-size="sm"] {
     --_item-py: 0.25rem;
     font-size: 0.8125rem;
   }
-  [data-theme-style="antd"] [data-slot="transfer"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="transfer"][data-size="lg"] {
     --_item-py: 0.5rem;
     font-size: 1rem;
     line-height: 1.5rem;
   }
-  [data-theme-style="antd"] [data-slot="transfer"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="transfer"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="antd"] [data-slot="transfer-list"] {
+  [data-skein-theme="antd"] [data-slot="transfer-list"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -36,7 +36,7 @@
     border-radius: var(--ui-radius-lg);
     background-color: var(--ui-field-bg);
   }
-  [data-theme-style="antd"] [data-slot="transfer-header"] {
+  [data-skein-theme="antd"] [data-slot="transfer-header"] {
     display: flex;
     flex: none;
     align-items: center;
@@ -44,7 +44,7 @@
     padding: 0.5rem 0.75rem;
     border-bottom: 1px solid var(--ui-border);
   }
-  [data-theme-style="antd"] [data-slot="transfer-title"] {
+  [data-skein-theme="antd"] [data-slot="transfer-title"] {
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -52,53 +52,53 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="antd"] [data-slot="transfer-count"] {
+  [data-skein-theme="antd"] [data-slot="transfer-count"] {
     flex: none;
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="antd"] [data-slot="transfer-search"] {
+  [data-skein-theme="antd"] [data-slot="transfer-search"] {
     flex: none;
     padding: 0.5rem 0.75rem 0;
   }
-  [data-theme-style="antd"] [data-slot="transfer-body"] {
+  [data-skein-theme="antd"] [data-slot="transfer-body"] {
     flex: 1;
     min-height: 0;
     padding-block: 0.25rem;
     overflow-y: auto;
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"] {
+  [data-skein-theme="antd"] [data-slot="transfer-item"] {
     display: flex;
     align-items: center;
     padding: var(--_item-py) 0.75rem;
     transition: background-color 120ms ease;
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"]:hover {
+  [data-skein-theme="antd"] [data-slot="transfer-item"]:hover {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"][data-checked] {
+  [data-skein-theme="antd"] [data-slot="transfer-item"][data-checked] {
     background-color: var(--ui-c-primary-soft);
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="transfer-item"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"][data-disabled]:hover {
+  [data-skein-theme="antd"] [data-slot="transfer-item"][data-disabled]:hover {
     background-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="transfer-label"] {
+  [data-skein-theme="antd"] [data-slot="transfer-label"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="antd"] [data-slot="transfer-empty"] {
+  [data-skein-theme="antd"] [data-slot="transfer-empty"] {
     padding: 2rem 1rem;
     color: var(--ui-fg-muted);
     text-align: center;
   }
-  [data-theme-style="antd"] [data-slot="transfer-actions"] {
+  [data-skein-theme="antd"] [data-slot="transfer-actions"] {
     display: flex;
     flex: none;
     flex-direction: column;
@@ -108,82 +108,82 @@
   }
 
   /* Aligned with ant.design's Transfer: list 180 × 200, header 40px, each item 32px, disabled items are only gray text (no reduced opacity), selected count and title are both body-text color */
-  [data-theme-style="antd"] [data-slot="transfer"] {
+  [data-skein-theme="antd"] [data-slot="transfer"] {
     --_item-py: 0;
     gap: 0.5rem;
   }
-  [data-theme-style="antd"] [data-slot="transfer-list"] {
+  [data-skein-theme="antd"] [data-slot="transfer-list"] {
     width: 11.25rem;
     height: 12.5rem;
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="antd"] [data-slot="transfer-header"] {
+  [data-skein-theme="antd"] [data-slot="transfer-header"] {
     height: 2.5rem;
     box-sizing: border-box;
     padding: 0.5rem 0.75rem;
     border-bottom-color: color-mix(in srgb, var(--ui-fg) 6.8%, transparent);
   }
-  [data-theme-style="antd"] [data-slot="transfer-title"] {
+  [data-skein-theme="antd"] [data-slot="transfer-title"] {
     font-weight: 400;
   }
-  [data-theme-style="antd"] [data-slot="transfer-count"] {
+  [data-skein-theme="antd"] [data-slot="transfer-count"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
   }
-  [data-theme-style="antd"] [data-slot="transfer-body"] {
+  [data-skein-theme="antd"] [data-slot="transfer-body"] {
     padding-block: 0;
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"] {
+  [data-skein-theme="antd"] [data-slot="transfer-item"] {
     box-sizing: border-box;
     height: 2rem;
   }
-  [data-theme-style="antd"] [data-slot="transfer-item"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="transfer-item"][data-disabled] {
     color: var(--ui-field-placeholder);
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="transfer-empty"] {
+  [data-skein-theme="antd"] [data-slot="transfer-empty"] {
     color: var(--ui-field-placeholder);
   }
 
   /* Measured on the official site: list radius 8px; header is "checkbox · selected count ...... title on the right"; move buttons stacked vertically with 4px gap, icon 12px */
-  [data-theme-style="antd"] [data-slot="transfer-list"] {
+  [data-skein-theme="antd"] [data-slot="transfer-list"] {
     border-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="antd"] [data-slot="transfer-count"] {
+  [data-skein-theme="antd"] [data-slot="transfer-count"] {
     order: 1;
   }
-  [data-theme-style="antd"] [data-slot="transfer-title"] {
+  [data-skein-theme="antd"] [data-slot="transfer-title"] {
     order: 2;
     text-align: end;
   }
-  [data-theme-style="antd"] [data-slot="transfer-actions"] {
+  [data-skein-theme="antd"] [data-slot="transfer-actions"] {
     gap: 0.25rem;
   }
   /* The official move button is solid primary when enabled (type="primary"), gray background with gray text when disabled */
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="transfer-actions"]
     [data-slot="button"]:not([data-disabled]) {
     border-color: transparent;
     background-color: var(--ui-c-primary);
     color: var(--ui-c-primary-fg);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="transfer-actions"]
     [data-slot="button"]:not([data-disabled]):hover {
     background-color: var(--ui-c-primary-hover);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="transfer-actions"]
     [data-slot="button"]:not([data-disabled]):active {
     background-color: var(--ui-c-primary-active);
   }
-  [data-theme-style="antd"] [data-slot="transfer-actions"] svg {
+  [data-skein-theme="antd"] [data-slot="transfer-actions"] svg {
     width: 0.75rem;
     height: 0.75rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="transfer-item"] {
+    [data-skein-theme="antd"] [data-slot="transfer-item"] {
       transition: none;
     }
   }

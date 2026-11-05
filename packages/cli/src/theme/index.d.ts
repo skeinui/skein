@@ -17,7 +17,7 @@ export interface ThemeIssue {
   message: string;
 }
 
-/** Every problem of the theme style in `dir` scoped to `[data-theme-style="name"]`; empty when complete. */
+/** Every problem of the theme style in `dir` scoped to `[data-skein-theme="name"]`; empty when complete. */
 export declare function checkTheme(dir: string, name: string, contract?: Contract): ThemeIssue[];
 export declare function declaredTokens(css: string): Set<string>;
 /** The contract of the @skeinui/ui installed near `from`, else the one the CLI ships with. */

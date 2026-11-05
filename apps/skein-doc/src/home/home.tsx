@@ -50,8 +50,8 @@ const prerendered = new Map(
 );
 
 /**
- * Content in a theme style of its own, whatever the site's is. A wrapper with `data-theme-style` isn't enough: theme
- * selectors are descendant selectors (`[data-theme-style="x"] [data-slot=…]`), so the <html>'s theme style matches the
+ * Content in a theme style of its own, whatever the site's is. A wrapper with `data-skein-theme` isn't enough: theme
+ * selectors are descendant selectors (`[data-skein-theme="x"] [data-slot=…]`), so the <html>'s theme style matches the
  * content too, with the same specificity, and the stylesheet order decides. A shadow root keeps the outer rules out:
  * it gets the page's own stylesheets (the same cached files; in dev, copies of Vite's <style> tags, so a CSS edit shows
  * in the cards after a reload) and a container carrying the theme style and mode.
@@ -83,7 +83,7 @@ function ThemeIsland({
       // The page's stylesheets but the theme styles, and this card's theme style (its own file, site/theme-styles.ts)
       const sheets = [
         ...document.head.querySelectorAll(
-          'link[rel="stylesheet"]:not([data-theme-style-css]), style',
+          'link[rel="stylesheet"]:not([data-skein-theme-css]), style',
         ),
       ].map((n) => n.cloneNode(true) as HTMLElement);
       const own = document.createElement("link");
@@ -120,7 +120,7 @@ function ThemeIsland({
     <div ref={host} className="pg-skincard-island">
       {mount
         ? createPortal(
-            <div className="pg-skincard-theme" data-theme-style={themeStyle} data-mode={mode}>
+            <div className="pg-skincard-theme" data-skein-theme={themeStyle} data-skein-mode={mode}>
               {children}
             </div>,
             mount,
@@ -139,7 +139,7 @@ function SkinCard({ themeStyle }: { themeStyle: ThemeStyle }) {
       <div className="pg-skincard-head">
         <div>
           <strong>{THEME_STYLE_INFO[themeStyle].name}</strong>
-          <span>{`data-theme-style="${themeStyle}"`}</span>
+          <span>{`data-skein-theme="${themeStyle}"`}</span>
         </div>
         <button
           type="button"

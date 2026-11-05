@@ -2,10 +2,10 @@
 
 @layer ui-style {
   /* Menu: dropdown menu, padding 0.375rem, min width 13.75rem, option height 2.25rem, radius var(--ui-r-block). */
-  [data-theme-style="heroui"] [data-slot="menu-positioner"] {
+  [data-skein-theme="heroui"] [data-slot="menu-positioner"] {
     z-index: 100000;
   }
-  [data-theme-style="heroui"] [data-slot="menu"] {
+  [data-skein-theme="heroui"] [data-slot="menu"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -29,16 +29,16 @@
       opacity 150ms ease,
       transform 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="menu"][data-starting-style],
-  [data-theme-style="heroui"] [data-slot="menu"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="menu"][data-starting-style],
+  [data-skein-theme="heroui"] [data-slot="menu"][data-ending-style] {
     opacity: 0;
     transform: scale(0.9);
   }
-  [data-theme-style="heroui"] [data-slot="menu"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="menu"][data-ending-style] {
     transition-duration: 100ms;
   }
 
-  [data-theme-style="heroui"] [data-slot="menu-item"] {
+  [data-skein-theme="heroui"] [data-slot="menu-item"] {
     position: relative;
     display: flex;
     align-items: center;
@@ -59,16 +59,16 @@
       background-color 100ms ease,
       color 100ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="menu-item"][data-highlighted] {
+  [data-skein-theme="heroui"] [data-slot="menu-item"][data-highlighted] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="menu-item"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="menu-item"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
 
-  [data-theme-style="heroui"] [data-slot="menu-checkbox-item"] {
+  [data-skein-theme="heroui"] [data-slot="menu-checkbox-item"] {
     position: relative;
     display: flex;
     align-items: center;
@@ -89,25 +89,25 @@
       background-color 100ms ease,
       color 100ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="menu-checkbox-item"][data-highlighted] {
+  [data-skein-theme="heroui"] [data-slot="menu-checkbox-item"][data-highlighted] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="menu-checkbox-item"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="menu-checkbox-item"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="heroui"] [data-slot="menu-item"][data-color="danger"] {
+  [data-skein-theme="heroui"] [data-slot="menu-item"][data-color="danger"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="heroui"] [data-slot="menu-item"][data-color="danger"][data-highlighted] {
+  [data-skein-theme="heroui"] [data-slot="menu-item"][data-color="danger"][data-highlighted] {
     background-color: var(--ui-c-neutral-soft);
   }
   /* Checkable items: leave room on the left for the checkmark */
-  [data-theme-style="heroui"] [data-slot="menu-checkbox-item"] {
+  [data-skein-theme="heroui"] [data-slot="menu-checkbox-item"] {
     padding-inline-start: calc(1.75rem * var(--ui-density));
   }
-  [data-theme-style="heroui"] [data-slot="menu-item-indicator"] {
+  [data-skein-theme="heroui"] [data-slot="menu-item-indicator"] {
     position: absolute;
     inset-inline-start: 0.5rem;
     display: inline-flex;
@@ -115,7 +115,7 @@
     height: 1rem;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="heroui"] [data-slot="menu-item-indicator"] > svg {
+  [data-skein-theme="heroui"] [data-slot="menu-item-indicator"] > svg {
     width: 0.625rem;
     height: 0.625rem;
     margin: auto;
@@ -124,36 +124,36 @@
     stroke-dashoffset: 1;
     transition: stroke-dashoffset 150ms linear;
   }
-  [data-theme-style="heroui"] [data-slot="menu-item-indicator"][data-checked] > svg {
+  [data-skein-theme="heroui"] [data-slot="menu-item-indicator"][data-checked] > svg {
     stroke-dashoffset: 0;
   }
-  [data-theme-style="heroui"] [data-slot="menu-separator"] {
+  [data-skein-theme="heroui"] [data-slot="menu-separator"] {
     flex: none;
     height: 1px;
     width: 94%;
     margin: 0 0 0 3%;
     background-color: color-mix(in oklab, var(--ui-border) 80%, var(--ui-overlay-bg) 20%);
   }
-  [data-theme-style="heroui"] [data-slot="menu-group"] {
+  [data-skein-theme="heroui"] [data-slot="menu-group"] {
     display: flex;
     flex-direction: column;
     gap: calc(0.125rem * var(--ui-density));
   }
-  [data-theme-style="heroui"] [data-slot="menu-group-label"] {
+  [data-skein-theme="heroui"] [data-slot="menu-group-label"] {
     padding: calc(0.375rem * var(--ui-density)) calc(0.625rem * var(--ui-density));
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.25rem;
     user-select: none;
   }
-  [data-theme-style="heroui"] [data-slot="menu-item"]:active,
-  [data-theme-style="heroui"] [data-slot="menu-checkbox-item"]:active,
-  [data-theme-style="heroui"] [data-slot="select-item"]:active {
+  [data-skein-theme="heroui"] [data-slot="menu-item"]:active,
+  [data-skein-theme="heroui"] [data-slot="menu-checkbox-item"]:active,
+  [data-skein-theme="heroui"] [data-slot="select-item"]:active {
     transform: scale(0.98);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="menu"] {
+    [data-skein-theme="heroui"] [data-slot="menu"] {
       transition: none;
     }
   }

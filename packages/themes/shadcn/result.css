@@ -3,7 +3,7 @@
 @layer ui-style {
   /* Result: a centered column - large icon (or a 403 / 404 / 500 error code), title, description, action buttons, and finally an optional content block.
      Status colors use this theme style's semantic colors. */
-  [data-theme-style="shadcn"] [data-slot="result"] {
+  [data-skein-theme="shadcn"] [data-slot="result"] {
     --_c: var(--ui-c-primary);
     box-sizing: border-box;
     display: flex;
@@ -16,16 +16,16 @@
     line-height: 1.5;
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="result"][data-status="success"] {
+  [data-skein-theme="shadcn"] [data-slot="result"][data-status="success"] {
     --_c: var(--ui-c-success);
   }
-  [data-theme-style="shadcn"] [data-slot="result"][data-status="error"] {
+  [data-skein-theme="shadcn"] [data-slot="result"][data-status="error"] {
     --_c: var(--ui-c-danger);
   }
-  [data-theme-style="shadcn"] [data-slot="result"][data-status="warning"] {
+  [data-skein-theme="shadcn"] [data-slot="result"][data-status="warning"] {
     --_c: var(--ui-c-warning);
   }
-  [data-theme-style="shadcn"] [data-slot="result-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="result-icon"] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,12 +33,12 @@
     color: var(--_c);
     line-height: 1;
   }
-  [data-theme-style="shadcn"] [data-slot="result-icon"] > svg {
+  [data-skein-theme="shadcn"] [data-slot="result-icon"] > svg {
     width: 4.5rem;
     height: 4.5rem;
   }
   /* Page-level error code: large and faint, just a marker */
-  [data-theme-style="shadcn"] [data-slot="result-code"] {
+  [data-skein-theme="shadcn"] [data-slot="result-code"] {
     color: color-mix(in srgb, var(--ui-fg) 22%, transparent);
     font-size: 6rem;
     font-weight: 700;
@@ -46,24 +46,24 @@
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="shadcn"] [data-slot="result-title"] {
+  [data-skein-theme="shadcn"] [data-slot="result-title"] {
     margin-top: 0.5rem;
     font-size: 1.5rem;
     font-weight: 500;
     line-height: 1.3333;
   }
-  [data-theme-style="shadcn"] [data-slot="result-description"] {
+  [data-skein-theme="shadcn"] [data-slot="result-description"] {
     max-width: 36rem;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="shadcn"] [data-slot="result-extra"] {
+  [data-skein-theme="shadcn"] [data-slot="result-extra"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
     margin-top: 1.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="result-content"] {
+  [data-skein-theme="shadcn"] [data-slot="result-content"] {
     box-sizing: border-box;
     width: 100%;
     margin-top: 1.5rem;

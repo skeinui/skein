@@ -92,7 +92,7 @@ describe("code themes (packages/themes/code)", () => {
   test("themes that follow light / dark have two palettes, fixed dark ones only one", () => {
     for (const name of ["github", "one", "solarized", "catppuccin"]) {
       expect(blocks(read(`${name}.css`))).toHaveLength(2);
-      expect(read(`${name}.css`)).toContain('[data-mode="dark"]');
+      expect(read(`${name}.css`)).toContain('[data-skein-mode="dark"]');
     }
     for (const name of ["dracula", "nord", "monokai", "tokyo-night"]) {
       expect(blocks(read(`${name}.css`))).toHaveLength(1);

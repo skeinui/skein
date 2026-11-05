@@ -5387,7 +5387,7 @@
       ]
     },
     "ConfigProvider": {
-      "description": "App-wide settings provider, placed once at the app root: picks the theme style, light / dark mode, color theme and\ndensity, and supplies the default locale and UI text to every component inside.\nPass `themeStyle` (e.g. \"antd\"), `mode` (\"light\" / \"dark\" / \"system\"), `themeColor`, `themeDensity`, per-item\n`themeOverrides` (colors, radii, density), `locale` (BCP 47) for date components and `labels` (a stable object) to\ntranslate component text; a component's own `locale` / `labels` win. Omitted settings are left untouched, and changing\none does not remount the subtree.\n\nTheme style: settings are written to `<html>` as `data-theme-style` / `data-mode` / `data-theme-color` /\n`data-theme-density` (on `<html>` so portalled overlays follow), `themeOverrides` as inline CSS variables on `<html>`;\nprevious values are restored on unmount or change.",
+      "description": "App-wide settings provider, placed once at the app root: picks the theme style, light / dark mode, color theme and\ndensity, and supplies the default locale and UI text to every component inside.\nPass `themeStyle` (e.g. \"antd\"), `mode` (\"light\" / \"dark\" / \"system\"), `themeColor`, `themeDensity`, per-item\n`themeOverrides` (colors, radii, density), `locale` (BCP 47) for date components and `labels` (a stable object) to\ntranslate component text; a component's own `locale` / `labels` win. Omitted settings are left untouched, and changing\none does not remount the subtree.\n\nTheme style: settings are written to `<html>` as `data-skein-theme` / `data-skein-mode` / `data-skein-color` /\n`data-skein-density` (on `<html>` so portalled overlays follow), `themeOverrides` as inline CSS variables on `<html>`;\nprevious values are restored on unmount or change.",
       "import": "import { ConfigProvider } from \"@skeinui/ui\";",
       "props": {
         "children": {
@@ -5409,15 +5409,15 @@
             "dark",
             "system"
           ],
-          "description": "Light / dark, written to `<html data-mode>`; \"system\" follows the OS and updates when the OS switches."
+          "description": "Light / dark, written to `<html data-skein-mode>`; \"system\" follows the OS and updates when the OS switches."
         },
         "themeColor": {
           "type": "string | string[]",
-          "description": "Color theme (colors only, both light and dark sets), written to `<html data-theme-color>`; multiple can be passed, joined with spaces."
+          "description": "Color theme (colors only, both light and dark sets), written to `<html data-skein-color>`; multiple can be passed, joined with spaces."
         },
         "themeDensity": {
           "type": "string",
-          "description": "Density (e.g. \"compact\"), written to `<html data-theme-density>`; if omitted, it is the theme style's own density."
+          "description": "Density (e.g. \"compact\"), written to `<html data-skein-density>`; if omitted, it is the theme style's own density."
         },
         "themeOverrides": {
           "type": "AdminLayoutTheme",
@@ -5425,7 +5425,7 @@
         },
         "themeStyle": {
           "type": "string",
-          "description": "Theme style (shape, density baseline, fonts, component look), written to `<html data-theme-style>`."
+          "description": "Theme style (shape, density baseline, fonts, component look), written to `<html data-skein-theme>`."
         }
       },
       "types": {
@@ -10884,7 +10884,7 @@
       ]
     },
     "MermaidBlock": {
-      "description": "Mermaid diagram block: renders Mermaid `code` as a diagram, with a header holding a title, a \"view source\" toggle and a copy button.\nMermaid is not bundled: pass `render` (code → SVG string), and the result is shown as an `<img>`, so the SVG is never injected into the page.\nWhile rendering a status is announced to screen readers; on failure the error is shown with the source; if it rendered before, the previous diagram stays (faded).\nSwitching light / dark mode (`data-mode` on `<html>`) re-renders with the new theme.\nFor plain source code use CodeBlock.\n\nTheme style: `data-state` (loading / ready / error) and `data-view` (diagram / source) on the root, `data-stale` on the image while re-rendering.",
+      "description": "Mermaid diagram block: renders Mermaid `code` as a diagram, with a header holding a title, a \"view source\" toggle and a copy button.\nMermaid is not bundled: pass `render` (code → SVG string), and the result is shown as an `<img>`, so the SVG is never injected into the page.\nWhile rendering a status is announced to screen readers; on failure the error is shown with the source; if it rendered before, the previous diagram stays (faded).\nSwitching light / dark mode (`data-skein-mode` on `<html>`) re-renders with the new theme.\nFor plain source code use CodeBlock.\n\nTheme style: `data-state` (loading / ready / error) and `data-view` (diagram / source) on the root, `data-stale` on the image while re-rendering.",
       "import": "import { MermaidBlock } from \"@skeinui/ui\";",
       "props": {
         "code": {
@@ -17686,7 +17686,7 @@
       }
     },
     "Toaster": {
-      "description": "Toaster: shows the notifications raised with `toast` (`toast.success(\"Saved\")`, `toast.loading(…)`, `toast.close(id)`).\nPlace it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear.\nFor a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.\n\nTheme style: toasts render in a Portal, so data-theme-style must be set on <html> (ConfigProvider does it).",
+      "description": "Toaster: shows the notifications raised with `toast` (`toast.success(\"Saved\")`, `toast.loading(…)`, `toast.close(id)`).\nPlace it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear.\nFor a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.\n\nTheme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).",
       "import": "import { Toaster } from \"@skeinui/ui\";",
       "props": {
         "layout": {

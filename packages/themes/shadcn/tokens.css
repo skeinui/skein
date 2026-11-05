@@ -2,7 +2,7 @@
 
 /* shadcn theme style: neutral gray scale, thin borders, flat, smaller controls. Light values. */
 @layer ui-tokens {
-  [data-theme-style="shadcn"] {
+  [data-skein-theme="shadcn"] {
     --ui-accent: var(--ui-c-neutral-soft); /* Nova's --accent, with its own value in dark mode */
     color-scheme: light;
 
@@ -80,8 +80,8 @@
     --ui-c-danger-text: #e7000b;
   }
 
-  [data-theme-style="shadcn"],
-  [data-theme-style="shadcn"] :is([data-theme-color], [data-theme-density]) {
+  [data-skein-theme="shadcn"],
+  [data-skein-theme="shadcn"] :is([data-skein-color], [data-skein-density]) {
     /* State colors: hover / pressed / outline, derived from the base and foreground colors so they follow when the theme changes the base color */
     --ui-c-neutral-hover: color-mix(in oklab, var(--ui-c-neutral) 90%, var(--ui-c-neutral-fg) 10%);
     --ui-c-neutral-active: color-mix(in oklab, var(--ui-c-neutral) 80%, var(--ui-c-neutral-fg) 20%);

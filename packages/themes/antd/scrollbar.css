@@ -7,24 +7,24 @@
      A consumer who wants an area to differ can override scrollbar-width / scrollbar-color in their own styles.
      The standard properties cover Chrome 121+, Firefox and Safari 18.2+; the ::-webkit-scrollbar group is for browsers that do not recognize the standard properties
      (browsers that do recognize them ignore these), and there the bottom-right corner (where the scrollbar meets the resize handle) must also be transparent, otherwise a patch of background shows. */
-  [data-theme-style="antd"],
-  [data-theme-style="antd"] * {
+  [data-skein-theme="antd"],
+  [data-skein-theme="antd"] * {
     scrollbar-width: thin;
     scrollbar-color: color-mix(in srgb, var(--ui-fg) 28%, transparent) transparent;
   }
-  [data-theme-style="antd"]::-webkit-scrollbar,
-  [data-theme-style="antd"] *::-webkit-scrollbar {
+  [data-skein-theme="antd"]::-webkit-scrollbar,
+  [data-skein-theme="antd"] *::-webkit-scrollbar {
     width: 0.625rem;
     height: 0.625rem;
   }
-  [data-theme-style="antd"]::-webkit-scrollbar-track,
-  [data-theme-style="antd"] *::-webkit-scrollbar-track,
-  [data-theme-style="antd"]::-webkit-scrollbar-corner,
-  [data-theme-style="antd"] *::-webkit-scrollbar-corner {
+  [data-skein-theme="antd"]::-webkit-scrollbar-track,
+  [data-skein-theme="antd"] *::-webkit-scrollbar-track,
+  [data-skein-theme="antd"]::-webkit-scrollbar-corner,
+  [data-skein-theme="antd"] *::-webkit-scrollbar-corner {
     background: transparent;
   }
-  [data-theme-style="antd"]::-webkit-scrollbar-thumb,
-  [data-theme-style="antd"] *::-webkit-scrollbar-thumb {
+  [data-skein-theme="antd"]::-webkit-scrollbar-thumb,
+  [data-skein-theme="antd"] *::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     border-radius: 999px;
     background-color: color-mix(in srgb, var(--ui-fg) 28%, transparent);

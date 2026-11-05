@@ -2,22 +2,22 @@
 
 @layer ui-style {
   /* NumberField: the input's appearance comes from input-group, this file only handles the plus / minus buttons on both sides and the centered number. */
-  [data-theme-style="default"] [data-slot="number-field"] {
+  [data-skein-theme="default"] [data-slot="number-field"] {
     display: inline-flex;
     flex-direction: column;
   }
-  [data-theme-style="default"] [data-slot="number-field"] [data-slot="input-group"] {
+  [data-skein-theme="default"] [data-slot="number-field"] [data-slot="input-group"] {
     align-items: center;
   }
-  [data-theme-style="default"] [data-slot="number-field"] [data-slot="input-group-input"] {
+  [data-skein-theme="default"] [data-slot="number-field"] [data-slot="input-group-input"] {
     flex: 1;
     width: 4.5rem;
     min-width: 0;
     text-align: center;
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="default"] [data-slot="number-field-decrement"],
-  [data-theme-style="default"] [data-slot="number-field-increment"] {
+  [data-skein-theme="default"] [data-slot="number-field-decrement"],
+  [data-skein-theme="default"] [data-slot="number-field-increment"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -37,36 +37,36 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="number-field"]
     [data-slot="input-group"][data-size="sm"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]) {
     width: calc(1.75rem * var(--ui-density));
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="number-field"]
     [data-slot="input-group"][data-size="lg"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]) {
     width: calc(2.25rem * var(--ui-density));
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"])
     > svg {
     width: 0.875rem;
     height: 0.875rem;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):hover:not(
       [data-disabled]
     ) {
     background-color: var(--ui-c-neutral-soft);
     color: var(--ui-fg);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"])[data-disabled] {
     opacity: 0.4;
     cursor: not-allowed;

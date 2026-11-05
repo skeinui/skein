@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* MermaidBlock: the header (title + view source + copy) is followed by the diagram (<img>) or source; rendering / failed each have their own state */
-  [data-theme-style="default"] [data-slot="mermaid"] {
+  [data-skein-theme="default"] [data-slot="mermaid"] {
     box-sizing: border-box;
     max-width: 100%;
     margin: 0;
@@ -15,7 +15,7 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="default"] [data-slot="mermaid-header"] {
+  [data-skein-theme="default"] [data-slot="mermaid-header"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,14 +26,14 @@
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.75rem;
   }
-  [data-theme-style="default"] [data-slot="mermaid-title"] {
+  [data-skein-theme="default"] [data-slot="mermaid-title"] {
     font-family: var(--ui-font-mono);
   }
-  [data-theme-style="default"] [data-slot="mermaid-actions"] {
+  [data-skein-theme="default"] [data-slot="mermaid-actions"] {
     display: inline-flex;
     gap: 0.125rem;
   }
-  [data-theme-style="default"] [data-slot="mermaid-action"] {
+  [data-skein-theme="default"] [data-slot="mermaid-action"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -50,25 +50,25 @@
     outline: none;
     transition: background-color 150ms ease;
   }
-  [data-theme-style="default"] [data-slot="mermaid-action"] > svg {
+  [data-skein-theme="default"] [data-slot="mermaid-action"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="default"] [data-slot="mermaid-action"]:hover {
+  [data-skein-theme="default"] [data-slot="mermaid-action"]:hover {
     background-color: color-mix(in srgb, transparent 90%, var(--ui-fg) 10%);
     color: var(--ui-fg);
   }
-  [data-theme-style="default"] [data-slot="mermaid-action"][aria-pressed="true"] {
+  [data-skein-theme="default"] [data-slot="mermaid-action"][aria-pressed="true"] {
     background-color: color-mix(in srgb, transparent 85%, var(--ui-c-primary) 15%);
     color: var(--ui-fg);
   }
-  [data-theme-style="default"] [data-slot="mermaid-action"][data-copied] {
+  [data-skein-theme="default"] [data-slot="mermaid-action"][data-copied] {
     color: color-mix(in srgb, var(--ui-c-success) 70%, var(--ui-fg));
   }
-  [data-theme-style="default"] [data-slot="mermaid-action"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="mermaid-action"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="default"] [data-slot="mermaid-error"] {
+  [data-skein-theme="default"] [data-slot="mermaid-error"] {
     padding: 0.5rem 0.75rem;
     border-bottom: 1px solid var(--ui-border);
     background-color: color-mix(in srgb, transparent 88%, var(--ui-c-danger) 12%);
@@ -76,7 +76,7 @@
     font-size: 0.8125rem;
     overflow-wrap: anywhere;
   }
-  [data-theme-style="default"] [data-slot="mermaid-body"] {
+  [data-skein-theme="default"] [data-slot="mermaid-body"] {
     position: relative;
     display: flex;
     justify-content: center;
@@ -84,33 +84,33 @@
     overflow: auto;
     outline: none;
   }
-  [data-theme-style="default"] [data-slot="mermaid-body"]:focus-visible,
-  [data-theme-style="default"] [data-slot="mermaid-source"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="mermaid-body"]:focus-visible,
+  [data-skein-theme="default"] [data-slot="mermaid-source"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="mermaid"][data-state="loading"]
     [data-slot="mermaid-body"] {
     min-height: 4rem;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="mermaid"][data-state="ready"]
     [data-slot="mermaid-body"] {
     min-height: 0;
   }
-  [data-theme-style="default"] [data-slot="mermaid"][data-state="error"] {
+  [data-skein-theme="default"] [data-slot="mermaid"][data-state="error"] {
     border-color: color-mix(in srgb, var(--ui-border) 60%, var(--ui-c-danger));
   }
-  [data-theme-style="default"] [data-slot="mermaid-image"] {
+  [data-skein-theme="default"] [data-slot="mermaid-image"] {
     display: block;
     max-width: 100%;
     height: auto;
     transition: opacity 150ms ease;
   }
-  [data-theme-style="default"] [data-slot="mermaid-image"][data-stale] {
+  [data-skein-theme="default"] [data-slot="mermaid-image"][data-stale] {
     opacity: 0.45;
   }
-  [data-theme-style="default"] [data-slot="mermaid-status"] {
+  [data-skein-theme="default"] [data-slot="mermaid-status"] {
     position: absolute;
     inset: 0;
     display: flex;
@@ -118,12 +118,12 @@
     justify-content: center;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="mermaid"][data-state="loading"]
     [data-slot="mermaid-status"] {
     animation: ui-mermaid-pulse 1.4s ease-in-out infinite;
   }
-  [data-theme-style="default"] [data-slot="mermaid-source"] {
+  [data-skein-theme="default"] [data-slot="mermaid-source"] {
     box-sizing: border-box;
     max-height: 24rem;
     margin: 0;
@@ -141,7 +141,7 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"]
+    [data-skein-theme="default"]
       [data-slot="mermaid"][data-state="loading"]
       [data-slot="mermaid-status"] {
       animation: none;

@@ -2,8 +2,8 @@
 
 /* Values of Ant Design 6's dark algorithm (theme.darkAlgorithm). */
 @layer ui-tokens {
-  [data-theme-style="antd"][data-mode="dark"],
-  [data-theme-style="antd"] :where([data-mode="dark"]) {
+  [data-skein-theme="antd"][data-skein-mode="dark"],
+  [data-skein-theme="antd"] :where([data-skein-mode="dark"]) {
     color-scheme: dark;
 
     /* Solid colors of colorBgContainer / colorFillQuaternary layered on the container (table header, row hover) */

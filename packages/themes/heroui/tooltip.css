@@ -2,10 +2,10 @@
 
 @layer ui-style {
   /* Tooltip: a 0.75rem hint bubble, fade + scale in and out, z-index 100000. */
-  [data-theme-style="heroui"] [data-slot="tooltip-positioner"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip-positioner"] {
     z-index: 100000;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip"] {
     box-sizing: border-box;
     max-width: 20rem;
     padding: 0.5rem;
@@ -24,40 +24,40 @@
       opacity 150ms ease,
       transform 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip"][data-starting-style],
-  [data-theme-style="heroui"] [data-slot="tooltip"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="tooltip"][data-starting-style],
+  [data-skein-theme="heroui"] [data-slot="tooltip"][data-ending-style] {
     opacity: 0;
     transform: scale(0.9);
   }
-  [data-theme-style="heroui"] [data-slot="tooltip"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="tooltip"][data-ending-style] {
     transition-duration: 100ms;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip"][data-instant] {
+  [data-skein-theme="heroui"] [data-slot="tooltip"][data-instant] {
     transition-duration: 0ms;
   }
 
-  [data-theme-style="heroui"] [data-slot="tooltip-arrow"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip-arrow"] {
     width: 0.5rem;
     height: 0.5rem;
     background-color: var(--ui-tooltip-bg);
     rotate: 45deg;
     border-radius: 0 0 2px 0;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip-arrow"][data-side="top"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip-arrow"][data-side="top"] {
     bottom: -0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip-arrow"][data-side="bottom"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip-arrow"][data-side="bottom"] {
     top: -0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip-arrow"][data-side="left"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip-arrow"][data-side="left"] {
     right: -0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="tooltip-arrow"][data-side="right"] {
+  [data-skein-theme="heroui"] [data-slot="tooltip-arrow"][data-side="right"] {
     left: -0.25rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="tooltip"] {
+    [data-skein-theme="heroui"] [data-slot="tooltip"] {
       transition: none;
     }
   }

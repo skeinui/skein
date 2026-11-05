@@ -33,7 +33,7 @@
     "heading": "Why skins",
     "p1": "Components describe **structure and behaviour**; a skin describes how they look. Read more in ",
     "link": "the architecture notes",
-    "p2": ", or use `data-theme-style` on the root element.",
+    "p2": ", or use `data-skein-theme` on the root element.",
     "li1": "One call site, many looks",
     "li2": "No style hooks — no per-page patches",
     "li3": "Dark mode comes with the skin",

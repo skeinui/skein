@@ -3,7 +3,7 @@
 @layer ui-style {
   /* QRCode: the shell (border, padding, radius) and the status mask are decided by the theme style; the QR code's own dark / background colors are functional colors for scanning and do not follow the theme.
      The background of the padding ring reads --qr-bg (see qrcode.tsx), white when no bgColor is passed. */
-  [data-theme-style="shadcn"] [data-slot="qrcode"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode"] {
     width: calc(var(--qr-size, 160) * 1px);
     height: calc(var(--qr-size, 160) * 1px);
     position: relative;
@@ -14,34 +14,34 @@
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="qrcode"][data-bordered] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode"][data-bordered] {
     padding: 0.75rem;
     border: 0 solid transparent;
     border-radius: calc(var(--ui-radius-lg) + 4px);
     background-color: var(--qr-bg, rgb(255 255 255));
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--ui-fg) 10%, transparent);
   }
-  [data-theme-style="shadcn"] [data-slot="qrcode-svg"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-svg"] {
     display: block;
     width: 100%;
     height: 100%;
   }
   /* Module edges are not anti-aliased, so each square stays sharp after scaling (more reliable scanning) */
-  [data-theme-style="shadcn"] [data-slot="qrcode-background"],
-  [data-theme-style="shadcn"] [data-slot="qrcode-modules"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-background"],
+  [data-skein-theme="shadcn"] [data-slot="qrcode-modules"] {
     shape-rendering: crispEdges;
   }
   /* The icon and its rounded background must be anti-aliased, not crispEdges */
-  [data-theme-style="shadcn"] [data-slot="qrcode-icon-bg"],
-  [data-theme-style="shadcn"] [data-slot="qrcode-icon"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-icon-bg"],
+  [data-skein-theme="shadcn"] [data-slot="qrcode-icon"] {
     pointer-events: none;
   }
-  [data-theme-style="shadcn"] [data-slot="qrcode-empty"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-empty"] {
     display: block;
     width: 100%;
     height: 100%;
   }
-  [data-theme-style="shadcn"] [data-slot="qrcode-mask"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-mask"] {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -56,7 +56,7 @@
     line-height: 1.5;
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="qrcode-spinner"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-spinner"] {
     width: 1.75rem;
     height: 1.75rem;
     color: var(--ui-c-primary);
@@ -67,17 +67,17 @@
       transform: rotate(360deg);
     }
   }
-  [data-theme-style="shadcn"] [data-slot="qrcode-status"] {
+  [data-skein-theme="shadcn"] [data-slot="qrcode-status"] {
     font-weight: 500;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="qrcode-mask"][data-status="scanned"]
     [data-slot="qrcode-status"] {
     color: var(--ui-c-success-text);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="qrcode-spinner"] {
+    [data-skein-theme="shadcn"] [data-slot="qrcode-spinner"] {
       animation-duration: 2s;
     }
   }

@@ -205,10 +205,10 @@ async function measureBatch(context, { style, mode, compact, pages, look }) {
     await page.evaluate(
       ({ style, mode, compact }) => {
         const root = document.documentElement;
-        root.dataset.themeStyle = style;
-        root.dataset.mode = mode;
-        if (compact) root.dataset.themeDensity = "compact";
-        else delete root.dataset.themeDensity;
+        root.dataset.skeinTheme = style;
+        root.dataset.skeinMode = mode;
+        if (compact) root.dataset.skeinDensity = "compact";
+        else delete root.dataset.skeinDensity;
       },
       { style, mode, compact },
     );

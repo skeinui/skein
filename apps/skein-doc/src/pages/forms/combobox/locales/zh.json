@@ -13,7 +13,7 @@
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
-    "description": "主题风格在 `combobox.css` 里只处理展开按钮和空状态；输入框外观来自 `input.css`，弹层来自 `select.css`。浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "description": "主题风格在 `combobox.css` 里只处理展开按钮和空状态；输入框外观来自 `input.css`，弹层来自 `select.css`。浮层同样要求 `data-skein-theme` 设在 `<html>` 上。",
     "input": "输入框，复用 Input 的 input-group",
     "trigger": "展开箭头按钮，打开时有 `data-popup-open`",
     "popup": "弹层和选项，复用 Select 的 slot",

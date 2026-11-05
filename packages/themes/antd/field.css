@@ -2,19 +2,19 @@
 
 @layer ui-style {
   /* Modeled on Ant Design 6's Form.Item (vertical layout): 8px below the 14px label, the required asterisk before the text, the description in tertiary gray, the error in red, all 14px. */
-  [data-theme-style="antd"] [data-slot="field"] {
+  [data-skein-theme="antd"] [data-slot="field"] {
     display: flex;
     flex-direction: column;
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="antd"] [data-slot="field-label"] {
+  [data-skein-theme="antd"] [data-slot="field-label"] {
     padding-bottom: 8px;
     color: var(--ui-fg);
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5714285714285714;
   }
-  [data-theme-style="antd"] [data-slot="field"][data-required] [data-slot="field-label"]::before {
+  [data-skein-theme="antd"] [data-slot="field"][data-required] [data-slot="field-label"]::before {
     display: inline-block;
     margin-inline-end: 4px;
     color: var(--ui-c-danger);
@@ -24,20 +24,20 @@
     content: "*";
   }
   /* antd's label does not change color on validation failure; only the control's stroke and the error text turn red; this is written out explicitly to distinguish it from other theme styles */
-  [data-theme-style="antd"] [data-slot="field"]:has([data-invalid]) [data-slot="field-label"] {
+  [data-skein-theme="antd"] [data-slot="field"]:has([data-invalid]) [data-slot="field-label"] {
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"] [data-slot="field"][data-disabled] [data-slot="field-label"] {
+  [data-skein-theme="antd"] [data-slot="field"][data-disabled] [data-slot="field-label"] {
     color: var(--ui-field-placeholder);
   }
-  [data-theme-style="antd"] [data-slot="field-description"] {
+  [data-skein-theme="antd"] [data-slot="field-description"] {
     min-height: 1.5rem;
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.5714285714285714;
     overflow-wrap: break-word;
   }
-  [data-theme-style="antd"] [data-slot="field-error"] {
+  [data-skein-theme="antd"] [data-slot="field-error"] {
     min-height: 1.5rem;
     color: var(--ui-c-danger);
     font-size: 0.875rem;
@@ -45,8 +45,8 @@
     overflow-wrap: break-word;
     transition: opacity var(--ui-duration) var(--ui-easing);
   }
-  [data-theme-style="antd"] [data-slot="field-error"][data-starting-style],
-  [data-theme-style="antd"] [data-slot="field-error"][data-ending-style] {
+  [data-skein-theme="antd"] [data-slot="field-error"][data-starting-style],
+  [data-skein-theme="antd"] [data-slot="field-error"][data-ending-style] {
     opacity: 0;
   }
 }

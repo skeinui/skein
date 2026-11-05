@@ -9,7 +9,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "主题风格在 `menubar.css` 里处理菜单栏本体和触发器；弹层和菜单项来自 `menu.css`。浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "description": "主题风格在 `menubar.css` 里处理菜单栏本体和触发器；弹层和菜单项来自 `menu.css`。浮层同样要求 `data-skein-theme` 设在 `<html>` 上。",
     "hook": "钩子",
     "menubar": "菜单栏本体和顶层触发器，打开的那个有 `data-popup-open`",
     "menu-positioner": "弹层和菜单项，复用 Menu 的 slot"

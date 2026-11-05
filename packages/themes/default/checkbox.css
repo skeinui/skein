@@ -2,14 +2,14 @@
 
 @layer ui-style {
   /* Checkbox: 1.125rem box; when checked, background and border both turn primary, and the check mark is drawn with a stroke animation. */
-  [data-theme-style="default"] [data-slot="checkbox"] {
+  [data-skein-theme="default"] [data-slot="checkbox"] {
     display: inline-flex;
     align-items: flex-start;
     gap: 0.625rem;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  [data-theme-style="default"] [data-slot="checkbox-control"] {
+  [data-skein-theme="default"] [data-slot="checkbox-control"] {
     --_bg: var(--ui-field-bg);
     position: relative;
     display: inline-flex;
@@ -33,31 +33,31 @@
       border-color 150ms var(--ui-easing),
       box-shadow 150ms var(--ui-easing);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="checkbox"][data-variant="filled"]
     [data-slot="checkbox-control"] {
     --_bg: var(--ui-field-filled-bg);
     border-color: transparent;
     box-shadow: none;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="checkbox-control"]:is([data-checked], [data-indeterminate]) {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary);
   }
-  [data-theme-style="default"] [data-slot="checkbox-control"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="checkbox-control"]:focus-visible {
     border-color: var(--ui-ring);
     box-shadow: 0 0 0 3px color-mix(in oklab, var(--ui-ring) 35%, transparent);
   }
-  [data-theme-style="default"] [data-slot="checkbox-control"][data-invalid] {
+  [data-skein-theme="default"] [data-slot="checkbox-control"][data-invalid] {
     border-color: var(--ui-c-danger);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="checkbox-control"][data-invalid]:is([data-checked], [data-indeterminate]) {
     background-color: var(--ui-c-danger);
     color: var(--ui-c-danger-fg);
   }
-  [data-theme-style="default"] [data-slot="checkbox-indicator"] {
+  [data-skein-theme="default"] [data-slot="checkbox-indicator"] {
     position: relative;
     display: flex;
     align-items: center;
@@ -65,67 +65,67 @@
     width: 70%;
     height: 70%;
   }
-  [data-theme-style="default"] [data-slot="checkbox-checkmark"],
-  [data-theme-style="default"] [data-slot="checkbox-indeterminate"] {
+  [data-skein-theme="default"] [data-slot="checkbox-checkmark"],
+  [data-skein-theme="default"] [data-slot="checkbox-indeterminate"] {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
   }
-  [data-theme-style="default"] [data-slot="checkbox-checkmark"] {
+  [data-skein-theme="default"] [data-slot="checkbox-checkmark"] {
     stroke-width: 2.5px;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
     transition: stroke-dashoffset 150ms linear 15ms;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="checkbox-indicator"][data-checked]:not([data-indeterminate])
     [data-slot="checkbox-checkmark"] {
     opacity: 1;
     stroke-dashoffset: 0;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="checkbox-indicator"][data-indeterminate]
     [data-slot="checkbox-indeterminate"] {
     opacity: 1;
   }
-  [data-theme-style="default"] [data-slot="checkbox-content"] {
+  [data-skein-theme="default"] [data-slot="checkbox-content"] {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
     font-family: var(--ui-font-family);
     user-select: none;
   }
-  [data-theme-style="default"] [data-slot="checkbox-label"] {
+  [data-skein-theme="default"] [data-slot="checkbox-label"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="default"] [data-slot="checkbox-description"] {
+  [data-skein-theme="default"] [data-slot="checkbox-description"] {
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
     line-height: 1.25rem;
     overflow-wrap: break-word;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="checkbox"]:has([data-slot="checkbox-control"][data-disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="default"] [data-slot="checkbox-group"] {
+  [data-skein-theme="default"] [data-slot="checkbox-group"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
-  [data-theme-style="default"] [data-slot="checkbox-group"][data-orientation="horizontal"] {
+  [data-skein-theme="default"] [data-slot="checkbox-group"][data-orientation="horizontal"] {
     flex-flow: row wrap;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="checkbox-control"],
-    [data-theme-style="default"] [data-slot="checkbox-checkmark"] {
+    [data-skein-theme="default"] [data-slot="checkbox-control"],
+    [data-skein-theme="default"] [data-slot="checkbox-checkmark"] {
       transition: none;
     }
   }

@@ -199,7 +199,7 @@ export function createServer({ cwd = process.cwd() } = {}) {
       description:
         "Writes a theme style to src/theme/ named `name`: a renamed copy of a bundled theme style (`from`, passes skein_check at once — then adjust tokens.css / dark.css) or a blank one listing every required token and selector. With `use`, the app switches to it. For brand colors, radius, fonts, density or a whole new look.",
       inputSchema: {
-        name: z.string().describe("data-theme-style value, lowercase, e.g. acme"),
+        name: z.string().describe("data-skein-theme value, lowercase, e.g. acme"),
         from: z
           .enum(themeIds.filter((t) => t !== "none"))
           .optional()

@@ -9,7 +9,7 @@
   },
   "styling": {
     "title": "Styling Reference",
-    "description": "Theme styles style the bar and its triggers in `menubar.css`; the popups and items come from `menu.css`. As for every overlay, `data-theme-style` must be set on `<html>`.",
+    "description": "Theme styles style the bar and its triggers in `menubar.css`; the popups and items come from `menu.css`. As for every overlay, `data-skein-theme` must be set on `<html>`.",
     "hook": "Hook",
     "menubar": "The bar and its top-level triggers; the open one has `data-popup-open`",
     "menu-positioner": "The popup and its items, reusing Menu's slots"

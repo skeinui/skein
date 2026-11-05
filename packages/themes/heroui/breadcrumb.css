@@ -2,11 +2,11 @@
 
 @layer ui-style {
   /* Breadcrumb: links are muted and darken on hover; the current page uses the body text color; the separator is a muted small arrow. */
-  [data-theme-style="heroui"] [data-slot="breadcrumb"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb"] {
     display: block;
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-list"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-list"] {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -18,12 +18,12 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-item"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-item"] {
     display: inline-flex;
     align-items: center;
     gap: calc(0.25rem * var(--ui-density));
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-link"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-link"] {
     padding: 0;
     border-radius: var(--ui-r-item);
     color: var(--ui-fg-muted);
@@ -35,37 +35,37 @@
       color 150ms ease,
       background-color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-link"]:hover {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-link"]:hover {
     text-decoration: underline;
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-link"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-link"]:focus-visible {
     box-shadow:
       0 0 0 2px var(--ui-bg),
       0 0 0 4px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-page"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-page"] {
     padding: 0;
     color: var(--ui-fg);
     font-weight: 500;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="breadcrumb-item"]:not(:last-child)
     [data-slot="breadcrumb-page"] {
     color: var(--ui-fg-muted);
     font-weight: 500;
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-separator"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-separator"] {
     display: inline-flex;
     color: var(--ui-fg-muted);
     user-select: none;
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-separator"] > svg {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-separator"] > svg {
     width: 0.75rem;
     height: 0.75rem;
   }
 
   /* Item with an icon: icon and text on one row, the icon slightly larger than the text */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     :is([data-slot="breadcrumb-link"], [data-slot="breadcrumb-page"]):has(
       > [data-slot="breadcrumb-icon"]
     ) {
@@ -73,7 +73,7 @@
     align-items: center;
     gap: calc(0.375rem * var(--ui-density));
   }
-  [data-theme-style="heroui"] [data-slot="breadcrumb-icon"] {
+  [data-skein-theme="heroui"] [data-slot="breadcrumb-icon"] {
     display: inline-flex;
     flex: none;
     font-size: 1rem;

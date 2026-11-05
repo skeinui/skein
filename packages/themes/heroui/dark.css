@@ -2,8 +2,8 @@
 
 /* Dark values of the HeroUI v3-style theme style (likewise taken from heroui.com's stylesheet). */
 @layer ui-tokens {
-  [data-theme-style="heroui"][data-mode="dark"],
-  [data-theme-style="heroui"] :where([data-mode="dark"]) {
+  [data-skein-theme="heroui"][data-skein-mode="dark"],
+  [data-skein-theme="heroui"] :where([data-skein-mode="dark"]) {
     color-scheme: dark;
 
     --ui-bg: #060607;

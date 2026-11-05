@@ -2,43 +2,43 @@
 
 @layer ui-style {
   /* Calendar: single / range selection. Selected is solid primary, today is outlined, and the middle of a range is a light band. */
-  [data-theme-style="antd"] [data-slot="calendar"][data-color="neutral"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-color="neutral"] {
     --_c: var(--ui-c-neutral);
     --_c-fg: var(--ui-c-neutral-fg);
     --_soft: var(--ui-c-neutral-soft);
     --_text: var(--ui-c-neutral-text);
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-color="primary"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-color="primary"] {
     --_c: var(--ui-c-primary);
     --_c-fg: var(--ui-c-primary-fg);
     --_soft: var(--ui-c-primary-soft);
     --_text: var(--ui-c-primary-text);
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-color="secondary"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-color="secondary"] {
     --_c: var(--ui-c-secondary);
     --_c-fg: var(--ui-c-secondary-fg);
     --_soft: var(--ui-c-secondary-soft);
     --_text: var(--ui-c-secondary-text);
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-color="success"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-color="success"] {
     --_c: var(--ui-c-success);
     --_c-fg: var(--ui-c-success-fg);
     --_soft: var(--ui-c-success-soft);
     --_text: var(--ui-c-success-text);
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-color="warning"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-color="warning"] {
     --_c: var(--ui-c-warning);
     --_c-fg: var(--ui-c-warning-fg);
     --_soft: var(--ui-c-warning-soft);
     --_text: var(--ui-c-warning-text);
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-color="danger"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-color="danger"] {
     --_c: var(--ui-c-danger);
     --_c-fg: var(--ui-c-danger-fg);
     --_soft: var(--ui-c-danger-soft);
     --_text: var(--ui-c-danger-text);
   }
-  [data-theme-style="antd"] [data-slot="calendar"] {
+  [data-skein-theme="antd"] [data-slot="calendar"] {
     --_cell: calc(2.25rem * var(--ui-density));
     display: inline-block;
     box-sizing: border-box;
@@ -47,13 +47,13 @@
     font-family: var(--ui-font-family);
     user-select: none;
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-size="sm"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-size="sm"] {
     --_cell: calc(2rem * var(--ui-density));
   }
-  [data-theme-style="antd"] [data-slot="calendar"][data-size="lg"] {
+  [data-skein-theme="antd"] [data-slot="calendar"][data-size="lg"] {
     --_cell: calc(2.75rem * var(--ui-density));
   }
-  [data-theme-style="antd"] [data-slot="calendar-header"] {
+  [data-skein-theme="antd"] [data-slot="calendar-header"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -63,14 +63,14 @@
     padding: 0 calc(0.5rem * var(--ui-density));
     border-bottom: 1px solid var(--ui-split, color-mix(in srgb, var(--ui-fg) 6%, transparent));
   }
-  [data-theme-style="antd"] [data-slot="calendar-title"] {
+  [data-skein-theme="antd"] [data-slot="calendar-title"] {
     flex: 1;
     font-size: 0.875rem;
     font-weight: 600;
     line-height: 2.5rem;
     text-align: center;
   }
-  [data-theme-style="antd"] [data-slot="calendar-nav-button"] {
+  [data-skein-theme="antd"] [data-slot="calendar-nav-button"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -88,29 +88,29 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="antd"] [data-slot="calendar-nav-button"] > svg {
+  [data-skein-theme="antd"] [data-slot="calendar-nav-button"] > svg {
     width: calc(0.875rem * var(--ui-density));
     height: calc(0.875rem * var(--ui-density));
   }
   /* Official: month-navigation buttons only change color on hover, with no background added */
-  [data-theme-style="antd"] [data-slot="calendar-nav-button"]:hover:not(:disabled) {
+  [data-skein-theme="antd"] [data-slot="calendar-nav-button"]:hover:not(:disabled) {
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"] [data-slot="calendar-nav-button"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="calendar-nav-button"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="antd"] [data-slot="calendar-nav-button"]:disabled {
+  [data-skein-theme="antd"] [data-slot="calendar-nav-button"]:disabled {
     opacity: 0.4;
     cursor: not-allowed;
   }
-  [data-theme-style="antd"] [data-slot="calendar-grid"] {
+  [data-skein-theme="antd"] [data-slot="calendar-grid"] {
     border-collapse: collapse;
     border-spacing: 0;
     table-layout: fixed;
     width: calc(var(--_cell) * 7);
     margin: 0.5rem 1.125rem;
   }
-  [data-theme-style="antd"] [data-slot="calendar-weekday"] {
+  [data-skein-theme="antd"] [data-slot="calendar-weekday"] {
     height: var(--_cell);
     padding: 0;
     color: var(--ui-fg);
@@ -118,11 +118,11 @@
     font-weight: 400;
     text-align: center;
   }
-  [data-theme-style="antd"] [data-slot="calendar-week"] {
+  [data-skein-theme="antd"] [data-slot="calendar-week"] {
     height: var(--_cell);
   }
   /* Official: cells are 36px high with 6px above and below, and the number block is 24px; the range band / disabled background is drawn only in the middle 24px */
-  [data-theme-style="antd"] [data-slot="calendar-cell"] {
+  [data-skein-theme="antd"] [data-slot="calendar-cell"] {
     position: relative;
     box-sizing: border-box;
     height: var(--_cell);
@@ -130,7 +130,7 @@
     background-clip: content-box;
     text-align: center;
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"] {
+  [data-skein-theme="antd"] [data-slot="calendar-day"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -151,70 +151,70 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"]:hover:not([data-selected], [data-disabled]) {
+  [data-skein-theme="antd"] [data-slot="calendar-day"]:hover:not([data-selected], [data-disabled]) {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"][data-today] {
+  [data-skein-theme="antd"] [data-slot="calendar-day"][data-today] {
     box-shadow: inset 0 0 0 1px var(--_c);
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"][data-outside] {
+  [data-skein-theme="antd"] [data-slot="calendar-day"][data-outside] {
     color: color-mix(in srgb, var(--ui-fg-muted) 55%, transparent);
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"][data-selected] {
+  [data-skein-theme="antd"] [data-slot="calendar-day"][data-selected] {
     background-color: var(--_c);
     color: var(--_c-fg);
     box-shadow: none;
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="calendar-day"][data-disabled] {
     color: color-mix(in srgb, var(--ui-fg-muted) 55%, transparent);
     cursor: not-allowed;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-cell"]:has(> [data-slot="calendar-day"][data-disabled]) {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="calendar-day"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="calendar-day"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
     position: relative;
     z-index: 1;
   }
   /* Range: the light band spans the full cell between start and end, with the right half at the start and the left half at the end joining up */
-  [data-theme-style="antd"] [data-slot="calendar-cell"][data-range-middle] {
+  [data-skein-theme="antd"] [data-slot="calendar-cell"][data-range-middle] {
     background-color: var(--_soft);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-cell"][data-range-middle]
     [data-slot="calendar-day"] {
     border-radius: 0;
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-cell"][data-range-middle]
     [data-slot="calendar-day"]:hover {
     background-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="calendar-cell"][data-range-start]:not([data-range-end]) {
+  [data-skein-theme="antd"] [data-slot="calendar-cell"][data-range-start]:not([data-range-end]) {
     background-image: linear-gradient(to right, transparent 50%, var(--_soft) 50%);
   }
-  [data-theme-style="antd"] [data-slot="calendar-cell"][data-range-end]:not([data-range-start]) {
+  [data-skein-theme="antd"] [data-slot="calendar-cell"][data-range-end]:not([data-range-start]) {
     background-image: linear-gradient(to left, transparent 50%, var(--_soft) 50%);
   }
   /* In DatePicker's overlay the calendar brings its own padding, so the overlay adds none */
-  [data-theme-style="antd"] [data-slot="popover"][data-picker] {
+  [data-skein-theme="antd"] [data-slot="popover"][data-picker] {
     padding: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="calendar-day"],
-    [data-theme-style="antd"] [data-slot="calendar-nav-button"] {
+    [data-skein-theme="antd"] [data-slot="calendar-day"],
+    [data-skein-theme="antd"] [data-slot="calendar-nav-button"] {
       transition: none;
     }
   }
 
   /* Selecting by month / quarter / year: uses the same rules as the day cells (the calendar-day rules above are duplicated for calendar-period); below is the grid layout */
-  [data-theme-style="antd"] [data-slot="calendar-period"] {
+  [data-skein-theme="antd"] [data-slot="calendar-period"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -235,48 +235,48 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-period"]:hover:not([data-selected], [data-disabled]) {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="calendar-period"][data-today] {
+  [data-skein-theme="antd"] [data-slot="calendar-period"][data-today] {
     box-shadow: inset 0 0 0 1px var(--_c);
   }
-  [data-theme-style="antd"] [data-slot="calendar-period"][data-outside] {
+  [data-skein-theme="antd"] [data-slot="calendar-period"][data-outside] {
     color: color-mix(in srgb, var(--ui-fg-muted) 55%, transparent);
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="calendar-period"][data-selected] {
+  [data-skein-theme="antd"] [data-slot="calendar-period"][data-selected] {
     background-color: var(--_c);
     color: var(--_c-fg);
     box-shadow: none;
     opacity: 1;
   }
-  [data-theme-style="antd"] [data-slot="calendar-period"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="calendar-period"][data-disabled] {
     color: color-mix(in srgb, var(--ui-fg-muted) 55%, transparent);
     cursor: not-allowed;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-cell"]:has(> [data-slot="calendar-period"][data-disabled]) {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="calendar-period"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="calendar-period"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
     position: relative;
     z-index: 1;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-cell"][data-range-middle]
     [data-slot="calendar-period"] {
     border-radius: 0;
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar-cell"][data-range-middle]
     [data-slot="calendar-period"]:hover {
     background-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="calendar-periods"] {
+  [data-skein-theme="antd"] [data-slot="calendar-periods"] {
     --_cols: 3;
     box-sizing: border-box;
     display: grid;
@@ -284,16 +284,16 @@
     width: calc(var(--_cell, 2.25rem) * 7);
     margin: 0.5rem 1.125rem;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="calendar"][data-unit="quarter"]
     [data-slot="calendar-periods"] {
     --_cols: 4;
   }
-  [data-theme-style="antd"] [data-slot="calendar-period-row"] {
+  [data-skein-theme="antd"] [data-slot="calendar-period-row"] {
     display: grid;
     grid-template-columns: repeat(var(--_cols), 1fr);
   }
-  [data-theme-style="antd"] [data-slot="calendar-period"] {
+  [data-skein-theme="antd"] [data-slot="calendar-period"] {
     width: calc(100% - 0.5rem);
     height: calc(2.5rem * var(--ui-density));
     margin-inline: auto;

@@ -2,10 +2,10 @@
 
 @layer ui-style {
   /* Popover: a click-triggered overlay, padding 1rem, radius min(2rem, var(--ui-r-surface)). */
-  [data-theme-style="heroui"] [data-slot="popover-positioner"] {
+  [data-skein-theme="heroui"] [data-slot="popover-positioner"] {
     z-index: 100000;
   }
-  [data-theme-style="heroui"] [data-slot="popover"] {
+  [data-skein-theme="heroui"] [data-slot="popover"] {
     box-sizing: border-box;
     padding: calc(1rem * var(--ui-density));
     border: 0px solid var(--ui-overlay-border);
@@ -24,50 +24,50 @@
       opacity 150ms ease,
       transform 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="popover"][data-starting-style],
-  [data-theme-style="heroui"] [data-slot="popover"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="popover"][data-starting-style],
+  [data-skein-theme="heroui"] [data-slot="popover"][data-ending-style] {
     opacity: 0;
     transform: scale(0.9);
   }
-  [data-theme-style="heroui"] [data-slot="popover"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="popover"][data-ending-style] {
     transition-duration: 100ms;
   }
-  [data-theme-style="heroui"] [data-slot="popover-title"] {
+  [data-skein-theme="heroui"] [data-slot="popover-title"] {
     margin: 0 0 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="popover-description"] {
+  [data-skein-theme="heroui"] [data-slot="popover-description"] {
     margin: 0;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="heroui"] [data-slot="popover-close"] {
+  [data-skein-theme="heroui"] [data-slot="popover-close"] {
     cursor: pointer;
   }
 
-  [data-theme-style="heroui"] [data-slot="popover-arrow"] {
+  [data-skein-theme="heroui"] [data-slot="popover-arrow"] {
     width: 0.5rem;
     height: 0.5rem;
     background-color: var(--ui-overlay-bg);
     rotate: 45deg;
     border-radius: 0 0 2px 0;
   }
-  [data-theme-style="heroui"] [data-slot="popover-arrow"][data-side="top"] {
+  [data-skein-theme="heroui"] [data-slot="popover-arrow"][data-side="top"] {
     bottom: -0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="popover-arrow"][data-side="bottom"] {
+  [data-skein-theme="heroui"] [data-slot="popover-arrow"][data-side="bottom"] {
     top: -0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="popover-arrow"][data-side="left"] {
+  [data-skein-theme="heroui"] [data-slot="popover-arrow"][data-side="left"] {
     right: -0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="popover-arrow"][data-side="right"] {
+  [data-skein-theme="heroui"] [data-slot="popover-arrow"][data-side="right"] {
     left: -0.25rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="popover"] {
+    [data-skein-theme="heroui"] [data-slot="popover"] {
       transition: none;
     }
   }

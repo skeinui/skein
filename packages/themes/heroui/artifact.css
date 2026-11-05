@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Artifact: the artifact panel beside the conversation - header (title / view switch / actions) + scrollable content area; ArtifactCard is the small card in the conversation that points to it */
-  [data-theme-style="heroui"] [data-slot="artifact"] {
+  [data-skein-theme="heroui"] [data-slot="artifact"] {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -15,7 +15,7 @@
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="heroui"] [data-slot="artifact-header"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-header"] {
     display: flex;
     flex: none;
     flex-wrap: wrap;
@@ -26,7 +26,7 @@
     padding: 0.5rem 0.5rem 0.5rem 1rem;
     border-bottom: 1px solid var(--ui-border);
   }
-  [data-theme-style="heroui"] [data-slot="artifact-title"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-title"] {
     flex: 1;
     min-width: 0;
     margin: 0;
@@ -37,33 +37,33 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-meta"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-meta"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.8125rem;
     font-weight: 400;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-actions"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-actions"] {
     display: flex;
     flex: none;
     align-items: center;
     gap: 0.125rem;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-body"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-body"] {
     flex: 1;
     min-height: 0;
     overflow: auto;
     outline: none;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-body"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="artifact-body"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
   /* When CodeBlock / Markdown is placed directly in the content area, no extra outer frame is added */
-  [data-theme-style="heroui"] [data-slot="artifact-body"] > [data-slot="code-block"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-body"] > [data-slot="code-block"] {
     min-height: 100%;
     border: 0;
     border-radius: 0;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-card"] {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
@@ -84,17 +84,17 @@
       background-color 150ms ease,
       border-color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card"]:hover {
+  [data-skein-theme="heroui"] [data-slot="artifact-card"]:hover {
     background-color: color-mix(in srgb, var(--ui-bg) 94%, var(--ui-fg) 6%);
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card"][data-selected] {
+  [data-skein-theme="heroui"] [data-slot="artifact-card"][data-selected] {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary-soft);
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="artifact-card"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card-icon"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-card-icon"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -105,17 +105,17 @@
     background-color: var(--ui-c-neutral-soft);
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card-icon"] > svg {
+  [data-skein-theme="heroui"] [data-slot="artifact-card-icon"] > svg {
     width: 1.125rem;
     height: 1.125rem;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card-text"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-card-text"] {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
     min-width: 0;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card-title"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-card-title"] {
     overflow: hidden;
     font-size: 0.875rem;
     font-weight: 600;
@@ -123,13 +123,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="artifact-card-meta"] {
+  [data-skein-theme="heroui"] [data-slot="artifact-card-meta"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 65%, var(--ui-fg));
     font-size: 0.75rem;
     line-height: 1.3;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="artifact-card"] {
+    [data-skein-theme="heroui"] [data-slot="artifact-card"] {
       transition: none;
     }
   }

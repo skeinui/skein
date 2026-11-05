@@ -5,7 +5,7 @@
  * The theme lives in the ui-color layer, which comes after ui-tokens in layer order, so it overrides the theme style's values regardless of selector specificity.
  */
 @layer ui-color {
-  [data-theme-color~="purple"] {
+  [data-skein-color~="purple"] {
     --ui-ring: #8b5cf6;
 
     --ui-c-primary: #7c3aed;
@@ -17,10 +17,10 @@
     --ui-c-primary-border: color-mix(in oklab, var(--ui-c-primary) 40%, transparent);
   }
 
-  /* Dark: data-mode and data-theme-color may be on the same element or one may wrap the other; all three positions must be covered */
-  [data-theme-color~="purple"][data-mode="dark"],
-  [data-mode="dark"] [data-theme-color~="purple"],
-  [data-theme-color~="purple"] [data-mode="dark"] {
+  /* Dark: data-skein-mode and data-skein-color may be on the same element or one may wrap the other; all three positions must be covered */
+  [data-skein-color~="purple"][data-skein-mode="dark"],
+  [data-skein-mode="dark"] [data-skein-color~="purple"],
+  [data-skein-color~="purple"] [data-skein-mode="dark"] {
     --ui-ring: #a78bfa;
 
     --ui-c-primary: #8b5cf6;

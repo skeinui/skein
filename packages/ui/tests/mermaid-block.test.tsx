@@ -11,7 +11,7 @@ const ssr = (n: React.ReactElement) => renderToStaticMarkup(n);
 let root: ReturnType<typeof createRoot> | null = null;
 let host: HTMLElement | null = null;
 afterEach(async () => {
-  document.documentElement.removeAttribute("data-mode");
+  document.documentElement.removeAttribute("data-skein-mode");
   await act(async () => root?.unmount());
   host?.remove();
   root = null;
@@ -113,12 +113,12 @@ describe("<MermaidBlock />", () => {
     expect(copy.getAttribute("aria-label")).toBe("Copied");
   });
 
-  test("re-renders with the new theme when data-mode changes", async () => {
-    document.documentElement.setAttribute("data-mode", "dark");
+  test("re-renders with the new theme when data-skein-mode changes", async () => {
+    document.documentElement.setAttribute("data-skein-mode", "dark");
     const render = vi.fn().mockResolvedValue(SVG);
     await mount(createElement(MermaidBlock, { code: "a", render }));
     expect(render).toHaveBeenLastCalledWith("a", { theme: "dark" });
-    await act(async () => document.documentElement.setAttribute("data-mode", "light"));
+    await act(async () => document.documentElement.setAttribute("data-skein-mode", "light"));
     await flush();
     expect(render).toHaveBeenLastCalledWith("a", { theme: "light" });
   });

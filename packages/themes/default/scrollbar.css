@@ -7,24 +7,24 @@
      To make an area different, the consumer overrides scrollbar-width / scrollbar-color in their own styles.
      The standard properties serve Chrome 121+, Firefox, Safari 18.2+; the ::-webkit-scrollbar group is for browsers that do not recognize the standard properties
      (browsers that do recognize them ignore these), and the bottom-right corner (where the scrollbar meets the resize handle) must also be made transparent, otherwise a patch of background color shows. */
-  [data-theme-style="default"],
-  [data-theme-style="default"] * {
+  [data-skein-theme="default"],
+  [data-skein-theme="default"] * {
     scrollbar-width: thin;
     scrollbar-color: color-mix(in srgb, var(--ui-fg) 28%, transparent) transparent;
   }
-  [data-theme-style="default"]::-webkit-scrollbar,
-  [data-theme-style="default"] *::-webkit-scrollbar {
+  [data-skein-theme="default"]::-webkit-scrollbar,
+  [data-skein-theme="default"] *::-webkit-scrollbar {
     width: 0.625rem;
     height: 0.625rem;
   }
-  [data-theme-style="default"]::-webkit-scrollbar-track,
-  [data-theme-style="default"] *::-webkit-scrollbar-track,
-  [data-theme-style="default"]::-webkit-scrollbar-corner,
-  [data-theme-style="default"] *::-webkit-scrollbar-corner {
+  [data-skein-theme="default"]::-webkit-scrollbar-track,
+  [data-skein-theme="default"] *::-webkit-scrollbar-track,
+  [data-skein-theme="default"]::-webkit-scrollbar-corner,
+  [data-skein-theme="default"] *::-webkit-scrollbar-corner {
     background: transparent;
   }
-  [data-theme-style="default"]::-webkit-scrollbar-thumb,
-  [data-theme-style="default"] *::-webkit-scrollbar-thumb {
+  [data-skein-theme="default"]::-webkit-scrollbar-thumb,
+  [data-skein-theme="default"] *::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     border-radius: 999px;
     background-color: color-mix(in srgb, var(--ui-fg) 28%, transparent);

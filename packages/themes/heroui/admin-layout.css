@@ -6,7 +6,7 @@
    * side (sidebar; the toolbar sits at the bottom of the sidebar, or in a header above the content area), top (top bar), mix (top bar for level one + sidebar for level two), column (icon column + second-level menu column), boxed (content is a rounded card).
    * Narrow screens (below md = 768px): the header navigation collapses into an "open menu" button; the sidebar, icon column and second-level menu no longer take space.
    */
-  [data-theme-style="heroui"] [data-slot="admin-layout"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout"] {
     --_header: 3.5rem;
     --_boxed: var(--ui-bg);
     display: flex;
@@ -22,19 +22,19 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout"][data-layout="boxed"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout"][data-layout="boxed"] {
     background-color: var(--_boxed);
   }
   /* When the sidebar is light (Semi Dark off), the Sidebar's own background is surface (white): in boxed, make it the same color as the outer frame and header (all --_boxed),
      otherwise a white sidebar would sit under a gray header */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-layout="boxed"][data-nav-theme="light"]
     [data-slot="sidebar-provider"] {
     --_bg: var(--_boxed);
   }
 
   /* Header */
-  [data-theme-style="heroui"] [data-slot="admin-layout-header"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-header"] {
     display: flex;
     flex: none;
     align-items: center;
@@ -47,27 +47,27 @@
   }
   /* A header inside the content area is shorter (2.5rem = 40px; the full-width header in other layouts is 3.5rem): the sidebar's logo strip reads the same --_header, so they shrink together;
      the left side always has a "collapse / expand sidebar" button (so the left is not empty when there is no breadcrumb; other layouts only need it on narrow screens) */
-  [data-theme-style="heroui"] [data-slot="admin-layout"][data-header-inset] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout"][data-header-inset] {
     --_header: 2.5rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-header-inset]
     [data-slot="admin-layout-header"]
     [data-slot="admin-layout-sidebar-trigger"] {
     display: inline-flex;
   }
   /* When the sidebar toolbar is in the header (or there is a breadcrumb): the header is inside the content area, its background is the content area's (it draws no background of its own), with a divider line below */
-  [data-theme-style="heroui"] [data-header-inset] [data-slot="admin-layout-header"] {
+  [data-skein-theme="heroui"] [data-header-inset] [data-slot="admin-layout-header"] {
     background-color: transparent;
   }
   /* When a tab bar directly follows the header, the two join into one block: the header draws no bottom divider (the tab bar has its own bottom line); the chrome tab bar has a faint background layer,
      and the header uses the same background, otherwise the header and tab bar look like two strips with a line between them; without a tab bar the header keeps its divider */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-header-inset]:has([data-slot="admin-layout-bar"])
     [data-slot="admin-layout-header"] {
     border-bottom-color: color-mix(in srgb, var(--ui-border) 45%, transparent);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-header-inset]:has(
       [data-slot="admin-layout-bar"] > [data-slot="page-tabs"][data-variant="chrome"]
     )
@@ -75,15 +75,15 @@
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 45%, transparent);
   }
   /* Mix: the logo on the left of the header aligns with the icon column in the sidebar below */
-  [data-theme-style="heroui"] [data-layout="mix"] [data-slot="admin-layout-header"] {
+  [data-skein-theme="heroui"] [data-layout="mix"] [data-slot="admin-layout-header"] {
     padding-inline-start: 1.5rem;
   }
-  [data-theme-style="heroui"] [data-layout="boxed"] [data-slot="admin-layout-header"] {
+  [data-skein-theme="heroui"] [data-layout="boxed"] [data-slot="admin-layout-header"] {
     padding-inline-start: 1.5rem;
     border-bottom: 0;
     background-color: var(--_boxed);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-menu-button"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-menu-button"] {
     display: none;
     flex: none;
     align-items: center;
@@ -102,52 +102,52 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-menu-button"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-menu-button"]:hover {
     background-color: color-mix(in srgb, var(--ui-fg) 8%, transparent);
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-menu-button"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-menu-button"]:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-logo"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-logo"] {
     display: flex;
     flex: none;
     align-items: center;
     gap: 0.5rem;
     font-weight: 600;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-context"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-context"] {
     flex: none;
     min-width: 0;
   }
   /* During the expand transition the outer frame is still narrow: the logo's icon / title / version do not shrink (otherwise the icon would first be squeezed to 0 width and then "grow", and the title would slide along),
      so like the menu icons they are at their final position from the first frame and are only gradually revealed by the sidebar edge. When collapsing, the logo mark is centered in the shrinking frame just like the menu icons,
      and both slide from the middle of the wide sidebar toward the narrow strip (same trajectory, so the mark is not animated separately) */
-  [data-theme-style="heroui"] [data-slot="admin-layout-logo"] > * {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-logo"] > * {
     flex: none;
   }
   /* When the header is too narrow: the logo shrinks as a whole and the overflowing tail (version, second half of the name) is clipped, while buttons and avatar stay fully visible
      (the logo's parts do not shrink, so the logo container itself must shrink) */
-  [data-theme-style="heroui"] [data-slot="admin-layout-header"] [data-slot="admin-layout-logo"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-header"] [data-slot="admin-layout-logo"] {
     flex: 0 1 auto;
     min-width: 0;
     overflow: hidden;
   }
   /* During the sidebar expand transition the outer frame is still narrow: the logo's name and the context switcher must not first wrap onto two lines and then merge back into one (whatever does not fit is clipped by the sidebar panel) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     :is([data-slot="admin-layout-logo"], [data-slot="admin-layout-context"]) {
     white-space: nowrap;
   }
   /* When the header is too narrow: the breadcrumb shrinks first and uses an ellipsis (its flex-shrink is larger than the navigation's); navigation items must not overflow and push other elements */
-  [data-theme-style="heroui"] [data-slot="admin-layout-breadcrumb"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-breadcrumb"] {
     flex: 0 100 auto;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-actions"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-actions"] {
     display: flex;
     flex: none;
     align-items: center;
@@ -155,13 +155,13 @@
     margin-inline-start: auto;
   }
   /* The side layout has no header; the logo / context / actions are all in the sidebar */
-  [data-theme-style="heroui"] [data-slot="sidebar-header"] [data-slot="admin-layout-logo"],
-  [data-theme-style="heroui"] [data-slot="sidebar-header"] [data-slot="admin-layout-context"] {
+  [data-skein-theme="heroui"] [data-slot="sidebar-header"] [data-slot="admin-layout-logo"],
+  [data-skein-theme="heroui"] [data-slot="sidebar-header"] [data-slot="admin-layout-context"] {
     width: 100%;
   }
   /* Sidebar (same with or without a header): the logo takes a 3.5rem-high strip, vertically centered (same height as the header in other layouts), and its left edge aligns with the menu's icon column
      (the sidebar header has its own padding, offset with a negative margin; the context switcher below still follows the header's padding) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-layout="side"]
     [data-slot="sidebar"]:not([data-collapsible])
     [data-slot="sidebar-header"]
@@ -171,7 +171,7 @@
     margin-block-start: calc(-1 * 1rem);
     margin-inline-start: calc(1.5rem - 1rem);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-layout="side"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="admin-layout-logo-mark"] {
@@ -179,18 +179,18 @@
     margin-block-start: calc(-1 * 1rem);
   }
   /* The first menu row directly follows the logo strip (the header's bottom padding is removed): this way it aligns with the rows of the header / tab bar on the right; the spacing is kept when there is a context switcher */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-layout="side"]
     [data-slot="sidebar"]:not([data-collapsible])
     [data-slot="sidebar-header"]:not(:has(> [data-slot="admin-layout-context"])),
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-layout="side"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="sidebar-header"] {
     padding-block-end: 0;
   }
   /* Sidebar collapsed to a narrow strip: only the mark (logoMark) remains, the name and context switcher are collapsed; without a logoMark the logo is kept */
-  [data-theme-style="heroui"] [data-slot="admin-layout-logo-mark"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-logo-mark"] {
     display: none;
     align-items: center;
     justify-content: center;
@@ -200,24 +200,24 @@
     box-sizing: border-box;
     font-size: 1.5rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="admin-layout-logo-mark"] {
     display: flex;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="admin-layout-context"] {
     display: none;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="sidebar-header"]:has([data-slot="admin-layout-logo-mark"])
     [data-slot="admin-layout-logo"] {
     display: none;
   }
   /* Actions at the bottom of the sidebar: buttons are square and icons are larger; when collapsed to a narrow strip they are stacked vertically and centered, aligned with the icon column above */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-footer"]
     [data-slot="admin-layout-actions"]
     [data-slot="button"][data-icon-only] {
@@ -227,7 +227,7 @@
     padding: 0;
     font-size: 1rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="sidebar-footer"]
     [data-slot="admin-layout-actions"] {
@@ -237,7 +237,7 @@
     justify-content: center;
   }
   /* When the remaining avatar is shorter than a button, the toolbar keeps the button height (2rem) and the avatar is centered inside: the avatar's vertical position is the same before and after collapsing */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="sidebar-footer"]
     [data-slot="admin-layout-actions"] {
@@ -246,7 +246,7 @@
   /* When collapsed to a narrow strip only the last item of actions is kept at the bottom (by convention the user avatar / menu): a horizontal row of buttons cannot transition into a vertical stack,
      on the first frame of collapsing the earlier ones would jump from the bottom row to the top, so the rest are hidden and reappear after expanding; the remaining one, like the menu icons,
      is centered in the shrinking outer frame and slides toward the narrow strip together with it */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar"][data-collapsible="icon"]
     [data-slot="sidebar-footer"]
     [data-slot="admin-layout-actions"]
@@ -257,28 +257,28 @@
   }
   /* When the toolbar contains a Menu, after it opens Base UI inserts empty spans for focus guards / aria-owns: they do not count as the "last item" (the selector above skips them),
      and do not take part in the flex gap (absolutely positioned), otherwise opening the menu would push the avatar off, or it would be hidden as not being the last item */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-footer"]
     [data-slot="admin-layout-actions"]
     > :is([data-base-ui-focus-guard], [aria-owns]) {
     position: absolute;
   }
-  [data-theme-style="heroui"] [data-slot="sidebar-footer"] [data-slot="admin-layout-actions"] {
+  [data-skein-theme="heroui"] [data-slot="sidebar-footer"] [data-slot="admin-layout-actions"] {
     margin-inline-start: 0;
     width: 100%;
     flex-wrap: wrap;
   }
 
   /* Level-one navigation in the header of the top / mix layouts */
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav"] {
     display: flex;
     align-items: center;
     gap: 0.25rem;
     min-width: 0;
     overflow: hidden;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"],
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail-item"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"],
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail-item"] {
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
@@ -294,55 +294,55 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"] {
     flex: none;
     gap: 0.375rem;
     height: 2rem;
     padding: 0 0.75rem;
     border-radius: var(--ui-r-control);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"]:hover,
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail-item"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"]:hover,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail-item"]:hover {
     background-color: color-mix(in srgb, var(--ui-fg) 7%, transparent);
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"]:focus-visible,
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail-item"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"]:focus-visible,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail-item"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"][data-active],
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"][data-popup-open] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"][data-active],
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"][data-popup-open] {
     color: var(--ui-fg);
     font-weight: 500;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-item"]:disabled,
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail-item"]:disabled {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-item"]:disabled,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail-item"]:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-icon"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-icon"] {
     display: inline-flex;
     flex: none;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-label"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-label"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-nav-chevron"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-nav-chevron"] {
     display: inline-flex;
     font-size: 0.8125rem;
     opacity: 0.6;
   }
 
   /* Column layout: level-one icon column + second-level menu column (collapsible) + content */
-  [data-theme-style="heroui"] [data-slot="admin-layout-row"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-row"] {
     display: flex;
     flex: 1;
     min-height: 0;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail"] {
     display: flex;
     flex: none;
     flex-direction: column;
@@ -354,7 +354,7 @@
     border-inline-end: 1px solid var(--ui-border);
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail-item"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail-item"] {
     flex-direction: column;
     justify-content: center;
     gap: 0.125rem;
@@ -363,16 +363,16 @@
     font-size: 0.75rem;
     text-align: center;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-rail-item"]
     [data-slot="admin-layout-nav-icon"] {
     font-size: 1.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-rail-item"][data-active] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-rail-item"][data-active] {
     background-color: color-mix(in srgb, var(--ui-c-primary) 10%, transparent);
     color: var(--ui-c-primary-text);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav"] {
     flex: none;
     box-sizing: border-box;
     width: 14rem;
@@ -386,13 +386,13 @@
       padding 200ms ease,
       border-width 200ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav"][data-collapsed] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav"][data-collapsed] {
     width: 0;
     padding-inline: 0;
     border-inline-end-width: 0;
   }
   /* Small round button on the edge of the second-level menu: sits on the divider, collapse / expand */
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav-toggle"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav-toggle"] {
     position: relative;
     z-index: 3;
     display: inline-flex;
@@ -416,23 +416,23 @@
       opacity 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-row"]:hover
     [data-slot="admin-layout-subnav-toggle"],
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav-toggle"]:focus-visible,
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav-toggle"][data-collapsed] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav-toggle"]:focus-visible,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav-toggle"][data-collapsed] {
     opacity: 1;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav-toggle"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav-toggle"]:hover {
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-subnav-toggle"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-subnav-toggle"]:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
 
   /* Main area: tab row, content, footer. In side / mix / boxed it is Sidebar.Inset */
-  [data-theme-style="heroui"] [data-slot="admin-layout-main"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-main"] {
     position: relative;
     display: flex;
     flex: 1;
@@ -441,21 +441,21 @@
     min-height: 0;
     background-color: var(--ui-bg);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout"] [data-slot="sidebar-inset"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout"] [data-slot="sidebar-inset"] {
     position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     min-height: 0;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-background"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-background"] {
     position: absolute;
     inset: 0;
     z-index: 0;
     overflow: hidden;
     border-radius: inherit;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-body"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-body"] {
     position: relative;
     z-index: 1;
     display: flex;
@@ -464,7 +464,7 @@
     min-height: 0;
     border-radius: inherit;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar"] {
     display: flex;
     flex: none;
     align-items: center;
@@ -472,7 +472,7 @@
     min-width: 0;
   }
   /* Built-in buttons on the right of the tab row (refresh, maximize / restore), separated from the tabs by a vertical line */
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar-actions"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar-actions"] {
     display: flex;
     flex: none;
     align-items: center;
@@ -480,14 +480,14 @@
     margin-inline-start: auto;
     padding-inline: 0.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar-actions"]::before {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar-actions"]::before {
     content: "";
     width: 1px;
     height: 1rem;
     margin-inline-end: 0.25rem;
     background-color: var(--ui-border);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar-button"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar-button"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -505,54 +505,54 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar-button"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar-button"]:hover {
     background-color: color-mix(in srgb, var(--ui-fg) 8%, transparent);
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar-button"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar-button"]:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
   /* The tab bar (chrome / line) and the buttons on the right form one strip: the background color and bottom line are put on the tab row, so the inner tab bar no longer draws them itself */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-bar"]:has(> [data-slot="page-tabs"][data-variant="chrome"]) {
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 45%, transparent);
     box-shadow: inset 0 -1px 0 var(--ui-border);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-bar"]:has(> [data-slot="page-tabs"][data-variant="line"]) {
     box-shadow: inset 0 -1px 0 var(--ui-border);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-bar"]
     > [data-slot="page-tabs"][data-variant="chrome"],
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-bar"]
     > [data-slot="page-tabs"][data-variant="line"] {
     background-color: transparent;
     box-shadow: none;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-bar"] > [data-slot="page-tabs"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-bar"] > [data-slot="page-tabs"] {
     flex: 1;
     min-width: 0;
   }
   /* Open-sidebar button needed only on narrow screens (on desktop there is a thin strip on the sidebar edge) */
-  [data-theme-style="heroui"] [data-slot="admin-layout-sidebar-trigger"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-sidebar-trigger"] {
     display: none;
     flex: none;
   }
   /* Logo shown only on narrow screens (in the side layout the desktop logo is in the sidebar); when too narrow it shrinks as a whole and the tail is clipped, buttons stay fully visible */
-  [data-theme-style="heroui"] [data-slot="admin-layout-mobile-logo"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-mobile-logo"] {
     display: none;
     flex: 0 1 auto;
     align-items: center;
     min-width: 0;
     overflow: hidden;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-mobile-logo"] > * {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-mobile-logo"] > * {
     flex: none;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-content"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-content"] {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -560,14 +560,14 @@
     min-height: 0;
     overflow: auto;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-footer"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-footer"] {
     flex: none;
     padding: 0.75rem 1.5rem;
     color: var(--ui-fg-muted);
     font-size: 0.75rem;
     text-align: center;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-footer"][data-fixed] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-footer"][data-fixed] {
     position: sticky;
     bottom: 0;
     border-top: 1px solid var(--ui-border);
@@ -575,20 +575,20 @@
   }
 
   /* Maximized: only tabs, content and footer remain */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-maximized]
     [data-slot="admin-layout-row"] {
     display: block;
   }
 
   /* Full navigation in the narrow-screen drawer */
-  [data-theme-style="heroui"] [data-slot="admin-layout-drawer"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-drawer"] {
     display: flex;
     flex-direction: column;
     height: 100%;
     min-height: 0;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-drawer-header"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-drawer-header"] {
     display: flex;
     flex: none;
     align-items: center;
@@ -598,7 +598,7 @@
     border-bottom: 1px solid var(--ui-border);
     font-weight: 600;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-drawer"] > :last-child {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-drawer"] > :last-child {
     flex: 1;
     min-height: 0;
     padding: 0.5rem;
@@ -606,26 +606,26 @@
   }
 
   @media (max-width: 767.98px) {
-    [data-theme-style="heroui"] [data-slot="admin-layout-menu-button"] {
+    [data-skein-theme="heroui"] [data-slot="admin-layout-menu-button"] {
       display: inline-flex;
     }
-    [data-theme-style="heroui"] [data-slot="admin-layout-nav"],
-    [data-theme-style="heroui"] [data-slot="admin-layout-rail"],
-    [data-theme-style="heroui"] [data-slot="admin-layout-subnav"],
-    [data-theme-style="heroui"] [data-slot="admin-layout-subnav-toggle"],
-    [data-theme-style="heroui"] [data-slot="admin-layout-context"],
-    [data-theme-style="heroui"] [data-slot="admin-layout-breadcrumb"] {
+    [data-skein-theme="heroui"] [data-slot="admin-layout-nav"],
+    [data-skein-theme="heroui"] [data-slot="admin-layout-rail"],
+    [data-skein-theme="heroui"] [data-slot="admin-layout-subnav"],
+    [data-skein-theme="heroui"] [data-slot="admin-layout-subnav-toggle"],
+    [data-skein-theme="heroui"] [data-slot="admin-layout-context"],
+    [data-skein-theme="heroui"] [data-slot="admin-layout-breadcrumb"] {
       display: none;
     }
-    [data-theme-style="heroui"] [data-slot="admin-layout-sidebar-trigger"] {
+    [data-skein-theme="heroui"] [data-slot="admin-layout-sidebar-trigger"] {
       display: inline-flex;
     }
-    [data-theme-style="heroui"] [data-slot="admin-layout-mobile-logo"] {
+    [data-skein-theme="heroui"] [data-slot="admin-layout-mobile-logo"] {
       display: flex;
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"]
+    [data-skein-theme="heroui"]
       :is(
         [data-slot="admin-layout-menu-button"],
         [data-slot="admin-layout-nav-item"],
@@ -639,20 +639,20 @@
   }
 
   /* ---- Settings panel: presets, swatches, individual settings ---- */
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings"] {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     color: var(--ui-fg);
     font-size: 0.875rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-section"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-section"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
   /* "Custom" heading: separates the presets above from the part the user tuned below */
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-heading"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-heading"] {
     margin: 0.25rem 0 0;
     padding-top: 1.25rem;
     border-top: 2px solid var(--ui-border);
@@ -660,25 +660,25 @@
     font-size: 1.0625rem;
     font-weight: 700;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-title"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-title"] {
     margin: 0;
     color: var(--ui-fg);
     font-size: 0.9375rem;
     font-weight: 600;
   }
   /* A divider line between sections; hierarchy: section title (large, dark) > group subtitle (small, light) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-settings-section"]
     + [data-slot="admin-layout-settings-section"] {
     padding-top: 1.25rem;
     border-top: 1px solid var(--ui-border);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-presets"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-presets"] {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-preset"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-preset"] {
     display: flex;
     align-items: center;
     gap: 0.625rem;
@@ -695,24 +695,24 @@
       border-color 150ms ease,
       background-color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-preset"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-preset"]:hover {
     border-color: var(--ui-fg-muted);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-preset"][data-active] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-preset"][data-active] {
     border-color: var(--ui-c-primary);
     background: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-preset"]:focus-visible,
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-swatch"]:focus-visible,
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-clear"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-preset"]:focus-visible,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-swatch"]:focus-visible,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-clear"]:focus-visible {
     outline: 2px solid var(--ui-ring);
     outline-offset: 2px;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-dots"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-dots"] {
     display: inline-flex;
     flex: none;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-dot"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-dot"] {
     width: 0.875rem;
     height: 0.875rem;
     margin-inline-end: -0.25rem;
@@ -721,17 +721,17 @@
     background: var(--dot);
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--ui-fg) 14%, transparent);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-name"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-name"] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-palette"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-palette"] {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-swatch"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-swatch"] {
     width: 1.5rem;
     height: 1.5rem;
     padding: 0;
@@ -741,35 +741,35 @@
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--ui-fg) 14%, transparent);
     cursor: pointer;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-swatch"][data-active] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-swatch"][data-active] {
     box-shadow: 0 0 0 2px var(--dot);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-field"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-field"] {
     display: flex;
     flex-direction: column;
     gap: 0.375rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-field"][data-inline] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-field"][data-inline] {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-label"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-label"] {
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-color"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-color"] {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
   }
   /* Theme style section: one per row, name + one-line description */
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-styles"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-styles"] {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style"] {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -787,49 +787,49 @@
       border-color 150ms ease,
       background-color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style"]:hover {
     border-color: var(--ui-fg-muted);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style"][data-active] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style"][data-active] {
     border-color: var(--ui-c-primary);
     background: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style"]:focus-visible,
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-delete"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style"]:focus-visible,
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-delete"]:focus-visible {
     outline: 2px solid var(--ui-ring);
     outline-offset: 2px;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style-name"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style-name"] {
     font-weight: 600;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style"] {
     min-width: 0;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style-name"],
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style-note"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style-name"],
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style-note"] {
     max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-style-note"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-style-note"] {
     color: var(--ui-fg-muted);
     font-size: 0.75rem;
   }
   /* Presets saved by the user: preset button + delete button */
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-custom"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-custom"] {
     display: flex;
     grid-column: 1 / -1;
     align-items: center;
     min-width: 0;
     gap: 0.25rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-settings-custom"]
     > [data-slot="admin-layout-settings-preset"] {
     flex: 1;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-delete"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-delete"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -843,66 +843,66 @@
     color: var(--ui-fg-muted);
     cursor: pointer;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-delete"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-delete"]:hover {
     background: color-mix(in srgb, var(--ui-fg) 8%, transparent);
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-save-form"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-save-form"] {
     display: flex;
     align-items: center;
     gap: 0.375rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-save-form"] [data-slot="input"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-save-form"] [data-slot="input"] {
     flex: 1;
     min-width: 0;
   }
   /* Export / import: buttons in one row; the hint for a failed import */
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-actions"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-actions"] {
     display: flex;
     gap: 0.5rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-error"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-error"] {
     margin: 0;
     color: var(--ui-c-danger-text);
     font-size: 0.75rem;
   }
   /* Color group: subtitle + the rows of that group */
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-group"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-group"] {
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-settings-group"]
     + [data-slot="admin-layout-settings-group"] {
     padding-top: 0.75rem;
     border-top: 1px solid color-mix(in srgb, var(--ui-border) 70%, transparent);
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-subtitle"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-subtitle"] {
     margin: 0;
     color: var(--ui-fg-muted);
     font-size: 0.75rem;
     font-weight: 600;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-row"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-row"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
   /* The group subtitle in the preset grid spans a full row */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-settings-presets"]
     > [data-slot="admin-layout-settings-subtitle"] {
     grid-column: 1 / -1;
     margin-top: 0.25rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-settings-row"]
     > [data-slot="admin-layout-settings-field"] {
     min-width: 0;
   }
   /* Actions on the right of the header (notifications, light / dark switch...): like those at the bottom of the sidebar they are 2rem square icon buttons, and the hover background is one step darker than the default so it is clearly visible */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-header"]
     [data-slot="admin-layout-actions"]
     [data-slot="button"][data-icon-only] {
@@ -913,7 +913,7 @@
     font-size: 1rem;
     border-radius: 50%;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
     [data-slot="admin-layout-actions"]
     [data-slot="button"][data-variant="ghost"]:hover {
@@ -921,7 +921,7 @@
     color: var(--ui-fg);
   }
   /* HeroUI: the hover / pressed background of action buttons is a perfect circle (same for those at the bottom of the sidebar) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-footer"]
     [data-slot="admin-layout-actions"]
     [data-slot="button"] {
@@ -929,7 +929,7 @@
   }
   /* Context switcher and action buttons at the bottom of a dark sidebar (custom sidebar color, Semi Dark, theme="dark"): use semi-transparent white,
      otherwise neutral (dark) icons would be hard to see on the dark background */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-inner"][data-theme="dark"]
     [data-slot="admin-layout-context"]
     [data-slot="button"] {
@@ -937,20 +937,20 @@
     background-color: rgb(255 255 255 / 0.08);
     color: rgb(255 255 255 / 0.85);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-inner"][data-theme="dark"]
     [data-slot="admin-layout-actions"]
     [data-slot="button"] {
     color: rgb(255 255 255 / 0.72);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-inner"][data-theme="dark"]
     :is([data-slot="admin-layout-context"], [data-slot="admin-layout-actions"])
     [data-slot="button"][data-variant]:hover {
     background-color: rgb(255 255 255 / 0.18);
     color: white;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="sidebar-inner"][data-theme="dark"]
     [data-slot="sidebar-footer"]
     :is([data-slot="avatar"], [data-slot="avatar-fallback"]) {
@@ -958,15 +958,15 @@
     color: white;
   }
   /* When there is no reset button, keep its space so the color pickers in every row stay in the same column */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-settings-color"]:not(:has([data-slot="admin-layout-settings-clear"])) {
     padding-inline-end: 1.875rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-hint"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-hint"] {
     color: var(--ui-fg-muted);
     font-size: 0.75rem;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-clear"] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-clear"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -979,25 +979,25 @@
     color: var(--ui-fg-muted);
     cursor: pointer;
   }
-  [data-theme-style="heroui"] [data-slot="admin-layout-settings-clear"]:hover {
+  [data-skein-theme="heroui"] [data-slot="admin-layout-settings-clear"]:hover {
     background: color-mix(in srgb, var(--ui-fg) 8%, transparent);
     color: var(--ui-fg);
   }
 
   /* The column layout has no Sidebar: the level-one icon column and the second-level menu column also use the sidebar color */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-sidebar-color]
     :is([data-slot="admin-layout-rail"], [data-slot="admin-layout-subnav"]) {
     background-color: var(--al-sidebar);
     color: var(--al-sidebar-fg);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
     [data-slot="admin-layout-rail-item"]:not([data-active]) {
     color: color-mix(in srgb, var(--al-sidebar-fg) 70%, transparent);
   }
   /* With a custom sidebar color: selected / hover no longer use primary-color text (readability is not guaranteed on an arbitrary background); the text takes the sidebar's contrast color, and selected uses a background of 28% primary */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
     :is([data-slot="sidebar-inner"], [data-slot="admin-layout-subnav"])
     [data-slot="sidemenu"]:not([data-popup]) {
@@ -1011,7 +1011,7 @@
     );
     --_sel-fg: var(--al-sidebar-fg);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
     [data-slot="admin-layout-rail-item"][data-active] {
     background-color: color-mix(
@@ -1023,11 +1023,11 @@
   }
   /* Semi Dark: the page is light, while the navigation areas (header, level-one icon column and second-level menu column of the column layout; the sidebar uses Sidebar's theme="dark") are forced dark.
      Text / border / neutral colors are redefined inside these areas, so the breadcrumb, navigation items and buttons inside automatically switch to the light palette */
-  [data-theme-style="heroui"] [data-slot="admin-layout"][data-semi-dark] {
+  [data-skein-theme="heroui"] [data-slot="admin-layout"][data-semi-dark] {
     --_semi-bg: var(--ui-fg);
     --al-sidebar-fg: white;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-semi-dark]:not([data-header-inset])
     :is(
       [data-slot="admin-layout-header"],
@@ -1045,30 +1045,30 @@
     color: white;
   }
   /* Custom sidebar color: the background and text colors are both computed from theme.colors.sidebar (--al-sidebar / --al-sidebar-fg) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-sidebar-color]
     [data-slot="sidebar-inner"] {
     --_bg: var(--al-sidebar);
     color: var(--al-sidebar-fg);
   }
   /* Column: no line between the level-one icon column and the second-level menu column (the two columns form one navigation block), only one between the second-level menu and the content area; after the second-level menu collapses the line moves back to the right of the icon column */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout-rail"]:has(+ [data-slot="admin-layout-subnav"]:not([data-collapsed])) {
     border-inline-end: 0;
   }
   /* When the settings panel is in a drawer, the drawer width is the same across the five theme styles (each style's md drawer originally differs in width: 24rem / 28rem / 378px...) */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="drawer"][data-side][data-size]:has([data-slot="admin-layout-settings"]) {
     width: 28rem;
   }
   /* Custom sidebar color: in boxed, the sidebar's background is painted by the Sidebar shell (provider) and the panel (inner) is transparent, so the shell's background, outer frame and header all need the sidebar color */
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-layout][data-sidebar-color]
     [data-slot="sidebar-provider"] {
     --_bg: var(--al-sidebar);
     --_dark-bg: var(--al-sidebar);
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="admin-layout"][data-layout="boxed"][data-sidebar-color]:not(
       [data-header-follow="off"]
     ) {

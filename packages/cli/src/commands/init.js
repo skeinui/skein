@@ -61,7 +61,7 @@ function detectTheme(root) {
       theme: style,
       evidence: settings ? "src/settings.ts themeStyle" : "src/skein.theme.ts",
     };
-  const custom = read(root, "src/theme/tokens.css").match(/\[data-theme-style="([^"]+)"\]/)?.[1];
+  const custom = read(root, "src/theme/tokens.css").match(/\[data-skein-theme="([^"]+)"\]/)?.[1];
   if (custom) return { theme: "none", themeStyle: custom, evidence: "src/theme/tokens.css" };
   return {
     theme: null,

@@ -950,7 +950,7 @@ export function coverageFor(contract) {
       "[data-active]",
       "[data-disabled]",
     ],
-    "scrollbar.css": ["[data-theme-style"],
+    "scrollbar.css": ["[data-skein-theme"],
     "tour.css": [
       ...slotSel(TOUR_SLOTS),
       "[data-ready]",

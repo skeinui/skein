@@ -51,7 +51,7 @@ export function SkinIcon({ themeStyle }: { themeStyle: ThemeStyle }) {
   return (
     <span
       className="pg-skin-icon"
-      data-theme-style-icon={themeStyle}
+      data-skein-theme-icon={themeStyle}
       style={{ background: bg, color: fg }}
     >
       <Mark themeStyle={themeStyle} />

@@ -11,7 +11,7 @@ npm install @skeinui/ui @skeinui/themes
 ```
 
 ```ts
-import "@skeinui/themes/antd/index.css"; // 一套主题风格（也可以导入多套，各自按 data-theme-style 隔离）
+import "@skeinui/themes/antd/index.css"; // 一套主题风格（也可以导入多套，各自按 data-skein-theme 隔离）
 import "@skeinui/themes/color/purple.css"; // 可选：色彩主题
 import "@skeinui/themes/density/compact.css"; // 可选：密度
 import "@skeinui/themes/code/index.css"; // 可选：代码块主题
@@ -19,10 +19,10 @@ import "@skeinui/themes/code/index.css"; // 可选：代码块主题
 
 ```html
 <html
-  data-theme-style="antd"
-  data-mode="dark"
-  data-theme-color="purple"
-  data-theme-density="compact"
+  data-skein-theme="antd"
+  data-skein-mode="dark"
+  data-skein-color="purple"
+  data-skein-density="compact"
 ></html>
 ```
 
@@ -30,12 +30,12 @@ import "@skeinui/themes/code/index.css"; // 可选：代码块主题
 
 | 路径                  | 内容                                                                                                     | 属性                                        |
 | --------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `<style>/index.css`   | 主题风格：`default`（Skein 品牌）、`shadcn`、`heroui`（HeroUI v3）、`antd`（Ant Design 6），含亮色和暗色 | `data-theme-style`                          |
-| `color/<name>.css`    | 色彩主题，可叠加在任意风格上：`purple`、`green`、`geekblue`、`volcano`、`contrast`（WCAG AA）            | `data-theme-color`                          |
-| `density/compact.css` | 更紧凑的控件                                                                                             | `data-theme-density`                        |
+| `<style>/index.css`   | 主题风格：`default`（Skein 品牌）、`shadcn`、`heroui`（HeroUI v3）、`antd`（Ant Design 6），含亮色和暗色 | `data-skein-theme`                          |
+| `color/<name>.css`    | 色彩主题，可叠加在任意风格上：`purple`、`green`、`geekblue`、`volcano`、`contrast`（WCAG AA）            | `data-skein-color`                          |
+| `density/compact.css` | 更紧凑的控件                                                                                             | `data-skein-density`                        |
 | `code/index.css`      | 代码块主题：`github`、`one`、`solarized`、`catppuccin`、`dracula`、`nord`、`monokai`、`tokyo-night`      | `<CodeBlock theme>`、`<DiffView codeTheme>` |
 
-色彩主题可以组合，例如 `data-theme-color="purple contrast"`。
+色彩主题可以组合，例如 `data-skein-color="purple contrast"`。
 
 ## Vite：只打包用到的 CSS
 

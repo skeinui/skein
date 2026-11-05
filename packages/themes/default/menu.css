@@ -2,10 +2,10 @@
 
 @layer ui-style {
   /* Menu: dropdown menu, padding 0.25rem, minimum width 12rem, option height 2rem, radius var(--ui-radius-sm). */
-  [data-theme-style="default"] [data-slot="menu-positioner"] {
+  [data-skein-theme="default"] [data-slot="menu-positioner"] {
     z-index: 50;
   }
-  [data-theme-style="default"] [data-slot="menu"] {
+  [data-skein-theme="default"] [data-slot="menu"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -29,16 +29,16 @@
       opacity 150ms cubic-bezier(0.2, 0, 0, 1),
       transform 150ms cubic-bezier(0.2, 0, 0, 1);
   }
-  [data-theme-style="default"] [data-slot="menu"][data-starting-style],
-  [data-theme-style="default"] [data-slot="menu"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="menu"][data-starting-style],
+  [data-skein-theme="default"] [data-slot="menu"][data-ending-style] {
     opacity: 0;
     transform: scale(0.95);
   }
-  [data-theme-style="default"] [data-slot="menu"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="menu"][data-ending-style] {
     transition-duration: 100ms;
   }
 
-  [data-theme-style="default"] [data-slot="menu-item"] {
+  [data-skein-theme="default"] [data-slot="menu-item"] {
     position: relative;
     display: flex;
     align-items: center;
@@ -59,16 +59,16 @@
       background-color 100ms cubic-bezier(0.2, 0, 0, 1),
       color 100ms cubic-bezier(0.2, 0, 0, 1);
   }
-  [data-theme-style="default"] [data-slot="menu-item"][data-highlighted] {
+  [data-skein-theme="default"] [data-slot="menu-item"][data-highlighted] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="default"] [data-slot="menu-item"][data-disabled] {
+  [data-skein-theme="default"] [data-slot="menu-item"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
 
-  [data-theme-style="default"] [data-slot="menu-checkbox-item"] {
+  [data-skein-theme="default"] [data-slot="menu-checkbox-item"] {
     position: relative;
     display: flex;
     align-items: center;
@@ -89,25 +89,25 @@
       background-color 100ms cubic-bezier(0.2, 0, 0, 1),
       color 100ms cubic-bezier(0.2, 0, 0, 1);
   }
-  [data-theme-style="default"] [data-slot="menu-checkbox-item"][data-highlighted] {
+  [data-skein-theme="default"] [data-slot="menu-checkbox-item"][data-highlighted] {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="default"] [data-slot="menu-checkbox-item"][data-disabled] {
+  [data-skein-theme="default"] [data-slot="menu-checkbox-item"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="default"] [data-slot="menu-item"][data-color="danger"] {
+  [data-skein-theme="default"] [data-slot="menu-item"][data-color="danger"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="default"] [data-slot="menu-item"][data-color="danger"][data-highlighted] {
+  [data-skein-theme="default"] [data-slot="menu-item"][data-color="danger"][data-highlighted] {
     background-color: var(--ui-c-danger-soft);
   }
   /* Checkable item: leaves room on the left for the check mark */
-  [data-theme-style="default"] [data-slot="menu-checkbox-item"] {
+  [data-skein-theme="default"] [data-slot="menu-checkbox-item"] {
     padding-inline-start: calc(1.75rem * var(--ui-density));
   }
-  [data-theme-style="default"] [data-slot="menu-item-indicator"] {
+  [data-skein-theme="default"] [data-slot="menu-item-indicator"] {
     position: absolute;
     inset-inline-start: 0.5rem;
     display: inline-flex;
@@ -115,7 +115,7 @@
     height: 1rem;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="default"] [data-slot="menu-item-indicator"] > svg {
+  [data-skein-theme="default"] [data-slot="menu-item-indicator"] > svg {
     width: 0.625rem;
     height: 0.625rem;
     margin: auto;
@@ -124,21 +124,21 @@
     stroke-dashoffset: 1;
     transition: stroke-dashoffset 150ms linear;
   }
-  [data-theme-style="default"] [data-slot="menu-item-indicator"][data-checked] > svg {
+  [data-skein-theme="default"] [data-slot="menu-item-indicator"][data-checked] > svg {
     stroke-dashoffset: 0;
   }
-  [data-theme-style="default"] [data-slot="menu-separator"] {
+  [data-skein-theme="default"] [data-slot="menu-separator"] {
     flex: none;
     height: 1px;
     margin: 0.25rem 0.25rem;
     background-color: var(--ui-border);
   }
-  [data-theme-style="default"] [data-slot="menu-group"] {
+  [data-skein-theme="default"] [data-slot="menu-group"] {
     display: flex;
     flex-direction: column;
     gap: 0;
   }
-  [data-theme-style="default"] [data-slot="menu-group-label"] {
+  [data-skein-theme="default"] [data-slot="menu-group-label"] {
     padding: calc(0.375rem * var(--ui-density)) calc(0.625rem * var(--ui-density));
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
@@ -147,7 +147,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="menu"] {
+    [data-skein-theme="default"] [data-slot="menu"] {
       transition: none;
     }
   }

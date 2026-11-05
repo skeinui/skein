@@ -2,15 +2,15 @@
 
 @layer ui-style {
   /* NumberField: the input's look comes from input-group; this file only handles the increment / decrement buttons on both sides and the centered number. */
-  [data-theme-style="antd"] [data-slot="number-field"] {
+  [data-skein-theme="antd"] [data-slot="number-field"] {
     display: inline-flex;
     flex-direction: column;
   }
-  [data-theme-style="antd"] [data-slot="number-field"] [data-slot="input-group"] {
+  [data-skein-theme="antd"] [data-slot="number-field"] [data-slot="input-group"] {
     align-items: stretch;
     padding-inline: 0;
   }
-  [data-theme-style="antd"] [data-slot="number-field"] [data-slot="input-group-input"] {
+  [data-skein-theme="antd"] [data-slot="number-field"] [data-slot="input-group-input"] {
     flex: 1;
     width: 4.625rem;
     min-width: 0;
@@ -18,8 +18,8 @@
     text-align: center;
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="antd"] [data-slot="number-field-decrement"],
-  [data-theme-style="antd"] [data-slot="number-field-increment"] {
+  [data-skein-theme="antd"] [data-slot="number-field-decrement"],
+  [data-skein-theme="antd"] [data-slot="number-field-increment"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -39,60 +39,60 @@
       background-color 150ms ease,
       color 150ms ease;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="number-field"]
     [data-slot="input-group"][data-size="sm"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]) {
     width: calc(1.9375rem * var(--ui-density));
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="number-field"]
     [data-slot="input-group"][data-size="lg"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]) {
     width: calc(2.3125rem * var(--ui-density));
   }
-  [data-theme-style="antd"] [data-slot="number-field-decrement"] {
+  [data-skein-theme="antd"] [data-slot="number-field-decrement"] {
     border-inline-end: 1px solid var(--ui-border);
   }
-  [data-theme-style="antd"] [data-slot="number-field-increment"] {
+  [data-skein-theme="antd"] [data-slot="number-field-increment"] {
     border-inline-start: 1px solid var(--ui-border);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"])
     > svg {
     width: 0.875rem;
     height: 0.875rem;
     stroke-width: 3;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):hover:not(
       [data-disabled]
     ) {
     color: var(--ui-c-primary);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):active:not(
       [data-disabled]
     ) {
     background-color: color-mix(in srgb, var(--ui-fg) 2.3%, transparent);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"])[data-disabled] {
     color: color-mix(in srgb, var(--ui-fg) 28%, transparent);
     cursor: not-allowed;
   }
 
   /* Dark: the pressed background is 4% white (--ui-fg is 85% white, and scaled proportionally it is only 2%) */
-  [data-theme-style="antd"][data-mode="dark"]
+  [data-skein-theme="antd"][data-skein-mode="dark"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):active:not(
       [data-disabled]
     ),
-  [data-theme-style="antd"]
-    [data-mode="dark"]
+  [data-skein-theme="antd"]
+    [data-skein-mode="dark"]
     :is([data-slot="number-field-decrement"], [data-slot="number-field-increment"]):active:not(
       [data-disabled]
     ) {

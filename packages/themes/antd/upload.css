@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Upload: the dropzone is a dashed box whose border turns primary when a file is dragged in; the button variant is just a button. Below is the file list, rows with errors show the reason in red text. */
-  [data-theme-style="antd"] [data-slot="upload"] {
+  [data-skein-theme="antd"] [data-slot="upload"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -11,10 +11,10 @@
     line-height: 1.25rem;
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"] [data-slot="upload"][data-variant="button"] {
+  [data-skein-theme="antd"] [data-slot="upload"][data-variant="button"] {
     align-items: flex-start;
   }
-  [data-theme-style="antd"] [data-slot="upload-trigger"] {
+  [data-skein-theme="antd"] [data-slot="upload-trigger"] {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -35,18 +35,18 @@
       background-color 150ms ease,
       border-color 150ms ease;
   }
-  [data-theme-style="antd"] [data-slot="upload-trigger"]:hover {
+  [data-skein-theme="antd"] [data-slot="upload-trigger"]:hover {
     border-color: var(--ui-c-primary-hover);
   }
-  [data-theme-style="antd"] [data-slot="upload"][data-dragging] [data-slot="upload-trigger"] {
+  [data-skein-theme="antd"] [data-slot="upload"][data-dragging] [data-slot="upload-trigger"] {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary-soft);
   }
-  [data-theme-style="antd"] [data-slot="upload-trigger"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="upload-trigger"]:focus-visible {
     outline: 3px solid var(--ui-c-primary-border);
     outline-offset: 1px;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="upload"][data-variant="button"]
     [data-slot="upload-trigger"] {
     flex-direction: row;
@@ -58,40 +58,40 @@
     border-style: solid;
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="antd"] [data-slot="upload"][data-disabled] [data-slot="upload-trigger"] {
+  [data-skein-theme="antd"] [data-slot="upload"][data-disabled] [data-slot="upload-trigger"] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="antd"] [data-slot="upload"][data-disabled] [data-slot="upload-trigger"]:hover {
+  [data-skein-theme="antd"] [data-slot="upload"][data-disabled] [data-slot="upload-trigger"]:hover {
     background-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="upload-icon"] {
+  [data-skein-theme="antd"] [data-slot="upload-icon"] {
     display: inline-flex;
     color: var(--ui-c-primary);
   }
-  [data-theme-style="antd"] [data-slot="upload-icon"] > svg {
+  [data-skein-theme="antd"] [data-slot="upload-icon"] > svg {
     width: 3rem;
     height: 3rem;
   }
-  [data-theme-style="antd"] [data-slot="upload"][data-variant="button"] [data-slot="upload-icon"] {
+  [data-skein-theme="antd"] [data-slot="upload"][data-variant="button"] [data-slot="upload-icon"] {
     color: inherit;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="upload"][data-variant="button"]
     [data-slot="upload-icon"]
     > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="antd"] [data-slot="upload-title"] {
+  [data-skein-theme="antd"] [data-slot="upload-title"] {
     font-size: 1rem;
     line-height: 1.5rem;
   }
-  [data-theme-style="antd"] [data-slot="upload-hint"] {
+  [data-skein-theme="antd"] [data-slot="upload-hint"] {
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
   }
-  [data-theme-style="antd"] [data-slot="upload-list"] {
+  [data-skein-theme="antd"] [data-slot="upload-list"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -99,7 +99,7 @@
     padding: 0;
     list-style: none;
   }
-  [data-theme-style="antd"] [data-slot="upload-item"] {
+  [data-skein-theme="antd"] [data-slot="upload-item"] {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto auto auto;
     align-items: center;
@@ -110,44 +110,44 @@
     border-radius: var(--ui-radius-sm);
     transition: background-color 150ms ease;
   }
-  [data-theme-style="antd"] [data-slot="upload-item"]:hover {
+  [data-skein-theme="antd"] [data-slot="upload-item"]:hover {
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="upload-item"][data-status="error"]
     [data-slot="upload-item-name"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="antd"] [data-slot="upload-item-icon"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-icon"] {
     display: inline-flex;
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="antd"] [data-slot="upload-item-icon"] > svg {
+  [data-skein-theme="antd"] [data-slot="upload-item-icon"] > svg {
     width: 1.25rem;
     height: 1.25rem;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="upload-item"][data-status="done"]
     [data-slot="upload-item-icon"] {
     color: var(--ui-c-success-text);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="upload-item"][data-status="error"]
     [data-slot="upload-item-icon"] {
     color: var(--ui-c-danger-text);
   }
-  [data-theme-style="antd"] [data-slot="upload-item-name"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-name"] {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="antd"] [data-slot="upload-item-meta"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-meta"] {
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
     white-space: nowrap;
   }
-  [data-theme-style="antd"] [data-slot="upload-item-action"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-action"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -161,43 +161,43 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="antd"] [data-slot="upload-item-action"] > svg {
+  [data-skein-theme="antd"] [data-slot="upload-item-action"] > svg {
     width: 0.875rem;
     height: 0.875rem;
   }
-  [data-theme-style="antd"] [data-slot="upload-item-action"]:hover {
+  [data-skein-theme="antd"] [data-slot="upload-item-action"]:hover {
     background-color: var(--ui-c-neutral-soft);
     color: var(--ui-fg);
   }
-  [data-theme-style="antd"] [data-slot="upload-item-action"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="upload-item-action"]:focus-visible {
     outline: 3px solid var(--ui-c-primary-border);
     outline-offset: 1px;
   }
-  [data-theme-style="antd"] [data-slot="upload-item-progress"],
-  [data-theme-style="antd"] [data-slot="upload-item-error"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-progress"],
+  [data-skein-theme="antd"] [data-slot="upload-item-error"] {
     grid-column: 1 / -1;
   }
-  [data-theme-style="antd"] [data-slot="upload-item-error"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-error"] {
     color: var(--ui-c-danger-text);
     font-size: 0.8125rem;
   }
 
-  [data-theme-style="antd"] [data-slot="upload"][data-variant="dropzone"] {
+  [data-skein-theme="antd"] [data-slot="upload"][data-variant="dropzone"] {
     align-items: stretch;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="upload-item"][data-status="uploading"]
     [data-slot="upload-item-meta"] {
     font-variant-numeric: tabular-nums;
   }
 
   /* File type badge: only the heroui theme style draws it, other theme styles use the generic file icon */
-  [data-theme-style="antd"] [data-slot="upload-item-ext"] {
+  [data-skein-theme="antd"] [data-slot="upload-item-ext"] {
     display: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="upload-trigger"] {
+    [data-skein-theme="antd"] [data-slot="upload-trigger"] {
       transition: none;
     }
   }

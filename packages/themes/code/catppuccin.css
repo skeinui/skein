@@ -15,8 +15,8 @@
     --code-variable: #d20f39;
     --code-comment: #696c83;
   }
-  [data-mode="dark"] [data-code-theme="catppuccin"],
-  [data-code-theme="catppuccin"][data-mode="dark"] {
+  [data-skein-mode="dark"] [data-code-theme="catppuccin"],
+  [data-code-theme="catppuccin"][data-skein-mode="dark"] {
     --ui-bg: #1e1e2e;
     --ui-surface: #1e1e2e;
     --ui-fg: #cdd6f4;

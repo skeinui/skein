@@ -2,13 +2,13 @@
 
 @layer ui-style {
   /* Reasoning: the trigger is a muted sentence plus an arrow, and when expanded it is a vertical step timeline (dots strung on one line). The panel height animation reads --collapsible-panel-height */
-  [data-theme-style="heroui"] [data-slot="reasoning"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-trigger"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-trigger"] {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
@@ -27,39 +27,39 @@
     outline: none;
     transition: color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-trigger"]:hover {
+  [data-skein-theme="heroui"] [data-slot="reasoning-trigger"]:hover {
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-trigger"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="reasoning-trigger"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-icon"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-icon"] {
     display: inline-flex;
     flex: none;
     transition: rotate 200ms var(--ui-easing);
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-icon"] > svg {
+  [data-skein-theme="heroui"] [data-slot="reasoning-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="reasoning-trigger"][data-panel-open]
     [data-slot="reasoning-icon"] {
     rotate: 180deg;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-panel"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-panel"] {
     height: var(--collapsible-panel-height);
     overflow: hidden;
     transition: height 200ms var(--ui-easing);
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-panel"][data-starting-style],
-  [data-theme-style="heroui"] [data-slot="reasoning-panel"][data-ending-style] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-panel"][data-starting-style],
+  [data-skein-theme="heroui"] [data-slot="reasoning-panel"][data-ending-style] {
     height: 0;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-content"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-content"] {
     padding-block: 0.5rem 0.25rem;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-steps"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-steps"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -68,12 +68,12 @@
     list-style: none;
   }
   /* Each step: a dot on the left, with a line from the dot down to the next step */
-  [data-theme-style="heroui"] [data-slot="reasoning-step"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"] {
     position: relative;
     padding-inline-start: 1.25rem;
     color: var(--ui-fg);
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step"]::before {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"]::before {
     content: "";
     position: absolute;
     inset-block-start: 0.5rem;
@@ -84,7 +84,7 @@
     border-radius: 999px;
     background-color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step"]:not(:last-child)::after {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"]:not(:last-child)::after {
     content: "";
     position: absolute;
     inset-block: 1.25rem calc(-0.75rem + 0.0625rem);
@@ -92,24 +92,24 @@
     width: 1px;
     background-color: var(--ui-border);
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step"][data-status="done"]::before {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"][data-status="done"]::before {
     background-color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step"][data-status="active"]::before {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"][data-status="active"]::before {
     background-color: var(--ui-c-primary);
     animation: ui-reasoning-pulse 1.4s ease-in-out infinite;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step"][data-status="pending"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"][data-status="pending"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step"][data-status="pending"]::before {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step"][data-status="pending"]::before {
     border: 1px solid var(--ui-fg-muted);
     background-color: transparent;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step-label"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step-label"] {
     font-weight: 500;
   }
-  [data-theme-style="heroui"] [data-slot="reasoning-step-content"] {
+  [data-skein-theme="heroui"] [data-slot="reasoning-step-content"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     overflow-wrap: anywhere;
   }
@@ -123,12 +123,12 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="reasoning-panel"],
-    [data-theme-style="heroui"] [data-slot="reasoning-icon"],
-    [data-theme-style="heroui"] [data-slot="reasoning-trigger"] {
+    [data-skein-theme="heroui"] [data-slot="reasoning-panel"],
+    [data-skein-theme="heroui"] [data-slot="reasoning-icon"],
+    [data-skein-theme="heroui"] [data-slot="reasoning-trigger"] {
       transition: none;
     }
-    [data-theme-style="heroui"] [data-slot="reasoning-step"][data-status="active"]::before {
+    [data-skein-theme="heroui"] [data-slot="reasoning-step"][data-status="active"]::before {
       animation: none;
     }
   }

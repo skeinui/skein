@@ -60,11 +60,11 @@ describe("checkTheme finds problems", () => {
   test("each rule", () => {
     const dir = tempDir();
     const write = (file: string, css: string) => writeFileSync(join(dir, file), css);
-    write("tokens.css", '[data-theme-style="acme"] { --ui-bg: white; }');
+    write("tokens.css", '[data-skein-theme="acme"] { --ui-bg: white; }');
     write("dark.css", "");
     write("index.css", '@import "./tokens.css";');
     write("button.css", '[data-slot="button"] { color: #ff0000; border: @SEL_BG; }');
-    write("button-group.css", '[data-theme-style="acme"] [data-slot="button"]:last-child {}');
+    write("button-group.css", '[data-skein-theme="acme"] [data-slot="button"]:last-child {}');
 
     const rules = new Set(checkTheme(dir, "acme").map((i) => i.rule));
     expect([...rules].sort()).toEqual([...RULES].sort());

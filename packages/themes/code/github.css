@@ -15,8 +15,8 @@
     --code-variable: #953800;
     --code-comment: #6e7781;
   }
-  [data-mode="dark"] [data-code-theme="github"],
-  [data-code-theme="github"][data-mode="dark"] {
+  [data-skein-mode="dark"] [data-code-theme="github"],
+  [data-code-theme="github"][data-skein-mode="dark"] {
     --ui-bg: #0d1117;
     --ui-surface: #0d1117;
     --ui-fg: #e6edf3;

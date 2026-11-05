@@ -101,7 +101,7 @@
       "themes": "色彩主题",
       "title": "一套组件 API。",
       "subtitle": "适配任何设计语言。",
-      "lead": "`@skeinui/ui` 把行为和无障碍交给 Base UI，把外观交给可替换的主题风格。同一份调用代码，改一个 `data-theme-style`，就是 HeroUI、Ant Design 或 shadcn。",
+      "lead": "`@skeinui/ui` 把行为和无障碍交给 Base UI，把外观交给可替换的主题风格。同一份调用代码，改一个 `data-skein-theme`，就是 HeroUI、Ant Design 或 shadcn。",
       "browse": "浏览组件"
     },
     "stats": {
@@ -113,7 +113,7 @@
     "lab": {
       "eyebrow": "主题风格实验室",
       "title": "同一份代码，四种外观。",
-      "lead": "下面每张卡片渲染的是同一段 JSX，只是外层的 `data-theme-style` 不同。点击“使用”把整个站点切过去。",
+      "lead": "下面每张卡片渲染的是同一段 JSX，只是外层的 `data-skein-theme` 不同。点击“使用”把整个站点切过去。",
       "use": "使用",
       "inUse": "使用中",
       "preview": "{name} 预览"

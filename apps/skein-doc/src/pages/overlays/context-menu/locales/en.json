@@ -9,7 +9,7 @@
   },
   "styling": {
     "title": "Styling Reference",
-    "description": "ContextMenu has no CSS file of its own: its whole look comes from `menu.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "description": "ContextMenu has no CSS file of its own: its whole look comes from `menu.css`. As with every overlay, `data-skein-theme` must be set on `<html>`.",
     "hook": "Hook",
     "trigger": "The trigger area (theme styles usually leave it unstyled)",
     "menu": "The popup and its items, reusing Menu's slots"

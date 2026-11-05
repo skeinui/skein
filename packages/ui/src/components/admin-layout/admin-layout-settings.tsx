@@ -95,7 +95,12 @@ function useStyleRadius(host: React.RefObject<HTMLElement | null>): StyleRadius 
     const observer = new MutationObserver(measure);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-theme-style", "data-theme-color", "data-theme-density", "data-mode"],
+      attributeFilter: [
+        "data-skein-theme",
+        "data-skein-color",
+        "data-skein-density",
+        "data-skein-mode",
+      ],
     });
     return () => observer.disconnect();
   }, [host]);

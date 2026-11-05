@@ -191,7 +191,7 @@ describe("sidebar collapse / expand transition", () => {
       // The base rule without data-animate has no transition (otherwise the first-frame change would play)
       expect(css).not.toMatch(
         new RegExp(
-          `\\[data-theme-style="${skin}"\\]\\s*\\[data-slot="sidebar-gap"\\]\\s*\\{[^}]*transition`,
+          `\\[data-skein-theme="${skin}"\\]\\s*\\[data-slot="sidebar-gap"\\]\\s*\\{[^}]*transition`,
         ),
       );
       // Reduced motion: the transitions are turned off with a selector of the same specificity

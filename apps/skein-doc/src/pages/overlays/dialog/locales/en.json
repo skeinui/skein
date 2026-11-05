@@ -14,7 +14,7 @@
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",
-    "description": "Theme styles handle these in `dialog.css`. The dialog renders in a portal, so `data-theme-style` must be on `<html>` or `<body>`, not on a local container.",
+    "description": "Theme styles handle these in `dialog.css`. The dialog renders in a portal, so `data-skein-theme` must be on `<html>` or `<body>`, not on a local container.",
     "hook": "Hook",
     "backdrop": "Full-screen backdrop, its colour from `--ui-backdrop`",
     "viewport": "Fixed-position scroll container that centres the dialog",

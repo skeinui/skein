@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* ToolCall: a collapsible card whose trigger is "status icon + tool name + status text"; when expanded it shows the arguments / result (CodeBlock), errors and approval buttons */
-  [data-theme-style="default"] :is([data-slot="tool-call"], [data-slot="tool-call-group"]) {
+  [data-skein-theme="default"] :is([data-slot="tool-call"], [data-slot="tool-call-group"]) {
     box-sizing: border-box;
     max-width: 100%;
     border: 1px solid var(--ui-border);
@@ -14,7 +14,7 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="tool-call-trigger"], [data-slot="tool-call-group-trigger"]) {
     display: flex;
     align-items: center;
@@ -32,35 +32,35 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="tool-call-trigger"], [data-slot="tool-call-group-trigger"]):hover:not(
       :disabled
     ) {
     background-color: color-mix(in srgb, transparent 96%, var(--ui-fg) 4%);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="tool-call-trigger"], [data-slot="tool-call-group-trigger"]):focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="default"] [data-slot="tool-call-trigger"]:disabled {
+  [data-skein-theme="default"] [data-slot="tool-call-trigger"]:disabled {
     cursor: default;
   }
-  [data-theme-style="default"] [data-slot="tool-call-name"] {
+  [data-skein-theme="default"] [data-slot="tool-call-name"] {
     flex: 1;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="default"] [data-slot="tool-call-name"] strong {
+  [data-skein-theme="default"] [data-slot="tool-call-name"] strong {
     font-weight: 600;
   }
-  [data-theme-style="default"] [data-slot="tool-call-state"] {
+  [data-skein-theme="default"] [data-slot="tool-call-state"] {
     flex: none;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.8125rem;
   }
-  [data-theme-style="default"] [data-slot="tool-call-status"] {
+  [data-skein-theme="default"] [data-slot="tool-call-status"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -69,24 +69,24 @@
     height: 1.25rem;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="default"] [data-slot="tool-call-status"] > svg {
+  [data-skein-theme="default"] [data-slot="tool-call-status"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="default"] [data-slot="tool-call-status"][data-state="input-streaming"],
-  [data-theme-style="default"] [data-slot="tool-call-status"][data-state="input-available"] {
+  [data-skein-theme="default"] [data-slot="tool-call-status"][data-state="input-streaming"],
+  [data-skein-theme="default"] [data-slot="tool-call-status"][data-state="input-available"] {
     color: var(--ui-c-primary);
   }
-  [data-theme-style="default"] [data-slot="tool-call-status"][data-state="output-available"] {
+  [data-skein-theme="default"] [data-slot="tool-call-status"][data-state="output-available"] {
     color: var(--ui-c-success);
   }
-  [data-theme-style="default"] [data-slot="tool-call-status"][data-state="output-error"] {
+  [data-skein-theme="default"] [data-slot="tool-call-status"][data-state="output-error"] {
     color: var(--ui-c-danger);
   }
-  [data-theme-style="default"] [data-slot="tool-call-status"][data-state="requires-action"] {
+  [data-skein-theme="default"] [data-slot="tool-call-status"][data-state="requires-action"] {
     color: var(--ui-c-warning);
   }
-  [data-theme-style="default"] [data-slot="tool-call-spinner"] {
+  [data-skein-theme="default"] [data-slot="tool-call-spinner"] {
     box-sizing: border-box;
     width: 0.875rem;
     height: 0.875rem;
@@ -95,51 +95,51 @@
     border-radius: 999px;
     animation: ui-tool-call-spin 0.8s linear infinite;
   }
-  [data-theme-style="default"] [data-slot="tool-call-icon"] {
+  [data-skein-theme="default"] [data-slot="tool-call-icon"] {
     display: inline-flex;
     flex: none;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     transition: rotate 200ms var(--ui-easing);
   }
-  [data-theme-style="default"] [data-slot="tool-call-icon"] > svg {
+  [data-skein-theme="default"] [data-slot="tool-call-icon"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="default"] [data-panel-open] > [data-slot="tool-call-icon"] {
+  [data-skein-theme="default"] [data-panel-open] > [data-slot="tool-call-icon"] {
     rotate: 180deg;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="tool-call-panel"], [data-slot="tool-call-group-panel"]) {
     height: var(--collapsible-panel-height);
     overflow: hidden;
     transition: height 200ms var(--ui-easing);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="tool-call-panel"], [data-slot="tool-call-group-panel"])[data-starting-style],
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     :is([data-slot="tool-call-panel"], [data-slot="tool-call-group-panel"])[data-ending-style] {
     height: 0;
   }
-  [data-theme-style="default"] [data-slot="tool-call-content"] {
+  [data-skein-theme="default"] [data-slot="tool-call-content"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 0 0.75rem 0.75rem;
   }
-  [data-theme-style="default"] [data-slot="tool-call-group-content"] {
+  [data-skein-theme="default"] [data-slot="tool-call-group-content"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 0 0.5rem 0.5rem;
   }
   /* Cards inside a group no longer get an outer frame, only dividers */
-  [data-theme-style="default"] [data-slot="tool-call-group-content"] > [data-slot="tool-call"] {
+  [data-skein-theme="default"] [data-slot="tool-call-group-content"] > [data-slot="tool-call"] {
     background-color: var(--ui-surface);
   }
-  [data-theme-style="default"] [data-slot="tool-call-section"] {
+  [data-skein-theme="default"] [data-slot="tool-call-section"] {
     min-width: 0;
   }
-  [data-theme-style="default"] [data-slot="tool-call-error"] {
+  [data-skein-theme="default"] [data-slot="tool-call-error"] {
     padding: 0.5rem 0.75rem;
     border: 1px solid color-mix(in srgb, var(--ui-c-danger) 40%, transparent);
     border-radius: var(--ui-r-item);
@@ -147,7 +147,7 @@
     color: var(--ui-fg);
     overflow-wrap: anywhere;
   }
-  [data-theme-style="default"] [data-slot="tool-call-error-label"] {
+  [data-skein-theme="default"] [data-slot="tool-call-error-label"] {
     display: block;
     color: color-mix(in srgb, var(--ui-c-danger) 65%, var(--ui-fg));
     font-size: 0.75rem;
@@ -155,7 +155,7 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  [data-theme-style="default"] [data-slot="tool-call-actions"] {
+  [data-skein-theme="default"] [data-slot="tool-call-actions"] {
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;
@@ -166,11 +166,11 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="tool-call-spinner"] {
+    [data-skein-theme="default"] [data-slot="tool-call-spinner"] {
       animation: none;
     }
-    [data-theme-style="default"] [data-slot="tool-call-icon"],
-    [data-theme-style="default"]
+    [data-skein-theme="default"] [data-slot="tool-call-icon"],
+    [data-skein-theme="default"]
       :is([data-slot="tool-call-panel"], [data-slot="tool-call-group-panel"]) {
       transition: none;
     }

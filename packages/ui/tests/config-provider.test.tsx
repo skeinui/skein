@@ -15,7 +15,7 @@ afterEach(async () => {
   root = null;
   host = null;
   vi.unstubAllGlobals();
-  for (const k of ["themeStyle", "mode", "themeColor", "themeDensity"])
+  for (const k of ["skeinTheme", "skeinMode", "skeinColor", "skeinDensity"])
     delete document.documentElement.dataset[k];
 });
 async function mount(node: React.ReactElement) {
@@ -30,7 +30,7 @@ const html = () => document.documentElement.dataset;
 
 describe("ConfigProvider", () => {
   test("writes themeStyle / mode / themeColor to <html>, updates on change, restores on unmount", async () => {
-    document.documentElement.dataset.themeStyle = "default";
+    document.documentElement.dataset.skeinTheme = "default";
     await mount(
       createElement(ConfigProvider, {
         themeStyle: "antd",
@@ -38,19 +38,19 @@ describe("ConfigProvider", () => {
         themeColor: ["purple", "contrast"],
       }),
     );
-    expect(html().themeStyle).toBe("antd");
-    expect(html().mode).toBe("dark");
-    expect(html().themeColor).toBe("purple contrast");
+    expect(html().skeinTheme).toBe("antd");
+    expect(html().skeinMode).toBe("dark");
+    expect(html().skeinColor).toBe("purple contrast");
     await act(async () => {
       root!.render(createElement(ConfigProvider, { themeStyle: "heroui", mode: "light" }));
     });
-    expect(html().themeStyle).toBe("heroui");
-    expect(html().mode).toBe("light");
-    expect(html().themeColor).toBeUndefined();
+    expect(html().skeinTheme).toBe("heroui");
+    expect(html().skeinMode).toBe("light");
+    expect(html().skeinColor).toBeUndefined();
     await act(async () => root!.unmount());
     root = null;
-    expect(html().themeStyle).toBe("default");
-    expect(html().mode).toBeUndefined();
+    expect(html().skeinTheme).toBe("default");
+    expect(html().skeinMode).toBeUndefined();
   });
 
   test("themeOverrides: the three radii / density / colors go to inline variables on <html>, update on change, restore on unmount", async () => {
@@ -87,9 +87,9 @@ describe("ConfigProvider", () => {
   });
 
   test("props not given are left alone", async () => {
-    document.documentElement.dataset.mode = "dark";
+    document.documentElement.dataset.skeinMode = "dark";
     await mount(createElement(ConfigProvider, { themeStyle: "antd" }));
-    expect(html().mode).toBe("dark");
+    expect(html().skeinMode).toBe("dark");
   });
 
   test("mode=system follows the system and updates when it changes", async () => {
@@ -101,10 +101,10 @@ describe("ConfigProvider", () => {
     };
     vi.stubGlobal("matchMedia", () => mq);
     await mount(createElement(ConfigProvider, { mode: "system" }));
-    expect(html().mode).toBe("dark");
+    expect(html().skeinMode).toBe("dark");
     mq.matches = false;
     await act(async () => listener?.());
-    expect(html().mode).toBe("light");
+    expect(html().skeinMode).toBe("light");
   });
 
   test("labels reach Pagination / Carousel, a component's own labels win; SSR does not throw and has no class / style", async () => {

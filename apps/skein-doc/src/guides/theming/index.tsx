@@ -74,7 +74,7 @@ npx skein theme check`}
         <P k="how.p1" />
         <Code
           language="css"
-          code={`[data-theme-style="acme"] [data-slot="button"][data-variant="solid"] {
+          code={`[data-skein-theme="acme"] [data-slot="button"][data-variant="solid"] {
   background: var(--ui-c-primary);
   color: var(--ui-c-primary-fg);
 }`}

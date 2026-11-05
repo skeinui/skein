@@ -39,7 +39,7 @@
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",
-    "description": "The component has no styles. It only writes the hooks below, which theme styles style with attribute selectors such as `[data-theme-style=\"x\"] [data-slot=\"button\"][data-variant=\"solid\"]`.",
+    "description": "The component has no styles. It only writes the hooks below, which theme styles style with attribute selectors such as `[data-skein-theme=\"x\"] [data-slot=\"button\"][data-variant=\"solid\"]`.",
     "hook": "Hook",
     "sameAsProps": "same as the props",
     "slot": "Structure hook: theme styles select each part with it",

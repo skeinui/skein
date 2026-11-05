@@ -342,7 +342,7 @@ async function themeCommand(values, [sub, arg, ...more]) {
     let name = values.name;
     const tokens = join(dir, "tokens.css");
     if (!name && existsSync(tokens)) {
-      name = readFileSync(tokens, "utf8").match(/\[data-theme-style="([^"]+)"\]/)?.[1];
+      name = readFileSync(tokens, "utf8").match(/\[data-skein-theme="([^"]+)"\]/)?.[1];
     }
     if (!name)
       throw new Error("could not read the theme style name from tokens.css, pass --name <name>");

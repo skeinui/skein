@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Pagination: summary on the left, page info, page-turn buttons and page size on the right; the buttons themselves use Button's theme style. */
-  [data-theme-style="default"] [data-slot="pagination"] {
+  [data-skein-theme="default"] [data-slot="pagination"] {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -14,26 +14,26 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="default"] [data-slot="pagination-info"] {
+  [data-skein-theme="default"] [data-slot="pagination-info"] {
     color: var(--ui-fg-muted);
   }
-  [data-theme-style="default"] [data-slot="pagination-controls"] {
+  [data-skein-theme="default"] [data-slot="pagination-controls"] {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem 1rem;
   }
-  [data-theme-style="default"] [data-slot="pagination-page-info"] {
+  [data-skein-theme="default"] [data-slot="pagination-page-info"] {
     color: var(--ui-fg-muted);
     white-space: nowrap;
   }
-  [data-theme-style="default"] [data-slot="pagination-nav"],
-  [data-theme-style="default"] [data-slot="pagination-pages"] {
+  [data-skein-theme="default"] [data-slot="pagination-nav"],
+  [data-skein-theme="default"] [data-slot="pagination-pages"] {
     display: flex;
     align-items: center;
     gap: 0.25rem;
   }
-  [data-theme-style="default"] [data-slot="pagination-ellipsis"] {
+  [data-skein-theme="default"] [data-slot="pagination-ellipsis"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -42,24 +42,24 @@
     color: var(--ui-fg-muted);
     user-select: none;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="pagination"][data-size="sm"]
     [data-slot="pagination-ellipsis"] {
     min-width: var(--ui-height-sm);
     height: var(--ui-height-sm);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="pagination"][data-size="lg"]
     [data-slot="pagination-ellipsis"] {
     min-width: var(--ui-height-lg);
     height: var(--ui-height-lg);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="pagination"][data-variant="pages"]
     [data-slot="pagination-controls"] {
     gap: 0.5rem 1rem;
   }
-  [data-theme-style="default"] [data-slot="pagination-size"] {
+  [data-skein-theme="default"] [data-slot="pagination-size"] {
     display: inline-flex;
     color: var(--ui-fg);
   }

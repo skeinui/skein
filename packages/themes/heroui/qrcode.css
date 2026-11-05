@@ -3,7 +3,7 @@
 @layer ui-style {
   /* QRCode: the shell (border, padding, radius) and status mask are decided by the theme style; the QR code's own dark / background colors are functional colors for scanning and do not follow the theme.
      The background of the padding ring reads --qr-bg (see qrcode.tsx), and is white when bgColor is not passed. */
-  [data-theme-style="heroui"] [data-slot="qrcode"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode"] {
     width: calc(var(--qr-size, 160) * 1px);
     height: calc(var(--qr-size, 160) * 1px);
     position: relative;
@@ -14,34 +14,34 @@
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
   }
-  [data-theme-style="heroui"] [data-slot="qrcode"][data-bordered] {
+  [data-skein-theme="heroui"] [data-slot="qrcode"][data-bordered] {
     padding: 0.75rem;
     border: 0 solid transparent;
     border-radius: var(--ui-r-surface);
     background-color: var(--qr-bg, rgb(255 255 255));
     box-shadow: var(--ui-field-shadow);
   }
-  [data-theme-style="heroui"] [data-slot="qrcode-svg"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-svg"] {
     display: block;
     width: 100%;
     height: 100%;
   }
   /* No anti-aliasing on module edges, so each square stays sharp after scaling (scans more reliably) */
-  [data-theme-style="heroui"] [data-slot="qrcode-background"],
-  [data-theme-style="heroui"] [data-slot="qrcode-modules"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-background"],
+  [data-skein-theme="heroui"] [data-slot="qrcode-modules"] {
     shape-rendering: crispEdges;
   }
   /* The icon and its rounded background need anti-aliasing, so not crispEdges */
-  [data-theme-style="heroui"] [data-slot="qrcode-icon-bg"],
-  [data-theme-style="heroui"] [data-slot="qrcode-icon"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-icon-bg"],
+  [data-skein-theme="heroui"] [data-slot="qrcode-icon"] {
     pointer-events: none;
   }
-  [data-theme-style="heroui"] [data-slot="qrcode-empty"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-empty"] {
     display: block;
     width: 100%;
     height: 100%;
   }
-  [data-theme-style="heroui"] [data-slot="qrcode-mask"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-mask"] {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -56,7 +56,7 @@
     line-height: 1.5;
     text-align: center;
   }
-  [data-theme-style="heroui"] [data-slot="qrcode-spinner"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-spinner"] {
     width: 1.75rem;
     height: 1.75rem;
     color: var(--ui-c-primary);
@@ -67,17 +67,17 @@
       transform: rotate(360deg);
     }
   }
-  [data-theme-style="heroui"] [data-slot="qrcode-status"] {
+  [data-skein-theme="heroui"] [data-slot="qrcode-status"] {
     font-weight: 500;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="qrcode-mask"][data-status="scanned"]
     [data-slot="qrcode-status"] {
     color: var(--ui-c-success-text);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="heroui"] [data-slot="qrcode-spinner"] {
+    [data-skein-theme="heroui"] [data-slot="qrcode-spinner"] {
       animation-duration: 2s;
     }
   }

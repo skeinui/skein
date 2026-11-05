@@ -2,44 +2,44 @@
 
 @layer ui-style {
   /* Form item: font size and color of the label, description and error message. */
-  [data-theme-style="default"] [data-slot="field"] {
+  [data-skein-theme="default"] [data-slot="field"] {
     display: flex;
     flex-direction: column;
     gap: 0.375rem;
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="default"] [data-slot="field-label"] {
+  [data-skein-theme="default"] [data-slot="field-label"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
   }
-  [data-theme-style="default"] [data-slot="field"][data-required] [data-slot="field-label"]::after {
+  [data-skein-theme="default"] [data-slot="field"][data-required] [data-slot="field-label"]::after {
     margin-inline-start: 0.125rem;
     color: var(--ui-c-danger);
     content: "*";
   }
-  [data-theme-style="default"] [data-slot="field"]:has([data-invalid]) [data-slot="field-label"] {
+  [data-skein-theme="default"] [data-slot="field"]:has([data-invalid]) [data-slot="field-label"] {
     color: var(--ui-c-danger);
   }
-  [data-theme-style="default"] [data-slot="field"][data-disabled] [data-slot="field-label"] {
+  [data-skein-theme="default"] [data-slot="field"][data-disabled] [data-slot="field-label"] {
     opacity: 0.5;
   }
-  [data-theme-style="default"] [data-slot="field-description"] {
+  [data-skein-theme="default"] [data-slot="field-description"] {
     color: var(--ui-fg-muted);
     font-size: 0.8125rem;
     line-height: 1.25rem;
     overflow-wrap: break-word;
   }
-  [data-theme-style="default"] [data-slot="field-error"] {
+  [data-skein-theme="default"] [data-slot="field-error"] {
     color: var(--ui-c-danger);
     font-size: 0.8125rem;
     line-height: 1.25rem;
     overflow-wrap: break-word;
     transition: opacity 150ms var(--ui-easing);
   }
-  [data-theme-style="default"] [data-slot="field-error"][data-starting-style],
-  [data-theme-style="default"] [data-slot="field-error"][data-ending-style] {
+  [data-skein-theme="default"] [data-slot="field-error"][data-starting-style],
+  [data-skein-theme="default"] [data-slot="field-error"][data-ending-style] {
     opacity: 0;
   }
 }

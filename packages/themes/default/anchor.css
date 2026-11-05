@@ -3,7 +3,7 @@
 @layer ui-style {
   /* Anchor: a vertical (or horizontal) line plus a row of links, with an indicator line under the current link that moves along with it.
      The indicator position comes from --anchor-x / --anchor-y / --anchor-w / --anchor-h (see anchor.tsx), this file only draws. */
-  [data-theme-style="default"] [data-slot="anchor"] {
+  [data-skein-theme="default"] [data-slot="anchor"] {
     --_rail: var(--ui-border);
     --_pl: 1rem;
     position: relative;
@@ -13,7 +13,7 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="default"] [data-slot="anchor"][data-direction="vertical"]::before {
+  [data-skein-theme="default"] [data-slot="anchor"][data-direction="vertical"]::before {
     position: absolute;
     inset-block: 0;
     inset-inline-start: 0;
@@ -21,13 +21,13 @@
     background-color: var(--_rail);
     content: "";
   }
-  [data-theme-style="default"] [data-slot="anchor"][data-direction="horizontal"] {
+  [data-skein-theme="default"] [data-slot="anchor"][data-direction="horizontal"] {
     --_pl: 1rem;
     display: inline-block;
     max-width: 100%;
     overflow-x: auto;
   }
-  [data-theme-style="default"] [data-slot="anchor"][data-direction="horizontal"]::before {
+  [data-skein-theme="default"] [data-slot="anchor"][data-direction="horizontal"]::before {
     position: absolute;
     inset-inline: 0;
     bottom: 0;
@@ -35,13 +35,13 @@
     background-color: var(--_rail);
     content: "";
   }
-  [data-theme-style="default"] [data-slot="anchor-ink"] {
+  [data-skein-theme="default"] [data-slot="anchor-ink"] {
     position: absolute;
     z-index: 1;
     background-color: var(--ui-c-primary);
     pointer-events: none;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="anchor"][data-direction="vertical"]
     [data-slot="anchor-ink"] {
     inset-block-start: 0;
@@ -50,7 +50,7 @@
     height: calc(var(--anchor-h, 0) * 1px);
     translate: 0 calc(var(--anchor-y, 0) * 1px);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="anchor"][data-direction="horizontal"]
     [data-slot="anchor-ink"] {
     inset-inline-start: 0;
@@ -59,37 +59,37 @@
     height: 2px;
     translate: calc(var(--anchor-x, 0) * 1px) 0;
   }
-  [data-theme-style="default"] [data-slot="anchor"][data-ready] [data-slot="anchor-ink"] {
+  [data-skein-theme="default"] [data-slot="anchor"][data-ready] [data-slot="anchor-ink"] {
     transition:
       translate 200ms ease,
       width 200ms ease,
       height 200ms ease;
   }
-  [data-theme-style="default"] [data-slot="anchor"][data-empty] [data-slot="anchor-ink"] {
+  [data-skein-theme="default"] [data-slot="anchor"][data-empty] [data-slot="anchor-ink"] {
     opacity: 0;
   }
-  [data-theme-style="default"] [data-slot="anchor-list"] {
+  [data-skein-theme="default"] [data-slot="anchor-list"] {
     margin: 0;
     padding: 0;
     list-style: none;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="anchor"][data-direction="horizontal"]
     > [data-slot="anchor-list"] {
     display: flex;
   }
   /* Horizontal does not show child links */
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="anchor"][data-direction="horizontal"]
     [data-slot="anchor-list"]
     [data-slot="anchor-list"] {
     display: none;
   }
-  [data-theme-style="default"] [data-slot="anchor-item"] {
+  [data-skein-theme="default"] [data-slot="anchor-item"] {
     flex: none;
     margin: 0;
   }
-  [data-theme-style="default"] [data-slot="anchor-link"] {
+  [data-skein-theme="default"] [data-slot="anchor-link"] {
     display: block;
     box-sizing: border-box;
     padding: 0.25rem var(--_pl);
@@ -99,35 +99,35 @@
     white-space: nowrap;
     transition: color 150ms ease;
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="anchor-list"]
     [data-slot="anchor-list"]
     [data-slot="anchor-link"] {
     padding-inline-start: calc(var(--_pl) + 1rem);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="anchor-list"]
     [data-slot="anchor-list"]
     [data-slot="anchor-list"]
     [data-slot="anchor-link"] {
     padding-inline-start: calc(var(--_pl) + 2rem);
   }
-  [data-theme-style="default"] [data-slot="anchor-link"]:hover {
+  [data-skein-theme="default"] [data-slot="anchor-link"]:hover {
     color: var(--ui-fg);
   }
-  [data-theme-style="default"] [data-slot="anchor-link"][data-active] {
+  [data-skein-theme="default"] [data-slot="anchor-link"][data-active] {
     color: var(--ui-c-primary-text);
     /* No font-weight: bold makes text wider, the table-of-contents column widens with it, and the neighboring content gets pushed around */
     text-shadow: 0 0 0.25px currentcolor;
   }
-  [data-theme-style="default"] [data-slot="anchor-link"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="anchor-link"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
     border-radius: var(--ui-radius-sm);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="anchor"][data-ready] [data-slot="anchor-ink"],
-    [data-theme-style="default"] [data-slot="anchor-link"] {
+    [data-skein-theme="default"] [data-slot="anchor"][data-ready] [data-slot="anchor-ink"],
+    [data-skein-theme="default"] [data-slot="anchor-link"] {
       transition: none;
     }
   }

@@ -2,31 +2,31 @@
 
 @layer ui-style {
   /* Link: default has a permanent color and adds an underline on hover; subtle is the body text color normally and only changes color on hover. */
-  [data-theme-style="heroui"] [data-slot="link"][data-color="neutral"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-color="neutral"] {
     --_c: var(--ui-c-neutral-text);
     --_c-hover: var(--ui-c-neutral-hover);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-color="primary"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-color="primary"] {
     --_c: var(--ui-c-primary-text);
     --_c-hover: var(--ui-c-primary-hover);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-color="secondary"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-color="secondary"] {
     --_c: var(--ui-c-secondary-text);
     --_c-hover: var(--ui-c-secondary-hover);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-color="success"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-color="success"] {
     --_c: var(--ui-c-success-text);
     --_c-hover: var(--ui-c-success-hover);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-color="warning"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-color="warning"] {
     --_c: var(--ui-c-warning-text);
     --_c-hover: var(--ui-c-warning-hover);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-color="danger"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-color="danger"] {
     --_c: var(--ui-c-danger-text);
     --_c-hover: var(--ui-c-danger-hover);
   }
-  [data-theme-style="heroui"] [data-slot="link"] {
+  [data-skein-theme="heroui"] [data-slot="link"] {
     color: var(--_c);
     font-family: inherit;
     font-weight: 500;
@@ -37,34 +37,34 @@
     cursor: pointer;
     transition: color 150ms ease;
   }
-  [data-theme-style="heroui"] [data-slot="link"]:hover {
+  [data-skein-theme="heroui"] [data-slot="link"]:hover {
     /* HeroUI: hover does not change color, it only shows an underline (color is 50% of muted), and pressed turns solid */
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--ui-fg-muted) 50%, transparent);
   }
-  [data-theme-style="heroui"] [data-slot="link"]:active {
+  [data-skein-theme="heroui"] [data-slot="link"]:active {
     text-decoration: underline;
     text-decoration-color: var(--ui-fg-muted);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-variant="subtle"] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-variant="subtle"] {
     color: var(--ui-fg);
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-variant="subtle"]:hover {
+  [data-skein-theme="heroui"] [data-slot="link"][data-variant="subtle"]:hover {
     text-decoration-color: currentColor;
   }
-  [data-theme-style="heroui"] [data-slot="link"]:focus-visible {
+  [data-skein-theme="heroui"] [data-slot="link"]:focus-visible {
     box-shadow:
       0 0 0 2px var(--ui-bg),
       0 0 0 4px var(--ui-ring);
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-disabled] {
+  [data-skein-theme="heroui"] [data-slot="link"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
   }
-  [data-theme-style="heroui"] [data-slot="link"][data-external]::after {
+  [data-skein-theme="heroui"] [data-slot="link"][data-external]::after {
     content: "↗";
     margin-inline-start: 0.125em;
     font-size: 0.85em;

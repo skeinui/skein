@@ -101,7 +101,7 @@
       "themes": "Palettes",
       "title": "One component API.",
       "subtitle": "Every design language.",
-      "lead": "`@skeinui/ui` leaves behaviour and accessibility to Base UI and the look to a swappable theme style. The same calling code becomes HeroUI, Ant Design or shadcn by changing one `data-theme-style`.",
+      "lead": "`@skeinui/ui` leaves behaviour and accessibility to Base UI and the look to a swappable theme style. The same calling code becomes HeroUI, Ant Design or shadcn by changing one `data-skein-theme`.",
       "browse": "Browse components"
     },
     "stats": {
@@ -113,7 +113,7 @@
     "lab": {
       "eyebrow": "Theme-style lab",
       "title": "Same code, four looks.",
-      "lead": "Every card below renders the same JSX; only the `data-theme-style` around it differs. Click Use to switch the whole site.",
+      "lead": "Every card below renders the same JSX; only the `data-skein-theme` around it differs. Click Use to switch the whole site.",
       "use": "Use",
       "inUse": "In use",
       "preview": "{name} preview"

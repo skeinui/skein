@@ -8,7 +8,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "主题风格在 `navigation-menu.css` 里处理；浮层同样要求 `data-theme-style` 设在 `<html>` 上。",
+    "description": "主题风格在 `navigation-menu.css` 里处理；浮层同样要求 `data-skein-theme` 设在 `<html>` 上。",
     "hook": "钩子",
     "navigation-menu": "外层、列表和列表项",
     "navigation-menu-trigger": "触发器、展开箭头和链接",

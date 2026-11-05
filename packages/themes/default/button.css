@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Structure and sizes */
-  [data-theme-style="default"] [data-slot="button"] {
+  [data-skein-theme="default"] [data-slot="button"] {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -29,55 +29,55 @@
       transform var(--ui-duration) var(--ui-easing);
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="button"][data-size="sm"] {
     height: var(--ui-height-sm);
     padding-inline: calc(0.75rem * var(--ui-density));
     font-size: 0.8125rem;
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="button"][data-size="lg"] {
     height: var(--ui-height-lg);
     padding-inline: calc(1.25rem * var(--ui-density));
     font-size: 0.9375rem;
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-icon-only] {
+  [data-skein-theme="default"] [data-slot="button"][data-icon-only] {
     padding: 0;
     aspect-ratio: 1;
   }
 
   /* Semantic colors: first mapped to four private variables, variant rules only read the private variables */
-  [data-theme-style="default"] [data-slot="button"][data-color="neutral"] {
+  [data-skein-theme="default"] [data-slot="button"][data-color="neutral"] {
     --_base: var(--ui-c-neutral);
     --_on: var(--ui-c-neutral-fg);
     --_soft: var(--ui-c-neutral-soft);
     --_text: var(--ui-c-neutral-text);
   }
-  [data-theme-style="default"] [data-slot="button"][data-color="primary"] {
+  [data-skein-theme="default"] [data-slot="button"][data-color="primary"] {
     --_base: var(--ui-c-primary);
     --_on: var(--ui-c-primary-fg);
     --_soft: var(--ui-c-primary-soft);
     --_text: var(--ui-c-primary-text);
   }
-  [data-theme-style="default"] [data-slot="button"][data-color="secondary"] {
+  [data-skein-theme="default"] [data-slot="button"][data-color="secondary"] {
     --_base: var(--ui-c-secondary);
     --_on: var(--ui-c-secondary-fg);
     --_soft: var(--ui-c-secondary-soft);
     --_text: var(--ui-c-secondary-text);
   }
-  [data-theme-style="default"] [data-slot="button"][data-color="success"] {
+  [data-skein-theme="default"] [data-slot="button"][data-color="success"] {
     --_base: var(--ui-c-success);
     --_on: var(--ui-c-success-fg);
     --_soft: var(--ui-c-success-soft);
     --_text: var(--ui-c-success-text);
   }
-  [data-theme-style="default"] [data-slot="button"][data-color="warning"] {
+  [data-skein-theme="default"] [data-slot="button"][data-color="warning"] {
     --_base: var(--ui-c-warning);
     --_on: var(--ui-c-warning-fg);
     --_soft: var(--ui-c-warning-soft);
     --_text: var(--ui-c-warning-text);
   }
-  [data-theme-style="default"] [data-slot="button"][data-color="danger"] {
+  [data-skein-theme="default"] [data-slot="button"][data-color="danger"] {
     --_base: var(--ui-c-danger);
     --_on: var(--ui-c-danger-fg);
     --_soft: var(--ui-c-danger-soft);
@@ -85,121 +85,121 @@
   }
 
   /* Variants */
-  [data-theme-style="default"] [data-slot="button"][data-variant="solid"] {
+  [data-skein-theme="default"] [data-slot="button"][data-variant="solid"] {
     background-color: var(--_base);
     color: var(--_on);
     box-shadow: 0 1px 2px color-mix(in oklab, var(--_base) 45%, transparent);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="button"][data-variant="solid"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--_base) 88%, black);
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-variant="soft"] {
+  [data-skein-theme="default"] [data-slot="button"][data-variant="soft"] {
     background-color: var(--_soft);
     color: var(--_text);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="button"][data-variant="soft"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--_soft) 82%, var(--_base));
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-variant="outline"] {
+  [data-skein-theme="default"] [data-slot="button"][data-variant="outline"] {
     border-color: color-mix(in oklab, var(--_base) 70%, transparent);
     background-color: transparent;
     color: var(--_text);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="button"][data-variant="outline"]:hover:not([data-disabled]) {
     background-color: var(--_soft);
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-variant="ghost"] {
+  [data-skein-theme="default"] [data-slot="button"][data-variant="ghost"] {
     background-color: transparent;
     color: var(--_text);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="button"][data-variant="ghost"]:hover:not([data-disabled]) {
     background-color: var(--_soft);
   }
 
   /* faded: neutral border + light background, text takes the semantic color */
-  [data-theme-style="default"] [data-slot="button"][data-variant="faded"] {
+  [data-skein-theme="default"] [data-slot="button"][data-variant="faded"] {
     border-color: var(--ui-border);
     background-color: var(--ui-surface);
     color: var(--_text);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="button"][data-variant="faded"]:hover:not([data-disabled]) {
     background-color: var(--_soft);
   }
 
   /* shadow: solid + same-color drop shadow */
-  [data-theme-style="default"] [data-slot="button"][data-variant="shadow"] {
+  [data-skein-theme="default"] [data-slot="button"][data-variant="shadow"] {
     background-color: var(--_base);
     color: var(--_on);
     box-shadow: 0 8px 16px -4px color-mix(in oklab, var(--_base) 50%, transparent);
   }
-  [data-theme-style="default"]
+  [data-skein-theme="default"]
     [data-slot="button"][data-variant="shadow"]:hover:not([data-disabled]) {
     background-color: color-mix(in oklab, var(--_base) 88%, black);
   }
 
   /* Radius: overrides the default when specified explicitly */
-  [data-theme-style="default"] [data-slot="button"][data-radius="none"] {
+  [data-skein-theme="default"] [data-slot="button"][data-radius="none"] {
     border-radius: 0;
   }
-  [data-theme-style="default"] [data-slot="button"][data-radius="sm"] {
+  [data-skein-theme="default"] [data-slot="button"][data-radius="sm"] {
     border-radius: var(--ui-radius-sm);
   }
-  [data-theme-style="default"] [data-slot="button"][data-radius="md"] {
+  [data-skein-theme="default"] [data-slot="button"][data-radius="md"] {
     border-radius: var(--ui-radius-md);
   }
-  [data-theme-style="default"] [data-slot="button"][data-radius="lg"] {
+  [data-skein-theme="default"] [data-slot="button"][data-radius="lg"] {
     border-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="default"] [data-slot="button"][data-radius="full"] {
+  [data-skein-theme="default"] [data-slot="button"][data-radius="full"] {
     border-radius: var(--ui-radius-full);
   }
 
-  [data-theme-style="default"] [data-slot="button"][data-full-width] {
+  [data-skein-theme="default"] [data-slot="button"][data-full-width] {
     display: flex;
     width: 100%;
   }
 
   /* States */
-  [data-theme-style="default"] [data-slot="button"]:active:not([data-disabled]) {
+  [data-skein-theme="default"] [data-slot="button"]:active:not([data-disabled]) {
     transform: translateY(1px);
   }
-  [data-theme-style="default"] [data-slot="button"]:focus-visible {
+  [data-skein-theme="default"] [data-slot="button"]:focus-visible {
     outline: 2px solid var(--ui-ring);
     outline-offset: 2px;
   }
-  [data-theme-style="default"] [data-slot="button"][data-disabled] {
+  [data-skein-theme="default"] [data-slot="button"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  [data-theme-style="default"] [data-slot="button"][data-loading] {
+  [data-skein-theme="default"] [data-slot="button"][data-loading] {
     cursor: progress;
   }
 
   /* Leading / trailing content, loading indicator */
-  [data-theme-style="default"] [data-slot="button-start"],
-  [data-theme-style="default"] [data-slot="button-end"] {
+  [data-skein-theme="default"] [data-slot="button-start"],
+  [data-skein-theme="default"] [data-slot="button-end"] {
     display: inline-flex;
     flex: none;
   }
-  [data-theme-style="default"] [data-slot="button-start"] > svg,
-  [data-theme-style="default"] [data-slot="button-end"] > svg {
+  [data-skein-theme="default"] [data-slot="button-start"] > svg,
+  [data-skein-theme="default"] [data-slot="button-end"] > svg {
     width: 1.125em;
     height: 1.125em;
   }
   /* icon-only: the icon is placed directly in the button, without a start/end wrapper */
-  [data-theme-style="default"] [data-slot="button"][data-icon-only] > svg {
+  [data-skein-theme="default"] [data-slot="button"][data-icon-only] > svg {
     width: 1.25em;
     height: 1.25em;
   }
-  [data-theme-style="default"] [data-slot="button-spinner"] {
+  [data-skein-theme="default"] [data-slot="button-spinner"] {
     flex: none;
     box-sizing: border-box;
     width: 1em;
@@ -217,10 +217,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="button"] {
+    [data-skein-theme="default"] [data-slot="button"] {
       transition: none;
     }
-    [data-theme-style="default"] [data-slot="button-spinner"] {
+    [data-skein-theme="default"] [data-slot="button-spinner"] {
       animation-duration: 2s;
     }
   }

@@ -172,11 +172,11 @@ describe("Watermark", () => {
     await settle();
     const first = v("--wm-image");
     act(() => {
-      document.documentElement.setAttribute("data-mode", "dark");
+      document.documentElement.setAttribute("data-skein-mode", "dark");
     });
     await settle();
     expect(v("--wm-image")).not.toBe(first);
-    document.documentElement.removeAttribute("data-mode");
+    document.documentElement.removeAttribute("data-skein-mode");
     act(() => root!.unmount());
     root = null;
     expect(layer()).toBeNull();

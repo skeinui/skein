@@ -18,7 +18,7 @@
   },
   "provider": {
     "title": "ConfigProvider",
-    "p1": "`ConfigProvider` writes the theme state to `<html>`: `data-theme-style`, `data-mode`, `data-theme-color`, `data-theme-density`. It has to be on `<html>` because dialogs, popovers and selects are rendered into `<body>`, outside your app's element, and must follow the same theme.",
+    "p1": "`ConfigProvider` writes the theme state to `<html>`: `data-skein-theme`, `data-skein-mode`, `data-skein-color`, `data-skein-density`. It has to be on `<html>` because dialogs, popovers and selects are rendered into `<body>`, outside your app's element, and must follow the same theme.",
     "p2": "It also takes `themeOverrides` (colours, radius, density), `locale` for the date components, and `labels` for the components' built-in texts. See [Theming](/theming)."
   },
   "language": {

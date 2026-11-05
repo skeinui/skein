@@ -4,10 +4,10 @@
   /* Watermark: the watermark layer covers the content without blocking the mouse, its background is a pattern drawn by canvas.
      Pattern, size, offset and stacking come from --wm-image / --wm-w / --wm-h / --wm-ox / --wm-oy / --wm-z (see watermark.tsx).
      This is behavior, not appearance, so it is the same in every theme style. */
-  [data-theme-style="heroui"] [data-slot="watermark"] {
+  [data-skein-theme="heroui"] [data-slot="watermark"] {
     position: relative;
   }
-  [data-theme-style="heroui"] [data-slot="watermark-layer"] {
+  [data-skein-theme="heroui"] [data-slot="watermark-layer"] {
     position: absolute;
     inset: 0;
     z-index: var(--wm-z, 9);

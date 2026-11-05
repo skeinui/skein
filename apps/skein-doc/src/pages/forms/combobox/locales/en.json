@@ -13,7 +13,7 @@
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",
-    "description": "In `combobox.css` theme styles only handle the toggle button and the empty state; the input's look comes from `input.css`, the popup from `select.css`. As with every overlay, `data-theme-style` must be set on `<html>`.",
+    "description": "In `combobox.css` theme styles only handle the toggle button and the empty state; the input's look comes from `input.css`, the popup from `select.css`. As with every overlay, `data-skein-theme` must be set on `<html>`.",
     "input": "The input, reusing Input's input-group",
     "trigger": "The toggle (arrow) button, with `data-popup-open` while open",
     "popup": "The popup and the options, reusing Select's slots",

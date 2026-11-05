@@ -27,7 +27,7 @@
   },
   "styling": {
     "title": "Styling Reference",
-    "description": "Theme styles handle it in `toast.css`. Toasts render in a Portal, so `data-theme-style` must be set on `<html>`.",
+    "description": "Theme styles handle it in `toast.css`. Toasts render in a Portal, so `data-skein-theme` must be set on `<html>`.",
     "hook": "Hook",
     "viewport": "Fixed-position container; `data-position` sets the corner, and the z-index goes here",
     "toast": "One message: background, border, radius, shadow; `data-type` is its type",

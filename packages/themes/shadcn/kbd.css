@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Kbd: a keycap, monospace font. */
-  [data-theme-style="shadcn"] [data-slot="kbd"] {
+  [data-skein-theme="shadcn"] [data-slot="kbd"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -21,21 +21,21 @@
     line-height: 1rem;
     user-select: none;
   }
-  [data-theme-style="shadcn"] [data-slot="kbd"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="kbd"][data-size="sm"] {
     min-width: calc(1rem * var(--ui-density));
     height: calc(1rem * var(--ui-density));
     padding-inline: calc(0.25rem * var(--ui-density));
     font-size: 0.625rem;
     line-height: 0.75rem;
   }
-  [data-theme-style="shadcn"] [data-slot="kbd"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="kbd"][data-size="lg"] {
     min-width: calc(1.5rem * var(--ui-density));
     height: calc(1.5rem * var(--ui-density));
     padding-inline: calc(0.375rem * var(--ui-density));
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="kbd-group"] {
+  [data-skein-theme="shadcn"] [data-slot="kbd-group"] {
     display: inline-flex;
     align-items: center;
     gap: calc(0.25rem * var(--ui-density));

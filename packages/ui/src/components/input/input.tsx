@@ -142,7 +142,12 @@ export function Textarea({
     const theme = new MutationObserver(run);
     theme.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-theme-style", "data-mode", "data-theme-color", "data-theme-density"],
+      attributeFilter: [
+        "data-skein-theme",
+        "data-skein-mode",
+        "data-skein-color",
+        "data-skein-density",
+      ],
     });
     if (typeof ResizeObserver === "undefined") return () => theme.disconnect();
     let width = el.offsetWidth;

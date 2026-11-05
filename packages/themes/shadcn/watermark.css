@@ -4,10 +4,10 @@
   /* Watermark: the watermark layer covers the content without blocking the mouse, its background is a pattern drawn on a canvas.
      Pattern, size, offset and layer come from --wm-image / --wm-w / --wm-h / --wm-ox / --wm-oy / --wm-z (see watermark.tsx).
      This is behavior, not appearance, so it is the same for every theme style. */
-  [data-theme-style="shadcn"] [data-slot="watermark"] {
+  [data-skein-theme="shadcn"] [data-slot="watermark"] {
     position: relative;
   }
-  [data-theme-style="shadcn"] [data-slot="watermark-layer"] {
+  [data-skein-theme="shadcn"] [data-slot="watermark-layer"] {
     position: absolute;
     inset: 0;
     z-index: var(--wm-z, 9);

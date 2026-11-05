@@ -31,7 +31,7 @@ export function blankThemeFiles(name, contract) {
     throw new Error(`invalid theme style name "${name}": use lowercase letters, digits and "-"`);
   }
   const { MODE_TOKENS, REQUIRED_TOKENS } = contract;
-  const scope = `[data-theme-style="${name}"]`;
+  const scope = `[data-skein-theme="${name}"]`;
   const files = {
     "tokens.css": `${LAYERS}
 
@@ -48,8 +48,8 @@ ${tokenList(REQUIRED_TOKENS)}
 
 /* ${name}: dark values, only the tokens that change with the mode. */
 @layer ui-tokens {
-  ${scope}[data-mode="dark"],
-  ${scope} :where([data-mode="dark"]) {
+  ${scope}[data-skein-mode="dark"],
+  ${scope} :where([data-skein-mode="dark"]) {
     color-scheme: dark;
 
 ${tokenList(MODE_TOKENS)}

@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Plan: the agent's task plan: a header (title + "2 / 5" + progress bar), and when expanded a column of tasks with status icons */
-  [data-theme-style="antd"] [data-slot="plan"] {
+  [data-skein-theme="antd"] [data-slot="plan"] {
     box-sizing: border-box;
     max-width: 100%;
     border: 1px solid var(--ui-border);
@@ -14,7 +14,7 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="antd"] [data-slot="plan-trigger"] {
+  [data-skein-theme="antd"] [data-slot="plan-trigger"] {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -31,13 +31,13 @@
     cursor: pointer;
     outline: none;
   }
-  [data-theme-style="antd"] [data-slot="plan-trigger"]:hover {
+  [data-skein-theme="antd"] [data-slot="plan-trigger"]:hover {
     background-color: color-mix(in srgb, transparent 96%, var(--ui-fg) 4%);
   }
-  [data-theme-style="antd"] [data-slot="plan-trigger"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="plan-trigger"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="antd"] [data-slot="plan-title"] {
+  [data-skein-theme="antd"] [data-slot="plan-title"] {
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -45,47 +45,47 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  [data-theme-style="antd"] [data-slot="plan-count"] {
+  [data-skein-theme="antd"] [data-slot="plan-count"] {
     flex: none;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.8125rem;
     font-variant-numeric: tabular-nums;
   }
-  [data-theme-style="antd"] [data-slot="plan-chevron"] {
+  [data-skein-theme="antd"] [data-slot="plan-chevron"] {
     display: inline-flex;
     flex: none;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     transition: rotate 200ms var(--ui-easing);
   }
-  [data-theme-style="antd"] [data-slot="plan-chevron"] > svg {
+  [data-skein-theme="antd"] [data-slot="plan-chevron"] > svg {
     width: 1rem;
     height: 1rem;
   }
-  [data-theme-style="antd"] [data-slot="plan-trigger"][data-panel-open] [data-slot="plan-chevron"] {
+  [data-skein-theme="antd"] [data-slot="plan-trigger"][data-panel-open] [data-slot="plan-chevron"] {
     rotate: 180deg;
   }
-  [data-theme-style="antd"] [data-slot="plan-bar"] {
+  [data-skein-theme="antd"] [data-slot="plan-bar"] {
     height: 0.1875rem;
     overflow: hidden;
     background-color: var(--ui-c-neutral-soft);
   }
-  [data-theme-style="antd"] [data-slot="plan-bar-fill"] {
+  [data-skein-theme="antd"] [data-slot="plan-bar-fill"] {
     display: block;
     width: var(--plan-progress, 0%);
     height: 100%;
     background-color: var(--ui-c-primary);
     transition: width 300ms var(--ui-easing);
   }
-  [data-theme-style="antd"] [data-slot="plan-panel"] {
+  [data-skein-theme="antd"] [data-slot="plan-panel"] {
     height: var(--collapsible-panel-height);
     overflow: hidden;
     transition: height 200ms var(--ui-easing);
   }
-  [data-theme-style="antd"] [data-slot="plan-panel"][data-starting-style],
-  [data-theme-style="antd"] [data-slot="plan-panel"][data-ending-style] {
+  [data-skein-theme="antd"] [data-slot="plan-panel"][data-starting-style],
+  [data-skein-theme="antd"] [data-slot="plan-panel"][data-ending-style] {
     height: 0;
   }
-  [data-theme-style="antd"] [data-slot="plan-items"] {
+  [data-skein-theme="antd"] [data-slot="plan-items"] {
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
@@ -93,12 +93,12 @@
     padding: 0.75rem;
     list-style: none;
   }
-  [data-theme-style="antd"] [data-slot="plan-item"] {
+  [data-skein-theme="antd"] [data-slot="plan-item"] {
     display: flex;
     align-items: flex-start;
     gap: 0.625rem;
   }
-  [data-theme-style="antd"] [data-slot="plan-item-icon"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-icon"] {
     display: inline-flex;
     flex: none;
     align-items: center;
@@ -111,28 +111,28 @@
     border-radius: 999px;
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="antd"] [data-slot="plan-item-icon"] > svg {
+  [data-skein-theme="antd"] [data-slot="plan-item-icon"] > svg {
     width: 0.75rem;
     height: 0.75rem;
   }
-  [data-theme-style="antd"] [data-slot="plan-item-icon"][data-status="done"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-icon"][data-status="done"] {
     border-color: var(--ui-c-success);
     background-color: var(--ui-c-success);
     color: var(--ui-c-success-fg, var(--ui-bg));
   }
-  [data-theme-style="antd"] [data-slot="plan-item-icon"][data-status="failed"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-icon"][data-status="failed"] {
     border-color: var(--ui-c-danger);
     background-color: var(--ui-c-danger);
     color: var(--ui-c-danger-fg, var(--ui-bg));
   }
-  [data-theme-style="antd"] [data-slot="plan-item-icon"][data-status="active"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-icon"][data-status="active"] {
     border-color: transparent;
     color: var(--ui-c-primary);
   }
-  [data-theme-style="antd"] [data-slot="plan-item-icon"][data-status="skipped"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-icon"][data-status="skipped"] {
     border-style: dashed;
   }
-  [data-theme-style="antd"] [data-slot="plan-spinner"] {
+  [data-skein-theme="antd"] [data-slot="plan-spinner"] {
     box-sizing: border-box;
     width: 1rem;
     height: 1rem;
@@ -141,40 +141,40 @@
     border-radius: 999px;
     animation: ui-plan-spin 0.8s linear infinite;
   }
-  [data-theme-style="antd"] [data-slot="plan-item-body"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-body"] {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
     min-width: 0;
   }
-  [data-theme-style="antd"] [data-slot="plan-item-label"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-label"] {
     overflow-wrap: anywhere;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="plan-item"][data-status="done"]
     [data-slot="plan-item-label"],
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="plan-item"][data-status="skipped"]
     [data-slot="plan-item-label"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="plan-item"][data-status="skipped"]
     [data-slot="plan-item-label"] {
     text-decoration: line-through;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="plan-item"][data-status="pending"]
     [data-slot="plan-item-label"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="plan-item"][data-status="active"]
     [data-slot="plan-item-label"] {
     font-weight: 600;
   }
   /* Status text is for screen readers only */
-  [data-theme-style="antd"] [data-slot="plan-item-status"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-status"] {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -183,7 +183,7 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
-  [data-theme-style="antd"] [data-slot="plan-item-detail"] {
+  [data-skein-theme="antd"] [data-slot="plan-item-detail"] {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.8125rem;
     overflow-wrap: anywhere;
@@ -194,12 +194,12 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="plan-spinner"] {
+    [data-skein-theme="antd"] [data-slot="plan-spinner"] {
       animation: none;
     }
-    [data-theme-style="antd"] [data-slot="plan-chevron"],
-    [data-theme-style="antd"] [data-slot="plan-bar-fill"],
-    [data-theme-style="antd"] [data-slot="plan-panel"] {
+    [data-skein-theme="antd"] [data-slot="plan-chevron"],
+    [data-skein-theme="antd"] [data-slot="plan-bar-fill"],
+    [data-skein-theme="antd"] [data-slot="plan-panel"] {
       transition: none;
     }
   }

@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Spinner: a ring stroke with a gap, rotation speed 700ms; color takes data-color. */
-  [data-theme-style="default"] [data-slot="spinner"] {
+  [data-skein-theme="default"] [data-slot="spinner"] {
     display: inline-block;
     flex: none;
     box-sizing: border-box;
@@ -14,30 +14,30 @@
     pointer-events: none;
     animation: ui-spin 700ms linear infinite;
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-color="neutral"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-color="neutral"] {
     color: var(--ui-c-neutral);
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-color="primary"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-color="primary"] {
     color: var(--ui-c-primary);
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-color="secondary"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-color="secondary"] {
     color: var(--ui-c-secondary);
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-color="success"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-color="success"] {
     color: var(--ui-c-success);
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-color="warning"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-color="warning"] {
     color: var(--ui-c-warning);
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-color="danger"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-color="danger"] {
     color: var(--ui-c-danger);
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-size="sm"] {
     width: 1rem;
     height: 1rem;
     border-width: 2px;
   }
-  [data-theme-style="default"] [data-slot="spinner"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="spinner"][data-size="lg"] {
     width: 2rem;
     height: 2rem;
     border-width: 3px;
@@ -50,7 +50,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="spinner"] {
+    [data-skein-theme="default"] [data-slot="spinner"] {
       animation-duration: 3s;
     }
   }

@@ -9,7 +9,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "ContextMenu 没有自己的 CSS 文件，外观全部来自 `menu.css`；和其他浮层一样，`data-theme-style` 要设在 `<html>` 上。",
+    "description": "ContextMenu 没有自己的 CSS 文件，外观全部来自 `menu.css`；和其他浮层一样，`data-skein-theme` 要设在 `<html>` 上。",
     "hook": "钩子",
     "trigger": "触发区域（主题风格通常不需要样式）",
     "menu": "弹层和菜单项，复用 Menu 的 slot"

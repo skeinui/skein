@@ -8,7 +8,7 @@
   },
   "styling": {
     "title": "Styling Reference",
-    "description": "Theme styles style these hooks in `navigation-menu.css`. As for every overlay, `data-theme-style` must be set on `<html>`.",
+    "description": "Theme styles style these hooks in `navigation-menu.css`. As for every overlay, `data-skein-theme` must be set on `<html>`.",
     "hook": "Hook",
     "navigation-menu": "The wrapper, the list and the list items",
     "navigation-menu-trigger": "The trigger, its expand arrow and the links",

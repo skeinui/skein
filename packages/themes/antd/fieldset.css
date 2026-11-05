@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Fieldset: remove the native box, stack vertically, and treat the legend as a small heading. */
-  [data-theme-style="antd"] [data-slot="fieldset"] {
+  [data-skein-theme="antd"] [data-slot="fieldset"] {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -12,7 +12,7 @@
     border: 0;
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="antd"] [data-slot="fieldset-legend"] {
+  [data-skein-theme="antd"] [data-slot="fieldset-legend"] {
     margin-bottom: 0.25rem;
     padding: 0;
     color: var(--ui-fg);
@@ -20,7 +20,7 @@
     font-weight: 600;
     line-height: 1.25rem;
   }
-  [data-theme-style="antd"] [data-slot="fieldset"][data-disabled] [data-slot="fieldset-legend"] {
+  [data-skein-theme="antd"] [data-slot="fieldset"][data-disabled] [data-slot="fieldset-legend"] {
     color: var(--ui-fg-muted);
   }
 }

@@ -3,7 +3,7 @@
 @layer ui-style {
   /* Form: layout only - how many columns the fields form, whether labels are on top or on the left, bottom buttons; the inside of each field (label, control, description, error)
      is still Field's styling. */
-  [data-theme-style="heroui"] [data-slot="form"] {
+  [data-skein-theme="heroui"] [data-slot="form"] {
     --_gap-y: 1rem;
     --_gap-x: 1rem;
     --_label-w: 8rem;
@@ -12,39 +12,39 @@
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="heroui"] [data-slot="form-fields"] {
+  [data-skein-theme="heroui"] [data-slot="form-fields"] {
     display: grid;
     gap: var(--_gap-y) var(--_gap-x);
   }
-  [data-theme-style="heroui"] [data-slot="form-item"] {
+  [data-skein-theme="heroui"] [data-slot="form-item"] {
     min-width: 0;
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-columns="1"] > [data-slot="form-fields"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-columns="1"] > [data-slot="form-fields"] {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-columns="2"] > [data-slot="form-fields"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-columns="2"] > [data-slot="form-fields"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-columns="3"] > [data-slot="form-fields"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-columns="3"] > [data-slot="form-fields"] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-columns="4"] > [data-slot="form-fields"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-columns="4"] > [data-slot="form-fields"] {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  [data-theme-style="heroui"] [data-slot="form-item"][data-span="1"] {
+  [data-skein-theme="heroui"] [data-slot="form-item"][data-span="1"] {
     grid-column: span 1;
   }
-  [data-theme-style="heroui"] [data-slot="form-item"][data-span="2"] {
+  [data-skein-theme="heroui"] [data-slot="form-item"][data-span="2"] {
     grid-column: span 2;
   }
-  [data-theme-style="heroui"] [data-slot="form-item"][data-span="3"] {
+  [data-skein-theme="heroui"] [data-slot="form-item"][data-span="3"] {
     grid-column: span 3;
   }
-  [data-theme-style="heroui"] [data-slot="form-item"][data-span="4"] {
+  [data-skein-theme="heroui"] [data-slot="form-item"][data-span="4"] {
     grid-column: span 4;
   }
 
-  [data-theme-style="heroui"] [data-slot="form-actions"] {
+  [data-skein-theme="heroui"] [data-slot="form-actions"] {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -53,13 +53,13 @@
   }
 
   /* Label on the left: each field is "label column + control column", and the description and error go in the control column */
-  [data-theme-style="heroui"] [data-slot="form"][data-layout="horizontal"] [data-slot="field"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-layout="horizontal"] [data-slot="field"] {
     display: grid;
     grid-template-columns: var(--_label-w) minmax(0, 1fr);
     column-gap: 1rem;
     align-items: start;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="form"][data-layout="horizontal"]
     [data-slot="field"]
     > [data-slot="field-label"] {
@@ -67,38 +67,38 @@
     padding-top: 0.5rem;
     text-align: end;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="form"][data-layout="horizontal"]
     [data-slot="field"]
     > :not([data-slot="field-label"]) {
     grid-column: 2;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="form"][data-layout="horizontal"]
     > [data-slot="form-actions"] {
     margin-inline-start: calc(var(--_label-w) + 1rem);
   }
 
   /* Inline: fields and buttons flow in one row and wrap when they do not fit */
-  [data-theme-style="heroui"] [data-slot="form"][data-layout="inline"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-layout="inline"] {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
     gap: var(--_gap-y) var(--_gap-x);
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-layout="inline"] > [data-slot="form-fields"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-layout="inline"] > [data-slot="form-fields"] {
     display: contents;
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-layout="inline"] [data-slot="form-item"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-layout="inline"] [data-slot="form-item"] {
     grid-column: auto;
   }
-  [data-theme-style="heroui"] [data-slot="form"][data-layout="inline"] [data-slot="field"] {
+  [data-skein-theme="heroui"] [data-slot="form"][data-layout="inline"] [data-slot="field"] {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
   }
-  [data-theme-style="heroui"]
+  [data-skein-theme="heroui"]
     [data-slot="form"][data-layout="inline"]
     > [data-slot="form-actions"] {
     margin-top: 0;

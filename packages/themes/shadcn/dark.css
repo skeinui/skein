@@ -2,8 +2,8 @@
 
 /* Dark values of the shadcn-style theme style, overriding only the color tokens that change with the mode. */
 @layer ui-tokens {
-  [data-theme-style="shadcn"][data-mode="dark"],
-  [data-theme-style="shadcn"] :where([data-mode="dark"]) {
+  [data-skein-theme="shadcn"][data-skein-mode="dark"],
+  [data-skein-theme="shadcn"] :where([data-skein-mode="dark"]) {
     color-scheme: dark;
 
     --ui-bg: #0a0a0a;

@@ -10,7 +10,7 @@
     "shadcn": "shadcn/ui: neutral, compact, sharp lines.",
     "heroui": "HeroUI v3: soft colours, pill-shaped controls.",
     "antd": "Ant Design 6: the enterprise look.",
-    "p2": "Import the CSS of the ones you use; only those are bundled. Several can be imported together, each scoped by `data-theme-style`, so users can switch between them at runtime (the admin template's preferences drawer does that)."
+    "p2": "Import the CSS of the ones you use; only those are bundled. Several can be imported together, each scoped by `data-skein-theme`, so users can switch between them at runtime (the admin template's preferences drawer does that)."
   },
   "mode": {
     "title": "Light and dark",
@@ -32,7 +32,7 @@
   },
   "how": {
     "title": "How it works",
-    "p1": "Components write `data-*` attributes and no CSS; a theme style is CSS that targets them, scoped by `data-theme-style`:",
+    "p1": "Components write `data-*` attributes and no CSS; a theme style is CSS that targets them, scoped by `data-skein-theme`:",
     "p2": "Tokens (`--ui-c-primary`, `--ui-radius`, `--ui-density`…) are defined per style in `tokens.css` and `dark.css`; colour themes and `themeOverrides` only change token values, which is why they work with any style."
   }
 }

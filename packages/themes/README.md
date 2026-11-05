@@ -11,7 +11,7 @@ npm install @skeinui/ui @skeinui/themes
 ```
 
 ```ts
-import "@skeinui/themes/antd/index.css"; // one theme style (or several, each scoped by data-theme-style)
+import "@skeinui/themes/antd/index.css"; // one theme style (or several, each scoped by data-skein-theme)
 import "@skeinui/themes/color/purple.css"; // optional: colour theme
 import "@skeinui/themes/density/compact.css"; // optional: density
 import "@skeinui/themes/code/index.css"; // optional: code-block themes
@@ -19,10 +19,10 @@ import "@skeinui/themes/code/index.css"; // optional: code-block themes
 
 ```html
 <html
-  data-theme-style="antd"
-  data-mode="dark"
-  data-theme-color="purple"
-  data-theme-density="compact"
+  data-skein-theme="antd"
+  data-skein-mode="dark"
+  data-skein-color="purple"
+  data-skein-density="compact"
 ></html>
 ```
 
@@ -30,12 +30,12 @@ import "@skeinui/themes/code/index.css"; // optional: code-block themes
 
 | Path                  | What                                                                                                        | Attribute                                   |
 | --------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `<style>/index.css`   | Theme style: `default` (Skein brand), `shadcn`, `heroui` (HeroUI v3), `antd` (Ant Design 6), light and dark | `data-theme-style`                          |
-| `color/<name>.css`    | Colour theme on top of any style: `purple`, `green`, `geekblue`, `volcano`, `contrast` (WCAG AA)            | `data-theme-color`                          |
-| `density/compact.css` | Smaller controls                                                                                            | `data-theme-density`                        |
+| `<style>/index.css`   | Theme style: `default` (Skein brand), `shadcn`, `heroui` (HeroUI v3), `antd` (Ant Design 6), light and dark | `data-skein-theme`                          |
+| `color/<name>.css`    | Colour theme on top of any style: `purple`, `green`, `geekblue`, `volcano`, `contrast` (WCAG AA)            | `data-skein-color`                          |
+| `density/compact.css` | Smaller controls                                                                                            | `data-skein-density`                        |
 | `code/index.css`      | Code-block themes: `github`, `one`, `solarized`, `catppuccin`, `dracula`, `nord`, `monokai`, `tokyo-night`  | `<CodeBlock theme>`, `<DiffView codeTheme>` |
 
-Colour themes can be combined, e.g. `data-theme-color="purple contrast"`.
+Colour themes can be combined, e.g. `data-skein-color="purple contrast"`.
 
 ## Vite: only the CSS you use
 

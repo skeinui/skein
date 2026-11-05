@@ -2,8 +2,8 @@
 
 /* Dark values of Skein's default theme style, overriding only the color tokens that vary with mode. */
 @layer ui-tokens {
-  [data-theme-style="default"][data-mode="dark"],
-  [data-theme-style="default"] :where([data-mode="dark"]) {
+  [data-skein-theme="default"][data-skein-mode="dark"],
+  [data-skein-theme="default"] :where([data-skein-mode="dark"]) {
     color-scheme: dark;
 
     --ui-bg: #0b1120;

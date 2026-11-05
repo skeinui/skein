@@ -29,7 +29,7 @@
   color-scheme: light;
 }
 
-:root[data-mode="dark"] {
+:root[data-skein-mode="dark"] {
   --pg-bg: #0d0d0b;
   --pg-panel: #151513;
   --pg-ink: #f2f1ea;
@@ -1723,7 +1723,7 @@ body {
   line-height: 1.65;
 }
 
-/* Skin lab: each card carries its own data-theme-style / data-mode, and the tokens inside take that theme style's */
+/* Skin lab: each card carries its own data-skein-theme / data-skein-mode, and the tokens inside take that theme style's */
 .pg-skinlab {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
@@ -2011,7 +2011,7 @@ body {
   --pg-tok-punct: #57606a;
 }
 
-:root[data-mode="dark"] {
+:root[data-skein-mode="dark"] {
   --pg-tok-plain: #e6edf3;
   --pg-tok-comment: #8b949e;
   --pg-tok-keyword: #ff7b72;

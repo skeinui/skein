@@ -5,14 +5,14 @@
    * Modeled on Ant Design 6's Checkbox: 16px box, 1px stroke, 4px radius; on hover the stroke turns primary,
    * when checked the background and stroke turn primary and a white check is drawn (the primary hover color on hover), and indeterminate is an 8px primary square in the box.
    */
-  [data-theme-style="antd"] [data-slot="checkbox"] {
+  [data-skein-theme="antd"] [data-slot="checkbox"] {
     display: inline-flex;
     align-items: flex-start;
     gap: 8px;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"] {
     --_bg: var(--ui-field-bg);
     position: relative;
     display: inline-flex;
@@ -32,43 +32,43 @@
     cursor: pointer;
     transition: all var(--ui-duration) var(--ui-easing);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="checkbox"][data-variant="filled"]
     [data-slot="checkbox-control"] {
     --_bg: var(--ui-field-filled-bg);
     border-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"]:hover:not([data-disabled]) {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"]:hover:not([data-disabled]) {
     border-color: var(--ui-c-primary);
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"][data-checked] {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"][data-checked] {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary);
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="checkbox-control"][data-checked]:hover:not([data-disabled]) {
     /* Official checked hover only changes the background, and the stroke stays primary */
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary-hover);
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"]:focus-visible {
     outline: 3px solid var(--ui-c-primary-border);
     outline-offset: 1px;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"][data-invalid] {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"][data-invalid] {
     border-color: var(--ui-c-danger);
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"][data-invalid][data-checked] {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"][data-invalid][data-checked] {
     background-color: var(--ui-c-danger);
   }
-  [data-theme-style="antd"] [data-slot="checkbox-control"][data-disabled] {
+  [data-skein-theme="antd"] [data-slot="checkbox-control"][data-disabled] {
     border-color: var(--ui-border);
     background-color: var(--ui-field-filled-bg);
     color: var(--ui-field-placeholder);
     cursor: not-allowed;
   }
 
-  [data-theme-style="antd"] [data-slot="checkbox-indicator"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-indicator"] {
     position: relative;
     display: flex;
     align-items: center;
@@ -76,79 +76,79 @@
     width: 100%;
     height: 100%;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-checkmark"],
-  [data-theme-style="antd"] [data-slot="checkbox-indeterminate"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-checkmark"],
+  [data-skein-theme="antd"] [data-slot="checkbox-indeterminate"] {
     position: absolute;
     width: calc(0.625rem * var(--ui-density));
     height: calc(0.625rem * var(--ui-density));
     opacity: 0;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-checkmark"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-checkmark"] {
     stroke-width: 3.4px;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
     transition: stroke-dashoffset 200ms var(--ui-easing) 100ms;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="checkbox-indicator"][data-checked]:not([data-indeterminate])
     [data-slot="checkbox-checkmark"] {
     opacity: 1;
     stroke-dashoffset: 0;
   }
   /* Indeterminate: no line, but an 8px primary square instead */
-  [data-theme-style="antd"] [data-slot="checkbox-indicator"][data-indeterminate]::after {
+  [data-skein-theme="antd"] [data-slot="checkbox-indicator"][data-indeterminate]::after {
     width: calc(0.5rem * var(--ui-density));
     height: calc(0.5rem * var(--ui-density));
     border-radius: 2px;
     background-color: var(--ui-c-primary);
     content: "";
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="checkbox-control"][data-disabled]
     [data-slot="checkbox-indicator"][data-indeterminate]::after {
     background-color: var(--ui-field-placeholder);
   }
 
-  [data-theme-style="antd"] [data-slot="checkbox-content"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-content"] {
     display: flex;
     flex-direction: column;
     font-family: var(--ui-font-family);
     user-select: none;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-label"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-label"] {
     color: var(--ui-fg);
     font-size: 0.875rem;
     line-height: 1.5714285714285714;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-description"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-description"] {
     color: var(--ui-fg-muted);
     font-size: 0.875rem;
     line-height: 1.5714285714285714;
     overflow-wrap: break-word;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="checkbox"]:has([data-slot="checkbox-control"][data-disabled]) {
     cursor: not-allowed;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="checkbox"]:has([data-slot="checkbox-control"][data-disabled])
     [data-slot="checkbox-label"] {
     color: var(--ui-field-placeholder);
   }
 
-  [data-theme-style="antd"] [data-slot="checkbox-group"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-group"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
-  [data-theme-style="antd"] [data-slot="checkbox-group"][data-orientation="horizontal"] {
+  [data-skein-theme="antd"] [data-slot="checkbox-group"][data-orientation="horizontal"] {
     flex-flow: row wrap;
     gap: 0.5rem 1rem;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="checkbox-control"],
-    [data-theme-style="antd"] [data-slot="checkbox-checkmark"] {
+    [data-skein-theme="antd"] [data-slot="checkbox-control"],
+    [data-skein-theme="antd"] [data-slot="checkbox-checkmark"] {
       transition: none;
     }
   }

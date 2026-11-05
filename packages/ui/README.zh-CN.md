@@ -34,7 +34,7 @@ export function App() {
 }
 ```
 
-`ConfigProvider` 把主题状态写到 `<html>` 上（`data-theme-style`、`data-mode`、`data-theme-color`、`data-theme-density`），这样渲染到 `<body>` 的对话框、弹出层、下拉选择也会跟着变。它还接受 `themeOverrides`（颜色、圆角、密度），以及组件文字用的 `locale` / `labels`。
+`ConfigProvider` 把主题状态写到 `<html>` 上（`data-skein-theme`、`data-skein-mode`、`data-skein-color`、`data-skein-density`），这样渲染到 `<body>` 的对话框、弹出层、下拉选择也会跟着变。它还接受 `themeOverrides`（颜色、圆角、密度），以及组件文字用的 `locale` / `labels`。
 
 ## 约定
 

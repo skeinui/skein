@@ -2,15 +2,15 @@
 
 @layer ui-style {
   /* OtpField: one box per digit, appearance kept consistent with this theme style's Input; the focused digit gets a ring. */
-  [data-theme-style="shadcn"] [data-slot="otp-field"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-field"] {
     display: inline-flex;
     align-items: center;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-cell"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-cell"] {
     display: inline-flex;
     align-items: center;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-separator"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-separator"] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -18,7 +18,7 @@
     color: var(--ui-fg);
     user-select: none;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"] {
     --_bg: var(--ui-field-bg);
     box-sizing: border-box;
     width: var(--ui-height-md);
@@ -41,8 +41,8 @@
       background-color 150ms ease;
   }
   /* Cells in the same group are joined into one strip: only the first / last of a group keep the outer radius and border */
-  [data-theme-style="shadcn"] [data-slot="otp-cell"]:first-child > [data-slot="otp-input"],
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"] [data-slot="otp-cell"]:first-child > [data-slot="otp-input"],
+  [data-skein-theme="shadcn"]
     [data-slot="otp-cell"]:has(> [data-slot="otp-separator"])
     + [data-slot="otp-cell"]
     > [data-slot="otp-input"] {
@@ -50,27 +50,27 @@
     border-start-start-radius: var(--ui-radius-lg);
     border-end-start-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="shadcn"] [data-slot="otp-cell"]:last-child > [data-slot="otp-input"],
-  [data-theme-style="shadcn"] [data-slot="otp-input"]:has(+ [data-slot="otp-separator"]) {
+  [data-skein-theme="shadcn"] [data-slot="otp-cell"]:last-child > [data-slot="otp-input"],
+  [data-skein-theme="shadcn"] [data-slot="otp-input"]:has(+ [data-slot="otp-separator"]) {
     border-start-end-radius: var(--ui-radius-lg);
     border-end-end-radius: var(--ui-radius-lg);
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"][data-variant="filled"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"][data-variant="filled"] {
     --_bg: var(--ui-field-filled-bg);
     border-color: transparent;
     box-shadow: none;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"][data-size="sm"] {
     width: var(--ui-height-sm);
     height: var(--ui-height-sm);
     font-size: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"][data-size="lg"] {
     width: var(--ui-height-lg);
     height: var(--ui-height-lg);
     font-size: 1.125rem;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"]:focus {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"]:focus {
     position: relative;
     z-index: 1;
     border-inline-start-width: 1px;
@@ -80,14 +80,14 @@
       var(--ui-field-shadow);
   }
   /* Nova: the invalid border is solid destructive, and the ring appears only on the focused cell (/20 in light, /40 in dark) */
-  [data-theme-style="shadcn"] [data-slot="otp-input"][data-invalid] {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"][data-invalid] {
     border-color: var(--ui-c-danger-text);
     box-shadow: none;
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"][data-invalid]:focus {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"][data-invalid]:focus {
     box-shadow: 0 0 0 3px var(--ui-invalid-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="otp-input"][data-disabled] {
+  [data-skein-theme="shadcn"] [data-slot="otp-input"][data-disabled] {
     opacity: 0.5;
     cursor: not-allowed;
   }

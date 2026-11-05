@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Carousel: slide translates the track by --car-index, fade stacks all pages and switches opacity; dots, arrows and the pause button are overlaid on top. */
-  [data-theme-style="antd"] [data-slot="carousel"] {
+  [data-skein-theme="antd"] [data-slot="carousel"] {
     position: relative;
     display: block;
     overflow: hidden;
@@ -10,30 +10,30 @@
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
   }
-  [data-theme-style="antd"] [data-slot="carousel-viewport"] {
+  [data-skein-theme="antd"] [data-slot="carousel-viewport"] {
     overflow: hidden;
     touch-action: pan-y;
   }
-  [data-theme-style="antd"] [data-slot="carousel-track"] {
+  [data-skein-theme="antd"] [data-slot="carousel-track"] {
     display: flex;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"][data-effect="slide"]
     [data-slot="carousel-track"] {
     transform: translateX(calc(var(--car-index, 0) * -100%));
     transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
-  [data-theme-style="antd"] [data-slot="carousel-slide"] {
+  [data-skein-theme="antd"] [data-slot="carousel-slide"] {
     flex: 0 0 100%;
     min-width: 0;
     box-sizing: border-box;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"][data-effect="fade"]
     [data-slot="carousel-track"] {
     display: grid;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"][data-effect="fade"]
     [data-slot="carousel-slide"] {
     grid-area: 1 / 1;
@@ -43,14 +43,14 @@
       opacity 0.3s ease,
       visibility 0.3s;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"][data-effect="fade"]
     [data-slot="carousel-slide"][data-active] {
     opacity: 1;
     visibility: visible;
   }
 
-  [data-theme-style="antd"] [data-slot="carousel-arrow"] {
+  [data-skein-theme="antd"] [data-slot="carousel-arrow"] {
     position: absolute;
     top: 50%;
     z-index: 1;
@@ -73,21 +73,21 @@
       background-color 0.2s,
       opacity 0.2s;
   }
-  [data-theme-style="antd"] [data-slot="carousel-arrow"][data-direction="prev"] {
+  [data-skein-theme="antd"] [data-slot="carousel-arrow"][data-direction="prev"] {
     left: 0.5rem;
   }
-  [data-theme-style="antd"] [data-slot="carousel-arrow"][data-direction="next"] {
+  [data-skein-theme="antd"] [data-slot="carousel-arrow"][data-direction="next"] {
     right: 0.5rem;
   }
-  [data-theme-style="antd"] [data-slot="carousel-arrow"]:hover:not(:disabled) {
+  [data-skein-theme="antd"] [data-slot="carousel-arrow"]:hover:not(:disabled) {
     background-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="carousel-arrow"]:disabled {
+  [data-skein-theme="antd"] [data-slot="carousel-arrow"]:disabled {
     opacity: 0.35;
     cursor: not-allowed;
   }
 
-  [data-theme-style="antd"] [data-slot="carousel-dots"] {
+  [data-skein-theme="antd"] [data-slot="carousel-dots"] {
     position: absolute;
     right: 0;
     left: 0;
@@ -99,17 +99,17 @@
     padding: 0;
     pointer-events: none;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"][data-dot-position="bottom"]
     [data-slot="carousel-dots"] {
     bottom: 0.75rem;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"][data-dot-position="top"]
     [data-slot="carousel-dots"] {
     top: 0.75rem;
   }
-  [data-theme-style="antd"] [data-slot="carousel-dot"] {
+  [data-skein-theme="antd"] [data-slot="carousel-dot"] {
     position: relative;
     box-sizing: border-box;
     width: 1rem;
@@ -125,21 +125,21 @@
       width 0.3s,
       background-color 0.3s;
   }
-  [data-theme-style="antd"] [data-slot="carousel-dot"]::after {
+  [data-skein-theme="antd"] [data-slot="carousel-dot"]::after {
     /* Enlarge the click target to at least 24px */
     position: absolute;
     inset: -0.5rem -0.125rem;
     content: "";
   }
-  [data-theme-style="antd"] [data-slot="carousel-dot"]:hover {
+  [data-skein-theme="antd"] [data-slot="carousel-dot"]:hover {
     background-color: rgb(255 255 255 / 0.75);
   }
-  [data-theme-style="antd"] [data-slot="carousel-dot"][data-active] {
+  [data-skein-theme="antd"] [data-slot="carousel-dot"][data-active] {
     width: 1.5rem;
     background-color: rgb(255 255 255);
   }
 
-  [data-theme-style="antd"] [data-slot="carousel-pause"] {
+  [data-skein-theme="antd"] [data-slot="carousel-pause"] {
     position: absolute;
     right: 0.5rem;
     bottom: 0.5rem;
@@ -160,30 +160,30 @@
     cursor: pointer;
     transition: background-color 0.2s;
   }
-  [data-theme-style="antd"] [data-slot="carousel-pause"]:hover {
+  [data-skein-theme="antd"] [data-slot="carousel-pause"]:hover {
     background-color: transparent;
   }
-  [data-theme-style="antd"] [data-slot="carousel-pause"][data-paused] {
+  [data-skein-theme="antd"] [data-slot="carousel-pause"][data-paused] {
     color: rgb(255 255 255 / 0.85);
   }
 
-  [data-theme-style="antd"] [data-slot="carousel-arrow"]:focus-visible,
-  [data-theme-style="antd"] [data-slot="carousel-dot"]:focus-visible,
-  [data-theme-style="antd"] [data-slot="carousel-pause"]:focus-visible {
+  [data-skein-theme="antd"] [data-slot="carousel-arrow"]:focus-visible,
+  [data-skein-theme="antd"] [data-slot="carousel-dot"]:focus-visible,
+  [data-skein-theme="antd"] [data-slot="carousel-pause"]:focus-visible {
     outline: 2px solid var(--ui-ring);
     outline-offset: 2px;
   }
-  [data-theme-style="antd"]
+  [data-skein-theme="antd"]
     [data-slot="carousel"]:has([data-slot="carousel-viewport"]:focus-visible) {
     outline: 2px solid var(--ui-ring);
     outline-offset: -2px;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="antd"] [data-slot="carousel-track"],
-    [data-theme-style="antd"] [data-slot="carousel-slide"],
-    [data-theme-style="antd"] [data-slot="carousel-dot"],
-    [data-theme-style="antd"] [data-slot="carousel-arrow"] {
+    [data-skein-theme="antd"] [data-slot="carousel-track"],
+    [data-skein-theme="antd"] [data-slot="carousel-slide"],
+    [data-skein-theme="antd"] [data-slot="carousel-dot"],
+    [data-skein-theme="antd"] [data-slot="carousel-arrow"] {
       transition: none;
     }
   }

@@ -18,8 +18,8 @@ export function AdminLayoutFull() {
 
   useLayoutEffect(() => {
     const root = document.documentElement;
-    root.dataset.themeStyle = themeStyle;
-    root.dataset.mode = mode;
+    root.dataset.skeinTheme = themeStyle;
+    root.dataset.skeinMode = mode;
     document.body.style.cssText =
       "margin:0;background:var(--ui-bg);color:var(--ui-fg);font-family:var(--ui-font-family)";
   }, [themeStyle, mode]);

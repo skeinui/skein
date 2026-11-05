@@ -2,63 +2,63 @@
 
 @layer ui-style {
   /* Skeleton: text is one text line tall, circle is a perfect circle, rect fills its parent; the animation is a breathing pulse. */
-  [data-theme-style="default"] [data-slot="skeleton"] {
+  [data-skein-theme="default"] [data-slot="skeleton"] {
     display: block;
     box-sizing: border-box;
     background-color: var(--ui-c-neutral-soft);
     border-radius: var(--_r, var(--ui-radius-md));
     animation: ui-skeleton-pulse 1.8s ease-in-out infinite;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="text"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="text"] {
     width: 100%;
     height: 1rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="text"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="text"][data-size="sm"] {
     height: 0.75rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="text"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="text"][data-size="lg"] {
     height: 1.25rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="circle"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="circle"] {
     --_r: var(--ui-radius-full);
     width: 2.5rem;
     height: 2.5rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="circle"][data-size="sm"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="circle"][data-size="sm"] {
     width: 2rem;
     height: 2rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="circle"][data-size="lg"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="circle"][data-size="lg"] {
     width: 3rem;
     height: 3rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-shape="rect"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-shape="rect"] {
     width: 100%;
     height: 100%;
     min-height: 1rem;
   }
-  [data-theme-style="default"] [data-slot="skeleton-group"] {
+  [data-skein-theme="default"] [data-slot="skeleton-group"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
   }
-  [data-theme-style="default"] [data-slot="skeleton-group"] > [data-slot="skeleton"][data-last] {
+  [data-skein-theme="default"] [data-slot="skeleton-group"] > [data-slot="skeleton"][data-last] {
     width: 60%;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-radius="none"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-radius="none"] {
     --_r: 0;
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-radius="sm"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-radius="sm"] {
     --_r: var(--ui-radius-sm);
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-radius="md"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-radius="md"] {
     --_r: var(--ui-radius-md);
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-radius="lg"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-radius="lg"] {
     --_r: var(--ui-radius-lg);
   }
-  [data-theme-style="default"] [data-slot="skeleton"][data-radius="full"] {
+  [data-skein-theme="default"] [data-slot="skeleton"][data-radius="full"] {
     --_r: var(--ui-radius-full);
   }
 
@@ -69,7 +69,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="default"] [data-slot="skeleton"] {
+    [data-skein-theme="default"] [data-slot="skeleton"] {
       animation: none;
     }
   }

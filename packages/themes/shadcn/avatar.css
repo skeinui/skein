@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Avatar: square / round is decided by the size step's --_r, data-radius can override it separately; shows the fallback when the image fails. */
-  [data-theme-style="shadcn"] [data-slot="avatar"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"] {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -17,7 +17,7 @@
     user-select: none;
   }
   /* Official site: 1px border over the image, darken blend in light mode / lighten blend in dark mode */
-  [data-theme-style="shadcn"] [data-slot="avatar"]::after {
+  [data-skein-theme="shadcn"] [data-slot="avatar"]::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -26,36 +26,36 @@
     mix-blend-mode: darken;
     pointer-events: none;
   }
-  [data-theme-style="shadcn"] [data-mode="dark"] [data-slot="avatar"]::after,
-  [data-theme-style="shadcn"][data-mode="dark"] [data-slot="avatar"]::after {
+  [data-skein-theme="shadcn"] [data-skein-mode="dark"] [data-slot="avatar"]::after,
+  [data-skein-theme="shadcn"][data-skein-mode="dark"] [data-slot="avatar"]::after {
     mix-blend-mode: lighten;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-size="sm"] {
     --_r: var(--ui-radius-full);
     width: calc(1.5rem * var(--ui-density));
     height: calc(1.5rem * var(--ui-density));
     font-size: 0.75rem;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-size="md"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-size="md"] {
     --_r: var(--ui-radius-full);
     width: calc(2rem * var(--ui-density));
     height: calc(2rem * var(--ui-density));
     font-size: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-size="lg"] {
     --_r: var(--ui-radius-full);
     width: calc(2.5rem * var(--ui-density));
     height: calc(2.5rem * var(--ui-density));
     font-size: 0.875rem;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar-image"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-image"] {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar-fallback"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-fallback"] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -67,75 +67,75 @@
     line-height: 1;
     text-transform: uppercase;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="avatar"][data-color="primary"]
     [data-slot="avatar-fallback"] {
     background-color: var(--ui-c-primary-soft);
     color: var(--ui-c-primary-text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="avatar"][data-color="secondary"]
     [data-slot="avatar-fallback"] {
     background-color: var(--ui-c-secondary-soft);
     color: var(--ui-c-secondary-text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="avatar"][data-color="success"]
     [data-slot="avatar-fallback"] {
     background-color: var(--ui-c-success-soft);
     color: var(--ui-c-success-text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="avatar"][data-color="warning"]
     [data-slot="avatar-fallback"] {
     background-color: var(--ui-c-warning-soft);
     color: var(--ui-c-warning-text);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="avatar"][data-color="danger"]
     [data-slot="avatar-fallback"] {
     background-color: var(--ui-c-danger-soft);
     color: var(--ui-c-danger-text);
   }
 
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-radius="none"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-radius="none"] {
     --_r: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-radius="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-radius="sm"] {
     --_r: var(--ui-radius-sm);
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-radius="md"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-radius="md"] {
     --_r: var(--ui-radius-md);
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-radius="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-radius="lg"] {
     --_r: var(--ui-radius-lg);
   }
-  [data-theme-style="shadcn"] [data-slot="avatar"][data-radius="full"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-radius="full"] {
     --_r: var(--ui-radius-full);
   }
 
   /* AvatarGroup: avatars overlap, later ones cover earlier ones, and each avatar has a ring in the background color around it to separate them; spacing varies with the size step; "+N" is the data-overflow version of the same avatar */
-  [data-theme-style="shadcn"] [data-slot="avatar-group"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-group"] {
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
   }
-  [data-theme-style="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"] {
     box-shadow: 0 0 0 2px var(--ui-bg);
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="avatar-group"]
     > [data-slot="avatar"]
     ~ [data-slot="avatar"] {
     margin-inline-start: calc(var(--_overlap, 0.5rem) * -1);
   }
-  [data-theme-style="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="sm"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="sm"] {
     --_overlap: calc(0.5rem * 0.75);
   }
-  [data-theme-style="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="lg"] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="lg"] {
     --_overlap: calc(0.5rem * 1.25);
   }
-  [data-theme-style="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-overflow] {
+  [data-skein-theme="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-overflow] {
     background-color: var(--ui-c-neutral-soft);
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-weight: 500;

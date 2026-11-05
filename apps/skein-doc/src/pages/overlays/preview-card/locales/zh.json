@@ -14,7 +14,7 @@
   },
   "styling": {
     "title": "样式钩子",
-    "description": "PreviewCard 没有自己的 CSS 文件，外观全部来自 `popover.css`；和其他浮层一样，`data-theme-style` 要设在 `<html>` 上。",
+    "description": "PreviewCard 没有自己的 CSS 文件，外观全部来自 `popover.css`；和其他浮层一样，`data-skein-theme` 要设在 `<html>` 上。",
     "hook": "钩子",
     "slots": "复用 Popover 的 slot，不需要额外样式",
     "preview": "写在 `popover` 上，主题风格想区分悬停卡片时用它"

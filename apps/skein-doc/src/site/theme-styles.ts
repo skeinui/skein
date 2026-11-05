@@ -21,7 +21,7 @@ export function loadThemeStyle(style: ThemeStyle): Promise<void> {
   if (!loading) {
     const href = THEME_STYLE_CSS[style];
     let link = document.head.querySelector<HTMLLinkElement>(
-      `link[data-theme-style-css="${style}"]`,
+      `link[data-skein-theme-css="${style}"]`,
     );
     loading =
       link?.sheet || link?.dataset.loaded !== undefined
@@ -31,7 +31,7 @@ export function loadThemeStyle(style: ThemeStyle): Promise<void> {
               link = document.createElement("link");
               link.rel = "stylesheet";
               link.href = href;
-              link.dataset.themeStyleCss = style;
+              link.dataset.skeinThemeCss = style;
               document.head.append(link);
             }
             const done = () => {

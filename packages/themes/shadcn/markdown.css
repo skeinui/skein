@@ -2,7 +2,7 @@
 
 @layer ui-style {
   /* Markdown: spacing between blocks uses "adjacent siblings"; elements use tag selectors directly (headings, paragraphs, lists, quotes, tables...), and only named parts are slots */
-  [data-theme-style="shadcn"] [data-slot="markdown"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] {
     min-width: 0;
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
@@ -10,53 +10,53 @@
     line-height: 1.7;
     overflow-wrap: anywhere;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"][data-slot="markdown"] > * + * {
+  [data-skein-theme="shadcn"] [data-slot="markdown"][data-slot="markdown"] > * + * {
     margin-top: 0.875rem;
   }
-  [data-theme-style="shadcn"]
+  [data-skein-theme="shadcn"]
     [data-slot="markdown"]
     :where(p, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, hr) {
     margin-block: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] > :is(h1, h2, h3, h4, h5, h6) {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] > :is(h1, h2, h3, h4, h5, h6) {
     font-weight: 600;
     line-height: 1.35;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] > * + :is(h1, h2, h3, h4, h5, h6) {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] > * + :is(h1, h2, h3, h4, h5, h6) {
     margin-top: 1.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] h1 {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] h1 {
     font-size: 1.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] h2 {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] h2 {
     font-size: 1.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] h3 {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] h3 {
     font-size: 1.0625rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] :is(h4, h5, h6) {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] :is(h4, h5, h6) {
     font-size: 0.9375rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] :is(ul, ol) {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] :is(ul, ol) {
     padding-inline-start: 1.5rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] li + li {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] li + li {
     margin-top: 0.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] li > :is(ul, ol, p, [data-slot="code-block"]) {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] li > :is(ul, ol, p, [data-slot="code-block"]) {
     margin-top: 0.25rem;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] li::marker {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] li::marker {
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
   /* Task list: no bullets, a read-only box in front; completed items are checked */
-  [data-theme-style="shadcn"] [data-slot="markdown"] li[data-task] {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] li[data-task] {
     position: relative;
     margin-inline-start: -1.5rem;
     padding-inline-start: 1.5rem;
     list-style: none;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-task"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-task"] {
     position: absolute;
     inset-block-start: 0.4em;
     inset-inline-start: 0;
@@ -67,11 +67,11 @@
     border-radius: 0.25rem;
     background-color: var(--ui-field-bg);
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-task"][data-checked] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-task"][data-checked] {
     border-color: var(--ui-c-primary);
     background-color: var(--ui-c-primary);
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-task"][data-checked]::after {
+  [data-skein-theme="shadcn"] [data-slot="markdown-task"][data-checked]::after {
     content: "";
     position: absolute;
     inset-block-start: 1px;
@@ -82,79 +82,79 @@
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] blockquote {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] blockquote {
     padding-inline-start: 1rem;
     border-inline-start: 3px solid var(--ui-border);
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
-  [data-theme-style="shadcn"] [data-slot="markdown"] hr {
+  [data-skein-theme="shadcn"] [data-slot="markdown"] hr {
     border: 0;
     border-top: 1px solid var(--ui-border);
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-link"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-link"] {
     color: var(--ui-c-primary-text);
     text-decoration: underline;
     text-underline-offset: 2px;
     border-radius: var(--ui-r-small);
     outline: none;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-link"]:hover {
+  [data-skein-theme="shadcn"] [data-slot="markdown-link"]:hover {
     text-decoration-thickness: 2px;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-link"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="markdown-link"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-inline-code"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-inline-code"] {
     padding: 0.125em 0.375em;
     border-radius: var(--ui-r-small);
     background-color: var(--ui-c-neutral-soft);
     font-family: var(--ui-font-mono);
     font-size: 0.875em;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-image"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-image"] {
     max-width: 100%;
     height: auto;
     border-radius: var(--ui-r-block);
     vertical-align: middle;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] {
     max-width: 100%;
     overflow: auto;
     border: 1px solid var(--ui-border);
     border-radius: var(--ui-r-block);
     outline: none;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"]:focus-visible {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"]:focus-visible {
     box-shadow: 0 0 0 2px var(--ui-ring);
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] table {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.875rem;
     line-height: 1.5;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] :is(th, td) {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] :is(th, td) {
     padding: 0.5rem 0.75rem;
     border-bottom: 1px solid var(--ui-border);
     text-align: start;
     vertical-align: top;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] th {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] th {
     background-color: var(--ui-surface);
     font-weight: 600;
     white-space: nowrap;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] tbody tr:last-child td {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] tbody tr:last-child td {
     border-bottom: 0;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] [data-align="center"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] [data-align="center"] {
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-table-wrap"] [data-align="end"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-table-wrap"] [data-align="end"] {
     text-align: end;
   }
   /* Cursor after the last piece of text during streaming output */
-  [data-theme-style="shadcn"] [data-slot="markdown-caret"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-caret"] {
     display: inline-block;
     width: 0.5em;
     height: 1.05em;
@@ -165,16 +165,16 @@
     animation: ui-markdown-caret 1s steps(2, start) infinite;
   }
   /* Formulas: content is produced by the caller's render function (KaTeX etc.); block-level ones are centered and scroll horizontally when too wide */
-  [data-theme-style="shadcn"] [data-slot="markdown-math"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-math"] {
     color: inherit;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-math"][data-display="block"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-math"][data-display="block"] {
     margin-block: 0.75em;
     overflow-x: auto;
     overflow-y: hidden;
     text-align: center;
   }
-  [data-theme-style="shadcn"] [data-slot="markdown-math"][data-display="inline"] {
+  [data-skein-theme="shadcn"] [data-slot="markdown-math"][data-display="inline"] {
     white-space: nowrap;
   }
   @keyframes ui-markdown-caret {
@@ -183,7 +183,7 @@
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-theme-style="shadcn"] [data-slot="markdown-caret"] {
+    [data-skein-theme="shadcn"] [data-slot="markdown-caret"] {
       animation: none;
     }
   }

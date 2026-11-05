@@ -215,7 +215,7 @@ describe("Semi Dark", () => {
   const sidebar = () => document.querySelector<HTMLElement>('[data-slot="sidebar-inner"]')!;
 
   test("on: the root has data-semi-dark, the sidebar uses dark; off: the sidebar uses light; auto: left alone", async () => {
-    document.documentElement.dataset.mode = "light";
+    document.documentElement.dataset.skeinMode = "light";
     await mount({ semiDark: "on" });
     expect(el().hasAttribute("data-semi-dark")).toBe(true);
     expect(sidebar().dataset.theme).toBe("dark");
@@ -231,13 +231,13 @@ describe("Semi Dark", () => {
     await mount({});
     expect(sidebar().dataset.theme).toBeUndefined();
     await act(async () => {
-      delete document.documentElement.dataset.mode;
+      delete document.documentElement.dataset.skeinMode;
       await Promise.resolve();
     });
   });
 
   test("semiDark in settings works the same; a custom sidebar color wins", async () => {
-    document.documentElement.dataset.mode = "light";
+    document.documentElement.dataset.skeinMode = "light";
     await mount({ settings: { semiDark: "on" } });
     expect(el().hasAttribute("data-semi-dark")).toBe(true);
     await act(async () => root!.unmount());
@@ -250,18 +250,18 @@ describe("Semi Dark", () => {
     expect(el().hasAttribute("data-semi-dark")).toBe(false);
     expect(sidebar().dataset.theme).toBe("light"); // a light sidebar color -> light, not turned dark by semiDark
     await act(async () => {
-      delete document.documentElement.dataset.mode;
+      delete document.documentElement.dataset.skeinMode;
       await Promise.resolve();
     });
   });
 
   test("page in dark mode: no effect", async () => {
-    document.documentElement.dataset.mode = "dark";
+    document.documentElement.dataset.skeinMode = "dark";
     await mount({ semiDark: "on" });
     expect(el().hasAttribute("data-semi-dark")).toBe(false);
     expect(sidebar().dataset.theme).toBeUndefined();
     await act(async () => {
-      delete document.documentElement.dataset.mode;
+      delete document.documentElement.dataset.skeinMode;
       await Promise.resolve();
     });
   });

@@ -18,7 +18,7 @@
     "q1": "How do I get started?",
     "a1": "Install the package, import a theme style, and render a component.",
     "q2": "Can I switch the design language?",
-    "a2": "Yes: set data-theme-style on the html element and nothing else changes.",
+    "a2": "Yes: set data-skein-theme on the html element and nothing else changes.",
     "q3": "Is it accessible?",
     "a3": "Behaviour and aria come from Base UI."
   },
