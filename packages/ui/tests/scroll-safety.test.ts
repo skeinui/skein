@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, sep } from "node:path";
 import { describe, expect, test } from "vite-plus/test";
 
 const SRC = join(import.meta.dirname, "..", "src");
@@ -21,7 +21,8 @@ describe("scrolling", () => {
   test("components don't use scrollIntoView (except Tour)", () => {
     const used = files(SRC)
       .filter((f) => /\bscrollIntoView\b/.test(readFileSync(f, "utf8").replace(/\/\/.*$/gm, "")))
-      .map((f) => f.slice(SRC.length + 1))
+      // Relative, with `/` on Windows too
+      .map((f) => f.slice(SRC.length + 1).split(sep).join("/"))
       .filter((f) => !ALLOWED.has(f));
     expect(used).toEqual([]);
   });

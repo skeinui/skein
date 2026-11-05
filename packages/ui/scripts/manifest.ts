@@ -9,7 +9,7 @@
  * tests/manifest.test.ts fails when it is stale, so a change to a component's props has to regenerate it.
  */
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { basename, join, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import * as contract from "../src/contract.ts";
@@ -17,6 +17,8 @@ import { BASE_STYLES, stylesOf } from "./styles.ts";
 
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "src");
+/** SRC as TypeScript writes file names (`fileName`): with `/`, on Windows too. */
+const SRC_TS = SRC.split(sep).join("/");
 const DOCS_PAGES = join(ROOT, "..", "..", "apps", "skein-doc", "src", "pages");
 export const MANIFEST_FILE = join(ROOT, "manifest.json");
 
@@ -102,13 +104,13 @@ function namedTypesIn(
   if (!(type.flags & ts.TypeFlags.Object) || type.getCallSignatures().length > 0) return;
   // Partial<CarouselLabels>, Readonly<…>: the type of interest is the argument
   const aliasFile = type.aliasSymbol?.declarations?.[0]?.getSourceFile().fileName;
-  if (aliasFile && !aliasFile.startsWith(SRC) && type.aliasTypeArguments) {
+  if (aliasFile && !aliasFile.startsWith(SRC_TS) && type.aliasTypeArguments) {
     for (const t of type.aliasTypeArguments) namedTypesIn(t, checker, found, nested);
     return;
   }
   const symbol = type.aliasSymbol ?? type.getSymbol();
   const file = symbol?.declarations?.[0]?.getSourceFile().fileName;
-  if (!symbol || !file?.startsWith(SRC) || symbol.name.startsWith("__")) return;
+  if (!symbol || !file?.startsWith(SRC_TS) || symbol.name.startsWith("__")) return;
   // Another component's labels inside a type (ConfigLabels.kanban): that component's docs list them
   if (nested && symbol.name.endsWith("Labels")) return;
   if (found.has(symbol.name) || checker.getPropertiesOfType(type).length === 0) return;
@@ -203,11 +205,11 @@ function propsOf(
     }
     if (!(prop.flags & ts.SymbolFlags.Optional) && inEvery(prop.name)) info.required = true;
     const description =
-      docOf(prop, checker) || (file.startsWith(SRC) ? conventionDoc(prop.name, names) : undefined);
+      docOf(prop, checker) || (file.startsWith(SRC_TS) ? conventionDoc(prop.name, names) : undefined);
     if (description) info.description = description;
     const fallback = prop.getJsDocTags(checker).find((tag) => tag.name === "default");
     if (fallback?.text) info.default = ts.displayPartsToString(fallback.text).trim();
-    if (!file.startsWith(SRC)) info.from = "base-ui";
+    if (!file.startsWith(SRC_TS)) info.from = "base-ui";
     else if (types) namedTypesIn(propType, checker, types, nested);
     props[prop.name] = info;
   }
