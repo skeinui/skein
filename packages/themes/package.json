@@ -1,6 +1,6 @@
 {
   "name": "@skeinui/themes",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Theme styles for Skein UI: default, shadcn, heroui, antd, plus colour, density and code themes",
   "keywords": [
     "ant-design",

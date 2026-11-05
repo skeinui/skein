@@ -1,5 +1,12 @@
 # create-skein
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [5426d3f]
+  - @skeinui/cli@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes
