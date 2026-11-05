@@ -1,5 +1,9 @@
 # @skeinui/ui
 
+## 0.0.6
+
+No changes in this release.
+
 ## 0.0.5
 
 No changes in this release.
