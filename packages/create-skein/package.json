@@ -1,6 +1,6 @@
 {
   "name": "create-skein",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "npm create skein: scaffold a Skein UI project",
   "keywords": [
     "cli",
