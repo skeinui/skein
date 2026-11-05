@@ -33,6 +33,18 @@ vp run a11y                          # axe-core scan (needs the docs site runnin
 
 `snapshot` and `a11y` are not part of `vp test`. Visual baselines (`tests/visual/baseline/**`) are script-generated one-line-per-page files; the formatter ignores them, don't reformat. Lint enforces `vite-plus/prefer-vite-plus-imports`: import from `vite-plus`, not `vite`/`vitest`.
 
+## CI and releases
+
+`.github/workflows/ci.yml` runs the tests on Linux, macOS and Windows for every push to main and pull request (plus check and build on Linux). Releases go through `.github/workflows/release.yml`, not a local `pnpm release`:
+
+1. Commit a changeset with the change (`pnpm changeset`; the packages are one fixed group, so one entry bumps all five).
+2. On push, the workflow opens or updates the "Version packages" pull request (`pnpm version-packages`: versions, CHANGELOGs, manifest).
+3. Merging it leaves versions npm doesn't have: the `publish` job waits for an approval in the `npm` environment, runs check and tests, then `pnpm release` (`changeset publish`) with npm trusted publishing (OIDC, provenance, no token) and pushes the tags. Pushing versions bumped locally publishes the same way.
+
+Each package is set up on npmjs.com (package → Settings): Trusted Publisher = GitHub Actions, `skeinui` / `skein`, workflow `release.yml`, environment `npm`, "Allow npm publish" checked (the workflow publishes directly; the human check is the `npm` environment's approval), "npm dist-tag" unchecked; Publishing access = "Require two-factor authentication and disallow bypass 2fa tokens" (trusted publishing works under it). On GitHub: the organization's and the repository's Actions settings keep the default token read-only and allow Actions to create pull requests; the `npm` environment has a required reviewer, only `main` may deploy to it, and administrators can't bypass it. No secret is needed (`GITHUB_TOKEN` and OIDC). The docs site is still deployed by hand (`pnpm --filter skein-doc run deploy`).
+
+A new package: npm only takes a trusted publisher for a package that exists, so its first version is published by hand. Add it under `packages/` (an unscoped name also goes into `fixed` in `.changeset/config.json`; `@skeinui/*` is in already; release.yml finds every `packages/*/package.json`), give it the group's version, then `cd /tmp && pnpm login --registry=https://registry.npmjs.org/` (pnpm keeps its own login, not `~/.npmrc`) and `pnpm publish --access public` in its directory (asks the OTP). Then set it up on npmjs.com as above; later versions go through the workflow. If the workflow meets it first, the other packages publish and that one fails: publish it by hand and set it up, `changeset publish` skips what npm has.
+
 ## Architecture
 
 **Components own behaviour and structure only; all visuals live in theme styles.** The two sides communicate through `data-*` attributes and are tied together by one file:

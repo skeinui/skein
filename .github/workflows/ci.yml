@@ -1,0 +1,38 @@
+# Every push to main and every pull request: the tests on Linux, macOS and Windows (paths, line endings, the
+# skeinThemes() Vite plugin), and on Linux the rest of `pnpm ready` (format, lint, types, build).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: check and build
+        if: runner.os == 'Linux'
+        run: pnpm exec vp check && pnpm exec vp run -r build
+      - run: pnpm exec vp run -r test

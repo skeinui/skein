@@ -1,0 +1,90 @@
+# Releases, with changesets:
+#
+# - A push to main with changesets in .changeset/ opens (or updates) the "Version packages" pull request: the
+#   versions bumped, the CHANGELOGs written, the manifest refreshed (`pnpm version-packages`).
+# - Merging it (or pushing versions bumped locally) leaves versions that npm doesn't have yet: the publish job waits
+#   for an approval in the `npm` environment, runs the checks and the tests, publishes with `changeset publish` and
+#   pushes the tags.
+#
+# Publishing uses npm's trusted publishing: no token, GitHub's OIDC identity of this workflow, and npm adds
+# provenance. Each package is set up on npmjs.com (Settings → Trusted publishing: skeinui/skein, release.yml,
+# environment npm).
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  version:
+    if: github.repository == 'skeinui/skein'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      changesets: ${{ steps.changesets.outputs.hasChangesets }}
+      unpublished: ${{ steps.npm.outputs.unpublished }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: open or update the version pull request
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm version-packages
+          title: Version packages
+          commit: Version packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: versions npm doesn't have yet
+        id: npm
+        run: |
+          unpublished=""
+          for file in packages/*/package.json; do
+            read -r name version private < <(node -p "const p = require('./$file'); [p.name, p.version, Boolean(p.private)].join(' ')")
+            [ "$private" = "true" ] && continue
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://registry.npmjs.org/$name/$version")
+            if [ "$code" = "404" ]; then unpublished="$unpublished $name@$version"; fi
+          done
+          unpublished="${unpublished# }"
+          echo "unpublished=$unpublished" >> "$GITHUB_OUTPUT"
+          echo "Not on npm yet: ${unpublished:-none}"
+
+  publish:
+    needs: version
+    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: check and test
+        run: pnpm exec vp check && pnpm exec vp run -r test
+      - name: publish ${{ needs.version.outputs.unpublished }}
+        run: pnpm release
+      - name: push the tags
+        run: git push origin --tags
