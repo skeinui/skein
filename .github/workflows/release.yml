@@ -56,6 +56,18 @@ jobs:
           version-script: pnpm version-packages
           pr-title: Version packages
           commit-message: Version packages
+      # Named after the version it releases ("Skein UI 0.0.7"): its default squash commit then names the release run
+      # too (run-name). changesets/action only takes a fixed title, the version is known once it has run
+      - name: name the version pull request
+        if: steps.changesets.outputs.has-changesets == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pr=$(gh pr list --head changeset-release/main --state open --json number --jq '.[0].number')
+          [ -n "$pr" ] || exit 0
+          git fetch --depth=1 origin changeset-release/main
+          version=$(git show FETCH_HEAD:packages/ui/package.json | node -p 'JSON.parse(require("fs").readFileSync(0, "utf8")).version')
+          gh pr edit "$pr" --title "Skein UI $version"
       - name: versions npm doesn't have yet
         id: npm
         run: |
