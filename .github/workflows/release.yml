@@ -29,27 +29,25 @@ jobs:
       contents: write
       pull-requests: write
     outputs:
-      changesets: ${{ steps.changesets.outputs.hasChangesets }}
+      changesets: ${{ steps.changesets.outputs.has-changesets }}
       unpublished: ${{ steps.npm.outputs.unpublished }}
     steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
         with:
           version: 12.4.1
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - name: open or update the version pull request
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@v2.1.2
         with:
-          version: pnpm version-packages
-          title: Version packages
-          commit: Version packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          version-script: pnpm version-packages
+          pr-title: Version packages
+          commit-message: Version packages
       - name: versions npm doesn't have yet
         id: npm
         run: |
@@ -73,11 +71,11 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v5
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
         with:
           version: 12.4.1
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24
           cache: pnpm
