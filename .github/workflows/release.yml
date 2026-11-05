@@ -84,7 +84,20 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: check and test
         run: pnpm exec vp check && pnpm exec vp run -r test
+      # changeset publish tags with `git tag -m` (annotated), which needs an identity; without one each tag fails
+      # and changesets doesn't say so
+      - name: git identity for the tags
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: publish ${{ needs.version.outputs.unpublished }}
         run: pnpm release
       - name: push the tags
-        run: git push origin --tags
+        env:
+          UNPUBLISHED: ${{ needs.version.outputs.unpublished }}
+        run: |
+          git push origin --tags
+          # Every package published has its tag on GitHub
+          for tag in $UNPUBLISHED; do
+            git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null || { echo "::error::tag $tag is missing"; exit 1; }
+          done
