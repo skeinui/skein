@@ -31,6 +31,7 @@ const HOOKS = [
   { key: "icon", name: "toast-icon / toast-content", type: "slot" },
   { key: "text", name: "toast-title / toast-description", type: "slot" },
   { key: "buttons", name: "toast-action / toast-close", type: "slot" },
+  { key: "rich", name: "data-rich-colors", type: "state" },
   { key: "states", name: "data-starting-style / data-ending-style / data-swiping", type: "state" },
 ];
 
@@ -111,6 +112,44 @@ toast.danger("Request failed");`}
             warning
           </Button>
           <Button variant="outline" color="danger" onClick={() => toast.danger("Request failed")}>
+            danger
+          </Button>
+        </div>
+      </Example>
+
+      <Example
+        id="rich"
+        code={`// every typed toast
+<Toaster richColors />
+
+// or one toast
+toast.success("Saved", { richColors: true });`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Button variant="outline" onClick={() => toast.info("Heads up", { richColors: true })}>
+            info
+          </Button>
+          <Button
+            variant="outline"
+            color="success"
+            onClick={() =>
+              toast.success("Saved", { description: "Your changes are live.", richColors: true })
+            }
+          >
+            success
+          </Button>
+          <Button
+            variant="outline"
+            color="warning"
+            onClick={() => toast.warning("Disk almost full", { richColors: true })}
+          >
+            warning
+          </Button>
+          <Button
+            variant="outline"
+            color="danger"
+            onClick={() => toast.danger("Request failed", { richColors: true })}
+          >
             danger
           </Button>
         </div>

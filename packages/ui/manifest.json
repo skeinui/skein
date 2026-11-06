@@ -17686,7 +17686,7 @@
       }
     },
     "Toaster": {
-      "description": "Toaster: shows the notifications raised with `toast` (`toast.success(\"Saved\")`, `toast.loading(…)`, `toast.close(id)`).\nPlace it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear.\nFor a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.\n\nTheme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).",
+      "description": "Toaster: shows the notifications raised with `toast` (`toast.success(\"Saved\")`, `toast.loading(…)`, `toast.close(id)`).\nPlace it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear,\n`richColors` tints typed toasts in their color.\nFor a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.\n\nTheme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).",
       "import": "import { Toaster } from \"@skeinui/ui\";",
       "props": {
         "layout": {
@@ -17716,6 +17716,11 @@
           "description": "The corner the toasts appear in.",
           "default": "\"bottom-right\""
         },
+        "richColors": {
+          "type": "boolean",
+          "description": "Tint info / success / warning / danger toasts in their color (background, border and text), like Sonner's rich colors;\notherwise only the icon is colored. A toast's own `richColors` overrides it.",
+          "default": "false"
+        },
         "timeout": {
           "type": "number",
           "description": "Default milliseconds before auto close.",
@@ -17731,6 +17736,10 @@
         {
           "title": "Types",
           "code": "toast.info(\"Heads up\");\ntoast.success(\"Saved\");\ntoast.warning(\"Disk almost full\");\ntoast.danger(\"Request failed\");"
+        },
+        {
+          "title": "Rich Colors",
+          "code": "// every typed toast\n<Toaster richColors />\n\n// or one toast\ntoast.success(\"Saved\", { richColors: true });"
         },
         {
           "title": "With Description",

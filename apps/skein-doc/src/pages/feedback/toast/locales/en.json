@@ -1,11 +1,27 @@
 {
   "lead": "Lightweight notifications. Put one `Toaster` at the app root, then call `toast()` from anywhere. Timer pausing, swipe to dismiss and screen-reader announcements come from Base UI's Toast.",
-  "usage": { "title": "Usage" },
-  "types": { "title": "Types" },
-  "description": { "title": "With Description" },
-  "action": { "title": "With Action" },
-  "promise": { "title": "Promise" },
-  "loading": { "title": "Loading" },
+  "usage": {
+    "title": "Usage"
+  },
+  "types": {
+    "title": "Types"
+  },
+  "rich": {
+    "title": "Rich Colors",
+    "description": "`richColors` tints a typed toast in its color, background, border and text alike (like Sonner's): on the `Toaster` for every toast, or on one toast."
+  },
+  "description": {
+    "title": "With Description"
+  },
+  "action": {
+    "title": "With Action"
+  },
+  "promise": {
+    "title": "Promise"
+  },
+  "loading": {
+    "title": "Loading"
+  },
   "layout": {
     "title": "Layout",
     "stacked": "When stacked, each toast tucks under the one before it"
@@ -14,12 +30,14 @@
     "title": "Position",
     "switched": "The Toaster's position has changed"
   },
-  "persistent": { "title": "Persistent" },
+  "persistent": {
+    "title": "Persistent"
+  },
   "api": {
     "title": "API Reference",
     "functions": "`<Toaster />` goes once at the app root and every toast renders in it. Toasts are shown with the `toast` functions:",
     "function": "Function",
-    "toast": "`{ title, description, type, timeout, action, onClose }`; `timeout: 0` never closes on its own",
+    "toast": "`{ title, description, type, timeout, action, richColors, onClose }`; `timeout: 0` never closes on its own",
     "typed": "Shorthands with a type",
     "loading": "In progress: a spinner, never closes on its own; finish with `toast.update(id, { type: 'success', … })` or `toast.close(id)`",
     "promise": "Updates the same toast as the promise settles",
@@ -34,6 +52,7 @@
     "icon": "Type icon and text area; the icon takes the semantic colour of `data-type`",
     "text": "Title and description",
     "buttons": "Action button and close button",
-    "states": "States while entering, leaving and being swiped away"
+    "states": "States while entering, leaving and being swiped away",
+    "rich": "On info / success / warning / danger toasts when `richColors` is on: tinted in their color"
   }
 }

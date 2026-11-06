@@ -328,6 +328,7 @@ export function coverageFor(contract) {
       ...TOAST_TYPES.filter((t) => t !== "default").map((t) => `[data-type="${t}"]`),
       ...TOAST_POSITIONS.map((p) => `[data-position="${p}"]`),
       `[data-layout="${TOAST_LAYOUTS[1]}"]`,
+      "[data-rich-colors]",
       "[data-behind]",
       "--toast-index",
       "[data-starting-style]",

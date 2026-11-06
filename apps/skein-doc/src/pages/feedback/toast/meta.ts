@@ -10,6 +10,7 @@ export default {
       items: [
         "usage",
         "types",
+        "rich",
         "description",
         "action",
         "promise",

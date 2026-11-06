@@ -1,11 +1,27 @@
 {
   "lead": "轻量消息提示。在应用根放一个 `Toaster`，之后在任何地方直接调用 `toast()`。计时暂停、滑动关闭、屏幕阅读器播报来自 Base UI 的 Toast。",
-  "usage": { "title": "用法" },
-  "types": { "title": "类型" },
-  "description": { "title": "带说明" },
-  "action": { "title": "带操作" },
-  "promise": { "title": "Promise" },
-  "loading": { "title": "加载中" },
+  "usage": {
+    "title": "用法"
+  },
+  "types": {
+    "title": "类型"
+  },
+  "rich": {
+    "title": "彩色样式",
+    "description": "`richColors` 让带类型的 toast 整条染上它的颜色，底色、描边和文字一起（同 Sonner 的 rich colors）：设在 `Toaster` 上对所有 toast 生效，也可以只给某一条。"
+  },
+  "description": {
+    "title": "带说明"
+  },
+  "action": {
+    "title": "带操作"
+  },
+  "promise": {
+    "title": "Promise"
+  },
+  "loading": {
+    "title": "加载中"
+  },
   "layout": {
     "title": "布局",
     "stacked": "叠放时后面的会缩在前一条下面"
@@ -14,12 +30,14 @@
     "title": "位置",
     "switched": "Toaster 的 position 已切换"
   },
-  "persistent": { "title": "常驻" },
+  "persistent": {
+    "title": "常驻"
+  },
   "api": {
     "title": "API 参考",
     "functions": "`<Toaster />` 在应用根放一次，所有 toast 渲染在这里。用 `toast` 系列函数弹出消息：",
     "function": "函数",
-    "toast": "`{ title, description, type, timeout, action, onClose }`；`timeout: 0` 不自动关闭",
+    "toast": "`{ title, description, type, timeout, action, richColors, onClose }`；`timeout: 0` 不自动关闭",
     "typed": "带类型的快捷写法",
     "loading": "进行中：转圈、不自动关闭；之后用 `toast.update(id, { type: 'success', … })` 或 `toast.close(id)` 收尾",
     "promise": "随 promise 状态更新同一条 toast",
@@ -34,14 +52,16 @@
     "icon": "类型图标与文字区，图标颜色按 `data-type` 取语义色",
     "text": "标题与说明",
     "buttons": "操作按钮与关闭按钮",
-    "states": "进场、出场和滑动关闭时的状态"
+    "states": "进场、出场和滑动关闭时的状态",
+    "rich": "开启 `richColors` 的 info / success / warning / danger toast：整条染成类型的颜色"
   },
   "props": {
     "Toaster": {
       "layout": "list：平铺，每条一行；stack：叠放，悬停或聚焦时展开。",
       "limit": "同时显示的最大条数；多出的标记为 limited（怎么收起由主题风格决定）。",
       "position": "toast 出现的角落。",
-      "timeout": "默认自动关闭的毫秒数。"
+      "timeout": "默认自动关闭的毫秒数。",
+      "richColors": "让 info / success / warning / danger 的 toast 整条染上它的颜色（底色、描边和文字），同 Sonner 的 rich colors；否则只有图标着色。单条 toast 的 `richColors` 优先。"
     }
   }
 }

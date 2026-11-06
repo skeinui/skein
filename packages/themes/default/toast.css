@@ -304,4 +304,53 @@
       transition: none;
     }
   }
+
+  /* Rich colors (richColors on Toaster or a toast, like Sonner's): an info / success / warning / danger toast is tinted in its color, background, border and text
+     alike; the tint is laid over the overlay background, since soft colors can be translucent (dark mode) */
+  [data-skein-theme="default"] [data-slot="toast"][data-rich-colors][data-type="info"] {
+    --_rich-bg: var(--ui-c-primary-soft);
+    --_rich-border: var(--ui-c-primary-border);
+    --_rich-fg: var(--ui-c-primary-text);
+  }
+  [data-skein-theme="default"] [data-slot="toast"][data-rich-colors][data-type="success"] {
+    --_rich-bg: var(--ui-c-success-soft);
+    --_rich-border: var(--ui-c-success-border);
+    --_rich-fg: var(--ui-c-success-text);
+  }
+  [data-skein-theme="default"] [data-slot="toast"][data-rich-colors][data-type="warning"] {
+    --_rich-bg: var(--ui-c-warning-soft);
+    --_rich-border: var(--ui-c-warning-border);
+    --_rich-fg: var(--ui-c-warning-text);
+  }
+  [data-skein-theme="default"] [data-slot="toast"][data-rich-colors][data-type="danger"] {
+    --_rich-bg: var(--ui-c-danger-soft);
+    --_rich-border: var(--ui-c-danger-border);
+    --_rich-fg: var(--ui-c-danger-text);
+  }
+  [data-skein-theme="default"]
+    [data-slot="toast"][data-rich-colors]:is(
+      [data-type="info"],
+      [data-type="success"],
+      [data-type="warning"],
+      [data-type="danger"]
+    ) {
+    border-color: var(--_rich-border);
+    background-image: linear-gradient(var(--_rich-bg), var(--_rich-bg));
+    color: var(--_rich-fg);
+  }
+  [data-skein-theme="default"]
+    [data-slot="toast"][data-rich-colors]:is(
+      [data-type="info"],
+      [data-type="success"],
+      [data-type="warning"],
+      [data-type="danger"]
+    )
+    :is(
+      [data-slot="toast-icon"],
+      [data-slot="toast-title"],
+      [data-slot="toast-description"],
+      [data-slot="toast-close"]
+    ) {
+    color: inherit;
+  }
 }

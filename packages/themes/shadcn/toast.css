@@ -318,4 +318,89 @@
       transition: none;
     }
   }
+
+  /* Rich colors (richColors on Toaster or a toast): shadcn/ui's toast is Sonner, so these are Sonner's own rich colors (sonner 2.x styles.css,
+     danger = its error), light and dark, not the theme's tokens: an info / success / warning / danger toast tinted in its color, background, border and text alike */
+  [data-skein-theme="shadcn"] [data-slot="toast"][data-rich-colors][data-type="info"] {
+    --_rich-bg: hsl(208 100% 97%);
+    --_rich-border: hsl(221 91% 93%);
+    --_rich-fg: hsl(210 92% 45%);
+  }
+  [data-skein-theme="shadcn"] [data-slot="toast"][data-rich-colors][data-type="success"] {
+    --_rich-bg: hsl(143 85% 96%);
+    --_rich-border: hsl(145 92% 87%);
+    --_rich-fg: hsl(140 100% 27%);
+  }
+  [data-skein-theme="shadcn"] [data-slot="toast"][data-rich-colors][data-type="warning"] {
+    --_rich-bg: hsl(49 100% 97%);
+    --_rich-border: hsl(49 91% 84%);
+    --_rich-fg: hsl(31 92% 45%);
+  }
+  [data-skein-theme="shadcn"] [data-slot="toast"][data-rich-colors][data-type="danger"] {
+    --_rich-bg: hsl(359 100% 97%);
+    --_rich-border: hsl(359 100% 94%);
+    --_rich-fg: hsl(360 100% 45%);
+  }
+  [data-skein-theme="shadcn"][data-skein-mode="dark"]
+    [data-slot="toast"][data-rich-colors][data-type="info"],
+  [data-skein-theme="shadcn"]
+    :where([data-skein-mode="dark"])
+    [data-slot="toast"][data-rich-colors][data-type="info"] {
+    --_rich-bg: hsl(215 100% 6%);
+    --_rich-border: hsl(223 43% 17%);
+    --_rich-fg: hsl(216 87% 65%);
+  }
+  [data-skein-theme="shadcn"][data-skein-mode="dark"]
+    [data-slot="toast"][data-rich-colors][data-type="success"],
+  [data-skein-theme="shadcn"]
+    :where([data-skein-mode="dark"])
+    [data-slot="toast"][data-rich-colors][data-type="success"] {
+    --_rich-bg: hsl(150 100% 6%);
+    --_rich-border: hsl(147 100% 12%);
+    --_rich-fg: hsl(150 86% 65%);
+  }
+  [data-skein-theme="shadcn"][data-skein-mode="dark"]
+    [data-slot="toast"][data-rich-colors][data-type="warning"],
+  [data-skein-theme="shadcn"]
+    :where([data-skein-mode="dark"])
+    [data-slot="toast"][data-rich-colors][data-type="warning"] {
+    --_rich-bg: hsl(64 100% 6%);
+    --_rich-border: hsl(60 100% 9%);
+    --_rich-fg: hsl(46 87% 65%);
+  }
+  [data-skein-theme="shadcn"][data-skein-mode="dark"]
+    [data-slot="toast"][data-rich-colors][data-type="danger"],
+  [data-skein-theme="shadcn"]
+    :where([data-skein-mode="dark"])
+    [data-slot="toast"][data-rich-colors][data-type="danger"] {
+    --_rich-bg: hsl(358 76% 10%);
+    --_rich-border: hsl(357 89% 16%);
+    --_rich-fg: hsl(358 100% 81%);
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="toast"][data-rich-colors]:is(
+      [data-type="info"],
+      [data-type="success"],
+      [data-type="warning"],
+      [data-type="danger"]
+    ) {
+    border-color: var(--_rich-border);
+    background-image: linear-gradient(var(--_rich-bg), var(--_rich-bg));
+    color: var(--_rich-fg);
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="toast"][data-rich-colors]:is(
+      [data-type="info"],
+      [data-type="success"],
+      [data-type="warning"],
+      [data-type="danger"]
+    )
+    :is(
+      [data-slot="toast-icon"],
+      [data-slot="toast-title"],
+      [data-slot="toast-description"],
+      [data-slot="toast-close"]
+    ) {
+    color: inherit;
+  }
 }

@@ -14,14 +14,22 @@ export interface ToastOptions {
   timeout?: number;
   /** Action button: text + click callback. */
   action?: { label: ReactNode; onClick: () => void };
+  /** Tint this toast in its type's color (info / success / warning / danger); overrides the Toaster's `richColors`. */
+  richColors?: boolean;
   onClose?: () => void;
 }
 
-function add({ action, ...options }: ToastOptions) {
+interface ToastData {
+  action?: { label: ReactNode; onClick: () => void };
+  richColors?: boolean;
+}
+
+function add({ action, richColors, ...options }: ToastOptions) {
+  const data: ToastData = { action, richColors };
   return manager.add({
     ...options,
     type: options.type ?? "default",
-    data: action ? { action } : undefined,
+    data,
     priority: options.type === "danger" ? "high" : "low",
   });
 }
@@ -73,6 +81,12 @@ export interface ToasterProps {
    * @default 5000
    */
   timeout?: number;
+  /**
+   * Tint info / success / warning / danger toasts in their color (background, border and text), like Sonner's rich colors;
+   * otherwise only the icon is colored. A toast's own `richColors` overrides it.
+   * @default false
+   */
+  richColors?: boolean;
 }
 
 const ICON_PATHS: Record<Exclude<ToastType, "default">, string> = {
@@ -85,15 +99,19 @@ const ICON_PATHS: Record<Exclude<ToastType, "default">, string> = {
   loading: "M12 3a9 9 0 1 0 9 9",
 };
 
-function ToastList() {
+function ToastList({ richColors }: { richColors: boolean }) {
   const c = useLabels("common");
-  const { toasts } = BaseToast.useToastManager<{
-    action?: { label: ReactNode; onClick: () => void };
-  }>();
+  const { toasts } = BaseToast.useToastManager<ToastData>();
   return toasts.map((item) => {
     const type = (item.type ?? "default") as ToastType;
     return (
-      <BaseToast.Root key={item.id} toast={item} data-slot="toast" data-type={type}>
+      <BaseToast.Root
+        key={item.id}
+        toast={item}
+        data-slot="toast"
+        data-type={type}
+        data-rich-colors={(item.data?.richColors ?? richColors) || undefined}
+      >
         {type !== "default" ? (
           <span data-slot="toast-icon" aria-hidden="true">
             <svg
@@ -136,7 +154,8 @@ function ToastList() {
 
 /**
  * Toaster: shows the notifications raised with `toast` (`toast.success("Saved")`, `toast.loading(…)`, `toast.close(id)`).
- * Place it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear.
+ * Place it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear,
+ * `richColors` tints typed toasts in their color.
  * For a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.
  *
  * Theme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).
@@ -146,6 +165,7 @@ export function Toaster({
   layout = "list",
   limit = 3,
   timeout = 5000,
+  richColors = false,
 }: ToasterProps) {
   const c = useLabels("common");
   return (
@@ -158,7 +178,7 @@ export function Toaster({
           data-position={position}
           data-layout={layout}
         >
-          <ToastList />
+          <ToastList richColors={richColors} />
         </BaseToast.Viewport>
       </BaseToast.Portal>
     </BaseToast.Provider>

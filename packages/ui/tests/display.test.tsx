@@ -174,4 +174,28 @@ describe("Progress / Toast", () => {
     await act(async () => root.unmount());
     el.remove();
   });
+
+  test("richColors: from the Toaster, overridden by a toast's own", async () => {
+    const el = document.createElement("div");
+    document.body.appendChild(el);
+    const root = createRoot(el);
+    await act(async () => {
+      root.render(createElement(Toaster, { richColors: true }));
+    });
+    await act(async () => {
+      toast.close();
+    });
+    await act(async () => {
+      toast.success("Rich");
+      toast.danger("Plain", { richColors: false });
+    });
+    const byTitle = (title: string) =>
+      [...document.body.querySelectorAll('[data-slot="toast"]')].find(
+        (t) => t.querySelector('[data-slot="toast-title"]')?.textContent === title,
+      );
+    expect(byTitle("Rich")?.hasAttribute("data-rich-colors")).toBe(true);
+    expect(byTitle("Plain")?.hasAttribute("data-rich-colors")).toBe(false);
+    await act(async () => root.unmount());
+    el.remove();
+  });
 });
