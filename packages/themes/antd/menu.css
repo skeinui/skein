@@ -92,6 +92,16 @@
   [data-skein-theme="antd"] [data-slot="menu-checkbox-item"][data-highlighted] {
     background-color: var(--ui-c-neutral-soft);
   }
+  /* Checked: a selectable Dropdown's selected item, Ant Design's light primary background and primary text (check included) */
+  [data-skein-theme="antd"] [data-slot="menu-checkbox-item"][data-checked] {
+    background-color: var(--ui-c-primary-soft);
+    color: var(--ui-c-primary-text);
+  }
+  [data-skein-theme="antd"]
+    [data-slot="menu-checkbox-item"][data-checked]
+    [data-slot="menu-item-indicator"] {
+    color: inherit;
+  }
   [data-skein-theme="antd"] [data-slot="menu-checkbox-item"][data-disabled] {
     color: var(--ui-field-placeholder);
     cursor: not-allowed;
@@ -104,23 +114,23 @@
     background-color: var(--ui-c-danger);
     color: var(--ui-c-danger-fg);
   }
-  /* Checkable items: leave room on the left for the check mark */
+  /* Checkable items: the check mark at the end of the row (icon and label stay aligned with plain items) */
   [data-skein-theme="antd"] [data-slot="menu-checkbox-item"] {
-    padding-inline-start: calc(1.75rem * var(--ui-density));
+    padding-inline-end: calc(2.5rem * var(--ui-density));
   }
   [data-skein-theme="antd"] [data-slot="menu-item-indicator"] {
     position: absolute;
-    inset-inline-start: 0.5rem;
+    inset-inline-end: 0.75rem;
     display: inline-flex;
     width: 1rem;
     height: 1rem;
-    color: var(--ui-fg-muted);
+    color: var(--ui-fg);
   }
   [data-skein-theme="antd"] [data-slot="menu-item-indicator"] > svg {
-    width: 0.625rem;
-    height: 0.625rem;
+    width: 0.875rem;
+    height: 0.875rem;
     margin: auto;
-    stroke-width: 2.5px;
+    stroke-width: 2px;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
     transition: stroke-dashoffset 150ms linear;

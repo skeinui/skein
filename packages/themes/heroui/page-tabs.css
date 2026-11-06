@@ -102,6 +102,21 @@
     display: inline-flex;
     flex: none;
   }
+  /* Line icons drawn about 1.5px wide, the weight of the 14px title (a 24-unit icon's stroke of 2 is 1.33px at 16px) */
+  [data-skein-theme="heroui"] [data-slot="page-tabs-icon"] svg {
+    stroke-width: 2.25;
+  }
+  /* Pinned tabs (no close button, kept at the front) are few and stay put: they show their whole title */
+  [data-skein-theme="heroui"] [data-slot="page-tabs-item"][data-pinned] {
+    max-width: none;
+  }
+  /* The active tab's title is a step bolder (500, like the selected side menu item); pinned tabs are marked by
+     having no close button, not by weight */
+  [data-skein-theme="heroui"]
+    [data-slot="page-tabs-item"][data-active]
+    [data-slot="page-tabs-title"] {
+    font-weight: 500;
+  }
   [data-skein-theme="heroui"] [data-slot="page-tabs-title"] {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -151,12 +166,6 @@
   /* The active tab's text uses the -text variant (prepared specifically for text on a light background): pure primary on a faint primary background does not reach AA contrast ratio (default measures 4.31, 4.5 needed) */
   [data-skein-theme="heroui"] [data-slot="page-tabs-item"][data-active] {
     color: var(--ui-c-primary-text);
-  }
-  /* Pinned tab: no close button, title slightly bolder */
-  [data-skein-theme="heroui"]
-    [data-slot="page-tabs-item"][data-pinned]
-    [data-slot="page-tabs-title"] {
-    font-weight: 600;
   }
   [data-skein-theme="heroui"] [data-slot="page-tabs-item"]:not([data-active]):hover {
     color: var(--ui-fg);

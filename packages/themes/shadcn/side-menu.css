@@ -37,8 +37,10 @@
     --_on: color-mix(in oklab, var(--ui-c-primary-text) 55%, var(--ui-fg));
   }
   /* modern (console's "sidebar style"): taller items, larger radius, selected / hover use a light primary background + primary text, and submenus have no guide line */
+  /* modern: rows of 40px (the tab bar's height, on the 4px grid) 4px apart, so filled rows don't run together */
   [data-skein-theme="shadcn"] [data-slot="sidemenu"][data-variant="modern"] {
-    --_h: 2.625rem;
+    --_h: 2.5rem;
+    --_my: 0.25rem;
     --_r: var(--ui-r-item);
     --_hover-bg: color-mix(in srgb, var(--ui-c-primary) 5%, transparent);
     --_hover-fg: var(--_on);
@@ -97,7 +99,9 @@
     border: 0;
     border-radius: var(--_r);
     background: transparent;
-    color: inherit;
+    /* A row is a step lighter than the text, its icon and label alike (80%, still above 4.5:1); selected, hovered
+       or holding the selected page it takes the full color (the rules below) */
+    color: color-mix(in srgb, currentcolor 80%, transparent);
     font: inherit;
     font-weight: inherit;
     line-height: var(--_h);
@@ -117,22 +121,13 @@
     display: inline-flex;
     flex: none;
     font-size: var(--_icon);
-    /* Icons are a step lighter than the text (70% of it, so dark sidebars too); they return to the text color when selected / hovered / having a selected child */
-    color: color-mix(in srgb, currentcolor 70%, transparent);
-    transition: color 150ms ease;
   }
-  [data-skein-theme="shadcn"]
-    :is([data-selected], [data-has-selected])
-    > :is([data-slot="sidemenu-link"], [data-slot="sidemenu-trigger"])
-    [data-slot="sidemenu-icon"],
-  [data-skein-theme="shadcn"]
-    :is([data-slot="sidemenu-link"], [data-slot="sidemenu-trigger"]):hover
-    [data-slot="sidemenu-icon"] {
-    color: currentcolor;
-  }
+  /* Line icons drawn about 1.5px wide, the weight of the 14px label next to them (a 24-unit icon's stroke of 2 is
+     only 1.33px at 16px); filled icons have no stroke and are unaffected */
   [data-skein-theme="shadcn"] [data-slot="sidemenu-icon"] > svg {
     width: 1em;
     height: 1em;
+    stroke-width: 2.25;
   }
   [data-skein-theme="shadcn"] [data-slot="sidemenu-label"] {
     flex: 1 1 auto;

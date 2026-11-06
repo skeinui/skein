@@ -69,7 +69,8 @@
     box-sizing: border-box;
     max-width: 14rem;
     height: var(--_h);
-    color: var(--ui-fg-muted);
+    /* Ant Design's secondary text (0.65 of black; 0.45 was under 4.5:1 for 14px text) */
+    color: color-mix(in srgb, var(--ui-fg) 74%, transparent);
     transition:
       background-color 150ms ease,
       border-color 150ms ease,
@@ -101,6 +102,21 @@
   [data-skein-theme="antd"] [data-slot="page-tabs-icon"] {
     display: inline-flex;
     flex: none;
+  }
+  /* Line icons drawn about 1.5px wide, the weight of the 14px title (a 24-unit icon's stroke of 2 is 1.33px at 16px) */
+  [data-skein-theme="antd"] [data-slot="page-tabs-icon"] svg {
+    stroke-width: 2.25;
+  }
+  /* Pinned tabs (no close button, kept at the front) are few and stay put: they show their whole title */
+  [data-skein-theme="antd"] [data-slot="page-tabs-item"][data-pinned] {
+    max-width: none;
+  }
+  /* The active tab's title is a step bolder (500, like the selected side menu item); pinned tabs are marked by
+     having no close button, not by weight */
+  [data-skein-theme="antd"]
+    [data-slot="page-tabs-item"][data-active]
+    [data-slot="page-tabs-title"] {
+    font-weight: 500;
   }
   [data-skein-theme="antd"] [data-slot="page-tabs-title"] {
     overflow: hidden;
@@ -151,12 +167,6 @@
   /* The active tab's text uses the -text variant (made for text on light backgrounds): pure primary on a faint primary background does not reach AA contrast ratio (default measured 4.31, needs 4.5) */
   [data-skein-theme="antd"] [data-slot="page-tabs-item"][data-active] {
     color: var(--ui-c-primary-text);
-  }
-  /* Pinned tabs: no close button, with a slightly bolder title */
-  [data-skein-theme="antd"]
-    [data-slot="page-tabs-item"][data-pinned]
-    [data-slot="page-tabs-title"] {
-    font-weight: 600;
   }
   [data-skein-theme="antd"] [data-slot="page-tabs-item"]:not([data-active]):hover {
     color: var(--ui-fg);

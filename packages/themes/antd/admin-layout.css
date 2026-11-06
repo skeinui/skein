@@ -1029,6 +1029,13 @@
     );
     --_sel-fg: var(--al-sidebar-fg);
   }
+  /* Semi Dark without a custom color is Ant Design's dark menu: items in white at 0.65, as the default dark sidebar */
+  [data-skein-theme="antd"]
+    [data-slot="admin-layout"][data-semi-dark]:not([data-sidebar-color])
+    :is([data-slot="sidebar-inner"], [data-slot="admin-layout-subnav"])
+    [data-slot="sidemenu"]:not([data-popup]) {
+    --_fg: color-mix(in srgb, var(--al-sidebar-fg) 65%, transparent);
+  }
   [data-skein-theme="antd"]
     [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
     [data-slot="admin-layout-rail-item"][data-active] {

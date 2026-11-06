@@ -37,9 +37,10 @@
     --_on: color-mix(in oklab, var(--ui-c-primary-text) 55%, var(--ui-fg));
   }
   /* modern (console's "sidebar style"): items are taller with larger radius, selected / hover is a light primary background + primary text, and submenus have no guide line */
+  /* modern: rows of 40px (the tab bar's height, on the 4px grid) 4px apart; the radius is Ant Design's menu item radius (8px) */
   [data-skein-theme="antd"] [data-slot="sidemenu"][data-variant="modern"] {
-    --_h: 2.625rem;
-    --_r: var(--ui-r-item);
+    --_h: 2.5rem;
+    --_r: 0.5rem;
     --_hover-bg: color-mix(in srgb, var(--ui-c-primary) 5%, transparent);
     --_hover-fg: var(--_on);
     --_sel-bg: color-mix(in srgb, var(--ui-c-primary) 8%, transparent);
@@ -110,29 +111,22 @@
       background-color 300ms,
       color 300ms;
   }
+  /* The arrow sits 16px from the right, as Ant Design's (its 34px title padding is room for an arrow placed on
+     top; here the arrow follows the label, which shrinks before it) */
   [data-skein-theme="antd"] [data-slot="sidemenu-trigger"] {
-    padding-inline-end: 2.125rem;
+    padding-inline-end: 1rem;
   }
   [data-skein-theme="antd"] [data-slot="sidemenu-icon"] {
     display: inline-flex;
     flex: none;
     font-size: var(--_icon);
-    /* Icons are a step lighter than the text (70% of it, so dark sidebars too); they return to the text color when selected / hovered / having a selected child */
-    color: color-mix(in srgb, currentcolor 70%, transparent);
-    transition: color 150ms ease;
   }
-  [data-skein-theme="antd"]
-    :is([data-selected], [data-has-selected])
-    > :is([data-slot="sidemenu-link"], [data-slot="sidemenu-trigger"])
-    [data-slot="sidemenu-icon"],
-  [data-skein-theme="antd"]
-    :is([data-slot="sidemenu-link"], [data-slot="sidemenu-trigger"]):hover
-    [data-slot="sidemenu-icon"] {
-    color: currentcolor;
-  }
+  /* Line icons drawn about 1.5px wide, the weight of the 14px label next to them (a 24-unit icon's stroke of 2 is
+     only 1.17px at 14px); filled icons have no stroke and are unaffected */
   [data-skein-theme="antd"] [data-slot="sidemenu-icon"] > svg {
     width: 1em;
     height: 1em;
+    stroke-width: 2.5;
   }
   [data-skein-theme="antd"] [data-slot="sidemenu-label"] {
     flex: 1 1 auto;
@@ -267,9 +261,12 @@
   [data-skein-theme="antd"] [data-slot="sidemenu"][data-collapsed] [data-slot="sidemenu-icon"] {
     font-size: 1rem;
   }
-  /* Level two and deeper items are one step shorter than level-one items (36px), consistent with the rhythm of other theme styles */
-  [data-skein-theme="antd"] [data-slot="sidemenu-panel-inner"] [data-slot="sidemenu-link"],
-  [data-skein-theme="antd"] [data-slot="sidemenu-panel-inner"] [data-slot="sidemenu-trigger"] {
+  /* Level two and deeper items are as tall as level-one ones (40px), as in Ant Design; the modern style steps
+     them down to 36px like the other theme styles */
+  [data-skein-theme="antd"]
+    [data-slot="sidemenu"][data-variant="modern"]
+    [data-slot="sidemenu-panel-inner"]
+    :is([data-slot="sidemenu-link"], [data-slot="sidemenu-trigger"]) {
     --_h: 2.25rem;
   }
 
