@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Visual regression (size / color snapshots): opens each component page of the playground in a real Chrome, measures the
- * width, height, background color and radius of every `data-slot` element, merges them per page into a set of "slot|w|h|bg|radius",
+ * width, height, background, text and border colors and radius of every `data-slot` element, and the size, stroke and color
+ * of an icon (svg) it holds directly, merges them per page into a set of "slot|w|h|bg|radius|fg|border|icon",
  * and compares against the baseline stored in the repo.
  * Purpose: after changing CSS (radius, density, color theme, layering...), see at a glance **which sizes / colors of which components changed**,
  * and that the default appearance stays unchanged where it should. jsdom does no layout and can't measure these, so this isn't part of `vp test`.
@@ -159,7 +160,11 @@ const styles = args.styles ? String(args.styles).split(",") : ALL_STYLES;
 const onlyPages = args.pages ? new Set(String(args.pages).split(",")) : null;
 const update = Boolean(args.update);
 
-/** Measured in the page: only elements with a size, key = slot[/variant]|w|h[|bg|radius] */
+/**
+ * Measured in the page: only elements with a size, key = slot[/variant]|w|h[|bg|radius|fg|border|icon]: fg is the text
+ * color, border the top border's color when it has one, icon "size/stroke/color" of an svg child (the stroke in px as
+ * drawn, so 1.5 whatever the viewBox), e.g. a menu icon a step lighter than its label or a tab icon's stroke.
+ */
 function measureScript(withLook, slotFilter, scope) {
   return `(() => {
     const ignore = new Set(${JSON.stringify([...IGNORE_SLOTS])});
@@ -173,7 +178,21 @@ function measureScript(withLook, slotFilter, scope) {
       if (b.width === 0 || b.height === 0) continue;
       const cs = getComputedStyle(e);
       let key = slot + (e.dataset.variant ? "/" + e.dataset.variant : "") + "|" + round(b.width) + "|" + round(b.height);
-      ${withLook ? 'key += "|" + cs.backgroundColor + "|" + cs.borderTopLeftRadius;' : ""}
+      ${
+        withLook
+          ? `key += "|" + cs.backgroundColor + "|" + cs.borderTopLeftRadius + "|" + cs.color;
+      key += "|" + (parseFloat(cs.borderTopWidth) > 0 ? cs.borderTopColor : "-");
+      const svg = [...e.children].find((c) => c.tagName === "svg");
+      if (svg) {
+        const sb = svg.getBoundingClientRect();
+        const ss = getComputedStyle(svg);
+        const box = svg.viewBox?.baseVal?.width || sb.width;
+        const stroke =
+          ss.stroke === "none" ? "-" : Math.round((parseFloat(ss.strokeWidth) * sb.width * 100) / box) / 100;
+        key += "|" + round(sb.width) + "/" + stroke + "/" + ss.color;
+      }`
+          : ""
+      }
       out.add(key);
     }
     return [...out].sort();
