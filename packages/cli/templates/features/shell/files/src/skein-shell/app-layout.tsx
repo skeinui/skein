@@ -47,6 +47,14 @@ export function AppLayout({ items, logo, logoMark, context, actions, footer }: A
     set(openTab(open, { key: pathname, title: pathname }));
   }, [pathname, layout.showTabs]);
 
+  // A page's own title is kept on its tab too: after a reload a background tab's page isn't rendered (so it
+  // reports no title) until it is opened, and the tab keeps the name it had instead of its path
+  useEffect(() => {
+    const { tabs: open, setTabs: set } = useTabsStore.getState();
+    if (open.some((tab) => titles[tab.key] && tab.title !== titles[tab.key]))
+      set(open.map((tab) => (titles[tab.key] ? { ...tab, title: titles[tab.key] } : tab)));
+  }, [titles]);
+
   const go = (to: string) => void navigate({ to });
 
   return (
