@@ -256,7 +256,10 @@ async function measureBatch(context, { style, mode, compact, pages, look }) {
 }
 
 async function measureAdmin(context, { style, mode, layout }) {
-  const page = await context.newPage();
+  // A context of its own: the layout is set in localStorage before the page loads, and pages running at the same
+  // time in a shared context write theirs back, so a page could come up in another job's layout
+  const own = await context.browser().newContext({ viewport: { width: 1400, height: 900 } });
+  const page = await own.newPage();
   try {
     await page.addInitScript(
       (value) => {
@@ -302,7 +305,7 @@ async function measureAdmin(context, { style, mode, layout }) {
       ),
     );
   } finally {
-    await page.close();
+    await own.close();
   }
 }
 
