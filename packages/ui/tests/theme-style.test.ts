@@ -316,14 +316,23 @@ describe("collapsed sidebar footer toolbar keeps only the last item (avatar)", (
   );
 });
 
-describe("header inside the content area (data-header-inset): 2.5rem (40px) high, always a sidebar toggle on the left", () => {
+describe("header inside the content area (data-header-inset): 3rem (48px) high, always a sidebar toggle on the left", () => {
   test.each(skins)("%s", (skin) => {
     const css = read(skinDir(skin), "admin-layout.css");
     expect(css).toMatch(
-      /\[data-slot="admin-layout"\]\[data-header-inset\]\s*\{\s*--_header: 2.5rem;/,
+      /\[data-slot="admin-layout"\]\[data-header-inset\]\s*\{\s*--_header: 3rem;/,
     );
     expect(css).toMatch(
       /\[data-header-inset\]\s*\[data-slot="admin-layout-header"\]\s*\[data-slot="admin-layout-sidebar-trigger"\]\s*\{\s*display: inline-flex;/,
+    );
+  });
+});
+
+describe("card tabs in the admin tab bar: room above and below (not against the header's divider)", () => {
+  test.each(skins)("%s", (skin) => {
+    const css = read(skinDir(skin), "admin-layout.css");
+    expect(css).toMatch(
+      /\[data-slot="admin-layout-bar"\]\s*>\s*\[data-slot="page-tabs"\]\[data-variant="card"\]\s*\{\s*padding-block: 0.25rem;/,
     );
   });
 });

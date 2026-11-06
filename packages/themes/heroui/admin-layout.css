@@ -45,10 +45,10 @@
     border-bottom: 1px solid var(--ui-border);
     background-color: var(--ui-bg);
   }
-  /* A header inside the content area is shorter (2.5rem = 40px; the full-width header in other layouts is 3.5rem): the sidebar's logo strip reads the same --_header, so they shrink together;
+  /* A header inside the content area is shorter (3rem = 48px, a step above the 40px tab bar under it; the full-width header in other layouts is 3.5rem): the sidebar's logo strip reads the same --_header, so they shrink together;
      the left side always has a "collapse / expand sidebar" button (so the left is not empty when there is no breadcrumb; other layouts only need it on narrow screens) */
   [data-skein-theme="heroui"] [data-slot="admin-layout"][data-header-inset] {
-    --_header: 2.5rem;
+    --_header: 3rem;
   }
   [data-skein-theme="heroui"]
     [data-header-inset]
@@ -470,6 +470,13 @@
     align-items: center;
     gap: 0.25rem;
     min-width: 0;
+  }
+  /* Card tabs are bordered all round: they sit in the middle of the bar with room above and below (40px, like the
+     chrome tabs), not against the header's divider and the content */
+  [data-skein-theme="heroui"]
+    [data-slot="admin-layout-bar"]
+    > [data-slot="page-tabs"][data-variant="card"] {
+    padding-block: 0.25rem;
   }
   /* Built-in buttons on the right of the tab row (refresh, maximize / restore), separated from the tabs by a vertical line */
   [data-skein-theme="heroui"] [data-slot="admin-layout-bar-actions"] {
