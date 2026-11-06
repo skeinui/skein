@@ -53,6 +53,8 @@
     [data-slot="admin-layout-header"]
     [data-slot="admin-layout-sidebar-trigger"] {
     display: inline-flex;
+    /* Pulled left by its button's padding: the icon sits on the header's 1rem line, over the first tab's icon */
+    margin-inline-start: -0.4375rem;
   }
   /* When the sidebar layout puts the toolbar in the header (or has breadcrumbs): the header is inside the content area, so its background is the content's (it draws none of its own), with a divider line below */
   [data-skein-theme="antd"] [data-header-inset] [data-slot="admin-layout-header"] {
@@ -967,6 +969,33 @@
     block-size: 2rem;
     padding: 0;
     font-size: 1rem;
+  }
+  /* Header actions are the avatar's size (28px) in the secondary text color (0.65, as Ant Design Pro's header actions), the text color on hover;
+     their icons, here and at the bottom of the sidebar, are 0.875rem with about 1.5px strokes like the menu's */
+  [data-skein-theme="antd"]
+    [data-slot="admin-layout-header"]
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only] {
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    color: color-mix(in srgb, var(--ui-fg) 74%, transparent);
+  }
+  [data-skein-theme="antd"]
+    :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only]
+    svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    stroke-width: 2.5;
+  }
+  /* A custom sidebar color: its menu text is the sidebar's text color at 78%, the action buttons at the bottom too */
+  [data-skein-theme="antd"]
+    [data-slot="admin-layout"][data-sidebar-color]
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only]:not(:hover) {
+    color: color-mix(in srgb, var(--al-sidebar-fg) 78%, transparent);
   }
   [data-skein-theme="antd"]
     :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])

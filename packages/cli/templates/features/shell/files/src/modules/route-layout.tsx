@@ -4,6 +4,7 @@ import { PreferencesButton } from "./app-preferences";
 {{#if tenant}}
 import { TenantSwitcher } from "./tenant-switcher";
 {{/if}}
+import { Toolbar } from "./toolbar";
 import { useNavMenus } from "./use-nav-menus";
 import { UserMenu } from "./user-menu";
 
@@ -26,7 +27,12 @@ export function RouteLayout() {
 {{#if tenant}}
         context={<TenantSwitcher />}
 {{/if}}
-        actions={<UserMenu />}
+        actions={
+          <>
+            <Toolbar place="header" />
+            <UserMenu />
+          </>
+        }
         footer={
           <>
             {settings.footer}

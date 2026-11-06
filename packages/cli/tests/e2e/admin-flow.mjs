@@ -139,23 +139,26 @@ export async function adminFlow(base, { log = console.log } = {}) {
       const again = await rows().first().textContent();
       if (again !== firstOnPage2) throw new Error(`page reset: ${firstOnPage2} → ${again}`);
     });
-    await step("switch to English: menu and page follow", async () => {
-      await page.getByRole("button", { name: "账户" }).click();
-      await page.getByRole("menuitem", { name: "English" }).click();
+    await step("switch to English from the toolbar: menu and page follow", async () => {
+      await page.getByRole("button", { name: "语言" }).click();
+      await page.getByRole("menuitemcheckbox", { name: "English" }).click();
       await nav("Users").waitFor();
       await page.getByRole("heading", { name: "Users" }).waitFor();
       if ((await page.evaluate(() => document.documentElement.lang)) !== "en")
         throw new Error("html lang");
     });
-    await step("switch to dark: <html data-skein-mode=dark>, kept after reload", async () => {
-      await page.getByRole("button", { name: "Account" }).click();
-      await page.getByRole("menuitem", { name: "Dark" }).click();
-      await page.waitForFunction(() => document.documentElement.dataset.skeinMode === "dark");
-      await page.reload();
-      const mode = await page.evaluate(() => document.documentElement.dataset.skeinMode);
-      if (mode !== "dark") throw new Error(`after reload: ${mode}`);
-      await page.getByRole("heading", { name: "Users" }).waitFor();
-    });
+    await step(
+      "switch to dark from the toolbar: <html data-skein-mode=dark>, kept after reload",
+      async () => {
+        await page.getByRole("button", { name: "Appearance" }).click();
+        await page.getByRole("menuitemcheckbox", { name: "Dark" }).click();
+        await page.waitForFunction(() => document.documentElement.dataset.skeinMode === "dark");
+        await page.reload();
+        const mode = await page.evaluate(() => document.documentElement.dataset.skeinMode);
+        if (mode !== "dark") throw new Error(`after reload: ${mode}`);
+        await page.getByRole("heading", { name: "Users" }).waitFor();
+      },
+    );
     await step("preferences: switch to top layout", async () => {
       await page.getByRole("button", { name: "Preferences" }).click();
       const drawer = page.getByRole("dialog");

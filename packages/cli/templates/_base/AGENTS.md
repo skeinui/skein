@@ -77,7 +77,7 @@ src/
     mocks/handlers.ts   MSW handlers for this page's API (picked up automatically)
 {{/if}}
 {{#if shell}}
-  modules/<name>/       parts that aren't pages (user menu, preferences…), same layout as a page
+  modules/<name>/       parts that aren't pages (user menu, toolbar, preferences…), same layout as a page
   skein-shell/          AdminLayout wired to the router: menu, tabs, KeepAlive, Page frame
   settings.ts           app defaults: name, home path, theme styles (themeStyles / themeStyle), default layout, menuPermission
 {{/if}}

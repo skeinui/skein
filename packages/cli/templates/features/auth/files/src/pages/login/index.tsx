@@ -1,6 +1,9 @@
 import { Card, Flex, Text, Title, toast } from "@skeinui/ui";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+{{#if shell}}
+import { Toolbar } from "@/modules/toolbar";
+{{/if}}
 import { useAuthStore } from "@/store/auth-store";
 import { login } from "./api";
 import { LoginForm } from "./components/login-form";
@@ -22,6 +25,11 @@ export function LoginPage() {
 
   return (
     <main className="login">
+{{#if shell}}
+      <div className="login-toolbar">
+        <Toolbar place="login" />
+      </div>
+{{/if}}
       <div className="login-card">
         <Card>
           <Card.Body>

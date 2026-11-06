@@ -40,6 +40,16 @@ export const settings = {
    * may open (`GET /api/user/menus` → paths) and show only those.
    */
   menuPermission: false,
+  /**
+   * Toolbar tools by id, in order: built in are "language" (the app's languages) and "mode" (light / dark /
+   * system); add your own in src/modules/toolbar/tools.tsx and list its id here.
+   */
+  toolbar: {
+    /** Next to the account menu. */
+    header: ["language", "mode"],
+    /** On the sign-in page, top right. */
+    login: ["language", "mode"],
+  } as Record<"header" | "login", string[]>,
   footer: `© ${new Date().getFullYear()} {{title}}`,
   /** Adds "Powered by Skein UI" to the footer. Set it to false once you have a Skein UI license (https://skeinui.com). */
   poweredBy: true,

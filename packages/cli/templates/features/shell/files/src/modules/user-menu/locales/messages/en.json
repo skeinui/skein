@@ -1,7 +1,4 @@
 {
   "account": "Account",
-  "language": "Language",
-  "appearance": "Appearance",
-  "mode": { "light": "Light", "dark": "Dark", "system": "System" },
   "signOut": "Sign out"
 }

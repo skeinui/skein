@@ -48,6 +48,8 @@
     [data-slot="admin-layout-header"]
     [data-slot="admin-layout-sidebar-trigger"] {
     display: inline-flex;
+    /* Pulled left by its button's padding: the icon sits on the header's 1rem line, over the first tab's icon */
+    margin-inline-start: -0.4375rem;
   }
   /* When the sidebar's toolbar is in the header (or there are breadcrumbs): the header is inside the content area, its background is the content area's (it draws no background of its own), with a divider line below */
   [data-skein-theme="default"] [data-header-inset] [data-slot="admin-layout-header"] {
@@ -941,6 +943,30 @@
     padding: 0;
     font-size: 1rem;
   }
+  /* Action icons are drawn like the side menu's: 1rem, about 1.5px strokes, the row's text color a step lighter (80%), full on hover */
+  [data-skein-theme="default"]
+    :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only] {
+    color: inherit;
+  }
+  [data-skein-theme="default"]
+    :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only]
+    svg {
+    width: 1rem;
+    height: 1rem;
+    stroke-width: 2.25;
+    color: color-mix(in srgb, currentcolor 80%, transparent);
+  }
+  [data-skein-theme="default"]
+    :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only]:hover
+    svg {
+    color: currentcolor;
+  }
   [data-skein-theme="default"]
     :is([data-slot="admin-layout-header"], [data-slot="sidebar-footer"])
     [data-slot="admin-layout-actions"]
@@ -970,6 +996,14 @@
     [data-slot="button"][data-variant]:hover {
     background-color: rgb(255 255 255 / 0.18);
     color: white;
+  }
+  /* A sidebar in its own color (Semi Dark, a custom color): its menu text is the sidebar's text color at 78%, the action buttons at the bottom too */
+  [data-skein-theme="default"]
+    [data-slot="admin-layout"]:is([data-sidebar-color], [data-semi-dark])
+    [data-slot="sidebar-footer"]
+    [data-slot="admin-layout-actions"]
+    [data-slot="button"][data-icon-only]:not(:hover) {
+    color: color-mix(in srgb, var(--al-sidebar-fg) 78%, transparent);
   }
   [data-skein-theme="default"]
     [data-slot="sidebar-inner"][data-theme="dark"]
