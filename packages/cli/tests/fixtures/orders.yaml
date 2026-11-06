@@ -11,6 +11,12 @@ paths:
         - { name: pageSize, in: query, schema: { type: integer } }
         - { name: q, in: query, schema: { type: string }, description: Search }
         - { name: status, in: query, schema: { $ref: "#/components/schemas/OrderStatus" } }
+        - {
+            name: sortBy,
+            in: query,
+            schema: { type: string, enum: [customer, status, amount, createdAt] },
+          }
+        - { name: order, in: query, schema: { type: string, enum: [asc, desc] } }
       responses:
         "200":
           description: A page of orders

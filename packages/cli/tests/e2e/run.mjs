@@ -259,6 +259,8 @@ for (const c of CASES) {
           menu: "Orders",
           expectRows: 8,
           detail: true,
+          batch: true,
+          sort: { column: "Amount", asked: /sortBy=amount&order=asc/ },
           create: [
             ["Customer", "Zed Test"],
             ["Email", "zed@example.com"],
@@ -310,6 +312,8 @@ for (const c of CASES) {
             menu: "Orders",
             expectRows: 10,
             detail: true,
+            batch: true,
+            sort: { column: "Amount", asked: /sortBy=amount&order=asc/ },
             create: [
               ["Customer", "Zed Test"],
               ["Email", "zed@example.com"],
@@ -321,6 +325,7 @@ for (const c of CASES) {
             path: "/catalog/products",
             menu: "Catalog",
             expectRows: 24,
+            batch: true,
             create: [
               ["Title", "Zelda Box"],
               ["Sku", "zelda-1"],

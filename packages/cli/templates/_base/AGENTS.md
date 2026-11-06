@@ -14,7 +14,7 @@ A React app built with [Skein UI](https://github.com/skeinui/skein){{#if shell}}
 - `npx skein new page <path>`: add a page, e.g. `orders` or `system/roles`. It writes the route{{#if shell}}, the menu entry{{/if}}{{#if i18n}}, the translations{{/if}}{{#if query}}, the API file{{/if}}{{#if mock}} and a mock{{/if}}. Don't create page files by hand.
 {{/if}}
 {{#if shell}}
-- `npx skein new page <path> --from <openapi.yaml> [--resource /orders]`: when there is an API description, a complete list / filter / create / edit / delete page with typed requests{{#if mock}} and mocks{{/if}}, from one resource of an OpenAPI 3 document, plus a detail page (`/orders/42`{{#if tenant}}, under the tenant{{/if}}) when the document reads one item (`GET /orders/{id}`). Prefer it to writing a CRUD page by hand.
+- `npx skein new page <path> --from <openapi.yaml> [--resource /orders]`: when there is an API description, a complete list / filter / sort / create / edit / delete page with typed requests{{#if mock}} and mocks{{/if}}, from one resource of an OpenAPI 3 document, with rows to tick (export them as CSV, delete them together), sortable headers when the list has `sortBy` + `order` (or `sort=-name`) parameters, each action behind its `<resource>:create|update|delete|read` permission (`orders:create`…), plus a detail page (`/orders/42`{{#if tenant}}, under the tenant{{/if}}) when the document reads one item (`GET /orders/{id}`). Prefer it to writing a CRUD page by hand.
 {{/if}}
 - `npx skein new module <name>`: a part that isn't a page, in `src/modules/<name>/`.
 {{#if shell}}

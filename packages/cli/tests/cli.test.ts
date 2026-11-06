@@ -14,6 +14,7 @@ import { checkTheme, coverageFor, loadContract } from "../src/theme/index.js";
 import { afterEach, describe, expect, test } from "vite-plus/test";
 import { createProject, featuresFor } from "../src/commands/create.js";
 import { newModule, newPage } from "../src/commands/new.js";
+import { analyzeResource, loadSpec } from "../src/openapi.js";
 import { init } from "../src/commands/init.js";
 import { check } from "../src/commands/check.js";
 import {
@@ -704,6 +705,96 @@ describe("OpenAPI → CRUD page", () => {
       "orderRows.filter((r) => orderTenants.get(r.id) === tenantOf(request))",
     );
     expect(tp("mocks", "handlers.ts")).toContain("orderTenants.set(row.id, tenantOf(request));");
+  });
+
+  test("sort parameters: a column and a direction, or one `-name`; not filters; none when the API has none", () => {
+    const orders = analyzeResource(loadSpec(join(FIXTURES, "orders.yaml")), { name: "orders" });
+    expect(orders.sort).toEqual({
+      by: "sortBy",
+      dir: "order",
+      fields: ["customer", "status", "amount", "createdAt"],
+      asc: "asc",
+      desc: "desc",
+    });
+    // The sort parameters sort, they aren't search inputs
+    expect(orders.filters.map((f: { name: string }) => f.name)).toEqual(["q", "status"]);
+
+    const spec = loadSpec(join(FIXTURES, "orders.yaml"));
+    const list = spec.paths["/orders"].get;
+    list.parameters = [
+      ...list.parameters.filter((p: { name: string }) => !["sortBy", "order"].includes(p.name)),
+      { name: "sort", in: "query", schema: { type: "string" } },
+    ];
+    expect(analyzeResource(spec, { name: "orders" }).sort).toEqual({
+      by: "sort",
+      dir: null,
+      fields: null,
+      asc: "",
+      desc: "-",
+    });
+
+    expect(
+      analyzeResource(loadSpec(join(FIXTURES, "products.json")), { name: "catalog/products" }).sort,
+    ).toBeNull();
+  });
+
+  test("the page: sortable headers, ticking rows, export and batch delete, all behind permissions", () => {
+    const dir = target();
+    createProject({ dir, template: "admin" });
+    newPage({ name: "orders", cwd: dir, from: join(FIXTURES, "orders.yaml") });
+    const page = (...p: string[]) => read(dir, "src", "pages", "orders", ...p);
+
+    // Sort: the Query holds it as { key, dir }, the request has the API's own parameters
+    expect(page("api", "index.ts")).toContain('sort?: { key: string; dir: "asc" | "desc" };');
+    expect(page("api", "index.ts")).toContain("sortBy: query.sort?.key");
+    expect(page("api", "index.ts")).toContain(
+      'order: query.sort && (query.sort.dir === "asc" ? "asc" : "desc")',
+    );
+    expect(page("components", "orders-table.tsx")).toContain(
+      '<Table.Head sortable sort={sort?.key === "amount"',
+    );
+    expect(page("mocks", "handlers.ts")).toContain('url.searchParams.get("sortBy")');
+    expect(page("index.tsx")).toContain("function nextSort(");
+
+    // Ticked rows, the batch bar, the CSV
+    expect(page("index.tsx")).toContain(
+      "const [selected, setSelected] = useState<readonly number[]>",
+    );
+    expect(page("index.tsx")).toContain("Promise.allSettled(");
+    expect(page("components", "orders-table.tsx")).toContain('<Table.Head kind="select">');
+    expect(page("export-csv.ts")).toContain("export function downloadCsv(");
+    const messages = JSON.parse(page("locales", "messages", "zh.json"));
+    for (const key of ["export", "exportSelected", "selected", "deleteSelected", "deletedMany"])
+      expect(messages).toHaveProperty(key);
+
+    // Permissions: the create button, the batch delete, the row actions and the page's door
+    expect(page("index.tsx")).toContain('<Access code="orders:create">');
+    expect(page("index.tsx")).toContain('<Access code="orders:delete">');
+    expect(page("components", "orders-table.tsx")).toContain('can("orders:update")');
+    expect(page("components", "orders-table.tsx")).toContain('can("orders:delete")');
+    const route = read(dir, "src", "routes", "_auth", "orders.tsx");
+    expect(route).toContain('beforeLoad: () => requireAccess("orders:read")');
+    expect(read(dir, "src", "routes", "_auth", "orders_.$id.tsx")).toContain(
+      'beforeLoad: () => requireAccess("orders:read")',
+    );
+
+    // A project from before the access module: the same page without the permission code
+    const old = join(lastTmp(), "old");
+    createProject({ dir: old, template: "admin" });
+    rmSync(join(old, "src", "modules", "access"), { recursive: true });
+    newPage({ name: "orders", cwd: old, from: join(FIXTURES, "orders.yaml") });
+    const oldPage = (...p: string[]) => read(old, "src", "pages", "orders", ...p);
+    expect(oldPage("index.tsx")).not.toContain("Access");
+    expect(oldPage("components", "orders-table.tsx")).not.toContain("useAccess");
+    expect(read(old, "src", "routes", "_auth", "orders.tsx")).not.toContain("requireAccess");
+
+    // products.json: no id column to tick by that matters here, but no sort parameter: no sortable header
+    const products = join(lastTmp(), "products");
+    createProject({ dir: products, template: "admin" });
+    newPage({ name: "catalog/products", cwd: products, from: join(FIXTURES, "products.json") });
+    expect(
+      read(products, "src", "pages", "catalog", "products", "components", "products-table.tsx"),
+    ).not.toContain("sortable");
   });
 });
 

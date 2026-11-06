@@ -57,6 +57,12 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
 
   const writer = new Writer(root, { force, dryRun });
   const pageDir = join("src", "pages", path);
+  // A project with src/modules/access (permissions): a CRUD page asks for `<resource>:create|update|delete|read`
+  const guarded = Boolean(
+    from && flags.auth && existsSync(join(root, "src/modules/access/index.tsx")),
+  );
+  const read = `${context.vars.ns}:read`;
+  const guard = `  // Opening the page needs \`${read}\`; the 403 page otherwise\n  beforeLoad: () => requireAccess("${read}"),\n`;
   if (existsSync(join(root, pageDir)) && !force) throw new Error(`${pageDir} already exists`);
   if (from) {
     const missing = ["shell", "query", "i18n"].filter((f) => !flags[f]);
@@ -66,7 +72,7 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
       );
     }
     const model = analyzeResource(loadSpec(resolve(cwd, from)), { name: path, resource });
-    for (const [file, content] of Object.entries(crudFiles(model, { path, flags }))) {
+    for (const [file, content] of Object.entries(crudFiles(model, { path, flags, guarded }))) {
       writer.write(join(pageDir, file), content);
     }
     // GET /orders/{id}: a detail page at /orders/42 (`_`: not nested in the list's route, it's a page of its own)
@@ -75,11 +81,11 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
       writer.write(
         join("src", "routes", ...parent, `${path}_.$id.tsx`),
         `import { createFileRoute } from "@tanstack/react-router";
-import { ${Name}DetailPage } from "@/pages/${path}/detail";
+${guarded ? 'import { requireAccess } from "@/modules/access";\n' : ""}import { ${Name}DetailPage } from "@/pages/${path}/detail";
 
 /** One row's page, ${flags.tenant ? "/<tenant>" : ""}/${path}/<id>: under the list's menu item, not nested in the list's route. */
 export const Route = createFileRoute("${routeId}_/$id")({
-  component: function ${Name}DetailRoute() {
+${guarded ? guard : ""}  component: function ${Name}DetailRoute() {
     const { id } = Route.useParams();
     return <${Name}DetailPage id={${model.idType === "number" ? "Number(id)" : "id"}} />;
   },
@@ -90,10 +96,18 @@ export const Route = createFileRoute("${routeId}_/$id")({
   } else {
     renderDir(writer, join(TEMPLATES_DIR, "pages", "_blank", "files"), context, pageDir);
   }
-  const route = render(
+  let route = render(
     readFileSync(join(TEMPLATES_DIR, "pages", "_blank", "route.tsx"), "utf8"),
     context,
   );
+  if (guarded) {
+    route = route
+      .replace(
+        'import { createFileRoute } from "@tanstack/react-router";\n',
+        '$&import { requireAccess } from "@/modules/access";\n',
+      )
+      .replace("  component:", `${guard}  component:`);
+  }
   writer.write(join("src", "routes", ...parent, `${path}.tsx`), route);
 
   // Menu groups for parents that aren't pages themselves

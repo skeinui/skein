@@ -18,6 +18,11 @@ export function loadSpec(file) {
 const METHODS = ["get", "post", "put", "patch", "delete"];
 const PAGE_NAMES = ["page", "pageNum", "pageNo", "current", "pageIndex"];
 const SIZE_NAMES = ["pageSize", "size", "limit", "perPage", "per_page", "page_size"];
+/** Query parameters that name the sort column, and the ones that give its direction (`sortBy=name&order=desc`). */
+const SORT_BY_NAMES = ["sortBy", "sort_by", "orderBy", "order_by"];
+const SORT_DIR_NAMES = ["order", "sortOrder", "sort_order", "direction", "dir", "sortDirection"];
+/** One parameter holding both: `sort=name` / `sort=-name` (descending). */
+const SORT_PREFIX_NAMES = ["sort", "ordering"];
 const ITEMS_KEYS = ["items", "list", "records", "rows", "content", "results", "data"];
 const TOTAL_KEYS = ["total", "totalCount", "count", "totalElements", "total_count"];
 const LABEL_KEYS = ["name", "title", "label", "username"];
@@ -160,6 +165,41 @@ function findCollection(spec, { resource, name }) {
 }
 
 /**
+ * How the list is sorted, when the API says so: `{ by, dir }` for a column parameter and a direction one
+ * (`sortBy=name&order=desc`), `{ by, dir: null }` for one that takes `name` / `-name`. `fields` are the columns it
+ * lists (an enum), else null; `asc` / `desc` the direction values. Null when the list has no sort parameter.
+ */
+function sortOf(spec, params) {
+  const enumOf = (p) => {
+    const values = schemaOf(spec, p.schema ?? {}).enum;
+    return Array.isArray(values) ? values.map(String) : null;
+  };
+  const dirParam = params.find((p) => SORT_DIR_NAMES.includes(p.name));
+  const pair = dirParam && params.find((p) => SORT_BY_NAMES.includes(p.name));
+  if (pair) {
+    const values = enumOf(dirParam) ?? [];
+    return {
+      by: pair.name,
+      dir: dirParam.name,
+      fields: enumOf(pair),
+      asc: values.find((v) => /^asc/i.test(v)) ?? "asc",
+      desc: values.find((v) => /^desc/i.test(v)) ?? "desc",
+    };
+  }
+  const prefix = params.find((p) => SORT_PREFIX_NAMES.includes(p.name));
+  if (!prefix) return null;
+  // `-name` is how a value says descending: an enum of the columns lists them with and without it
+  const values = enumOf(prefix)?.map((v) => v.replace(/^-/, ""));
+  return {
+    by: prefix.name,
+    dir: null,
+    fields: values ? [...new Set(values)] : null,
+    asc: "",
+    desc: "-",
+  };
+}
+
+/**
  * @param {object} spec an OpenAPI 3 document
  * @param {{ name: string; resource?: string }} options `name` is the page path (orders, system/users)
  */
@@ -195,8 +235,11 @@ export function analyzeResource(spec, { name, resource }) {
     .filter((p) => p.in === "query");
   const page = params.find((p) => PAGE_NAMES.includes(p.name))?.name ?? null;
   const pageSize = params.find((p) => SIZE_NAMES.includes(p.name))?.name ?? null;
+  const sort = sortOf(spec, params);
   const filters = params
-    .filter((p) => p.name !== page && p.name !== pageSize)
+    .filter(
+      (p) => p.name !== page && p.name !== pageSize && p.name !== sort?.by && p.name !== sort?.dir,
+    )
     .map((p) => fieldOf(spec, p.name, p.schema ?? {}, false))
     .map((f) => ({ ...f, label: f.label }))
     .filter((f) => f.kind === "string" || f.kind === "enum" || f.kind === "number");
@@ -236,6 +279,7 @@ export function analyzeResource(spec, { name, resource }) {
     input,
     filters,
     pagination: page && pageSize ? { page, pageSize } : null,
+    sort,
     list: { envelope: shape.envelope, itemsKey: shape.itemsKey, totalKey: shape.totalKey },
     itemEnvelope,
     ops: {

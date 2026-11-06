@@ -135,15 +135,17 @@ function fakeOf(f, model) {
 
 /**
  * @param {ReturnType<import("./openapi.js").analyzeResource>} model
- * @param {{ path: string; flags: Record<string, boolean> }} options page path (orders, system/orders)
+ * @param {{ path: string; flags: Record<string, boolean>; guarded?: boolean }} options page path (orders, system/orders);
+ *   `guarded`: the project has `src/modules/access`, so the page asks for `<resource>:create|update|delete|read`
  * @returns {Record<string, string>} files relative to the page directory
  */
-export function crudFiles(model, { path, flags }) {
+export function crudFiles(model, { path, flags, guarded = false }) {
   const Name = pascal(path.replaceAll("/", "-"));
   const name = camel(path.replaceAll("/", "-"));
   const ns = path.replaceAll("/", "-");
   const leaf = kebab(path.split("/").pop());
-  const { entity, fields, input, filters, pagination, ops, list, idField, labelField } = model;
+  const { entity, fields, input, filters, pagination, sort, ops, list, idField, labelField } =
+    model;
   const Entity = entity;
   const entityKebab = kebab(entity);
   const entityVar = camel(entity);
@@ -167,12 +169,26 @@ export function crudFiles(model, { path, flags }) {
   const queryFields = [
     ...(pagination ? ["  page: number;", "  pageSize: number;"] : []),
     ...filters.map((f) => `  ${key(f.name)}?: ${f.tsType};`),
+    ...(sort ? ['  sort?: { key: string; dir: "asc" | "desc" };'] : []),
   ];
+  // What the API calls the sort: a column and a direction parameter, or one holding `name` / `-name`
+  const sortParams = !sort
+    ? []
+    : sort.dir
+      ? [
+          `${key(sort.by)}: query.sort?.key`,
+          `${key(sort.dir)}: query.sort && (query.sort.dir === "asc" ? ${JSON.stringify(sort.asc)} : ${JSON.stringify(sort.desc)})`,
+        ]
+      : [
+          // The generated TS has a template literal in it: `-name` for descending
+          `${key(sort.by)}: query.sort && \`\${query.sort.dir === "desc" ? "-" : ""}\${query.sort.key}\``,
+        ];
   const params = [
     ...(pagination
       ? [`${key(pagination.page)}: query.page`, `${key(pagination.pageSize)}: query.pageSize`]
       : []),
     ...filters.map((f) => `${key(f.name)}: ${access("query", f.name)}`),
+    ...sortParams,
   ];
   const listType = list.itemsKey
     ? `{ ${key(list.itemsKey)}: ${Entity}[];${list.totalKey ? ` ${key(list.totalKey)}?: number;` : ""} }`
@@ -216,36 +232,79 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
   }${ops.remove ? `\nexport const delete${Entity} = (id: ${model.idType}) => http.delete<unknown>(${itemUrl});\n` : ""}`;
 
   // ---------- page
+  const perm = (action) => `${ns}:${action}`;
+  // Ticking rows needs an id to tell them by
+  const selectable = Boolean(idField);
+  const removeMany = ops.remove && selectable;
+  const exportFields = fields.filter((f) => f.kind !== "other");
+  // The columns the API can sort by (all the shown ones unless its parameter lists some)
+  const sortable = new Set(
+    sort
+      ? columns.filter((f) => !sort.fields || sort.fields.includes(f.name)).map((f) => f.name)
+      : [],
+  );
+  const sorted = sortable.size > 0;
+  const usesAccess = guarded && (ops.create || removeMany);
+  const uiImports = [
+    "Button",
+    "Card",
+    "Flex",
+    ...(pagination ? ["Pagination"] : []),
+    ...(removeMany ? ["Popconfirm"] : []),
+    ...(selectable ? ["Text"] : []),
+    ...(ops.remove ? ["toast"] : []),
+  ];
   const imports = [
-    `import { ${["Button", "Card", "Flex", ...(pagination ? ["Pagination"] : []), "toast"].filter((x) => x !== "Button" || ops.create).join(", ")} } from "@skeinui/ui";`,
+    `import { ${uiImports.join(", ")} } from "@skeinui/ui";`,
     `import { keepPreviousData, ${ops.remove ? "useMutation, " : ""}useQuery${ops.remove ? ", useQueryClient" : ""} } from "@tanstack/react-query";`,
-    ...(ops.create ? [`import { Plus } from "lucide-react";`] : []),
+    `import { Download${ops.create ? ", Plus" : ""} } from "lucide-react";`,
     `import { useState } from "react";`,
+    ...(usesAccess ? [`import { Access } from "@/modules/access";`] : []),
     `import { Page } from "@/skein-shell";`,
     `import { ${[...(ops.remove ? [`delete${Entity}`] : []), fetchList, keys].join(", ")} } from "./api";`,
-    `import type { ${[...(hasDialog || ops.remove ? [Entity] : []), Query].join(", ")} } from "./api";`,
+    `import type { ${[Entity, Query].join(", ")} } from "./api";`,
     ...(filters.length ? [`import { ${Name}Filter } from "./components/${leaf}-filter";`] : []),
     ...(hasDialog
       ? [`import { ${Entity}FormDialog } from "./components/${entityKebab}-form-dialog";`]
       : []),
     `import { ${Name}Table } from "./components/${leaf}-table";`,
+    `import { downloadCsv } from "./export-csv";`,
     `import { use${Name}Translation } from "./locales";`,
   ];
-  const usesToast = ops.remove;
-  if (!usesToast) imports[0] = imports[0].replace(", toast", "");
+  const rowId = (row) => access(row, idField);
+  const idType = model.idType === "number" ? "number" : "string";
+  const setQueryName = pagination || filters.length || sorted ? ", setQuery" : "";
+  const init = pagination ? "{ page: 1, pageSize: 10 }" : "{}";
+  const createButton = `<Button color="primary" startContent={<Plus size={16} />} onClick={() => setEditing(null)}>
+            {t("create")}
+          </Button>`;
+  const deleteSelected = `<Popconfirm
+                  tone="danger"
+                  title={t("deleteManyConfirm", { count: selectedRows.length })}
+                  confirmLabel={t("delete")}
+                  cancelLabel={t("cancel")}
+                  onConfirm={() => removeMany.mutateAsync(selectedRows).then(() => undefined, () => undefined)}
+                >
+                  <Button size="sm" variant="outline" color="danger" loading={removeMany.isPending}>
+                    {t("deleteSelected")}
+                  </Button>
+                </Popconfirm>`;
+  const wrapAccess = (action, jsx) =>
+    guarded ? `<Access code="${perm(action)}">\n${jsx}\n</Access>` : jsx;
   files["index.tsx"] = `${imports.join("\n")}
 
 export function ${Name}Page() {
   const { t } = use${Name}Translation();
-${ops.remove ? "  const queryClient = useQueryClient();\n" : ""}  const [query${pagination || filters.length ? ", setQuery" : ""}] = useState<${Query}>(${pagination ? "{ page: 1, pageSize: 10 }" : "{}"});
-${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n  const [editing, setEditing] = useState<${Entity} | null | undefined>(undefined);\n` : ""}  const { data, isFetching } = useQuery({
+${ops.remove ? "  const queryClient = useQueryClient();\n" : ""}  const [query${setQueryName}] = useState<${Query}>(${init});
+${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n  const [editing, setEditing] = useState<${Entity} | null | undefined>(undefined);\n` : ""}${selectable ? `  /** The ids of the ticked rows. */\n  const [selected, setSelected] = useState<readonly ${idType}[]>([]);\n` : ""}  const { data, isFetching } = useQuery({
     queryKey: ${keys}.list(query),
     queryFn: () => ${fetchList}(query),
     placeholderData: keepPreviousData,
   });
-${
-  ops.remove
-    ? `  const remove = useMutation({
+  const rows = data?.items ?? [];
+${selectable ? `  // Only the rows on screen count: another page, a new search or a sort leaves the ticked ones out of what is exported or deleted\n  const selectedRows = rows.filter((row) => selected.includes(${rowId("row")}));\n` : ""}${
+    ops.remove
+      ? `  const remove = useMutation({
     mutationFn: (row: ${Entity}) => delete${Entity}(${access("row", idField)}),
     onSuccess: (_, row) => {
       toast.success(t("deleted", { item: ${label("row")} }));
@@ -254,27 +313,50 @@ ${
     onError: (error) => toast.danger(error.message),
   });
 `
-    : ""
-}
+      : ""
+  }${
+    removeMany
+      ? `  // The API deletes one row at a time: one request per ticked row, and the ones that failed are counted
+  const removeMany = useMutation({
+    mutationFn: (rows: ${Entity}[]) =>
+      Promise.allSettled(rows.map((row) => delete${Entity}(${access("row", idField)}))),
+    onSuccess: (results) => {
+      const failed = results.filter((r) => r.status === "rejected").length;
+      if (failed < results.length)
+        toast.success(t("deletedMany", { count: results.length - failed }));
+      if (failed > 0) toast.danger(t("deleteManyFailed", { count: failed }));
+      setSelected([]);
+      void queryClient.invalidateQueries({ queryKey: ${keys}.all });
+    },
+  });
+`
+      : ""
+  }
+  /** The rows as a CSV file: what is on screen (this page, with its filter and sort) or the ticked ones. */
+  const exportRows = (list: readonly ${Entity}[]) =>
+    downloadCsv(
+      ${JSON.stringify(`${leaf}.csv`)},
+      [${exportFields.map((f) => `t("fields.${f.name}")`).join(", ")}],
+      list.map((row) => [${exportFields.map((f) => access("row", f.name)).join(", ")}]),
+    );
+
   return (
     <Page
       title={t("title")}
-      description={t("description")}${
-        ops.create
-          ? `
+      description={t("description")}
       actions={
-        <Button color="primary" startContent={<Plus size={16} />} onClick={() => setEditing(null)}>
-          {t("create")}
-        </Button>
-      }`
-          : ""
+        <Flex gap="sm">
+          <Button variant="outline" startContent={<Download size={16} />} onClick={() => exportRows(rows)}>
+            {t("export")}
+          </Button>${ops.create ? `\n          ${wrapAccess("create", createButton)}` : ""}
+        </Flex>
       }
     >
 ${
   filters.length
     ? `      <Card>
         <Card.Body>
-          <${Name}Filter onSearch={(filter) => setQuery((q) => ({ ${pagination ? "page: 1, pageSize: q.pageSize, " : ""}...filter }))} />
+          <${Name}Filter onSearch={(filter) => setQuery((q) => ({ ${pagination ? "page: 1, pageSize: q.pageSize, " : ""}${sorted ? "sort: q.sort, " : ""}...filter }))} />
         </Card.Body>
       </Card>
 `
@@ -282,9 +364,28 @@ ${
 }      <Card>
         <Card.Body>
           <Flex direction="column" gap="md">
-            <${Name}Table
-              rows={data?.items ?? []}
-              loading={isFetching}${editable ? "\n              onEdit={setEditing}" : ""}${
+${
+  selectable
+    ? `            {selectedRows.length > 0 ? (
+              <Flex align="center" gap="md" wrap>
+                <Text tone="secondary">{t("selected", { count: selectedRows.length })}</Text>
+                <Button size="sm" variant="outline" onClick={() => exportRows(selectedRows)}>
+                  {t("exportSelected")}
+                </Button>${removeMany ? `\n                ${wrapAccess("delete", deleteSelected)}` : ""}
+                <Button size="sm" variant="ghost" onClick={() => setSelected([])}>
+                  {t("clear")}
+                </Button>
+              </Flex>
+            ) : null}
+`
+    : ""
+}            <${Name}Table
+              rows={rows}
+              loading={isFetching}${selectable ? "\n              selected={selected}\n              onSelectedChange={setSelected}" : ""}${
+                sorted
+                  ? `\n              sort={query.sort}\n              onSort={(key) => setQuery((q) => ({ ...q, ${pagination ? "page: 1, " : ""}sort: nextSort(q.sort, key) }))}`
+                  : ""
+              }${editable ? "\n              onEdit={setEditing}" : ""}${
                 ops.remove
                   ? "\n              onDelete={(row) => remove.mutateAsync(row).then(() => undefined, () => undefined)}"
                   : ""
@@ -310,6 +411,38 @@ ${
       </Card>
 ${hasDialog ? `      <${Entity}FormDialog ${entityVar}={editing} onClose={() => setEditing(undefined)} />\n` : ""}    </Page>
   );
+}
+${
+  sorted
+    ? `
+/** What a click on a column's header does: ascending, then descending, then not sorted. */
+function nextSort(sort: ${Query}["sort"], key: string): ${Query}["sort"] {
+  if (sort?.key !== key) return { key, dir: "asc" };
+  return sort.dir === "asc" ? { key, dir: "desc" } : undefined;
+}
+`
+    : ""
+}`;
+
+  // ---------- CSV export
+  files["export-csv.ts"] =
+    `/** Downloads \`rows\` as a CSV file: UTF-8 with a byte order mark, which Excel needs to read Chinese. */
+export function downloadCsv(filename: string, header: readonly string[], rows: readonly (readonly unknown[])[]) {
+  // A text a spreadsheet would run as a formula (=, +, -, @ first) is made plain text; numbers stay numbers
+  const cell = (value: unknown) => {
+    let text = value === null || value === undefined ? "" : String(value);
+    if (typeof value === "string" && /^[=+\\-@\\t\\r]/.test(text)) text = \`'\${text}\`;
+    return /[",\\r\\n]/.test(text) ? \`"\${text.replaceAll('"', '""')}"\` : text;
+  };
+  const lines = [header, ...rows].map((row) => row.map(cell).join(","));
+  const url = URL.createObjectURL(
+    new Blob(["\\uFEFF", lines.join("\\r\\n")], { type: "text/csv;charset=utf-8" }),
+  );
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
 }
 `;
 
@@ -357,14 +490,15 @@ export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) 
   }
 
   // ---------- table
+  const actions = editable || ops.remove;
   const tableImports = [
-    "Button",
-    "Flex",
+    ...(actions ? ["Button"] : []),
+    ...(selectable ? ["Checkbox"] : []),
+    ...(actions ? ["Flex"] : []),
     ...(ops.remove ? ["Popconfirm"] : []),
     "Table",
     ...(usesTag ? ["Tag"] : []),
-  ].filter((x) => (x !== "Button" && x !== "Flex") || editable || ops.remove);
-  const actions = editable || ops.remove;
+  ];
   // The column that opens the detail page: the row's name, else the first plain one
   const plain = (f) => !["enum", "boolean", "date", "datetime"].includes(f.kind);
   const linkField = detail
@@ -378,46 +512,35 @@ export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) 
       ? `<Link from="/$tenant/${path}" to="/$tenant/${path}/$id" params={(prev) => ({ ...prev, id: ${id} })}>${cellOf(f)}</Link>`
       : `<Link to="/${path}/$id" params={{ id: ${id} }}>${cellOf(f)}</Link>`;
   };
-  files[`components/${leaf}-table.tsx`] = `import { ${tableImports.join(", ")} } from "@skeinui/ui";
-${linkField ? 'import { Link } from "@tanstack/react-router";\n' : ""}import type { ${Entity} } from "../api";
-import { use${Name}Translation } from "../locales";
-
-export function ${Name}Table({
-  rows,
-  loading,${editable ? "\n  onEdit," : ""}${ops.remove ? "\n  onDelete," : ""}
-}: {
-  rows: readonly ${Entity}[];
-  loading: boolean;${editable ? `\n  onEdit: (row: ${Entity}) => void;` : ""}${ops.remove ? `\n  onDelete: (row: ${Entity}) => Promise<void>;` : ""}
-}) {
-  const { t${usesDate || usesDateTime ? ", i18n" : ""} } = use${Name}Translation();
-${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${usesDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}  return (
-    <Table hoverable loading={loading}>
-      <Table.Header>
-        <Table.Row>
-${columns.map((f) => `          <Table.Head>{t("fields.${f.name}")}</Table.Head>`).join("\n")}${actions ? '\n          <Table.Head>{t("col.actions")}</Table.Head>' : ""}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {rows.length === 0 ? (
-          <Table.Empty colSpan={${columns.length + (actions ? 1 : 0)}}>{loading ? t("loading") : t("empty")}</Table.Empty>
-        ) : (
-          rows.map((row) => (
-            <Table.Row key={String(${idField ? access("row", idField) : "rows.indexOf(row)"})}>
-${columns.map((f) => `              <Table.Cell>${cellFor(f)}</Table.Cell>`).join("\n")}${
-    actions
-      ? `
-              <Table.Cell>
+  // With the access module the edit / delete buttons (and their column) are only for who may; else for everyone
+  const canVars = guarded && actions;
+  const showActions = [editable && "canEdit", ops.remove && "canDelete"]
+    .filter(Boolean)
+    .join(" || ");
+  const onlyIf = (cond, jsx) => (canVars ? `{${cond} ? (\n${jsx}\n) : null}` : jsx);
+  const headOf = (f) =>
+    sortable.has(f.name)
+      ? `          <Table.Head sortable sort={sort?.key === ${JSON.stringify(f.name)} ? sort.dir : undefined} onSort={() => onSort(${JSON.stringify(f.name)})}>
+            {t("fields.${f.name}")}
+          </Table.Head>`
+      : `          <Table.Head>{t("fields.${f.name}")}</Table.Head>`;
+  const rowKey = idField ? access("row", idField) : "rows.indexOf(row)";
+  const colSpan = `${columns.length + (selectable ? 1 : 0)}${actions ? (canVars ? " + (showActions ? 1 : 0)" : " + 1") : ""}`;
+  const actionCell = `              <Table.Cell>
                 <Flex gap="xs">${
                   editable
-                    ? `
-                  <Button size="sm" variant="ghost" onClick={() => onEdit(row)}>
+                    ? `\n${onlyIf(
+                        "canEdit",
+                        `                  <Button size="sm" variant="ghost" onClick={() => onEdit(row)}>
                     {t("edit")}
-                  </Button>`
+                  </Button>`,
+                      )}`
                     : ""
                 }${
                   ops.remove
-                    ? `
-                  <Popconfirm
+                    ? `\n${onlyIf(
+                        "canDelete",
+                        `                  <Popconfirm
                     tone="danger"
                     title={t("deleteConfirm", { item: ${label("row")} })}
                     confirmLabel={t("delete")}
@@ -427,11 +550,75 @@ ${columns.map((f) => `              <Table.Cell>${cellFor(f)}</Table.Cell>`).joi
                     <Button size="sm" variant="ghost" color="danger">
                       {t("delete")}
                     </Button>
-                  </Popconfirm>`
+                  </Popconfirm>`,
+                      )}`
                     : ""
                 }
                 </Flex>
+              </Table.Cell>`;
+  files[`components/${leaf}-table.tsx`] = `import { ${tableImports.join(", ")} } from "@skeinui/ui";
+${linkField ? 'import { Link } from "@tanstack/react-router";\n' : ""}${canVars ? 'import { useAccess } from "@/modules/access";\n' : ""}import type { ${[Entity, ...(sorted ? [Query] : [])].join(", ")} } from "../api";
+import { use${Name}Translation } from "../locales";
+
+export function ${Name}Table({
+  rows,
+  loading,${selectable ? "\n  selected,\n  onSelectedChange," : ""}${sorted ? "\n  sort,\n  onSort," : ""}${editable ? "\n  onEdit," : ""}${ops.remove ? "\n  onDelete," : ""}
+}: {
+  rows: readonly ${Entity}[];
+  loading: boolean;${selectable ? `\n  /** The ids of the ticked rows. */\n  selected: readonly ${idType}[];\n  onSelectedChange: (ids: readonly ${idType}[]) => void;` : ""}${sorted ? `\n  sort: ${Query}["sort"];\n  /** A click on a sortable header, with the column's field name. */\n  onSort: (key: string) => void;` : ""}${editable ? `\n  onEdit: (row: ${Entity}) => void;` : ""}${ops.remove ? `\n  onDelete: (row: ${Entity}) => Promise<void>;` : ""}
+}) {
+  const { t${usesDate || usesDateTime ? ", i18n" : ""} } = use${Name}Translation();
+${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${usesDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}${
+    canVars
+      ? `  const { can } = useAccess();\n${editable ? `  const canEdit = can(${JSON.stringify(perm("update"))});\n` : ""}${ops.remove ? `  const canDelete = can(${JSON.stringify(perm("delete"))});\n` : ""}  // Without either, there is nothing to put in the actions column\n  const showActions = ${showActions};\n`
+      : ""
+  }${
+    selectable
+      ? `  const ids = rows.map((row) => ${access("row", idField)});\n  const allSelected = ids.length > 0 && ids.every((id) => selected.includes(id));\n`
+      : ""
+  }  return (
+    <Table hoverable loading={loading}>
+      <Table.Header>
+        <Table.Row>${
+          selectable
+            ? `
+          <Table.Head kind="select">
+            <Checkbox
+              aria-label={t("selectAll")}
+              checked={allSelected}
+              indeterminate={!allSelected && ids.some((id) => selected.includes(id))}
+              onCheckedChange={(checked) => onSelectedChange(checked ? ids : [])}
+            />
+          </Table.Head>`
+            : ""
+        }
+${columns.map(headOf).join("\n")}${actions ? `\n${canVars ? '          {showActions ? <Table.Head>{t("col.actions")}</Table.Head> : null}' : '          <Table.Head>{t("col.actions")}</Table.Head>'}` : ""}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {rows.length === 0 ? (
+          <Table.Empty colSpan={${colSpan}}>{loading ? t("loading") : t("empty")}</Table.Empty>
+        ) : (
+          rows.map((row) => (
+            <Table.Row key={String(${rowKey})}${selectable ? `\n              selected={selected.includes(${access("row", idField)})}` : ""}>${
+              selectable
+                ? `
+              <Table.Cell kind="select">
+                <Checkbox
+                  aria-label={t("selectRow", { item: ${label("row")} })}
+                  checked={selected.includes(${access("row", idField)})}
+                  onCheckedChange={(checked) =>
+                    onSelectedChange(
+                      checked ? [...selected, ${access("row", idField)}] : selected.filter((id) => id !== ${access("row", idField)}),
+                    )
+                  }
+                />
               </Table.Cell>`
+                : ""
+            }
+${columns.map((f) => `              <Table.Cell>${cellFor(f)}</Table.Cell>`).join("\n")}${
+    actions
+      ? `\n${canVars ? `              {showActions ? (\n${actionCell}\n              ) : null}` : actionCell}`
       : ""
   }
             </Table.Row>
@@ -573,6 +760,32 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
     );
   const fieldLabels = Object.fromEntries([...fields, ...input].map((f) => [f.name, f.label]));
   const filterLabels = Object.fromEntries(filters.map((f) => [f.name, f.label]));
+  // The texts of the export, the ticked rows and the batch delete; only those the page uses
+  const extra = (lang) => {
+    const en = lang === "en";
+    return {
+      export: en ? "Export" : "导出",
+      ...(selectable
+        ? {
+            exportSelected: en ? "Export selected" : "导出选中",
+            selected: en ? "Selected: {{count}}" : "已选 {{count}} 项",
+            clear: en ? "Clear" : "清除",
+            selectAll: en ? "Select all" : "全选",
+            selectRow: en ? "Select {{item}}" : "选择 {{item}}",
+          }
+        : {}),
+      ...(removeMany
+        ? {
+            deleteSelected: en ? "Delete selected" : "删除选中",
+            deleteManyConfirm: en
+              ? "Delete the {{count}} selected rows?"
+              : "确定删除选中的 {{count}} 条？",
+            deletedMany: en ? "Deleted: {{count}}" : "已删除 {{count}} 条",
+            deleteManyFailed: en ? "Could not delete: {{count}}" : "{{count}} 条删除失败",
+          }
+        : {}),
+    };
+  };
   const messages = {
     en: {
       title: model.title,
@@ -588,6 +801,7 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
       created: "Created {{item}}",
       updated: "Saved {{item}}",
       deleted: "Deleted {{item}}",
+      ...extra("en"),
       empty: "Nothing here yet",
       loading: "Loading…",
       filter: { all: "All", search: "Search", reset: "Reset" },
@@ -622,6 +836,7 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
       created: "已新建 {{item}}",
       updated: "已保存 {{item}}",
       deleted: "已删除 {{item}}",
+      ...extra("zh"),
       empty: "暂无数据",
       loading: "加载中…",
       filter: { all: "全部", search: "查询", reset: "重置" },
@@ -723,18 +938,37 @@ ${itemRoute ? `\nconst notFound = () => HttpResponse.json({ message: "Not found"
           : `\n/** The row with this id, else -1. */\nconst findIndex = (id: unknown) => ${entityVar}Rows.findIndex((r) => ${access("r", idField)} === ${idOf("id")});\n`
         : ""
     }
-export const handlers = [
-  http.get(${JSON.stringify(`*${model.path}`)}, async (${pagination || filters.length || scoped ? "{ request }" : ""}) => {
-    await delay(200);${pagination || filters.length ? "\n    const url = new URL(request.url);" : ""}
+${sort ? `/** Numbers by value, anything else as text. */\nconst compare = (a: unknown, b: unknown) =>\n  typeof a === "number" && typeof b === "number" ? a - b : String(a ?? "").localeCompare(String(b ?? ""));\n\n` : ""}export const handlers = [
+  http.get(${JSON.stringify(`*${model.path}`)}, async (${pagination || filters.length || sort || scoped ? "{ request }" : ""}) => {
+    await delay(200);${pagination || filters.length || sort ? "\n    const url = new URL(request.url);" : ""}
     let matched: ${Entity}[] = ${scoped ? `${entityVar}Rows.filter((r) => ${entityVar}Tenants.get(${access("r", idField)}) === tenantOf(request))` : `[...${entityVar}Rows]`};
 ${filterLines.join("\n")}
 ${
-  pagination
-    ? `    const page = Number(url.searchParams.get(${JSON.stringify(pagination.page)}) ?? 1);
+  sort
+    ? sort.dir
+      ? `    // Sorted as asked (${sort.by}, ${sort.dir}) before the page is cut
+    const sortKey = url.searchParams.get(${JSON.stringify(sort.by)});
+    if (sortKey) {
+      const sign = /^desc/i.test(url.searchParams.get(${JSON.stringify(sort.dir)}) ?? "") ? -1 : 1;
+      matched = [...matched].sort((a, b) => sign * compare((a as unknown as Record<string, unknown>)[sortKey], (b as unknown as Record<string, unknown>)[sortKey]));
+    }
+`
+      : `    // Sorted as asked (${sort.by}=name or -name for descending) before the page is cut
+    const sortValue = url.searchParams.get(${JSON.stringify(sort.by)});
+    if (sortValue) {
+      const sortKey = sortValue.replace(/^-/, "");
+      const sign = sortValue.startsWith("-") ? -1 : 1;
+      matched = [...matched].sort((a, b) => sign * compare((a as unknown as Record<string, unknown>)[sortKey], (b as unknown as Record<string, unknown>)[sortKey]));
+    }
+`
+    : ""
+}${
+      pagination
+        ? `    const page = Number(url.searchParams.get(${JSON.stringify(pagination.page)}) ?? 1);
     const pageSize = Number(url.searchParams.get(${JSON.stringify(pagination.pageSize)}) ?? 10);
     const items = matched.slice((page - 1) * pageSize, page * pageSize);`
-    : "    const items = matched;"
-}
+        : "    const items = matched;"
+    }
     return HttpResponse.json(${wrap(listPayload)});
   }),${
     ops.create
