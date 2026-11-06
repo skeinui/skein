@@ -55,10 +55,10 @@ export function title(packageName) {
 }
 
 /**
- * A page path such as `orders` or `system/users`: every segment kebab-cased.
+ * A page path such as `orders` or `system/users`: every segment kebab-cased; `system\users` (typed on Windows) too.
  * Returns null when nothing valid is left.
  */
 export function pagePath(name) {
-  const segments = name.split("/").map(kebab).filter(Boolean);
+  const segments = name.split(/[\\/]/).map(kebab).filter(Boolean);
   return segments.length > 0 ? segments.join("/") : null;
 }

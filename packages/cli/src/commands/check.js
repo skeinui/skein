@@ -219,7 +219,7 @@ function i18n(root) {
                 severity: "error",
                 file: relative(root, file),
                 line: i + 1,
-                message: `t("${key}") has no message in ${relative(root, dir)}/`,
+                message: `t("${key}") has no message in ${toPosix(relative(root, dir))}/`,
                 hint: "Add the key to both zh.json and en.json of this page's locales/messages/.",
               });
             }

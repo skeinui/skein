@@ -1037,6 +1037,8 @@ describe("names", () => {
 
   test("page paths and component names", () => {
     expect(pagePath("System/UserRoles")).toBe("system/user-roles");
+    // Typed on Windows
+    expect(pagePath("system\\logs")).toBe("system/logs");
     expect(pagePath("//")).toBeNull();
     expect(pascal("system-user-roles")).toBe("SystemUserRoles");
   });
