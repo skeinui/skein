@@ -117,8 +117,8 @@
     display: inline-flex;
     flex: none;
     font-size: var(--_icon);
-    /* Icons are one step lighter than the text; they return to the text color when selected / hovered / having a selected child */
-    color: color-mix(in srgb, currentcolor 58%, transparent);
+    /* Icons are a step lighter than the text (70% of it, so dark sidebars too); they return to the text color when selected / hovered / having a selected child */
+    color: color-mix(in srgb, currentcolor 70%, transparent);
     transition: color 150ms ease;
   }
   [data-skein-theme="heroui"]
@@ -321,6 +321,7 @@
     [data-skein-theme="heroui"] [data-slot="sidemenu-link"],
     [data-skein-theme="heroui"] [data-slot="sidemenu-trigger"],
     [data-skein-theme="heroui"] [data-slot="sidemenu-arrow"],
+    [data-skein-theme="heroui"] [data-slot="sidemenu-icon"],
     [data-skein-theme="heroui"] [data-slot="sidemenu-panel"] {
       transition: none;
     }
