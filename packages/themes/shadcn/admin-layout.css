@@ -150,20 +150,7 @@
   [data-skein-theme="shadcn"] [data-slot="sidebar-header"] [data-slot="admin-layout-context"] {
     width: 100%;
   }
-  /* Default menu style inside AdminLayout: 36px row height, 32px for sub-items (SideMenu's own 32 / 28 are the shadcn sidebar sizes, too dense inside a full-page frame);
-     36 + 2px margin above and below = 40px, exactly matching the tab bar's row height, so menu rows line up with the rows on the right */
-  [data-skein-theme="shadcn"]
-    [data-slot="admin-layout"]
-    [data-slot="sidemenu"]:not([data-variant="modern"]) {
-    --_h: 2.25rem;
-  }
-  [data-skein-theme="shadcn"]
-    [data-slot="admin-layout"]
-    [data-slot="sidemenu"]:not([data-variant="modern"])
-    [data-slot="sidemenu-panel-inner"]
-    :is([data-slot="sidemenu-link"], [data-slot="sidemenu-trigger"]) {
-    --_h: 2rem;
-  }
+  /* The default menu style inside AdminLayout keeps SideMenu's own sizes, the shadcn/ui sidebar's: 32px rows, 28px sub-items, 4px between rows (side-menu.css) */
   /* Sidebar (with or without a header): the logo occupies a 3.5rem-high strip, vertically centered (same height as the header in other layouts), with its left edge aligned to the menu's icon column
      (the sidebar header has its own padding, offset with a negative margin, while the context switcher below is still laid out by the header's padding) */
   [data-skein-theme="shadcn"]

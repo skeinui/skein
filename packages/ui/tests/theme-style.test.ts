@@ -360,16 +360,26 @@ describe("sidebar menu alignment: submenu guide line under the parent icon, chil
     },
   );
 
-  test.each(["default", "shadcn"])(
-    "%s: in AdminLayout the default menu style has 36px rows, 32px children",
-    (skin) => {
-      const css = read(skinDir(skin), "admin-layout.css");
-      expect(css).toMatch(
-        /\[data-slot="sidemenu"\]:not\(\[data-variant="modern"\]\)\s*\{\s*--_h: 2\.25rem;/,
-      );
-      expect(css).toMatch(/\[data-slot="sidemenu-panel-inner"\]\s*:is\([^)]*\)\s*\{\s*--_h: 2rem;/);
-    },
-  );
+  test("default: in AdminLayout the default menu style has 36px rows, 32px children", () => {
+    const css = read(skinDir("default"), "admin-layout.css");
+    expect(css).toMatch(
+      /\[data-slot="sidemenu"\]:not\(\[data-variant="modern"\]\)\s*\{\s*--_h: 2\.25rem;/,
+    );
+    expect(css).toMatch(/\[data-slot="sidemenu-panel-inner"\]\s*:is\([^)]*\)\s*\{\s*--_h: 2rem;/);
+  });
+
+  test("shadcn: the menu has the shadcn/ui sidebar's sizes, in AdminLayout too: 32px rows, 28px children, 4px apart", () => {
+    const menu = read(skinDir("shadcn"), "side-menu.css");
+    expect(menu).toMatch(/\[data-slot="sidemenu"\]\s*\{\s*--_h: 2rem;[^}]*--_my: 0\.25rem;/);
+    expect(menu).toMatch(
+      /\[data-slot="sidemenu-panel-inner"\] \[data-slot="sidemenu-trigger"\]\s*\{[^}]*--_h: 1\.75rem;/,
+    );
+    // AdminLayout does not override them
+    const css = read(skinDir("shadcn"), "admin-layout.css");
+    expect(css).not.toMatch(
+      /\[data-slot="sidemenu"\]:not\(\[data-variant="modern"\]\)\s*\{\s*--_h:/,
+    );
+  });
 
   test.each(skins)(
     "%s: the side layout sidebar header has no extra bottom padding (first menu row lines up with the tab bar)",

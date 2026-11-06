@@ -6,7 +6,8 @@
   [data-skein-theme="shadcn"] [data-slot="sidemenu"] {
     --_h: 2rem;
     --_mx: 0.5rem;
-    --_my: 0.125rem;
+    /* 4px between rows (the sibling margins collapse): the shadcn/ui sidebar's gap-1 */
+    --_my: 0.25rem;
     --_r: var(--ui-radius-md);
     --_pl: 0.5rem;
     --_pr: 0.5rem;
