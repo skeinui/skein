@@ -69,7 +69,8 @@
     box-sizing: border-box;
     max-width: 14rem;
     height: var(--_h);
-    color: var(--ui-fg-muted);
+    /* The muted text color a step darker: on the chrome bar's tinted background the muted color alone is under 4.5:1 */
+    color: color-mix(in srgb, var(--ui-fg-muted) 85%, var(--ui-fg));
     transition:
       background-color 150ms ease,
       border-color 150ms ease,
