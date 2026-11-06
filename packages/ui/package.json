@@ -1,6 +1,6 @@
 {
   "name": "@skeinui/ui",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "100+ React components on Base UI, with swappable and customizable theme styles",
   "keywords": [
     "accessibility",

@@ -1,5 +1,26 @@
 # @skeinui/themes
 
+## 0.0.7
+
+### Patch Changes
+
+- cf79031: AdminLayout's header inside the content area (the sidebar layout) is 3rem (48px) high instead of 2.5rem, a step above the 40px tab bar under it; the sidebar's logo row follows it. Card tabs in the tab bar have room above and below (40px, like the chrome tabs) instead of touching the header's divider and the content.
+- 8d31ce8: Admin template: a configurable toolbar next to the account menu and on the sign-in page (`settings.toolbar`, tools in `src/modules/toolbar/`): built-in language (with flags) and light / dark tools, your own added by id; the account menu keeps only the user and sign out. Themes: AdminLayout's action icons are drawn like the side menu's (size, ~1.5px strokes, the row color at 80%, also in a Semi Dark / custom-colored sidebar); antd's header actions are 28px in its secondary text color, like Ant Design Pro.
+- 8fdc56d: antd: a checked menu checkbox item has a light primary background and primary text, like the selected item of a selectable Ant Design Dropdown.
+- 8fdc56d: antd: with Semi Dark on (and no custom sidebar color) the side menu items are white at 0.65 like the default dark sidebar, Ant Design's dark menu (were 0.78).
+- 475d6d9: Card tabs in AdminLayout's tab bar start 1rem in, under the header's content, instead of against the sidebar.
+- 8fdc56d: Menu checkbox items in default, heroui and antd put the check mark at the end of the row (as shadcn), 14px like the menu icons (was a 10px check at the start, which pushed the icon and label out of line with plain items).
+- 8fdc56d: PageTabs: the active tab's title is a step bolder (500, like the selected side menu item) and pinned tabs are no longer bold (they outweighed the active tab; no close button marks them); tab icons are drawn about 1.5px wide like the side menu's. antd's idle tabs use Ant Design's secondary text (0.65; 0.45 was under 4.5:1).
+- 8fdc56d: Side menu: the modern style's rows are 40px (was 42) and 4px apart (was 2) in every theme style, on the 4px grid with the 40px tab bar; antd's modern radius is Ant Design's 8px (was 6), its level-two items are 40px like level-one ones (Ant Design), and its submenu arrow sits 16px from the right (was 34).
+- 8d31ce8: AdminLayout: the sidebar trigger in a header inside the content area sits closer to the edge, its icon on the header's 1rem line over the first tab's icon (was 7px further in).
+- 22aea0d: Side menu icons match their label: in default, shadcn and heroui a row is a step lighter than the text, icon and label alike (80%), and takes the full color when selected, hovered or holding the selected page; antd icons take Ant Design's item color with the label. Line icons are drawn about 1.5px wide, the weight of the 14px label (was 1.33px).
+- 475d6d9: AdminLayout's tab bar is 40px whatever the tab style (card, chrome, line) and theme style: the tabs get 0.25rem above them, as chrome tabs had, so switching styles no longer moves the content up or down.
+- fbdd89e: Toast: `richColors` on `Toaster` (every typed toast) or on one toast (`toast.success("Saved", { richColors: true })`) tints info / success / warning / danger toasts in their color, like Sonner's rich colors: background, border and text in default and heroui (from their tokens) and shadcn (Sonner's own rich colors, shadcn/ui's toast being Sonner); antd follows its Alert (soft background, colored border and icon, text in the text color). Styled through `data-rich-colors`.
+- Updated dependencies [a7b0d6e]
+- Updated dependencies [fbdd89e]
+- Updated dependencies [a7b0d6e]
+  - @skeinui/ui@0.0.7
+
 ## 0.0.6
 
 ### Patch Changes
