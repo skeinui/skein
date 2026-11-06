@@ -328,11 +328,20 @@ describe("header inside the content area (data-header-inset): 3rem (48px) high, 
   });
 });
 
-describe("card tabs in the admin tab bar: room above and below (not against the header's divider)", () => {
+describe("admin tab bar: every tab style gives it the same height (0.25rem above the tabs)", () => {
   test.each(skins)("%s", (skin) => {
     const css = read(skinDir(skin), "admin-layout.css");
     expect(css).toMatch(
-      /\[data-slot="admin-layout-bar"\]\s*>\s*\[data-slot="page-tabs"\]\[data-variant="card"\]\s*\{\s*padding-block: 0.25rem;/,
+      /\[data-slot="admin-layout-bar"\]\s*>\s*\[data-slot="page-tabs"\]\s*\{\s*padding-top: 0.25rem;/,
+    );
+  });
+});
+
+describe("card tabs in the admin tab bar: room above and below (not against the header's divider), 1rem in on the left", () => {
+  test.each(skins)("%s", (skin) => {
+    const css = read(skinDir(skin), "admin-layout.css");
+    expect(css).toMatch(
+      /\[data-slot="admin-layout-bar"\]\s*>\s*\[data-slot="page-tabs"\]\[data-variant="card"\]\s*\{\s*padding-block: 0.25rem;\s*padding-inline-start: 1rem;/,
     );
   });
 });

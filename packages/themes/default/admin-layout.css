@@ -486,12 +486,19 @@
     gap: 0.25rem;
     min-width: 0;
   }
+  /* Every tab style gives the bar the same height (40px), so switching styles doesn't move the content: tabs that
+     sit on the bar's bottom line get the 0.25rem above them the chrome tabs have */
+  [data-skein-theme="default"] [data-slot="admin-layout-bar"] > [data-slot="page-tabs"] {
+    padding-top: 0.25rem;
+  }
   /* Card tabs are bordered all round: they sit in the middle of the bar with room above and below (40px, like the
-     chrome tabs), not against the header's divider and the content */
+     chrome tabs), not against the header's divider and the content, and start where the header's content does
+     (1rem in), not against the sidebar */
   [data-skein-theme="default"]
     [data-slot="admin-layout-bar"]
     > [data-slot="page-tabs"][data-variant="card"] {
     padding-block: 0.25rem;
+    padding-inline-start: 1rem;
   }
   /* Built-in buttons at the right of the tab row (refresh, maximize / restore), separated from the tabs by a vertical line */
   [data-skein-theme="default"] [data-slot="admin-layout-bar-actions"] {
