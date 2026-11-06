@@ -2,7 +2,13 @@
 import { http, HttpResponse } from "msw";
 import type { LoginInput, User } from "../api";
 
-const ADMIN: User = { id: 1, username: "admin", name: "Admin", email: "admin@example.com" };
+const ADMIN: User = {
+  id: 1,
+  username: "admin",
+  name: "Admin",
+  email: "admin@example.com",
+  avatar: "https://avatars.githubusercontent.com/u/351424659",
+};
 const TOKEN = "mock-token";
 
 const authorized = (request: Request) => request.headers.get("Authorization") === `Bearer ${TOKEN}`;
