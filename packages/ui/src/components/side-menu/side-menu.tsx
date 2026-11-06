@@ -1,4 +1,13 @@
-import { createContext, useCallback, useContext, useId, useMemo, useRef, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { useSidebarPanel } from "../sidebar/index.ts";
 import { Popover } from "../popover/index.ts";
@@ -334,9 +343,11 @@ export function SideMenu({
   const [innerSelected, setInnerSelected] = useState<string | null>(defaultSelectedKey);
   const selectedKey = selectedProp !== undefined ? selectedProp : innerSelected;
 
-  const [innerOpen, setInnerOpen] = useState<string[]>(
-    () => defaultOpenKeys ?? (defaultSelectedKey ? (pathTo(items, defaultSelectedKey) ?? []) : []),
-  );
+  const [innerOpen, setInnerOpen] = useState<string[]>(() => {
+    if (defaultOpenKeys) return defaultOpenKeys;
+    const selected = selectedProp ?? defaultSelectedKey;
+    return selected ? (pathTo(items, selected) ?? []) : [];
+  });
   const openList = openProp ?? innerOpen;
   const openKeys = useMemo(() => new Set(openList), [openList]);
 
@@ -362,6 +373,19 @@ export function SideMenu({
     },
     [setOpen],
   );
+  // Uncontrolled: when the selected item moves into submenus that are closed (selected from elsewhere, e.g. a tab
+  // or a link, or the items arrived later), they open. Ones the user closes stay closed while the selection stays.
+  const ancestors = [...parentsOfSelected].join("\u0000");
+  const shownAncestors = useRef(ancestors);
+  useEffect(() => {
+    if (ancestors === shownAncestors.current) return;
+    shownAncestors.current = ancestors;
+    if (latest.current.openProp !== undefined || !ancestors) return;
+    const list = latest.current.openList;
+    const missing = ancestors.split("\u0000").filter((k) => !list.includes(k));
+    if (missing.length > 0) setOpen([...list, ...missing]);
+  }, [ancestors, setOpen]);
+
   const select = useCallback((item: SideMenuItem, event: MouseEvent<HTMLElement>) => {
     if (latest.current.selectedProp === undefined) setInnerSelected(item.key);
     latest.current.onSelect?.(item.key, item, event);

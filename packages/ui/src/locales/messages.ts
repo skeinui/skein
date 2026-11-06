@@ -44,6 +44,8 @@ export interface CommonLabels {
   select: string;
   noData: string;
   noResults: string;
+  /** The region holding toasts (Toaster), for screen readers. */
+  notifications: string;
 }
 export interface SidebarLabels {
   sidebar: string;

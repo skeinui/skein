@@ -414,6 +414,7 @@ export const zhCN: Messages = {
       select: "请选择",
       noData: "暂无数据",
       noResults: "没有结果",
+      notifications: "通知",
     },
     datePicker: {
       placeholders: {

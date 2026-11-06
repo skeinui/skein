@@ -135,6 +135,48 @@ describe("SideMenu selection and expansion", () => {
     expect(onOpenChange).toHaveBeenLastCalledWith([]);
   });
 
+  test("controlled selectedKey: the selected item's submenus start open, and open when it moves into closed ones; ones the user closes stay closed", async () => {
+    const render = (selectedKey: string) =>
+      act(async () => {
+        root!.render(createElement(SideMenu, { items: ITEMS, selectedKey }));
+      });
+    const el = await mount(createElement(SideMenu, { items: ITEMS, selectedKey: "list" }));
+    expect(link(el, "users").getAttribute("aria-expanded")).toBe("true");
+    expect(link(el, "more").getAttribute("aria-expanded")).toBe("false");
+    // Closed by the user: stays closed while the selection doesn't move
+    await click(link(el, "users"));
+    expect(link(el, "users").getAttribute("aria-expanded")).toBe("false");
+    await render("list");
+    expect(link(el, "users").getAttribute("aria-expanded")).toBe("false");
+    // Selected from elsewhere (a tab, a link): its submenus open
+    await render("deep");
+    expect(link(el, "users").getAttribute("aria-expanded")).toBe("true");
+    expect(link(el, "more").getAttribute("aria-expanded")).toBe("true");
+  });
+
+  test("items that arrive after the selection (loaded later): the selected item's submenus open", async () => {
+    const el = await mount(createElement(SideMenu, { items: [], selectedKey: "deep" }));
+    await act(async () => {
+      root!.render(createElement(SideMenu, { items: ITEMS, selectedKey: "deep" }));
+    });
+    expect(link(el, "users").getAttribute("aria-expanded")).toBe("true");
+    expect(link(el, "more").getAttribute("aria-expanded")).toBe("true");
+  });
+
+  test("controlled openKeys: selecting into a closed submenu doesn't change it", async () => {
+    const onOpenChange = vi.fn();
+    const el = await mount(
+      createElement(SideMenu, { items: ITEMS, selectedKey: "home", openKeys: [], onOpenChange }),
+    );
+    await act(async () => {
+      root!.render(
+        createElement(SideMenu, { items: ITEMS, selectedKey: "list", openKeys: [], onOpenChange }),
+      );
+    });
+    expect(link(el, "users").getAttribute("aria-expanded")).toBe("false");
+    expect(onOpenChange).not.toHaveBeenCalled();
+  });
+
   test("controlled openKeys: clicks only notify", async () => {
     const onOpenChange = vi.fn();
     const el = await mount(createElement(SideMenu, { items: ITEMS, openKeys: [], onOpenChange }));

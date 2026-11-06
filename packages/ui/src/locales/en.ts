@@ -418,6 +418,7 @@ export const en: Messages = {
       select: "Select",
       noData: "No data",
       noResults: "No results",
+      notifications: "Notifications",
     },
     datePicker: {
       placeholders: {

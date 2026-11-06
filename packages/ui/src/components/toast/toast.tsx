@@ -147,11 +147,14 @@ export function Toaster({
   limit = 3,
   timeout = 5000,
 }: ToasterProps) {
+  const c = useLabels("common");
   return (
     <BaseToast.Provider toastManager={manager} limit={limit} timeout={timeout}>
       <BaseToast.Portal>
         <BaseToast.Viewport
           data-slot="toast-viewport"
+          // Base UI's own is "Notifications" in every language
+          aria-label={c.notifications}
           data-position={position}
           data-layout={layout}
         >
