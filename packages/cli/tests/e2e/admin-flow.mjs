@@ -114,6 +114,7 @@ export async function adminFlow(base, { log = console.log } = {}) {
       await rows().filter({ hasText: "Zoe Edited" }).waitFor({ state: "detached" });
     });
     await step("go to page 2, switch tabs and back, still on page 2 (KeepAlive)", async () => {
+      const firstOnPage1 = await rows().first().textContent();
       await page
         .locator('[data-slot="pagination"]')
         .getByRole("button", { name: "下一页" })
@@ -125,6 +126,11 @@ export async function adminFlow(base, { log = console.log } = {}) {
         .first()
         .waitFor();
       await page.waitForURL(/\/users$/);
+      // The pager moves at once, the rows after the request (the table keeps page 1's meanwhile): wait for them
+      await rows()
+        .first()
+        .filter({ hasNotText: firstOnPage1 ?? "" })
+        .waitFor();
       const firstOnPage2 = await rows().first().textContent();
       await page
         .locator('[data-slot="page-tabs"] [role="tab"]')
