@@ -206,6 +206,12 @@ const written = (result, dryRun, hint) => ({
   },
 });
 
+/** The files `new page` / `new module` wrote with English placeholders for the Chinese texts. */
+const translateNote = (result) =>
+  result.translate.length > 0
+    ? `\n  Its texts are English placeholders in both languages (the CLI can't translate): write the Chinese in\n${result.translate.map((f) => `    ${f}`).join("\n")}\n  npm run check lists what is still untranslated.`
+    : "";
+
 function newCommand(values, [kind, name]) {
   if (!name || (kind !== "page" && kind !== "module"))
     throw new Error("use: new page <path> | new module <name>");
@@ -221,14 +227,14 @@ function newCommand(values, [kind, name]) {
     return written(
       result,
       dryRun,
-      `${result.path} is in the menu and the router (restart dev if it is not running).`,
+      `${result.path} is in the menu and the router (restart dev if it is not running).${translateNote(result)}`,
     );
   }
   const result = newModule({ name, force: values.force, dryRun });
   return written(
     result,
     dryRun,
-    `Use it with: import { ${result.Name} } from "@/modules/${result.name}";`,
+    `Use it with: import { ${result.Name} } from "@/modules/${result.name}";${translateNote(result)}`,
   );
 }
 

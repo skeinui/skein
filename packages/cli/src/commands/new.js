@@ -8,6 +8,9 @@ import { TEMPLATES_DIR } from "../paths.js";
 import { findProjectRoot, readProject, renderDir } from "../project.js";
 import { Writer } from "../writer.js";
 
+/** The lucide-react icon of a menu group `new page` makes, by its directory name (Folder for the rest). */
+const GROUP_ICONS = { system: "Settings", settings: "Settings" };
+
 function projectAt(cwd) {
   const root = findProjectRoot(cwd);
   if (!root) throw new Error("not inside a Skein project (no .skein.json found here or above)");
@@ -80,12 +83,16 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
     const groupDir = join("src", "pages", ...segments.slice(0, i));
     if (existsSync(join(root, groupDir))) continue;
     const group = title(segments[i - 1]);
+    const icon = GROUP_ICONS[segments[i - 1]] ?? "Folder";
     writer.write(
       join(groupDir, "_meta.ts"),
-      `import type { PageMeta } from "@/lib/page-meta";\n\nexport const meta: PageMeta = {\n  isGroup: true,\n  label: { zh: "${group}", en: "${group}" },\n};\n`,
+      `import { ${icon} } from "lucide-react";\nimport type { PageMeta } from "@/lib/page-meta";\n\nexport const meta: PageMeta = {\n  isGroup: true,\n  icon: ${icon},\n  label: { zh: "${group}", en: "${group}" },\n};\n`,
     );
   }
-  return { ...writer.commit(), root, path: `/${path}` };
+  const result = writer.commit();
+  // The texts it wrote for both languages are the English name: the Chinese ones are left to translate
+  const translate = result.created.filter((f) => /(^|\/)(_meta\.ts|zh\.json)$/.test(f));
+  return { ...result, root, path: `/${path}`, translate };
 }
 
 /**
@@ -109,5 +116,7 @@ export function newModule({ name, cwd = process.cwd(), force, dryRun }) {
     },
     dir,
   );
-  return { ...writer.commit(), root, name: id, Name: pascal(id) };
+  const result = writer.commit();
+  const translate = result.created.filter((f) => /(^|\/)zh\.json$/.test(f));
+  return { ...result, root, name: id, Name: pascal(id), translate };
 }

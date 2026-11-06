@@ -15,6 +15,7 @@ import { afterEach, describe, expect, test } from "vite-plus/test";
 import { createProject, featuresFor } from "../src/commands/create.js";
 import { newModule, newPage } from "../src/commands/new.js";
 import { init } from "../src/commands/init.js";
+import { check } from "../src/commands/check.js";
 import {
   addThemes,
   removeThemes,
@@ -325,6 +326,12 @@ describe("new page / module", () => {
       "systemUserRolesKeys.all",
     );
     expect(read(dir, "src", "pages", "system", "_meta.ts")).toContain("isGroup: true");
+    // Groups get an icon: Settings for system / settings, Folder for the rest
+    expect(read(dir, "src", "pages", "system", "_meta.ts")).toContain("icon: Settings,");
+    newPage({ name: "catalog/books", cwd: dir });
+    expect(read(dir, "src", "pages", "catalog", "_meta.ts")).toContain(
+      'import { Folder } from "lucide-react";',
+    );
     expect(leftovers(dir)).toEqual([]);
     expect(() => newPage({ name: "system/user-roles", cwd: dir })).toThrow("already exists");
   });
@@ -416,6 +423,43 @@ describe("new page / module", () => {
     expect(read(dir, "src", "modules", "order-panel", "index.tsx")).toContain(
       "export function OrderPanel()",
     );
+  });
+});
+
+describe("check: texts left untranslated", () => {
+  test("a fresh project has none; new page's English placeholders are warnings (zh.json, _meta.ts) until translated", async () => {
+    const dir = target();
+    createProject({ dir, template: "admin" });
+    const untranslated = async () =>
+      (await check({ cwd: dir, only: ["i18n"] })).issues.filter((i) =>
+        /not translated/.test(i.message),
+      );
+    expect(await untranslated()).toEqual([]);
+
+    const { translate } = newPage({ name: "system/audit-logs", cwd: dir });
+    expect(translate.sort()).toEqual([
+      "src/pages/system/_meta.ts",
+      "src/pages/system/audit-logs/_meta.ts",
+      "src/pages/system/audit-logs/locales/messages/zh.json",
+    ]);
+    const left = await untranslated();
+    expect(left.map((i) => [i.file, i.severity])).toEqual([
+      ["src/pages/system/audit-logs/locales/messages/zh.json", "warning"],
+      ["src/pages/system/_meta.ts", "warning"],
+      ["src/pages/system/audit-logs/_meta.ts", "warning"],
+    ]);
+    expect(left[0].message).toContain('"title"');
+    // Warnings: the check still passes
+    expect((await check({ cwd: dir, only: ["i18n"] })).ok).toBe(true);
+
+    const zh = join(dir, "src", "pages", "system", "audit-logs", "locales", "messages", "zh.json");
+    writeFileSync(zh, read(zh).replace('"Audit Logs"', '"审计日志"'));
+    for (const meta of [
+      join(dir, "src", "pages", "system", "_meta.ts"),
+      join(dir, "src", "pages", "system", "audit-logs", "_meta.ts"),
+    ])
+      writeFileSync(meta, read(meta).replace(/zh: "[^"]*"/, 'zh: "中文"'));
+    expect(await untranslated()).toEqual([]);
   });
 });
 

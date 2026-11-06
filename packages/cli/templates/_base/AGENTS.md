@@ -106,7 +106,7 @@ src/
 1. Mock the same endpoints in `src/pages/orders/mocks/handlers.ts` (`http.get("*/api/orders", …)` from msw).
 {{/if}}
 {{#if i18n}}
-1. Put every text in `locales/messages/zh.json` and `en.json` (same keys in both) and use `t("key")`.
+1. Put every text in `locales/messages/zh.json` and `en.json` (same keys in both) and use `t("key")`. `new page` (and `--from`) writes the English name as a placeholder in zh.json and in `_meta.ts`'s `label.zh`: write the Chinese (`npm run check` warns about what is left).
 {{/if}}
 {{#if shell}}
 1. Wrap the page in `<Page title description actions>` from `@/skein-shell`. For a list with filters, a table, pagination and a create / edit dialog, copy the structure of `src/pages/users/`. A detail page goes under its list's path (`/users/42`: `src/pages/users/detail.tsx`, route `users_.$id.tsx`, `_` so it isn't nested in the list's route), so the menu, the breadcrumb{{#if tenant}} and switching tenants{{/if}} know which list it belongs to.

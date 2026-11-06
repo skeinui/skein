@@ -83,7 +83,6 @@ export function AppLayout({ items, logo, logoMark, context, actions, footer }: A
       tabs={
         layout.showTabs ? (
           <PageTabs
-            aria-label="Pages"
             variant={layout.tabVariant}
             // Titles come from the menu (or the page), so they follow the language
             tabs={tabs.map((tab) => {

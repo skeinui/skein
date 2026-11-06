@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { basename, dirname, join, relative } from "node:path";
 import { findProjectRoot, readProject, toPosix } from "../project.js";
 import { checkTheme } from "../theme/index.js";
 
@@ -9,7 +9,8 @@ import { checkTheme } from "../theme/index.js";
  * as a list of issues with file, line and a hint on how Skein wants it done. Exits non-zero on errors.
  *
  * - typecheck: `tsc` (after `tsr generate` when the project has routes), with Skein-specific hints
- * - i18n: zh / en message files have the same keys, and every literal `t("key")` exists
+ * - i18n: zh / en message files have the same keys, and every literal `t("key")` exists; warns about texts
+ *   left untranslated (the English placeholders `new page` writes into zh.json and _meta.ts)
  * - style: no hard-coded colors in the project's CSS or inline styles (use var(--ui-*))
  * - theme: a theme style written in the project (src/theme/) covers the @skeinui/ui contract
  */
@@ -119,6 +120,26 @@ const flatten = (obj, prefix = "") =>
     v && typeof v === "object" ? flatten(v, `${prefix}${k}.`) : [`${prefix}${k}`],
   );
 
+/** Values by flattened key. */
+const values = (obj, prefix = "") =>
+  Object.entries(obj ?? {}).flatMap(([k, v]) =>
+    v && typeof v === "object" ? values(v, `${prefix}${k}.`) : [[`${prefix}${k}`, v]],
+  );
+
+/**
+ * A Chinese text that is still the English one: words in Latin letters, the same as en. Abbreviations that read
+ * the same in both (SKU, ID, URL) don't count.
+ */
+const untranslated = (zh, en) =>
+  typeof zh === "string" &&
+  zh === en &&
+  /[A-Za-z]{2,}/.test(zh) &&
+  !/[\u4e00-\u9fff]/.test(zh) &&
+  !/^[A-Z0-9]{1,5}$/.test(zh);
+
+const TRANSLATE_HINT =
+  "skein new page writes the English name as a placeholder for both languages (the CLI can't translate): write the Chinese text.";
+
 function i18n(root) {
   const issues = [];
   const messageDirs = walk(join(root, "src"), (f) => f.endsWith("locales/messages/zh.json")).map(
@@ -161,6 +182,21 @@ function i18n(root) {
           message: `missing key "${key}" (it is in en.json)`,
         });
     }
+    const enValues = new Map(values(en));
+    const left = values(zh)
+      .filter(([key, text]) => untranslated(text, enValues.get(key)))
+      .map(([key]) => key);
+    if (left.length > 0)
+      issues.push({
+        check: "i18n",
+        severity: "warning",
+        file: `${rel}/zh.json`,
+        message: `not translated (the same as en.json): ${left
+          .slice(0, 8)
+          .map((k) => `"${k}"`)
+          .join(", ")}${left.length > 8 ? ` and ${left.length - 8} more` : ""}`,
+        hint: TRANSLATE_HINT,
+      });
     // Literal keys used by the page / module these messages belong to (locales/messages → its owner)
     const owner = dirname(dirname(dir));
     const sources = walk(owner, (f) => /\.tsx?$/.test(f) && !f.includes(`${owner}/locales/`));
@@ -184,6 +220,20 @@ function i18n(root) {
           }
         });
     }
+  }
+  // Menu labels (_meta.ts): label: { zh: "Orders", en: "Orders" }
+  for (const file of walk(join(root, "src", "pages"), (f) => basename(f) === "_meta.ts")) {
+    const text = readFileSync(file, "utf8");
+    const m = text.match(/label:\s*\{\s*zh:\s*"([^"]*)",\s*en:\s*"([^"]*)"/);
+    if (m && untranslated(m[1], m[2]))
+      issues.push({
+        check: "i18n",
+        severity: "warning",
+        file: relative(root, file),
+        line: text.slice(0, m.index).split("\n").length,
+        message: `menu label not translated: zh is "${m[1]}", the same as en`,
+        hint: TRANSLATE_HINT,
+      });
   }
   return issues;
 }
