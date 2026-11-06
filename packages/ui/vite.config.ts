@@ -8,6 +8,9 @@ export default defineConfig({
     },
   },
   fmt: {},
+  // The first test of a file pays for importing and first rendering its component: on the slowest CI runners
+  // (Windows) a large one (Agenda) took over vitest's 5 s
+  test: { testTimeout: 15_000 },
   // These measure the running docs site: theme styles reach them over HTTP, not as files the task reads, so the
   // run cache can't tell they changed and would replay an old result. Never cache them
   run: {
