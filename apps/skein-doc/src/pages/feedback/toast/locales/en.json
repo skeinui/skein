@@ -10,6 +10,20 @@
     "title": "Rich Colors",
     "description": "`richColors` tints a typed toast in its color, background, border and text alike (like Sonner's): on the `Toaster` for every toast, or on one toast."
   },
+  "icon": {
+    "title": "Custom Icon",
+    "description": "`icon` on a toast replaces its type's icon (and gives a default toast one); `icons` on the `Toaster` replaces the icon of every toast of a type."
+  },
+  "close": {
+    "title": "Close Button",
+    "description": "Every toast has a close button. `closeButton={false}` on the `Toaster` or on a toast removes it; the toast then closes by its timeout, by swiping or with `toast.close(id)`."
+  },
+  "custom": {
+    "title": "Custom Content",
+    "description": "`toast.custom(render)` puts your own content in a toast, in place of its icon, title, description and action; the frame and the close button stay. `render` gets the toast's id.",
+    "sent": "Invite sent",
+    "dismiss": "Dismiss"
+  },
   "description": {
     "title": "With Description"
   },
@@ -24,7 +38,8 @@
   },
   "layout": {
     "title": "Layout",
-    "stacked": "When stacked, each toast tucks under the one before it"
+    "stacked": "When stacked, each toast tucks under the one before it",
+    "description": "`list` shows every toast in full (Sonner's `expand`); `stack` tucks them under the front one until you hover or focus them."
   },
   "position": {
     "title": "Position",
@@ -37,11 +52,12 @@
     "title": "API Reference",
     "functions": "`<Toaster />` goes once at the app root and every toast renders in it. Toasts are shown with the `toast` functions:",
     "function": "Function",
-    "toast": "`{ title, description, type, timeout, action, richColors, onClose }`; `timeout: 0` never closes on its own",
+    "toast": "`{ title, description, type, timeout, action, icon, closeButton, richColors, onClose }`; `timeout: 0` never closes on its own",
     "typed": "Shorthands with a type",
     "loading": "In progress: a spinner, never closes on its own; finish with `toast.update(id, { type: 'success', … })` or `toast.close(id)`",
     "promise": "Updates the same toast as the promise settles",
-    "update": "Update or close; without an id, closes them all"
+    "update": "Update or close; without an id, closes them all",
+    "custom": "Your own content in a toast: `render(id)` returns it; the frame and the close button stay"
   },
   "styling": {
     "title": "Styling Reference",

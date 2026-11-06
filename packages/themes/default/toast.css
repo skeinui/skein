@@ -104,6 +104,11 @@
     flex-direction: column;
     gap: 0.125rem;
     min-width: 0;
+  }
+  /* Room for the close button, when the toast has one (Toaster / toast `closeButton`) */
+  [data-skein-theme="default"]
+    [data-slot="toast"]:has([data-slot="toast-close"])
+    [data-slot="toast-content"] {
     padding-inline-end: 1.5rem;
   }
   [data-skein-theme="default"] [data-slot="toast-title"] {

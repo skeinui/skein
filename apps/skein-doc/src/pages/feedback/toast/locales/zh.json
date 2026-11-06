@@ -10,6 +10,20 @@
     "title": "彩色样式",
     "description": "`richColors` 让带类型的 toast 整条染上它的颜色，底色、描边和文字一起（同 Sonner 的 rich colors）：设在 `Toaster` 上对所有 toast 生效，也可以只给某一条。"
   },
+  "icon": {
+    "title": "自定义图标",
+    "description": "toast 上的 `icon` 换掉它类型的图标（默认类型的 toast 也能加一个）；`Toaster` 上的 `icons` 换掉某个类型所有 toast 的图标。"
+  },
+  "close": {
+    "title": "关闭按钮",
+    "description": "每条 toast 都有关闭按钮。在 `Toaster` 或单条 toast 上设 `closeButton={false}` 去掉它；之后 toast 靠超时、滑动或 `toast.close(id)` 关闭。"
+  },
+  "custom": {
+    "title": "自定义内容",
+    "description": "`toast.custom(render)` 把你自己的内容放进 toast，代替图标、标题、说明和操作按钮；外框和关闭按钮保留。`render` 会拿到这条 toast 的 id。",
+    "sent": "邀请已发送",
+    "dismiss": "知道了"
+  },
   "description": {
     "title": "带说明"
   },
@@ -24,7 +38,8 @@
   },
   "layout": {
     "title": "布局",
-    "stacked": "叠放时后面的会缩在前一条下面"
+    "stacked": "叠放时后面的会缩在前一条下面",
+    "description": "`list` 把每条 toast 完整铺开（相当于 Sonner 的 `expand`）；`stack` 把后面的叠在最前面一条下面，悬停或聚焦时展开。"
   },
   "position": {
     "title": "位置",
@@ -37,11 +52,12 @@
     "title": "API 参考",
     "functions": "`<Toaster />` 在应用根放一次，所有 toast 渲染在这里。用 `toast` 系列函数弹出消息：",
     "function": "函数",
-    "toast": "`{ title, description, type, timeout, action, richColors, onClose }`；`timeout: 0` 不自动关闭",
+    "toast": "`{ title, description, type, timeout, action, icon, closeButton, richColors, onClose }`；`timeout: 0` 不自动关闭",
     "typed": "带类型的快捷写法",
     "loading": "进行中：转圈、不自动关闭；之后用 `toast.update(id, { type: 'success', … })` 或 `toast.close(id)` 收尾",
     "promise": "随 promise 状态更新同一条 toast",
-    "update": "更新或关闭，不传 id 关闭全部"
+    "update": "更新或关闭，不传 id 关闭全部",
+    "custom": "在 toast 里放你自己的内容：`render(id)` 返回它；外框和关闭按钮保留"
   },
   "styling": {
     "title": "样式钩子",
@@ -61,7 +77,9 @@
       "limit": "同时显示的最大条数；多出的标记为 limited（怎么收起由主题风格决定）。",
       "position": "toast 出现的角落。",
       "timeout": "默认自动关闭的毫秒数。",
-      "richColors": "让 info / success / warning / danger 的 toast 整条染上它的颜色（底色、描边和文字），同 Sonner 的 rich colors；否则只有图标着色。单条 toast 的 `richColors` 优先。"
+      "richColors": "让 info / success / warning / danger 的 toast 整条染上它的颜色（底色、描边和文字），同 Sonner 的 rich colors；否则只有图标着色。单条 toast 的 `richColors` 优先。",
+      "closeButton": "每条 toast 是否显示关闭按钮（单条 toast 的 `closeButton` 优先）。",
+      "icons": "按类型换掉内置图标（单条 toast 的 `icon` 优先）。"
     }
   }
 }

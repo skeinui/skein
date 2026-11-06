@@ -16,16 +16,31 @@ export interface ToastOptions {
   action?: { label: ReactNode; onClick: () => void };
   /** Tint this toast in its type's color (info / success / warning / danger); overrides the Toaster's `richColors`. */
   richColors?: boolean;
+  /** Icon of this toast, in place of its type's; also gives a `default` toast one. Overrides the Toaster's `icons`. */
+  icon?: ReactNode;
+  /** Show or hide this toast's close button; overrides the Toaster's `closeButton`. */
+  closeButton?: boolean;
   onClose?: () => void;
 }
 
 interface ToastData {
   action?: { label: ReactNode; onClick: () => void };
   richColors?: boolean;
+  icon?: ReactNode;
+  closeButton?: boolean;
+  /** `toast.custom`: the toast's whole content. */
+  custom?: (id: string) => ReactNode;
 }
 
-function add({ action, richColors, ...options }: ToastOptions) {
-  const data: ToastData = { action, richColors };
+function add({
+  action,
+  richColors,
+  icon,
+  closeButton,
+  custom,
+  ...options
+}: ToastOptions & { custom?: ToastData["custom"] }) {
+  const data: ToastData = { action, richColors, icon, closeButton, custom };
   return manager.add({
     ...options,
     type: options.type ?? "default",
@@ -54,6 +69,14 @@ export const toast = Object.assign(
     /** In progress: spinner, no auto close; finish afterwards with `toast.update(id, { type: "success", … })` or `toast.close(id)`. */
     loading: (title: ReactNode, options?: Omit<ToastOptions, "title" | "type">) =>
       add({ timeout: 0, ...options, title, type: "loading" }),
+    /**
+     * A toast with content of your own in place of the icon, title, description and action (the frame and the close
+     * button stay): `render` gets the toast's id, e.g. to close it from a button of yours.
+     */
+    custom: (
+      render: (id: string) => ReactNode,
+      options?: Omit<ToastOptions, "title" | "description" | "type" | "icon" | "action">,
+    ) => add({ ...options, custom: render }),
     close: (id?: string) => manager.close(id),
     update: manager.update,
     promise: manager.promise,
@@ -82,6 +105,16 @@ export interface ToasterProps {
    */
   timeout?: number;
   /**
+   * Show a close button on every toast (a toast's own `closeButton` overrides it); without one a toast closes by
+   * its timeout, by swiping or from code (`toast.close(id)`).
+   * @default true
+   */
+  closeButton?: boolean;
+  /**
+   * Icons by type, in place of the built-in ones (a toast's own `icon` overrides them).
+   */
+  icons?: Partial<Record<Exclude<ToastType, "default">, ReactNode>>;
+  /**
    * Tint info / success / warning / danger toasts in their color (background, border and text), like Sonner's rich colors;
    * otherwise only the icon is colored. A toast's own `richColors` overrides it.
    * @default false
@@ -99,11 +132,33 @@ const ICON_PATHS: Record<Exclude<ToastType, "default">, string> = {
   loading: "M12 3a9 9 0 1 0 9 9",
 };
 
-function ToastList({ richColors }: { richColors: boolean }) {
+/** The built-in icon of a typed toast. */
+function TypeIcon({ type }: { type: Exclude<ToastType, "default"> }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={ICON_PATHS[type]} />
+    </svg>
+  );
+}
+
+function ToastList({
+  richColors,
+  closeButton,
+  icons,
+}: Required<Pick<ToasterProps, "richColors" | "closeButton">> & Pick<ToasterProps, "icons">) {
   const c = useLabels("common");
   const { toasts } = BaseToast.useToastManager<ToastData>();
   return toasts.map((item) => {
     const type = (item.type ?? "default") as ToastType;
+    const { custom, icon: own, closeButton: ownClose } = item.data ?? {};
+    const icon = own ?? (type === "default" ? null : (icons?.[type] ?? <TypeIcon type={type} />));
     return (
       <BaseToast.Root
         key={item.id}
@@ -112,41 +167,40 @@ function ToastList({ richColors }: { richColors: boolean }) {
         data-type={type}
         data-rich-colors={(item.data?.richColors ?? richColors) || undefined}
       >
-        {type !== "default" ? (
+        {custom ? null : icon ? (
           <span data-slot="toast-icon" aria-hidden="true">
+            {icon}
+          </span>
+        ) : null}
+        <BaseToast.Content data-slot="toast-content">
+          {custom ? (
+            custom(item.id)
+          ) : (
+            <>
+              {item.title ? <BaseToast.Title data-slot="toast-title" /> : null}
+              {item.description ? <BaseToast.Description data-slot="toast-description" /> : null}
+              {item.data?.action ? (
+                <BaseToast.Action data-slot="toast-action" onClick={item.data.action.onClick}>
+                  {item.data.action.label}
+                </BaseToast.Action>
+              ) : null}
+            </>
+          )}
+        </BaseToast.Content>
+        {(ownClose ?? closeButton) ? (
+          <BaseToast.Close data-slot="toast-close" aria-label={c.close}>
             <svg
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
-              strokeLinejoin="round"
+              aria-hidden="true"
             >
-              <path d={ICON_PATHS[type as Exclude<ToastType, "default">]} />
+              <path d="M6 6l12 12M18 6 6 18" />
             </svg>
-          </span>
+          </BaseToast.Close>
         ) : null}
-        <BaseToast.Content data-slot="toast-content">
-          {item.title ? <BaseToast.Title data-slot="toast-title" /> : null}
-          {item.description ? <BaseToast.Description data-slot="toast-description" /> : null}
-          {item.data?.action ? (
-            <BaseToast.Action data-slot="toast-action" onClick={item.data.action.onClick}>
-              {item.data.action.label}
-            </BaseToast.Action>
-          ) : null}
-        </BaseToast.Content>
-        <BaseToast.Close data-slot="toast-close" aria-label={c.close}>
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <path d="M6 6l12 12M18 6 6 18" />
-          </svg>
-        </BaseToast.Close>
       </BaseToast.Root>
     );
   });
@@ -155,7 +209,8 @@ function ToastList({ richColors }: { richColors: boolean }) {
 /**
  * Toaster: shows the notifications raised with `toast` (`toast.success("Saved")`, `toast.loading(…)`, `toast.close(id)`).
  * Place it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear,
- * `richColors` tints typed toasts in their color.
+ * `richColors` tints typed toasts in their color, `closeButton` and `icons` change the close button and the icons;
+ * `toast.custom(render)` puts content of your own in a toast.
  * For a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.
  *
  * Theme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).
@@ -166,6 +221,8 @@ export function Toaster({
   limit = 3,
   timeout = 5000,
   richColors = false,
+  closeButton = true,
+  icons,
 }: ToasterProps) {
   const c = useLabels("common");
   return (
@@ -178,7 +235,7 @@ export function Toaster({
           data-position={position}
           data-layout={layout}
         >
-          <ToastList richColors={richColors} />
+          <ToastList richColors={richColors} closeButton={closeButton} icons={icons} />
         </BaseToast.Viewport>
       </BaseToast.Portal>
     </BaseToast.Provider>

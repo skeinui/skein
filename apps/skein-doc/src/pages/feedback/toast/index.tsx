@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
+import { GearIcon, GlobeIcon } from "@/doc/icons.tsx";
 
 /** The `toast` functions; their descriptions are the page's `api.<key>` messages. */
 const FUNCTIONS = [
@@ -20,6 +21,11 @@ const FUNCTIONS = [
     type: "(title, options?) => id",
   },
   { key: "loading", name: "toast.loading(title, options?)", type: "(title, options?) => id" },
+  {
+    key: "custom",
+    name: "toast.custom(render, options?)",
+    type: "((id) => ReactNode, options?) => id",
+  },
   { key: "promise", name: "toast.promise(promise, { loading, success, error })", type: "Promise" },
   { key: "update", name: "toast.update / toast.close", type: "(id, …) / (id?)" },
 ];
@@ -153,6 +159,77 @@ toast.success("Saved", { richColors: true });`}
             danger
           </Button>
         </div>
+      </Example>
+
+      <Example
+        id="icon"
+        code={`// one toast
+toast.success("Deployed", { icon: <GlobeIcon /> });
+
+// every toast of a type
+<Toaster icons={{ success: <GlobeIcon /> }} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Button
+            variant="outline"
+            onClick={() => toast.success("Deployed", { icon: <GlobeIcon /> })}
+          >
+            success with an icon
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => toast({ title: "Reminder", icon: <GearIcon /> })}
+          >
+            default with an icon
+          </Button>
+        </div>
+      </Example>
+
+      <Example
+        id="close"
+        code={`// no close button on any toast
+<Toaster closeButton={false} />
+
+// or only on this one
+toast.info("Heads up", { closeButton: false });`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Button
+            variant="outline"
+            onClick={() => toast.info("Closes by itself", { closeButton: false, timeout: 3000 })}
+          >
+            without a close button
+          </Button>
+          <Button variant="outline" onClick={() => toast.info("Close me", { timeout: 0 })}>
+            stays until closed
+          </Button>
+        </div>
+      </Example>
+
+      <Example
+        id="custom"
+        code={`toast.custom((id) => (
+  <div>
+    <strong>Invite sent</strong>
+    <Button size="sm" onClick={() => toast.close(id)}>Dismiss</Button>
+  </div>
+));`}
+      >
+        <Button
+          variant="outline"
+          onClick={() =>
+            toast.custom((id) => (
+              <div className="pg-stack pg-stack--start">
+                <strong>{t("custom.sent")}</strong>
+                <Button size="sm" variant="soft" onClick={() => toast.close(id)}>
+                  {t("custom.dismiss")}
+                </Button>
+              </div>
+            ))
+          }
+        >
+          Show toast
+        </Button>
       </Example>
 
       <Example

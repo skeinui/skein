@@ -198,4 +198,53 @@ describe("Progress / Toast", () => {
     await act(async () => root.unmount());
     el.remove();
   });
+
+  test("closeButton, icons and toast.custom", async () => {
+    const el = document.createElement("div");
+    document.body.appendChild(el);
+    const root = createRoot(el);
+    const close = () => document.body.querySelectorAll('[data-slot="toast-close"]').length;
+    await act(async () => {
+      root.render(
+        createElement(Toaster, { icons: { success: createElement("i", { id: "own-icon" }) } }),
+      );
+    });
+    await act(async () => {
+      toast.close();
+    });
+    await act(async () => {
+      toast.success("Saved");
+    });
+    // A close button on every toast, and the Toaster's icon for the type
+    expect(close()).toBe(1);
+    expect(document.body.querySelector('[data-slot="toast-icon"] #own-icon')).not.toBeNull();
+    await act(async () => {
+      toast.close();
+    });
+    await act(async () => {
+      root.render(createElement(Toaster, { closeButton: false }));
+    });
+    await act(async () => {
+      toast.info("No close");
+      toast({
+        title: "Own close",
+        closeButton: true,
+        icon: createElement("b", { id: "toast-icon" }),
+      });
+    });
+    expect(close()).toBe(1);
+    expect(document.body.querySelector('[data-slot="toast-icon"] #toast-icon')).not.toBeNull();
+    await act(async () => {
+      toast.close();
+    });
+    await act(async () => {
+      toast.custom((id) => createElement("p", { id: "custom" }, id));
+    });
+    const custom = document.body.querySelector('[data-slot="toast"]');
+    expect(custom?.querySelector('[data-slot="toast-content"] #custom')?.textContent).toBeTruthy();
+    // Content of its own: no icon, title or action around it
+    expect(custom?.querySelector('[data-slot="toast-icon"], [data-slot="toast-title"]')).toBeNull();
+    await act(async () => root.unmount());
+    el.remove();
+  });
 });

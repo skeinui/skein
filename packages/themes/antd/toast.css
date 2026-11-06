@@ -106,10 +106,15 @@
   }
   [data-skein-theme="antd"] [data-slot="toast-title"] {
     margin: 0;
-    padding-inline-end: 1.5rem;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
+  }
+  /* Room for the close button, when the toast has one (Toaster / toast `closeButton`) */
+  [data-skein-theme="antd"]
+    [data-slot="toast"]:has([data-slot="toast-close"])
+    [data-slot="toast-title"] {
+    padding-inline-end: 1.5rem;
   }
   [data-skein-theme="antd"] [data-slot="toast-description"] {
     margin: 0;

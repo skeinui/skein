@@ -17686,9 +17686,18 @@
       }
     },
     "Toaster": {
-      "description": "Toaster: shows the notifications raised with `toast` (`toast.success(\"Saved\")`, `toast.loading(…)`, `toast.close(id)`).\nPlace it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear,\n`richColors` tints typed toasts in their color.\nFor a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.\n\nTheme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).",
+      "description": "Toaster: shows the notifications raised with `toast` (`toast.success(\"Saved\")`, `toast.loading(…)`, `toast.close(id)`).\nPlace it once at the app root; `position`, `layout` (list / stack), `limit` and `timeout` set where and how they appear,\n`richColors` tints typed toasts in their color, `closeButton` and `icons` change the close button and the icons;\n`toast.custom(render)` puts content of your own in a toast.\nFor a message that stays on the page use Alert; for a decision use Dialog / ConfirmDialog.\n\nTheme style: toasts render in a Portal, so data-skein-theme must be set on <html> (ConfigProvider does it).",
       "import": "import { Toaster } from \"@skeinui/ui\";",
       "props": {
+        "closeButton": {
+          "type": "boolean",
+          "description": "Show a close button on every toast (a toast's own `closeButton` overrides it); without one a toast closes by\nits timeout, by swiping or from code (`toast.close(id)`).",
+          "default": "true"
+        },
+        "icons": {
+          "type": "Partial<Record<\"success\" | \"warning\" | \"danger\" | \"loading\" | \"info\", ReactNode>>",
+          "description": "Icons by type, in place of the built-in ones (a toast's own `icon` overrides them)."
+        },
         "layout": {
           "type": "\"list\" | \"stack\"",
           "values": [
@@ -17740,6 +17749,18 @@
         {
           "title": "Rich Colors",
           "code": "// every typed toast\n<Toaster richColors />\n\n// or one toast\ntoast.success(\"Saved\", { richColors: true });"
+        },
+        {
+          "title": "Custom Icon",
+          "code": "// one toast\ntoast.success(\"Deployed\", { icon: <GlobeIcon /> });\n\n// every toast of a type\n<Toaster icons={{ success: <GlobeIcon /> }} />"
+        },
+        {
+          "title": "Close Button",
+          "code": "// no close button on any toast\n<Toaster closeButton={false} />\n\n// or only on this one\ntoast.info(\"Heads up\", { closeButton: false });"
+        },
+        {
+          "title": "Custom Content",
+          "code": "toast.custom((id) => (\n  <div>\n    <strong>Invite sent</strong>\n    <Button size=\"sm\" onClick={() => toast.close(id)}>Dismiss</Button>\n  </div>\n));"
         },
         {
           "title": "With Description",

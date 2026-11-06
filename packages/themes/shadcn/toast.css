@@ -109,6 +109,11 @@
     column-gap: 0.75rem;
     row-gap: 0.25rem;
     min-width: 0;
+  }
+  /* Room for the close button, when the toast has one (Toaster / toast `closeButton`) */
+  [data-skein-theme="shadcn"]
+    [data-slot="toast"]:has([data-slot="toast-close"])
+    [data-slot="toast-content"] {
     padding-inline-end: 1.5rem;
   }
   [data-skein-theme="shadcn"] [data-slot="toast-content"] > :not([data-slot="toast-action"]) {
