@@ -69,6 +69,24 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
     for (const [file, content] of Object.entries(crudFiles(model, { path, flags }))) {
       writer.write(join(pageDir, file), content);
     }
+    // GET /orders/{id}: a detail page at /orders/42 (`_`: not nested in the list's route, it's a page of its own)
+    if (model.ops.read && model.idField) {
+      const { Name, routeId } = context.vars;
+      writer.write(
+        join("src", "routes", ...parent, `${path}_.$id.tsx`),
+        `import { createFileRoute } from "@tanstack/react-router";
+import { ${Name}DetailPage } from "@/pages/${path}/detail";
+
+/** One row's page, ${flags.tenant ? "/<tenant>" : ""}/${path}/<id>: under the list's menu item, not nested in the list's route. */
+export const Route = createFileRoute("${routeId}_/$id")({
+  component: function ${Name}DetailRoute() {
+    const { id } = Route.useParams();
+    return <${Name}DetailPage id={${model.idType === "number" ? "Number(id)" : "id"}} />;
+  },
+});
+`,
+      );
+    }
   } else {
     renderDir(writer, join(TEMPLATES_DIR, "pages", "_blank", "files"), context, pageDir);
   }

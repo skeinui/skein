@@ -32,7 +32,7 @@
   },
   "pages": {
     "title": "页面与模块",
-    "p1": "`--from` 读取 OpenAPI 3 文档（JSON 或 YAML）中的一个资源，生成带筛选、新建、编辑、删除的列表页，有类型、带 mock。文档里有多个资源时，用 `--resource /orders` 指定。"
+    "p1": "`--from` 读取 OpenAPI 3 文档（JSON 或 YAML）中的一个资源，生成带筛选、新建、编辑、删除的列表页，有类型、带 mock；文档里有读取单条数据的接口（`GET /orders/{id}`）时，还会生成详情页。文档里有多个资源时，用 `--resource /orders` 指定。"
   },
   "theme-commands": {
     "title": "主题风格",

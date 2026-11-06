@@ -239,13 +239,39 @@ for (const c of CASES) {
     } finally {
       server.kill();
     }
-    check(c.id, "new page orders + system/logs under $tenant/, check clean", () => {
-      sh(dir, "node", [CLI, "new", "page", "orders"]);
+    const ordersYaml = join(import.meta.dirname, "..", "fixtures", "orders.yaml");
+    check(c.id, "new page orders --from + system/logs under $tenant/, check clean", () => {
+      sh(dir, "node", [CLI, "new", "page", "orders", "--from", ordersYaml]);
       sh(dir, "node", [CLI, "new", "page", "system/logs"]);
-      if (!existsSync(join(dir, "src", "routes", "_auth", "$tenant", "system", "logs.tsx")))
-        throw new Error("no route under $tenant/");
+      for (const route of [["system", "logs.tsx"], ["orders_.$id.tsx"]])
+        if (!existsSync(join(dir, "src", "routes", "_auth", "$tenant", ...route)))
+          throw new Error(`no route ${route.join("/")} under $tenant/`);
       sh(dir, "npm", ["run", "check"]);
     });
+    // The CRUD page under the tenant: the tenant's own 8 orders, create / edit / delete, its detail page
+    const crudServer = await serve(dir, port++);
+    try {
+      console.log("  browser, CRUD page under the tenant:");
+      const steps = await crudFlow(
+        `http://localhost:${port - 1}`,
+        {
+          path: "/orders",
+          menu: "Orders",
+          expectRows: 8,
+          detail: true,
+          create: [
+            ["Customer", "Zed Test"],
+            ["Email", "zed@example.com"],
+            ["Amount", "42"],
+          ],
+          rename: ["Customer", "Zed Renamed"],
+        },
+        { log: (l) => console.log(`  ${l}`) },
+      );
+      for (const s of steps) results.push({ id: c.id, name: `browser: ${s.name}`, ok: s.ok });
+    } finally {
+      crudServer.kill();
+    }
   }
 
   if (c.admin) {
@@ -283,6 +309,7 @@ for (const c of CASES) {
             path: "/orders",
             menu: "Orders",
             expectRows: 10,
+            detail: true,
             create: [
               ["Customer", "Zed Test"],
               ["Email", "zed@example.com"],

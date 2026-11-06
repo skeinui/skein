@@ -11,6 +11,9 @@ const key = (name) => (IDENT.test(name) ? name : JSON.stringify(name));
 const access = (obj, name) =>
   IDENT.test(name) ? `${obj}.${name}` : `${obj}[${JSON.stringify(name)}]`;
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
+/** `obj?.name`, for a value that may not be loaded yet. */
+const accessOpt = (obj, name) =>
+  IDENT.test(name) ? `${obj}?.${name}` : `${obj}?.[${JSON.stringify(name)}]`;
 
 function interfaceOf(name, fields, { allRequired = false } = {}) {
   const lines = fields.map(
@@ -70,6 +73,24 @@ function cellOf(f) {
       return `{${v} ? dateTime.format(new Date(${v})) : null}`;
     default:
       return `{${v}}`;
+  }
+}
+
+/** A field's value on the detail page (a Descriptions item), `row` possibly not loaded yet. */
+function valueOf(f) {
+  const v = access("row", f.name);
+  const opt = accessOpt("row", f.name);
+  switch (f.kind) {
+    case "enum":
+      return `${opt} ? t(\`enum.${f.name}.\${${v}}\`) : undefined`;
+    case "boolean":
+      return `row ? (\n                    <Tag variant="soft" color={${v} ? "success" : "neutral"}>\n                      {t(${v} ? "bool.yes" : "bool.no")}\n                    </Tag>\n                  ) : undefined`;
+    case "date":
+      return `${opt} ? date.format(new Date(${v})) : undefined`;
+    case "datetime":
+      return `${opt} ? dateTime.format(new Date(${v})) : undefined`;
+    default:
+      return opt;
   }
 }
 
@@ -136,6 +157,10 @@ export function crudFiles(model, { path, flags }) {
   const editable = Boolean(ops.update);
   const hasDialog = ops.create || editable;
   const label = (obj) => (labelField ? `String(${access(obj, labelField)})` : `""`);
+  // A detail page when the API reads one row (GET /orders/{id}): /orders/42, under the tenant with tenant
+  const detail = Boolean(ops.read && idField);
+  const fetchOne = `fetch${Entity}`;
+  const tenant = Boolean(flags.tenant);
   const files = {};
 
   // ---------- api
@@ -177,14 +202,14 @@ export interface ${Name}List {
 /** Query keys: invalidate \`${keys}.all\` after a change and every list refetches. */
 export const ${keys} = {
   all: [${JSON.stringify(ns)}] as const,
-  list: (query: ${Query}) => [${JSON.stringify(ns)}, "list", query] as const,
+  list: (query: ${Query}) => [${JSON.stringify(ns)}, "list", query] as const,${detail ? `\n  detail: (id: ${model.idType}) => [${JSON.stringify(ns)}, "detail", id] as const,` : ""}
 };
 
 export async function ${fetchList}(${params.length ? "query" : "_query"}: ${Query}): Promise<${Name}List> {
   const res = await http.get<${listType}>(${JSON.stringify(model.path)}${params.length ? `, {\n    params: { ${params.join(", ")} },\n  }` : ""});
   return { items: ${itemsExpr}, total: ${totalExpr} };
 }
-${ops.create ? `\nexport const create${Entity} = (input: ${Entity}Input) => http.post<${Entity}>(${JSON.stringify(model.path)}, input);\n` : ""}${
+${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Entity}>(${itemUrl});\n` : ""}${ops.create ? `\nexport const create${Entity} = (input: ${Entity}Input) => http.post<${Entity}>(${JSON.stringify(model.path)}, input);\n` : ""}${
     editable
       ? `\nexport const update${Entity} = (id: ${model.idType}, input: ${Entity}Input) =>\n  http.${ops.update}<${Entity}>(${itemUrl}, input);\n`
       : ""
@@ -340,8 +365,21 @@ export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) 
     ...(usesTag ? ["Tag"] : []),
   ].filter((x) => (x !== "Button" && x !== "Flex") || editable || ops.remove);
   const actions = editable || ops.remove;
+  // The column that opens the detail page: the row's name, else the first plain one
+  const plain = (f) => !["enum", "boolean", "date", "datetime"].includes(f.kind);
+  const linkField = detail
+    ? (columns.find((f) => f.name === labelField && plain(f)) ?? columns.find(plain))?.name
+    : undefined;
+  const cellFor = (f) => {
+    if (f.name !== linkField) return cellOf(f);
+    const id = `String(${access("row", idField)})`;
+    // With tenant, from the list's address so the tenant is kept
+    return tenant
+      ? `<Link from="/$tenant/${path}" to="/$tenant/${path}/$id" params={(prev) => ({ ...prev, id: ${id} })}>${cellOf(f)}</Link>`
+      : `<Link to="/${path}/$id" params={{ id: ${id} }}>${cellOf(f)}</Link>`;
+  };
   files[`components/${leaf}-table.tsx`] = `import { ${tableImports.join(", ")} } from "@skeinui/ui";
-import type { ${Entity} } from "../api";
+${linkField ? 'import { Link } from "@tanstack/react-router";\n' : ""}import type { ${Entity} } from "../api";
 import { use${Name}Translation } from "../locales";
 
 export function ${Name}Table({
@@ -365,7 +403,7 @@ ${columns.map((f) => `          <Table.Head>{t("fields.${f.name}")}</Table.Head>
         ) : (
           rows.map((row) => (
             <Table.Row key={String(${idField ? access("row", idField) : "rows.indexOf(row)"})}>
-${columns.map((f) => `              <Table.Cell>${cellOf(f)}</Table.Cell>`).join("\n")}${
+${columns.map((f) => `              <Table.Cell>${cellFor(f)}</Table.Cell>`).join("\n")}${
     actions
       ? `
               <Table.Cell>
@@ -404,6 +442,69 @@ ${columns.map((f) => `              <Table.Cell>${cellOf(f)}</Table.Cell>`).join
   );
 }
 `;
+
+  // ---------- detail page
+  if (detail) {
+    const shown = fields.filter((f) => f.kind !== "other");
+    const dDate = shown.some((f) => f.kind === "date");
+    const dDateTime = shown.some((f) => f.kind === "datetime");
+    const dTag = shown.some((f) => f.kind === "boolean");
+    const listPath = `/${path}`;
+    const items = shown
+      .map(
+        (f) =>
+          `                {\n                  label: t("fields.${f.name}"),\n                  value: ${valueOf(f)},\n                },`,
+      )
+      .join("\n");
+    files["detail.tsx"] =
+      `import { ${["Button", "Card", "Descriptions", ...(dTag ? ["Tag"] : []), "Text"].join(", ")} } from "@skeinui/ui";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate${tenant ? ", useParams" : ""} } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
+import { Page } from "@/skein-shell";
+import { ${fetchOne}, ${keys} } from "./api";
+import { use${Name}Translation } from "./locales";
+
+/** ${tenant ? "/<tenant>" : ""}${listPath}/<id>: one row${tenant ? " of the tenant; another tenant's" : "; one that doesn't exist"} is not found (404 from the API). */
+export function ${Name}DetailPage({ id }: { id: ${model.idType} }) {
+  const { t${dDate || dDateTime ? ", i18n" : ""} } = use${Name}Translation();
+  const navigate = useNavigate();
+${tenant ? "  const { tenant } = useParams({ strict: false });\n" : ""}  const { data: row, error } = useQuery({
+    queryKey: ${keys}.detail(id),
+    queryFn: () => ${fetchOne}(id),
+  });
+${dDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${dDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}
+  return (
+    <Page
+      title={${labelField ? `row ? ${label("row")} : ` : ""}error ? t("detail.notFound") : t("loading")}
+      actions={
+        <Button
+          startContent={<ArrowLeft size={16} />}
+          onClick={() => void navigate({ to: ${tenant ? `\`/\${tenant}${listPath}\`` : JSON.stringify(listPath)} })}
+        >
+          {t("detail.back")}
+        </Button>
+      }
+    >
+      <Card>
+        <Card.Body>
+          {error ? (
+            <Text tone="secondary">{t("detail.notFoundHint", { id: String(id) })}</Text>
+          ) : (
+            <Descriptions
+              column={2}
+              items={[
+${items}
+              ]}
+            />
+          )}
+        </Card.Body>
+      </Card>
+    </Page>
+  );
+}
+`;
+  }
 
   // ---------- form dialog
   if (hasDialog) {
@@ -495,6 +596,17 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
       fields: fieldLabels,
       filters: filterLabels,
       enum: enumLabels("en"),
+      ...(detail
+        ? {
+            detail: {
+              back: "Back to list",
+              notFound: "Not found",
+              notFoundHint: tenant
+                ? "This tenant has no item with ID {{id}}."
+                : "There is no item with ID {{id}}.",
+            },
+          }
+        : {}),
     },
     zh: {
       title: model.title,
@@ -518,6 +630,17 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
       fields: fieldLabels,
       filters: filterLabels,
       enum: enumLabels("zh"),
+      ...(detail
+        ? {
+            detail: {
+              back: "返回列表",
+              notFound: "数据不存在",
+              notFoundHint: tenant
+                ? "这个租户下没有 ID 为 {{id}} 的数据。"
+                : "没有 ID 为 {{id}} 的数据。",
+            },
+          }
+        : {}),
     },
   };
   files["locales/messages/en.json"] = json(messages.en);
@@ -543,6 +666,8 @@ export const meta: PageMeta = {
 
   // ---------- mocks, in the API's own response shape
   if (flags.mock) {
+    // With tenant, each tenant sees its own rows (by id, so it needs one)
+    const scoped = tenant && Boolean(idField);
     const usesNames = fields.some((f) => fakeOf(f, model).includes("NAMES"));
     const rows = fields.map((f) => `  ${key(f.name)}: ${fakeOf(f, model)},`).join("\n");
     files[`mocks/${entityKebab}-data.ts`] = `import type { ${Entity} } from "../api";
@@ -551,7 +676,21 @@ ${usesNames ? `\nconst NAMES = ${JSON.stringify(NAMES)};\n` : ""}
 export const ${entityVar}Rows: ${Entity}[] = Array.from({ length: 24 }, (_, i) => ({
 ${rows}
 }));
-`;
+${
+  scoped
+    ? `
+const TENANT_IDS = ["acme", "globex", "initech"];
+
+/** Each tenant has rows of its own: which tenant a row belongs to (round-robin over the mock tenants). */
+export const ${entityVar}Tenants = new Map(
+  ${entityVar}Rows.map((r, i) => [${access("r", idField)}, TENANT_IDS[i % TENANT_IDS.length]]),
+);
+
+/** The tenant a request is for (lib/http.ts sends it). */
+export const tenantOf = (request: Request) => request.headers.get("X-Tenant-Id") ?? "";
+`
+    : ""
+}`;
     const wrap = (payload) => (list.envelope ? `{ data: ${payload} }` : payload);
     const listPayload = list.itemsKey
       ? `{ ${key(list.itemsKey)}: items${list.totalKey ? `, ${key(list.totalKey)}: matched.length` : ""} }`
@@ -571,14 +710,23 @@ ${rows}
       : model.idType === "number"
         ? `Math.max(0, ...${entityVar}Rows.map((r) => ${access("r", idField)})) + 1`
         : `\`${entityKebab}-\${Date.now()}\``;
+    const byId = itemRoute && (editable || ops.remove || detail);
+    const findCall = (id) => (scoped ? `findIndex(request, ${id})` : `findIndex(${id})`);
+    const itemWrap = (payload) => (model.itemEnvelope ? `{ data: ${payload} }` : payload);
     files["mocks/handlers.ts"] = `import { delay, http, HttpResponse } from "msw";
 import type { ${Entity}${ops.create || editable ? `, ${Entity}Input` : ""} } from "../api";
-import { ${entityVar}Rows } from "./${entityKebab}-data";
-${itemRoute ? `\nconst notFound = () => HttpResponse.json({ message: "Not found" }, { status: 404 });\n` : ""}
+import { ${entityVar}Rows${scoped ? `, ${entityVar}Tenants, tenantOf` : ""} } from "./${entityKebab}-data";
+${itemRoute ? `\nconst notFound = () => HttpResponse.json({ message: "Not found" }, { status: 404 });\n` : ""}${
+      byId
+        ? scoped
+          ? `\n/** The row with this id, of the request's tenant (another tenant's is not found), else -1. */\nconst findIndex = (request: Request, id: unknown) =>\n  ${entityVar}Rows.findIndex(\n    (r) => ${access("r", idField)} === ${idOf("id")} && ${entityVar}Tenants.get(${access("r", idField)}) === tenantOf(request),\n  );\n`
+          : `\n/** The row with this id, else -1. */\nconst findIndex = (id: unknown) => ${entityVar}Rows.findIndex((r) => ${access("r", idField)} === ${idOf("id")});\n`
+        : ""
+    }
 export const handlers = [
-  http.get(${JSON.stringify(`*${model.path}`)}, async (${pagination || filters.length ? "{ request }" : ""}) => {
+  http.get(${JSON.stringify(`*${model.path}`)}, async (${pagination || filters.length || scoped ? "{ request }" : ""}) => {
     await delay(200);${pagination || filters.length ? "\n    const url = new URL(request.url);" : ""}
-    let matched: ${Entity}[] = [...${entityVar}Rows];
+    let matched: ${Entity}[] = ${scoped ? `${entityVar}Rows.filter((r) => ${entityVar}Tenants.get(${access("r", idField)}) === tenantOf(request))` : `[...${entityVar}Rows]`};
 ${filterLines.join("\n")}
 ${
   pagination
@@ -600,15 +748,24 @@ ${
           ? `, ${key(idField)}: ${access("input", idField)} || ${newId}`
           : `, ${key(idField)}: ${newId}`
     } } as ${Entity};
-    ${entityVar}Rows.unshift(row);
+    ${entityVar}Rows.unshift(row);${scoped ? `\n    ${entityVar}Tenants.set(${access("row", idField)}, tenantOf(request));` : ""}
     return HttpResponse.json(${wrap("row")}, { status: 201 });
+  }),`
+      : ""
+  }${
+    detail
+      ? `
+  http.get(${itemRoute}, async ({ params${scoped ? ", request" : ""} }) => {
+    await delay(150);
+    const index = ${findCall("params.id")};
+    return index < 0 ? notFound() : HttpResponse.json(${itemWrap(`${entityVar}Rows[index]`)});
   }),`
       : ""
   }${
     editable
       ? `
   http.${ops.update}(${itemRoute}, async ({ params, request }) => {
-    const index = ${entityVar}Rows.findIndex((r) => ${access("r", idField)} === ${idOf("params.id")});
+    const index = ${findCall("params.id")};
     if (index < 0) return notFound();
     ${entityVar}Rows[index] = { ...${entityVar}Rows[index], ...((await request.json()) as ${Entity}Input) };
     return HttpResponse.json(${wrap(`${entityVar}Rows[index]`)});
@@ -617,8 +774,8 @@ ${
   }${
     ops.remove
       ? `
-  http.delete(${itemRoute}, ({ params }) => {
-    const index = ${entityVar}Rows.findIndex((r) => ${access("r", idField)} === ${idOf("params.id")});
+  http.delete(${itemRoute}, ({ params${scoped ? ", request" : ""} }) => {
+    const index = ${findCall("params.id")};
     if (index < 0) return notFound();
     ${entityVar}Rows.splice(index, 1);
     return HttpResponse.json(${wrap("null")});

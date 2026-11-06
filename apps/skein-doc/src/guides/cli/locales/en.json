@@ -32,7 +32,7 @@
   },
   "pages": {
     "title": "Pages and modules",
-    "p1": "`--from` reads one resource of an OpenAPI 3 document (JSON or YAML) and writes a list with filters, create, edit and delete, typed, with mocks. Pick the resource with `--resource /orders` when there are several."
+    "p1": "`--from` reads one resource of an OpenAPI 3 document (JSON or YAML) and writes a list with filters, create, edit and delete, typed, with mocks, plus a detail page when the document reads one item (`GET /orders/{id}`). Pick the resource with `--resource /orders` when there are several."
   },
   "theme-commands": {
     "title": "Theme styles",

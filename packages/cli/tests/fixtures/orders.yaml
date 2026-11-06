@@ -41,6 +41,15 @@ paths:
                 },
             }
   /orders/{id}:
+    get:
+      parameters: [{ name: id, in: path, required: true, schema: { type: integer } }]
+      responses:
+        "200":
+          description: One order
+          content:
+            application/json:
+              schema: { type: object, properties: { data: { $ref: "#/components/schemas/Order" } } }
+        "404": { description: Not found }
     put:
       parameters: [{ name: id, in: path, required: true, schema: { type: integer } }]
       requestBody:

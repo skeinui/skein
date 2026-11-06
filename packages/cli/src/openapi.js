@@ -202,6 +202,11 @@ export function analyzeResource(spec, { name, resource }) {
     .filter((f) => f.kind === "string" || f.kind === "enum" || f.kind === "number");
 
   const update = itemOps.put ? "put" : itemOps.patch ? "patch" : null;
+  // GET /orders/{id}: one row, for a detail page; `{ data }` around it like the list's
+  const readSchema = idParam && itemOps.get ? schemaOf(spec, successSchema(itemOps.get)) : null;
+  const itemEnvelope = Boolean(
+    readSchema?.type === "object" && readSchema.properties?.data && !readSchema.properties?.id,
+  );
   const createBody = jsonSchemaOf(
     ops.post?.requestBody && resolveRef(spec, ops.post.requestBody).content,
   );
@@ -232,8 +237,10 @@ export function analyzeResource(spec, { name, resource }) {
     filters,
     pagination: page && pageSize ? { page, pageSize } : null,
     list: { envelope: shape.envelope, itemsKey: shape.itemsKey, totalKey: shape.totalKey },
+    itemEnvelope,
     ops: {
       create: Boolean(ops.post),
+      read: Boolean(idParam && itemOps.get && idField),
       update: idParam ? update : null,
       remove: Boolean(idParam && itemOps.delete),
     },

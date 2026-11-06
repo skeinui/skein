@@ -586,7 +586,8 @@ describe("OpenAPI → CRUD page", () => {
       labelField: "customer",
       pagination: { page: "page", pageSize: "pageSize" },
       list: { envelope: "data", itemsKey: "items", totalKey: "total" },
-      ops: { create: true, update: "put", remove: true },
+      itemEnvelope: true,
+      ops: { create: true, read: true, update: "put", remove: true },
     });
     expect(m.input.map((f: { name: string }) => f.name)).toEqual([
       "customer",
@@ -655,6 +656,54 @@ describe("OpenAPI → CRUD page", () => {
     expect(() =>
       newPage({ name: "orders", cwd: basic, from: join(FIXTURES, "orders.yaml") }),
     ).toThrow("lacks: shell, query, i18n");
+  });
+
+  test("GET /orders/{id}: a detail page at /orders/<id> (under $tenant/ with tenant, its mock per tenant); none without it", async () => {
+    const dir = target();
+    createProject({ dir, template: "admin" });
+    const { created } = newPage({ name: "orders", cwd: dir, from: join(FIXTURES, "orders.yaml") });
+    expect(created).toEqual(
+      expect.arrayContaining(["src/pages/orders/detail.tsx", "src/routes/_auth/orders_.$id.tsx"]),
+    );
+    const route = read(dir, "src", "routes", "_auth", "orders_.$id.tsx");
+    expect(route).toContain('createFileRoute("/_auth/orders_/$id")');
+    expect(route).toContain("<OrdersDetailPage id={Number(id)} />");
+    const page = (...p: string[]) => read(dir, "src", "pages", "orders", ...p);
+    expect(page("api", "index.ts")).toContain(
+      "export const fetchOrder = (id: number) => http.get<Order>(`/api/orders/${id}`);",
+    );
+    expect(page("detail.tsx")).toContain('navigate({ to: "/orders" })');
+    expect(page("components", "orders-table.tsx")).toContain('<Link to="/orders/$id"');
+    expect(page("mocks", "handlers.ts")).toContain('http.get("*/api/orders/:id"');
+    expect(page("mocks", "handlers.ts")).not.toContain("tenantOf");
+    expect(JSON.parse(page("locales", "messages", "zh.json")).detail.back).toBe("返回列表");
+
+    // products.json reads no single product: no detail page
+    const products = newPage({
+      name: "catalog/products",
+      cwd: dir,
+      from: join(FIXTURES, "products.json"),
+    });
+    expect(products.created.some((f: string) => f.includes("detail") || f.includes("_.$"))).toBe(
+      false,
+    );
+
+    const tenant = join(lastTmp(), "tenant");
+    createProject({ dir: tenant, template: "admin", add: ["tenant"] });
+    const t = newPage({ name: "orders", cwd: tenant, from: join(FIXTURES, "orders.yaml") });
+    expect(t.created).toContain("src/routes/_auth/$tenant/orders_.$id.tsx");
+    expect(read(tenant, "src", "routes", "_auth", "$tenant", "orders_.$id.tsx")).toContain(
+      'createFileRoute("/_auth/$tenant/orders_/$id")',
+    );
+    const tp = (...p: string[]) => read(tenant, "src", "pages", "orders", ...p);
+    expect(tp("detail.tsx")).toContain("navigate({ to: `/${tenant}/orders` })");
+    expect(tp("components", "orders-table.tsx")).toContain('from="/$tenant/orders"');
+    // Each tenant's rows: listed, read, changed and created per tenant
+    expect(tp("mocks", "order-data.ts")).toContain("export const orderTenants = new Map(");
+    expect(tp("mocks", "handlers.ts")).toContain(
+      "orderRows.filter((r) => orderTenants.get(r.id) === tenantOf(request))",
+    );
+    expect(tp("mocks", "handlers.ts")).toContain("orderTenants.set(row.id, tenantOf(request));");
   });
 });
 

@@ -6,7 +6,8 @@ const { chromium } = require("playwright-core");
 
 /**
  * @param {string} base
- * @param {{ path: string; menu: string; create: [string, string][]; rename: [string, string]; expectRows: number }} page
+ * @param {{ path: string; menu: string; create: [string, string][]; rename: [string, string]; expectRows: number; detail?: boolean }} page
+ * `detail`: the document reads one item, so the table's name column opens a detail page.
  */
 export async function crudFlow(base, page, { log = console.log } = {}) {
   const browser = await chromium.launch({ channel: process.env.E2E_CHANNEL ?? "chrome" });
@@ -87,6 +88,16 @@ export async function crudFlow(base, page, { log = console.log } = {}) {
       await tab.locator('[data-slot="popconfirm"]').getByRole("button", { name: "删除" }).click();
       await rows().filter({ hasText: page.rename[1] }).first().waitFor({ state: "detached" });
     });
+    if (page.detail)
+      await step(`${page.path}: the name opens the detail page, back to the list`, async () => {
+        const link = rows().first().locator("a").first();
+        const name = (await link.textContent())?.trim() ?? "";
+        await link.click();
+        await tab.waitForURL(new RegExp(`${page.path}/[^/]+$`));
+        await tab.getByRole("heading", { name, exact: true }).waitFor();
+        await tab.getByRole("button", { name: "返回列表" }).click();
+        await tab.waitForURL(new RegExp(`${page.path}$`));
+      });
     await step(`${page.path}: no errors`, async () => {
       if (errors.length > 0) throw new Error(errors.slice(0, 3).join(" | "));
     });
