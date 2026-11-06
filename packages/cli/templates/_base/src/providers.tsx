@@ -48,7 +48,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       {children}
 {{/if}}
 {{#if shell}}
-      <Toaster position="top-right" />
+      <Toaster position="top-right" richColors />
 {{/if}}
     </ConfigProvider>
   );
