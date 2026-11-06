@@ -41,12 +41,13 @@ export const settings = {
    */
   menuPermission: false,
   /**
-   * Toolbar tools by id, in order: built in are "language" (the app's languages) and "mode" (light / dark /
-   * system); add your own in src/modules/toolbar/tools.tsx and list its id here.
+   * Toolbar tools by id, in order: built in are "search" (the pages, ⌘K), "notifications" (a bell with the
+   * unread count), "language" (the app's languages) and "mode" (light / dark / system); add your own in
+   * src/modules/toolbar/tools.tsx and list its id here.
    */
   toolbar: {
     /** Next to the account menu. */
-    header: ["language", "mode"],
+    header: ["search", "notifications", "language", "mode"],
     /** On the sign-in page, top right. */
     login: ["language", "mode"],
   } as Record<"header" | "login", string[]>,

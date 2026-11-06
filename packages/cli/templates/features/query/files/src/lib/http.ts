@@ -1,3 +1,6 @@
+{{#if i18n}}
+import i18n from "@/lib/i18n";
+{{/if}}
 {{#if auth}}
 import { useAuthStore } from "@/store/auth-store";
 {{#if tenant}}
@@ -59,6 +62,10 @@ async function request<T>(
 {{#if auth}}
   if (token && !requestHeaders.has("Authorization"))
     requestHeaders.set("Authorization", `Bearer ${token}`);
+{{/if}}
+{{#if i18n}}
+  // The app's language: the API writes its texts (messages, notifications) in it
+  if (!requestHeaders.has("Accept-Language")) requestHeaders.set("Accept-Language", i18n.language);
 {{/if}}
 {{#if tenant}}
   // The tenant picked in the switcher (modules/tenant-switcher): the API answers for that tenant

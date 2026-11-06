@@ -5,5 +5,8 @@
     "light": "亮色",
     "dark": "暗色",
     "system": "跟随系统"
-  }
+  },
+  "search": "搜索",
+  "searchPlaceholder": "搜索页面…",
+  "searchEmpty": "没有匹配的页面"
 }

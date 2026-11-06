@@ -159,6 +159,28 @@ export async function adminFlow(base, { log = console.log } = {}) {
         await page.getByRole("heading", { name: "Users" }).waitFor();
       },
     );
+    await step("notifications: 3 unread in English, mark all as read", async () => {
+      const bell = page.getByRole("button", { name: /^Notifications/ });
+      if (!/3 unread/.test((await bell.getAttribute("aria-label")) ?? ""))
+        throw new Error(`bell: ${await bell.getAttribute("aria-label")}`);
+      await bell.click();
+      // Server content follows the app's language (Accept-Language)
+      await page.getByText("New order to review").waitFor();
+      await page.getByRole("button", { name: "Mark all as read" }).click();
+      await page.waitForFunction(() =>
+        [...document.querySelectorAll("button")].some(
+          (b) => b.getAttribute("aria-label") === "Notifications",
+        ),
+      );
+      await page.keyboard.press("Escape");
+    });
+    await step("search: ⌘K / Ctrl+K, type a page, Enter opens it", async () => {
+      // mod+k: ⌘ on macOS, Ctrl elsewhere
+      await page.keyboard.press(process.platform === "darwin" ? "Meta+k" : "Control+k");
+      await page.getByRole("combobox").fill("dash");
+      await page.keyboard.press("Enter");
+      await page.waitForURL(/\/dashboard$/);
+    });
     await step("preferences: switch to top layout", async () => {
       await page.getByRole("button", { name: "Preferences" }).click();
       const drawer = page.getByRole("dialog");

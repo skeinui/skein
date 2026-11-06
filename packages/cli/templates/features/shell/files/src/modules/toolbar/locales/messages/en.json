@@ -5,5 +5,8 @@
     "light": "Light",
     "dark": "Dark",
     "system": "System"
-  }
+  },
+  "search": "Search",
+  "searchPlaceholder": "Search pages…",
+  "searchEmpty": "No matching pages"
 }
