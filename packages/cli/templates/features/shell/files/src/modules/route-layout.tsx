@@ -13,40 +13,38 @@ const logoMark = <img src="/favicon.svg" alt="" width={24} height={24} />;
 export function RouteLayout() {
   const items = useNavMenus();
   return (
-    <AppLayout
-      items={items}
-      logoMark={logoMark}
-      logo={
-        <span className="app-logo">
-          {logoMark}
-          {settings.appName}
-        </span>
-      }
+    <>
+      <AppLayout
+        items={items}
+        logoMark={logoMark}
+        logo={
+          <span className="app-logo">
+            {logoMark}
+            {settings.appName}
+          </span>
+        }
 {{#if tenant}}
-      context={<TenantSwitcher />}
+        context={<TenantSwitcher />}
 {{/if}}
-      actions={
-        <>
-          <PreferencesButton />
-          <UserMenu />
-        </>
-      }
-      footer={
-        <>
-          {settings.footer}
-          {settings.poweredBy ? (
-            <>
-              {" · "}
-              <span className="app-powered">
-                Powered by{" "}
-                <a href="https://skeinui.com" target="_blank" rel="noreferrer">
-                  Skein UI
-                </a>
-              </span>
-            </>
-          ) : null}
-        </>
-      }
-    />
+        actions={<UserMenu />}
+        footer={
+          <>
+            {settings.footer}
+            {settings.poweredBy ? (
+              <>
+                {" · "}
+                <span className="app-powered">
+                  Powered by{" "}
+                  <a href="https://skeinui.com" target="_blank" rel="noreferrer">
+                    Skein UI
+                  </a>
+                </span>
+              </>
+            ) : null}
+          </>
+        }
+      />
+      <PreferencesButton />
+    </>
   );
 }

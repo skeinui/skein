@@ -54,23 +54,27 @@ export function TenantSwitcher() {
   };
 
   return (
-    <Menu>
-      <Menu.Trigger
-        render={<Button size="sm" variant="outline" color="neutral" fullWidth />}
-        aria-label={t("switchTenant")}
-      >
-        <Building2 size={14} />
-        <span style={{ flex: 1, textAlign: "start" }}>{current?.name ?? t("loading")}</span>
-        <ChevronsUpDown size={14} />
-      </Menu.Trigger>
-      <Menu.Content align="start">
-        {tenants.map((item) => (
-          <Menu.Item key={item.id} onClick={() => switchTo(item.id)}>
-            {item.id === tenantId ? <Check size={14} /> : <span style={{ width: 14 }} />}
-            {item.name}
-          </Menu.Item>
-        ))}
-      </Menu.Content>
-    </Menu>
+    // At least 2rem high in every theme style (styles/index.css, .tenant-switcher)
+    <span className="tenant-switcher">
+      <Menu>
+        <Menu.Trigger
+          render={<Button size="sm" variant="outline" color="neutral" fullWidth />}
+          aria-label={t("switchTenant")}
+        >
+          <Building2 size={14} />
+          <span style={{ flex: 1, textAlign: "start" }}>{current?.name ?? t("loading")}</span>
+          <ChevronsUpDown size={14} />
+        </Menu.Trigger>
+        {/* As wide as the switcher at least (styles/index.css) */}
+        <Menu.Content id="tenant-switcher-menu" align="start">
+          {tenants.map((item) => (
+            <Menu.Item key={item.id} onClick={() => switchTo(item.id)}>
+              {item.id === tenantId ? <Check size={14} /> : <span style={{ width: 14 }} />}
+              {item.name}
+            </Menu.Item>
+          ))}
+        </Menu.Content>
+      </Menu>
+    </span>
   );
 }

@@ -47,6 +47,36 @@ body {
 .login-card {
   width: min(24rem, 100%);
 }
+
+/* The account menu's button: the avatar's size (Avatar has sm / md / lg, the smallest icon Button is 2rem) */
+.user-menu {
+  --user-avatar-size: 1.75rem;
+  display: inline-flex;
+}
+.user-menu [data-slot="button"],
+.user-menu [data-slot="avatar"] {
+  width: var(--user-avatar-size);
+  height: var(--user-avatar-size);
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+}
+{{#if tenant}}
+
+/* The tenant switcher next to the logo: a small button is 1.5rem high in some theme styles (antd), too low here */
+.tenant-switcher {
+  display: flex;
+  width: 100%;
+}
+.tenant-switcher [data-slot="button"] {
+  min-height: 2rem;
+}
+/* Its menu (portaled to <body>): at least the switcher's width, from Base UI's --anchor-width */
+#tenant-switcher-menu {
+  min-width: var(--anchor-width);
+  box-sizing: border-box;
+}
+{{/if}}
 {{else}}
 
 .home {

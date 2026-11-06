@@ -1,10 +1,10 @@
-import { AdminLayoutSettings, Button, Drawer } from "@skeinui/ui";
+import { AdminLayoutSettings, Button, Drawer, FloatButton } from "@skeinui/ui";
 import { Settings2 } from "lucide-react";
 import { useState } from "react";
 import { resolveThemeStyle, themeStyleOptions, usePreferencesStore } from "@/skein-shell";
 import { usePreferencesTranslation } from "./locales";
 
-/** A button that opens the preferences drawer: theme style (when settings lists several), layout, menu style, tabs, colors, radius, density. */
+/** A floating button (bottom right, taking no room in the header / sidebar) that opens the preferences drawer: theme style (when settings lists several), layout, menu style, tabs, colors, radius, density. */
 export function PreferencesButton() {
   const { t } = usePreferencesTranslation();
   const [open, setOpen] = useState(false);
@@ -13,16 +13,13 @@ export function PreferencesButton() {
   const reset = usePreferencesStore((s) => s.reset);
   return (
     <>
-      <Button
-        variant="ghost"
-        color="neutral"
-        size="sm"
-        iconOnly
+      <FloatButton
+        variant="primary"
+        icon={<Settings2 size={20} />}
         aria-label={t("title")}
+        tooltip={t("title")}
         onClick={() => setOpen(true)}
-      >
-        <Settings2 size={16} />
-      </Button>
+      />
       <Drawer open={open} onOpenChange={setOpen} side="right">
         <Drawer.Content size="md">
           <Drawer.Title>{t("title")}</Drawer.Title>

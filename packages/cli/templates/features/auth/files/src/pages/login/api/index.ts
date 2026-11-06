@@ -5,6 +5,8 @@ export interface User {
   username: string;
   name: string;
   email: string;
+  /** Avatar image URL; the initial of the name is shown without it. */
+  avatar?: string;
 }
 
 export interface LoginInput {
