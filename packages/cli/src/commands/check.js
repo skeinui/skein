@@ -33,13 +33,16 @@ const HINTS = [
   ],
 ];
 
+/** Files under `dir` that pass `filter`, in code-unit order on every system (Windows lists `audit-logs` before `_meta.ts`). */
 function walk(dir, filter) {
   if (!existsSync(dir)) return [];
-  return readdirSync(dir).flatMap((entry) => {
-    const file = join(dir, entry);
-    if (entry === "node_modules" || entry.startsWith(".")) return [];
-    return statSync(file).isDirectory() ? walk(file, filter) : filter(file) ? [file] : [];
-  });
+  return readdirSync(dir)
+    .sort()
+    .flatMap((entry) => {
+      const file = join(dir, entry);
+      if (entry === "node_modules" || entry.startsWith(".")) return [];
+      return statSync(file).isDirectory() ? walk(file, filter) : filter(file) ? [file] : [];
+    });
 }
 
 /** A package's command from node_modules/.bin, looking up from `root` (packages' `exports` hide their bin files). */
