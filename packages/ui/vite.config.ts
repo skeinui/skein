@@ -8,6 +8,14 @@ export default defineConfig({
     },
   },
   fmt: {},
+  // These measure the running docs site: theme styles reach them over HTTP, not as files the task reads, so the
+  // run cache can't tell they changed and would replay an old result. Never cache them
+  run: {
+    tasks: {
+      snapshot: { command: "node tests/visual/snapshot.mjs", cache: false },
+      a11y: { command: "node tests/a11y/axe.mjs", cache: false },
+    },
+  },
   // `vp pack` (prepack): the published package is dist/, one ES module per source file (so apps tree-shake per
   // component) with .d.ts. In the workspace the package's exports point at src/; publishConfig points at dist/.
   pack: {

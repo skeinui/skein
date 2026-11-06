@@ -73,8 +73,6 @@
     "test": "vp test",
     "check": "vp check",
     "typecheck": "tsc",
-    "snapshot": "node tests/visual/snapshot.mjs",
-    "a11y": "node tests/a11y/axe.mjs",
     "manifest": "node scripts/manifest.ts"
   },
   "dependencies": {

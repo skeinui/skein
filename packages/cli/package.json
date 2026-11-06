@@ -56,7 +56,6 @@
     "prepack": "node scripts/build.ts",
     "test": "node scripts/build.ts && vp test",
     "typecheck": "tsc",
-    "e2e": "node tests/e2e/run.mjs",
     "msw-worker": "node scripts/msw-worker.ts"
   },
   "dependencies": {

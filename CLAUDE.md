@@ -31,7 +31,7 @@ vp run snapshot                      # visual regression (needs the docs site ru
 vp run a11y                          # axe-core scan (needs the docs site running)
 ```
 
-`snapshot` and `a11y` are not part of `vp test`. Visual baselines (`tests/visual/baseline/**`) are script-generated one-line-per-page files; the formatter ignores them, don't reformat. Lint enforces `vite-plus/prefer-vite-plus-imports`: import from `vite-plus`, not `vite`/`vitest`.
+`snapshot` and `a11y` are not part of `vp test`; like the CLI's `e2e` they are tasks with `cache: false` (`run.tasks` in the package's `vite.config.ts`), since what they depend on (the running docs site, npm, Chrome) isn't files the run cache tracks. Visual baselines (`tests/visual/baseline/**`) are script-generated one-line-per-page files; the formatter ignores them, don't reformat. Lint enforces `vite-plus/prefer-vite-plus-imports`: import from `vite-plus`, not `vite`/`vitest`.
 
 ## CI and releases
 
