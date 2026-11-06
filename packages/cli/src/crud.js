@@ -654,11 +654,11 @@ export function use${Name}Translation() {
 }
 `;
 
-  files["_meta.ts"] = `import { Table2 } from "lucide-react";
+  files["_meta.ts"] = `import { List } from "lucide-react";
 import type { PageMeta } from "@/lib/page-meta";
 
 export const meta: PageMeta = {
-  icon: Table2,
+  icon: List,
   label: { zh: ${JSON.stringify(model.title)}, en: ${JSON.stringify(model.title)} },
   order: 100,
 };
