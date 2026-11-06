@@ -72,8 +72,7 @@
     "prepack": "vp pack",
     "test": "vp test",
     "check": "vp check",
-    "typecheck": "tsc",
-    "manifest": "node scripts/manifest.ts"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0"

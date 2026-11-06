@@ -12,11 +12,13 @@ export default defineConfig({
   // (Windows) a large one (Agenda) took over vitest's 5 s
   test: { testTimeout: 15_000 },
   // These measure the running docs site: theme styles reach them over HTTP, not as files the task reads, so the
-  // run cache can't tell they changed and would replay an old result. Never cache them
+  // run cache can't tell they changed and would replay an old result. Never cache them. The same for the manifest:
+  // it reads the docs site's pages and the types through the TypeScript compiler, which the cache doesn't see
   run: {
     tasks: {
       snapshot: { command: "node tests/visual/snapshot.mjs", cache: false },
       a11y: { command: "node tests/a11y/axe.mjs", cache: false },
+      manifest: { command: "node scripts/manifest.ts", cache: false },
     },
   },
   // `vp pack` (prepack): the published package is dist/, one ES module per source file (so apps tree-shake per

@@ -8,7 +8,7 @@
     "ready": "vp check && vp run -r test && vp run -r build",
     "dev": "vp run skein-doc#dev",
     "changeset": "changeset",
-    "version-packages": "changeset version && pnpm --filter @skeinui/ui manifest",
+    "version-packages": "changeset version && vp run --fail-if-no-match --filter @skeinui/ui manifest",
     "release": "changeset publish --no-git-tag",
     "clean": "node scripts/clean.mjs"
   },
