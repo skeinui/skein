@@ -142,9 +142,9 @@ const TRANSLATE_HINT =
 
 function i18n(root) {
   const issues = [];
-  const messageDirs = walk(join(root, "src"), (f) => f.endsWith("locales/messages/zh.json")).map(
-    dirname,
-  );
+  const messageDirs = walk(join(root, "src"), (f) =>
+    toPosix(f).endsWith("locales/messages/zh.json"),
+  ).map(dirname);
   for (const dir of messageDirs) {
     const load = (lng) => {
       const file = join(dir, `${lng}.json`);
@@ -199,7 +199,10 @@ function i18n(root) {
       });
     // Literal keys used by the page / module these messages belong to (locales/messages → its owner)
     const owner = dirname(dirname(dir));
-    const sources = walk(owner, (f) => /\.tsx?$/.test(f) && !f.includes(`${owner}/locales/`));
+    const sources = walk(
+      owner,
+      (f) => /\.tsx?$/.test(f) && !toPosix(f).includes(`${toPosix(owner)}/locales/`),
+    );
     for (const file of sources) {
       readFileSync(file, "utf8")
         .split("\n")
@@ -242,7 +245,7 @@ const HEX = /#[0-9a-fA-F]{3,8}\b/g;
 
 function style(root) {
   const issues = [];
-  const own = (f) => !f.includes(`${join(root, "src", "theme")}/`);
+  const own = (f) => !toPosix(f).includes(`${toPosix(join(root, "src", "theme"))}/`);
   for (const file of walk(join(root, "src"), (f) => f.endsWith(".css") && own(f))) {
     readFileSync(file, "utf8")
       .split("\n")
