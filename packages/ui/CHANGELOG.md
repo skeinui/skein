@@ -1,5 +1,13 @@
 # @skeinui/ui
 
+## 0.0.7
+
+### Patch Changes
+
+- a7b0d6e: SideMenu (and AdminLayout's menu): with a controlled `selectedKey` the selected item's submenus now start open, as documented, and open when the selection moves into closed ones (selected from a tab or a link, or items that arrive later); a submenu the user closes stays closed while the selection stays. Controlled `openKeys` are left alone.
+- fbdd89e: Toast: `richColors` on `Toaster` (every typed toast) or on one toast (`toast.success("Saved", { richColors: true })`) tints info / success / warning / danger toasts in their color, like Sonner's rich colors: background, border and text in default and heroui (from their tokens) and shadcn (Sonner's own rich colors, shadcn/ui's toast being Sonner); antd follows its Alert (soft background, colored border and icon, text in the text color). Styled through `data-rich-colors`.
+- a7b0d6e: Toaster: the region holding toasts is named from the locale (`common.notifications`: "Notifications" / "通知") instead of Base UI's fixed English "Notifications".
+
 ## 0.0.6
 
 No changes in this release.
