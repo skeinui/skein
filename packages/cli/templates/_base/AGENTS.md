@@ -117,6 +117,10 @@ Every page is under its tenant: `/acme/orders`, route files in `routes/_auth/$te
 
 {{/if}}
 A layout route under `routes/_auth/` that wraps a set of pages (e.g. `$tenant.tsx` around `$tenant.orders.tsx`) renders `<PageOutlet />` from `@/skein-shell` where its pages go, not `<Outlet />`: the shell keeps pages alive in tabs and hands each layout its own page.
+
+Who may do what: the API gives the signed-in user `permissions` (`GET /api/auth/profile`, also in the sign-in response): `<resource>:<action>` codes such as `orders:create`; `*` is everything, `orders:*` every action on orders. Wrap what only some users may use in `<Access code="orders:delete">…</Access>` (`fallback` for what others see instead) or ask `const { can } = useAccess()` (`@/modules/access`, `can("orders:update")`); both only decide what is shown, the API must check the permission too. Name the codes like `src/pages/users/` does (`users:create`, `users:update`, `users:delete`).{{#if mock}} The mock's `admin` may do everything, `viewer` / `viewer123` only reads, `guest` / `guest123` has no permission at all.{{/if}} A page's door is `beforeLoad: () => requireAccess("orders:read")` in its route (`@/modules/access`): a user without it gets the 403 page; a page that throws gets a "failed to load" page with a retry (`defaultErrorComponent`, `src/router.ts`).
+
+Requests and sessions: `src/lib/http.ts` sends the token and the app's language (`Accept-Language`: the API answers in it). An access token the API refuses (401) is renewed with the refresh token (`POST /api/auth/refresh` → `{ token, refreshToken? }`{{#if mock}}, mocked{{/if}}) and the request is sent again; when that fails the session ends: the login page says it expired and signing in comes back to the page. A failed request is an `HttpError` (`status` 0: no answer): its `message` is the API's own, else the status in words (`src/lib/errors/`), so `toast.danger(error.message)` is enough.{{#if mock}} A mock answers in the language asked for with `localized(request, { zh, en })` from `@/mocks/language`.{{/if}}
 {{/if}}
 
 {{/if}}

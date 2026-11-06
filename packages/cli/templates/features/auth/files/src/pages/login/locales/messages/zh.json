@@ -5,5 +5,6 @@
   "password": "密码",
   "submit": "登录",
   "failed": "登录失败",
-  "mockHint": "演示账号：admin / admin123（数据由 MSW 模拟）"
+  "expired": "登录已过期，请重新登录，登录后会回到刚才的页面。",
+  "mockHint": "演示账号：admin / admin123（全部权限），viewer / viewer123（只读）；数据由 MSW 模拟"
 }

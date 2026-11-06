@@ -209,6 +209,77 @@ export async function adminFlow(base, { log = console.log } = {}) {
       await page.getByRole("menuitem", { name: "Sign out" }).click();
       await page.waitForURL(/\/login$/);
     });
+    await step("a wrong password: the message is in the app's language", async () => {
+      const seen = errors.length;
+      try {
+        await page.getByLabel("Password", { exact: true }).fill("wrong");
+        await page.getByRole("button", { name: "Sign in" }).click();
+        await page
+          .locator('[data-slot="toast"]', { hasText: "Wrong username or password" })
+          .waitFor();
+      } finally {
+        // The browser logs a refused request as a console error: this one is expected
+        errors.length = seen;
+      }
+    });
+    await step("a read-only account (viewer) sees no create / edit / delete", async () => {
+      // exact: the toast of the wrong password is named by its text, which has "username" in it too
+      await page.getByLabel("Username", { exact: true }).fill("viewer");
+      await page.getByLabel("Password", { exact: true }).fill("viewer123");
+      await page.getByRole("button", { name: "Sign in" }).click();
+      await page.waitForURL(/\/dashboard$/);
+      await page.goto(`${base}/users`);
+      await rows().first().waitFor();
+      // Rows are there, the buttons that change them are not
+      for (const name of ["New user", "Edit", "Delete"])
+        if ((await page.getByRole("button", { name, exact: true }).count()) > 0)
+          throw new Error(`a viewer sees "${name}"`);
+    });
+    /** Changes what the session holds in localStorage (the key ends with -auth). */
+    const setSession = (patch) =>
+      page.evaluate((patch) => {
+        const key = Object.keys(localStorage).find((k) => k.endsWith("-auth"));
+        const stored = JSON.parse(localStorage.getItem(key));
+        Object.assign(stored.state, patch);
+        localStorage.setItem(key, JSON.stringify(stored));
+      }, patch);
+    const session = () =>
+      page.evaluate(() => {
+        const key = Object.keys(localStorage).find((k) => k.endsWith("-auth"));
+        return JSON.parse(localStorage.getItem(key)).state;
+      });
+    await step("a refused access token is renewed with the refresh token", async () => {
+      const seen = errors.length;
+      try {
+        await setSession({ token: "stale" });
+        await page.goto(`${base}/users`);
+        await rows().first().waitFor();
+        const { token } = await session();
+        if (token !== "mock-token-viewer") throw new Error(`token after the renewal: ${token}`);
+      } finally {
+        errors.length = seen;
+      }
+    });
+    await step(
+      "no usable token: the login page says so, signing in comes back (here to the 403 page)",
+      async () => {
+        const seen = errors.length;
+        try {
+          await setSession({ token: "stale", refreshToken: "stale" });
+          await page.goto(`${base}/users`);
+          await page.waitForURL(/\/login$/);
+          await page.getByText("Your session expired").waitFor();
+          // The guest has no permission at all: /users, where the session ended, is the 403 page
+          await page.getByLabel("Username", { exact: true }).fill("guest");
+          await page.getByLabel("Password", { exact: true }).fill("guest123");
+          await page.getByRole("button", { name: "Sign in" }).click();
+          await page.waitForURL(/\/users$/);
+          await page.getByText("No access", { exact: true }).waitFor();
+        } finally {
+          errors.length = seen;
+        }
+      },
+    );
     await step("no errors", async () => {
       const real = errors.filter((e) => !/favicon|Download the React DevTools/.test(e));
       if (real.length > 0) throw new Error(real.slice(0, 3).join(" | "));

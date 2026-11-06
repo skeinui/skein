@@ -2,6 +2,7 @@ import { Button, Card, Flex, Pagination, toast } from "@skeinui/ui";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { Access } from "@/modules/access";
 import { Page } from "@/skein-shell";
 import { deleteUser, fetchUsers, userKeys } from "./api";
 import type { User, UserQuery } from "./api";
@@ -35,9 +36,15 @@ export function UsersPage() {
       title={t("title")}
       description={t("description")}
       actions={
-        <Button color="primary" startContent={<Plus size={16} />} onClick={() => setEditing(null)}>
-          {t("create")}
-        </Button>
+        <Access code="users:create">
+          <Button
+            color="primary"
+            startContent={<Plus size={16} />}
+            onClick={() => setEditing(null)}
+          >
+            {t("create")}
+          </Button>
+        </Access>
       }
     >
       <Card>

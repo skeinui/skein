@@ -12,7 +12,13 @@ export function UserMenu() {
   const { t } = useUserMenuTranslation();
   // The user saved at sign-in shows at once; the profile then brings what changed since (name, avatar…)
   const storedUser = useAuthStore((s) => s.user);
-  const { data: profile } = useQuery({ queryKey: ["auth", "profile"], queryFn: fetchProfile });
+  const signedIn = useAuthStore((s) => Boolean(s.token));
+  // Not once the session is gone (signing out clears the cache, which would ask again without a token)
+  const { data: profile } = useQuery({
+    queryKey: ["auth", "profile"],
+    queryFn: fetchProfile,
+    enabled: signedIn,
+  });
   const user = profile ?? storedUser;
   const navigate = useNavigate();
   const queryClient = useQueryClient();

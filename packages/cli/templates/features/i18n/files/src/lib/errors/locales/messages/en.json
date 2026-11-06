@@ -1,0 +1,9 @@
+{
+  "network": "Can't reach the server. Check your connection and try again.",
+  "unauthorized": "Your session is no longer valid. Sign in again.",
+  "forbidden": "You don't have permission to do this.",
+  "notFound": "It doesn't exist (any more).",
+  "conflict": "It was changed by someone else. Reload and try again.",
+  "server": "The server ran into a problem. Try again in a moment.",
+  "unknown": "Something went wrong."
+}

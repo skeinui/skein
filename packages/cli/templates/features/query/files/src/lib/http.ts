@@ -1,4 +1,5 @@
 {{#if i18n}}
+import { statusMessage } from "@/lib/errors";
 import i18n from "@/lib/i18n";
 {{/if}}
 {{#if auth}}
@@ -14,14 +15,17 @@ import { useTenantStore } from "@/store/tenant-store";
  */
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
-/** A non-2xx response: the status and the parsed body, so callers can tell errors apart. */
+/**
+ * A failed request: the status (0 when there was no answer at all) and the parsed body, so callers can tell
+ * errors apart. `message` is the API's own{{#if i18n}} (it answers in the app's language), else the status in words{{/if}}.
+ */
 export class HttpError extends Error {
   status: number;
   body: unknown;
 
   constructor(status: number, body: unknown) {
     const message = (body as { message?: unknown } | undefined)?.message;
-    super(typeof message === "string" ? message : `HTTP ${status}`);
+    super(typeof message === "string" && message ? message : {{#if i18n}}statusMessage(status){{else}}`HTTP ${status}`{{/if}});
     this.name = "HttpError";
     this.status = status;
     this.body = body;
@@ -45,12 +49,59 @@ function queryString(params?: Params) {
     : "";
 }
 
+{{#if auth}}
+/**
+ * The session is over (the access token is refused and can't be renewed): back to the login page, which says
+ * so and comes back to this page after signing in.
+ */
+function endSession() {
+  const here = window.location.pathname + window.location.search + window.location.hash;
+  useAuthStore.getState().expire(here);
+  window.location.assign("/login");
+}
+
+let renewing: Promise<boolean> | null = null;
+
+/**
+ * Asks for a new access token with the refresh token (`POST /api/auth/refresh` → `{ token, refreshToken? }`);
+ * false when there is none or the API refuses it. Any number of requests refused at once share one renewal.
+ */
+function renewToken() {
+  renewing ??= (async () => {
+    const { refreshToken, setToken } = useAuthStore.getState();
+    if (!refreshToken) return false;
+    try {
+      const res = await fetch(`${BASE_URL}/api/auth/refresh`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken }),
+      });
+      if (!res.ok) return false;
+      const json = (await res.json()) as { data?: unknown };
+      const data = (json.data ?? json) as { token?: string; refreshToken?: string };
+      if (!data.token) return false;
+      setToken(data.token, data.refreshToken);
+      return true;
+    } catch {
+      return false;
+    }
+  })().finally(() => {
+    renewing = null;
+  });
+  return renewing;
+}
+
+{{/if}}
 async function request<T>(
   method: string,
   url: string,
   body?: unknown,
   options: RequestOptions = {},
-) {
+{{#if auth}}
+  /** Sent again after the token was renewed: not a second time. */
+  retried = false,
+{{/if}}
+): Promise<T> {
   const { params, headers, ...init } = options;
 {{#if auth}}
   const token = useAuthStore.getState().token;
@@ -77,6 +128,10 @@ async function request<T>(
     method,
     headers: requestHeaders,
     body: body === undefined ? undefined : JSON.stringify(body),
+  }).catch((error: unknown) => {
+    // No answer at all (offline, refused, CORS); a cancelled request stays what it is
+    if (error instanceof DOMException && error.name === "AbortError") throw error;
+    throw new HttpError(0, undefined);
   });
   const text = await res.text();
   let json: unknown;
@@ -87,10 +142,11 @@ async function request<T>(
   }
   if (!res.ok) {
 {{#if auth}}
-    // The session is gone (expired / revoked): sign out and go to the login page
+    // The access token is refused (expired / revoked): a new one from the refresh token and the request again,
+    // else the session is over
     if (res.status === 401 && token) {
-      useAuthStore.getState().reset();
-      window.location.assign("/login");
+      if (!retried && (await renewToken())) return request<T>(method, url, body, options, true);
+      endSession();
     }
 {{/if}}
     throw new HttpError(res.status, json);

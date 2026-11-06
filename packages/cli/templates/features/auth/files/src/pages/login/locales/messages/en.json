@@ -5,5 +5,6 @@
   "password": "Password",
   "submit": "Sign in",
   "failed": "Sign-in failed",
-  "mockHint": "Demo account: admin / admin123 (mocked by MSW)"
+  "expired": "Your session expired. Sign in again to carry on where you were.",
+  "mockHint": "Demo accounts: admin / admin123 (everything), viewer / viewer123 (read only); mocked by MSW"
 }
