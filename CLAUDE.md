@@ -35,7 +35,7 @@ vp run a11y                          # axe-core scan (needs the docs site runnin
 
 ## CI and releases
 
-`.github/workflows/ci.yml` runs the tests on Linux, macOS and Windows for every push to main and pull request (plus check and build on Linux). Releases go through `.github/workflows/release.yml`, not a local `pnpm release`:
+`.github/workflows/ci.yml` runs the tests on Linux, macOS and Windows for every push to main and pull request (plus check and build on Linux), and on Linux the a11y scan (against the docs site's dev server, in the runner's Chrome) and the CLI's e2e. The visual snapshot stays local: its baseline is measured on macOS fonts. Releases go through `.github/workflows/release.yml`, not a local `pnpm release`:
 
 1. Commit a changeset with the change (`pnpm changeset`; the packages are one fixed group, so one entry bumps all five).
 2. On push, the workflow opens or updates the "Version packages" pull request (`pnpm version-packages`: versions, CHANGELOGs, manifest).

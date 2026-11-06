@@ -1,5 +1,6 @@
 # Every push to main and every pull request: the tests on Linux, macOS and Windows (paths, line endings, the
-# skeinThemes() Vite plugin), and on Linux the rest of `pnpm ready` (format, lint, types, build).
+# skeinThemes() Vite plugin), and on Linux the rest of `pnpm ready` (format, lint, types, build), the axe scan of
+# the AdminLayout demo and the CLI's end-to-end run (generated projects installed, built and driven in Chrome).
 name: CI
 
 on:
@@ -36,3 +37,39 @@ jobs:
         if: runner.os == 'Linux'
         run: pnpm exec vp check && pnpm exec vp run -r build
       - run: pnpm exec vp run -r test
+
+  # The axe-core scan (packages/ui/tests/a11y): every theme style x light / dark x layout of the docs site's
+  # AdminLayout demo, in the runner's Chrome, against the docs site's dev server
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: start the docs site
+        run: |
+          pnpm exec vp run skein-doc#dev > "$RUNNER_TEMP/docs.log" 2>&1 &
+          timeout 180 bash -c 'until curl -sf http://localhost:5175 > /dev/null; do sleep 2; done' || { cat "$RUNNER_TEMP/docs.log"; exit 1; }
+      - run: pnpm exec vp run --fail-if-no-match --filter @skeinui/ui a11y
+
+  # tests/e2e of the CLI: every preset generated with --local, npm / pnpm installed, checked and built, the admin
+  # app driven in the runner's Chrome
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec vp run --fail-if-no-match --filter @skeinui/cli e2e

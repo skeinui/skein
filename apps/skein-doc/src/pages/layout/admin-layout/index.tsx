@@ -612,7 +612,8 @@ function ShellDemo({
                       lineHeight: 1.15,
                     }}
                   >
-                    <b style={{ color: "#16a34a" }}>PRO</b>
+                    {/* Green that keeps 4.5:1 at 9px on light and dark headers (the theme styles set color-scheme) */}
+                    <b style={{ color: "light-dark(#15803d, #4ade80)" }}>PRO</b>
                     <span style={{ opacity: 0.6, fontWeight: 400 }}>v0.1.0</span>
                   </span>
                 </>
