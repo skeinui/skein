@@ -1,5 +1,17 @@
 # @skeinui/themes
 
+## 0.0.8
+
+### Patch Changes
+
+- b11eac3: heroui: form fields can be told from the surface they sit on. In dark mode the field background is `#27272a` (it was the same `#18181b` as a card, so a field on a card was invisible); in light mode the field shadow ends in a 1px 10% black ring (a white field on a white card had only a faint shadow).
+- 7efb78a: shadcn: the side menu has the shadcn/ui sidebar's sizes everywhere, also in AdminLayout's default menu style: 32px rows, 28px sub-items and 4px between rows (were 36 / 32 / 2 inside AdminLayout, the standalone menu 2px apart). The modern style is unchanged.
+- 887ae77: shadcn and heroui: idle page tabs' text is a step darker (the muted color mixed with 15% of the text color), above 4.5:1 on the chrome bar's tinted background too (was 4.44 / 4.47).
+- 385b8d4: Toast: closer to Sonner. `closeButton` on the `Toaster` or a toast shows or hides the close button (default: shown); `icon` on a toast and `icons` on the `Toaster` replace the type icons (a default toast can have one too); `toast.custom((id) => …)` puts content of your own in a toast, the frame and close button staying. The room kept for the close button is only reserved when there is one. (Sonner's `expand` is `layout="list"`.)
+- Updated dependencies [ecf3350]
+- Updated dependencies [385b8d4]
+  - @skeinui/ui@0.0.8
+
 ## 0.0.7
 
 ### Patch Changes

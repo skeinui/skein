@@ -1,5 +1,20 @@
 # @skeinui/cli
 
+## 0.0.8
+
+### Patch Changes
+
+- 03f2cb7: Admin template: button-level permissions. The user has `permissions` (`orders:create`; `*` is everything, `orders:*` every action on orders); `<Access code>` and `useAccess()` in `src/modules/access` show only what they allow, `requireAccess(code)` in a route's `beforeLoad` gives the 403 page. The users page uses them; the mock has `admin` (everything), `viewer` (read only) and `guest` (nothing).
+- 03f2cb7: Admin template: sessions and errors. A refused access token (401) is renewed with the refresh token (`POST /api/auth/refresh`) and the request sent again; when that fails the login page says the session expired and signing in comes back to the page. Failed requests are an `HttpError` with a message in the app's language (the API's own, asked with `Accept-Language`, else the status in words, `src/lib/errors/`; status 0 for no answer). A page that throws shows a "failed to load" page with a retry (`defaultErrorComponent`), also inside the keep-alive tabs; the mock answers in the language asked for.
+- 432271b: Admin template: a profile answer that is not a user (index.html when the mock is not up) no longer replaces the signed-in user, and a user in storage that is not one is dropped: it crashed the avatar menu on every page, also after a reload.
+- bdc99a8: `skein new page --from` pages: rows to tick (export the ticked rows as CSV, delete them together; an "Export" for the rows on screen), sortable headers when the list has sort parameters (`sortBy` + `order`, or `sort=-name`; the mock sorts too), and every action behind its permission (`orders:create`, `update`, `delete`; the route asks for `orders:read`) in a project with the access module. Sort parameters are no longer taken for search filters.
+- 7be6619: Admin template: `http` treats an HTML answer to a data request as a failed request (404). The dev server answers any path nothing handles with `index.html` and status 200, so with the mock not started a query received a string instead of its data and the bell in the header crashed the whole page (`data.filter is not a function`); now the query fails like any other and the page stays up.
+- f851bc1: `skein new page system\logs` (a path typed with backslashes, on Windows) makes `system/logs` instead of a `system-logs` page; a `skein check` message shows its path with `/` there too.
+- cba12c8: Admin template: what the stores read back from browser storage is checked. The preferences (mode, layout settings), the open tabs, the session (token, refresh token, user, where to go after signing in) and the tenant keep what has the right shape and leave the rest to the defaults, so storage written by an older version, another tool or by hand can no longer break every page; the first paint's color mode in `index.html` is checked too. The path to go to after signing in has to be a path of the app.
+- 7a8d05e: Admin template: a detail page's tab keeps its title after a reload while it is in the background (it showed its path until opened).
+- 8845083: Admin template: closing a page tab no longer breaks the next navigation ("Converting circular structure to JSON"). The tab bar hands back the tabs with their icons (React elements), which were saved with the tabs as JSON; the stored tabs have no icons now (they are worked out from the menu at every render).
+- 56c4b86: Admin template: two more built-in toolbar tools, on by default: "search" (a command palette of the menu's pages, ⌘K / Ctrl+K) and "notifications" (a bell with the unread count and the list, `src/modules/notifications/` with its API and mock). Requests send the app's language as `Accept-Language`, so the API can answer in it.
+
 ## 0.0.7
 
 ### Patch Changes
