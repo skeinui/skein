@@ -1,5 +1,12 @@
 # @skeinui/ui
 
+## 0.0.8
+
+### Patch Changes
+
+- ecf3350: AdminLayoutSettings: `extra` / `onExtraChange` for the app's own settings. The sections an app adds as `children` can now be part of the panel's Export / Import: the values given as `extra` are exported under `extra` (and as a second constant in the code export), an import hands them back to `onExtraChange`. `serializeSettings`, `settingsToCode` take them as a second argument, `parseSettings` returns them.
+- 385b8d4: Toast: closer to Sonner. `closeButton` on the `Toaster` or a toast shows or hides the close button (default: shown); `icon` on a toast and `icons` on the `Toaster` replace the type icons (a default toast can have one too); `toast.custom((id) => …)` puts content of your own in a toast, the frame and close button staying. The room kept for the close button is only reserved when there is one. (Sonner's `expand` is `layout="list"`.)
+
 ## 0.0.7
 
 ### Patch Changes
