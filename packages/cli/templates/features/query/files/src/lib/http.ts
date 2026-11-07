@@ -133,6 +133,9 @@ async function request<T>(
     if (error instanceof DOMException && error.name === "AbortError") throw error;
     throw new HttpError(0, undefined);
   });
+  // A page where data was expected: the dev server's index.html answers any path nothing handles (no API, mock not started)
+  if (res.ok && res.headers.get("Content-Type")?.includes("text/html"))
+    throw new HttpError(404, undefined);
   const text = await res.text();
   let json: unknown;
   try {

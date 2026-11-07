@@ -313,14 +313,14 @@ export async function adminFlow(base, { log = console.log } = {}) {
           await other.goto(`${base}/login`);
           await other.getByRole("button", { name: "登录" }).click();
           await other.waitForURL(/\/dashboard$/);
-          // The mock isn't there (index.html is what answers): the page works, the user is the one signed in
+          // The mock isn't there (index.html is what answers the profile and the notifications): the page works, the user is the one signed in
           await context.addInitScript(() => {
             const real = window.fetch;
             window.fetch = (...args) => {
               const [input] = args;
               const url =
                 typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
-              return url.includes("/api/auth/profile")
+              return url.includes("/api/auth/profile") || url.includes("/api/notifications")
                 ? Promise.resolve(
                     new Response("<!doctype html>", {
                       status: 200,
@@ -331,6 +331,10 @@ export async function adminFlow(base, { log = console.log } = {}) {
             };
           });
           await other.reload();
+          await other.getByRole("heading", { name: "仪表盘" }).waitFor();
+          // The answers have arrived and been read by now: the page is still there
+          await other.getByRole("button", { name: /^通知/ }).waitFor();
+          await other.waitForTimeout(1500);
           await other.getByRole("heading", { name: "仪表盘" }).waitFor();
           const user = await stored();
           if (user?.username !== "admin")
