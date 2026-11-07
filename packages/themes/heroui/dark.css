@@ -14,7 +14,7 @@
     --ui-ring: #0485f7;
 
     /* Form controls */
-    --ui-field-bg: #18181b;
+    --ui-field-bg: #27272a;
     --ui-field-filled-bg: var(--ui-c-neutral);
     --ui-field-fg: var(--ui-fg);
     --ui-field-placeholder: var(--ui-fg-muted);

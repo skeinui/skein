@@ -36,7 +36,7 @@
     --ui-field-fg: var(--ui-fg);
     --ui-field-placeholder: var(--ui-fg-muted);
     --ui-field-border: transparent;
-    --ui-field-shadow: 0 2px 4px 0 #0000000a, 0 1px 2px 0 #0000000f, 0 0 1px 0 #0000000f;
+    --ui-field-shadow: 0 2px 4px 0 #0000000a, 0 1px 2px 0 #0000000f, 0 0 0 1px #0000001a;
 
     /* Overlay */
     --ui-overlay-bg: #ffffff;
