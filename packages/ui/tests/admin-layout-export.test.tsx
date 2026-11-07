@@ -66,6 +66,26 @@ describe("export / import", () => {
     if (back.ok) expect(back.value).toEqual(SAMPLE);
   });
 
+  test("the app's own settings (extra) go out under `extra` and come back; none, empty or not an object: left out", () => {
+    const extra = { toolbar: ["search", "mode"] };
+    const text = serializeSettings(SAMPLE, extra);
+    expect(JSON.parse(text).extra).toEqual(extra);
+    const back = parseSettings(text);
+    expect(back.ok && back.extra).toEqual(extra);
+    if (back.ok) expect(back.value).toEqual(SAMPLE);
+    // The layout settings are the same with or without them
+    expect(serializeSettings(SAMPLE)).not.toContain("extra");
+    expect(serializeSettings(SAMPLE, {})).toBe(serializeSettings(SAMPLE));
+    const none = parseSettings(serializeSettings(SAMPLE));
+    expect(none.ok && "extra" in none).toBe(false);
+    const odd = parseSettings(JSON.stringify({ layout: "top", extra: [1, 2] }));
+    expect(odd.ok && "extra" in odd).toBe(false);
+    // The code export keeps them as a second constant
+    expect(settingsToCode(SAMPLE, extra)).toContain("export const adminLayoutExtra = {");
+    expect(settingsToCode(SAMPLE, extra)).toContain('"search"');
+    expect(settingsToCode(SAMPLE)).not.toContain("adminLayoutExtra");
+  });
+
   test("not JSON / not an object: error; missing or invalid values: filled with defaults, colors only #rrggbb, numbers clamped to range", () => {
     expect(parseSettings("nope").ok).toBe(false);
     expect(parseSettings("[1,2]").ok).toBe(false);

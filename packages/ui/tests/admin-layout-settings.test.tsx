@@ -406,6 +406,46 @@ describe("<AdminLayoutSettings /> export / import", () => {
       el.dispatchEvent(new Event("input", { bubbles: true }));
     });
 
+  test("extra: the export carries the app's own settings, an import with them hands them to onExtraChange", async () => {
+    const received: unknown[] = [];
+    host = document.createElement("div");
+    document.body.append(host);
+    root = createRoot(host);
+    function H() {
+      const [value, setValue] = useState(DEFAULT_ADMIN_LAYOUT_SETTINGS);
+      const [extra, setExtra] = useState<Record<string, unknown>>({ toolbar: ["search"] });
+      latest = value;
+      return createElement(AdminLayoutSettings, {
+        value,
+        onValueChange: setValue,
+        extra,
+        onExtraChange: (next: Record<string, unknown>) => {
+          received.push(next);
+          setExtra(next);
+        },
+      });
+    }
+    await act(async () => root!.render(createElement(H)));
+    const out = () => q<HTMLTextAreaElement>('textarea[aria-label="Exported settings"]')!;
+    expect(JSON.parse(out().value).extra).toEqual({ toolbar: ["search"] });
+    const input = q<HTMLTextAreaElement>('textarea[aria-label="Import settings"]')!;
+    const importBtn = () =>
+      [...document.querySelectorAll("button")].find((b) => b.textContent === "Import")!;
+    // Without `extra` in the text: the app's settings are left alone
+    await setValue(input, JSON.stringify({ layout: "top" }));
+    await click(importBtn());
+    expect(latest.layout).toBe("top");
+    expect(received).toEqual([]);
+    await setValue(
+      input,
+      JSON.stringify({ layout: "column", extra: { toolbar: ["mode", "language"] } }),
+    );
+    await click(importBtn());
+    expect(latest.layout).toBe("column");
+    expect(received).toEqual([{ toolbar: ["mode", "language"] }]);
+    expect(JSON.parse(out().value).extra).toEqual({ toolbar: ["mode", "language"] });
+  });
+
   test("the export box holds the current settings as JSON, the Code tab a usage ready to paste", async () => {
     await mount();
     const out = () => q<HTMLTextAreaElement>('textarea[aria-label="Exported settings"]')!;

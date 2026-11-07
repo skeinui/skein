@@ -797,6 +797,13 @@ const [settings, setSettings] = useAdminLayoutSettings("my-app.layout");
 
 <AdminLayoutSettings value={settings} onValueChange={setSettings} />   // the panel's Export / Import gives JSON and code
 
+// sections of your own go in children; give their values as \`extra\` and they are in the Export too (under "extra"),
+// and an Import hands them back
+<AdminLayoutSettings value={settings} onValueChange={setSettings}
+  extra={{ tools }} onExtraChange={(extra) => setTools(extra.tools as string[])}>
+  <MyToolsSection />
+</AdminLayoutSettings>
+
 // use exported settings directly: one prop
 <AdminLayout
   settings={settings}            // layout, menuVariant, themeOverrides, showTabs

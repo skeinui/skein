@@ -31,6 +31,7 @@ export {
 export type {
   AdminLayoutThemeColor,
   AdminLayoutPreset,
+  AdminLayoutSettingsExtra,
   AdminLayoutSettingsValue,
 } from "./settings.ts";
 export { DEFAULT_RADIUS, applyThemeVars, sidebarTheme, themeVars } from "./theme.ts";

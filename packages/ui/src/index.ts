@@ -192,6 +192,7 @@ export type {
   AdminLayoutToolbar,
   AdminLayoutSettingsLabels,
   AdminLayoutSettingsProps,
+  AdminLayoutSettingsExtra,
   AdminLayoutSettingsSection,
   AdminLayoutSettingsValue,
   AdminLayoutThemeStyleOption,

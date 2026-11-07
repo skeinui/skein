@@ -24,6 +24,7 @@ import {
 import type {
   AdminLayoutThemeColor,
   AdminLayoutPreset,
+  AdminLayoutSettingsExtra,
   AdminLayoutSettingsValue,
 } from "./settings.ts";
 import { DEFAULT_RADIUS } from "./theme.ts";
@@ -190,6 +191,13 @@ export interface AdminLayoutSettingsProps extends Without<ComponentPropsWithoutR
   /** Current settings, controlled. */
   value: AdminLayoutSettingsValue;
   onValueChange: (value: AdminLayoutSettingsValue) => void;
+  /**
+   * The app's own settings, the ones its `children` sections change (JSON values by name): the export carries them
+   * (under `extra`), so it covers the whole panel, and an import hands them back to `onExtraChange`.
+   */
+  extra?: AdminLayoutSettingsExtra;
+  /** An import held app settings (`extra`): apply them. Check what you read; it is whatever the text said. */
+  onExtraChange?: (extra: AdminLayoutSettingsExtra) => void;
   /** Color themes (can be combined freely with theme styles); defaults to the built-in `ADMIN_LAYOUT_THEME_COLORS`. */
   themeColors?: readonly AdminLayoutThemeColor[];
   /** Theme styles provided by the app; without it there is no "Theme style" section. Once selected, `value.themeStyle` becomes its id, to be passed to `ConfigProvider`'s `themeStyle`. */
@@ -249,6 +257,8 @@ const dot = (color: string | undefined, fallback: string) => ({
 export function AdminLayoutSettings({
   value,
   onValueChange,
+  extra,
+  onExtraChange,
   themeColors = ADMIN_LAYOUT_THEME_COLORS,
   themeStyles,
   customPresets = [],
@@ -686,7 +696,8 @@ export function AdminLayoutSettings({
       </>
     ),
     export: () => {
-      const output = format === "json" ? serializeSettings(value) : settingsToCode(value);
+      const output =
+        format === "json" ? serializeSettings(value, extra) : settingsToCode(value, extra);
       return (
         <>
           <Segmented
@@ -747,6 +758,7 @@ export function AdminLayoutSettings({
                 const result = parseSettings(importText);
                 if (!result.ok) return setImportError(result.error);
                 onValueChange(result.value);
+                if (result.extra) onExtraChange?.(result.extra);
                 setImportText("");
               }}
             >

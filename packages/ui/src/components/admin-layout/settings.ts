@@ -254,19 +254,44 @@ export function normalizeSettings(
   return value;
 }
 
-/** Exports as JSON text (with a version number, two-space indent, convenient to commit to a repo). */
-export function serializeSettings(value: AdminLayoutSettingsValue): string {
+/**
+ * The app's own settings that go along with the layout ones in an export (what the sections it adds to the panel
+ * change): JSON values by name. The library doesn't read them; it only carries them out and back in.
+ */
+export type AdminLayoutSettingsExtra = Record<string, unknown>;
+
+const hasExtra = (extra?: AdminLayoutSettingsExtra): extra is AdminLayoutSettingsExtra =>
+  Boolean(extra) && Object.keys(extra as object).length > 0;
+
+/**
+ * Exports as JSON text (with a version number, two-space indent, convenient to commit to a repo). The app's own
+ * settings, when it has some (`extra`), are under `extra`.
+ */
+export function serializeSettings(
+  value: AdminLayoutSettingsValue,
+  extra?: AdminLayoutSettingsExtra,
+): string {
   return JSON.stringify(
-    { version: ADMIN_LAYOUT_SETTINGS_VERSION, ...normalizeSettings(value) },
+    {
+      version: ADMIN_LAYOUT_SETTINGS_VERSION,
+      ...normalizeSettings(value),
+      ...(hasExtra(extra) ? { extra } : {}),
+    },
     null,
     2,
   );
 }
 
-/** Reads back exported text: throws if it is not JSON or not an object at all; otherwise normalized by `normalizeSettings` (invalid fields return to defaults). */
+/**
+ * Reads back exported text: an error if it is not JSON or not an object at all; otherwise normalized by
+ * `normalizeSettings` (invalid fields return to defaults). The app's own settings (`extra`) come back as they
+ * were exported, when there are some: checking them is the app's job.
+ */
 export function parseSettings(
   text: string,
-): { ok: true; value: AdminLayoutSettingsValue } | { ok: false; error: string } {
+):
+  | { ok: true; value: AdminLayoutSettingsValue; extra?: AdminLayoutSettingsExtra }
+  | { ok: false; error: string } {
   let data: unknown;
   try {
     data = JSON.parse(text);
@@ -275,14 +300,23 @@ export function parseSettings(
   }
   if (!data || typeof data !== "object" || Array.isArray(data))
     return { ok: false, error: "Expected a JSON object" };
-  return { ok: true, value: normalizeSettings(data) };
+  const extra = (data as { extra?: unknown }).extra;
+  const plain = extra && typeof extra === "object" && !Array.isArray(extra);
+  return {
+    ok: true,
+    value: normalizeSettings(data),
+    ...(plain ? { extra: extra as AdminLayoutSettingsExtra } : {}),
+  };
 }
 
 /**
  * Exports as usage that can be pasted straight into code: the `settings` prop of `AdminLayout` alone applies layout / menu style / colors / radius / density;
  * the theme style is CSS imported by the app itself, passed to `ConfigProvider themeStyle`.
  */
-export function settingsToCode(value: AdminLayoutSettingsValue): string {
+export function settingsToCode(
+  value: AdminLayoutSettingsValue,
+  extra?: AdminLayoutSettingsExtra,
+): string {
   const s = normalizeSettings(value);
   const json = JSON.stringify(
     {
@@ -306,6 +340,13 @@ export function settingsToCode(value: AdminLayoutSettingsValue): string {
     "",
     `export const adminLayoutSettings: AdminLayoutSettingsValue = ${json};`,
     "",
+    ...(hasExtra(extra)
+      ? [
+          "// The app's own settings, which the library only carries along:",
+          `export const adminLayoutExtra = ${JSON.stringify(extra, null, 2)};`,
+          "",
+        ]
+      : []),
   ];
   const hasOverrides = Object.keys(s.themeOverrides).length > 0;
   lines.push(

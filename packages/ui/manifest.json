@@ -653,7 +653,7 @@
         },
         {
           "title": "Customize",
-          "code": "// Preferences kept in localStorage survive a reload (to keep them on a backend, useState and save in onValueChange)\nconst [settings, setSettings] = useAdminLayoutSettings(\"my-app.layout\");\n\n<AdminLayoutSettings value={settings} onValueChange={setSettings} />   // the panel's Export / Import gives JSON and code\n\n// use exported settings directly: one prop\n<AdminLayout\n  settings={settings}            // layout, menuVariant, themeOverrides, showTabs\n  themeScope=\"document\"          // when overlays (portals) must follow too\n  tabs={<PageTabs variant={settings.tabVariant} … />}\n  …\n/>"
+          "code": "// Preferences kept in localStorage survive a reload (to keep them on a backend, useState and save in onValueChange)\nconst [settings, setSettings] = useAdminLayoutSettings(\"my-app.layout\");\n\n<AdminLayoutSettings value={settings} onValueChange={setSettings} />   // the panel's Export / Import gives JSON and code\n\n// sections of your own go in children; give their values as `extra` and they are in the Export too (under \"extra\"),\n// and an Import hands them back\n<AdminLayoutSettings value={settings} onValueChange={setSettings}\n  extra={{ tools }} onExtraChange={(extra) => setTools(extra.tools as string[])}>\n  <MyToolsSection />\n</AdminLayoutSettings>\n\n// use exported settings directly: one prop\n<AdminLayout\n  settings={settings}            // layout, menuVariant, themeOverrides, showTabs\n  themeScope=\"document\"          // when overlays (portals) must follow too\n  tabs={<PageTabs variant={settings.tabVariant} … />}\n  …\n/>"
         }
       ]
     },
@@ -673,6 +673,10 @@
           "type": "AdminLayoutSettingsValue",
           "description": "The settings that \"Reset\" returns to; defaults to `DEFAULT_ADMIN_LAYOUT_SETTINGS`."
         },
+        "extra": {
+          "type": "AdminLayoutSettingsExtra",
+          "description": "The app's own settings, the ones its `children` sections change (JSON values by name): the export carries them\n(under `extra`), so it covers the whole panel, and an import hands them back to `onExtraChange`."
+        },
         "labels": {
           "type": "Partial<AdminLayoutSettingsLabels>",
           "description": "Built-in texts to override (see its Labels type below); by default they follow the ConfigProvider locale."
@@ -680,6 +684,10 @@
         "onDeletePreset": {
           "type": "(id: string) => void",
           "description": "When provided, each of `customPresets` gets a delete button; receives the preset's `id`, and the app removes it from storage."
+        },
+        "onExtraChange": {
+          "type": "(extra: AdminLayoutSettingsExtra) => void",
+          "description": "An import held app settings (`extra`): apply them. Check what you read; it is whatever the text said."
         },
         "onSavePreset": {
           "type": "(preset: AdminLayoutPreset) => void",
