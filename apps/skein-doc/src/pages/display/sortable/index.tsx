@@ -24,9 +24,11 @@ const tasks = (t: T): SortableItem[] => [
 function Demo({
   initial,
   orientation,
+  variant,
 }: {
   initial: SortableItem[];
   orientation?: "vertical" | "horizontal";
+  variant?: "tile" | "list";
 }) {
   const t = usePageT();
   const [items, setItems] = useState(initial);
@@ -35,6 +37,7 @@ function Demo({
       <Sortable
         aria-label={t("demo.list")}
         orientation={orientation}
+        variant={variant}
         items={items}
         onReorder={(_, { from, to }) => setItems((list) => arrayMove(list, from, to))}
       />
@@ -89,6 +92,10 @@ export default function SortablePage() {
 
       <Example id="horizontal" code={`<Sortable orientation="horizontal" … />`}>
         <Demo initial={tasks(t)} orientation="horizontal" />
+      </Example>
+
+      <Example id="list" code={`<Sortable variant="list" items={columns} … />`}>
+        <Demo initial={tasks(t)} variant="list" />
       </Example>
 
       <Example

@@ -1,8 +1,17 @@
 {
   "lead": "可排序列表：拖手柄换位置；键盘上空格拿起、方向键移动、空格放下、Esc 取消，每一步都有读屏播报。顺序由调用方持有，库只告诉你「谁从哪挪到哪」。",
-  "basic": { "title": "基础用法" },
-  "horizontal": { "title": "水平方向" },
-  "rich": { "title": "富内容与禁用项" },
+  "basic": {
+    "title": "基础用法"
+  },
+  "horizontal": {
+    "title": "水平方向"
+  },
+  "list": {
+    "title": "行式列表"
+  },
+  "rich": {
+    "title": "富内容与禁用项"
+  },
   "demo": {
     "list": "任务",
     "design": "设计评审",
@@ -13,7 +22,9 @@
     "progress": "进行中",
     "pinned": "Release 2.0（固定）"
   },
-  "api": { "title": "API 参考" },
+  "api": {
+    "title": "API 参考"
+  },
   "helpers": {
     "title": "辅助函数",
     "name": "函数",
@@ -22,7 +33,7 @@
   "styling": {
     "title": "样式钩子",
     "hook": "钩子",
-    "root": "外层与列表；`data-orientation`；拖动中 `sortable` 带 `data-dragging`",
+    "root": "外层盒子和列表；`data-orientation`、`data-variant`（`tile` 是基础外观，`list` 需要单独的样式）；拖动时 `sortable` 带 `data-dragging`",
     "item": "`data-dragging`（`--sort-offset` 跟随指针）/ `data-grabbed`（键盘拿起）/ `data-drop=before|after`（落点）/ `data-disabled`",
     "handle": "拖动手柄（`aria-pressed`）与内容",
     "status": "读屏用的操作说明和播报，视觉上隐藏"

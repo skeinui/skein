@@ -133,6 +133,7 @@ export function coverageFor(contract) {
     SKELETON_SLOTS,
     SLIDER_SLOTS,
     SORTABLE_ORIENTATIONS,
+    SORTABLE_VARIANTS,
     SORTABLE_SLOTS,
     SPINNER_SLOTS,
     SPLITTER_SLOTS,
@@ -726,6 +727,8 @@ export function coverageFor(contract) {
     ],
     "sortable.css": [
       ...slotSel(SORTABLE_SLOTS),
+      // tile is the base appearance, theme styles don't need a separate selector
+      ...SORTABLE_VARIANTS.filter((v) => v !== "tile").map((v) => `[data-variant="${v}"]`),
       ...SORTABLE_ORIENTATIONS.filter((o) => o !== "vertical").map(
         (o) => `[data-orientation="${o}"]`,
       ),

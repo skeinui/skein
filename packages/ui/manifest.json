@@ -15243,6 +15243,15 @@
           ],
           "description": "Layout direction; decides which pair of arrow keys moves an item.",
           "default": "\"vertical\""
+        },
+        "variant": {
+          "type": "\"list\" | \"tile\"",
+          "values": [
+            "list",
+            "tile"
+          ],
+          "description": "Visual variant; how each one looks is up to the theme style: `tile` is a card per item, `list` plain rows that light\nup under the pointer (for a short list inside a popover or menu).",
+          "default": "\"tile\""
         }
       },
       "types": {
@@ -15316,6 +15325,10 @@
         {
           "title": "Horizontal",
           "code": "<Sortable orientation=\"horizontal\" … />"
+        },
+        {
+          "title": "Plain rows",
+          "code": "<Sortable variant=\"list\" items={columns} … />"
         },
         {
           "title": "Rich content and disabled",
@@ -20944,6 +20957,10 @@
       "sortable-handle",
       "sortable-content",
       "sortable-status"
+    ],
+    "SORTABLE_VARIANTS": [
+      "tile",
+      "list"
     ],
     "SPINNER_SLOTS": [
       "spinner"

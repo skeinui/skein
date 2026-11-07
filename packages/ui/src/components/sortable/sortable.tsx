@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent, PointerEvent, ReactNode } from "react";
-import type { SortableOrientation } from "../../contract.ts";
+import type { SortableOrientation, SortableVariant } from "../../contract.ts";
 import { en } from "../../locales/en.ts";
 import { useConfig } from "../config-provider/context.ts";
 
@@ -41,6 +41,12 @@ export interface SortableProps {
    * @default "vertical"
    */
   orientation?: SortableOrientation;
+  /**
+   * Visual variant; how each one looks is up to the theme style: `tile` is a card per item, `list` plain rows that light
+   * up under the pointer (for a short list inside a popover or menu).
+   * @default "tile"
+   */
+  variant?: SortableVariant;
   /** Name of the whole list. */
   "aria-label"?: string;
   labels?: Partial<SortableLabels>;
@@ -86,6 +92,7 @@ export function Sortable({
   items,
   onReorder,
   orientation = "vertical",
+  variant = "tile",
   "aria-label": ariaLabel,
   labels: labelsProp,
 }: SortableProps) {
@@ -212,11 +219,12 @@ export function Sortable({
   const dropAfter = drag && drag.target >= others.length ? others[others.length - 1]?.id : null;
 
   return (
-    <div data-slot="sortable-root" data-orientation={orientation}>
+    <div data-slot="sortable-root" data-orientation={orientation} data-variant={variant}>
       <ul
         ref={listRef}
         data-slot="sortable"
         data-orientation={orientation}
+        data-variant={variant}
         data-dragging={drag ? "" : undefined}
         aria-label={ariaLabel}
       >

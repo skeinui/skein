@@ -146,6 +146,68 @@
     width: 2px;
   }
 
+  /*
+   * list: plain rows like a menu's (no fill, no border, no gap): the row under the pointer or focus is lit and the
+   * handle is faint until then. For a short list inside a popover (which columns to show, in which order).
+   */
+  [data-skein-theme="default"] [data-slot="sortable"][data-variant="list"] {
+    gap: 0;
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"] {
+    min-height: 2rem;
+    padding: 0.125rem 0.5rem 0.125rem 0.25rem;
+    border-color: transparent;
+    border-radius: var(--ui-r-control);
+    background-color: transparent;
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"]:hover,
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"]:has(:focus-visible) {
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-handle"] {
+    opacity: 0.45;
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"]:hover
+    [data-slot="sortable-handle"],
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"]:has(:focus-visible)
+    [data-slot="sortable-handle"] {
+    opacity: 1;
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"][data-grabbed] {
+    border-color: var(--ui-c-primary);
+    background-color: var(--ui-c-neutral-soft);
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]
+    [data-slot="sortable-item"][data-dragging] {
+    background-color: var(--ui-surface);
+  }
+  /* No gap: the insertion line sits on the border between two rows */
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]:not([data-orientation="horizontal"])
+    [data-slot="sortable-item"][data-drop="before"]::after {
+    top: -1px;
+  }
+  [data-skein-theme="default"]
+    [data-slot="sortable"][data-variant="list"]:not([data-orientation="horizontal"])
+    [data-slot="sortable-item"][data-drop="after"]::after {
+    bottom: -1px;
+  }
+
   /* Instructions and announcements for screen readers: invisible, but kept in the accessibility tree */
   [data-skein-theme="default"] [data-slot="sortable-status"] {
     position: absolute;

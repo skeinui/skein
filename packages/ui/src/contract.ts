@@ -483,6 +483,8 @@ export const TREESELECT_SLOTS = [
   "treeselect-tree",
 ] as const;
 
+export const SORTABLE_VARIANTS = ["tile", "list"] as const;
+export type SortableVariant = (typeof SORTABLE_VARIANTS)[number];
 export const SORTABLE_ORIENTATIONS = ["vertical", "horizontal"] as const;
 export type SortableOrientation = (typeof SORTABLE_ORIENTATIONS)[number];
 export const SORTABLE_SLOTS = [
