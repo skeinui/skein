@@ -2,6 +2,13 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { User } from "@/pages/login/api";
 
+/** Whether `value` is a signed-in user, not whatever a bad response or an older version left behind. */
+export const isUser = (value: unknown): value is User =>
+  typeof value === "object" &&
+  value !== null &&
+  typeof (value as User).username === "string" &&
+  typeof (value as User).name === "string";
+
 interface AuthState {
   token: string | null;
   /** Exchanged for a new `token` when the API answers 401 (lib/http.ts); the API may not issue one. */
@@ -31,7 +38,7 @@ export const useAuthStore = create<AuthState>()(
       expired: false,
       setSession: (token, user, refreshToken = null) =>
         set({ token, user, refreshToken, expired: false }),
-      setUser: (user) => set({ user }),
+      setUser: (user) => set((s) => (isUser(user) ? { user } : s)),
       setToken: (token, refreshToken) =>
         set((s) => ({ token, refreshToken: refreshToken ?? s.refreshToken })),
       setIntendedPath: (intendedPath) => set({ intendedPath }),
@@ -39,6 +46,14 @@ export const useAuthStore = create<AuthState>()(
         set({ token: null, refreshToken: null, user: null, intendedPath, expired: true }),
       reset: () => set({ token: null, refreshToken: null, user: null, expired: false }),
     }),
-    { name: "{{storageKey}}-auth" },
+    {
+      name: "{{storageKey}}-auth",
+      // A user in storage that isn't one (a response that wasn't the API's, saved by an earlier version) is dropped
+      // rather than crashing every page that shows it
+      merge: (persisted, current) => {
+        const saved = (persisted ?? {}) as Partial<AuthState>;
+        return { ...current, ...saved, user: isUser(saved.user) ? saved.user : null };
+      },
+    },
   ),
 );

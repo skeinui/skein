@@ -280,6 +280,55 @@ export async function adminFlow(base, { log = console.log } = {}) {
         }
       },
     );
+    await step(
+      "a profile that isn't a user changes nothing; a spoiled user in storage is dropped",
+      async () => {
+        // A fresh browser context (the default language is Chinese)
+        const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+        try {
+          const other = await context.newPage();
+          const stored = (change) =>
+            other.evaluate((change) => {
+              const key = Object.keys(localStorage).find((k) => k.endsWith("-auth"));
+              const saved = JSON.parse(localStorage.getItem(key));
+              if (change) Object.assign(saved.state, change);
+              localStorage.setItem(key, JSON.stringify(saved));
+              return saved.state.user;
+            }, change);
+          await other.goto(`${base}/login`);
+          await other.getByRole("button", { name: "登录" }).click();
+          await other.waitForURL(/\/dashboard$/);
+          // The mock isn't there (index.html is what answers): the page works, the user is the one signed in
+          await context.addInitScript(() => {
+            const real = window.fetch;
+            window.fetch = (...args) => {
+              const [input] = args;
+              const url =
+                typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
+              return url.includes("/api/auth/profile")
+                ? Promise.resolve(
+                    new Response("<!doctype html>", {
+                      status: 200,
+                      headers: { "content-type": "text/html" },
+                    }),
+                  )
+                : real(...args);
+            };
+          });
+          await other.reload();
+          await other.getByRole("heading", { name: "仪表盘" }).waitFor();
+          const user = await stored();
+          if (user?.username !== "admin")
+            throw new Error(`the user became ${JSON.stringify(user)}`);
+          // What an earlier version saved from such an answer: dropped, not a crash on every page
+          await stored({ user: "<!doctype html>" });
+          await other.reload();
+          await other.getByRole("heading", { name: "仪表盘" }).waitFor();
+        } finally {
+          await context.close();
+        }
+      },
+    );
     await step("no errors", async () => {
       const real = errors.filter((e) => !/favicon|Download the React DevTools/.test(e));
       if (real.length > 0) throw new Error(real.slice(0, 3).join(" | "));

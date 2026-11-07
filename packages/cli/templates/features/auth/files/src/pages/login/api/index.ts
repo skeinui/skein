@@ -1,5 +1,5 @@
 import http from "@/lib/http";
-import { useAuthStore } from "@/store/auth-store";
+import { isUser, useAuthStore } from "@/store/auth-store";
 
 export interface User {
   id: number;
@@ -32,6 +32,8 @@ export const logout = () => http.post<null>("/api/auth/logout");
 /** The signed-in user as the API has it now; also what the session keeps (so changed permissions apply without signing in again). */
 export const fetchProfile = async () => {
   const user = await http.get<User>("/api/auth/profile");
+  // Not the API's answer (index.html when the mock isn't up, an error page of a proxy): not a user to keep
+  if (!isUser(user)) throw new Error("GET /api/auth/profile didn't answer with a user");
   useAuthStore.getState().setUser(user);
   return user;
 };
