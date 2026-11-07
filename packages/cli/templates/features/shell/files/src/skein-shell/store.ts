@@ -43,7 +43,9 @@ export const useTabsStore = create<TabsState>()(
     (set) => ({
       tabs: [HOME_TAB],
       versions: {},
-      setTabs: (tabs) => set({ tabs }),
+      // Without the icons: the tab bar hands back the tabs it was given, icons (React elements) included, and
+      // they are worked out from the menu again at every render; tabs are saved as JSON, which an element breaks
+      setTabs: (tabs) => set({ tabs: tabs.map((tab) => ({ ...tab, icon: undefined })) }),
       refresh: (key) =>
         set((s) => ({ versions: { ...s.versions, [key]: (s.versions[key] ?? 0) + 1 } })),
     }),

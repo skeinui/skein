@@ -203,6 +203,20 @@ export async function adminFlow(base, { log = console.log } = {}) {
       await page.goto(`${base}/no-such-page`);
       await page.getByText("Page not found").waitFor();
     });
+    await step(
+      "closing a tab, then opening another page works (the tabs are saved as JSON)",
+      async () => {
+        await page.goto(`${base}/users`);
+        await rows().first().waitFor();
+        const usersTab = page.locator('[data-slot="page-tabs-item"]', { hasText: "Users" });
+        await usersTab.locator('[data-slot="page-tabs-close"]').click();
+        await usersTab.waitFor({ state: "detached" });
+        await nav("Dashboard").click();
+        await page.getByRole("heading", { name: "Dashboard" }).waitFor();
+        // The error page of the router would say so
+        if (await page.getByText("Something went wrong").count()) throw new Error("an error page");
+      },
+    );
     await step("signing out returns to /login", async () => {
       await page.goto(`${base}/dashboard`);
       await page.getByRole("button", { name: "Account" }).click();
