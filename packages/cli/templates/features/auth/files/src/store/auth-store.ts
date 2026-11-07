@@ -9,6 +9,8 @@ export const isUser = (value: unknown): value is User =>
   typeof (value as User).username === "string" &&
   typeof (value as User).name === "string";
 
+const text = (value: unknown) => (typeof value === "string" && value !== "" ? value : null);
+
 interface AuthState {
   token: string | null;
   /** Exchanged for a new `token` when the API answers 401 (lib/http.ts); the API may not issue one. */
@@ -48,11 +50,25 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: "{{storageKey}}-auth",
-      // A user in storage that isn't one (a response that wasn't the API's, saved by an earlier version) is dropped
-      // rather than crashing every page that shows it
+      // What storage holds is read field by field: a user that isn't one (a response that wasn't the API's, saved by
+      // an earlier version) is dropped rather than crashing every page that shows it
       merge: (persisted, current) => {
-        const saved = (persisted ?? {}) as Partial<AuthState>;
-        return { ...current, ...saved, user: isUser(saved.user) ? saved.user : null };
+        const saved =
+          typeof persisted === "object" && persisted !== null
+            ? (persisted as Record<string, unknown>)
+            : {};
+        return {
+          ...current,
+          token: text(saved.token),
+          refreshToken: text(saved.refreshToken),
+          user: isUser(saved.user) ? saved.user : null,
+          // A path of this app: a stored address elsewhere would send the user there after signing in
+          intendedPath:
+            typeof saved.intendedPath === "string" && /^\/(?!\/)/.test(saved.intendedPath)
+              ? saved.intendedPath
+              : null,
+          expired: saved.expired === true,
+        };
       },
     },
   ),

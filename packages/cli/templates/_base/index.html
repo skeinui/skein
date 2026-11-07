@@ -15,7 +15,8 @@
 {{#if shell}}
         try {
           const saved = JSON.parse(localStorage.getItem("{{storageKey}}-preferences") ?? "{}");
-          mode = saved.state?.mode ?? mode;
+          // A mode that isn't one (stored by something else) stays the default
+          if (["system", "light", "dark"].includes(saved.state?.mode)) mode = saved.state.mode;
         } catch {}
 {{/if}}
         if (mode === "system")

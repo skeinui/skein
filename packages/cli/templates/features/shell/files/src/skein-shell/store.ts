@@ -1,9 +1,19 @@
+import { normalizeSettings } from "@skeinui/ui";
 import type { AdminLayoutSettingsValue, PageTab } from "@skeinui/ui";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { settings } from "@/settings";
 
 type Mode = "system" | "light" | "dark";
+
+// What storage hands back is whatever was written there (an older version, another tool, a hand edit): each
+// store reads it with `merge`, keeps what has the right shape and leaves the rest to the defaults
+const isObject = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
+const isMode = (value: unknown): value is Mode =>
+  value === "system" || value === "light" || value === "dark";
+const isTab = (value: unknown): value is PageTab =>
+  isObject(value) && typeof value.key === "string" && typeof value.title === "string";
 
 interface PreferencesState {
   mode: Mode;
@@ -23,7 +33,18 @@ export const usePreferencesStore = create<PreferencesState>()(
       setLayout: (layout) => set({ layout }),
       reset: () => set({ mode: settings.mode, layout: settings.layout }),
     }),
-    { name: `${settings.storageKey}-preferences` },
+    {
+      name: `${settings.storageKey}-preferences`,
+      merge: (persisted, current) => {
+        const saved = isObject(persisted) ? persisted : {};
+        return {
+          ...current,
+          mode: isMode(saved.mode) ? saved.mode : current.mode,
+          // Read as settings again: a missing or wrong field is the default's
+          layout: isObject(saved.layout) ? normalizeSettings(saved.layout) : current.layout,
+        };
+      },
+    },
   ),
 );
 
@@ -53,6 +74,13 @@ export const useTabsStore = create<TabsState>()(
       name: `${settings.storageKey}-tabs`,
       storage: createJSONStorage(() => sessionStorage),
       partialize: (s) => ({ tabs: s.tabs }),
+      merge: (persisted, current) => {
+        const saved = isObject(persisted) ? persisted : {};
+        return {
+          ...current,
+          tabs: Array.isArray(saved.tabs) ? saved.tabs.filter(isTab) : current.tabs,
+        };
+      },
     },
   ),
 );

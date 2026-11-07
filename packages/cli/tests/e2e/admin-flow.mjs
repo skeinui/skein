@@ -1,6 +1,7 @@
 // Walks through a generated admin app in a real browser. Used by run.mjs; can also be run on its own:
 //   node tests/e2e/admin-flow.mjs http://localhost:5173
 import { createRequire } from "node:module";
+import { storageSurvives } from "./storage-check.mjs";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright-core");
@@ -343,6 +344,9 @@ export async function adminFlow(base, { log = console.log } = {}) {
         }
       },
     );
+    await step("garbage in the stored keys: the app still opens", async () => {
+      await storageSurvives(browser, base);
+    });
     await step("no errors", async () => {
       const real = errors.filter((e) => !/favicon|Download the React DevTools/.test(e));
       if (real.length > 0) throw new Error(real.slice(0, 3).join(" | "));

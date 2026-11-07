@@ -13,6 +13,13 @@ export const useTenantStore = create<TenantState>()(
       tenantId: null,
       setTenantId: (tenantId) => set({ tenantId }),
     }),
-    { name: "{{storageKey}}-tenant" },
+    {
+      name: "{{storageKey}}-tenant",
+      // What storage holds is read with a check: a tenant is a text
+      merge: (persisted, current) => {
+        const id = (persisted as { tenantId?: unknown } | null)?.tenantId;
+        return { ...current, tenantId: typeof id === "string" && id !== "" ? id : null };
+      },
+    },
   ),
 );
