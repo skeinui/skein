@@ -966,6 +966,17 @@ describe("mockServiceWorker.js of the mock template", () => {
     const version = worker.match(/PACKAGE_VERSION = '([^']+)'/)?.[1];
     expect(version).toBe(String(workspace.catalog.msw).replace(/^[\^~]/, ""));
   });
+
+  test("msw is pinned (no range) in the mock feature, to the catalog's version: the worker and the installed msw must be the same", () => {
+    const workspace = parseYaml(
+      read(join(import.meta.dirname, "..", "..", "..", "pnpm-workspace.yaml")),
+    );
+    const feature = JSON.parse(
+      read(join(import.meta.dirname, "..", "templates", "features", "mock", "feature.json")),
+    );
+    expect(feature.devDependencies.msw).toBe(String(workspace.catalog.msw));
+    expect(feature.devDependencies.msw).toMatch(/^\d+\.\d+\.\d+$/);
+  });
 });
 
 describe("init: detects features from the structure when .skein.json is missing", () => {
