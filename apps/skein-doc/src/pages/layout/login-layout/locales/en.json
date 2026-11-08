@@ -20,7 +20,9 @@
     "password": "Password",
     "submit": "Sign in",
     "providers": "Or continue with",
-    "language": "Language"
+    "language": "Language",
+    "coverTitle": "Build faster",
+    "coverText": "Components, themes and an admin shell, ready to use"
   },
   "api": {
     "title": "API Reference"
@@ -29,7 +31,7 @@
     "title": "Styling Reference",
     "hook": "Hook",
     "root": "The page; `data-variant` is `centered`, `split` or `cover`",
-    "cover": "`split`: the left side, and the brand placed on it by default",
+    "cover": "`split`: the left side: the brand over the glow, and `cover-body` in the middle for the `cover` slot",
     "glow": "A soft glow of the primary color: the split cover's and the cover variant's background",
     "backdrop": "`cover`: the full-page background, a glow or the `backgroundImage`",
     "main": "The form's side: the toolbar (top right), the panel and, in `centered` and `cover`, the card around it",

@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Button, Flex, Form, LoginLayout, Text } from "@skeinui/ui";
+import { Button, Flex, Form, LoginLayout, Text, Title } from "@skeinui/ui";
 import type { LoginLayoutProps } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
@@ -7,7 +7,7 @@ import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.t
 /** The styling hooks; their descriptions are the page's `styling.<key>` messages. */
 const HOOKS = [
   { key: "root", name: "login-layout", type: "root" },
-  { key: "cover", name: "login-layout-cover / cover-brand", type: "aside" },
+  { key: "cover", name: "login-layout-cover / cover-brand / cover-body", type: "aside" },
   { key: "glow", name: "login-layout-glow", type: "div" },
   { key: "backdrop", name: "login-layout-backdrop / backdrop-image", type: "div / img" },
   { key: "main", name: "login-layout-main / toolbar / panel / card", type: "div" },
@@ -67,7 +67,15 @@ export default function LoginLayoutPage() {
       </Example>
 
       <Example id="split" code={`<LoginLayout variant="split" cover={<MyCover />} … />`}>
-        <Demo variant="split" />
+        <Demo
+          variant="split"
+          cover={
+            <>
+              <Title level={3}>{t("demo.coverTitle")}</Title>
+              <Text tone="secondary">{t("demo.coverText")}</Text>
+            </>
+          }
+        />
       </Example>
 
       <Example id="cover" code={`<LoginLayout variant="cover" backgroundImage="/bg.jpg" … />`}>

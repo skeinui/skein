@@ -51,16 +51,20 @@ describe("LoginLayout", () => {
     }
   });
 
-  test("split: a cover with the brand over a glow, the form without a card; a cover slot replaces them", () => {
+  test("split: a cover with the brand over a glow, the form without a card; a cover slot fills its middle", () => {
     const html = ssr({ variant: "split" });
     expect(html).toContain('data-variant="split"');
     expect(html).toContain('data-slot="login-layout-cover"');
     expect(html).toContain('data-slot="login-layout-glow"');
     expect(html).toContain('data-slot="login-layout-cover-brand"');
     expect(html).not.toContain('data-slot="card"');
+    expect(html).not.toContain('data-slot="login-layout-cover-body"');
+    // A cover is put in the middle of it, under the brand
     const custom = ssr({ variant: "split", cover: createElement("span", null, "my cover") });
+    expect(custom).toContain('data-slot="login-layout-cover-body"');
     expect(custom).toContain("my cover");
-    expect(custom).not.toContain('data-slot="login-layout-glow"');
+    expect(custom).toContain('data-slot="login-layout-glow"');
+    expect(custom).toContain('data-slot="login-layout-cover-brand"');
   });
 
   test("cover: a backdrop of the glow, or of a picture", () => {

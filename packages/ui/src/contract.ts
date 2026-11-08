@@ -1506,6 +1506,7 @@ export const LOGIN_LAYOUT_SLOTS = [
   "login-layout",
   "login-layout-cover",
   "login-layout-cover-brand",
+  "login-layout-cover-body",
   "login-layout-glow",
   "login-layout-backdrop",
   "login-layout-backdrop-image",

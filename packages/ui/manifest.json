@@ -9614,7 +9614,7 @@
         },
         "cover": {
           "type": "ReactNode",
-          "description": "`split`: what the left side shows instead of the brand over a soft glow."
+          "description": "`split`: what the cover shows in its middle (a drawing, a tagline), under the brand and over the soft glow."
         },
         "description": {
           "type": "ReactNode",
@@ -9678,6 +9678,7 @@
         "login-layout",
         "login-layout-cover",
         "login-layout-cover-brand",
+        "login-layout-cover-body",
         "login-layout-glow",
         "login-layout-backdrop",
         "login-layout-backdrop-image",
@@ -20538,6 +20539,7 @@
       "login-layout",
       "login-layout-cover",
       "login-layout-cover-brand",
+      "login-layout-cover-body",
       "login-layout-glow",
       "login-layout-backdrop",
       "login-layout-backdrop-image",

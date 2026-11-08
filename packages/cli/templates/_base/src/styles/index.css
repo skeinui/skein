@@ -118,6 +118,24 @@ body {
 .notifications-dot[data-unread] {
   background-color: var(--ui-c-primary);
 }
+/* The drawing on the sign-in cover (pages/login/components/login-illustration.tsx): its accents are the primary color */
+.login-illustration {
+  width: min(16rem, 40%);
+  margin-bottom: 1rem;
+  color: var(--ui-c-primary);
+  animation: login-float 5s ease-in-out infinite;
+}
+@keyframes login-float {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-illustration {
+    animation: none;
+  }
+}
+
 /* The toolbar section of the preferences drawer (modules/toolbar/preferences.tsx): set like the drawer's own
    sections, a title, a hint and one row per tool, a divider above */
 .tool-prefs {

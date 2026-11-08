@@ -12,5 +12,9 @@
     "centered": "Centered",
     "split": "Split",
     "cover": "Cover"
+  },
+  "cover": {
+    "title": "Build faster, in your own style",
+    "description": "Components, themes and an admin shell, ready to use"
   }
 }

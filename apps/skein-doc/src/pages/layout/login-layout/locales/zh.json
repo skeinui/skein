@@ -20,7 +20,9 @@
     "password": "密码",
     "submit": "登录",
     "providers": "使用以下服务登录",
-    "language": "语言"
+    "language": "语言",
+    "coverTitle": "更快地构建",
+    "coverText": "组件、主题和管理后台外壳，开箱即用"
   },
   "api": {
     "title": "API 参考"
@@ -29,7 +31,7 @@
     "title": "样式参考",
     "hook": "钩子",
     "root": "整页；`data-variant` 为 `centered`、`split` 或 `cover`",
-    "cover": "`split`：左侧，默认把品牌放在上面",
+    "cover": "`split`：左侧：光晕上的品牌，以及放 `cover` 插槽的中间部分 `cover-body`",
     "glow": "主色的柔和光晕：分栏封面和封面变体的背景",
     "backdrop": "`cover`：整页背景，光晕或 `backgroundImage`",
     "main": "表单一侧：工具栏（右上角）、面板，以及 `centered` 和 `cover` 里包着它的卡片",

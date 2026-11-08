@@ -35,7 +35,7 @@ export interface LoginLayoutProps {
   footer?: ReactNode;
   /** Top right: language, appearance… */
   toolbar?: ReactNode;
-  /** `split`: what the left side shows instead of the brand over a soft glow. */
+  /** `split`: what the cover shows in its middle (a drawing, a tagline), under the brand and over the soft glow. */
   cover?: ReactNode;
   /** `cover`: a picture for the whole page instead of the soft glow. */
   backgroundImage?: string;
@@ -96,12 +96,9 @@ export function LoginLayout({
     <main data-slot="login-layout" data-variant={variant}>
       {variant === "split" ? (
         <aside data-slot="login-layout-cover">
-          {cover ?? (
-            <>
-              <div data-slot="login-layout-glow" />
-              <div data-slot="login-layout-cover-brand">{brand}</div>
-            </>
-          )}
+          <div data-slot="login-layout-glow" />
+          <div data-slot="login-layout-cover-brand">{brand}</div>
+          {cover ? <div data-slot="login-layout-cover-body">{cover}</div> : null}
         </aside>
       ) : null}
       {variant === "cover" ? (
