@@ -14,9 +14,6 @@ import { login } from "./api";
 {{#if shell}}
 import { LayoutSwitch } from "./components/layout-switch";
 {{/if}}
-{{#if shell}}
-import { LoginCover } from "./components/login-cover";
-{{/if}}
 import { LoginForm } from "./components/login-form";
 import { useLoginTranslation } from "./locales";
 {{#if shell}}
@@ -66,7 +63,8 @@ export function LoginPage() {
     <LoginLayout
 {{#if shell}}
       variant={variant}
-      cover={<LoginCover />}
+      coverTitle={t("cover.title")}
+      coverDescription={t("cover.description")}
       brand={
         <span className="app-logo">
           <img src="/favicon.svg" alt="" width={24} height={24} />

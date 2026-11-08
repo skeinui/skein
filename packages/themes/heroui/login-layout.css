@@ -182,6 +182,27 @@
     gap: 0.5rem;
     text-align: center;
   }
+  /* The default cover: a drawing (its accents are the primary color, it floats) with a tagline */
+  [data-skein-theme="heroui"] [data-slot="login-layout-illustration"] {
+    width: 25%;
+    margin-bottom: 1rem;
+    color: var(--ui-c-primary);
+    animation: login-layout-float 5s ease-in-out infinite;
+  }
+  [data-skein-theme="heroui"] [data-slot="login-layout-cover-title"] {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  [data-skein-theme="heroui"] [data-slot="login-layout-cover-description"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  @keyframes login-layout-float {
+    50% {
+      transform: translateY(-12px);
+    }
+  }
   [data-skein-theme="heroui"] [data-slot="login-layout-cover-brand"] {
     position: absolute;
     font-size: 1.125rem;
@@ -205,6 +226,12 @@
       [data-slot="login-layout"][data-variant="split"]
       [data-slot="login-layout-brand"] {
       display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-skein-theme="heroui"] [data-slot="login-layout-illustration"] {
+      animation: none;
     }
   }
 }

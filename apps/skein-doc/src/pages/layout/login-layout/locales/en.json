@@ -31,7 +31,7 @@
     "title": "Styling Reference",
     "hook": "Hook",
     "root": "The page; `data-variant` is `centered`, `split` or `cover`",
-    "cover": "`split`: the left side: the brand over the glow, and `cover-body` in the middle for the `cover` slot",
+    "cover": "`split`: the left side: the brand over the glow and, in the middle (`cover-body`), the drawing (`illustration`, its accents the primary color) with `cover-title` and `cover-description`, or what `cover` brings",
     "glow": "A soft glow of the primary color: the split cover's and the cover variant's background",
     "backdrop": "`cover`: the full-page background, a glow or the `backgroundImage`",
     "main": "The form's side: the toolbar (top right), the panel and, in `centered` and `cover`, the card around it",

@@ -9614,7 +9614,14 @@
         },
         "cover": {
           "type": "ReactNode",
-          "description": "`split`: what the cover shows in its middle (a drawing, a tagline), under the brand and over the soft glow."
+          "description": "`split`: what the cover shows in its middle, under the brand and over the soft glow. Without it: a drawing with\n`coverTitle` and `coverDescription` under it; `null` for nothing."
+        },
+        "coverDescription": {
+          "type": "ReactNode"
+        },
+        "coverTitle": {
+          "type": "ReactNode",
+          "description": "`split`: the tagline under the default drawing."
         },
         "description": {
           "type": "ReactNode",
@@ -9679,6 +9686,9 @@
         "login-layout-cover",
         "login-layout-cover-brand",
         "login-layout-cover-body",
+        "login-layout-illustration",
+        "login-layout-cover-title",
+        "login-layout-cover-description",
         "login-layout-glow",
         "login-layout-backdrop",
         "login-layout-backdrop-image",
@@ -9703,7 +9713,7 @@
         },
         {
           "title": "Split",
-          "code": "<LoginLayout variant=\"split\" cover={<MyCover />} … />"
+          "code": "<LoginLayout\n  variant=\"split\"\n  coverTitle=\"Out of the box\"\n  coverDescription=\"Ready to use\"\n  … /> // or cover={<MyCover />}"
         },
         {
           "title": "Cover",
@@ -20540,6 +20550,9 @@
       "login-layout-cover",
       "login-layout-cover-brand",
       "login-layout-cover-body",
+      "login-layout-illustration",
+      "login-layout-cover-title",
+      "login-layout-cover-description",
       "login-layout-glow",
       "login-layout-backdrop",
       "login-layout-backdrop-image",

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { LoginLayoutVariant } from "../../contract.ts";
 import { Button } from "../button/index.ts";
 import { Card } from "../card/index.ts";
+import { Illustration } from "./illustration.tsx";
 
 /** One "continue with …" way in, shown as a button under the form. */
 export interface LoginLayoutProvider {
@@ -35,8 +36,14 @@ export interface LoginLayoutProps {
   footer?: ReactNode;
   /** Top right: language, appearance… */
   toolbar?: ReactNode;
-  /** `split`: what the cover shows in its middle (a drawing, a tagline), under the brand and over the soft glow. */
+  /**
+   * `split`: what the cover shows in its middle, under the brand and over the soft glow. Without it: a drawing with
+   * `coverTitle` and `coverDescription` under it; `null` for nothing.
+   */
   cover?: ReactNode;
+  /** `split`: the tagline under the default drawing. */
+  coverTitle?: ReactNode;
+  coverDescription?: ReactNode;
   /** `cover`: a picture for the whole page instead of the soft glow. */
   backgroundImage?: string;
 }
@@ -60,6 +67,8 @@ export function LoginLayout({
   footer,
   toolbar,
   cover,
+  coverTitle,
+  coverDescription,
   backgroundImage,
 }: LoginLayoutProps) {
   const footerNode = footer ? <div data-slot="login-layout-footer">{footer}</div> : null;
@@ -99,7 +108,17 @@ export function LoginLayout({
         <aside data-slot="login-layout-cover">
           <div data-slot="login-layout-glow" />
           <div data-slot="login-layout-cover-brand">{brand}</div>
-          {cover ? <div data-slot="login-layout-cover-body">{cover}</div> : null}
+          {cover === undefined ? (
+            <div data-slot="login-layout-cover-body">
+              <Illustration />
+              {coverTitle ? <div data-slot="login-layout-cover-title">{coverTitle}</div> : null}
+              {coverDescription ? (
+                <div data-slot="login-layout-cover-description">{coverDescription}</div>
+              ) : null}
+            </div>
+          ) : cover ? (
+            <div data-slot="login-layout-cover-body">{cover}</div>
+          ) : null}
         </aside>
       ) : null}
       {variant === "cover" ? (

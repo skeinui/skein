@@ -1,13 +1,12 @@
-{{#if shell}}
-/** The drawing on the sign-in cover; its accents are `currentColor`, the primary colour (login.css). */
-export function LoginIllustration() {
+/** The drawing on the split cover; its accents are `currentColor`, which the theme style sets to the primary color. */
+export function Illustration() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 799.913 621.194"
       aria-hidden="true"
-      className="login-illustration"
+      data-slot="login-layout-illustration"
     >
       <g transform="translate(-336.178 -52.593)">
         <path
@@ -236,4 +235,3 @@ export function LoginIllustration() {
     </svg>
   );
 }
-{{/if}}

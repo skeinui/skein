@@ -51,20 +51,37 @@ describe("LoginLayout", () => {
     }
   });
 
-  test("split: a cover with the brand over a glow, the form without a card; a cover slot fills its middle", () => {
+  test("split: a cover with the brand over a glow and a drawing, the form without a card", () => {
     const html = ssr({ variant: "split" });
     expect(html).toContain('data-variant="split"');
     expect(html).toContain('data-slot="login-layout-cover"');
     expect(html).toContain('data-slot="login-layout-glow"');
     expect(html).toContain('data-slot="login-layout-cover-brand"');
+    expect(html).toContain('data-slot="login-layout-cover-body"');
+    expect(html).toContain('data-slot="login-layout-illustration"');
     expect(html).not.toContain('data-slot="card"');
-    expect(html).not.toContain('data-slot="login-layout-cover-body"');
-    // A cover is put in the middle of it, under the brand
+    // The tagline is under the drawing when it is given
+    expect(html).not.toContain("login-layout-cover-title");
+    const tagged = ssr({
+      variant: "split",
+      coverTitle: "Out of the box",
+      coverDescription: "Ready",
+    });
+    expect(tagged).toContain('data-slot="login-layout-cover-title">Out of the box<');
+    expect(tagged).toContain('data-slot="login-layout-cover-description">Ready<');
+  });
+
+  test("split: a cover slot replaces the drawing, null leaves the middle empty", () => {
     const custom = ssr({ variant: "split", cover: createElement("span", null, "my cover") });
     expect(custom).toContain('data-slot="login-layout-cover-body"');
     expect(custom).toContain("my cover");
+    expect(custom).not.toContain('data-slot="login-layout-illustration"');
+    // The glow and the brand stay
     expect(custom).toContain('data-slot="login-layout-glow"');
     expect(custom).toContain('data-slot="login-layout-cover-brand"');
+    const empty = ssr({ variant: "split", cover: null });
+    expect(empty).not.toContain('data-slot="login-layout-cover-body"');
+    expect(empty).toContain('data-slot="login-layout-glow"');
   });
 
   test("cover: a backdrop of the glow, or of a picture", () => {

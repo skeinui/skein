@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Button, Flex, Form, LoginLayout, Text, Title } from "@skeinui/ui";
+import { Button, Flex, Form, LoginLayout, Text } from "@skeinui/ui";
 import type { LoginLayoutProps } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
@@ -66,15 +66,18 @@ export default function LoginLayoutPage() {
         <Demo />
       </Example>
 
-      <Example id="split" code={`<LoginLayout variant="split" cover={<MyCover />} … />`}>
+      <Example
+        id="split"
+        code={`<LoginLayout
+  variant="split"
+  coverTitle="Out of the box"
+  coverDescription="Ready to use"
+  … /> // or cover={<MyCover />}`}
+      >
         <Demo
           variant="split"
-          cover={
-            <>
-              <Title level={3}>{t("demo.coverTitle")}</Title>
-              <Text tone="secondary">{t("demo.coverText")}</Text>
-            </>
-          }
+          coverTitle={t("demo.coverTitle")}
+          coverDescription={t("demo.coverText")}
         />
       </Example>
 

@@ -31,7 +31,7 @@
     "title": "样式参考",
     "hook": "钩子",
     "root": "整页；`data-variant` 为 `centered`、`split` 或 `cover`",
-    "cover": "`split`：左侧：光晕上的品牌，以及放 `cover` 插槽的中间部分 `cover-body`",
+    "cover": "`split`：左侧：光晕上的品牌，中间（`cover-body`）是插画（`illustration`，点缀色为主色）加 `cover-title` 和 `cover-description`，或者 `cover` 传入的内容",
     "glow": "主色的柔和光晕：分栏封面和封面变体的背景",
     "backdrop": "`cover`：整页背景，光晕或 `backgroundImage`",
     "main": "表单一侧：工具栏（右上角）、面板，以及 `centered` 和 `cover` 里包着它的卡片",
