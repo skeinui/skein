@@ -95,6 +95,27 @@ describe("LoginLayout", () => {
     expect(ssr({ providers: [{ id: "g", label: "G" }] })).not.toContain("login-layout-divider");
   });
 
+  test("the footer is under the form, and in split at the bottom of the form's side", () => {
+    const centered = ssr({ footer: "foot" });
+    expect(centered.indexOf("login-layout-footer")).toBeLessThan(centered.indexOf("</main>"));
+    expect(centered.indexOf("login-layout-card")).toBeLessThan(
+      centered.indexOf("login-layout-footer"),
+    );
+    // In the card, which closes before the panel does
+    expect(centered.indexOf("login-layout-footer")).toBeLessThan(
+      centered.indexOf("login-layout-panel") + 400,
+    );
+    const split = ssr({ variant: "split", footer: "foot" });
+    // After the panel: the panel is closed before the footer starts
+    const panel = split.slice(
+      split.indexOf('data-slot="login-layout-panel"'),
+      split.indexOf('data-slot="login-layout-footer"'),
+    );
+    expect(panel).toContain("</form>");
+    expect(split.slice(split.indexOf('data-slot="login-layout-footer"'))).toContain("foot");
+    expect(panel.match(/<\/div>/g)?.length).toBeGreaterThanOrEqual(2);
+  });
+
   test("a provider's button reports its id", async () => {
     const onProvider = vi.fn();
     host = document.createElement("div");

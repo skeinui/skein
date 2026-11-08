@@ -31,7 +31,7 @@ export interface LoginLayoutProps {
   /** The divider's text ("Or continue with"). */
   providersLabel?: string;
   onProvider?: (id: string) => void;
-  /** Under the form: a hint, links, the copyright. */
+  /** A hint, links, the copyright: under the form, and in `split` at the bottom of the form's side. */
   footer?: ReactNode;
   /** Top right: language, appearance… */
   toolbar?: ReactNode;
@@ -62,6 +62,7 @@ export function LoginLayout({
   cover,
   backgroundImage,
 }: LoginLayoutProps) {
+  const footerNode = footer ? <div data-slot="login-layout-footer">{footer}</div> : null;
   const body = (
     <>
       <header data-slot="login-layout-head">
@@ -89,7 +90,7 @@ export function LoginLayout({
           </div>
         </div>
       ) : null}
-      {footer ? <div data-slot="login-layout-footer">{footer}</div> : null}
+      {variant !== "split" ? footerNode : null}
     </>
   );
   return (
@@ -123,6 +124,8 @@ export function LoginLayout({
             </Card>
           )}
         </div>
+        {/* split: the footer is at the bottom of the form's side, not under the form */}
+        {variant === "split" ? footerNode : null}
       </div>
     </main>
   );

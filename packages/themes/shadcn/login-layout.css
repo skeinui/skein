@@ -94,6 +94,19 @@
   }
 
   /* Top right: language, appearance… Icons drawn about 1.5px wide like the app's other icons */
+  /* split: the form centered in the space above the footer */
+  [data-skein-theme="shadcn"]
+    [data-slot="login-layout"][data-variant="split"]
+    [data-slot="login-layout-main"] {
+    grid-template-rows: 1fr auto;
+    padding-bottom: 1.5rem;
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="login-layout"][data-variant="split"]
+    [data-slot="login-layout-footer"] {
+    width: min(24rem, 100%);
+    text-align: center;
+  }
   [data-skein-theme="shadcn"] [data-slot="login-layout-toolbar"] {
     position: absolute;
     inset-block-start: 1rem;
