@@ -7,6 +7,7 @@ import { ArrowIcon } from "@/doc/icons.tsx";
 import { rich, useSiteT } from "@/site/i18n.tsx";
 import { PgLink, useNavigate } from "@/site/nav.tsx";
 import { PAGE_GROUPS, PAGES } from "@/registry.ts";
+import { EXAMPLES } from "@/site/examples.ts";
 import { GITHUB_URL, LICENSE_URL, NPM_URL } from "@/site/links.ts";
 import { THEME_STYLES, THEME_STYLE_INFO, useSettings, type ThemeStyle } from "@/site/settings.ts";
 import { THEME_STYLE_CSS } from "@/site/theme-styles.ts";
@@ -242,6 +243,53 @@ export function Home() {
               <h3>{t(`home.principles.${key}.title`)}</h3>
               <p>{rich(t(`home.principles.${key}.body`))}</p>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="pg-home-section">
+        <header className="pg-section-head">
+          <p className="pg-eyebrow pg-eyebrow--plain">{t("home.example.eyebrow")}</p>
+          <h2>{t("home.example.title")}</h2>
+          <p>{rich(t("home.example.lead"))}</p>
+        </header>
+        <div className="pg-showcases">
+          {EXAMPLES.map((e) => (
+            <figure key={e.id} className="pg-showcase">
+              <a
+                href={e.demo}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t(`home.example.items.${e.id}.title`)}
+              >
+                {/* The shot of the mode the site is in: the other one is hidden by the stylesheet */}
+                {(["light", "dark"] as const).map((mode) => (
+                  <img
+                    key={mode}
+                    className="pg-showcase-shot"
+                    data-mode={mode}
+                    src={e[mode]}
+                    alt={t(`home.example.items.${e.id}.alt`)}
+                    width="1280"
+                    height="760"
+                    loading="lazy"
+                  />
+                ))}
+              </a>
+              <figcaption>
+                <h3>{t(`home.example.items.${e.id}.title`)}</h3>
+                <p>{t(`home.example.items.${e.id}.desc`)}</p>
+                <span className="pg-showcase-links">
+                  <a href={e.demo} target="_blank" rel="noreferrer">
+                    {t("home.example.demo")}
+                  </a>
+                  <PgLink to="/examples">{t("home.example.more")}</PgLink>
+                  <a href={e.url} target="_blank" rel="noreferrer">
+                    {t("home.example.source")}
+                  </a>
+                </span>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </section>

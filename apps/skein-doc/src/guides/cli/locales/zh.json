@@ -23,7 +23,7 @@
     "mcp": "`.mcp.json`：把 skein 命令作为 MCP 工具提供给 AI 助手。",
     "preview": "给 `skein preview` 用的 `playwright-core`（使用本机已装的 Chrome）。",
     "tenant": "页面放在租户路径下（`/acme/orders`），logo 旁有租户切换器，每个请求都以 `X-Tenant-Id` 带上当前租户。需要 shell。",
-    "p2": "`admin` 会开启 `shell` 和 `mock`。`mcp`、`preview` 和 `tenant` 默认关闭；`mcp` 和 `preview` 只有开启的项目才会安装它们的依赖。"
+    "p2": "`admin` 会开启 `shell` 和 `mock`；[Skein Admin 和 Skein Mail](/examples) 就是用它做的项目。`mcp`、`preview` 和 `tenant` 默认关闭；`mcp` 和 `preview` 只有开启的项目才会安装它们的依赖。"
   },
   "layout": {
     "title": "admin 项目结构",

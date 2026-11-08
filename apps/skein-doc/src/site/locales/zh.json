@@ -134,6 +134,26 @@
         "body": "色彩主题只换 token 的取值（颜色、圆角、密度），模式管亮暗。三者互相正交，可以任意组合。"
       }
     },
+    "example": {
+      "eyebrow": "示例",
+      "title": "不只是零件，而是完整的应用。",
+      "lead": "只用管理后台模板和现有组件做的应用，每个都是单独的仓库。",
+      "more": "了解示例",
+      "source": "查看源码",
+      "items": {
+        "mail": {
+          "title": "Skein Mail",
+          "desc": "邮件客户端：邮箱菜单、邮件列表和阅读区、写邮件（草稿和附件）、四个主题。",
+          "alt": "Skein Mail：邮件列表和打开的邮件并排显示，HeroUI 主题"
+        },
+        "admin": {
+          "title": "Skein Admin",
+          "desc": "管理后台：菜单、页签、租户和权限、能搜索的列表页、三种登录样式、四个主题。",
+          "alt": "Skein Admin：订单列表，带搜索条和表格工具，HeroUI 主题"
+        }
+      },
+      "demo": "在线体验"
+    },
     "index": {
       "eyebrow": "组件",
       "title": "全部组件，一览无余。",
@@ -151,7 +171,8 @@
     "installation": "安装",
     "theming": "主题",
     "cli": "Skein CLI",
-    "ai": "AI 编程"
+    "ai": "AI 编程",
+    "examples": "示例"
   },
   "pageLinks": {
     "label": "此页在 GitHub 上",

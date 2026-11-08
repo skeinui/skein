@@ -1835,6 +1835,81 @@ body {
   gap: 0.5rem;
 }
 
+/* The example apps: a card each, side by side when there are several (a lone one takes the whole width); the shot of
+   the site's mode shows, a frame like a card around it */
+.pg-showcases {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 30rem), 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.pg-showcase {
+  margin: 0;
+}
+
+.pg-showcase > a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--pg-line);
+  border-radius: 0.75rem;
+}
+
+.pg-showcase-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pg-showcase-shot[data-mode="dark"],
+:root[data-skein-mode="dark"] .pg-showcase-shot[data-mode="light"] {
+  display: none;
+}
+
+:root[data-skein-mode="dark"] .pg-showcase-shot[data-mode="dark"] {
+  display: block;
+}
+
+.pg-showcase figcaption {
+  padding-top: 0.875rem;
+}
+
+.pg-showcase h3 {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.pg-showcase p {
+  margin: 0.375rem 0 0;
+  color: var(--pg-muted);
+  line-height: 1.6;
+}
+
+.pg-showcase-links {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 0.625rem;
+  font-size: 0.875rem;
+}
+
+.pg-showcase-links a {
+  color: var(--pg-accent);
+  text-decoration: none;
+}
+
+.pg-showcase-links a:hover {
+  text-decoration: underline;
+}
+
+/* A sub-heading inside a guide's section (the Examples guide: one section per app) */
+.pg-doc-h3 {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .pg-principles {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));

@@ -23,7 +23,7 @@
     "mcp": "`.mcp.json`: the skein commands as MCP tools for AI agents.",
     "preview": "`playwright-core` for `skein preview` (uses the Chrome you have).",
     "tenant": "Pages under their tenant (`/acme/orders`), a tenant switcher next to the logo, and the tenant sent as `X-Tenant-Id` with every request. Needs shell.",
-    "p2": "`admin` turns on `shell` and `mock`. `mcp`, `preview` and `tenant` are off by default; `mcp` and `preview` install their packages only in projects that turn them on."
+    "p2": "`admin` turns on `shell` and `mock`; [Skein Admin and Skein Mail](/examples) are projects made with it. `mcp`, `preview` and `tenant` are off by default; `mcp` and `preview` install their packages only in projects that turn them on."
   },
   "layout": {
     "title": "An admin project",

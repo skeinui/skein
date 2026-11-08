@@ -1,0 +1,62 @@
+{
+  "title": "示例",
+  "lead": "用 Skein UI 做的完整应用，每个都是单独的项目，源码在 GitHub 上：读一读它们，看组件、主题和 CLI 生成的项目是怎么配合的。",
+  "mail": {
+    "title": "Skein Mail",
+    "p1": "它是 [Skein CLI](/cli) 的 `admin` 模板，加上一个邮箱界面。每个页面都由现有的 Skein UI 组件搭成，没有为它往组件库里加任何东西。",
+    "p2": "它是界面的示例，不是邮件服务器：接口由 MSW 在浏览器里应答，所以不需要后端就能运行，刷新后数据也不保留。[在线体验](https://skein-mail.skeinui.com) · [GitHub 上的源码](https://github.com/skeinui/skein-mail)。",
+    "shows": {
+      "title": "演示了什么",
+      "part": "应用里",
+      "how": "用什么做的",
+      "menu": "菜单里的邮箱：收件箱、草稿箱、已发送、归档、垃圾邮件、已删除",
+      "menuHow": "每个邮箱一个带 `_meta.ts` 的页面目录，菜单、页签和 KeepAlive 都来自管理后台外壳。",
+      "list": "邮件列表和阅读区并排显示",
+      "listHow": "`Splitter`、`List`、`Avatar`、`Badge`、`Markdown`、`SearchInput` 和 `Segmented`。",
+      "compose": "写邮件，支持草稿和附件",
+      "composeHow": "`Drawer`、`Field`、`Input`、`Textarea` 和 `Upload`；草稿可以再次打开，保存或发送后替换原来的草稿。",
+      "query": "搜索、筛选和分页，用同一个标准查询",
+      "queryHow": "一个 `ListQuery`（邮箱、未读和星标是它筛选里的条件），mock 用 `applyListQuery` 应答。",
+      "themes": "四个主题、亮色和暗色、中文和英文",
+      "themesHow": "`@skeinui/themes` 的[主题](/theming)，在偏好设置抽屉里选择，用到才加载。"
+    },
+    "run": {
+      "title": "运行",
+      "p1": "用 `admin` / `admin123` 登录，应用打开后进入收件箱。"
+    },
+    "built": {
+      "title": "怎么做出来的",
+      "p1": "这个项目由 CLI 生成：",
+      "p2": "`src/pages/mail/` 里是邮箱本身（接口类型、mock 和它的 240 封种子邮件、组件、两种语言的文案）；六个邮箱是同一个页面的六条路由。可以对照 [Skein CLI](/cli) 一节，看生成的项目里每一部分是做什么的。"
+    }
+  },
+  "admin": {
+    "title": "Skein Admin",
+    "p1": "它是 [Skein CLI](/cli) 的 `admin` 模板，加上若干页面：用 `skein new page --from` 从 OpenAPI 文档生成的订单和商品，以及用户、报表和系统分组。每个页面都由现有的 Skein UI 组件搭成。",
+    "p2": "它是界面的示例，不是产品：接口由 MSW 在浏览器里应答，所以不需要后端就能运行，刷新后数据也不保留。[在线体验](https://skein-admin.skeinui.com) · [GitHub 上的源码](https://github.com/skeinui/skein-admin)。",
+    "shows": {
+      "title": "演示了什么",
+      "part": "应用里",
+      "how": "用什么做的",
+      "shell": "管理后台外壳：侧边菜单、头部、页签、面包屑、偏好设置抽屉",
+      "shellHow": "`AdminLayout`、`PageTabs`、`Breadcrumb` 和 `KeepAlive`，在 `src/skein-shell/` 里接到路由上。",
+      "tenants": "租户：每个页面都在一个租户之下（`/acme/orders`），logo 旁边有切换器",
+      "tenantsHow": "`$tenant` 布局路由设定租户；请求带上 `X-Tenant-Id`；每个租户有自己的查询缓存。",
+      "access": "权限：`admin`、`viewer` 和 `guest` 看到的不一样",
+      "accessHow": "按钮用 `Access`，页面的门用 `requireAccess` 和 403 页面；用户的权限码由接口给出。",
+      "lists": "能搜索的列表：订单和商品",
+      "listsHow": "`QueryBuilder` 芯片、`TableTools`、可排序的 `Table` 表头、CSV 导出；请求是一个 `ListQuery`，mock 用 `applyListQuery` 应答。",
+      "login": "三种样式的登录页，可以在页面上切换",
+      "loginHow": "组件库的 `LoginLayout`：分栏、居中和封面。"
+    },
+    "run": {
+      "title": "运行",
+      "p1": "用 `admin` / `admin123`（或 `viewer` / `viewer123`、`guest` / `guest123`）登录。"
+    },
+    "built": {
+      "title": "怎么做出来的",
+      "p1": "这个项目由 CLI 生成：",
+      "p2": "每个页面是 `src/pages/` 下的一个目录，带着自己的路由、接口、mock 和文案，所以 `skein new page` 生成的页面和手写的一样。可以对照 [Skein CLI](/cli) 一节，看生成的项目里每一部分是做什么的。"
+    }
+  }
+}

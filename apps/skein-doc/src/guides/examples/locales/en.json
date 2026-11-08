@@ -1,0 +1,62 @@
+{
+  "title": "Examples",
+  "lead": "Complete apps made with Skein UI, each a project of its own with the source on GitHub: read one to see how the components, the theme styles and the CLI's project fit together.",
+  "mail": {
+    "title": "Skein Mail",
+    "p1": "It is the `admin` template of the [Skein CLI](/cli) with a mailbox on top. Every screen is made of existing Skein UI components; nothing was added to the library for it.",
+    "p2": "It is an example of the interface, not a mail server: the API is answered in the browser by MSW, so it runs with no backend and keeps nothing between reloads. [Live demo](https://skein-mail.skeinui.com) · [Source on GitHub](https://github.com/skeinui/skein-mail).",
+    "shows": {
+      "title": "What it shows",
+      "part": "In the app",
+      "how": "Built with",
+      "menu": "Mailboxes in the menu: Inbox, Drafts, Sent, Archive, Junk, Trash",
+      "menuHow": "One page directory with a `_meta.ts` each, so the menu, the tabs and KeepAlive come from the admin shell.",
+      "list": "Message list and reader side by side",
+      "listHow": "`Splitter`, `List`, `Avatar`, `Badge`, `Markdown`, `SearchInput` and `Segmented`.",
+      "compose": "Compose with drafts and attachments",
+      "composeHow": "`Drawer`, `Field`, `Input`, `Textarea` and `Upload`; a draft opens again and is replaced when saved or sent.",
+      "query": "Search, filters and paging over one standard query",
+      "queryHow": "A `ListQuery` (mailbox, unread and starred are conditions of its filter), answered by the mock with `applyListQuery`.",
+      "themes": "Four theme styles, light and dark, Chinese and English",
+      "themesHow": "The [theme styles](/theming) of `@skeinui/themes`, picked in the preferences drawer and loaded only when used."
+    },
+    "run": {
+      "title": "Running it",
+      "p1": "Sign in with `admin` / `admin123`; the app opens on the Inbox."
+    },
+    "built": {
+      "title": "How it was made",
+      "p1": "The project came from the CLI:",
+      "p2": "Its `src/pages/mail/` holds the mailbox (API types, the mock and its 240 seeded messages, the components, the messages in both languages); the six mailboxes are six routes of one page. Read it next to the [Skein CLI](/cli) guide to see what each part of a generated project is for."
+    }
+  },
+  "admin": {
+    "title": "Skein Admin",
+    "p1": "It is the `admin` template of the [Skein CLI](/cli) with pages on top: Orders and Products made by `skein new page --from` out of an OpenAPI document, Users, Reports and a System group. Every screen is made of existing Skein UI components.",
+    "p2": "It is an example of the interface, not a product: the API is answered in the browser by MSW, so it runs with no backend and keeps nothing between reloads. [Live demo](https://skein-admin.skeinui.com) · [Source on GitHub](https://github.com/skeinui/skein-admin).",
+    "shows": {
+      "title": "What it shows",
+      "part": "In the app",
+      "how": "Built with",
+      "shell": "The admin shell: side menu, header, tabs, breadcrumb, preferences drawer",
+      "shellHow": "`AdminLayout`, `PageTabs`, `Breadcrumb` and `KeepAlive`, wired to the router in `src/skein-shell/`.",
+      "tenants": "Tenants: every page is under one (`/acme/orders`), a switcher by the logo",
+      "tenantsHow": "A `$tenant` layout route sets the tenant; requests send it as `X-Tenant-Id`; each tenant has its own query cache.",
+      "access": "Permissions: `admin`, `viewer` and `guest` see different things",
+      "accessHow": "`Access` for buttons, `requireAccess` for a page's door and the 403 page; the API gives the user's permission codes.",
+      "lists": "Lists that search: Orders and Products",
+      "listsHow": "`QueryBuilder` chips, `TableTools`, sortable `Table` headers, CSV export; requests are a `ListQuery`, answered by the mock with `applyListQuery`.",
+      "login": "Sign-in in three looks, switchable on the page",
+      "loginHow": "The library's `LoginLayout`: split, centered and cover."
+    },
+    "run": {
+      "title": "Running it",
+      "p1": "Sign in with `admin` / `admin123` (or `viewer` / `viewer123`, `guest` / `guest123`)."
+    },
+    "built": {
+      "title": "How it was made",
+      "p1": "The project came from the CLI:",
+      "p2": "Each page is a directory of `src/pages/` with its route, API, mock and messages, so the pages made by `skein new page` look like the ones written by hand. Read it next to the [Skein CLI](/cli) guide to see what each part of a generated project is for."
+    }
+  }
+}

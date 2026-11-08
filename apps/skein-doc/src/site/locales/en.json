@@ -134,6 +134,26 @@
         "body": "A palette only changes token values (colours, radius, density), the mode switches light and dark. The three are independent and combine freely."
       }
     },
+    "example": {
+      "eyebrow": "Examples",
+      "title": "Whole apps, not just parts.",
+      "lead": "Apps made with the admin template and existing components only, each in a repository of its own.",
+      "more": "About the example",
+      "source": "View source",
+      "items": {
+        "mail": {
+          "title": "Skein Mail",
+          "desc": "An email client: a menu of mailboxes, a message list and reader, compose with drafts and attachments, four theme styles.",
+          "alt": "Skein Mail: a list of messages beside the open message, in the HeroUI theme style"
+        },
+        "admin": {
+          "title": "Skein Admin",
+          "desc": "An admin dashboard: menu, tabs, tenants and permissions, searchable list pages, three sign-in looks, four theme styles.",
+          "alt": "Skein Admin: the Orders list with a search bar and table tools, in the HeroUI theme style"
+        }
+      },
+      "demo": "Live demo"
+    },
     "index": {
       "eyebrow": "Components",
       "title": "Everything, indexed.",
@@ -151,7 +171,8 @@
     "installation": "Installation",
     "theming": "Theming",
     "cli": "Skein CLI",
-    "ai": "AI coding agents"
+    "ai": "AI coding agents",
+    "examples": "Examples"
   },
   "pageLinks": {
     "label": "This page on GitHub",

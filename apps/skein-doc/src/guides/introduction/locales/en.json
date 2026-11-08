@@ -34,6 +34,6 @@
   },
   "next": {
     "title": "Next",
-    "p1": "Start with [Installation](/installation), see how [theming](/theming) works, or create a whole project with the [Skein CLI](/cli). Using an AI coding agent? Read [AI coding agents](/ai)."
+    "p1": "Start with [Installation](/installation), see how [theming](/theming) works, or create a whole project with the [Skein CLI](/cli). Using an AI coding agent? Read [AI coding agents](/ai). Want to see a whole app? Browse the [examples](/examples)."
   }
 }
