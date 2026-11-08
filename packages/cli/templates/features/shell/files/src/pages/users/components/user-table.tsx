@@ -1,7 +1,7 @@
 import { Button, Flex, Popconfirm, Table, Tag } from "@skeinui/ui";
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useAccess } from "@/modules/access";
+import { RouterLink } from "@/skein-shell";
 import type { User } from "../api";
 import { useUsersTranslation } from "../locales";
 
@@ -35,16 +35,16 @@ export function UserTable({
     name: (user) => (
 {{#if tenant}}
       // From the list's address, so the tenant is kept
-      <Link
+      <RouterLink
         from="/$tenant/users"
         to="/$tenant/users/$id"
         params={(prev) => ({ ...prev, id: String(user.id) })}
       >
 {{else}}
-      <Link to="/users/$id" params={{ id: String(user.id) }}>
+      <RouterLink to="/users/$id" params={{ id: String(user.id) }}>
 {{/if}}
         {user.name}
-      </Link>
+      </RouterLink>
     ),
     email: (user) => user.email,
     role: (user) => t(`role.${user.role}`),

@@ -699,7 +699,7 @@ describe("OpenAPI → CRUD page", () => {
       "export const fetchOrder = (id: number) => http.get<Order>(`/api/orders/${id}`);",
     );
     expect(page("detail.tsx")).toContain('navigate({ to: "/orders" })');
-    expect(page("components", "orders-table.tsx")).toContain('<Link to="/orders/$id"');
+    expect(page("components", "orders-table.tsx")).toContain('<RouterLink to="/orders/$id"');
     expect(page("mocks", "handlers.ts")).toContain('http.get("*/api/orders/:id"');
     expect(page("mocks", "handlers.ts")).not.toContain("tenantOf");
     expect(JSON.parse(page("locales", "messages", "zh.json")).detail.back).toBe("返回列表");

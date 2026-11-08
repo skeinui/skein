@@ -574,8 +574,8 @@ ${keyword ? '            setKeyword("");\n' : ""}            setFilter(undefined
       const id = `String(${access("row", idField)})`;
       // With tenant, from the list's address so the tenant is kept
       return tenant
-        ? `<Link from="/$tenant/${path}" to="/$tenant/${path}/$id" params={(prev) => ({ ...prev, id: ${id} })}>${child}</Link>`
-        : `<Link to="/${path}/$id" params={{ id: ${id} }}>${child}</Link>`;
+        ? `<RouterLink from="/$tenant/${path}" to="/$tenant/${path}/$id" params={(prev) => ({ ...prev, id: ${id} })}>${child}</RouterLink>`
+        : `<RouterLink to="/${path}/$id" params={{ id: ${id} }}>${child}</RouterLink>`;
     }
     return child.startsWith("{") ? child.slice(1, -1) : child;
   };
@@ -618,7 +618,7 @@ ${keyword ? '            setKeyword("");\n' : ""}            setFilter(undefined
                 </Flex>
               </Table.Cell>`;
   files[`components/${leaf}-table.tsx`] = `import { ${tableImports.join(", ")} } from "@skeinui/ui";
-${linkField ? 'import { Link } from "@tanstack/react-router";\n' : ""}import type { ReactNode } from "react";
+${linkField ? 'import { RouterLink } from "@/skein-shell";\n' : ""}import type { ReactNode } from "react";
 ${sorted ? 'import type { Sort } from "@/lib/list-query";\n' : ""}${canVars ? 'import { useAccess } from "@/modules/access";\n' : ""}import type { ${Entity} } from "../api";
 import { use${Name}Translation } from "../locales";
 
