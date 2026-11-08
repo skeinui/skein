@@ -8,5 +8,17 @@
   },
   "search": "搜索",
   "searchPlaceholder": "搜索页面…",
-  "searchEmpty": "没有匹配的页面"
+  "searchEmpty": "没有匹配的页面",
+  "tools": {
+    "search": "搜索",
+    "notifications": "通知",
+    "language": "语言",
+    "mode": "外观"
+  },
+  "preferences": {
+    "title": "工具栏",
+    "hint": "账户旁边显示的工具及其顺序。",
+    "up": "上移 {{tool}}",
+    "down": "下移 {{tool}}"
+  }
 }

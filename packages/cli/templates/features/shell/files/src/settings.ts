@@ -43,7 +43,8 @@ export const settings = {
   /**
    * Toolbar tools by id, in order: built in are "search" (the pages, ⌘K), "notifications" (a bell with the
    * unread count), "language" (the app's languages) and "mode" (light / dark / system); add your own in
-   * src/modules/toolbar/tools.tsx and list its id here.
+   * src/modules/toolbar/tools.tsx and list its id here. `header` is the default: users show, hide and
+   * reorder the tools in the preferences drawer (kept in their browser).
    */
   toolbar: {
     /** Next to the account menu. */

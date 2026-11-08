@@ -143,6 +143,36 @@ body {
 .notifications-dot[data-unread] {
   background-color: var(--ui-c-primary);
 }
+/* The toolbar section of the preferences drawer (modules/toolbar/preferences.tsx): set like the drawer's own
+   sections, a title, a hint and one row per tool, a divider above */
+.tool-prefs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ui-border);
+}
+.tool-prefs h4 {
+  margin: 0;
+  color: var(--ui-fg);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+.tool-prefs p {
+  margin: 0;
+  color: var(--ui-fg-muted);
+  font-size: 0.75rem;
+}
+.tool-prefs-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tool-prefs-name {
+  flex: 1;
+  min-width: 0;
+}
+
 /* modules/query-builder: conditions and groups of conditions */
 .qb-group {
   display: flex;

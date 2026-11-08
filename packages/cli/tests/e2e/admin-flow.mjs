@@ -259,6 +259,48 @@ export async function adminFlow(base, { log = console.log } = {}) {
       );
       await page.keyboard.press("Escape");
     });
+    await step(
+      "preferences: a tool hidden from the toolbar and one moved, kept after a reload; Reset brings them back",
+      async () => {
+        // English by now; the notifications bell's name starts with the tool's
+        const bell = page.getByRole("button", { name: /^Notifications/ });
+        const toolbar = () =>
+          page.evaluate(() =>
+            [...document.querySelectorAll('[data-slot="admin-layout-actions"] button')].map(
+              (b) => b.getAttribute("aria-label") ?? "",
+            ),
+          );
+        const openDrawer = async () => {
+          await page.getByRole("button", { name: "Preferences" }).click();
+          const drawer = page.getByRole("dialog");
+          await drawer.waitFor();
+          return drawer;
+        };
+        const closeDrawer = async () => {
+          await page.keyboard.press("Escape");
+          await page.getByRole("dialog").waitFor({ state: "detached" });
+        };
+        await bell.waitFor();
+        let drawer = await openDrawer();
+        await drawer.getByRole("switch", { name: "Notifications" }).click();
+        await drawer.getByRole("button", { name: "Move Search down" }).click();
+        await closeDrawer();
+        await bell.waitFor({ state: "detached" });
+        const changed = await toolbar();
+        // The search button comes after the language and appearance buttons now
+        const search = changed.findIndex((l) => /search/i.test(l));
+        const language = changed.findIndex((l) => /language/i.test(l));
+        if (search < 0 || language < 0 || search < language)
+          throw new Error(`toolbar: ${changed.join(" | ")}`);
+        await page.reload();
+        await page.getByRole("button", { name: "Preferences" }).waitFor();
+        if (await bell.count()) throw new Error("the bell is back after a reload");
+        drawer = await openDrawer();
+        await drawer.getByRole("button", { name: "Reset to defaults" }).click();
+        await closeDrawer();
+        await bell.waitFor();
+      },
+    );
     await step("an unknown address shows 404", async () => {
       await page.goto(`${base}/no-such-page`);
       await page.getByText("Page not found").waitFor();

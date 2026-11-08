@@ -1,15 +1,19 @@
 import { Fragment } from "react";
 import { settings } from "@/settings";
+import { useToolbarStore } from "./store";
 import { TOOLS } from "./tools";
 
 /**
- * The tools `settings.toolbar[place]` lists, in its order: in the header, or on the sign-in page. Their icons are
- * drawn like the side menu's by the theme style (in AdminLayout's actions).
+ * The tools of a toolbar, in order: the header's are what the user chose in the preferences (`settings.toolbar.header`
+ * until then), the sign-in page's `settings.toolbar.login`. Their icons are drawn like the side menu's by the
+ * theme style (in AdminLayout's actions).
  */
 export function Toolbar({ place }: { place: keyof typeof settings.toolbar }) {
+  const chosen = useToolbarStore((s) => s.header);
+  const ids = place === "header" ? chosen : settings.toolbar[place];
   return (
     <span className="app-toolbar">
-      {settings.toolbar[place].map((id) => {
+      {ids.map((id) => {
         const Tool = TOOLS[id];
         if (!Tool) {
           if (import.meta.env.DEV)

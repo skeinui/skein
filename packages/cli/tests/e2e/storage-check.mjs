@@ -48,6 +48,7 @@ export async function storageSurvives(browser, base) {
         "-preferences": state({ mode: "purple", layout: "nope" }),
         "-auth": auth({ refreshToken: 5, user: 42, intendedPath: {}, expired: "yes" }),
         "-tenant": state({ tenantId: 5 }),
+        "-toolbar": state({ header: "search" }),
       },
       { "-tabs": state({ tabs: "x" }) },
     );
@@ -57,6 +58,7 @@ export async function storageSurvives(browser, base) {
       {
         "-preferences": state({ mode: "dark", layout: { layout: "top" } }),
         "-auth": auth({ intendedPath: "//elsewhere.example/x" }),
+        "-toolbar": state({ header: [1, "search", null, {}, "no-such-tool"] }),
       },
       {
         "-tabs": state({
@@ -73,7 +75,10 @@ export async function storageSurvives(browser, base) {
     if (read.mode !== "dark" || read.layout !== "top")
       throw new Error(`the saved mode and layout were not read: ${JSON.stringify(read)}`);
 
-    await write({ "-preferences": "{oops", "-tenant": "{oops" }, { "-tabs": "{oops" });
+    await write(
+      { "-preferences": "{oops", "-tenant": "{oops", "-toolbar": "{oops" },
+      { "-tabs": "{oops" },
+    );
     await opens("text that isn't JSON");
   } finally {
     await context.close();

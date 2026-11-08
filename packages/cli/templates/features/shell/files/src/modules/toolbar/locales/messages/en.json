@@ -8,5 +8,17 @@
   },
   "search": "Search",
   "searchPlaceholder": "Search pages…",
-  "searchEmpty": "No matching pages"
+  "searchEmpty": "No matching pages",
+  "tools": {
+    "search": "Search",
+    "notifications": "Notifications",
+    "language": "Language",
+    "mode": "Appearance"
+  },
+  "preferences": {
+    "title": "Toolbar",
+    "hint": "The tools next to your account, and their order.",
+    "up": "Move {{tool}} up",
+    "down": "Move {{tool}} down"
+  }
 }
