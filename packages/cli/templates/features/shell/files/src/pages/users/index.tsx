@@ -2,19 +2,27 @@ import { Button, Card, Flex, Pagination, toast } from "@skeinui/ui";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
+import { downloadCsv } from "@/lib/export-csv";
 import { Access } from "@/modules/access";
+import { TableTools } from "@/modules/table-tools";
 import { Page } from "@/skein-shell";
 import { deleteUser, fetchUsers, userKeys } from "./api";
-import type { User, UserQuery } from "./api";
-import { UserFilter } from "./components/user-filter";
+import type { ListQuery } from "@/lib/list-query";
+import type { User } from "./api";
+import { UsersSearch } from "./components/users-search";
 import { UserFormDialog } from "./components/user-form-dialog";
-import { UserTable } from "./components/user-table";
+import { USER_COLUMNS, UserTable } from "./components/user-table";
+import type { UserColumn } from "./components/user-table";
 import { useUsersTranslation } from "./locales";
 
 export function UsersPage() {
   const { t } = useUsersTranslation();
   const queryClient = useQueryClient();
-  const [query, setQuery] = useState<UserQuery>({ page: 1, pageSize: 10 });
+  const [query, setQuery] = useState<ListQuery>({ page: 1, pageSize: 10 });
+  /** The columns in their order, and the ones shown. */
+  const [order, setOrder] = useState<UserColumn[]>([...USER_COLUMNS]);
+  const [visible, setVisible] = useState<string[]>([...USER_COLUMNS]);
+  const shown = order.filter((c) => visible.includes(c));
   /** undefined: closed; null: creating; a user: editing it. */
   const [editing, setEditing] = useState<User | null | undefined>(undefined);
   const { data, isFetching } = useQuery({
@@ -30,6 +38,23 @@ export function UsersPage() {
     },
     onError: (error) => toast.danger(error.message),
   });
+
+  /** The rows on screen, the columns shown, as they read on screen. */
+  const exportRows = () => {
+    const cell = (user: User, c: UserColumn) =>
+      c === "role"
+        ? t(`role.${user.role}`)
+        : c === "status"
+          ? t(`status.${user.status}`)
+          : c === "createdAt"
+            ? user.createdAt.slice(0, 10)
+            : user[c];
+    downloadCsv(
+      "users.csv",
+      shown.map((c) => t(`col.${c}`)),
+      (data?.items ?? []).map((user) => shown.map((c) => cell(user, c))),
+    );
+  };
 
   return (
     <Page
@@ -49,17 +74,29 @@ export function UsersPage() {
     >
       <Card>
         <Card.Body>
-          <UserFilter
-            onSearch={(filter) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))}
-          />
-        </Card.Body>
-      </Card>
-      <Card>
-        <Card.Body>
           <Flex direction="column" gap="md">
+            <div className="table-bar">
+              <div className="table-bar-main">
+                <UsersSearch
+                  onSearch={(filter) =>
+                    setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))
+                  }
+                />
+              </div>
+              <TableTools
+                onRefresh={() => void queryClient.invalidateQueries({ queryKey: userKeys.all })}
+                refreshing={isFetching}
+                columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}
+                visible={visible}
+                onVisibleChange={setVisible}
+                onOrderChange={(keys) => setOrder(keys as UserColumn[])}
+                onExport={exportRows}
+              />
+            </div>
             <UserTable
               users={data?.items ?? []}
               loading={isFetching}
+              columns={shown}
               onEdit={setEditing}
               onDelete={(user) =>
                 remove.mutateAsync(user).then(

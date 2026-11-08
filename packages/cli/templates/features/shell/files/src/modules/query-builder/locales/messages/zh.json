@@ -1,0 +1,41 @@
+{
+  "and": "满足全部",
+  "or": "满足任一",
+  "addCondition": "筛选",
+  "removeCondition": "删除条件",
+  "removeGroup": "删除条件组",
+  "field": "字段",
+  "operator": "操作符",
+  "value": "值",
+  "from": "起",
+  "to": "止",
+  "empty": "没有条件：所有数据都匹配",
+  "ops": {
+    "eq": "等于",
+    "ne": "不等于",
+    "contains": "包含",
+    "startsWith": "开头是",
+    "endsWith": "结尾是",
+    "in": "属于",
+    "gt": "大于",
+    "gte": "大于等于",
+    "lt": "小于",
+    "lte": "小于等于",
+    "between": "介于",
+    "blank": "为空",
+    "notBlank": "不为空"
+  },
+  "bool": {
+    "true": "是",
+    "false": "否"
+  },
+  "andShort": "且",
+  "orShort": "或",
+  "ok": "确定",
+  "matchLead": "满足下列",
+  "matchTail": "条件",
+  "all": "全部",
+  "any": "任一",
+  "addInner": "添加条件",
+  "addSubgroup": "添加条件组"
+}

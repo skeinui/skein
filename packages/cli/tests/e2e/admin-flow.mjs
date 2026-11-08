@@ -1,5 +1,6 @@
 // Walks through a generated admin app in a real browser. Used by run.mjs; can also be run on its own:
 //   node tests/e2e/admin-flow.mjs http://localhost:5173
+import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { storageSurvives } from "./storage-check.mjs";
 
@@ -76,20 +77,78 @@ export async function adminFlow(base, { log = console.log } = {}) {
       );
       if ((await tabs.count()) !== 2) throw new Error(`tabs: ${await tabs.count()}`);
     });
+    const rowCount = () =>
+      page.evaluate(
+        () =>
+          document.querySelectorAll('[data-active] tbody [data-slot="table-row"]:not([data-empty])')
+            .length,
+      );
+    const waitRows = (n) =>
+      page.waitForFunction(
+        (n) =>
+          document.querySelectorAll('[data-active] tbody [data-slot="table-row"]:not([data-empty])')
+            .length === n,
+        n,
+      );
     await step("filtering by keyword alice leaves 1 row", async () => {
       await page.getByLabel("关键词").fill("alice");
-      await page.getByRole("button", { name: "查询" }).click();
-      await page.waitForFunction(
-        () =>
-          document.querySelectorAll('[data-active] tbody [data-slot="table-row"]:not([data-empty])')
-            .length === 1,
-      );
-      await page.getByRole("button", { name: "重置" }).click();
-      await page.waitForFunction(
-        () =>
-          document.querySelectorAll('[data-active] tbody [data-slot="table-row"]:not([data-empty])')
-            .length === 10,
-      );
+      await page.getByLabel("关键词").press("Enter");
+      await waitRows(1);
+      await page.getByRole("button", { name: "重置", exact: true }).click();
+      await waitRows(10);
+    });
+    await step("a condition chip filters; removing the chip brings the rows back", async () => {
+      const popup = page.locator('[data-slot="popover"]').last();
+      await page.getByRole("button", { name: "筛选", exact: true }).click();
+      await popup.getByRole("textbox", { name: "值" }).fill("alice");
+      await popup.getByRole("button", { name: "确定" }).click();
+      await waitRows(1);
+      await page.getByRole("button", { name: "删除条件" }).click();
+      await waitRows(10);
+    });
+    await step("a group of conditions (any of) stays one chip with its rows", async () => {
+      const popup = page.locator('[data-slot="popover"]').last();
+      await page.getByRole("button", { name: "筛选", exact: true }).click();
+      await popup.getByRole("textbox", { name: "值" }).fill("alice");
+      await popup.getByRole("button", { name: "添加条件", exact: true }).click();
+      await popup.getByRole("textbox", { name: "值" }).last().fill("bob");
+      await popup.getByText("任一", { exact: true }).click();
+      await popup.getByRole("button", { name: "确定" }).click();
+      await waitRows(2);
+      const chips = await page.locator(".qb-chip").allTextContents();
+      if (chips.length !== 1 || !chips[0].startsWith("("))
+        throw new Error(`chips: ${chips.join(" | ")}`);
+      await page.getByRole("button", { name: "重置", exact: true }).click();
+      await waitRows(10);
+    });
+    await step("the table's tools: hide a column, export the rows as CSV", async () => {
+      const heads = () =>
+        page.locator('[data-active] thead [data-slot="table-head"]').allTextContents();
+      if (!(await heads()).includes("邮箱"))
+        throw new Error(`heads: ${(await heads()).join(" | ")}`);
+      await page.getByRole("button", { name: "列显示" }).click();
+      await page
+        .locator('[data-slot="popover"]')
+        .last()
+        .getByRole("checkbox", { name: "邮箱" })
+        .click();
+      await page.keyboard.press("Escape");
+      // The popover fades out: until it is gone it is still a dialog of the page
+      await page.locator('[data-slot="popover"]').waitFor({ state: "detached" });
+      if ((await heads()).includes("邮箱")) throw new Error("the column is still there");
+      const [download] = await Promise.all([
+        page.waitForEvent("download"),
+        page.getByRole("button", { name: "导出 CSV" }).click(),
+      ]);
+      const text = readFileSync(await download.path(), "utf8");
+      const header = text.replace(/^\uFEFF/, "").split("\r\n")[0];
+      if (
+        download.suggestedFilename() !== "users.csv" ||
+        header.includes("邮箱") ||
+        !header.includes("姓名")
+      )
+        throw new Error(`${download.suggestedFilename()}: ${header}`);
+      if ((await rowCount()) !== 10) throw new Error("rows changed");
     });
     await step("create a user", async () => {
       await page.getByRole("button", { name: "新建用户" }).click();

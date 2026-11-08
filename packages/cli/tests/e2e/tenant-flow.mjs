@@ -90,8 +90,11 @@ export async function tenantFlow(base, { log = console.log } = {}) {
         );
         if ((await tabs()).includes("Alice Chen"))
           throw new Error(`tabs: ${(await tabs()).join(" | ")}`);
-        const stray = requests.filter((r) => r.startsWith("/api/users/"));
-        if (stray.length > 0 || !requests.some((r) => r === "/api/users globex 200"))
+        // The list is asked with POST /api/users/search; any other /api/users/… is a user (the old tenant's, say)
+        const stray = requests.filter(
+          (r) => r.startsWith("/api/users/") && !r.startsWith("/api/users/search"),
+        );
+        if (stray.length > 0 || !requests.some((r) => r === "/api/users/search globex 200"))
           throw new Error(`requests: ${requests.join("; ")}`);
       },
     );

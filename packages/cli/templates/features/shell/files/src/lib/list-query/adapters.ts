@@ -1,0 +1,106 @@
+import { OPS, UnsupportedQueryError, flatConditions } from "./types";
+import type { Capabilities, Condition, ListQuery, Op, QueryAdapter, RequestParts } from "./types";
+
+/** The contract itself: a backend that takes a `ListQuery` as the JSON body of `POST <path>/search`. */
+export const standardAdapter: QueryAdapter = {
+  method: "POST",
+  capabilities: { ops: OPS, or: true, nested: true, multiSort: true, keyword: true },
+  toRequest: (query) => ({ body: query }),
+};
+
+/** `a,b` of a list value; each element escaped, so a comma inside one survives. */
+const list = (value: unknown) =>
+  (Array.isArray(value) ? value : [value])
+    .map((v) => encodeURIComponent(String(v ?? "")))
+    .join(",");
+
+export interface FlatOptions {
+  /** `status.gt=100` (default) or `status_gt=100`. A plain `status=paid` is `eq` either way. */
+  separator?: "." | "_";
+  /** Parameter names, for a backend that calls them something else. */
+  names?: { page?: string; pageSize?: string; sort?: string; keyword?: string };
+  /** The operators the backend knows (default: all). */
+  ops?: readonly Op[];
+}
+
+/**
+ * A backend with one plain query parameter per field: `?status=paid&amount.gt=100&sort=-amount,name`.
+ * It can't say `or` or nested groups, and says so: such a query raises `UnsupportedQueryError`.
+ */
+export function flatAdapter({
+  separator = ".",
+  names = {},
+  ops = OPS,
+}: FlatOptions = {}): QueryAdapter {
+  const name = { page: "page", pageSize: "pageSize", sort: "sort", keyword: "keyword", ...names };
+  const capabilities: Capabilities = {
+    ops,
+    or: false,
+    nested: false,
+    multiSort: true,
+    keyword: true,
+  };
+  return {
+    method: "GET",
+    capabilities,
+    toRequest(query) {
+      const params: Record<string, string> = {
+        [name.page]: String(query.page),
+        [name.pageSize]: String(query.pageSize),
+      };
+      if (query.keyword) params[name.keyword] = query.keyword;
+      if (query.sort?.length)
+        params[name.sort] = query.sort
+          .map((s) => (s.order === "desc" ? "-" : "") + s.field)
+          .join(",");
+      const flat = flatConditions(query.filter);
+      if (!flat) throw new UnsupportedQueryError("This backend can't take groups inside groups.");
+      if (flat.logic === "or" && flat.items.length > 1)
+        throw new UnsupportedQueryError("This backend can't take `or`.");
+      for (const c of flat.items) {
+        if (!ops.includes(c.op)) throw new UnsupportedQueryError(`This backend has no "${c.op}".`);
+        if (c.op === "eq") params[c.field] = String(c.value ?? "");
+        else
+          params[`${c.field}${separator}${c.op}`] =
+            c.op === "in" || c.op === "between" ? list(c.value) : String(c.value ?? "");
+      }
+      return { params };
+    },
+  };
+}
+
+/**
+ * A custom adapter is a function: this one speaks the authxo console's own shape, `?name=foo&nameOp=contains&logics=and,or`
+ * (one value and one operator per field, the logic between the conditions in order).
+ */
+export const authxoAdapter: QueryAdapter = {
+  method: "GET",
+  capabilities: {
+    ops: ["eq", "contains"],
+    or: true,
+    nested: false,
+    multiSort: false,
+    keyword: false,
+  },
+  toRequest(query: ListQuery): RequestParts {
+    const flat = flatConditions(query.filter);
+    if (!flat) throw new UnsupportedQueryError("Groups inside groups can't be sent.");
+    const params: Record<string, string> = {
+      page: String(query.page),
+      pageSize: String(query.pageSize),
+    };
+    const bad = flat.items.find((c: Condition) => c.op !== "eq" && c.op !== "contains");
+    if (bad) throw new UnsupportedQueryError(`There is no "${bad.op}".`);
+    for (const c of flat.items) {
+      params[c.field] = String(c.value ?? "");
+      params[`${c.field}Op`] = c.op === "eq" ? "equals" : "contains";
+    }
+    if (flat.items.length > 1)
+      params.logics = flat.items
+        .slice(1)
+        .map(() => flat.logic)
+        .join(",");
+    if (query.sort?.[0]) params.sort = `${query.sort[0].field}:${query.sort[0].order}`;
+    return { params };
+  },
+};

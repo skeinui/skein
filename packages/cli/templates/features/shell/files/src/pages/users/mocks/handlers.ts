@@ -1,5 +1,7 @@
 {{#if mock}}
 import { http, HttpResponse, delay } from "msw";
+import { applyListQuery } from "@/lib/list-query";
+import type { ListQuery } from "@/lib/list-query";
 import type { UserInput } from "../api";
 import { {{#if tenant}}tenantOf, {{/if}}users, {{#if tenant}}userTenants, {{/if}}usersOf } from "./users-data";
 
@@ -26,6 +28,13 @@ export const handlers = [
     );
     const items = matched.slice((page - 1) * pageSize, page * pageSize);
     return HttpResponse.json({ data: { items, total: matched.length } });
+  }),
+  // The standard list contract: the filter, keyword, sort and page are all in the body
+  http.post("*/api/users/search", async ({ request }) => {
+    await delay(300);
+    const query = (await request.json()) as ListQuery;
+    const result = applyListQuery(usersOf(request), query, { keywordFields: ["name", "email"] });
+    return HttpResponse.json({ data: result });
   }),
   http.get("*/api/users/:id", async ({ params, request }) => {
     await delay(200);

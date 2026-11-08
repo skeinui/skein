@@ -1,0 +1,41 @@
+{
+  "and": "All of",
+  "or": "Any of",
+  "addCondition": "Filter",
+  "removeCondition": "Remove condition",
+  "removeGroup": "Remove group",
+  "field": "Field",
+  "operator": "Operator",
+  "value": "Value",
+  "from": "From",
+  "to": "To",
+  "empty": "No conditions: every row matches",
+  "ops": {
+    "eq": "is",
+    "ne": "is not",
+    "contains": "contains",
+    "startsWith": "starts with",
+    "endsWith": "ends with",
+    "in": "is one of",
+    "gt": ">",
+    "gte": "≥",
+    "lt": "<",
+    "lte": "≤",
+    "between": "between",
+    "blank": "is empty",
+    "notBlank": "is not empty"
+  },
+  "bool": {
+    "true": "Yes",
+    "false": "No"
+  },
+  "andShort": "and",
+  "orShort": "or",
+  "ok": "OK",
+  "matchLead": "Match",
+  "matchTail": "of these",
+  "all": "all",
+  "any": "any",
+  "addInner": "Add condition",
+  "addSubgroup": "Add group"
+}
