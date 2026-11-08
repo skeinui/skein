@@ -1,5 +1,31 @@
 # @skeinui/themes
 
+## 0.1.0
+
+### Minor Changes
+
+- eb29efc: LoginLayout split: the cover has a drawing of its own (`login-layout-illustration`, its accents the primary color, floating, still with reduced motion) with the tagline `coverTitle` / `coverDescription` under it; `cover` replaces it, `cover={null}` leaves the middle empty. The admin template's sign-in page passes only the tagline now, and its own copy of the drawing is gone.
+- 4b221e0: New component LoginLayout: the page around a sign-in (or sign-up) form, in three looks for the same parts, `centered` (the form in a card in the middle), `split` (a cover on the left, the form on the right, the cover on wide screens only) and `cover` (the card over a full-page background, a soft glow or a `backgroundImage`). The brand, the title, a line under it, the form, other ways in (`providers` with `onProvider`, behind a divider), a footer, a toolbar and the split cover are slots; the brand is separate from the title so it doesn't change with the language. Every theme style draws it (`--ui-login-min-height` sets the page's height, the viewport's by default) and the theme coverage check requires `login-layout.css`.
+- cb3e060: Sortable: a `variant` prop. `tile` (the default, as before) is a card per item; `list` is plain rows with no fill, border or gap, lit under the pointer or keyboard focus, with a faint drag handle: the look for a short list inside a popover or menu, such as which columns of a table to show and in which order. Every theme style draws it (`data-variant="list"`, now part of the theme coverage check).
+
+### Patch Changes
+
+- b11eac3: heroui: form fields can be told from the surface they sit on. In dark mode the field background is `#27272a` (it was the same `#18181b` as a card, so a field on a card was invisible); in light mode the field shadow ends in a 1px 10% black ring (a white field on a white card had only a faint shadow).
+- 5c6f923: LoginLayout: the `cover` slot of the split look is the middle of the cover (new `login-layout-cover-body`), under the brand and over the soft glow, which the layout now always draws; it used to replace all of it. The admin template's split sign-in page has a drawing and a tagline there (`pages/login/components/login-cover.tsx`).
+- c046927: LoginLayout's split cover: the glow is one soft diagonal band of the primary color over a tinted background (the corners' glow stays for the cover look), and the brand is larger. The admin template's cover has the drawing at a quarter of the width and the tagline in a larger, regular weight.
+- f971ebc: LoginLayout split: the footer is at the bottom of the form's side, centered, and the form is centered in the space above it, as in the original console; the other looks keep it under the form.
+- 7efb78a: shadcn: the side menu has the shadcn/ui sidebar's sizes everywhere, also in AdminLayout's default menu style: 32px rows, 28px sub-items and 4px between rows (were 36 / 32 / 2 inside AdminLayout, the standalone menu 2px apart). The modern style is unchanged.
+- 887ae77: shadcn and heroui: idle page tabs' text is a step darker (the muted color mixed with 15% of the text color), above 4.5:1 on the chrome bar's tinted background too (was 4.44 / 4.47).
+- 385b8d4: Toast: closer to Sonner. `closeButton` on the `Toaster` or a toast shows or hides the close button (default: shown); `icon` on a toast and `icons` on the `Toaster` replace the type icons (a default toast can have one too); `toast.custom((id) => …)` puts content of your own in a toast, the frame and close button staying. The room kept for the close button is only reserved when there is one. (Sonner's `expand` is `layout="list"`.)
+- Updated dependencies [ecf3350]
+- Updated dependencies [5c6f923]
+- Updated dependencies [eb29efc]
+- Updated dependencies [f971ebc]
+- Updated dependencies [4b221e0]
+- Updated dependencies [cb3e060]
+- Updated dependencies [385b8d4]
+  - @skeinui/ui@0.1.0
+
 ## 0.0.7
 
 ### Patch Changes
