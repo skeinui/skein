@@ -261,6 +261,7 @@ for (const c of CASES) {
           detail: true,
           batch: true,
           sort: { column: "Amount", asked: /sortBy=amount&order=asc/ },
+          search: { keyword: "Alice", status: "pending" },
           create: [
             ["Customer", "Zed Test"],
             ["Email", "zed@example.com"],
@@ -314,6 +315,7 @@ for (const c of CASES) {
             detail: true,
             batch: true,
             sort: { column: "Amount", asked: /sortBy=amount&order=asc/ },
+            search: { keyword: "Alice", status: "pending" },
             create: [
               ["Customer", "Zed Test"],
               ["Email", "zed@example.com"],

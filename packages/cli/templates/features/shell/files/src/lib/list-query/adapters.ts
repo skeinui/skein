@@ -104,3 +104,71 @@ export const authxoAdapter: QueryAdapter = {
     return { params };
   },
 };
+
+export interface ParamAdapterConfig {
+  /** The page parameters, when the API pages. */
+  page?: string;
+  pageSize?: string;
+  /** The parameter of the full-text search. */
+  keyword?: string;
+  /** How the API sorts: a column and a direction parameter (`sortBy=amount&order=desc`), or one holding `name` / `-name`. */
+  sort?: { by: string; dir?: string; asc?: string; desc?: string };
+  /** The fields the API filters by: its parameter (the field's name when it is the same) and the operators it means. */
+  fields: Record<string, { param?: string; ops: readonly Op[] }>;
+}
+
+/**
+ * An API with one plain query parameter per field and names of its own (the ones in its OpenAPI document): says what
+ * it takes and refuses the rest with `UnsupportedQueryError`, which is how a search bar knows what to offer: one
+ * condition per field, all of them and'ed, one sort column. Generated pages use it for the API they were made from.
+ */
+export function paramAdapter(config: ParamAdapterConfig): QueryAdapter {
+  const { page, pageSize, keyword, sort, fields } = config;
+  const ops = [...new Set(Object.values(fields).flatMap((f) => f.ops))];
+  return {
+    method: "GET",
+    capabilities: {
+      ops,
+      or: false,
+      nested: false,
+      multiSort: false,
+      keyword: Boolean(keyword),
+      uniqueFields: true,
+    },
+    toRequest(query: ListQuery): RequestParts {
+      const params: Record<string, string> = {};
+      if (page) params[page] = String(query.page);
+      if (pageSize) params[pageSize] = String(query.pageSize);
+      if (query.keyword) {
+        if (!keyword) throw new UnsupportedQueryError("This API has no full-text search.");
+        params[keyword] = query.keyword;
+      }
+      if (query.sort?.length) {
+        if (!sort) throw new UnsupportedQueryError("This API can't sort.");
+        if (query.sort.length > 1) throw new UnsupportedQueryError("This API sorts by one column.");
+        const [{ field, order }] = query.sort;
+        if (sort.dir) {
+          params[sort.by] = field;
+          params[sort.dir] = order === "asc" ? (sort.asc ?? "asc") : (sort.desc ?? "desc");
+        } else {
+          params[sort.by] = `${order === "desc" ? "-" : ""}${field}`;
+        }
+      }
+      const flat = flatConditions(query.filter);
+      if (!flat) throw new UnsupportedQueryError("This API can't take groups inside groups.");
+      if (flat.logic === "or" && flat.items.length > 1)
+        throw new UnsupportedQueryError("This API can't take `or`.");
+      const seen = new Set<string>();
+      for (const c of flat.items) {
+        const spec = fields[c.field];
+        if (!spec) throw new UnsupportedQueryError(`This API doesn't filter by "${c.field}".`);
+        if (!spec.ops.includes(c.op))
+          throw new UnsupportedQueryError(`This API has no "${c.op}" for "${c.field}".`);
+        if (seen.has(c.field)) throw new UnsupportedQueryError(`This API takes "${c.field}" once.`);
+        seen.add(c.field);
+        params[spec.param ?? c.field] = String(c.value ?? "");
+      }
+      return { params };
+    },
+  };
+}

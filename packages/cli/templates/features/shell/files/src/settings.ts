@@ -52,6 +52,8 @@ export const settings = {
     /** On the sign-in page, top right. */
     login: ["language", "mode"],
   } as Record<"header" | "login", string[]>,
+  /** The sign-in page: `centered` (a card), `split` (a cover and the form) or `cover` (a card over a full-page background). */
+  loginLayout: "{{loginLayout}}" as "centered" | "split" | "cover",
   footer: `© ${new Date().getFullYear()} {{title}}`,
   /** Adds "Powered by Skein UI" to the footer. Set it to false once you have a Skein UI license (https://skeinui.com). */
   poweredBy: true,

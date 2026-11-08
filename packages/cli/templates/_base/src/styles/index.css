@@ -36,31 +36,6 @@ body {
   text-decoration: underline;
 }
 
-.login {
-  position: relative;
-  display: grid;
-  min-height: 100%;
-  place-items: center;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-/* Tools on the sign-in page (settings.toolbar.login), top right, with about 1.5px strokes like the app's other icons */
-.login-toolbar {
-  position: absolute;
-  inset-block-start: 1rem;
-  inset-inline-end: 1rem;
-  display: flex;
-  gap: 0.25rem;
-}
-.login-toolbar svg {
-  stroke-width: 2.25;
-}
-
-.login-card {
-  width: min(24rem, 100%);
-}
-
 /* The account menu's button: the avatar's size (Avatar has sm / md / lg, the smallest icon Button is 2rem) */
 .user-menu {
   --user-avatar-size: 1.75rem;

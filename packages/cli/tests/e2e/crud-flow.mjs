@@ -7,9 +7,10 @@ const { chromium } = require("playwright-core");
 
 /**
  * @param {string} base
- * @param {{ path: string; menu: string; create: [string, string][]; rename: [string, string]; expectRows: number; detail?: boolean; batch?: boolean; sort?: { column: string; asked: RegExp } }} page
+ * @param {{ path: string; menu: string; create: [string, string][]; rename: [string, string]; expectRows: number; detail?: boolean; batch?: boolean; sort?: { column: string; asked: RegExp }; search?: { keyword: string; status: string } }} page
  * `detail`: the document reads one item, so the table's name column opens a detail page. `batch`: the rows can be
- * ticked (export, delete together). `sort`: a header that sorts, and the query the API is asked.
+ * ticked (export, delete together). `sort`: a header that sorts, and the query the API is asked. `search`: a keyword
+ * and a value of the one condition the API takes, both asked of the API.
  */
 export async function crudFlow(base, page, { log = console.log } = {}) {
   const browser = await chromium.launch({ channel: process.env.E2E_CHANNEL ?? "chrome" });
@@ -58,6 +59,42 @@ export async function crudFlow(base, page, { log = console.log } = {}) {
         );
       },
     );
+    if (page.search) {
+      const { keyword, status } = page.search;
+      await step(
+        `${page.path}: the keyword and a condition chip are asked of the API and narrow the rows`,
+        async () => {
+          const all = await rows().count();
+          const asked = (re) => tab.waitForRequest((r) => re.test(r.url()));
+          const keywordAsked = asked(new RegExp(`[?&]q=${keyword}`));
+          await tab.getByLabel("Keyword", { exact: true }).fill(keyword);
+          await tab.getByLabel("Keyword", { exact: true }).press("Enter");
+          await keywordAsked;
+          await tab.waitForFunction((all) => {
+            const n = document.querySelectorAll(
+              '[data-active] tbody [data-slot="table-row"]:not([data-empty])',
+            ).length;
+            return n > 0 && n < all;
+          }, all);
+          // The only condition the API takes is on its status: the chip's editor starts with it
+          const popup = tab.locator('[data-slot="popover"]').last();
+          await tab.getByRole("button", { name: "筛选", exact: true }).click();
+          await popup.getByRole("combobox", { name: "值" }).click();
+          await tab.getByRole("option", { name: status, exact: true }).click();
+          const statusAsked = asked(new RegExp(`status=${status}`));
+          await popup.getByRole("button", { name: "确定" }).click();
+          await statusAsked;
+          await tab.getByRole("button", { name: "重置", exact: true }).click();
+          await tab.waitForFunction(
+            (all) =>
+              document.querySelectorAll(
+                '[data-active] tbody [data-slot="table-row"]:not([data-empty])',
+              ).length === all,
+            all,
+          );
+        },
+      );
+    }
     await step(`${page.path}: create`, async () => {
       await tab.getByRole("button", { name: "新建" }).click();
       const dialog = tab.getByRole("dialog");
@@ -156,7 +193,7 @@ export async function crudFlow(base, page, { log = console.log } = {}) {
           .split(/\r?\n/);
       };
       await step(`${page.path}: export the rows on screen as CSV`, async () => {
-        const lines = await csvOf("导出");
+        const lines = await csvOf("导出 CSV");
         const shown = await rows().count();
         if (lines.length !== shown + 1) throw new Error(`${lines.length} lines for ${shown} rows`);
       });

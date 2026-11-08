@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { crudFiles } from "../crud.js";
 import { analyzeResource, loadSpec } from "../openapi.js";
@@ -10,6 +10,48 @@ import { Writer } from "../writer.js";
 
 /** The lucide-react icon of a menu group `new page` makes, by its directory name (Folder for the rest). */
 const GROUP_ICONS = { system: "Settings", settings: "Settings" };
+
+/** What a list page's search bar and table tools are made of, in the admin template (`features/shell`). */
+const LIST_PARTS = [
+  "lib/list-query",
+  "lib/export-csv.ts",
+  "modules/query-builder",
+  "modules/table-tools",
+];
+const LIST_STYLES = "src/styles/index.css";
+
+/** Every file under `path` (a file or a directory) of the shell template, as paths relative to its `src/`. */
+function templateFiles(path) {
+  const base = join(TEMPLATES_DIR, "features", "shell", "files", "src");
+  const walk = (rel) =>
+    statSync(join(base, rel)).isDirectory()
+      ? readdirSync(join(base, rel))
+          .sort()
+          .flatMap((name) => walk(`${rel}/${name}`))
+      : [rel];
+  return walk(path);
+}
+
+/**
+ * A generated list page imports the search bar, the table tools and the query helpers of the admin template. A
+ * project made before them gets those files (and their styles) the first time: never over a file it has.
+ */
+function writeListParts(writer, root) {
+  const base = join(TEMPLATES_DIR, "features", "shell", "files", "src");
+  for (const rel of LIST_PARTS.flatMap(templateFiles)) {
+    if (existsSync(join(root, "src", rel))) continue;
+    writer.write(join("src", rel), readFileSync(join(base, rel), "utf8"));
+  }
+  // The styles: the template's block from the query builder's comment to the tenant switcher's condition
+  const css = readFileSync(join(TEMPLATES_DIR, "_base", LIST_STYLES), "utf8");
+  const block = css.slice(css.indexOf("/* modules/query-builder"), css.indexOf("{{#if tenant}}"));
+  const current = writer.read(LIST_STYLES);
+  if (current !== undefined && !current.includes(".qb-group {")) {
+    writer.write(LIST_STYLES, `${current.trimEnd()}\n\n${block.trimEnd()}\n`);
+    return [LIST_STYLES];
+  }
+  return [];
+}
 
 function projectAt(cwd) {
   const root = findProjectRoot(cwd);
@@ -56,6 +98,8 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
   };
 
   const writer = new Writer(root, { force, dryRun });
+  /** The files that are expected to change: the styles of a project from before the list parts. */
+  const edits = [];
   const pageDir = join("src", "pages", path);
   // A project with src/modules/access (permissions): a CRUD page asks for `<resource>:create|update|delete|read`
   const guarded = Boolean(
@@ -72,6 +116,7 @@ export function newPage({ name, cwd = process.cwd(), force, dryRun, from, resour
       );
     }
     const model = analyzeResource(loadSpec(resolve(cwd, from)), { name: path, resource });
+    edits.push(...writeListParts(writer, root));
     for (const [file, content] of Object.entries(crudFiles(model, { path, flags, guarded }))) {
       writer.write(join(pageDir, file), content);
     }
@@ -121,7 +166,7 @@ ${guarded ? guard : ""}  component: function ${Name}DetailRoute() {
       `import { ${icon} } from "lucide-react";\nimport type { PageMeta } from "@/lib/page-meta";\n\nexport const meta: PageMeta = {\n  isGroup: true,\n  icon: ${icon},\n  label: { zh: "${group}", en: "${group}" },\n};\n`,
     );
   }
-  const result = writer.commit();
+  const result = writer.commit({ edits });
   // The texts it wrote for both languages are the English name: the Chinese ones are left to translate
   const translate = result.created.filter((f) => /(^|\/)(_meta\.ts|zh\.json)$/.test(f));
   return { ...result, root, path: `/${path}`, translate };

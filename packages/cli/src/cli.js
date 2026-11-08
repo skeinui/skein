@@ -2,7 +2,12 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { check } from "./commands/check.js";
-import { createProject, isEmptyDir } from "./commands/create.js";
+import {
+  DEFAULT_LOGIN_LAYOUT,
+  LOGIN_LAYOUTS,
+  createProject,
+  isEmptyDir,
+} from "./commands/create.js";
 import { init } from "./commands/init.js";
 import { newModule, newPage } from "./commands/new.js";
 import { preview } from "./commands/preview.js";
@@ -56,6 +61,7 @@ Usage:
 create options:
   --template <name>   ${Object.keys(TEMPLATES).join(" | ")} (default: ${DEFAULT_TEMPLATE})
   --theme <name>      ${THEMES.map((t) => t.id).join(" | ")} (default: ${DEFAULT_THEME})
+  --login-layout <name>  the sign-in page of an admin app: ${LOGIN_LAYOUTS.join(" | ")} (default: ${DEFAULT_LOGIN_LAYOUT})
   --<feature>         add a feature: ${FEATURES.map((f) => f.name).join(", ")}
   --no-<feature>      leave out a feature of the template (e.g. --no-mock)
   --local             use the @skeinui/* packages of this checkout (for developing Skein itself)
@@ -72,6 +78,7 @@ function parse(argv) {
     options: {
       template: { type: "string", short: "t" },
       theme: { type: "string" },
+      "login-layout": { type: "string" },
       name: { type: "string" },
       search: { type: "string" },
       from: { type: "string" },
@@ -154,6 +161,7 @@ async function create(values, [dirArg]) {
     name: values.name,
     template,
     theme,
+    loginLayout: values["login-layout"],
     add,
     remove,
     local: values.local,

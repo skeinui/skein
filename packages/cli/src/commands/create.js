@@ -51,8 +51,19 @@ export function featuresFor({ template = DEFAULT_TEMPLATE, add = [], remove = []
   return features;
 }
 
+/** The looks of the sign-in page (LoginLayout), and the one a new project starts with. */
+export const LOGIN_LAYOUTS = ["centered", "split", "cover"];
+export const DEFAULT_LOGIN_LAYOUT = "split";
+
 /** Variables and flags templates are rendered with. */
-export function contextFor({ packageName, theme, themeStyle, features, local }) {
+export function contextFor({
+  packageName,
+  theme,
+  themeStyle,
+  features,
+  local,
+  loginLayout = DEFAULT_LOGIN_LAYOUT,
+}) {
   const flags = Object.fromEntries(features.map((f) => [f.name, true]));
   flags.local = Boolean(local);
   flags.customTheme = theme === "none";
@@ -72,6 +83,7 @@ export function contextFor({ packageName, theme, themeStyle, features, local }) 
         theme === "none" ? "./theme/index.css" : themeImportPath(theme),
       ),
       storageKey: packageName.replace(/^@[^/]+\//, ""),
+      loginLayout,
     },
   };
 }
@@ -79,14 +91,20 @@ export function contextFor({ packageName, theme, themeStyle, features, local }) 
 /**
  * Creates a project in `dir`. Returns what was written plus what the caller needs for its message.
  *
- * @param {{ dir: string; name?: string; template?: string; theme?: string; add?: string[];
- *   remove?: string[]; local?: boolean; force?: boolean; dryRun?: boolean }} options
+ * @param {{ dir: string; name?: string; template?: string; theme?: string; loginLayout?: string;
+ *   add?: string[]; remove?: string[]; local?: boolean; force?: boolean; dryRun?: boolean }} options
  */
 export function createProject(options) {
   const { dir, template = DEFAULT_TEMPLATE, theme = DEFAULT_THEME, local = false } = options;
   if (!isTheme(theme)) {
     throw new Error(
       `unknown theme "${theme}", choose one of: ${THEMES.map((t) => t.id).join(", ")}`,
+    );
+  }
+  const loginLayout = options.loginLayout ?? DEFAULT_LOGIN_LAYOUT;
+  if (!LOGIN_LAYOUTS.includes(loginLayout)) {
+    throw new Error(
+      `unknown login layout "${loginLayout}", choose one of: ${LOGIN_LAYOUTS.join(", ")}`,
     );
   }
   const root = resolve(dir);
@@ -102,7 +120,7 @@ export function createProject(options) {
     );
 
   const writer = new Writer(root, { force: options.force, dryRun: options.dryRun });
-  const context = contextFor({ packageName, theme, themeStyle, features, local });
+  const context = contextFor({ packageName, theme, themeStyle, features, local, loginLayout });
   renderDir(writer, join(TEMPLATES_DIR, "_base"), context);
   for (const feature of features) renderDir(writer, feature.dir, context);
   if (blank) {

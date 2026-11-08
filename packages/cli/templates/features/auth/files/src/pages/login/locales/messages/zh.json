@@ -1,10 +1,16 @@
 {
-  "title": "登录 {{app}}",
+  "title": "登录",
   "subtitle": "欢迎回来，请输入账号和密码",
   "username": "用户名",
   "password": "密码",
   "submit": "登录",
   "failed": "登录失败",
   "expired": "登录已过期，请重新登录，登录后会回到刚才的页面。",
-  "mockHint": "演示账号：admin / admin123（全部权限），viewer / viewer123（只读）；数据由 MSW 模拟"
+  "mockHint": "演示账号：admin / admin123（全部权限），viewer / viewer123（只读）；数据由 MSW 模拟",
+  "layout": "布局",
+  "variant": {
+    "centered": "居中",
+    "split": "分栏",
+    "cover": "封面"
+  }
 }

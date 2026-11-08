@@ -144,12 +144,22 @@ export function crudFiles(model, { path, flags, guarded = false }) {
   const name = camel(path.replaceAll("/", "-"));
   const ns = path.replaceAll("/", "-");
   const leaf = kebab(path.split("/").pop());
-  const { entity, fields, input, filters, pagination, sort, ops, list, idField, labelField } =
-    model;
+  const {
+    entity,
+    fields,
+    input,
+    filters,
+    keyword,
+    pagination,
+    sort,
+    ops,
+    list,
+    idField,
+    labelField,
+  } = model;
   const Entity = entity;
   const entityKebab = kebab(entity);
   const entityVar = camel(entity);
-  const Query = `${Name}Query`;
   const keys = `${name}Keys`;
   const fetchList = `fetch${Name}`;
   const columns = fields.filter((f) => f.name !== idField && f.kind !== "other").slice(0, 6);
@@ -166,29 +176,25 @@ export function crudFiles(model, { path, flags, guarded = false }) {
   const files = {};
 
   // ---------- api
-  const queryFields = [
-    ...(pagination ? ["  page: number;", "  pageSize: number;"] : []),
-    ...filters.map((f) => `  ${key(f.name)}?: ${f.tsType};`),
-    ...(sort ? ['  sort?: { key: string; dir: "asc" | "desc" };'] : []),
-  ];
-  // What the API calls the sort: a column and a direction parameter, or one holding `name` / `-name`
-  const sortParams = !sort
-    ? []
+  const hasParams = Boolean(pagination || filters.length || keyword || sort);
+  const adapter = `${name}Adapter`;
+  // What the API does with a filter parameter: a text one looks for the text (what the mock does), an enum or a number is matched
+  const opsOf = (f) => (f.kind === "string" ? ["contains"] : ["eq"]);
+  const sortConfig = !sort
+    ? null
     : sort.dir
-      ? [
-          `${key(sort.by)}: query.sort?.key`,
-          `${key(sort.dir)}: query.sort && (query.sort.dir === "asc" ? ${JSON.stringify(sort.asc)} : ${JSON.stringify(sort.desc)})`,
-        ]
-      : [
-          // The generated TS has a template literal in it: `-name` for descending
-          `${key(sort.by)}: query.sort && \`\${query.sort.dir === "desc" ? "-" : ""}\${query.sort.key}\``,
-        ];
-  const params = [
+      ? `{ by: ${JSON.stringify(sort.by)}, dir: ${JSON.stringify(sort.dir)}, asc: ${JSON.stringify(sort.asc)}, desc: ${JSON.stringify(sort.desc)} }`
+      : `{ by: ${JSON.stringify(sort.by)} }`;
+  const adapterConfig = [
     ...(pagination
-      ? [`${key(pagination.page)}: query.page`, `${key(pagination.pageSize)}: query.pageSize`]
+      ? [
+          `page: ${JSON.stringify(pagination.page)}`,
+          `pageSize: ${JSON.stringify(pagination.pageSize)}`,
+        ]
       : []),
-    ...filters.map((f) => `${key(f.name)}: ${access("query", f.name)}`),
-    ...sortParams,
+    ...(keyword ? [`keyword: ${JSON.stringify(keyword.name)}`] : []),
+    ...(sortConfig ? [`sort: ${sortConfig}`] : []),
+    `fields: { ${filters.map((f) => `${key(f.name)}: { ops: ${JSON.stringify(opsOf(f))} }`).join(", ")} }`,
   ];
   const listType = list.itemsKey
     ? `{ ${key(list.itemsKey)}: ${Entity}[];${list.totalKey ? ` ${key(list.totalKey)}?: number;` : ""} }`
@@ -199,6 +205,7 @@ export function crudFiles(model, { path, flags, guarded = false }) {
     : `${itemsExpr}.length`;
   const itemUrl = model.itemPath && `\`${model.itemPath.replace(":id", "${id}")}\``;
   files["api/index.ts"] = `import http from "@/lib/http";
+${hasParams ? 'import { paramAdapter } from "@/lib/list-query";\n' : ""}import type { ListQuery } from "@/lib/list-query";
 
 // Generated from the OpenAPI document by \`skein new page ${path} --from\`; edit freely.
 
@@ -206,23 +213,31 @@ ${interfaceOf(Entity, fields)}
 
 ${interfaceOf(`${Entity}Input`, input)}
 
-export interface ${Query} {
-${queryFields.join("\n")}
-}
-
 export interface ${Name}List {
   items: ${Entity}[];
   total: number;
 }
-
+${
+  hasParams
+    ? `
+/**
+ * What this API takes, from the parameters of its OpenAPI document: the search bar offers no more than this, and a
+ * query the API can't take (an \`or\`, a field it has no parameter for) raises \`UnsupportedQueryError\`.
+ */
+export const ${adapter} = paramAdapter({
+  ${adapterConfig.join(",\n  ")},
+});
+`
+    : ""
+}
 /** Query keys: invalidate \`${keys}.all\` after a change and every list refetches. */
 export const ${keys} = {
   all: [${JSON.stringify(ns)}] as const,
-  list: (query: ${Query}) => [${JSON.stringify(ns)}, "list", query] as const,${detail ? `\n  detail: (id: ${model.idType}) => [${JSON.stringify(ns)}, "detail", id] as const,` : ""}
+  list: (query: ListQuery) => [${JSON.stringify(ns)}, "list", query] as const,${detail ? `\n  detail: (id: ${model.idType}) => [${JSON.stringify(ns)}, "detail", id] as const,` : ""}
 };
 
-export async function ${fetchList}(${params.length ? "query" : "_query"}: ${Query}): Promise<${Name}List> {
-  const res = await http.get<${listType}>(${JSON.stringify(model.path)}${params.length ? `, {\n    params: { ${params.join(", ")} },\n  }` : ""});
+export async function ${fetchList}(${hasParams ? "query" : "_query"}: ListQuery): Promise<${Name}List> {
+  const res = await http.get<${listType}>(${JSON.stringify(model.path)}${hasParams ? `, {\n    params: ${adapter}.toRequest(query).params,\n  }` : ""});
   return { items: ${itemsExpr}, total: ${totalExpr} };
 }
 ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Entity}>(${itemUrl});\n` : ""}${ops.create ? `\nexport const create${Entity} = (input: ${Entity}Input) => http.post<${Entity}>(${JSON.stringify(model.path)}, input);\n` : ""}${
@@ -236,7 +251,6 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
   // Ticking rows needs an id to tell them by
   const selectable = Boolean(idField);
   const removeMany = ops.remove && selectable;
-  const exportFields = fields.filter((f) => f.kind !== "other");
   // The columns the API can sort by (all the shown ones unless its parameter lists some)
   const sortable = new Set(
     sort
@@ -244,9 +258,12 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
       : [],
   );
   const sorted = sortable.size > 0;
+  const hasSearch = filters.length > 0 || Boolean(keyword);
   const usesAccess = guarded && (ops.create || removeMany);
+  const colsConst = `${name}Columns`;
+  const ColType = `${Name}Column`;
   const uiImports = [
-    "Button",
+    ...(ops.create || selectable ? ["Button"] : []),
     "Card",
     "Flex",
     ...(pagination ? ["Pagination"] : []),
@@ -257,24 +274,26 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
   const imports = [
     `import { ${uiImports.join(", ")} } from "@skeinui/ui";`,
     `import { keepPreviousData, ${ops.remove ? "useMutation, " : ""}useQuery${ops.remove ? ", useQueryClient" : ""} } from "@tanstack/react-query";`,
-    `import { Download${ops.create ? ", Plus" : ""} } from "lucide-react";`,
+    ...(ops.create ? [`import { Plus } from "lucide-react";`] : []),
     `import { useState } from "react";`,
+    `import { downloadCsv } from "@/lib/export-csv";`,
+    `import type { ${sorted ? "ListQuery, Sort" : "ListQuery"} } from "@/lib/list-query";`,
     ...(usesAccess ? [`import { Access } from "@/modules/access";`] : []),
+    `import { TableTools } from "@/modules/table-tools";`,
     `import { Page } from "@/skein-shell";`,
     `import { ${[...(ops.remove ? [`delete${Entity}`] : []), fetchList, keys].join(", ")} } from "./api";`,
-    `import type { ${[Entity, Query].join(", ")} } from "./api";`,
-    ...(filters.length ? [`import { ${Name}Filter } from "./components/${leaf}-filter";`] : []),
+    `import type { ${Entity} } from "./api";`,
+    ...(hasSearch ? [`import { ${Name}Search } from "./components/${leaf}-search";`] : []),
     ...(hasDialog
       ? [`import { ${Entity}FormDialog } from "./components/${entityKebab}-form-dialog";`]
       : []),
-    `import { ${Name}Table } from "./components/${leaf}-table";`,
-    `import { downloadCsv } from "./export-csv";`,
+    `import { ${colsConst}, ${Name}Table } from "./components/${leaf}-table";`,
+    `import type { ${ColType} } from "./components/${leaf}-table";`,
     `import { use${Name}Translation } from "./locales";`,
   ];
   const rowId = (row) => access(row, idField);
   const idType = model.idType === "number" ? "number" : "string";
-  const setQueryName = pagination || filters.length || sorted ? ", setQuery" : "";
-  const init = pagination ? "{ page: 1, pageSize: 10 }" : "{}";
+  const setQueryName = pagination || hasSearch || sorted ? ", setQuery" : "";
   const createButton = `<Button color="primary" startContent={<Plus size={16} />} onClick={() => setEditing(null)}>
             {t("create")}
           </Button>`;
@@ -291,12 +310,27 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
                 </Popconfirm>`;
   const wrapAccess = (action, jsx) =>
     guarded ? `<Access code="${perm(action)}">\n${jsx}\n</Access>` : jsx;
+  // What a column reads as in the CSV: the texts the table shows for an enum and a boolean, the value else
+  const exportLine = (f) => {
+    const v = access("row", f.name);
+    const value =
+      f.kind === "enum"
+        ? `${v} ? t(\`enum.${f.name}.\${${v}}\`) : ""`
+        : f.kind === "boolean"
+          ? `t(${v} ? "bool.yes" : "bool.no")`
+          : v;
+    return `    ${key(f.name)}: (row) => ${value},`;
+  };
   files["index.tsx"] = `${imports.join("\n")}
 
 export function ${Name}Page() {
   const { t } = use${Name}Translation();
-${ops.remove ? "  const queryClient = useQueryClient();\n" : ""}  const [query${setQueryName}] = useState<${Query}>(${init});
-${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n  const [editing, setEditing] = useState<${Entity} | null | undefined>(undefined);\n` : ""}${selectable ? `  /** The ids of the ticked rows. */\n  const [selected, setSelected] = useState<readonly ${idType}[]>([]);\n` : ""}  const { data, isFetching } = useQuery({
+${ops.remove ? "  const queryClient = useQueryClient();\n" : ""}  const [query${setQueryName}] = useState<ListQuery>({ page: 1, pageSize: 10 });
+  /** The columns in their order, and the ones shown. */
+  const [order, setOrder] = useState<${ColType}[]>([...${colsConst}]);
+  const [visible, setVisible] = useState<string[]>([...${colsConst}]);
+  const shown = order.filter((c) => visible.includes(c));
+${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n  const [editing, setEditing] = useState<${Entity} | null | undefined>(undefined);\n` : ""}${selectable ? `  /** The ids of the ticked rows. */\n  const [selected, setSelected] = useState<readonly ${idType}[]>([]);\n` : ""}  const { data, isFetching, refetch } = useQuery({
     queryKey: ${keys}.list(query),
     queryFn: () => ${fetchList}(query),
     placeholderData: keepPreviousData,
@@ -332,38 +366,46 @@ ${selectable ? `  // Only the rows on screen count: another page, a new search o
 `
       : ""
   }
-  /** The rows as a CSV file: what is on screen (this page, with its filter and sort) or the ticked ones. */
+  /** What a column reads as in the CSV. */
+  const exportCell: Record<${ColType}, (row: ${Entity}) => unknown> = {
+${columns.map(exportLine).join("\n")}
+  };
+  /** The rows as a CSV file, in the columns shown: what is on screen (this page, with its search and sort) or the ticked ones. */
   const exportRows = (list: readonly ${Entity}[]) =>
     downloadCsv(
       ${JSON.stringify(`${leaf}.csv`)},
-      [${exportFields.map((f) => `t("fields.${f.name}")`).join(", ")}],
-      list.map((row) => [${exportFields.map((f) => access("row", f.name)).join(", ")}]),
+      shown.map((c) => t(\`fields.\${c}\`)),
+      list.map((row) => shown.map((c) => exportCell[c](row))),
     );
 
   return (
     <Page
       title={t("title")}
-      description={t("description")}
-      actions={
-        <Flex gap="sm">
-          <Button variant="outline" startContent={<Download size={16} />} onClick={() => exportRows(rows)}>
-            {t("export")}
-          </Button>${ops.create ? `\n          ${wrapAccess("create", createButton)}` : ""}
-        </Flex>
-      }
+      description={t("description")}${ops.create ? `\n      actions={\n        ${wrapAccess("create", createButton)}\n      }` : ""}
     >
-${
-  filters.length
-    ? `      <Card>
-        <Card.Body>
-          <${Name}Filter onSearch={(filter) => setQuery((q) => ({ ${pagination ? "page: 1, pageSize: q.pageSize, " : ""}${sorted ? "sort: q.sort, " : ""}...filter }))} />
-        </Card.Body>
-      </Card>
-`
-    : ""
-}      <Card>
+      <Card>
         <Card.Body>
           <Flex direction="column" gap="md">
+            <div className="table-bar">
+              <div className="table-bar-main">${
+                hasSearch
+                  ? `
+                <${Name}Search
+                  onSearch={(search) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ${sorted ? "sort: q.sort, " : ""}...search }))}
+                />
+              `
+                  : ""
+              }</div>
+              <TableTools
+                onRefresh={() => void refetch()}
+                refreshing={isFetching}
+                columns={order.map((key) => ({ key, label: t(\`fields.\${key}\`) }))}
+                visible={visible}
+                onVisibleChange={setVisible}
+                onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
+                onExport={() => exportRows(rows)}
+              />
+            </div>
 ${
   selectable
     ? `            {selectedRows.length > 0 ? (
@@ -381,9 +423,10 @@ ${
     : ""
 }            <${Name}Table
               rows={rows}
+              columns={shown}
               loading={isFetching}${selectable ? "\n              selected={selected}\n              onSelectedChange={setSelected}" : ""}${
                 sorted
-                  ? `\n              sort={query.sort}\n              onSort={(key) => setQuery((q) => ({ ...q, ${pagination ? "page: 1, " : ""}sort: nextSort(q.sort, key) }))}`
+                  ? `\n              sort={query.sort?.[0]}\n              onSort={(field) => setQuery((q) => ({ ...q, page: 1, sort: nextSort(q.sort?.[0], field) }))}`
                   : ""
               }${editable ? "\n              onEdit={setEditing}" : ""}${
                 ops.remove
@@ -416,74 +459,94 @@ ${
   sorted
     ? `
 /** What a click on a column's header does: ascending, then descending, then not sorted. */
-function nextSort(sort: ${Query}["sort"], key: string): ${Query}["sort"] {
-  if (sort?.key !== key) return { key, dir: "asc" };
-  return sort.dir === "asc" ? { key, dir: "desc" } : undefined;
+function nextSort(sort: Sort | undefined, field: string): ListQuery["sort"] {
+  if (sort?.field !== field) return [{ field, order: "asc" }];
+  return sort.order === "asc" ? [{ field, order: "desc" }] : undefined;
 }
 `
     : ""
 }`;
 
-  // ---------- CSV export
-  files["export-csv.ts"] =
-    `/** Downloads \`rows\` as a CSV file: UTF-8 with a byte order mark, which Excel needs to read Chinese. */
-export function downloadCsv(filename: string, header: readonly string[], rows: readonly (readonly unknown[])[]) {
-  // A text a spreadsheet would run as a formula (=, +, -, @ first) is made plain text; numbers stay numbers
-  const cell = (value: unknown) => {
-    let text = value === null || value === undefined ? "" : String(value);
-    if (typeof value === "string" && /^[=+\\-@\\t\\r]/.test(text)) text = \`'\${text}\`;
-    return /[",\\r\\n]/.test(text) ? \`"\${text.replaceAll('"', '""')}"\` : text;
-  };
-  const lines = [header, ...rows].map((row) => row.map(cell).join(","));
-  const url = URL.createObjectURL(
-    new Blob(["\\uFEFF", lines.join("\\r\\n")], { type: "text/csv;charset=utf-8" }),
-  );
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  link.click();
-  URL.revokeObjectURL(url);
-}
-`;
+  // ---------- search: the keyword and the conditions the API takes, as chips
+  if (hasSearch) {
+    const searchFields = filters.map((f) => {
+      const type = f.kind === "enum" ? "enum" : f.kind === "number" ? "number" : "text";
+      const options =
+        f.kind === "enum"
+          ? `, options: ${JSON.stringify(f.values)}.map((v) => ({ value: v, label: t(\`enum.${f.name}.\${v}\`) }))`
+          : "";
+      return `{ name: ${JSON.stringify(f.name)}, label: t("filters.${f.name}"), type: "${type}"${options} }`;
+    });
+    // What search() is given: the keyword and / or the filter as they are now
+    const given = (filterExpr) =>
+      `{ ${[keyword && "keyword", filters.length && `filter: ${filterExpr}`].filter(Boolean).join(", ")} }`;
+    files[`components/${leaf}-search.tsx`] =
+      `import { ${[...(filters.length ? ["Button"] : []), "Flex", ...(keyword ? ["Input"] : [])].join(", ")} } from "@skeinui/ui";
+import { useState } from "react";
+${filters.length ? 'import type { Filter } from "@/lib/list-query";\nimport { QueryBuilder } from "@/modules/query-builder";\nimport type { QueryField } from "@/modules/query-builder";\n' : ""}${filters.length ? `import { ${adapter} } from "../api";\n` : ""}import { use${Name}Translation } from "../locales";
 
-  // ---------- filter
-  if (filters.length) {
-    const ALL = "__all__";
-    const filterFields = filters.map((f) =>
-      f.kind === "enum"
-        ? `{ name: ${JSON.stringify(f.name)}, label: t("filters.${f.name}"), type: "select", defaultValue: ALL, options: [{ value: ALL, label: t("filter.all") }, ...${JSON.stringify(f.values)}.map((v) => ({ value: v, label: t(\`enum.${f.name}.\${v}\`) }))] }`
-        : `{ name: ${JSON.stringify(f.name)}, label: t("filters.${f.name}")${f.kind === "number" ? ', type: "number"' : ""} }`,
-    );
-    const pick = filters.map((f) =>
-      f.kind === "enum"
-        ? `${key(f.name)}: values[${JSON.stringify(f.name)}] === ALL ? undefined : (values[${JSON.stringify(f.name)}] as ${f.tsType} | undefined)`
-        : f.kind === "number"
-          ? `${key(f.name)}: (values[${JSON.stringify(f.name)}] as number | undefined) ?? undefined`
-          : `${key(f.name)}: (values[${JSON.stringify(f.name)}] as string | undefined)?.trim() || undefined`,
-    );
-    files[`components/${leaf}-filter.tsx`] = `import { Form } from "@skeinui/ui";
-import type { ${Query} } from "../api";
-import { use${Name}Translation } from "../locales";
+/** What the search asks for, as parts of a \`ListQuery\`. */
+export interface ${Name}SearchValue {
+${keyword ? "  keyword?: string;\n" : ""}${filters.length ? "  filter?: Filter;\n" : ""}}
 
-${filters.some((f) => f.kind === "enum") ? `const ALL = "${ALL}";\n\n` : ""}export type ${Name}Filter = Omit<${Query}, ${pagination ? '"page" | "pageSize"' : "never"}>;
-
-export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) => void }) {
+/** ${keyword ? "A keyword (Enter searches)" : "The conditions"}${keyword && filters.length ? ", and the conditions" : ""}${filters.length ? " on the fields the API takes, as chips" : ""}. */
+export function ${Name}Search({ onSearch }: { onSearch: (value: ${Name}SearchValue) => void }) {
   const { t } = use${Name}Translation();
-  return (
-    <Form
-      layout="inline"
-      fields={[
-        ${filterFields.join(",\n        ")},
-      ]}
-      submitLabel={t("filter.search")}
-      resetLabel={t("filter.reset")}
-      onSubmit={(values) =>
-        onSearch({
-          ${pick.join(",\n          ")},
-        })
-      }
-      onReset={() => onSearch({})}
-    />
+${keyword ? '  const [keyword, setKeyword] = useState("");\n' : ""}${filters.length ? "  const [filter, setFilter] = useState<Filter | undefined>();\n" : ""}  const search = (next: ${Name}SearchValue) =>
+    onSearch({ ${[keyword && "keyword: next.keyword?.trim() || undefined", filters.length && "filter: next.filter"].filter(Boolean).join(", ")} });
+${
+  filters.length
+    ? `  const fields: QueryField[] = [
+    ${searchFields.join(",\n    ")},
+  ];
+`
+    : ""
+}  return (
+    <Flex gap="sm" align="center" wrap>
+${
+  keyword
+    ? `      <div className="table-keyword">
+        <Input
+          fullWidth
+          size="sm"
+          aria-label={t("filters.${keyword.name}")}
+          placeholder={t("filters.${keyword.name}")}
+          value={keyword}
+          onValueChange={setKeyword}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") search(${given("filter")});
+          }}
+          onBlur={() => search(${given("filter")})}
+        />
+      </div>
+`
+    : ""
+}${
+        filters.length
+          ? `      <QueryBuilder
+        fields={fields}
+        value={filter}
+        capabilities={${adapter}.capabilities}
+        onChange={(next) => {
+          setFilter(next);
+          search(${given("next")});
+        }}
+      />
+      {${[keyword && "keyword", "filter"].filter(Boolean).join(" || ")} ? (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+${keyword ? '            setKeyword("");\n' : ""}            setFilter(undefined);
+            search({});
+          }}
+        >
+          {t("filter.reset")}
+        </Button>
+      ) : null}
+`
+          : ""
+      }    </Flex>
   );
 }
 `;
@@ -504,13 +567,17 @@ export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) 
   const linkField = detail
     ? (columns.find((f) => f.name === labelField && plain(f)) ?? columns.find(plain))?.name
     : undefined;
-  const cellFor = (f) => {
-    if (f.name !== linkField) return cellOf(f);
-    const id = `String(${access("row", idField)})`;
-    // With tenant, from the list's address so the tenant is kept
-    return tenant
-      ? `<Link from="/$tenant/${path}" to="/$tenant/${path}/$id" params={(prev) => ({ ...prev, id: ${id} })}>${cellOf(f)}</Link>`
-      : `<Link to="/${path}/$id" params={{ id: ${id} }}>${cellOf(f)}</Link>`;
+  // A column's cell as an expression of `row`: what cellOf writes as children, without the braces around an expression
+  const cellExpr = (f) => {
+    const child = cellOf(f);
+    if (f.name === linkField) {
+      const id = `String(${access("row", idField)})`;
+      // With tenant, from the list's address so the tenant is kept
+      return tenant
+        ? `<Link from="/$tenant/${path}" to="/$tenant/${path}/$id" params={(prev) => ({ ...prev, id: ${id} })}>${child}</Link>`
+        : `<Link to="/${path}/$id" params={{ id: ${id} }}>${child}</Link>`;
+    }
+    return child.startsWith("{") ? child.slice(1, -1) : child;
   };
   // With the access module the edit / delete buttons (and their column) are only for who may; else for everyone
   const canVars = guarded && actions;
@@ -518,14 +585,8 @@ export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) 
     .filter(Boolean)
     .join(" || ");
   const onlyIf = (cond, jsx) => (canVars ? `{${cond} ? (\n${jsx}\n) : null}` : jsx);
-  const headOf = (f) =>
-    sortable.has(f.name)
-      ? `          <Table.Head sortable sort={sort?.key === ${JSON.stringify(f.name)} ? sort.dir : undefined} onSort={() => onSort(${JSON.stringify(f.name)})}>
-            {t("fields.${f.name}")}
-          </Table.Head>`
-      : `          <Table.Head>{t("fields.${f.name}")}</Table.Head>`;
   const rowKey = idField ? access("row", idField) : "rows.indexOf(row)";
-  const colSpan = `${columns.length + (selectable ? 1 : 0)}${actions ? (canVars ? " + (showActions ? 1 : 0)" : " + 1") : ""}`;
+  const colSpan = `columns.length${selectable ? " + 1" : ""}${actions ? (canVars ? " + (showActions ? 1 : 0)" : " + 1") : ""}`;
   const actionCell = `              <Table.Cell>
                 <Flex gap="xs">${
                   editable
@@ -557,15 +618,23 @@ export function ${Name}Filter({ onSearch }: { onSearch: (filter: ${Name}Filter) 
                 </Flex>
               </Table.Cell>`;
   files[`components/${leaf}-table.tsx`] = `import { ${tableImports.join(", ")} } from "@skeinui/ui";
-${linkField ? 'import { Link } from "@tanstack/react-router";\n' : ""}${canVars ? 'import { useAccess } from "@/modules/access";\n' : ""}import type { ${[Entity, ...(sorted ? [Query] : [])].join(", ")} } from "../api";
+${linkField ? 'import { Link } from "@tanstack/react-router";\n' : ""}import type { ReactNode } from "react";
+${sorted ? 'import type { Sort } from "@/lib/list-query";\n' : ""}${canVars ? 'import { useAccess } from "@/modules/access";\n' : ""}import type { ${Entity} } from "../api";
 import { use${Name}Translation } from "../locales";
 
+/** The columns that can be hidden or moved (the selection and the actions stay where they are). */
+export const ${colsConst} = [${columns.map((f) => JSON.stringify(f.name)).join(", ")}] as const;
+export type ${ColType} = (typeof ${colsConst})[number];
+${sorted ? `\n/** The columns the API can sort by. */\nconst sortable: ReadonlySet<string> = new Set(${JSON.stringify([...sortable])});\n` : ""}
 export function ${Name}Table({
   rows,
+  columns = ${colsConst},
   loading,${selectable ? "\n  selected,\n  onSelectedChange," : ""}${sorted ? "\n  sort,\n  onSort," : ""}${editable ? "\n  onEdit," : ""}${ops.remove ? "\n  onDelete," : ""}
 }: {
   rows: readonly ${Entity}[];
-  loading: boolean;${selectable ? `\n  /** The ids of the ticked rows. */\n  selected: readonly ${idType}[];\n  onSelectedChange: (ids: readonly ${idType}[]) => void;` : ""}${sorted ? `\n  sort: ${Query}["sort"];\n  /** A click on a sortable header, with the column's field name. */\n  onSort: (key: string) => void;` : ""}${editable ? `\n  onEdit: (row: ${Entity}) => void;` : ""}${ops.remove ? `\n  onDelete: (row: ${Entity}) => Promise<void>;` : ""}
+  /** The columns shown, in order. */
+  columns?: readonly ${ColType}[];
+  loading: boolean;${selectable ? `\n  /** The ids of the ticked rows. */\n  selected: readonly ${idType}[];\n  onSelectedChange: (ids: readonly ${idType}[]) => void;` : ""}${sorted ? `\n  sort?: Sort;\n  /** A click on a sortable header, with the column's field name. */\n  onSort: (field: string) => void;` : ""}${editable ? `\n  onEdit: (row: ${Entity}) => void;` : ""}${ops.remove ? `\n  onDelete: (row: ${Entity}) => Promise<void>;` : ""}
 }) {
   const { t${usesDate || usesDateTime ? ", i18n" : ""} } = use${Name}Translation();
 ${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${usesDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}${
@@ -576,7 +645,10 @@ ${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle:
     selectable
       ? `  const ids = rows.map((row) => ${access("row", idField)});\n  const allSelected = ids.length > 0 && ids.every((id) => selected.includes(id));\n`
       : ""
-  }  return (
+  }  const cell: Record<${ColType}, (row: ${Entity}) => ReactNode> = {
+${columns.map((f) => `    ${key(f.name)}: (row) => ${cellExpr(f)},`).join("\n")}
+  };
+  return (
     <Table hoverable loading={loading}>
       <Table.Header>
         <Table.Row>${
@@ -592,7 +664,11 @@ ${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle:
           </Table.Head>`
             : ""
         }
-${columns.map(headOf).join("\n")}${actions ? `\n${canVars ? '          {showActions ? <Table.Head>{t("col.actions")}</Table.Head> : null}' : '          <Table.Head>{t("col.actions")}</Table.Head>'}` : ""}
+          {columns.map((c) => (
+            <Table.Head key={c}${sorted ? " sortable={sortable.has(c)} sort={sort?.field === c ? sort.order : undefined} onSort={() => onSort(c)}" : ""}>
+              {t(\`fields.\${c}\`)}
+            </Table.Head>
+          ))}${actions ? `\n${canVars ? '          {showActions ? <Table.Head>{t("col.actions")}</Table.Head> : null}' : '          <Table.Head>{t("col.actions")}</Table.Head>'}` : ""}
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -616,11 +692,13 @@ ${columns.map(headOf).join("\n")}${actions ? `\n${canVars ? '          {showActi
               </Table.Cell>`
                 : ""
             }
-${columns.map((f) => `              <Table.Cell>${cellFor(f)}</Table.Cell>`).join("\n")}${
-    actions
-      ? `\n${canVars ? `              {showActions ? (\n${actionCell}\n              ) : null}` : actionCell}`
-      : ""
-  }
+              {columns.map((c) => (
+                <Table.Cell key={c}>{cell[c](row)}</Table.Cell>
+              ))}${
+                actions
+                  ? `\n${canVars ? `              {showActions ? (\n${actionCell}\n              ) : null}` : actionCell}`
+                  : ""
+              }
             </Table.Row>
           ))
         )}
@@ -759,12 +837,13 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
         ]),
     );
   const fieldLabels = Object.fromEntries([...fields, ...input].map((f) => [f.name, f.label]));
-  const filterLabels = Object.fromEntries(filters.map((f) => [f.name, f.label]));
+  const filterLabels = Object.fromEntries(
+    [...filters, ...(keyword ? [keyword] : [])].map((f) => [f.name, f.label]),
+  );
   // The texts of the export, the ticked rows and the batch delete; only those the page uses
   const extra = (lang) => {
     const en = lang === "en";
     return {
-      export: en ? "Export" : "导出",
       ...(selectable
         ? {
             exportSelected: en ? "Export selected" : "导出选中",
@@ -910,7 +989,7 @@ export const tenantOf = (request: Request) => request.headers.get("X-Tenant-Id")
     const listPayload = list.itemsKey
       ? `{ ${key(list.itemsKey)}: items${list.totalKey ? `, ${key(list.totalKey)}: matched.length` : ""} }`
       : "items";
-    const filterLines = filters.map((f) => {
+    const filterLines = [...filters, ...(keyword ? [keyword] : [])].map((f) => {
       const field = fields.find((x) => x.name === f.name);
       const param = `url.searchParams.get(${JSON.stringify(f.name)})`;
       if (field)
@@ -939,8 +1018,8 @@ ${itemRoute ? `\nconst notFound = () => HttpResponse.json({ message: "Not found"
         : ""
     }
 ${sort ? `/** Numbers by value, anything else as text. */\nconst compare = (a: unknown, b: unknown) =>\n  typeof a === "number" && typeof b === "number" ? a - b : String(a ?? "").localeCompare(String(b ?? ""));\n\n` : ""}export const handlers = [
-  http.get(${JSON.stringify(`*${model.path}`)}, async (${pagination || filters.length || sort || scoped ? "{ request }" : ""}) => {
-    await delay(200);${pagination || filters.length || sort ? "\n    const url = new URL(request.url);" : ""}
+  http.get(${JSON.stringify(`*${model.path}`)}, async (${hasParams || scoped ? "{ request }" : ""}) => {
+    await delay(200);${hasParams ? "\n    const url = new URL(request.url);" : ""}
     let matched: ${Entity}[] = ${scoped ? `${entityVar}Rows.filter((r) => ${entityVar}Tenants.get(${access("r", idField)}) === tenantOf(request))` : `[...${entityVar}Rows]`};
 ${filterLines.join("\n")}
 ${

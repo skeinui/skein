@@ -1,10 +1,16 @@
 {
-  "title": "Sign in to {{app}}",
+  "title": "Sign in",
   "subtitle": "Welcome back, enter your account and password",
   "username": "Username",
   "password": "Password",
   "submit": "Sign in",
   "failed": "Sign-in failed",
   "expired": "Your session expired. Sign in again to carry on where you were.",
-  "mockHint": "Demo accounts: admin / admin123 (everything), viewer / viewer123 (read only); mocked by MSW"
+  "mockHint": "Demo accounts: admin / admin123 (everything), viewer / viewer123 (read only); mocked by MSW",
+  "layout": "Layout",
+  "variant": {
+    "centered": "Centered",
+    "split": "Split",
+    "cover": "Cover"
+  }
 }

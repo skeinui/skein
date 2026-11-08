@@ -1,6 +1,6 @@
 export { run } from "./cli.js";
 export { check, CHECKS } from "./commands/check.js";
-export { createProject, featuresFor } from "./commands/create.js";
+export { LOGIN_LAYOUTS, createProject, featuresFor } from "./commands/create.js";
 export { init } from "./commands/init.js";
 export { newModule, newPage } from "./commands/new.js";
 export { preview } from "./commands/preview.js";

@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import {
   CHECKS,
+  LOGIN_LAYOUTS,
   addThemes,
   TEMPLATES,
   THEMES,
@@ -228,6 +229,10 @@ export function createServer({ cwd = process.cwd() } = {}) {
         dir: z.string().describe("Directory to create (must be empty or missing)"),
         template: z.enum(Object.keys(TEMPLATES)).optional(),
         theme: z.enum(themeIds).optional(),
+        loginLayout: z
+          .enum(LOGIN_LAYOUTS)
+          .optional()
+          .describe("The sign-in page of an admin app (default split)"),
         add: z.array(z.enum(features)).optional().describe("Extra features"),
         remove: z
           .array(z.enum(features))
@@ -236,8 +241,8 @@ export function createServer({ cwd = process.cwd() } = {}) {
         dryRun: write.dryRun,
       },
     },
-    safe(async ({ dir, template, theme, add, remove, dryRun }) =>
-      text(createProject({ dir: dirOf(dir), template, theme, add, remove, dryRun })),
+    safe(async ({ dir, template, theme, loginLayout, add, remove, dryRun }) =>
+      text(createProject({ dir: dirOf(dir), template, theme, loginLayout, add, remove, dryRun })),
     ),
   );
 

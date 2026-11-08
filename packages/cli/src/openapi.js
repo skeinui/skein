@@ -23,6 +23,8 @@ const SORT_BY_NAMES = ["sortBy", "sort_by", "orderBy", "order_by"];
 const SORT_DIR_NAMES = ["order", "sortOrder", "sort_order", "direction", "dir", "sortDirection"];
 /** One parameter holding both: `sort=name` / `sort=-name` (descending). */
 const SORT_PREFIX_NAMES = ["sort", "ordering"];
+/** Parameters that hold a full-text search: the search bar's keyword box, not a condition on a field. */
+const KEYWORD_NAMES = ["q", "keyword", "search", "query"];
 const ITEMS_KEYS = ["items", "list", "records", "rows", "content", "results", "data"];
 const TOTAL_KEYS = ["total", "totalCount", "count", "totalElements", "total_count"];
 const LABEL_KEYS = ["name", "title", "label", "username"];
@@ -236,13 +238,16 @@ export function analyzeResource(spec, { name, resource }) {
   const page = params.find((p) => PAGE_NAMES.includes(p.name))?.name ?? null;
   const pageSize = params.find((p) => SIZE_NAMES.includes(p.name))?.name ?? null;
   const sort = sortOf(spec, params);
-  const filters = params
+  const searchable = params
     .filter(
       (p) => p.name !== page && p.name !== pageSize && p.name !== sort?.by && p.name !== sort?.dir,
     )
     .map((p) => fieldOf(spec, p.name, p.schema ?? {}, false))
     .map((f) => ({ ...f, label: f.label }))
     .filter((f) => f.kind === "string" || f.kind === "enum" || f.kind === "number");
+  // The full-text search: a text parameter named like one (`q`, `keyword`…), not a field to condition on
+  const keyword = searchable.find((f) => f.kind === "string" && KEYWORD_NAMES.includes(f.name));
+  const filters = searchable.filter((f) => f !== keyword);
 
   const update = itemOps.put ? "put" : itemOps.patch ? "patch" : null;
   // GET /orders/{id}: one row, for a detail page; `{ data }` around it like the list's
@@ -278,6 +283,7 @@ export function analyzeResource(spec, { name, resource }) {
     fields,
     input,
     filters,
+    keyword: keyword ? { name: keyword.name, label: "Keyword" } : null,
     pagination: page && pageSize ? { page, pageSize } : null,
     sort,
     list: { envelope: shape.envelope, itemsKey: shape.itemsKey, totalKey: shape.totalKey },

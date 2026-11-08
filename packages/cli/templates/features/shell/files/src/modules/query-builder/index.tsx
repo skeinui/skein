@@ -12,9 +12,9 @@ import {
   Tag,
 } from "@skeinui/ui";
 import { Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { isGroup } from "@/lib/list-query";
-import type { Condition, Filter, Group, Op } from "@/lib/list-query";
+import type { Capabilities, Condition, Filter, Group, Op } from "@/lib/list-query";
 import { useQueryBuilderTranslation } from "./locales";
 
 export interface QueryField {
@@ -50,16 +50,15 @@ const toNode = (f: Filter): Node =>
   isGroup(f)
     ? { id: nextId(), logic: f.logic, items: f.items.map(toNode) }
     : { id: nextId(), ...f };
-const newCondition = (fields: QueryField[]): CNode => ({
-  id: nextId(),
-  field: fields[0].name,
-  op: opsOf(fields[0])[0],
-});
+const newCondition = (fields: QueryField[], used: ReadonlySet<string> = new Set()): CNode => {
+  const f = fields.find((x) => !used.has(x.name)) ?? fields[0];
+  return { id: nextId(), field: f.name, op: opsOf(f)[0] };
+};
 /** A group of one empty condition: what "Filter" starts from. */
-const newGroup = (fields: QueryField[]): GNode => ({
+const newGroup = (fields: QueryField[], used?: ReadonlySet<string>): GNode => ({
   id: nextId(),
   logic: "and",
-  items: [newCondition(fields)],
+  items: [newCondition(fields, used)],
 });
 /** A filter as an editable group: a condition becomes a group of one, which can then take more. */
 const draftOf = (filter: Filter): GNode => {
@@ -102,6 +101,31 @@ function result(draft: GNode, root = true): { filter: Filter | undefined; wrappe
   };
 }
 
+/**
+ * What the backend can do (`capabilities`) and which fields the rest of the filter already uses: the editors offer
+ * only that: no "any of" or groups when it takes none, a field once when it has one parameter for it.
+ */
+interface Rules {
+  groups: boolean;
+  or: boolean;
+  unique: boolean;
+  used: ReadonlySet<string>;
+}
+const RulesContext = createContext<Rules>({
+  groups: true,
+  or: true,
+  unique: false,
+  used: new Set(),
+});
+const rulesOf = (c?: Capabilities) => ({
+  groups: !c || c.nested,
+  or: !c || c.or,
+  unique: Boolean(c?.uniqueFields),
+});
+const fieldsOfFilter = (f: Filter): string[] =>
+  isGroup(f) ? f.items.flatMap(fieldsOfFilter) : [f.field];
+const fieldsOfNode = (n: Node): string[] => (isG(n) ? n.items.flatMap(fieldsOfNode) : [n.field]);
+
 /** The root of a filter as a list of chips and the logic joining them. */
 function rootOf(filter: Filter | undefined): Group {
   if (!filter) return { logic: "and", items: [] };
@@ -114,15 +138,21 @@ export interface QueryBuilderProps {
   value?: Filter;
   /** A condition or group was added, changed or removed (a new filter, or none). */
   onChange: (filter: Filter | undefined) => void;
+  /** What the backend can do (`QueryAdapter.capabilities`): the editors offer no more than that. */
+  capabilities?: Capabilities;
 }
 
 /**
  * The conditions of a list as chips on one line; a chip opens a popover to change it, "Filter" adds a condition and
  * "Group" a group (all of / any of, nested as deep as needed). Builds the `Filter` of a `ListQuery`.
  */
-export function QueryBuilder({ fields, value, onChange }: QueryBuilderProps) {
+export function QueryBuilder({ fields, value, onChange, capabilities }: QueryBuilderProps) {
   const { t } = useQueryBuilderTranslation();
   const root = rootOf(value);
+  const rules = rulesOf(capabilities);
+  /** The fields the filter uses, but for the chip being changed. */
+  const taken = (except?: number) =>
+    new Set(root.items.flatMap((item, i) => (i === except ? [] : fieldsOfFilter(item))));
   const commit = (items: Filter[], logic = root.logic) =>
     onChange(
       items.length === 0
@@ -142,7 +172,7 @@ export function QueryBuilder({ fields, value, onChange }: QueryBuilderProps) {
 
   return (
     <div className="qb">
-      {root.items.length > 1 ? (
+      {root.items.length > 1 && rules.or ? (
         <Segmented
           size="sm"
           aria-label={t("and")}
@@ -160,13 +190,17 @@ export function QueryBuilder({ fields, value, onChange }: QueryBuilderProps) {
           key={i}
           fields={fields}
           filter={item}
+          rules={rules}
+          taken={taken(i)}
           onChange={(next, wrapper) => replace(i, next, wrapper)}
         />
       ))}
       <Adder
         label={t("addCondition")}
-        make={() => newGroup(fields)}
+        make={() => newGroup(fields, rules.unique ? taken() : undefined)}
         fields={fields}
+        rules={rules}
+        taken={taken()}
         onAdd={(f, wrapper) => commit([...root.items, ...spread(f, wrapper)])}
       />
     </div>
@@ -194,10 +228,15 @@ function summary(filter: Filter, fields: QueryField[], t: (key: string) => strin
 function Chip({
   fields,
   filter,
+  rules,
+  taken,
   onChange,
 }: {
   fields: QueryField[];
   filter: Filter;
+  rules: Omit<Rules, "used">;
+  /** The fields the other chips use. */
+  taken: ReadonlySet<string>;
   onChange: (next: Filter | undefined, wrapper: boolean) => void;
 }) {
   const { t } = useQueryBuilderTranslation();
@@ -225,6 +264,8 @@ function Chip({
       <Popover.Content align="start">
         <Editor
           fields={fields}
+          rules={rules}
+          taken={taken}
           draft={draft}
           onDraft={setDraft}
           onOk={() => {
@@ -244,11 +285,16 @@ function Adder({
   label,
   make,
   fields,
+  rules,
+  taken,
   onAdd,
 }: {
   label: string;
   make: () => GNode;
   fields: QueryField[];
+  rules: Omit<Rules, "used">;
+  /** The fields the chips use. */
+  taken: ReadonlySet<string>;
   onAdd: (filter: Filter, wrapper: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -262,13 +308,23 @@ function Adder({
       }}
     >
       <Popover.Trigger
-        render={<Button variant="ghost" size="sm" startContent={<Plus size={14} />} />}
+        render={
+          <Button
+            variant="ghost"
+            size="sm"
+            startContent={<Plus size={14} />}
+            // Every field has its condition already, and a field is in the filter once
+            disabled={rules.unique && fields.every((f) => taken.has(f.name))}
+          />
+        }
       >
         {label}
       </Popover.Trigger>
       <Popover.Content align="start">
         <Editor
           fields={fields}
+          rules={rules}
+          taken={taken}
           draft={draft}
           onDraft={setDraft}
           onOk={() => {
@@ -285,25 +341,32 @@ function Adder({
 /** The rows (and groups) of a filter being edited, with its "OK": one row is a plain condition, more are a group. */
 function Editor({
   fields,
+  rules,
+  taken,
   draft,
   onDraft,
   onOk,
 }: {
   fields: QueryField[];
+  rules: Omit<Rules, "used">;
+  taken: ReadonlySet<string>;
   draft: GNode;
   onDraft: (next: GNode) => void;
   onOk: () => void;
 }) {
   const { t } = useQueryBuilderTranslation();
+  const used = new Set([...taken, ...fieldsOfNode(draft)]);
   return (
-    <div className="qb-editor">
-      <GroupEditor fields={fields} group={draft} onChange={onDraft} />
-      <Flex justify="end">
-        <Button color="primary" size="sm" onClick={onOk}>
-          {t("ok")}
-        </Button>
-      </Flex>
-    </div>
+    <RulesContext.Provider value={{ ...rules, used }}>
+      <div className="qb-editor">
+        <GroupEditor fields={fields} group={draft} onChange={onDraft} />
+        <Flex justify="end">
+          <Button color="primary" size="sm" onClick={onOk}>
+            {t("ok")}
+          </Button>
+        </Flex>
+      </div>
+    </RulesContext.Provider>
   );
 }
 
@@ -319,11 +382,12 @@ function GroupEditor({
   onRemove?: () => void;
 }) {
   const { t } = useQueryBuilderTranslation();
+  const { groups, or, unique, used } = useContext(RulesContext);
   const set = (items: Node[]) => onChange({ ...group, items });
   return (
     <div className="qb-group" data-nested={onRemove ? "" : undefined}>
       <div className="qb-group-head">
-        {group.items.length > 1 || onRemove ? (
+        {or && (group.items.length > 1 || onRemove) ? (
           <span className="qb-lead">
             {t("matchLead")}
             <Segmented
@@ -346,18 +410,21 @@ function GroupEditor({
             variant="ghost"
             size="sm"
             startContent={<Plus size={14} />}
-            onClick={() => set([...group.items, newCondition(fields)])}
+            disabled={unique && fields.every((f) => used.has(f.name))}
+            onClick={() => set([...group.items, newCondition(fields, unique ? used : undefined)])}
           >
             {t("addInner")}
           </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            startContent={<Plus size={14} />}
-            onClick={() => set([...group.items, newGroup(fields)])}
-          >
-            {t("addSubgroup")}
-          </Button>
+          {groups ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              startContent={<Plus size={14} />}
+              onClick={() => set([...group.items, newGroup(fields, unique ? used : undefined)])}
+            >
+              {t("addSubgroup")}
+            </Button>
+          ) : null}
           {onRemove ? (
             <Button
               variant="ghost"
@@ -408,6 +475,7 @@ function ConditionRow({
   onRemove?: () => void;
 }) {
   const { t } = useQueryBuilderTranslation();
+  const { unique, used } = useContext(RulesContext);
   const field = fields.find((f) => f.name === condition.field) ?? fields[0];
   const ops = opsOf(field);
   const set = (value: unknown) => onChange({ ...condition, value });
@@ -418,7 +486,12 @@ function ConditionRow({
         size="sm"
         aria-label={t("field")}
         value={field.name}
-        options={fields.map((f) => ({ value: f.name, label: f.label }))}
+        options={fields.map((f) => ({
+          value: f.name,
+          label: f.label,
+          // A field is in the filter once when the backend has one parameter for it
+          disabled: unique && used.has(f.name) && f.name !== field.name,
+        }))}
         onValueChange={(name) => {
           const next = fields.find((f) => f.name === name) ?? field;
           // The operator stays when the new field has it; the value never carries over

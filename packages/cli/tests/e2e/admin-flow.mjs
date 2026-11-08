@@ -40,6 +40,23 @@ export async function adminFlow(base, { log = console.log } = {}) {
       await page.goto(base);
       await page.waitForURL(/\/login$/);
     });
+    await step(
+      "sign-in page: split by default, the layout can be switched and is kept",
+      async () => {
+        const variant = () =>
+          page.locator('[data-slot="login-layout"]').getAttribute("data-variant");
+        if ((await variant()) !== "split") throw new Error(`layout: ${await variant()}`);
+        await page.getByRole("button", { name: "布局" }).click();
+        await page.locator('[role^="menuitem"]', { hasText: "居中" }).click();
+        if ((await variant()) !== "centered") throw new Error(`layout: ${await variant()}`);
+        await page.reload();
+        await page.locator('[data-slot="login-layout"]').waitFor();
+        if ((await variant()) !== "centered") throw new Error(`after a reload: ${await variant()}`);
+        await page.getByRole("button", { name: "布局" }).click();
+        await page.locator('[role^="menuitem"]', { hasText: "分栏" }).click();
+        if ((await variant()) !== "split") throw new Error(`layout: ${await variant()}`);
+      },
+    );
     await step("sign in (mock default account) to the dashboard", async () => {
       await page.getByRole("button", { name: "登录" }).click();
       await page.waitForURL(/\/dashboard$/);

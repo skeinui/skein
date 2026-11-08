@@ -141,6 +141,30 @@ describe("features", () => {
 });
 
 describe("create", () => {
+  test("the admin sign-in page is split unless --login-layout says another; an unknown one is an error", () => {
+    const split = target();
+    createProject({ dir: split, template: "admin" });
+    expect(read(split, "src", "settings.ts")).toContain('loginLayout: "split" as');
+    expect(read(split, "src", "pages", "login", "index.tsx")).toContain("<LoginLayout");
+    expect(
+      existsSync(join(split, "src", "pages", "login", "components", "layout-switch.tsx")),
+    ).toBe(true);
+    const cover = target();
+    createProject({ dir: cover, template: "admin", loginLayout: "cover" });
+    expect(read(cover, "src", "settings.ts")).toContain('loginLayout: "cover" as');
+    expect(() => createProject({ dir: target(), template: "admin", loginLayout: "nope" })).toThrow(
+      /unknown login layout "nope".*centered, split, cover/,
+    );
+    // Without the shell: a centered LoginLayout, no switch, nothing of settings.ts
+    const plain = target();
+    createProject({ dir: plain, add: ["auth"] });
+    expect(read(plain, "src", "pages", "login", "index.tsx")).toContain("<LoginLayout");
+    expect(read(plain, "src", "pages", "login", "index.tsx")).not.toContain("variant=");
+    expect(
+      existsSync(join(plain, "src", "pages", "login", "components", "layout-switch.tsx")),
+    ).toBe(false);
+  });
+
   test("basic: default theme style, only base files, no router", () => {
     const dir = target();
     createProject({ dir });
@@ -599,8 +623,9 @@ describe("OpenAPI → CRUD page", () => {
       "deliverOn",
       "note",
     ]);
+    // `q` is the full-text search, the search bar's keyword box: not a condition on a field
+    expect(m.keyword).toEqual({ name: "q", label: "Keyword" });
     expect(m.filters.map((f: { name: string; kind: string }) => `${f.name}:${f.kind}`)).toEqual([
-      "q:string",
       "status:enum",
     ]);
   });
@@ -636,7 +661,7 @@ describe("OpenAPI → CRUD page", () => {
     expect(created).toEqual(
       expect.arrayContaining([
         "src/pages/orders/api/index.ts",
-        "src/pages/orders/components/orders-filter.tsx",
+        "src/pages/orders/components/orders-search.tsx",
         "src/pages/orders/components/orders-table.tsx",
         "src/pages/orders/components/order-form-dialog.tsx",
         "src/pages/orders/mocks/handlers.ts",
@@ -717,7 +742,7 @@ describe("OpenAPI → CRUD page", () => {
       desc: "desc",
     });
     // The sort parameters sort, they aren't search inputs
-    expect(orders.filters.map((f: { name: string }) => f.name)).toEqual(["q", "status"]);
+    expect(orders.filters.map((f: { name: string }) => f.name)).toEqual(["status"]);
 
     const spec = loadSpec(join(FIXTURES, "orders.yaml"));
     const list = spec.paths["/orders"].get;
@@ -738,23 +763,88 @@ describe("OpenAPI → CRUD page", () => {
     ).toBeNull();
   });
 
+  test("a project from before the search bar and the table tools gets their files once, never over its own", () => {
+    const dir = target();
+    createProject({ dir, template: "admin" });
+    for (const part of [
+      "lib/list-query",
+      "lib/export-csv.ts",
+      "modules/query-builder",
+      "modules/table-tools",
+    ])
+      rmSync(join(dir, "src", part), { recursive: true });
+    const css = join(dir, "src", "styles", "index.css");
+    writeFileSync(
+      css,
+      readFileSync(css, "utf8").slice(
+        0,
+        readFileSync(css, "utf8").indexOf("/* modules/query-builder"),
+      ),
+    );
+    // A file the project changed stays as it is
+    mkdirSync(join(dir, "src", "modules", "table-tools"), { recursive: true });
+    writeFileSync(join(dir, "src", "modules", "table-tools", "index.tsx"), "// mine\n");
+    const { created, changed } = newPage({
+      name: "orders",
+      cwd: dir,
+      from: join(FIXTURES, "orders.yaml"),
+    });
+    expect(created).toEqual(
+      expect.arrayContaining([
+        "src/lib/list-query/index.ts",
+        "src/lib/list-query/adapters.ts",
+        "src/lib/export-csv.ts",
+        "src/modules/query-builder/index.tsx",
+        "src/modules/query-builder/locales/messages/zh.json",
+        "src/modules/table-tools/locales/index.ts",
+      ]),
+    );
+    expect(created).not.toContain("src/modules/table-tools/index.tsx");
+    expect(read(dir, "src", "modules", "table-tools", "index.tsx")).toBe("// mine\n");
+    expect(changed).toEqual(["src/styles/index.css"]);
+    expect(read(dir, "src", "styles", "index.css")).toContain(".qb-group {");
+    // A second page finds everything there
+    const again = newPage({
+      name: "orders2",
+      cwd: dir,
+      from: join(FIXTURES, "orders.yaml"),
+      resource: "/orders",
+    });
+    expect(again.changed).toEqual([]);
+    expect(
+      again.created.filter(
+        (f: string) => !f.startsWith("src/pages/") && !f.startsWith("src/routes/"),
+      ),
+    ).toEqual([]);
+  });
+
   test("the page: sortable headers, ticking rows, export and batch delete, all behind permissions", () => {
     const dir = target();
     createProject({ dir, template: "admin" });
     newPage({ name: "orders", cwd: dir, from: join(FIXTURES, "orders.yaml") });
     const page = (...p: string[]) => read(dir, "src", "pages", "orders", ...p);
 
-    // Sort: the Query holds it as { key, dir }, the request has the API's own parameters
-    expect(page("api", "index.ts")).toContain('sort?: { key: string; dir: "asc" | "desc" };');
-    expect(page("api", "index.ts")).toContain("sortBy: query.sort?.key");
+    // Sort: the list query holds it as { field, order }, the API's own parameters come from its adapter
     expect(page("api", "index.ts")).toContain(
-      'order: query.sort && (query.sort.dir === "asc" ? "asc" : "desc")',
+      'sort: { by: "sortBy", dir: "order", asc: "asc", desc: "desc" }',
     );
+    expect(page("api", "index.ts")).toContain("ordersAdapter.toRequest(query).params");
     expect(page("components", "orders-table.tsx")).toContain(
-      '<Table.Head sortable sort={sort?.key === "amount"',
+      "sortable={sortable.has(c)} sort={sort?.field === c ? sort.order : undefined}",
     );
     expect(page("mocks", "handlers.ts")).toContain('url.searchParams.get("sortBy")');
     expect(page("index.tsx")).toContain("function nextSort(");
+
+    // The search bar: the keyword, and the conditions the API takes (one parameter per field)
+    expect(page("api", "index.ts")).toContain('keyword: "q"');
+    expect(page("api", "index.ts")).toContain('fields: { status: { ops: ["eq"] } }');
+    expect(page("components", "orders-search.tsx")).toContain(
+      "capabilities={ordersAdapter.capabilities}",
+    );
+    expect(page("components", "orders-search.tsx")).toContain('type: "enum"');
+    // The table's tools: refresh, the columns shown and their order, the CSV of what is shown
+    expect(page("index.tsx")).toContain("<TableTools");
+    expect(page("components", "orders-table.tsx")).toContain("export const ordersColumns = [");
 
     // Ticked rows, the batch bar, the CSV
     expect(page("index.tsx")).toContain(
@@ -762,9 +852,9 @@ describe("OpenAPI → CRUD page", () => {
     );
     expect(page("index.tsx")).toContain("Promise.allSettled(");
     expect(page("components", "orders-table.tsx")).toContain('<Table.Head kind="select">');
-    expect(page("export-csv.ts")).toContain("export function downloadCsv(");
+    expect(read(dir, "src", "lib", "export-csv.ts")).toContain("export function downloadCsv(");
     const messages = JSON.parse(page("locales", "messages", "zh.json"));
-    for (const key of ["export", "exportSelected", "selected", "deleteSelected", "deletedMany"])
+    for (const key of ["exportSelected", "selected", "deleteSelected", "deletedMany"])
       expect(messages).toHaveProperty(key);
 
     // Permissions: the create button, the batch delete, the row actions and the page's door

@@ -61,6 +61,8 @@ export interface Capabilities {
   nested: boolean;
   multiSort: boolean;
   keyword: boolean;
+  /** A field can be in the filter once (the backend has one parameter for it). */
+  uniqueFields?: boolean;
 }
 
 /** The request one backend takes: `params` go to the query string, `body` is JSON. */
