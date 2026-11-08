@@ -5,6 +5,7 @@
   "description": "Skein UI monorepo: React components built on Base UI, with swappable theme styles.",
   "type": "module",
   "scripts": {
+    "check": "vp check && vp run -r typecheck",
     "ready": "vp check && vp run -r test && vp run -r build",
     "dev": "vp run skein-doc#dev",
     "changeset": "changeset",
