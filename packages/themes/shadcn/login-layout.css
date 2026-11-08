@@ -143,7 +143,19 @@
     flex: 1;
     overflow: hidden;
     border-inline-end: 1px solid var(--ui-border);
-    background-color: var(--ui-surface);
+    background-color: var(--ui-accent);
+  }
+  /* In the split cover the glow is one soft diagonal band of the primary color, not the corners' */
+  [data-skein-theme="shadcn"]
+    [data-slot="login-layout"][data-variant="split"]
+    [data-slot="login-layout-glow"] {
+    background: linear-gradient(
+      154deg,
+      transparent 30%,
+      color-mix(in srgb, var(--ui-c-primary) 25%, transparent) 48%,
+      transparent 64%
+    );
+    filter: blur(100px);
   }
   [data-skein-theme="shadcn"] [data-slot="login-layout-cover-body"] {
     position: relative;
@@ -159,6 +171,7 @@
   }
   [data-skein-theme="shadcn"] [data-slot="login-layout-cover-brand"] {
     position: absolute;
+    font-size: 1.125rem;
     inset-block-start: 1.5rem;
     inset-inline-start: 2rem;
     z-index: 1;

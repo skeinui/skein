@@ -1,5 +1,5 @@
 {{#if shell}}
-import { Text, Title } from "@skeinui/ui";
+import { Text } from "@skeinui/ui";
 import { useLoginTranslation } from "../locales";
 import { LoginIllustration } from "./login-illustration";
 
@@ -9,7 +9,7 @@ export function LoginCover() {
   return (
     <>
       <LoginIllustration />
-      <Title level={3}>{t("cover.title")}</Title>
+      <div className="login-cover-title">{t("cover.title")}</div>
       <Text tone="secondary">{t("cover.description")}</Text>
     </>
   );

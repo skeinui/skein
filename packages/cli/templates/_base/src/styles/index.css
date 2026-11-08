@@ -120,10 +120,15 @@ body {
 }
 /* The drawing on the sign-in cover (pages/login/components/login-illustration.tsx): its accents are the primary color */
 .login-illustration {
-  width: min(16rem, 40%);
+  width: 25%;
   margin-bottom: 1rem;
   color: var(--ui-c-primary);
   animation: login-float 5s ease-in-out infinite;
+}
+/* The tagline: larger than the text under it, in the regular weight */
+.login-cover-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 @keyframes login-float {
   50% {
