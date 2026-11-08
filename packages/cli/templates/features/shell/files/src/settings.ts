@@ -13,6 +13,8 @@ const layout: AdminLayoutSettingsValue = {
   layout: "side",
   showTabs: true,
   tabVariant: "chrome",
+  // The toolbar (search, notifications, language, mode) is on the right of the header; "sidebar" puts it at the bottom of the menu
+  toolbar: "header",
 };
 
 /** App defaults. Users can change the layout and the mode in the preferences drawer; that is kept per browser. */
