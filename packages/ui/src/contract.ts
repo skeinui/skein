@@ -1499,3 +1499,26 @@ export const KANBAN_SLOTS = [
   "kanban-add",
   "kanban-status",
 ] as const;
+
+export const LOGIN_LAYOUT_VARIANTS = ["centered", "split", "cover"] as const;
+export type LoginLayoutVariant = (typeof LOGIN_LAYOUT_VARIANTS)[number];
+export const LOGIN_LAYOUT_SLOTS = [
+  "login-layout",
+  "login-layout-cover",
+  "login-layout-cover-brand",
+  "login-layout-glow",
+  "login-layout-backdrop",
+  "login-layout-backdrop-image",
+  "login-layout-main",
+  "login-layout-toolbar",
+  "login-layout-panel",
+  "login-layout-card",
+  "login-layout-head",
+  "login-layout-brand",
+  "login-layout-title",
+  "login-layout-description",
+  "login-layout-providers",
+  "login-layout-divider",
+  "login-layout-provider-list",
+  "login-layout-footer",
+] as const;

@@ -481,6 +481,8 @@ export type {
   SortableMove,
   SortableProps,
 } from "./components/sortable/index.ts";
+export { LoginLayout } from "./components/login-layout/index.ts";
+export type { LoginLayoutProps, LoginLayoutProvider } from "./components/login-layout/index.ts";
 export { Marquee } from "./components/marquee/index.ts";
 export type { MarqueeLabels, MarqueeProps } from "./components/marquee/index.ts";
 export { BorderBeam } from "./components/border-beam/index.ts";

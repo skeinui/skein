@@ -1,0 +1,172 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /*
+   * LoginLayout: the page around a sign-in form, in three looks: centered (a card in the middle), split (a cover and
+   * the form side by side, the cover on wide screens only) and cover (the card over a full-page background).
+   * --ui-login-min-height is how tall the page is (the viewport's by default): set it to show the page inside a box.
+   */
+  [data-skein-theme="default"] [data-slot="login-layout"] {
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+    min-height: var(--ui-login-min-height, 100vh);
+    min-height: var(--ui-login-min-height, 100dvh);
+    background-color: var(--ui-bg);
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-skein-theme="default"] [data-slot="login-layout"][data-variant="cover"] {
+    overflow: hidden;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-main"] {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    flex: 1;
+    box-sizing: border-box;
+    min-width: 0;
+    padding: 3.5rem 1rem 2rem;
+    place-items: center;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-panel"] {
+    width: min(24rem, 100%);
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-panel"] > * + * {
+    margin-top: 1.25rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-card"] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* The head: the brand, the title and a line under it */
+  [data-skein-theme="default"] [data-slot="login-layout-head"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-brand"] {
+    margin-bottom: 0.75rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-title"] {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.75rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-description"] {
+    margin: 0;
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  /* Other ways in, behind a divider with a label */
+  [data-skein-theme="default"] [data-slot="login-layout-providers"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-divider"] {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--ui-fg-muted);
+    font-size: 0.8125rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-divider"]::before,
+  [data-skein-theme="default"] [data-slot="login-layout-divider"]::after {
+    flex: 1;
+    height: 1px;
+    background-color: var(--ui-border);
+    content: "";
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-provider-list"] {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap: 0.5rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-footer"] {
+    color: var(--ui-fg-muted);
+    font-size: 0.8125rem;
+  }
+
+  /* Top right: language, appearance… Icons drawn about 1.5px wide like the app's other icons */
+  [data-skein-theme="default"] [data-slot="login-layout-toolbar"] {
+    position: absolute;
+    inset-block-start: 1rem;
+    inset-inline-end: 1rem;
+    display: flex;
+    gap: 0.25rem;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-toolbar"] svg {
+    stroke-width: 2.25;
+  }
+
+  /* A soft glow of the primary color: the split cover's and the cover variant's background */
+  [data-skein-theme="default"] [data-slot="login-layout-glow"] {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 20% 15%,
+        color-mix(in srgb, var(--ui-c-primary) 28%, transparent),
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 85% 90%,
+        color-mix(in srgb, var(--ui-c-primary) 22%, transparent),
+        transparent 50%
+      );
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-backdrop"] {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-backdrop-image"] {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* split: the cover takes the left, the form the right 2/5; narrow screens have the form only */
+  [data-skein-theme="default"]
+    [data-slot="login-layout"][data-variant="split"]
+    [data-slot="login-layout-cover"] {
+    position: relative;
+    display: none;
+    flex: 1;
+    overflow: hidden;
+    border-inline-end: 1px solid var(--ui-border);
+    background-color: var(--ui-surface);
+  }
+  [data-skein-theme="default"] [data-slot="login-layout-cover-brand"] {
+    position: absolute;
+    inset-block-start: 1.5rem;
+    inset-inline-start: 2rem;
+    z-index: 1;
+  }
+  @media (min-width: 64rem) {
+    [data-skein-theme="default"]
+      [data-slot="login-layout"][data-variant="split"]
+      [data-slot="login-layout-cover"] {
+      display: block;
+    }
+    [data-skein-theme="default"]
+      [data-slot="login-layout"][data-variant="split"]
+      [data-slot="login-layout-main"] {
+      flex: 0 0 40%;
+    }
+    /* The cover shows the brand: the form's own head doesn't repeat it */
+    [data-skein-theme="default"]
+      [data-slot="login-layout"][data-variant="split"]
+      [data-slot="login-layout-brand"] {
+      display: none;
+    }
+  }
+}

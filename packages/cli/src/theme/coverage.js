@@ -134,6 +134,8 @@ export function coverageFor(contract) {
     SLIDER_SLOTS,
     SORTABLE_ORIENTATIONS,
     SORTABLE_VARIANTS,
+    LOGIN_LAYOUT_SLOTS,
+    LOGIN_LAYOUT_VARIANTS,
     SORTABLE_SLOTS,
     SPINNER_SLOTS,
     SPLITTER_SLOTS,
@@ -739,6 +741,12 @@ export function coverageFor(contract) {
       '[data-drop="after"]',
       "--sort-offset",
       ":focus-visible",
+    ],
+    "login-layout.css": [
+      ...slotSel(LOGIN_LAYOUT_SLOTS),
+      // centered is the base appearance, theme styles don't need a separate selector
+      ...LOGIN_LAYOUT_VARIANTS.filter((v) => v !== "centered").map((v) => `[data-variant="${v}"]`),
+      "--ui-login-min-height",
     ],
     "marquee.css": [
       ...slotSel(MARQUEE_SLOTS),

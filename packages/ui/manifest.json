@@ -9594,6 +9594,126 @@
         }
       ]
     },
+    "LoginLayout": {
+      "description": "The page around a sign-in (or sign-up) form: three looks for the same parts. The brand, the title and the form are\nthe page's own, this only places them; the soft glow and the dividers come from the theme style.\n\nTheme style: `--ui-login-min-height` (default the viewport's height) sets how tall the page is, e.g. to show it\ninside a box.",
+      "import": "import { LoginLayout } from \"@skeinui/ui\";",
+      "props": {
+        "backgroundImage": {
+          "type": "string",
+          "description": "`cover`: a picture for the whole page instead of the soft glow."
+        },
+        "brand": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The app's mark and name: part of the app, not of the page's text, so it stays the same in every language."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The form."
+        },
+        "cover": {
+          "type": "ReactNode",
+          "description": "`split`: what the left side shows instead of the brand over a soft glow."
+        },
+        "description": {
+          "type": "ReactNode",
+          "description": "A line under the title."
+        },
+        "footer": {
+          "type": "ReactNode",
+          "description": "Under the form: a hint, links, the copyright."
+        },
+        "onProvider": {
+          "type": "(id: string) => void"
+        },
+        "providers": {
+          "type": "LoginLayoutProvider[]",
+          "description": "Other ways in, under the form behind a divider."
+        },
+        "providersLabel": {
+          "type": "string",
+          "description": "The divider's text (\"Or continue with\")."
+        },
+        "title": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "toolbar": {
+          "type": "ReactNode",
+          "description": "Top right: language, appearance…"
+        },
+        "variant": {
+          "type": "\"centered\" | \"split\" | \"cover\"",
+          "values": [
+            "centered",
+            "split",
+            "cover"
+          ],
+          "description": "`centered`: the form in a card in the middle; `split`: a cover on the left, the form on the right (wide screens only);\n`cover`: the card over a full-page background. How each one looks is up to the theme style.",
+          "default": "\"centered\""
+        }
+      },
+      "types": {
+        "LoginLayoutProvider": {
+          "description": "One \"continue with …\" way in, shown as a button under the form.",
+          "props": {
+            "icon": {
+              "type": "ReactNode",
+              "description": "Usually the provider's logo."
+            },
+            "id": {
+              "type": "string",
+              "required": true,
+              "description": "Reported to `onProvider` when its button is pressed."
+            },
+            "label": {
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      },
+      "slots": [
+        "login-layout",
+        "login-layout-cover",
+        "login-layout-cover-brand",
+        "login-layout-glow",
+        "login-layout-backdrop",
+        "login-layout-backdrop-image",
+        "login-layout-main",
+        "login-layout-toolbar",
+        "login-layout-panel",
+        "login-layout-card",
+        "login-layout-head",
+        "login-layout-brand",
+        "login-layout-title",
+        "login-layout-description",
+        "login-layout-providers",
+        "login-layout-divider",
+        "login-layout-provider-list",
+        "login-layout-footer"
+      ],
+      "docs": "login-layout",
+      "examples": [
+        {
+          "title": "Centered",
+          "code": "<LoginLayout brand={<Logo />} title=\"Sign in\" description=\"Welcome back\" footer={…}>\n  <Form fields={[…]} onSubmit={…} />\n</LoginLayout>"
+        },
+        {
+          "title": "Split",
+          "code": "<LoginLayout variant=\"split\" cover={<MyCover />} … />"
+        },
+        {
+          "title": "Cover",
+          "code": "<LoginLayout variant=\"cover\" backgroundImage=\"/bg.jpg\" … />"
+        },
+        {
+          "title": "Other ways in and a toolbar",
+          "code": "<LoginLayout\n  providers={[{ id: \"github\", label: \"GitHub\", icon: <GithubIcon /> }]}\n  providersLabel=\"Or continue with\"\n  onProvider={(id) => signInWith(id)}\n  toolbar={<LanguageSwitch />}\n  …\n/>"
+        }
+      ]
+    },
     "Markdown": {
       "description": "Markdown rendering: a zero-dependency parser (headings, paragraphs, fenced code, quotes, lists / task lists, tables, horizontal rules,\ninline code / bold / italic / strikethrough / links / images), with fenced code using `CodeBlock`.\nHTML is not recognized and is treated as plain text; links and images only allow http(s) / mailto / tel and relative addresses.",
       "import": "import { Markdown } from \"@skeinui/ui\";",
@@ -20414,6 +20534,31 @@
       "list-empty",
       "list-loading"
     ],
+    "LOGIN_LAYOUT_SLOTS": [
+      "login-layout",
+      "login-layout-cover",
+      "login-layout-cover-brand",
+      "login-layout-glow",
+      "login-layout-backdrop",
+      "login-layout-backdrop-image",
+      "login-layout-main",
+      "login-layout-toolbar",
+      "login-layout-panel",
+      "login-layout-card",
+      "login-layout-head",
+      "login-layout-brand",
+      "login-layout-title",
+      "login-layout-description",
+      "login-layout-providers",
+      "login-layout-divider",
+      "login-layout-provider-list",
+      "login-layout-footer"
+    ],
+    "LOGIN_LAYOUT_VARIANTS": [
+      "centered",
+      "split",
+      "cover"
+    ],
     "MARKDOWN_SLOTS": [
       "markdown",
       "markdown-inline-code",
@@ -21737,6 +21882,11 @@
         "empty",
         "list",
         "spinner"
+      ],
+      "LoginLayout": [
+        "button",
+        "card",
+        "login-layout"
       ],
       "Markdown": [
         "citation",

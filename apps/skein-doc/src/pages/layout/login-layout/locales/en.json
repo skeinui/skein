@@ -1,0 +1,41 @@
+{
+  "lead": "The page around a sign-in (or sign-up) form, in three looks for the same parts: a card in the middle, a cover beside the form, or the card over a full-page background. The brand, the title and the form are yours, this places them; the glow and the dividers come from the theme style.",
+  "centered": {
+    "title": "Centered"
+  },
+  "split": {
+    "title": "Split"
+  },
+  "cover": {
+    "title": "Cover"
+  },
+  "providers": {
+    "title": "Other ways in and a toolbar"
+  },
+  "demo": {
+    "title": "Sign in",
+    "description": "Welcome back, enter your account",
+    "footer": "Don't have an account? Create one",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "providers": "Or continue with",
+    "language": "Language"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "root": "The page; `data-variant` is `centered`, `split` or `cover`",
+    "cover": "`split`: the left side, and the brand placed on it by default",
+    "glow": "A soft glow of the primary color: the split cover's and the cover variant's background",
+    "backdrop": "`cover`: the full-page background, a glow or the `backgroundImage`",
+    "main": "The form's side: the toolbar (top right), the panel and, in `centered` and `cover`, the card around it",
+    "head": "The brand, the title and the line under it",
+    "providers": "The other ways in: a divider with its text and the buttons",
+    "footer": "Under the form",
+    "height": "`--ui-login-min-height` sets how tall the page is (the viewport's by default); the examples above set it to show the page in a box."
+  }
+}

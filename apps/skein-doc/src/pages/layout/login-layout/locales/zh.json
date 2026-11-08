@@ -1,0 +1,41 @@
+{
+  "lead": "登录（或注册）表单外面的整页：同样的几部分，三种外观——居中的卡片、表单旁边的封面、整页背景上的卡片。品牌、标题和表单由你提供，这里只负责摆放；柔光和分隔线由主题样式绘制。",
+  "centered": {
+    "title": "居中"
+  },
+  "split": {
+    "title": "分栏"
+  },
+  "cover": {
+    "title": "封面"
+  },
+  "providers": {
+    "title": "其他登录方式与工具栏"
+  },
+  "demo": {
+    "title": "登录",
+    "description": "欢迎回来，请输入账号",
+    "footer": "还没有账号？去注册",
+    "email": "邮箱",
+    "password": "密码",
+    "submit": "登录",
+    "providers": "使用以下服务登录",
+    "language": "语言"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式参考",
+    "hook": "钩子",
+    "root": "整页；`data-variant` 为 `centered`、`split` 或 `cover`",
+    "cover": "`split`：左侧，默认把品牌放在上面",
+    "glow": "主色的柔和光晕：分栏封面和封面变体的背景",
+    "backdrop": "`cover`：整页背景，光晕或 `backgroundImage`",
+    "main": "表单一侧：工具栏（右上角）、面板，以及 `centered` 和 `cover` 里包着它的卡片",
+    "head": "品牌、标题和它下面的一行说明",
+    "providers": "其他登录方式：带文字的分隔线和按钮",
+    "footer": "表单下方",
+    "height": "`--ui-login-min-height` 设置页面高度（默认是视口高度）；上面的示例用它把页面放进一个盒子里展示。"
+  }
+}
