@@ -1008,7 +1008,7 @@ export const tenantOf = (request: Request) => request.headers.get("X-Tenant-Id")
     const findCall = (id) => (scoped ? `findIndex(request, ${id})` : `findIndex(${id})`);
     const itemWrap = (payload) => (model.itemEnvelope ? `{ data: ${payload} }` : payload);
     files["mocks/handlers.ts"] = `import { delay, http, HttpResponse } from "msw";
-import type { ${Entity}${ops.create || editable ? `, ${Entity}Input` : ""} } from "../api";
+${sort ? 'import { str } from "@/lib/list-query";\n' : ""}import type { ${Entity}${ops.create || editable ? `, ${Entity}Input` : ""} } from "../api";
 import { ${entityVar}Rows${scoped ? `, ${entityVar}Tenants, tenantOf` : ""} } from "./${entityKebab}-data";
 ${itemRoute ? `\nconst notFound = () => HttpResponse.json({ message: "Not found" }, { status: 404 });\n` : ""}${
       byId
@@ -1017,7 +1017,7 @@ ${itemRoute ? `\nconst notFound = () => HttpResponse.json({ message: "Not found"
           : `\n/** The row with this id, else -1. */\nconst findIndex = (id: unknown) => ${entityVar}Rows.findIndex((r) => ${access("r", idField)} === ${idOf("id")});\n`
         : ""
     }
-${sort ? `/** Numbers by value, anything else as text. */\nconst compare = (a: unknown, b: unknown) =>\n  typeof a === "number" && typeof b === "number" ? a - b : String(a ?? "").localeCompare(String(b ?? ""));\n\n` : ""}export const handlers = [
+${sort ? `/** Numbers by value, anything else as text. */\nconst compare = (a: unknown, b: unknown) =>\n  typeof a === "number" && typeof b === "number" ? a - b : str(a).localeCompare(str(b));\n\n` : ""}export const handlers = [
   http.get(${JSON.stringify(`*${model.path}`)}, async (${hasParams || scoped ? "{ request }" : ""}) => {
     await delay(200);${hasParams ? "\n    const url = new URL(request.url);" : ""}
     let matched: ${Entity}[] = ${scoped ? `${entityVar}Rows.filter((r) => ${entityVar}Tenants.get(${access("r", idField)}) === tenantOf(request))` : `[...${entityVar}Rows]`};
