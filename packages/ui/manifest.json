@@ -9622,7 +9622,7 @@
         },
         "footer": {
           "type": "ReactNode",
-          "description": "Under the form: a hint, links, the copyright."
+          "description": "A hint, links, the copyright: under the form, and in `split` at the bottom of the form's side."
         },
         "onProvider": {
           "type": "(id: string) => void"
