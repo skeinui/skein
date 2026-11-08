@@ -1,4 +1,4 @@
-import { OPS, UnsupportedQueryError, flatConditions } from "./types";
+import { OPS, UnsupportedQueryError, flatConditions, str } from "./types";
 import type { Capabilities, Condition, ListQuery, Op, QueryAdapter, RequestParts } from "./types";
 
 /** The contract itself: a backend that takes a `ListQuery` as the JSON body of `POST <path>/search`. */
@@ -10,9 +10,7 @@ export const standardAdapter: QueryAdapter = {
 
 /** `a,b` of a list value; each element escaped, so a comma inside one survives. */
 const list = (value: unknown) =>
-  (Array.isArray(value) ? value : [value])
-    .map((v) => encodeURIComponent(String(v ?? "")))
-    .join(",");
+  (Array.isArray(value) ? value : [value]).map((v) => encodeURIComponent(str(v))).join(",");
 
 export interface FlatOptions {
   /** `status.gt=100` (default) or `status_gt=100`. A plain `status=paid` is `eq` either way. */
@@ -59,10 +57,10 @@ export function flatAdapter({
         throw new UnsupportedQueryError("This backend can't take `or`.");
       for (const c of flat.items) {
         if (!ops.includes(c.op)) throw new UnsupportedQueryError(`This backend has no "${c.op}".`);
-        if (c.op === "eq") params[c.field] = String(c.value ?? "");
+        if (c.op === "eq") params[c.field] = str(c.value);
         else
           params[`${c.field}${separator}${c.op}`] =
-            c.op === "in" || c.op === "between" ? list(c.value) : String(c.value ?? "");
+            c.op === "in" || c.op === "between" ? list(c.value) : str(c.value);
       }
       return { params };
     },
@@ -92,7 +90,7 @@ export const authxoAdapter: QueryAdapter = {
     const bad = flat.items.find((c: Condition) => c.op !== "eq" && c.op !== "contains");
     if (bad) throw new UnsupportedQueryError(`There is no "${bad.op}".`);
     for (const c of flat.items) {
-      params[c.field] = String(c.value ?? "");
+      params[c.field] = str(c.value);
       params[`${c.field}Op`] = c.op === "eq" ? "equals" : "contains";
     }
     if (flat.items.length > 1)
@@ -166,7 +164,7 @@ export function paramAdapter(config: ParamAdapterConfig): QueryAdapter {
           throw new UnsupportedQueryError(`This API has no "${c.op}" for "${c.field}".`);
         if (seen.has(c.field)) throw new UnsupportedQueryError(`This API takes "${c.field}" once.`);
         seen.add(c.field);
-        params[spec.param ?? c.field] = String(c.value ?? "");
+        params[spec.param ?? c.field] = str(c.value);
       }
       return { params };
     },

@@ -13,7 +13,7 @@ import {
 } from "@skeinui/ui";
 import { Plus, Trash2 } from "lucide-react";
 import { createContext, useContext, useState } from "react";
-import { isGroup } from "@/lib/list-query";
+import { isGroup, str } from "@/lib/list-query";
 import type { Capabilities, Condition, Filter, Group, Op } from "@/lib/list-query";
 import { useQueryBuilderTranslation } from "./locales";
 
@@ -214,7 +214,7 @@ function summary(filter: Filter, fields: QueryField[], t: (key: string) => strin
   const field = fields.find((f) => f.name === filter.field);
   const show = (v: unknown) =>
     field?.options?.find((o) => o.value === String(v))?.label ??
-    (typeof v === "boolean" ? t(`bool.${v}`) : String(v ?? ""));
+    (typeof v === "boolean" ? t(`bool.${v}`) : str(v));
   const value = Array.isArray(filter.value)
     ? filter.op === "between"
       ? filter.value.map(show).join(" – ")

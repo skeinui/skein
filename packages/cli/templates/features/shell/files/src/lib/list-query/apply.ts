@@ -1,9 +1,9 @@
-import { isGroup } from "./types";
+import { isGroup, str } from "./types";
 import type { Condition, Filter, ListQuery, ListResult } from "./types";
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const blank = (v: unknown) => v === undefined || v === null || v === "";
-const text = (v: unknown) => String(v ?? "").toLowerCase();
+const text = (v: unknown) => str(v).toLowerCase();
 
 /** Numbers compare as numbers (also "100" against 100), everything else (ISO dates, words) as text. */
 function compare(a: unknown, b: unknown) {
@@ -23,7 +23,7 @@ function compare(a: unknown, b: unknown) {
         ? Number(b)
         : NaN;
   if (!Number.isNaN(x) && !Number.isNaN(y)) return x - y;
-  return String(a).localeCompare(String(b));
+  return str(a).localeCompare(str(b));
 }
 
 /** For a day against a moment (either way round): whether they are the same day; undefined for anything else. */

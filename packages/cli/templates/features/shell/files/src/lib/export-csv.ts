@@ -6,7 +6,14 @@ export function downloadCsv(
 ) {
   // A text a spreadsheet would run as a formula (=, +, -, @ first) is made plain text; numbers stay numbers
   const cell = (value: unknown) => {
-    let text = value === null || value === undefined ? "" : String(value);
+    let text =
+      typeof value === "string"
+        ? value
+        : typeof value === "number" || typeof value === "boolean" || typeof value === "bigint"
+          ? String(value)
+          : typeof value === "object" && value !== null
+            ? JSON.stringify(value)
+            : "";
     if (typeof value === "string" && /^[=+\-@\t\r]/.test(text)) text = `'${text}`;
     return /[",\r\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
   };

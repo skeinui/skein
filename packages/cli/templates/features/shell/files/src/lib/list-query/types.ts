@@ -20,6 +20,16 @@ export const OPS = [
 export type Op = (typeof OPS)[number];
 
 /** `value` is a string / number / boolean; an array for `in`; `[from, to]` for `between`; none for `blank` and `notBlank`. */
+/** A value as text: a string, number, boolean or bigint as itself, an object as JSON (never "[object Object]"), anything else (nothing, a function) as "". */
+export const str = (value: unknown) =>
+  typeof value === "string"
+    ? value
+    : typeof value === "number" || typeof value === "boolean" || typeof value === "bigint"
+      ? String(value)
+      : typeof value === "object" && value !== null
+        ? JSON.stringify(value)
+        : "";
+
 export interface Condition {
   field: string;
   op: Op;
