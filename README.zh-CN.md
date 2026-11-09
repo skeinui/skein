@@ -10,11 +10,14 @@
   <a href="https://github.com/skeinui/skein/issues">问题反馈</a>
 </p>
 
-<p align="center">
+<div align="center">
   <a href="https://www.npmjs.com/package/@skeinui/ui"><img src="https://img.shields.io/npm/v/@skeinui/ui?label=%40skeinui%2Fui" alt="npm version" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license" /></a>
   <a href="https://github.com/skeinui/skein/stargazers"><img src="https://img.shields.io/github/stars/skeinui/skein?style=social" alt="GitHub stars" /></a>
-</p>
+
+[![M8ven Score](https://m8ven.ai/badge/mcp/skeinui-skein-twu2xj?v=a8b24bb2a31a22e75ef112650342d5c6)](https://m8ven.ai/mcp/skeinui-skein-twu2xj?s=readme)
+
+</div>
 
 基于 Base UI 的 React 组件库，外观由可替换的主题风格决定；配套的 CLI 生成的项目，AI 编程助手也能写得好。
 
