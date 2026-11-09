@@ -57,16 +57,28 @@ describe("Table (SSR)", () => {
     );
 
   test("the container and table carry their hooks, no styles", () => {
-    const html = demo();
+    const html = demo({ stickyHeader: false });
     expect(html).toContain('data-slot="table-container"');
     expect(html).toContain("data-bordered");
-    expect(html).toContain("data-sticky");
+    expect(html).not.toContain("data-sticky");
+    expect(html).not.toContain("scroll-area");
     expect(html).toContain('data-slot="table"');
     expect(html).toContain('data-size="md"');
     expect(html).toContain("data-striped");
     expect(html).toContain("data-hoverable");
     expect(html).not.toContain("class=");
     expect(html).not.toContain("style=");
+  });
+
+  test("a fixed header puts the table in a ScrollArea inside the container (the container does not scroll), and the table keeps its hooks", () => {
+    const html = demo({ stickyHeader: true });
+    expect(html).toContain("data-sticky");
+    expect(html).toMatch(
+      /data-slot="table-container"[^>]*>(?:(?!<\/div>).)*data-slot="scroll-area"[^>]*>.*data-slot="scroll-area-viewport".*<table[^>]*data-slot="table"/s,
+    );
+    expect(html).toContain('data-slot="scroll-area-viewport"');
+    expect(html).toContain('data-size="md"');
+    expect(html).toContain("data-striped");
   });
 
   test("sortable headers get aria-sort, data-sort, a button and an icon", () => {

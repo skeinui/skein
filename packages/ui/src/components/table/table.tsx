@@ -7,6 +7,7 @@ import type {
   RefObject,
 } from "react";
 import { Input } from "../input/index.ts";
+import { ScrollArea } from "../scroll-area/index.ts";
 import { Select } from "../select/index.ts";
 import type { SelectOption } from "../select/index.ts";
 import type { TableAlign, TableFixed, TableSort, UISize } from "../../contract.ts";
@@ -36,7 +37,7 @@ export interface TableProps extends Without<ComponentPropsWithoutRef<"table">> {
    */
   bordered?: boolean;
   /**
-   * Fixed header: the Table must be placed in a parent with a constrained height, and the container scrolls inside it.
+   * Fixed header: the container takes the height of its parent and scrolls the rows inside it, the header stays. The parent has to have a constrained height: a box with a height, or a flex column that has one (`Card fill`, `Flex grow`); in a parent as tall as its content the table is as tall as its rows and the page scrolls.
    * @default false
    */
   stickyHeader?: boolean;
@@ -47,21 +48,32 @@ export interface TableProps extends Without<ComponentPropsWithoutRef<"table">> {
   loading?: boolean;
 }
 
-/** Does the container's content overflow the container (horizontal or vertical scrolling needed)? Re-evaluated as content and container size change. */
-function useScrollable(ref: RefObject<HTMLElement | null>) {
+/**
+ * The element that scrolls: the container itself, or, with a fixed header (the table is in a ScrollArea there, so the
+ * scrollbar can be drawn by the theme style and stop below the header), the viewport of that ScrollArea.
+ */
+const VIEWPORT = ':scope > [data-slot="scroll-area"] > [data-slot="scroll-area-viewport"]';
+const scrollerOf = (el: HTMLElement) => el.querySelector<HTMLElement>(VIEWPORT) ?? el;
+
+/** Does the scroller's content overflow it (horizontal or vertical scrolling needed)? Re-evaluated as content and container size change. */
+function useScrollable(ref: RefObject<HTMLElement | null>, inScrollArea: boolean) {
   const [scrollable, setScrollable] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    const scroller = scrollerOf(el);
     const measure = () =>
-      setScrollable(el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1);
+      setScrollable(
+        scroller.scrollWidth > scroller.clientWidth + 1 ||
+          scroller.scrollHeight > scroller.clientHeight + 1,
+      );
     measure();
     if (typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    if (el.firstElementChild) observer.observe(el.firstElementChild);
+    observer.observe(scroller);
+    if (scroller.firstElementChild) observer.observe(scroller.firstElementChild);
     return () => observer.disconnect();
-  }, [ref]);
+  }, [ref, inScrollArea]);
   return scrollable;
 }
 
@@ -72,20 +84,24 @@ function useScrollable(ref: RefObject<HTMLElement | null>) {
  * It also handles resizable column widths: for columns whose header sets `width`, the sum of widths (columns without a width count as 96px each) is written as the table's `--tbl-sum` (and marked `data-sized`),
  * and the theme style uses it to lay the table out as fixed layout with an overall width not less than this sum, so column widths match the dragging exactly.
  */
-function useFixedColumns(ref: RefObject<HTMLElement | null>) {
+function useFixedColumns(ref: RefObject<HTMLElement | null>, inScrollArea: boolean) {
   const update = useCallback(() => {
     const el = ref.current;
     if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
+    const scroller = scrollerOf(el);
+    const max = scroller.scrollWidth - scroller.clientWidth;
     const x =
       max <= 1
         ? "none"
-        : el.scrollLeft <= 1
+        : scroller.scrollLeft <= 1
           ? "start"
-          : el.scrollLeft >= max - 1
+          : scroller.scrollLeft >= max - 1
             ? "end"
             : "middle";
     if (el.dataset.scrollX !== x) el.dataset.scrollX = x;
+    // The scrollbar of a fixed header starts below the header: its height is the offset of the vertical track
+    const head = el.querySelector("thead");
+    if (head && scroller !== el) el.style.setProperty("--tbl-head-h", `${head.offsetHeight}px`);
     const table = el.querySelector("table");
     if (table) {
       const heads = [...table.querySelectorAll<HTMLElement>("thead tr:first-child > th")];
@@ -128,7 +144,7 @@ function useFixedColumns(ref: RefObject<HTMLElement | null>) {
         });
       }
     }
-  }, [ref]);
+  }, [ref, inScrollArea]);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -144,11 +160,18 @@ function useFixedColumns(ref: RefObject<HTMLElement | null>) {
     const sizes = typeof ResizeObserver === "undefined" ? null : new ResizeObserver(update);
     sizes?.observe(el);
     if (el.firstElementChild) sizes?.observe(el.firstElementChild);
+    // With a fixed header the ScrollArea's viewport scrolls: scrolling is not the container's event then (scroll does not bubble)
+    const scroller = scrollerOf(el);
+    if (scroller !== el) {
+      scroller.addEventListener("scroll", update, { passive: true });
+      if (scroller.firstElementChild) sizes?.observe(scroller.firstElementChild);
+    }
     return () => {
       mutations?.disconnect();
       sizes?.disconnect();
+      if (scroller !== el) scroller.removeEventListener("scroll", update);
     };
-  }, [ref, update]);
+  }, [ref, update, inScrollArea]);
   return update;
 }
 
@@ -163,30 +186,50 @@ function TableRoot({
   ...rest
 }: TableProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const scrollable = useScrollable(ref);
-  const onScroll = useFixedColumns(ref);
+  const scrollable = useScrollable(ref, stickyHeader);
+  const onScroll = useFixedColumns(ref, stickyHeader);
   const label = rest["aria-label"];
+  // When content really overflows what scrolls and needs scrolling, it must be keyboard-focusable (so arrow keys can scroll it, WCAG 2.1.1)
+  const focusable = scrollable
+    ? { tabIndex: 0, ...(label ? { role: "region", "aria-label": label } : null) }
+    : null;
+  useEffect(() => {
+    // With a fixed header the scroller is the ScrollArea's viewport, not an element of ours: the same attributes go on it
+    const viewport = ref.current?.querySelector<HTMLElement>(VIEWPORT);
+    if (!viewport) return;
+    if (scrollable) {
+      viewport.tabIndex = 0;
+      if (typeof label === "string") {
+        viewport.setAttribute("role", "region");
+        viewport.setAttribute("aria-label", label);
+      }
+    } else {
+      viewport.removeAttribute("tabindex");
+      viewport.removeAttribute("role");
+      viewport.removeAttribute("aria-label");
+    }
+  }, [scrollable, label, stickyHeader]);
+  const table = (
+    <table
+      {...rest}
+      data-slot="table"
+      data-size={size}
+      data-striped={striped ? "" : undefined}
+      data-hoverable={hoverable ? "" : undefined}
+      data-loading={loading ? "" : undefined}
+      aria-busy={loading || undefined}
+    />
+  );
   return (
     <div
       ref={ref}
       data-slot="table-container"
       data-bordered={bordered ? "" : undefined}
       data-sticky={stickyHeader ? "" : undefined}
-      onScroll={onScroll}
-      // When content really overflows the container and needs scrolling, the container must be keyboard-focusable (so arrow keys can scroll it, WCAG 2.1.1)
-      {...(scrollable
-        ? { tabIndex: 0, ...(label ? { role: "region", "aria-label": label } : null) }
-        : null)}
+      onScroll={stickyHeader ? undefined : onScroll}
+      {...(stickyHeader ? null : focusable)}
     >
-      <table
-        {...rest}
-        data-slot="table"
-        data-size={size}
-        data-striped={striped ? "" : undefined}
-        data-hoverable={hoverable ? "" : undefined}
-        data-loading={loading ? "" : undefined}
-        aria-busy={loading || undefined}
-      />
+      {stickyHeader ? <ScrollArea orientation="both">{table}</ScrollArea> : table}
     </div>
   );
 }

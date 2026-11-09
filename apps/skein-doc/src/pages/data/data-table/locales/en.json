@@ -55,5 +55,9 @@
     "hook": "Hook",
     "existing": "existing slots",
     "composed": "DataTable is Table + Checkbox + Button + Popconfirm and has no slot of its own: its look comes from the theme styles of those components"
+  },
+  "sticky": {
+    "title": "Fixed header",
+    "description": "`stickyHeader` keeps the header in view and scrolls only the rows. The table takes the height of its parent, which has to have one: a box with a height as here, or a flex column that has one (`Card fill`, `Flex grow`). Without a limit the table is as tall as its rows."
   }
 }

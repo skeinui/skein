@@ -40,6 +40,11 @@ export interface FlexProps extends Without<ComponentPropsWithoutRef<"div">> {
    * @default false
    */
   inline?: boolean;
+  /**
+   * Take the height (or width) the parent flex container has left, and let it shrink below its content: what a column that holds a scrolling `Table` needs to pass a constrained height down to it.
+   * @default false
+   */
+  grow?: boolean;
 }
 
 /**
@@ -54,6 +59,7 @@ export function Flex({
   justify = "start",
   wrap = false,
   inline = false,
+  grow = false,
   ...rest
 }: FlexProps) {
   return createElement(as, {
@@ -65,6 +71,7 @@ export function Flex({
     "data-justify": justify,
     "data-wrap": wrap ? "" : undefined,
     "data-inline": inline ? "" : undefined,
+    "data-grow": grow ? "" : undefined,
   });
 }
 

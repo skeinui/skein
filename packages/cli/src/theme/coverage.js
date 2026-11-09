@@ -303,6 +303,7 @@ export function coverageFor(contract) {
       ...slotSel(CARD_SLOTS),
       ...CARD_VARIANTS.map((v) => `[data-variant="${v}"]`),
       ...RADII.map((r) => `[data-radius="${r}"]`),
+      "[data-fill]",
     ],
     "spinner.css": [
       ...slotSel(SPINNER_SLOTS),
@@ -1036,6 +1037,7 @@ export function coverageFor(contract) {
       '[data-justify="between"]',
       "[data-wrap]",
       "[data-inline]",
+      "[data-grow]",
     ],
     "grid.css": [
       ...slotSel(GRID_SLOTS),

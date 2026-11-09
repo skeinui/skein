@@ -32,7 +32,14 @@
   "props": {
     "Card": {
       "radius": "圆角档位，不传时由主题风格决定。",
-      "variant": "视觉变体，具体画法由主题风格决定。"
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "fill": "占满父级（flex 列）剩下的高度并缩到那么高，卡片内容（如 `DataTable stickyHeader`）随之滚动，页面不滚动。"
     }
+  },
+  "fill": {
+    "title": "占满高度",
+    "description": "`fill` 让卡片取父级（flex 列）剩下的高度并缩到那么高，里面的 `DataTable stickyHeader` 就只滚动行、表头不动，页面不再滚动。父级要有高度：像这里一样给一个有高度的盒子，或 `Page fill`、`grow` 的 `Flex`。",
+    "name": "姓名",
+    "role": "角色"
   }
 }

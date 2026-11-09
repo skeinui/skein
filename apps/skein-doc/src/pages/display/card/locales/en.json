@@ -28,5 +28,11 @@
     "card": "The frame: padding, outline, radius and background",
     "header": "The header with its title and description",
     "body": "The content and the footer actions"
+  },
+  "fill": {
+    "title": "Fill the height",
+    "description": "`fill` makes a card take the height its flex column parent has left (a box with a height as here, `Page fill`, a `Flex` that `grow`s) and shrink to it, so a `DataTable stickyHeader` inside scrolls its rows and keeps its header, and the page does not scroll.",
+    "name": "Name",
+    "role": "Role"
   }
 }

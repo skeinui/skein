@@ -279,7 +279,7 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
     `import { downloadCsv } from "@/lib/export-csv";`,
     `import type { ${sorted ? "ListQuery, Sort" : "ListQuery"} } from "@/lib/list-query";`,
     ...(usesAccess ? [`import { Access } from "@/modules/access";`] : []),
-    `import { TableTools } from "@/modules/table-tools";`,
+    `import { TableTools, useFixedHeader } from "@/modules/table-tools";`,
     `import { Page } from "@/skein-shell";`,
     `import { ${[...(ops.remove ? [`delete${Entity}`] : []), fetchList, keys].join(", ")} } from "./api";`,
     `import type { ${Entity} } from "./api";`,
@@ -329,6 +329,8 @@ ${ops.remove ? "  const queryClient = useQueryClient();\n" : ""}  const [query${
   /** The columns in their order, and the ones shown. */
   const [order, setOrder] = useState<${ColType}[]>([...${colsConst}]);
   const [visible, setVisible] = useState<string[]>([...${colsConst}]);
+  /** The header fixed and the rows scrolling inside the card (the page fills the screen), or the whole page scrolling: the user's choice, fixed at first. */
+  const [fixed, setFixed] = useFixedHeader(${JSON.stringify(leaf)});
   const shown = order.filter((c) => visible.includes(c));
 ${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n  const [editing, setEditing] = useState<${Entity} | null | undefined>(undefined);\n` : ""}${selectable ? `  /** The ids of the ticked rows. */\n  const [selected, setSelected] = useState<readonly ${idType}[]>([]);\n` : ""}  const { data, isFetching, refetch } = useQuery({
     queryKey: ${keys}.list(query),
@@ -380,12 +382,13 @@ ${columns.map(exportLine).join("\n")}
 
   return (
     <Page
+      fill={fixed}
       title={t("title")}
       description={t("description")}${ops.create ? `\n      actions={\n        ${wrapAccess("create", createButton)}\n      }` : ""}
     >
-      <Card>
+      <Card fill={fixed}>
         <Card.Body>
-          <Flex direction="column" gap="md">
+          <Flex direction="column" gap="md" grow={fixed}>
             <div className="table-bar">
               <div className="table-bar-main">${
                 hasSearch
@@ -403,6 +406,8 @@ ${columns.map(exportLine).join("\n")}
                 visible={visible}
                 onVisibleChange={setVisible}
                 onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
+                fixed={fixed}
+                onFixedChange={setFixed}
                 onExport={() => exportRows(rows)}
               />
             </div>
@@ -424,6 +429,7 @@ ${
 }            <${Name}Table
               rows={rows}
               columns={shown}
+              stickyHeader={fixed}
               loading={isFetching}${selectable ? "\n              selected={selected}\n              onSelectedChange={setSelected}" : ""}${
                 sorted
                   ? `\n              sort={query.sort?.[0]}\n              onSort={(field) => setQuery((q) => ({ ...q, page: 1, sort: nextSort(q.sort?.[0], field) }))}`
@@ -604,11 +610,14 @@ ${sorted ? `\n/** The columns the API can sort by. */\nconst sortable: ReadonlyS
 export function ${Name}Table({
   rows,
   columns = ${colsConst},
+  stickyHeader,
   loading,${selectable ? "\n  selected,\n  onSelectedChange," : ""}${sorted ? "\n  sort,\n  onSort," : ""}${editable ? "\n  onEdit," : ""}${ops.remove ? "\n  onDelete," : ""}
 }: {
   rows: readonly ${Entity}[];
   /** The columns shown, in order. */
   columns?: readonly ${ColType}[];
+  /** Keep the header in view and scroll only the rows (in a parent with a height: \`Card fill\`). */
+  stickyHeader?: boolean;
   loading: boolean;${selectable ? `\n  /** The ids of the ticked rows. */\n  selected: readonly ${idType}[];\n  onSelectedChange: (ids: readonly ${idType}[]) => void;` : ""}${sorted ? `\n  sort?: Sort;\n  /** A click on a sortable header, with the column's field name. */\n  onSort: (field: string) => void;` : ""}${editable ? `\n  onEdit: (row: ${Entity}) => void;` : ""}${ops.remove ? `\n  onDelete: (row: ${Entity}) => Promise<void>;` : ""}
 }) {
   const { t${usesDate || usesDateTime ? ", i18n" : ""} } = use${Name}Translation();
@@ -621,6 +630,7 @@ ${columns.map((f) => `    ${key(f.name)}: (row) => ${cellExpr(f)},`).join("\n")}
   };
   return (
     <DataTable
+      stickyHeader={stickyHeader}
       loading={loading}
       rows={rows}
       rowKey={(row) => String(${rowKey})}

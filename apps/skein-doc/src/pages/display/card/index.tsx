@@ -1,6 +1,12 @@
-import { Button, CARD_VARIANTS, Card, RADII } from "@skeinui/ui";
+import { Button, CARD_VARIANTS, Card, DataTable, RADII } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
+
+const ROWS = Array.from({ length: 12 }, (_, i) => ({
+  id: String(i + 1),
+  name: `Person ${i + 1}`,
+  role: i % 3 === 0 ? "admin" : "viewer",
+}));
 
 /** The styling hooks the component writes; their descriptions are the page's `styling.<key>` messages. */
 const HOOKS = [
@@ -69,6 +75,33 @@ export default function CardPage() {
               <Card.Body>{r}</Card.Body>
             </Card>
           ))}
+        </div>
+      </Example>
+
+      <Example
+        id="fill"
+        code={`<div style={{ display: "flex", flexDirection: "column", height: 260 }}>
+  <Card fill>
+    <Card.Body>
+      <DataTable stickyHeader rows={rows} rowKey="id" columns={columns} />
+    </Card.Body>
+  </Card>
+</div>`}
+      >
+        <div style={{ display: "flex", flexDirection: "column", height: 260 }}>
+          <Card fill>
+            <Card.Body>
+              <DataTable
+                stickyHeader
+                rows={ROWS}
+                rowKey="id"
+                columns={[
+                  { key: "name", title: t("fill.name") },
+                  { key: "role", title: t("fill.role") },
+                ]}
+              />
+            </Card.Body>
+          </Card>
         </div>
       </Example>
 

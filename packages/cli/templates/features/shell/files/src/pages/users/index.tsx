@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { downloadCsv } from "@/lib/export-csv";
 import { Access } from "@/modules/access";
-import { TableTools } from "@/modules/table-tools";
+import { TableTools, useFixedHeader } from "@/modules/table-tools";
 import { Page } from "@/skein-shell";
 import { deleteUser, fetchUsers, userKeys } from "./api";
 import type { ListQuery } from "@/lib/list-query";
@@ -23,6 +23,8 @@ export function UsersPage() {
   const [order, setOrder] = useState<UserColumn[]>([...USER_COLUMNS]);
   const [visible, setVisible] = useState<string[]>([...USER_COLUMNS]);
   const shown = order.filter((c) => visible.includes(c));
+  /** The header fixed and the rows scrolling inside the card (the page fills the screen), or the whole page scrolling: the user's choice, fixed at first. */
+  const [fixed, setFixed] = useFixedHeader("users");
   /** undefined: closed; null: creating; a user: editing it. */
   const [editing, setEditing] = useState<User | null | undefined>(undefined);
   const { data, isFetching } = useQuery({
@@ -58,6 +60,7 @@ export function UsersPage() {
 
   return (
     <Page
+      fill={fixed}
       title={t("title")}
       description={t("description")}
       actions={
@@ -72,9 +75,9 @@ export function UsersPage() {
         </Access>
       }
     >
-      <Card>
+      <Card fill={fixed}>
         <Card.Body>
-          <Flex direction="column" gap="md">
+          <Flex direction="column" gap="md" grow={fixed}>
             <div className="table-bar">
               <div className="table-bar-main">
                 <UsersSearch
@@ -90,6 +93,8 @@ export function UsersPage() {
                 visible={visible}
                 onVisibleChange={setVisible}
                 onOrderChange={(keys) => setOrder(keys as UserColumn[])}
+                fixed={fixed}
+                onFixedChange={setFixed}
                 onExport={exportRows}
               />
             </div>
@@ -97,6 +102,7 @@ export function UsersPage() {
               users={data?.items ?? []}
               loading={isFetching}
               columns={shown}
+              stickyHeader={fixed}
               onEdit={setEditing}
               onDelete={(user) =>
                 remove.mutateAsync(user).then(

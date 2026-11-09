@@ -1,17 +1,34 @@
 {
   "lead": "表格的语义结构和外观。不依赖任何表格库：排序、选择、分页的状态由调用方持有（TanStack Table、服务端分页、自己写都行），这里只管画。",
-  "usage": { "title": "用法" },
-  "sorting": { "title": "排序" },
+  "usage": {
+    "title": "用法"
+  },
+  "sorting": {
+    "title": "排序"
+  },
   "resize": {
     "title": "可调列宽",
     "description": "列宽由调用方持有：`Head` 传 `width`、`resizable`、`onResize`。拖右边缘，或聚焦手柄用左右方向键（Shift 步长更大，Home / End 到最小 / 最大）。最后一列不设宽度，吸收剩余空间。"
   },
-  "selection": { "title": "行选择" },
-  "pagination": { "title": "配合分页" },
-  "striped": { "title": "斑马纹和外框" },
-  "sizes": { "title": "尺寸" },
-  "sticky": { "title": "固定表头" },
-  "fixed": { "title": "固定列" },
+  "selection": {
+    "title": "行选择"
+  },
+  "pagination": {
+    "title": "配合分页"
+  },
+  "striped": {
+    "title": "斑马纹和外框"
+  },
+  "sizes": {
+    "title": "尺寸"
+  },
+  "sticky": {
+    "title": "固定表头",
+    "description": "`stickyHeader` 让表头始终可见，只滚动行，滚动条用主题风格的样式（`ScrollArea`），从表头下沿开始，到行区域底部为止。表格取父元素的高度，所以父元素必须有高度：像这里一样给一个有高度的盒子，或者是有高度的 flex 列（`Card fill`、`Flex grow`）。"
+  },
+  "fixed": {
+    "title": "固定列"
+  },
   "expand": {
     "title": "可展开行",
     "description": "展开了哪些行由调用方持有。数据行里放 `Table.ExpandButton`（`kind=\"expand\"` 的列），展开时在它后面渲染 `Table.ExpandedRow`；表头那一格放一个同样的按钮就是「全部展开 / 全部收起」：全部展开了就收起，否则全部展开。"
@@ -20,8 +37,12 @@
     "title": "可编辑单元格",
     "description": "行内编辑：平时是显示值的按钮，点击 / Enter / F2 进入编辑；Enter 或失焦提交，Esc 取消，校验不过就停在编辑里显示错误（失焦则还原）。值由调用方持有，`type` 有 text / number / select。"
   },
-  "empty": { "title": "空状态和加载中" },
-  "footer": { "title": "表尾和标题" },
+  "empty": {
+    "title": "空状态和加载中"
+  },
+  "footer": {
+    "title": "表尾和标题"
+  },
   "demo": {
     "name": "姓名",
     "email": "邮箱",
@@ -65,7 +86,7 @@
       "hoverable": "悬停高亮行。",
       "loading": "加载中：表体变淡、不可点，表格写 `aria-busy`。",
       "size": "行高和内边距档位。",
-      "stickyHeader": "表头固定：Table 要放进有限定高度的父元素，容器在里面滚动。",
+      "stickyHeader": "表头固定：容器取父元素的高度，在里面滚动行，表头不动。父元素要有限定的高度（有高度的盒子，或有高度的 flex 列：`Card fill`、`Flex grow`）；父元素和内容一样高时，表格和行数一样高，页面跟着滚动。",
       "striped": "斑马纹。"
     },
     "Table_Row": {

@@ -5,7 +5,7 @@ export default {
   origin: "Skein",
   since: "0.1.2",
   toc: [
-    { group: "examples", items: ["usage", "actions", "selection", "sorting", "states"] },
+    { group: "examples", items: ["usage", "actions", "selection", "sorting", "states", "sticky"] },
     { group: "reference", items: ["api", "column", "action", "styling"] },
   ],
 } satisfies PageMeta;

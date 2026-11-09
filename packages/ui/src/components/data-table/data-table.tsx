@@ -89,6 +89,11 @@ export interface DataTableProps<Row> {
    * @default true
    */
   hoverable?: boolean;
+  /**
+   * Keep the header in view and scroll only the rows: the table fills the height of its parent, which has to be constrained (a box with a height, or a flex column that has one: `Card fill`, `Flex grow`). Without it the table is as tall as its rows and the page scrolls.
+   * @default false
+   */
+  stickyHeader?: boolean;
 }
 
 /** A field shown without `render`: text, a number or a boolean as it reads; anything else needs a `render`. */
@@ -125,6 +130,7 @@ export function DataTable<Row>({
   striped,
   bordered,
   hoverable = true,
+  stickyHeader = false,
 }: DataTableProps<Row>) {
   const t = useLabels("dataTable");
   const keyOf = (row: Row, index: number) =>
@@ -143,6 +149,7 @@ export function DataTable<Row>({
       striped={striped}
       bordered={bordered}
       hoverable={hoverable}
+      stickyHeader={stickyHeader}
       loading={loading}
     >
       <Table.Header>

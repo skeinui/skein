@@ -75,6 +75,11 @@ describe("Flex", () => {
     expect(html).toContain("data-inline");
   });
 
+  test("`grow` is a data attribute, off by default", () => {
+    expect(ssr(createElement(Flex, null, "x"))).not.toContain("data-grow");
+    expect(ssr(createElement(Flex, { grow: true }, "x"))).toContain("data-grow");
+  });
+
   test("Flex.Spacer is decorative (aria-hidden); other props pass through", () => {
     const html = ssr(
       createElement(Flex, { "aria-label": "bar", id: "f" }, createElement(Flex.Spacer)),

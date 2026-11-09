@@ -1,5 +1,6 @@
 import { Button, Checkbox, Flex, Popover, Sortable, Tooltip, arrayMove } from "@skeinui/ui";
-import { Columns3, Download, RefreshCw } from "lucide-react";
+import { Columns3, Download, PanelTop, RefreshCw } from "lucide-react";
+import { useState } from "react";
 import { useTableToolsTranslation } from "./locales";
 
 export interface ToolColumn {
@@ -16,11 +17,39 @@ export interface TableToolsProps {
   visible?: readonly string[];
   onVisibleChange?: (visible: string[]) => void;
   onOrderChange?: (keys: string[]) => void;
+  /** The header is fixed and only the rows scroll (the page passes it on: `Page fill`, `Card fill`, `DataTable stickyHeader`), and what changed. See `useFixedHeader`. */
+  fixed?: boolean;
+  onFixedChange?: (fixed: boolean) => void;
   /** Download what the table shows. */
   onExport?: () => void;
 }
 
-/** The table's tools, on the right of its toolbar: refresh, which columns to show, export. Each is shown when its props are given. */
+/**
+ * Whether a table keeps its header fixed and scrolls only its rows, for the toggle of `TableTools`: `initial` until
+ * the user chooses, then what they chose, remembered per `key` in this browser.
+ */
+export function useFixedHeader(key: string, initial = true) {
+  const storageKey = `table-fixed-header:${key}`;
+  const [fixed, setFixed] = useState(() => {
+    try {
+      const saved = localStorage.getItem(storageKey);
+      return saved === null ? initial : saved === "1";
+    } catch {
+      return initial;
+    }
+  });
+  const change = (next: boolean) => {
+    setFixed(next);
+    try {
+      localStorage.setItem(storageKey, next ? "1" : "0");
+    } catch {
+      // storage can be blocked: the choice then lasts until the page is closed
+    }
+  };
+  return [fixed, change] as const;
+}
+
+/** The table's tools, on the right of its toolbar: refresh, fixed header, which columns to show, export. Each is shown when its props are given. */
 export function TableTools({
   onRefresh,
   refreshing,
@@ -28,6 +57,8 @@ export function TableTools({
   visible,
   onVisibleChange,
   onOrderChange,
+  fixed,
+  onFixedChange,
   onExport,
 }: TableToolsProps) {
   const { t } = useTableToolsTranslation();
@@ -46,6 +77,21 @@ export function TableTools({
               onClick={onRefresh}
             >
               <RefreshCw size={16} />
+            </Button>
+          </Tooltip>
+        ) : null}
+        {onFixedChange ? (
+          <Tooltip content={t("fixed")}>
+            <Button
+              variant={fixed ? "soft" : "ghost"}
+              color={fixed ? "primary" : "neutral"}
+              size="sm"
+              iconOnly
+              aria-label={t("fixed")}
+              aria-pressed={Boolean(fixed)}
+              onClick={() => onFixedChange(!fixed)}
+            >
+              <PanelTop size={16} />
             </Button>
           </Tooltip>
         ) : null}

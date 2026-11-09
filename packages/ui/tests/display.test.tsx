@@ -68,6 +68,11 @@ describe("display components (SSR)", () => {
     expect(html).not.toContain("class=");
   });
 
+  test("Card `fill` is a data attribute, off by default", () => {
+    expect(ssr(createElement(Card, null, "x"))).not.toContain("data-fill");
+    expect(ssr(createElement(Card, { fill: true }, "x"))).toContain("data-fill");
+  });
+
   test("Spinner has role=status and a default accessible name", () => {
     const html = ssr(createElement(Spinner, { size: "lg", color: "danger" }));
     expect(html).toContain('role="status"');

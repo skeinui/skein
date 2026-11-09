@@ -71,7 +71,12 @@
       "selected": "被选中行的 key；给了它（并给 `onSelectedChange`）就会加上勾选列。",
       "size": "行的尺寸档位。",
       "sort": "当前按哪一列排序、怎么排。",
-      "striped": "斑马纹。"
+      "striped": "斑马纹。",
+      "stickyHeader": "表头固定，只滚动行。表格取父元素的高度，父元素要有限定的高度（有高度的盒子，或有高度的 flex 列：`Card fill`、`Flex grow`）；否则表格和行数一样高，页面跟着滚动。"
     }
+  },
+  "sticky": {
+    "title": "固定表头",
+    "description": "`stickyHeader` 让表头始终可见，只滚动行。表格取父元素的高度，所以父元素必须有高度：像这里一样给一个有高度的盒子，或者是有高度的 flex 列（`Card fill`、`Flex grow`）。没有高度限制时，表格有多少行就多高，页面跟着滚动。"
   }
 }

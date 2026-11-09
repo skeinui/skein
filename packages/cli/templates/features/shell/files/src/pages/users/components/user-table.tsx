@@ -13,6 +13,7 @@ export function UserTable({
   users,
   loading,
   columns: shown = USER_COLUMNS,
+  stickyHeader,
   onEdit,
   onDelete,
 }: {
@@ -20,6 +21,8 @@ export function UserTable({
   loading: boolean;
   /** The columns shown, in order. */
   columns?: readonly UserColumn[];
+  /** Keep the header in view and scroll only the rows (in a parent with a height: `Card fill`). */
+  stickyHeader?: boolean;
   onEdit: (user: User) => void;
   onDelete: (user: User) => Promise<void>;
 }) {
@@ -54,6 +57,7 @@ export function UserTable({
   };
   return (
     <DataTable
+      stickyHeader={stickyHeader}
       loading={loading}
       rows={users}
       rowKey={(user) => String(user.id)}

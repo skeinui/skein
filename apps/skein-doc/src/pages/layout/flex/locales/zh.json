@@ -8,8 +8,12 @@
     "three": "三",
     "stacked": "竖排 {n}"
   },
-  "gap": { "title": "间距刻度" },
-  "align": { "title": "对齐与分布" },
+  "gap": {
+    "title": "间距刻度"
+  },
+  "align": {
+    "title": "对齐与分布"
+  },
   "toolbar": {
     "title": "Spacer 与换行",
     "description": "`Flex.Spacer` 把它后面的东西推到另一头；`wrap` 让放不下的换到下一行。",
@@ -37,7 +41,8 @@
       "gap": "子元素之间的间距，取主题风格的间距刻度。",
       "inline": "行内的 flex（inline-flex），不撑满一行。",
       "justify": "主轴分布（横排时是左右）。",
-      "wrap": "放不下就换行。"
+      "wrap": "放不下就换行。",
+      "grow": "占满父级 flex 容器剩下的空间，并允许缩到比内容还小：把受限的高度传给里面滚动的 `Table`。"
     }
   }
 }

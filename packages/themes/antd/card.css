@@ -42,6 +42,15 @@
       0 3px 6px 0 rgb(255 255 255 / 0.024),
       0 5px 12px 4px rgb(255 255 255 / 0.02);
   }
+  /* fill: takes what is left of a flex column parent and shrinks to it, the body passes it on (a scrolling Table inside) */
+  [data-skein-theme="antd"] [data-slot="card"][data-fill] {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  [data-skein-theme="antd"] [data-slot="card"][data-fill] > [data-slot="card-body"] {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
   [data-skein-theme="antd"] [data-slot="card-header"] {
     display: flex;
     flex-direction: column;

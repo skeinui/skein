@@ -55,6 +55,11 @@ const click = async (el: Element | null | undefined) => {
 };
 
 describe("DataTable", () => {
+  test("`stickyHeader` goes to the table's container (data-sticky), off by default", () => {
+    expect(ssr(make())).not.toContain("data-sticky");
+    expect(ssr(make({ stickyHeader: true }))).toContain("data-sticky");
+  });
+
   test("SSR: a table with the titles, one row per item, a field shown as text and `render` used when given; no class / style", () => {
     const html = ssr(make());
     expect(html).toContain('data-slot="table"');

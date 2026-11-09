@@ -1,1 +1,6 @@
-{ "refresh": "刷新", "columns": "列显示", "export": "导出 CSV" }
+{
+  "refresh": "刷新",
+  "fixed": "固定表头，只滚动行",
+  "columns": "列显示",
+  "export": "导出 CSV"
+}

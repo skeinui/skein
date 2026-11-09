@@ -13,6 +13,35 @@
   }
   [data-skein-theme="antd"] [data-slot="table-container"][data-sticky] {
     height: 100%;
+    /* In a flex column: take what is left and shrink to it, so the rows scroll; as tall as the rows when nothing limits it */
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  /* Fixed header: the frame does not scroll, a ScrollArea inside it does (the theme style draws its scrollbar), and the vertical track starts below the header (--tbl-head-h, written by the Table) and ends where the rows end */
+  [data-skein-theme="antd"] [data-slot="table-container"][data-sticky] {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  [data-skein-theme="antd"] [data-slot="table-container"][data-sticky] > [data-slot="scroll-area"] {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  [data-skein-theme="antd"]
+    [data-slot="table-container"][data-sticky]
+    > [data-slot="scroll-area"]
+    > [data-slot="scroll-area-viewport"] {
+    flex: 1 1 0;
+    min-height: 0;
+    height: auto;
+  }
+  [data-skein-theme="antd"]
+    [data-slot="table-container"][data-sticky]
+    [data-slot="scroll-area-scrollbar"][data-orientation="vertical"] {
+    top: var(--tbl-head-h, 0px) !important;
   }
   [data-skein-theme="antd"] [data-slot="table"] {
     width: 100%;

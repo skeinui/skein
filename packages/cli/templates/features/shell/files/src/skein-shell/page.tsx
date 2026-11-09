@@ -14,12 +14,15 @@ export function Page({
   tabTitle,
   description,
   actions,
+  fill = false,
   children,
 }: {
   title?: ReactNode;
   tabTitle?: string;
   description?: ReactNode;
   actions?: ReactNode;
+  /** Fill the height of the content area instead of growing with the content: what a table that scrolls its rows (`DataTable stickyHeader` in a `Card fill`) needs. */
+  fill?: boolean;
   children?: ReactNode;
 }) {
   // The path the page was opened at: a page kept alive in a background tab must not take the current one's
@@ -33,8 +36,8 @@ export function Page({
 
   return (
     // The layout's content area has no padding of its own: the page decides
-    <div className="page">
-      <Flex direction="column" gap="lg">
+    <div className="page" data-fill={fill ? "" : undefined}>
+      <Flex direction="column" gap="lg" grow={fill}>
         {title || actions ? (
           <Flex align="start" justify="between" gap="md" wrap>
             <Flex direction="column" gap="xs">

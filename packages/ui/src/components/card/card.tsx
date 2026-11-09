@@ -8,6 +8,11 @@ export interface CardProps extends Without<ComponentPropsWithoutRef<"div">> {
   variant?: CardVariant;
   /** When not passed, the theme style decides. */
   radius?: UIRadius;
+  /**
+   * Fill the height the parent has left (the parent is a flex column, such as `Flex direction="column"` with a height): the card and its `Card.Body` shrink to it, so a `Table` with `stickyHeader` inside scrolls its rows instead of the page.
+   * @default false
+   */
+  fill?: boolean;
 }
 
 /**
@@ -17,8 +22,16 @@ export interface CardProps extends Without<ComponentPropsWithoutRef<"div">> {
  *
  * Theme style: structure only; padding, outline and shadow are all decided by the theme style.
  */
-function CardRoot({ variant = "outline", radius, ...rest }: CardProps) {
-  return <div {...rest} data-slot="card" data-variant={variant} data-radius={radius} />;
+function CardRoot({ variant = "outline", radius, fill = false, ...rest }: CardProps) {
+  return (
+    <div
+      {...rest}
+      data-slot="card"
+      data-variant={variant}
+      data-radius={radius}
+      data-fill={fill ? "" : undefined}
+    />
+  );
 }
 
 export type CardPartProps = Without<ComponentPropsWithoutRef<"div">>;

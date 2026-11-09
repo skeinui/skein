@@ -19,6 +19,14 @@ const PEOPLE: Person[] = [
   { id: "4", name: "Dana Wu", email: "dana@example.com", role: "editor", active: true },
 ];
 
+const MANY: Person[] = Array.from({ length: 14 }, (_, i) => ({
+  id: String(i + 1),
+  name: `Person ${i + 1}`,
+  email: `person${i + 1}@example.com`,
+  role: "viewer",
+  active: true,
+}));
+
 /** The fields of a column, and of an action; their descriptions are the page's `column.<key>` and `action.<key>` messages. */
 const COLUMN_ROWS = [
   { key: "key", name: "key", type: "string" },
@@ -223,6 +231,25 @@ export default function DataTablePage() {
 <DataTable rows={[]} rowKey="id" columns={columns} empty="Nobody here yet" />`}
       >
         <States />
+      </Example>
+
+      <Example
+        id="sticky"
+        code={`<div style={{ height: 220 }}>
+  <DataTable stickyHeader rows={people} rowKey="id" columns={columns} />
+</div>`}
+      >
+        <div style={{ height: 220 }}>
+          <DataTable
+            stickyHeader
+            rows={MANY}
+            rowKey="id"
+            columns={[
+              { key: "name", title: t("col.name") },
+              { key: "email", title: t("col.email") },
+            ]}
+          />
+        </div>
       </Example>
 
       <DocHeading id="reference" />

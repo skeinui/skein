@@ -3168,6 +3168,11 @@
       "description": "Card: a container that groups related content into one panel.\nCompose `Card.Header` (with `Card.Title` / `Card.Description`), `Card.Body` and `Card.Footer` (usually actions);\n`variant` / `radius` set its look. For a key figure use Statistic; for a list of records use List or Table.\n\nTheme style: structure only; padding, outline and shadow are all decided by the theme style.",
       "import": "import { Card } from \"@skeinui/ui\";",
       "props": {
+        "fill": {
+          "type": "boolean",
+          "description": "Fill the height the parent has left (the parent is a flex column, such as `Flex direction=\"column\"` with a height): the card and its `Card.Body` shrink to it, so a `Table` with `stickyHeader` inside scrolls its rows instead of the page.",
+          "default": "false"
+        },
         "radius": {
           "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
           "values": [
@@ -3228,6 +3233,10 @@
         {
           "title": "Radius",
           "code": "<Card radius=\"none\">…</Card>"
+        },
+        {
+          "title": "Fill the height",
+          "code": "<div style={{ display: \"flex\", flexDirection: \"column\", height: 260 }}>\n  <Card fill>\n    <Card.Body>\n      <DataTable stickyHeader rows={rows} rowKey=\"id\" columns={columns} />\n    </Card.Body>\n  </Card>\n</div>"
         }
       ]
     },
@@ -6355,6 +6364,11 @@
           "type": "DataTableSort",
           "description": "The column the rows are sorted by, and how."
         },
+        "stickyHeader": {
+          "type": "boolean",
+          "description": "Keep the header in view and scroll only the rows: the table fills the height of its parent, which has to be constrained (a box with a height, or a flex column that has one: `Card fill`, `Flex grow`). Without it the table is as tall as its rows and the page scrolls.",
+          "default": "false"
+        },
         "striped": {
           "type": "boolean"
         }
@@ -6442,6 +6456,10 @@
         {
           "title": "Loading and empty",
           "code": "<DataTable rows={[]} rowKey=\"id\" columns={columns} loading={loading} />\n<DataTable rows={[]} rowKey=\"id\" columns={columns} empty=\"Nobody here yet\" />"
+        },
+        {
+          "title": "Fixed header",
+          "code": "<div style={{ height: 220 }}>\n  <DataTable stickyHeader rows={people} rowKey=\"id\" columns={columns} />\n</div>"
         }
       ]
     },
@@ -7734,6 +7752,11 @@
           ],
           "description": "Spacing between children, from the theme style's spacing scale.",
           "default": "\"md\""
+        },
+        "grow": {
+          "type": "boolean",
+          "description": "Take the height (or width) the parent flex container has left, and let it shrink below its content: what a column that holds a scrolling `Table` needs to pass a constrained height down to it.",
+          "default": "false"
         },
         "inline": {
           "type": "boolean",
@@ -17147,7 +17170,7 @@
         },
         "stickyHeader": {
           "type": "boolean",
-          "description": "Fixed header: the Table must be placed in a parent with a constrained height, and the container scrolls inside it.",
+          "description": "Fixed header: the container takes the height of its parent and scrolls the rows inside it, the header stays. The parent has to have a constrained height: a box with a height, or a flex column that has one (`Card fill`, `Flex grow`); in a parent as tall as its content the table is as tall as its rows and the page scrolls.",
           "default": "false"
         },
         "striped": {
@@ -22590,6 +22613,7 @@
         "layout",
         "popconfirm",
         "popover",
+        "scroll-area",
         "select",
         "spinner",
         "table",
@@ -23005,6 +23029,7 @@
       "Table": [
         "input",
         "input-addons",
+        "scroll-area",
         "select",
         "spinner",
         "table",

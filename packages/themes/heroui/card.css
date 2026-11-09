@@ -27,6 +27,15 @@
     border-color: transparent;
     box-shadow: var(--ui-overlay-shadow);
   }
+  /* fill: takes what is left of a flex column parent and shrinks to it, the body passes it on (a scrolling Table inside) */
+  [data-skein-theme="heroui"] [data-slot="card"][data-fill] {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  [data-skein-theme="heroui"] [data-slot="card"][data-fill] > [data-slot="card-body"] {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
   [data-skein-theme="heroui"] [data-slot="card-header"] {
     display: flex;
     flex-direction: column;

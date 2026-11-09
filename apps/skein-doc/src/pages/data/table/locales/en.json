@@ -1,17 +1,34 @@
 {
   "lead": "The semantic structure and look of a table, with no table library behind it: the caller owns the sorting, selection and pagination state (TanStack Table, server-side pagination or your own code all work), and this component only draws.",
-  "usage": { "title": "Usage" },
-  "sorting": { "title": "Sorting" },
+  "usage": {
+    "title": "Usage"
+  },
+  "sorting": {
+    "title": "Sorting"
+  },
   "resize": {
     "title": "Resizable Columns",
     "description": "The caller owns the column widths: pass `width`, `resizable` and `onResize` to `Head`. Drag the right edge, or focus the handle and use the left / right arrow keys (Shift for a larger step, Home / End for the min / max). The last column has no width and takes the remaining space."
   },
-  "selection": { "title": "Row Selection" },
-  "pagination": { "title": "With Pagination" },
-  "striped": { "title": "Striped & Bordered" },
-  "sizes": { "title": "Sizes" },
-  "sticky": { "title": "Sticky Header" },
-  "fixed": { "title": "Fixed Columns" },
+  "selection": {
+    "title": "Row Selection"
+  },
+  "pagination": {
+    "title": "With Pagination"
+  },
+  "striped": {
+    "title": "Striped & Bordered"
+  },
+  "sizes": {
+    "title": "Sizes"
+  },
+  "sticky": {
+    "title": "Sticky Header",
+    "description": "`stickyHeader` keeps the header in view and scrolls only the rows, inside a themed scrollbar (a `ScrollArea`) that starts below the header and stops at the bottom of the rows. The table takes the height of its parent, which has to have one: a box with a height as here, or a flex column that has one (`Card fill`, `Flex grow`)."
+  },
+  "fixed": {
+    "title": "Fixed Columns"
+  },
   "expand": {
     "title": "Expandable Rows",
     "description": "The caller owns which rows are expanded. Put a `Table.ExpandButton` in each data row (the `kind=\"expand\"` column) and render a `Table.ExpandedRow` after the row when it is expanded. The same button in the header cell is \"expand all / collapse all\": it collapses every row when all are expanded, and expands them all otherwise."
@@ -20,8 +37,12 @@
     "title": "Editable Cells",
     "description": "Inline editing: a cell is a button showing its value; click, Enter or F2 starts editing. Enter or blur commits, Esc cancels, and a value that fails validation stays in edit mode with the error (restored on blur). The caller owns the value; `type` is text, number or select."
   },
-  "empty": { "title": "Empty & Loading" },
-  "footer": { "title": "Footer & Caption" },
+  "empty": {
+    "title": "Empty & Loading"
+  },
+  "footer": {
+    "title": "Footer & Caption"
+  },
   "demo": {
     "name": "Name",
     "email": "Email",
