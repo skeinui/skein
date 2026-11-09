@@ -5,7 +5,6 @@ import type { BulkActionBarLabels } from "../../locales/messages.ts";
 import { useLabels } from "../../locales/use-labels.ts";
 import { Button } from "../button/index.ts";
 import { Flex } from "../layout/index.ts";
-import { Text } from "../typography/index.ts";
 
 export interface BulkActionBarProps extends Omit<
   ComponentPropsWithoutRef<"div">,
@@ -49,14 +48,36 @@ export function BulkActionBar({
       data-slot="bulk-action-bar"
       data-placement={BULK_ACTION_BAR_PLACEMENTS.includes(placement) ? placement : "top"}
     >
-      <Text strong role="status">
+      <span data-slot="bulk-action-bar-count" role="status">
         {t.selected(count)}
-      </Text>
-      <Flex gap="sm" align="center" wrap>
+      </span>
+      {children ? <span data-slot="bulk-action-bar-divider" aria-hidden="true" /> : null}
+      <Flex grow gap="sm" align="center" wrap>
         {children}
       </Flex>
       {onClear ? (
-        <Button variant="ghost" size="sm" onClick={onClear}>
+        <Button
+          variant="ghost"
+          color="neutral"
+          size="sm"
+          startContent={
+            <svg
+              viewBox="0 0 24 24"
+              width={14}
+              height={14}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          }
+          onClick={onClear}
+        >
           {t.clear}
         </Button>
       ) : null}
