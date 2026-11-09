@@ -21,7 +21,7 @@ export interface BulkActionBarProps extends Omit<
    */
   placement?: BulkActionBarPlacement;
   /**
-   * Float: the bar stays at its edge of the scrolling area (the top or bottom, by `placement`) while you scroll through the rows, raised with a shadow. Off, it is a plain bar in the flow.
+   * Float: the bar is laid over the edge of the table it is next to instead of taking room in the flow, with a shadow, so the rows do not jump when it appears: the bottom edge of the table above it (`placement="bottom"`, put it right after the table) or the top edge of the table below it (`"top"`, put it right before). Off, it is a plain bar in the flow.
    * @default false
    */
   floating?: boolean;
@@ -33,7 +33,7 @@ export interface BulkActionBarProps extends Omit<
 
 /**
  * Bulk action bar: "3 selected" with the actions on those rows and a button to clear the selection, shown while rows of a table are ticked.
- * `count` is the number selected (0 hides it), `children` are the actions, `onClear` clears; `placement` puts it above (`top`) or below (`bottom`) the table, and `floating` keeps it in view while the rows scroll.
+ * `count` is the number selected (0 hides it), `children` are the actions, `onClear` clears; `placement` puts it above (`top`) or below (`bottom`) the table, and `floating` lays it over the edge of the table instead of in the flow.
  * For the tools of the table itself use TableTools.
  */
 export function BulkActionBar({
@@ -47,7 +47,7 @@ export function BulkActionBar({
 }: BulkActionBarProps) {
   const t = { ...useLabels("bulkActionBar"), ...labels };
   if (count <= 0) return null;
-  return (
+  const bar = (
     <div
       role="toolbar"
       aria-label={t.label}
@@ -87,5 +87,13 @@ export function BulkActionBar({
         </Button>
       ) : null}
     </div>
+  );
+  // Floating: the bar is absolute on a zero-height anchor, so it takes no room and needs no positioned container
+  return floating ? (
+    <div data-slot="bulk-action-bar-anchor" data-placement={placement}>
+      {bar}
+    </div>
+  ) : (
+    bar
   );
 }

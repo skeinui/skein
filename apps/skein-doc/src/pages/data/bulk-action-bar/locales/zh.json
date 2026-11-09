@@ -31,11 +31,11 @@
       "placement": "位置：`top` 在表格上方（放在表格前面），`bottom` 在表格下方（放在表格后面）。",
       "children": "对所选行的操作：按钮、MenuButton……",
       "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。",
-      "floating": "浮动：翻行时这条栏停在滚动区域的边上（顶边或底边，由 `placement` 决定）并带阴影；关着就是文档流里的普通栏。"
+      "floating": "浮动：这条栏浮在紧挨着的表格的边上，不占位置（`bottom` 压在前一个表格的底边，`top` 压在后一个表格的顶边），并带阴影；关着就是文档流里的普通栏。"
     }
   },
   "floating": {
     "title": "浮动",
-    "description": "`floating` 让这条栏在翻行时一直停在滚动区域的边上并带阴影：`placement=\"bottom\"` 停在底边，`\"top\"` 停在顶边。关着（默认）就是文档流里的一条普通栏。"
+    "description": "`floating` 让这条栏浮在表格的边上，不在文档流里：它不占位置，出现时行不会跳动。`placement=\"bottom\"` 时把它紧放在表格后面，它就压在表格的底边；`\"top\"` 时紧放在表格前面，压在表格的顶边。`--bulk-action-bar-offset` 设置它离那条边的距离。勾选一行就能看到。"
   }
 }

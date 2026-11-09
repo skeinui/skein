@@ -26,6 +26,6 @@
   },
   "floating": {
     "title": "Floating",
-    "description": "`floating` keeps the bar at its edge of the scrolling area while you go through the rows, raised with a shadow: at the bottom for `placement=\"bottom\"`, at the top for `\"top\"`. Off (the default) it is a plain bar in the flow."
+    "description": "`floating` lays the bar over the edge of the table instead of in the flow: it takes no room, so the rows do not jump when it appears. With `placement=\"bottom\"` put it right after the table and it sits on the table's bottom edge; with `\"top\"` put it right before and it sits on the top edge. `--bulk-action-bar-offset` sets its distance from that edge. Tick a row to see it."
   }
 }

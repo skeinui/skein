@@ -14,16 +14,18 @@ const ROWS = [
 function Demo({
   placement,
   floating,
+  initial = ["T-1016", "T-1013"],
 }: {
   placement: BulkActionBarProps["placement"];
   floating?: boolean;
+  initial?: string[];
 }) {
   const t = usePageT();
-  const [selected, setSelected] = useState<string[]>(["T-1016", "T-1013"]);
+  const [selected, setSelected] = useState<string[]>(initial);
   return (
     <Card>
       <Card.Body>
-        <div className="pg-stack pg-stack--start">
+        <div className="pg-stack">
           {placement === "top" ? (
             <BulkActionBar
               floating={floating}
@@ -33,27 +35,29 @@ function Demo({
               <Actions count={selected.length} />
             </BulkActionBar>
           ) : null}
-          <DataTable
-            rows={ROWS}
-            rowKey="id"
-            selected={selected}
-            onSelectedChange={(keys) => setSelected(keys.map(String))}
-            columns={[
-              { key: "id", title: t("cols.id"), nowrap: true },
-              { key: "title", title: t("cols.title") },
-              { key: "status", title: t("cols.status") },
-            ]}
-          />
-          {placement === "bottom" ? (
-            <BulkActionBar
-              placement="bottom"
-              floating={floating}
-              count={selected.length}
-              onClear={() => setSelected([])}
-            >
-              <Actions count={selected.length} />
-            </BulkActionBar>
-          ) : null}
+          <div>
+            <DataTable
+              rows={ROWS}
+              rowKey="id"
+              selected={selected}
+              onSelectedChange={(keys) => setSelected(keys.map(String))}
+              columns={[
+                { key: "id", title: t("cols.id"), nowrap: true },
+                { key: "title", title: t("cols.title") },
+                { key: "status", title: t("cols.status") },
+              ]}
+            />
+            {placement === "bottom" ? (
+              <BulkActionBar
+                placement="bottom"
+                floating={floating}
+                count={selected.length}
+                onClear={() => setSelected([])}
+              >
+                <Actions count={selected.length} />
+              </BulkActionBar>
+            ) : null}
+          </div>
         </div>
       </Card.Body>
     </Card>
@@ -124,7 +128,7 @@ export default function BulkActionBarPage() {
         id="floating"
         code={`<BulkActionBar floating placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
       >
-        <Demo placement="bottom" floating />
+        <Demo placement="bottom" floating initial={[]} />
       </Example>
 
       <DocHeading id="reference" />

@@ -31,7 +31,7 @@ describe("BulkActionBar", () => {
   });
 
   test("a toolbar with the count, the actions and the slot / placement hooks; no class", () => {
-    expect(BULK_ACTION_BAR_SLOTS).toEqual(["bulk-action-bar"]);
+    expect(BULK_ACTION_BAR_SLOTS).toEqual(["bulk-action-bar", "bulk-action-bar-anchor"]);
     const html = ssr(createElement(BulkActionBar, { count: 3, onClear: () => {} }, "Delete"));
     expect(html).toContain('data-slot="bulk-action-bar"');
     expect(html).toContain('data-placement="top"');
@@ -45,9 +45,11 @@ describe("BulkActionBar", () => {
     );
     // floating is a separate switch, off by default
     expect(html).not.toContain("data-floating");
-    expect(ssr(createElement(BulkActionBar, { count: 1, floating: true }))).toContain(
-      "data-floating",
-    );
+    const floating = ssr(createElement(BulkActionBar, { count: 1, floating: true }));
+    expect(floating).toContain("data-floating");
+    // laid over the table's edge on a zero-height anchor, not in the flow
+    expect(floating).toContain('data-slot="bulk-action-bar-anchor"');
+    expect(html).not.toContain("bulk-action-bar-anchor");
   });
 
   test("Clear shows only when onClear is given, and calls it", async () => {

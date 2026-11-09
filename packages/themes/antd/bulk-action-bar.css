@@ -1,7 +1,7 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* BulkActionBar: "N selected" with the actions on those rows, a low bar. `floating` keeps it at the top or bottom edge of the scrolling area. */
+  /* BulkActionBar: "N selected" with the actions on those rows, a low bar. `floating` lays it over the bottom (or top) edge of the table next to it, on a zero-height anchor (`--bulk-action-bar-offset` is its distance from that edge). */
   [data-skein-theme="antd"] [data-slot="bulk-action-bar"] {
     display: flex;
     flex-wrap: wrap;
@@ -20,16 +20,26 @@
   [data-skein-theme="antd"] [data-slot="bulk-action-bar"] [data-slot="button"] {
     font-weight: 400;
   }
-  [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-floating] {
-    position: sticky;
+  [data-skein-theme="antd"] [data-slot="bulk-action-bar-anchor"] {
+    position: relative;
     z-index: 5;
+    align-self: stretch;
+    width: 100%;
+    height: 0;
+  }
+  [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-floating] {
+    position: absolute;
+    inset-inline-start: 50%;
+    width: max-content;
+    max-width: calc(100% - 1rem);
+    transform: translateX(-50%);
     background-color: var(--ui-overlay-bg);
     box-shadow: var(--ui-overlay-shadow);
   }
   [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-floating][data-placement="top"] {
-    top: 0.5rem;
+    top: var(--bulk-action-bar-offset, 0.75rem);
   }
   [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-floating][data-placement="bottom"] {
-    bottom: 1rem;
+    bottom: var(--bulk-action-bar-offset, 0.75rem);
   }
 }
