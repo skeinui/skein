@@ -1,0 +1,47 @@
+{
+  "lead": "表格上方的一行：左边是搜索框和筛选条件（[Query Builder](/query-builder)），右边是表格的工具（[Table Tools](/table-tools)），有设置时还有一个「重置」。它不保存状态：`keyword` 和 `filter` 由你管理，`onSearch` / `onFilterChange` 告诉你什么时候重新请求列表。给了哪部分的属性就显示哪部分。",
+  "fields": {
+    "id": "编号",
+    "title": "标题",
+    "status": "状态"
+  },
+  "status": {
+    "open": "待处理",
+    "pending": "等待客户",
+    "resolved": "已解决"
+  },
+  "usage": {
+    "title": "搜索和工具",
+    "description": "一个搜索框（回车、搜索按钮和清除按钮都会调用 `onSearch`），有内容可清除时显示「重置」，右边是表格的工具。",
+    "placeholder": "搜索标题……"
+  },
+  "parts": {
+    "title": "带筛选条件和下一行",
+    "description": "`fields`、`filter`、`onFilterChange` 加上筛选条件的标签；`below` 是搜索下面、靠左的一行，放属于搜索的东西（「存成视图」）。`children` 放在搜索那一行里、筛选的后面。",
+    "saveView": "存成视图"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "TableToolbar 是 Flex + SearchInput + QueryBuilder + Button 的组合，没有自己的 slot。"
+  },
+  "props": {
+    "TableToolbar": {
+      "keyword": "搜索框里输入的内容。给了 `onSearch` 才显示搜索框。",
+      "onKeywordChange": "输入变化时调用。",
+      "onSearch": "回车（输入法组词时不算）、搜索按钮、清除按钮时调用，参数是关键字。",
+      "searchPlaceholder": "搜索框的提示文字。",
+      "fields": "可以筛选的字段（见 QueryBuilder）；给了 `onFilterChange` 才显示筛选条件。",
+      "filter": "正在使用的筛选。",
+      "onFilterChange": "添加、修改或删除条件时调用。",
+      "capabilities": "后端能做什么（见 QueryBuilder）。",
+      "onReset": "清除关键字和筛选：给了，并且有关键字或筛选时，才显示「重置」。",
+      "children": "搜索那一行里、筛选后面的更多内容。",
+      "below": "搜索下面、靠左的一行：「存成视图」。",
+      "tools": "右边的内容，通常是 TableTools。",
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+    }
+  }
+}

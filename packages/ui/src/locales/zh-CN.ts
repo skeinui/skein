@@ -515,6 +515,7 @@ export const zhCN: Messages = {
       addInner: "添加条件",
       addSubgroup: "添加条件组",
     },
+    tableToolbar: { search: "搜索", reset: "重置" },
     tableTools: {
       refresh: "刷新",
       fixed: "固定表头，只滚动行",

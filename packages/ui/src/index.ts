@@ -412,6 +412,10 @@ export type {
   QueryGroup,
   QueryOp,
 } from "./components/query-builder/index.ts";
+export { EnumTag } from "./components/enum-tag/index.ts";
+export type { EnumTagOption, EnumTagProps } from "./components/enum-tag/index.ts";
+export { TableToolbar } from "./components/table-toolbar/index.ts";
+export type { TableToolbarProps } from "./components/table-toolbar/index.ts";
 export { TableTools, useFixedHeader } from "./components/table-tools/index.ts";
 export type { TableToolsColumn, TableToolsProps } from "./components/table-tools/index.ts";
 export { SplitButton } from "./components/split-button/index.ts";

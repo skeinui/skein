@@ -1,0 +1,34 @@
+{
+  "lead": "The value of a field with a fixed set of values (a status, a priority, a plan) as a [Tag](/tag) whose text and colour come from a table. Write the table once for a field and every use is one line, instead of a component per field.",
+  "status": {
+    "open": "Open",
+    "pending": "Pending",
+    "resolved": "Resolved",
+    "closed": "Closed"
+  },
+  "priority": {
+    "urgent": "Urgent",
+    "high": "High",
+    "normal": "Normal",
+    "low": "Low"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "`options` has every value of the field: its text and colour. The labels are yours, so they follow your language."
+  },
+  "variants": {
+    "title": "A look of its own",
+    "description": "A value can set its `variant` over the tag's: an urgent priority is `solid` while the others are `soft`."
+  },
+  "fallback": {
+    "title": "A value that is not in the table",
+    "description": "It is shown as it is, in neutral, so a new value on the server does not break the page."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "EnumTag is a Tag and has no slot of its own."
+  }
+}

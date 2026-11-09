@@ -1,0 +1,43 @@
+{
+  "lead": "字段值是固定的几个（状态、优先级、套餐）时，把它显示成 [Tag](/tag)，文字和颜色来自一张表。一个字段写一次表，之后每处使用都只要一行，不必为每个字段写一个组件。",
+  "status": {
+    "open": "待处理",
+    "pending": "等待客户",
+    "resolved": "已解决",
+    "closed": "已关闭"
+  },
+  "priority": {
+    "urgent": "紧急",
+    "high": "高",
+    "normal": "普通",
+    "low": "低"
+  },
+  "usage": {
+    "title": "基本用法",
+    "description": "`options` 列出字段的每个值：它的文字和颜色。文字由你给，所以跟随你自己的语言。"
+  },
+  "variants": {
+    "title": "某个值的专属外观",
+    "description": "某个值可以用自己的 `variant` 覆盖标签的：紧急的优先级用 `solid`，其他用 `soft`。"
+  },
+  "fallback": {
+    "title": "表里没有的值",
+    "description": "原样显示，用中性色，所以服务端新增一个值不会让页面出错。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "EnumTag 就是 Tag，没有自己的 slot。"
+  },
+  "props": {
+    "EnumTag": {
+      "value": "要显示的值。",
+      "options": "字段的每个值及其外观，按值索引：文字、颜色，以及可选的 `variant`。不在表里的值原样显示，用中性色。",
+      "variant": "标签的外观；某个值自己的 `variant` 优先。",
+      "size": "尺寸档位。",
+      "radius": "圆角档位。"
+    }
+  }
+}

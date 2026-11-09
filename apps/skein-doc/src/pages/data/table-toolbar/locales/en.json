@@ -1,0 +1,30 @@
+{
+  "lead": "The row above a table: the search box and the conditions ([Query Builder](/query-builder)) on the left, the table's tools ([Table Tools](/table-tools)) on the right, and a \"Reset\" when something is set. It holds no state: `keyword` and `filter` are yours, and `onSearch` / `onFilterChange` tell you when to ask the list again. Each part shows when its props are given.",
+  "fields": {
+    "id": "No.",
+    "title": "Title",
+    "status": "Status"
+  },
+  "status": {
+    "open": "Open",
+    "pending": "Pending",
+    "resolved": "Resolved"
+  },
+  "usage": {
+    "title": "Search and tools",
+    "description": "A search box (Enter, the search button and the clear button all call `onSearch`), a Reset when there is something to clear, and the table's tools on the right.",
+    "placeholder": "Search titles…"
+  },
+  "parts": {
+    "title": "With conditions and a row below",
+    "description": "`fields`, `filter` and `onFilterChange` add the conditions as chips; `below` is a row under the search, on the left, for what belongs to it (\"Save as a view\"). `children` goes in the search row, after the filter.",
+    "saveView": "Save as a view"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "TableToolbar is Flex + SearchInput + QueryBuilder + Button and has no slot of its own."
+  }
+}

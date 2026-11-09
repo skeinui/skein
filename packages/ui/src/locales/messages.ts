@@ -79,6 +79,11 @@ export interface MessageComposerLabels {
   mode: string;
   send: string;
 }
+export interface TableToolbarLabels {
+  /** The accessible name of the search box. */
+  search: string;
+  reset: string;
+}
 export interface QueryBuilderLabels {
   and: string;
   or: string;
@@ -301,6 +306,7 @@ export interface LabelTypes {
   queryBuilder: QueryBuilderLabels;
   table: TableLabels;
   tableTools: TableToolsLabels;
+  tableToolbar: TableToolbarLabels;
   tagInput: TagInputLabels;
   threadList: ThreadListLabels;
   transfer: TransferLabels;

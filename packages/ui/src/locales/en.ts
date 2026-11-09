@@ -519,6 +519,7 @@ export const en: Messages = {
       addInner: "Add condition",
       addSubgroup: "Add group",
     },
+    tableToolbar: { search: "Search", reset: "Reset" },
     tableTools: {
       refresh: "Refresh",
       fixed: "Fix the header and scroll the rows",

@@ -5879,6 +5879,9 @@
             "table": {
               "type": "Partial<TableLabels>"
             },
+            "tableToolbar": {
+              "type": "Partial<TableToolbarLabels>"
+            },
             "tableTools": {
               "type": "Partial<TableToolsLabels>"
             },
@@ -7583,6 +7586,101 @@
         {
           "title": "In Table",
           "code": "<Table.Empty colSpan={2}><Empty size=\"sm\" title=\"No data\" /></Table.Empty>"
+        }
+      ]
+    },
+    "EnumTag": {
+      "description": "Enum tag: the value of a field with a fixed set of values (a status, a priority, a plan) as a Tag whose text and colour come from a table: `options[value]`.\nWrite the table once for a field and each use is `<EnumTag value={ticket.status} options={STATUS} />`, instead of a component per field.\nFor a free label use Tag.",
+      "import": "import { EnumTag } from \"@skeinui/ui\";",
+      "props": {
+        "options": {
+          "type": "Readonly<Record<string, EnumTagOption>>",
+          "required": true,
+          "description": "Every value and how it looks, by value. A value that is not here shows as it is, in neutral."
+        },
+        "radius": {
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "none",
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ]
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step.",
+          "default": "\"md\""
+        },
+        "value": {
+          "type": "string",
+          "required": true,
+          "description": "The value to show."
+        },
+        "variant": {
+          "type": "\"soft\" | \"outline\" | \"solid\"",
+          "values": [
+            "soft",
+            "outline",
+            "solid"
+          ],
+          "description": "Visual variant; how each one looks is up to the theme style.",
+          "default": "\"soft\""
+        }
+      },
+      "types": {
+        "EnumTagOption": {
+          "description": "How one value of an enum looks.",
+          "props": {
+            "color": {
+              "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+              "values": [
+                "primary",
+                "secondary",
+                "success",
+                "warning",
+                "danger",
+                "neutral"
+              ],
+              "description": "Semantic colour; the theme style picks the actual colours.",
+              "default": "\"neutral\""
+            },
+            "label": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "The text shown."
+            },
+            "variant": {
+              "type": "\"soft\" | \"outline\" | \"solid\"",
+              "values": [
+                "soft",
+                "outline",
+                "solid"
+              ],
+              "description": "The look of this value, over the `variant` of the tag: an urgent priority can be `solid` while the others are `soft`."
+            }
+          }
+        }
+      },
+      "docs": "enum-tag",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "const STATUS = {\n  open: { label: \"Open\", color: \"primary\" },\n  pending: { label: \"Pending\", color: \"warning\" },\n  resolved: { label: \"Resolved\", color: \"success\" },\n  closed: { label: \"Closed\", color: \"neutral\" },\n};\n\n<EnumTag value={ticket.status} options={STATUS} />"
+        },
+        {
+          "title": "A look of its own",
+          "code": "const PRIORITY = {\n  urgent: { label: \"Urgent\", color: \"danger\", variant: \"solid\" },\n  high: { label: \"High\", color: \"warning\" },\n  …\n};"
+        },
+        {
+          "title": "A value that is not in the table",
+          "code": "<EnumTag value=\"archived\" options={STATUS} />"
         }
       ]
     },
@@ -18820,6 +18918,187 @@
         }
       ]
     },
+    "TableToolbar": {
+      "description": "Table toolbar: the row above a table: the search box and the conditions (QueryBuilder) on the left, the table's tools (TableTools) on the right, and a \"Reset\" when something is set.\nIt holds no state: `keyword` and `filter` are yours, and `onSearch` / `onFilterChange` tell you when to ask the list again.\nEach part shows when its props are given, so a table with only a search box, or only tools, is the same component.",
+      "import": "import { TableToolbar } from \"@skeinui/ui\";",
+      "props": {
+        "below": {
+          "type": "ReactNode",
+          "description": "A row under the search, on the left: \"Save as a view\"."
+        },
+        "capabilities": {
+          "type": "QueryBuilderCapabilities",
+          "description": "What the backend can do (see QueryBuilder)."
+        },
+        "children": {
+          "type": "ReactNode",
+          "description": "More in the row of the search, after the filter."
+        },
+        "fields": {
+          "type": "readonly QueryField[]",
+          "description": "What can be filtered: the conditions as chips with a \"Filter\" button. Shown when `onFilterChange` is given."
+        },
+        "filter": {
+          "type": "QueryFilter",
+          "description": "The filter in use."
+        },
+        "keyword": {
+          "type": "string",
+          "description": "What is typed in the search box. The box shows when `onSearch` is given."
+        },
+        "labels": {
+          "type": "Partial<TableToolbarLabels>",
+          "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
+        },
+        "onFilterChange": {
+          "type": "(filter: QueryFilter | undefined) => void",
+          "description": "Called with the new `filter`; pass `filter` as well to control it."
+        },
+        "onKeywordChange": {
+          "type": "(keyword: string) => void",
+          "description": "Called with the new `keyword`; pass `keyword` as well to control it."
+        },
+        "onReset": {
+          "type": "() => void",
+          "description": "Clear the keyword and the filter: the \"Reset\" button shows when this is given and there is a keyword or a filter."
+        },
+        "onSearch": {
+          "type": "(keyword: string) => void",
+          "description": "Called on Enter (not while an input method is composing), the search button and the clear button."
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "description": "Hint in the search box."
+        },
+        "tools": {
+          "type": "ReactNode",
+          "description": "On the right: usually TableTools."
+        }
+      },
+      "types": {
+        "QueryBuilderCapabilities": {
+          "description": "What the backend can do: the editors offer no more than that. Everything is allowed when it is not given.",
+          "props": {
+            "nested": {
+              "type": "boolean",
+              "description": "Groups inside groups."
+            },
+            "or": {
+              "type": "boolean",
+              "description": "`or` groups."
+            },
+            "uniqueFields": {
+              "type": "boolean",
+              "description": "A field can be in the filter once (the backend has one parameter for it)."
+            }
+          }
+        },
+        "QueryCondition": {
+          "description": "`value` is a string / number / boolean; an array for `in`; `[from, to]` for `between`; none for `blank` and `notBlank`.",
+          "props": {
+            "field": {
+              "type": "string",
+              "required": true
+            },
+            "op": {
+              "type": "QueryOp",
+              "values": [
+                "endsWith",
+                "startsWith",
+                "between",
+                "eq",
+                "ne",
+                "contains",
+                "in",
+                "gt",
+                "gte",
+                "lt",
+                "lte",
+                "blank",
+                "notBlank"
+              ],
+              "required": true
+            },
+            "value": {
+              "type": "{}",
+              "description": "The value, controlled (with `onValueChange`)."
+            }
+          }
+        },
+        "QueryField": {
+          "props": {
+            "label": {
+              "type": "string",
+              "required": true
+            },
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Field name, for native form submission."
+            },
+            "ops": {
+              "type": "readonly QueryOp[]",
+              "description": "Overrides the operators the type offers."
+            },
+            "options": {
+              "type": "{ value: string; label: string; }[]",
+              "description": "For `enum`: the values and their texts."
+            },
+            "type": {
+              "type": "\"number\" | \"boolean\" | \"text\" | \"date\" | \"enum\"",
+              "values": [
+                "number",
+                "boolean",
+                "text",
+                "date",
+                "enum"
+              ],
+              "required": true
+            }
+          }
+        },
+        "QueryGroup": {
+          "props": {
+            "items": {
+              "type": "QueryFilter[]",
+              "required": true
+            },
+            "logic": {
+              "type": "\"and\" | \"or\"",
+              "values": [
+                "and",
+                "or"
+              ],
+              "required": true
+            }
+          }
+        },
+        "TableToolbarLabels": {
+          "props": {
+            "reset": {
+              "type": "string",
+              "required": true
+            },
+            "search": {
+              "type": "string",
+              "required": true,
+              "description": "The accessible name of the search box."
+            }
+          }
+        }
+      },
+      "docs": "table-toolbar",
+      "examples": [
+        {
+          "title": "Search and tools",
+          "code": "<TableToolbar\n  keyword={keyword}\n  onKeywordChange={setKeyword}\n  onSearch={(value) => search({ keyword: value, filter })}\n  searchPlaceholder=\"Search…\"\n  onReset={reset}\n  tools={<TableTools onRefresh={refresh} refreshing={isFetching} />}\n/>\n<DataTable … />"
+        },
+        {
+          "title": "With conditions and a row below",
+          "code": "<TableToolbar\n  keyword={keyword}\n  onKeywordChange={setKeyword}\n  onSearch={…}\n  fields={fields}\n  filter={filter}\n  onFilterChange={setFilter}\n  onReset={reset}\n  below={<Button size=\"sm\" variant=\"ghost\">Save as a view</Button>}\n  tools={<TableTools … />}\n/>"
+        }
+      ]
+    },
     "TableTools": {
       "description": "TableTools: the tools of a table, on the right of its toolbar: refresh, a fixed header, which columns to show and in which order, and export.\nEach button is shown when its props are given; what they do is yours (reload, `stickyHeader`, hide / move columns, write the file).\nTo keep the user's choice of a fixed header use `useFixedHeader`.",
       "import": "import { TableTools } from \"@skeinui/ui\";",
@@ -24168,6 +24447,9 @@
       ],
       "en": [],
       "encodeQR": [],
+      "EnumTag": [
+        "tag"
+      ],
       "Feedback": [
         "feedback"
       ],
@@ -24622,6 +24904,24 @@
         "spinner",
         "table",
         "tag"
+      ],
+      "TableToolbar": [
+        "button",
+        "calendar",
+        "checkbox",
+        "flex",
+        "grid",
+        "input",
+        "input-addons",
+        "layout",
+        "number-field",
+        "popover",
+        "query-builder",
+        "segmented",
+        "select",
+        "spinner",
+        "tag",
+        "time-picker"
       ],
       "TableTools": [
         "button",
