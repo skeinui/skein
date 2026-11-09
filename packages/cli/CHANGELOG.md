@@ -1,5 +1,14 @@
 # @skeinui/cli
 
+## 0.1.1
+
+### Patch Changes
+
+- 195132c: `skein new page --from`: the mock's sort turns values into text with `str` (from `lib/list-query`), so the generated page has no `no-base-to-string` warning.
+- 1a7b64e: Projects with the `i18n` feature are made with i18next 27 and react-i18next 18 (they were 26 and 17).
+- 1a7b64e: Projects with the `mock` feature pin msw to one version (3.0.4, no range) and carry the `public/mockServiceWorker.js` of that very version, so the worker is never older than the msw installed; a test keeps the feature's version equal to the catalog's.
+- 5f43fbf: Admin template: `RouterLink` (`@/skein-shell`, `createLink(Link)`) is the router's `<Link>` drawn by the theme style's `Link`; the users table and the pages made by `skein new page --from` use it for the link to the detail page, so it is no longer a bare blue underlined `<a>`.
+
 ## 0.1.0
 
 ### Minor Changes
