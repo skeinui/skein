@@ -39,6 +39,12 @@
     "data": "Data",
     "ai-chat": "AI Chat"
   },
+  "new": {
+    "label": "New",
+    "note": "Added in {version}",
+    "updated": "Updated",
+    "updatedNote": "Changed in {version}"
+  },
   "origin": {
     "Base UI": "Base UI",
     "Base UINote": "The behaviour comes from Base UI",

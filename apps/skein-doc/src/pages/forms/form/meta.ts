@@ -3,6 +3,7 @@ import type { PageMeta } from "@/registry.ts";
 export default {
   label: "Form",
   origin: "Skein",
+  updated: "0.1.2",
   toc: [
     {
       group: "examples",

@@ -10,6 +10,7 @@ import {
   Header,
   MobileNav,
   OriginBadge,
+  ReleaseBadge,
   PageFooter,
   Sidebar,
   Toc,
@@ -270,6 +271,7 @@ function PageBody({ open: { page, Component } }: { open: OpenPage }) {
         <span>/</span>
         <span>{t(`groups.${page.group}`)}</span>
         {page.origin ? <OriginBadge origin={page.origin} /> : null}
+        <ReleaseBadge since={page.since} updated={page.updated} />
       </nav>
       <Component />
       <PageFooter page={page} />

@@ -1,4 +1,4 @@
-import { Button, Dialog, Drawer, Segmented, Slider, Switch } from "@skeinui/ui";
+import { Button, Dialog, Drawer, Segmented, Slider, Switch, Tag } from "@skeinui/ui";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import {
@@ -312,10 +312,13 @@ export function Sidebar({ current, onNavigate }: { current: string; onNavigate?:
                 aria-current={p.path === current ? "page" : undefined}
                 onNavigate={onNavigate}
               >
-                {p.label}
-                {p.origin === "Skein" ? (
-                  <span className="pg-nav-dot" title={t("origin.Skein")} />
-                ) : null}
+                <span>{p.label}</span>
+                <span className="pg-nav-marks">
+                  <ReleaseBadge since={p.since} updated={p.updated} />
+                  {p.origin === "Skein" ? (
+                    <span className="pg-nav-dot" title={t("origin.Skein")} />
+                  ) : null}
+                </span>
               </PgLink>
             ))}
           </div>
@@ -341,6 +344,29 @@ export function OriginBadge({ origin }: { origin: PageOrigin }) {
     >
       {t(`origin.${origin}`)}
     </span>
+  );
+}
+
+/** "New" (`since`) or "Updated" (`updated`) marker of a component changed in a recent release, from its meta.ts. */
+export function ReleaseBadge({ since, updated }: { since?: string; updated?: string }) {
+  const t = useSiteT();
+  if (since) {
+    return (
+      <Tag variant="solid" color="success" size="sm" title={t("new.note", { version: since })}>
+        {t("new.label")}
+      </Tag>
+    );
+  }
+  if (!updated) return null;
+  return (
+    <Tag
+      variant="outline"
+      color="success"
+      size="sm"
+      title={t("new.updatedNote", { version: updated })}
+    >
+      {t("new.updated")}
+    </Tag>
   );
 }
 

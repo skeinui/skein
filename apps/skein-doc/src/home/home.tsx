@@ -2,7 +2,7 @@ import { Button, Checkbox, Input, Progress, Switch, Tag } from "@skeinui/ui";
 import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { OriginBadge } from "@/site/chrome.tsx";
+import { OriginBadge, ReleaseBadge } from "@/site/chrome.tsx";
 import { ArrowIcon } from "@/doc/icons.tsx";
 import { rich, useSiteT } from "@/site/i18n.tsx";
 import { PgLink, useNavigate } from "@/site/nav.tsx";
@@ -317,7 +317,10 @@ export function Home() {
           {shown.map((p, i) => (
             <PgLink key={p.path} to={p.path} className="pg-index-card">
               <span className="pg-index-num">{String(i + 1).padStart(2, "0")}</span>
-              <span className="pg-index-name">{p.label}</span>
+              <span className="pg-index-name">
+                {p.label}
+                <ReleaseBadge since={p.since} updated={p.updated} />
+              </span>
               <span className="pg-index-group">
                 <OriginBadge origin={p.origin} /> {t(`groups.${p.group}`)}
               </span>

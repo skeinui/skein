@@ -17,6 +17,16 @@ export interface PageMeta {
   label: string;
   origin: PageOrigin;
   /**
+   * The version that added the component: the page is marked "New" in the sidebar and its header. Remove it when
+   * the component is no longer new (a couple of releases later).
+   */
+  since?: string;
+  /**
+   * The version that changed the component (a new prop, a fix users will notice): the page is marked "Updated".
+   * Ignored when `since` is set, a new component is just "New". Remove it a couple of releases later.
+   */
+  updated?: string;
+  /**
    * The @skeinui/ui components this page documents, when that isn't just the one named like its directory
    * (`radio-group` documents Radio and RadioGroup). packages/ui/scripts/manifest.ts reads it.
    */
@@ -57,7 +67,7 @@ export interface GuideMeta {
   toc: PageMeta["toc"];
 }
 
-export interface PageDef extends Omit<PageMeta, "origin" | "source"> {
+export interface PageDef extends Omit<PageMeta, "origin" | "source" | "since" | "updated"> {
   /** `/button`: the same for every language (the Chinese site adds `/zh` in front). */
   path: string;
   /** The page's directory under apps/skein-doc/src (`pages/buttons/button`), linked as "Edit this page". */
@@ -67,6 +77,8 @@ export interface PageDef extends Omit<PageMeta, "origin" | "source"> {
   group: PageGroup | "guides";
   /** Components only; a guide has none. */
   origin?: PageOrigin;
+  since?: string;
+  updated?: string;
   load: () => Promise<{ default: ComponentType }>;
 }
 

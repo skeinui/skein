@@ -39,6 +39,12 @@
     "data": "数据",
     "ai-chat": "AI 对话"
   },
+  "new": {
+    "label": "新",
+    "note": "{version} 新增",
+    "updated": "更新",
+    "updatedNote": "{version} 有更新"
+  },
   "origin": {
     "Base UI": "Base UI",
     "Base UINote": "行为来自 Base UI",

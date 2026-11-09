@@ -2022,6 +2022,10 @@ body {
   letter-spacing: -0.01em;
 }
 
+.pg-index-name [data-slot="tag"] {
+  vertical-align: 0.125rem;
+}
+
 .pg-index-card:hover .pg-index-name {
   color: var(--pg-accent);
 }
@@ -2242,6 +2246,53 @@ body {
 
 .pg-crumbs .pg-origin {
   margin-inline-start: 0.25rem;
+}
+
+/* The tag's own text: not the crumbs' faint / accent color for their spans */
+.pg-crumbs [data-slot="tag"] > span[data-slot="tag-label"] {
+  color: inherit;
+}
+
+.pg-crumbs [data-slot="tag"],
+.pg-index-name [data-slot="tag"] {
+  margin-inline-start: 0.375rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* The release badges are green and white whatever the theme style: New is white on green, Updated green on white */
+:is(.pg-nav-link, .pg-crumbs, .pg-index-name) [data-slot="tag"][data-color="success"] {
+  --pg-release-green: #15803d;
+}
+
+:root[data-skein-mode="dark"]
+  :is(.pg-nav-link, .pg-crumbs, .pg-index-name)
+  [data-slot="tag"][data-color="success"] {
+  --pg-release-green: #4ade80;
+}
+
+:is(.pg-nav-link, .pg-crumbs, .pg-index-name) [data-slot="tag"][data-variant="solid"] {
+  border-color: #15803d;
+  background: #15803d;
+  color: #fff;
+}
+
+:is(.pg-nav-link, .pg-crumbs, .pg-index-name) [data-slot="tag"][data-variant="outline"] {
+  border-color: var(--pg-release-green);
+  background: #fff;
+  color: var(--pg-release-green);
+}
+
+:root[data-skein-mode="dark"]
+  :is(.pg-nav-link, .pg-crumbs, .pg-index-name)
+  [data-slot="tag"][data-variant="outline"] {
+  background: transparent;
+}
+
+.pg-nav-marks {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
 }
 
 .pg-nav-link {
