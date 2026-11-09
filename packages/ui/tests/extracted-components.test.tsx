@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import {
+  List,
   ConfigProvider,
   MentionText,
   MenuButton,
@@ -242,5 +243,19 @@ describe("NotificationBell", () => {
     const popup = document.querySelector('[data-slot="notification-bell"]')!;
     expect(popup.textContent).toContain("No notifications");
     expect(popup.querySelectorAll("button")).toHaveLength(0);
+  });
+});
+
+describe("List actions", () => {
+  test("a false or null action is skipped: no empty cell", () => {
+    const html = renderToStaticMarkup(
+      createElement(List, { items: [{ key: "a", title: "A", actions: [null, false, "x"] }] }),
+    );
+    expect(html.match(/<li>/g)?.length).toBe(1);
+    expect(
+      renderToStaticMarkup(
+        createElement(List, { items: [{ key: "a", title: "A", actions: [null] }] }),
+      ),
+    ).not.toContain("list-actions");
   });
 });

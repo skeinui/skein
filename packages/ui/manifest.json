@@ -10465,7 +10465,7 @@
           "props": {
             "actions": {
               "type": "readonly ReactNode[]",
-              "description": "Actions on the far right (links, buttons), with separators added between them automatically."
+              "description": "Actions on the far right (links, buttons), with separators added between them automatically; a false / null entry is skipped."
             },
             "avatar": {
               "type": "ReactNode",
@@ -10491,7 +10491,7 @@
           "props": {
             "actions": {
               "type": "readonly ReactNode[]",
-              "description": "Actions on the far right (links, buttons), with separators added between them automatically."
+              "description": "Actions on the far right (links, buttons), with separators added between them automatically; a false / null entry is skipped."
             },
             "avatar": {
               "type": "ReactNode",

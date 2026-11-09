@@ -15,7 +15,7 @@ export interface ListItemProps extends Without<ComponentPropsWithoutRef<"li">> {
   description?: ReactNode;
   /** Extra content on the right (time, status, thumbnail). */
   extra?: ReactNode;
-  /** Actions on the far right (links, buttons), with separators added between them automatically. */
+  /** Actions on the far right (links, buttons), with separators added between them automatically; a false / null entry is skipped. */
   actions?: readonly ReactNode[];
 }
 
@@ -30,6 +30,8 @@ function ListItem({
   ...rest
 }: ListItemProps) {
   const hasMeta = avatar || title || description;
+  // An action that is false / null / undefined (`cond && <Button/>`) is no action: no empty cell, no divider
+  const shown = actions?.filter(Boolean);
   return (
     <li {...rest} data-slot="list-item">
       {hasMeta ? (
@@ -43,9 +45,9 @@ function ListItem({
       ) : null}
       {children}
       {extra ? <div data-slot="list-extra">{extra}</div> : null}
-      {actions?.length ? (
+      {shown?.length ? (
         <ul data-slot="list-actions">
-          {actions.map((action, i) => (
+          {shown.map((action, i) => (
             <li key={i}>{action}</li>
           ))}
         </ul>
