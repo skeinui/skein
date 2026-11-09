@@ -15,7 +15,10 @@
   },
   "placement": {
     "title": "顶部还是底部",
-    "description": "`placement=\"top\"`（默认）是放在你写的位置、表格上方的一条栏；`\"bottom\"` 在表格下方：放在表格后面。"
+    "description": "`placement=\"top\"`（默认）是放在你写的位置、表格上方的一条栏；`\"bottom\"` 在表格下方：放在表格后面。",
+    "label": "位置",
+    "top": "顶部",
+    "bottom": "底部"
   },
   "api": {
     "title": "API 参考"

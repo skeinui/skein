@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BulkActionBar, Button, Card, DataTable, MenuButton, toast } from "@skeinui/ui";
+import { BulkActionBar, Button, Card, DataTable, MenuButton, Segmented, toast } from "@skeinui/ui";
 import type { BulkActionBarProps } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead } from "@/doc/doc.tsx";
@@ -12,30 +12,48 @@ const ROWS = [
 ];
 
 function Demo({
-  placement,
+  placement: initialPlacement,
   floating,
+  switchable,
   initial = ["T-1016", "T-1013"],
 }: {
-  placement: BulkActionBarProps["placement"];
+  placement: NonNullable<BulkActionBarProps["placement"]>;
   floating?: boolean;
+  /** A switch for the top / bottom placement. */
+  switchable?: boolean;
   initial?: string[];
 }) {
   const t = usePageT();
   const [selected, setSelected] = useState<string[]>(initial);
+  const [placement, setPlacement] = useState(initialPlacement);
+  const bar = (
+    <BulkActionBar
+      placement={placement}
+      floating={floating}
+      count={selected.length}
+      onClear={() => setSelected([])}
+    >
+      <Actions count={selected.length} />
+    </BulkActionBar>
+  );
   return (
     <Card>
       <Card.Body>
         <div className="pg-stack">
-          {placement === "top" ? (
-            <BulkActionBar
-              floating={floating}
-              count={selected.length}
-              onClear={() => setSelected([])}
-            >
-              <Actions count={selected.length} />
-            </BulkActionBar>
+          {switchable ? (
+            <Segmented
+              size="sm"
+              aria-label={t("placement.label")}
+              value={placement}
+              onValueChange={(v) => setPlacement(v as typeof placement)}
+              options={[
+                { value: "top", label: t("placement.top") },
+                { value: "bottom", label: t("placement.bottom") },
+              ]}
+            />
           ) : null}
           <div>
+            {placement === "top" ? bar : null}
             <DataTable
               rows={ROWS}
               rowKey="id"
@@ -47,16 +65,7 @@ function Demo({
                 { key: "status", title: t("cols.status") },
               ]}
             />
-            {placement === "bottom" ? (
-              <BulkActionBar
-                placement="bottom"
-                floating={floating}
-                count={selected.length}
-                onClear={() => setSelected([])}
-              >
-                <Actions count={selected.length} />
-              </BulkActionBar>
-            ) : null}
+            {placement === "bottom" ? bar : null}
           </div>
         </div>
       </Card.Body>
@@ -121,14 +130,14 @@ export default function BulkActionBarPage() {
         code={`<DataTable … />
 <BulkActionBar placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
       >
-        <Demo placement="bottom" />
+        <Demo placement="bottom" switchable />
       </Example>
 
       <Example
         id="floating"
         code={`<BulkActionBar floating placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
       >
-        <Demo placement="bottom" floating initial={[]} />
+        <Demo placement="bottom" floating switchable initial={[]} />
       </Example>
 
       <DocHeading id="reference" />

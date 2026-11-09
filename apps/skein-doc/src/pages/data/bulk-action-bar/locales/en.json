@@ -15,7 +15,10 @@
   },
   "placement": {
     "title": "Top or bottom",
-    "description": "`placement=\"top\"` (the default) is a bar above the table, where you put it; `\"bottom\"` is below it: put it after the table."
+    "description": "`placement=\"top\"` (the default) is a bar above the table, where you put it; `\"bottom\"` is below it: put it after the table.",
+    "label": "Placement",
+    "top": "Top",
+    "bottom": "Bottom"
   },
   "api": {
     "title": "API Reference"
