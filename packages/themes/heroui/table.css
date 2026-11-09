@@ -83,6 +83,8 @@
   [data-skein-theme="heroui"] [data-slot="table-head"][data-kind="select"],
   [data-skein-theme="heroui"] [data-slot="table-cell"][data-kind="select"] {
     width: 2.5rem;
+    /* width is only the preferred size: a table wider than its container squeezes the column to the checkbox */
+    min-width: 2.5rem;
     padding-inline: 0;
     text-align: center;
   }

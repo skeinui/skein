@@ -74,6 +74,8 @@
   [data-skein-theme="default"] [data-slot="table-head"][data-kind="select"],
   [data-skein-theme="default"] [data-slot="table-cell"][data-kind="select"] {
     width: calc(2.5rem * var(--ui-density));
+    /* width is only the preferred size: a table wider than its container squeezes the column to the checkbox */
+    min-width: calc(2.5rem * var(--ui-density));
     padding-inline: 0;
     text-align: center;
   }
