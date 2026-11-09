@@ -1,6 +1,6 @@
 {
   "name": "@skeinui/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The skein command: create Skein UI projects, add pages, manage themes; docs, check, preview and MCP for AI agents",
   "keywords": [
     "admin",
