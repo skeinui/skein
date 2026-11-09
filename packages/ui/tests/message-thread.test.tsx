@@ -132,6 +132,7 @@ function Harness({ onSend, toolbar }: { onSend: (v: string, m: string) => void; 
     onValueChange: setValue,
     onSend,
     toolbar: toolbar ?? ((m: string) => createElement("span", { "data-tool": m }, `tools:${m}`)),
+    extra: (m: string) => createElement("p", { "data-extra": m }, `extra:${m}`),
   });
 }
 const type = async (el: HTMLElement, text: string) => {
@@ -147,6 +148,7 @@ describe("MessageComposer", () => {
     const el = await mount(createElement(Harness, { onSend: () => {} }));
     expect(el.querySelectorAll('[role="radio"]').length).toBe(2);
     expect(el.querySelector("[data-tool]")?.textContent).toBe("tools:agent");
+    expect(el.querySelector("[data-extra]")?.textContent).toBe("extra:agent");
     expect(el.textContent).toContain("Send reply");
     await act(async () => (el.querySelectorAll('[role="radio"]')[1] as HTMLElement).click());
     expect(el.querySelector("[data-tool]")?.textContent).toBe("tools:note");

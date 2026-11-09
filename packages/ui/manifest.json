@@ -12381,6 +12381,10 @@
           "type": "boolean",
           "description": "Disables interaction."
         },
+        "extra": {
+          "type": "string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | ((mode: string) => ReactNode)",
+          "description": "Content between the tools and the box that depends on the mode, in a row of its own: a tone switch, a notice about what sending will do. A function gets the mode."
+        },
         "labels": {
           "type": "Partial<MessageComposerLabels>",
           "description": "Texts for another language; the default follows the `locale` of ConfigProvider."

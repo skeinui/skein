@@ -38,6 +38,8 @@ export interface MessageComposerProps {
   rows?: number;
   /** Tools above the box that depend on the mode: canned replies, a tone switch, an AI suggestion. A function gets the mode. */
   toolbar?: ReactNode | ((mode: string) => ReactNode);
+  /** Content between the tools and the box that depends on the mode, in a row of its own: a tone switch, a notice about what sending will do. A function gets the mode. */
+  extra?: ReactNode | ((mode: string) => ReactNode);
   /** Texts for another language; the default follows the `locale` of ConfigProvider. */
   labels?: Partial<MessageComposerLabels>;
 }
@@ -57,6 +59,7 @@ export function MessageComposer({
   disabled = false,
   rows = 4,
   toolbar,
+  extra,
   labels,
 }: MessageComposerProps) {
   const t = { ...useLabels("messageComposer"), ...labels };
@@ -67,6 +70,7 @@ export function MessageComposer({
     if (!empty && !sending && !disabled) onSend(value, current.value);
   };
   const tools = typeof toolbar === "function" ? toolbar(current.value) : toolbar;
+  const more = typeof extra === "function" ? extra(current.value) : extra;
   return (
     <Flex direction="column" gap="sm">
       <Flex justify="between" align="center" wrap gap="sm">
@@ -81,6 +85,7 @@ export function MessageComposer({
         ) : null}
         {tools}
       </Flex>
+      {more}
       {current.mentions ? (
         <Mentions
           fullWidth
