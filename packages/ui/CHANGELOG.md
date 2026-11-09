@@ -1,5 +1,12 @@
 # @skeinui/ui
 
+## 0.1.2
+
+### Patch Changes
+
+- 3dcec1e: `Badge` is now what Ant Design calls a badge: a number or a dot hung on the corner of another element (`count`, `max`, `showZero`, `dot`, `placement`, `color`, `size`), or drawn on its own. The text label it used to be is `Tag`, which had the same props (`variant`, `color`, `size`, `radius`) and is the one to use for a status or a keyword. The notifications tool of the admin template hangs the unread count on the bell with it.
+- 099fa5e: New components `DataTable`, `FormDrawer` and `FormDialog`. `DataTable` is a table from data (`columns`, `rows`) with loading and empty states, an optional checkbox column, sorting, and an actions column whose buttons can ask for confirmation first (`actions` is a function returning the actions of a row, falsy entries skipped, so a permission reads naturally). `FormDrawer` and `FormDialog` are a `Form` in a drawer or a dialog, with Cancel and Save in the footer. `Form` takes an `id` and `actions={false}`, so a button elsewhere can submit it with `form={id}`.
+
 ## 0.1.1
 
 No changes in this release.
