@@ -45,7 +45,7 @@
       "access": "Permissions: `admin`, `viewer` and `guest` see different things",
       "accessHow": "`Access` for buttons, `requireAccess` for a page's door and the 403 page; the API gives the user's permission codes.",
       "lists": "Lists that search: Orders and Products",
-      "listsHow": "`QueryBuilder` chips, `TableTools`, sortable `Table` headers, CSV export; requests are a `ListQuery`, answered by the mock with `applyListQuery`.",
+      "listsHow": "`TableToolbar` (search, `QueryBuilder` chips, a Reset) with `TableTools`, sortable `DataTable` headers, CSV export; requests are a `ListQuery`, answered by the mock with `applyListQuery`.",
       "login": "Sign-in in three looks, switchable on the page",
       "loginHow": "The library's `LoginLayout`: split, centered and cover."
     },

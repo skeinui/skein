@@ -45,7 +45,7 @@
       "access": "权限：`admin`、`viewer` 和 `guest` 看到的不一样",
       "accessHow": "按钮用 `Access`，页面的门用 `requireAccess` 和 403 页面；用户的权限码由接口给出。",
       "lists": "能搜索的列表：订单和商品",
-      "listsHow": "`QueryBuilder` 芯片、`TableTools`、可排序的 `Table` 表头、CSV 导出；请求是一个 `ListQuery`，mock 用 `applyListQuery` 应答。",
+      "listsHow": "`TableToolbar`（搜索、`QueryBuilder` 条件标签、重置）加 `TableTools`、可排序的 `DataTable` 表头、CSV 导出；请求是一个 `ListQuery`，mock 用 `applyListQuery` 应答。",
       "login": "三种样式的登录页，可以在页面上切换",
       "loginHow": "组件库的 `LoginLayout`：分栏、居中和封面。"
     },

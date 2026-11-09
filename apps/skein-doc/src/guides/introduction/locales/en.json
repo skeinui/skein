@@ -3,7 +3,7 @@
   "lead": "Skein UI is a React component library on [Base UI](https://base-ui.com): one component API, and the look of HeroUI, Ant Design, shadcn or your own brand by switching a theme style.",
   "what": {
     "title": "What it is",
-    "p1": "More than 100 components: buttons and forms, overlays, navigation, data display, an admin layout, a data table, kanban, agenda, and a family of AI chat components. Behaviour and accessibility come from Base UI where it has the component; the rest are written to the same standard.",
+    "p1": "More than 150 components: buttons and forms, overlays, navigation, data display, an admin layout, a data table with its toolbar, query builder and bulk actions, a message thread for support conversations, kanban, agenda, and a family of AI chat components. Behaviour and accessibility come from Base UI where it has the component; the rest are written to the same standard.",
     "p2": "Around the library there is a CLI that creates projects and pages, and a set of tools that let AI coding agents write correct Skein code: a machine-readable manifest of every component, `skein check`, `skein preview` and an MCP server."
   },
   "split": {
