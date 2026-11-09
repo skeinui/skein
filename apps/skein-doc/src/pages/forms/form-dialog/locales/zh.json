@@ -1,0 +1,48 @@
+{
+  "lead": "对话框里的表单：和 `FormDrawer` 一样，只是居中显示。适合字段不多的情况；较长的表单放在抽屉里更好。",
+  "field": {
+    "name": "姓名",
+    "email": "邮箱"
+  },
+  "usage": {
+    "title": "用法",
+    "description": "关闭由你决定：保存成功后在 `onSubmit` 里关闭。",
+    "open": "邀请成员",
+    "heading": "邀请成员",
+    "saved": "已邀请 {name}"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "existing": "既有 slot",
+    "composed": "FormDialog 是 Dialog + Form + Button 的组合，没有自己的 slot，外观由这些组件的主题风格决定。"
+  },
+  "props": {
+    "FormDialog": {
+      "cancelLabel": "取消按钮的文字；默认是当前语言的「取消」。",
+      "columns": "一行几列（1–4）；字段用 `span` 跨列。",
+      "defaultValues": "非受控时 `values` 的初始值。",
+      "description": "标题下面的说明。",
+      "disabled": "禁用所有字段和提交按钮。",
+      "errors": "外部给的字段错误（服务端校验），没有内部错误时显示。",
+      "fieldSize": "各个字段的尺寸档位。",
+      "fields": "按顺序排列的字段（`FormField`：`name`、`type`、`label`，`required` / `min` / `pattern` 这类校验规则，`options`、`hidden`）。",
+      "instanceRef": "填入命令式 `FormInstance` 的 ref（`submit`、`validate`、`reset`、`getValues`、`setValues`、`setErrors`、`focus`）。",
+      "layout": "vertical：标签在上；horizontal：标签在左；inline：一行排开。",
+      "messages": "校验提示文字（换语言用）；只传要改的。",
+      "onOpenChange": "面板请求关闭时调用（Esc、关闭按钮、点遮罩、取消）。提交不会自己关闭它：保存成功后你在 `onSubmit` 里关。",
+      "onSubmit": "值通过校验后调用。它返回的 promise 未完成时，保存按钮转圈、取消不可用；promise 被拒绝时面板保持打开。",
+      "onValuesChange": "以新的 `values` 调用；同时传 `values` 即为受控。",
+      "open": "面板是否打开。",
+      "size": "对话框的宽度。",
+      "submitLabel": "保存按钮的文字；默认是当前语言的「保存」。",
+      "title": "标题。",
+      "validateOn": "校验时机：submit 只在提交时；blur 离开字段时；change 每次输入。出过错的字段之后改动就会重新校验，选择类控件（没有「离开」这个动作）改动时也立刻校验。",
+      "values": "值，受控；不传则由 Form 自己管理。",
+      "variant": "所有字段的默认变体。"
+    }
+  }
+}

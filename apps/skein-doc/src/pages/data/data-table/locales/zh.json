@@ -1,0 +1,77 @@
+{
+  "lead": "由数据生成的表格：给 `columns` 和 `rows` 就行，带加载和空状态、可选的勾选列、排序，以及一列操作按钮（按钮可以先确认再执行）。它是列表页的现成表格；需要展开行、可编辑单元格或页脚时，用 `Table` 和它的各个部件。",
+  "col": {
+    "name": "姓名",
+    "email": "邮箱",
+    "role": "角色"
+  },
+  "usage": {
+    "title": "用法",
+    "description": "每一列有 `key` 和 `title`。单元格把行里同名的字段当文字显示，或者显示 `render` 返回的内容。"
+  },
+  "actions": {
+    "title": "操作列"
+  },
+  "action": {
+    "title": "操作",
+    "edit": "编辑",
+    "editing": "正在编辑 {name}",
+    "delete": "删除",
+    "deleteConfirm": "删除 {name}？",
+    "key": "在这一行里标识这个操作。",
+    "label": "按钮上的文字。",
+    "color": "破坏性的操作（如删除）用 `danger`。",
+    "confirm": "执行前先询问：问题文字，或 `{ title, description, confirmLabel, cancelLabel }`。确认按钮默认用操作的 label，除非设了 `confirmLabel`。",
+    "onClick": "操作做什么；返回 promise 时，确认按钮会转圈直到它结束。"
+  },
+  "selection": {
+    "title": "勾选",
+    "description": "给 `selected`（被选中行的 key）和 `onSelectedChange`，就会出现勾选列；表头的框全选或全不选。",
+    "count": "已选 {count} 行"
+  },
+  "sorting": {
+    "title": "排序",
+    "description": "设了 `sortable` 的列有排序按钮。它依次是升序、降序、无排序（`null`）；怎么给行排序、或请服务端排序，由你决定。"
+  },
+  "states": {
+    "title": "加载与空状态",
+    "load": "加载",
+    "empty": "这里还没有人"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "column": {
+    "title": "列",
+    "field": "字段",
+    "titleField": "表头的文字。",
+    "key": "这一列的标识（单元格和排序的 key）；没有 `render` 时，也是行里要显示的字段名。",
+    "render": "单元格为某一行显示什么；不给就把行里名为 `key` 的字段当文字显示。",
+    "align": "表头和单元格的对齐、固定的 `width`（px），以及 `fixed`：表格横向滚动时贴在起始或结束边。",
+    "sortable": "表头有排序按钮；排序本身由你决定。"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "existing": "既有 slot",
+    "composed": "DataTable 是 Table + Checkbox + Button + Popconfirm 的组合，没有自己的 slot，外观由这些组件的主题风格决定"
+  },
+  "props": {
+    "DataTable": {
+      "actions": "每一行的操作，按顺序排列。假值会被跳过，所以权限可以自然地写：`(row) => [can(\"edit\") && { key, label, onClick }]`。没有任何操作的行，这一格是空的。",
+      "bordered": "外框：边框加圆角。",
+      "columns": "各列，按顺序。",
+      "empty": "没有行时表格显示什么；默认是当前语言的「暂无数据」。",
+      "hoverable": "鼠标移到行上时高亮。",
+      "loading": "加载中：表体变淡且不可点击；没有行时，空状态的位置显示「加载中…」。",
+      "onSelectedChange": "勾选变化时调用，参数是新的 key 列表。",
+      "onSortChange": "点了排序按钮：下一个排序，依次是升序、降序、`null`（无排序）。给行排序（或请服务端排序）由你决定。",
+      "rowKey": "一行的标识：存着字符串或数字的字段名，或一个函数。",
+      "rows": "要显示的行。",
+      "selected": "被选中行的 key；给了它（并给 `onSelectedChange`）就会加上勾选列。",
+      "size": "行的尺寸档位。",
+      "sort": "当前按哪一列排序、怎么排。",
+      "striped": "斑马纹。"
+    }
+  }
+}

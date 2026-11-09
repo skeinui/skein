@@ -358,6 +358,19 @@ export type {
   ContainerProps,
   LayoutProps,
 } from "./components/layout/index.ts";
+export { DataTable } from "./components/data-table/index.ts";
+export type {
+  DataTableAction,
+  DataTableColumn,
+  DataTableProps,
+  DataTableSort,
+} from "./components/data-table/index.ts";
+export { FormDialog, FormDrawer } from "./components/form-drawer/index.ts";
+export type {
+  FormDialogProps,
+  FormDrawerProps,
+  FormPanelProps,
+} from "./components/form-drawer/index.ts";
 export { SplitButton } from "./components/split-button/index.ts";
 export type {
   SplitButtonProps,

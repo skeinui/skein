@@ -1,0 +1,59 @@
+{
+  "lead": "A table from data: `columns` and `rows`, with the loading and empty states, an optional checkbox column, sorting, and an actions column whose buttons can ask for confirmation first. It is the table of a list page, ready made; for expandable rows, editable cells or a footer, use `Table` and its parts.",
+  "col": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "Each column has a `key` and a `title`. A cell shows the row's field of that name as text, or what `render` returns."
+  },
+  "actions": {
+    "title": "Actions"
+  },
+  "action": {
+    "title": "Action",
+    "edit": "Edit",
+    "editing": "Editing {name}",
+    "delete": "Delete",
+    "deleteConfirm": "Delete {name}?",
+    "key": "Identifies the action in the row.",
+    "label": "Text of the button.",
+    "color": "`danger` for a destructive action such as delete.",
+    "confirm": "Asks before it runs: the question, or `{ title, description, confirmLabel, cancelLabel }`. The confirm button is the action's label unless you set `confirmLabel`.",
+    "onClick": "What the action does; when it returns a promise, the confirm button spins until it settles."
+  },
+  "selection": {
+    "title": "Selection",
+    "description": "Give `selected` (the keys of the selected rows) and `onSelectedChange` and the checkbox column appears; the header box selects all or none.",
+    "count": "{count} selected"
+  },
+  "sorting": {
+    "title": "Sorting",
+    "description": "A column with `sortable` gets a sort button. It goes ascending, then descending, then none (`null`); sorting the rows, or asking the server to, is yours."
+  },
+  "states": {
+    "title": "Loading and empty",
+    "load": "Load",
+    "empty": "Nobody here yet"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "column": {
+    "title": "Column",
+    "field": "Field",
+    "key": "Identifies the column (the key of its cells and of the sort); also the field of the row shown when there is no `render`.",
+    "render": "What the cell shows for a row; without it, the row's field named `key` as text.",
+    "align": "Alignment of the header and the cells, a fixed `width` (px), and `fixed` to stick to the start or end edge while the table scrolls sideways.",
+    "sortable": "The header gets a sort button; the sort itself is yours.",
+    "titleField": "Text of the header."
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "existing": "existing slots",
+    "composed": "DataTable is Table + Checkbox + Button + Popconfirm and has no slot of its own: its look comes from the theme styles of those components"
+  }
+}

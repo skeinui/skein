@@ -1,0 +1,23 @@
+{
+  "lead": "A form in a dialog: the same as `FormDrawer`, centered on the page. Use it for a few fields; a longer form is better in a drawer.",
+  "field": {
+    "name": "Name",
+    "email": "Email"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "Closing is yours: close it in `onSubmit` once the save worked.",
+    "open": "Invite someone",
+    "heading": "Invite someone",
+    "saved": "{name} was invited"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "existing": "existing slots",
+    "composed": "FormDialog is Dialog + Form + Button and has no slot of its own: its look comes from the theme styles of those components."
+  }
+}

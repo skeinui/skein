@@ -481,4 +481,11 @@ describe("Form", () => {
     expect(input("a").disabled).toBe(true);
     expect(document.querySelector<HTMLButtonElement>('button[type="submit"]')!.disabled).toBe(true);
   });
+  test("`id` goes to the <form>, and `actions={false}` leaves the buttons out (a button elsewhere submits with form={id})", async () => {
+    await mount({ fields: FIELDS.slice(0, 1), id: "outside", actions: false });
+    const form = document.querySelector("form")!;
+    expect(form.id).toBe("outside");
+    expect(document.querySelector('[data-slot="form-actions"]')).toBeNull();
+    expect(document.querySelector('button[type="submit"]')).toBeNull();
+  });
 });

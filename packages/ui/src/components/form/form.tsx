@@ -151,8 +151,13 @@ export interface FormProps {
   submitLabel?: ReactNode;
   /** Text of the reset button; the button is shown only when this is given. */
   resetLabel?: ReactNode;
-  /** Fully customize the bottom action area (replaces the default buttons). */
+  /**
+   * Fully customize the bottom action area (replaces the default buttons); `false` leaves the area out, for a form whose
+   * buttons are elsewhere (a button outside it submits with `form={id}`).
+   */
   actions?: ReactNode;
+  /** The `id` of the `<form>`: another element's `form` attribute (a submit button in a drawer's footer) refers to it. */
+  id?: string;
   /** Validation message text (for changing language); only pass the ones to change. */
   messages?: Partial<FormMessages>;
   /** Ref filled with the imperative `FormInstance` (`submit`, `validate`, `reset`, `getValues`, `setValues`, `setErrors`, `focus`). */
@@ -272,6 +277,7 @@ export function Form({
   submitLabel: submitLabelProp,
   resetLabel,
   actions,
+  id,
   messages: messagesProp,
   instanceRef,
 }: FormProps) {
@@ -619,6 +625,7 @@ export function Form({
   return (
     <form
       ref={rootRef}
+      id={id}
       noValidate
       data-slot="form"
       data-layout={layout}
@@ -663,7 +670,7 @@ export function Form({
           );
         })}
       </div>
-      {actions !== undefined ? (
+      {actions === false ? null : actions !== undefined ? (
         <div data-slot="form-actions">{actions}</div>
       ) : (
         <div data-slot="form-actions">

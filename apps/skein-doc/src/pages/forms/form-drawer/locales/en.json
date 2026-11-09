@@ -1,0 +1,41 @@
+{
+  "lead": "A form in a drawer: the title, the fields (a `Form`) in the scrolling body, and Cancel and Save in the footer, which stays in view. `fields` describe the form as for `Form`; `onSubmit` gets the values once they are valid, and while its promise is pending Save spins. It starts from `defaultValues` every time it opens.",
+  "field": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "title": "Title",
+    "reply": "Send a reply",
+    "body": "Reply"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "Closing is yours: close it in `onSubmit` once the save worked, so a failed save keeps the drawer, and what was typed, on screen.",
+    "open": "New person",
+    "heading": "New person",
+    "about": "Who is joining the team?",
+    "saved": "{name} was added"
+  },
+  "edit": {
+    "title": "Editing a record",
+    "description": "`defaultValues` fill the fields each time the drawer opens. Give the drawer a `key` when it edits another record without closing in between.",
+    "open": "Edit Ada",
+    "heading": "Edit person",
+    "save": "Save changes"
+  },
+  "conditional": {
+    "title": "Conditional fields",
+    "description": "Everything of `Form` works: here a field is hidden until a switch is on, and while hidden it is not checked or submitted.",
+    "open": "Write a note",
+    "heading": "New note"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "existing": "existing slots",
+    "composed": "FormDrawer is Drawer + Form + Button and has no slot of its own: its look comes from the theme styles of those components. The Save button sits in the footer, outside the `<form>`, and submits it with `form={id}`."
+  }
+}

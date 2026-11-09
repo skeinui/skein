@@ -1,0 +1,66 @@
+{
+  "lead": "抽屉里的表单：标题、可滚动正文里的字段（一个 `Form`）、始终可见的底部取消和保存按钮。`fields` 像 `Form` 那样描述表单；值通过校验后 `onSubmit` 拿到它们，它返回的 promise 未完成时保存按钮转圈。每次打开都从 `defaultValues` 开始。",
+  "field": {
+    "name": "姓名",
+    "email": "邮箱",
+    "role": "角色",
+    "title": "标题",
+    "reply": "发送回复",
+    "body": "回复内容"
+  },
+  "usage": {
+    "title": "用法",
+    "description": "关闭由你决定：保存成功后在 `onSubmit` 里关闭，这样保存失败时抽屉和已填的内容都还在。",
+    "open": "新建成员",
+    "heading": "新建成员",
+    "about": "谁要加入团队？",
+    "saved": "已添加 {name}"
+  },
+  "edit": {
+    "title": "编辑一条记录",
+    "description": "每次打开抽屉，`defaultValues` 都会填好字段。如果它在不关闭的情况下改去编辑另一条记录，给抽屉一个 `key`。",
+    "open": "编辑 Ada",
+    "heading": "编辑成员",
+    "save": "保存修改"
+  },
+  "conditional": {
+    "title": "条件字段",
+    "description": "`Form` 的功能都能用：这里一个字段在开关打开前是隐藏的，隐藏时不校验也不提交。",
+    "open": "写一条备注",
+    "heading": "新备注"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "existing": "既有 slot",
+    "composed": "FormDrawer 是 Drawer + Form + Button 的组合，没有自己的 slot，外观由这些组件的主题风格决定。保存按钮在底部，位于 `<form>` 之外，用 `form={id}` 提交它。"
+  },
+  "props": {
+    "FormDrawer": {
+      "cancelLabel": "取消按钮的文字；默认是当前语言的「取消」。",
+      "columns": "一行几列（1–4）；字段用 `span` 跨列。",
+      "defaultValues": "非受控时 `values` 的初始值。",
+      "description": "标题下面的说明。",
+      "disabled": "禁用所有字段和提交按钮。",
+      "errors": "外部给的字段错误（服务端校验），没有内部错误时显示。",
+      "fieldSize": "各个字段的尺寸档位。",
+      "fields": "按顺序排列的字段（`FormField`：`name`、`type`、`label`，`required` / `min` / `pattern` 这类校验规则，`options`、`hidden`）。",
+      "instanceRef": "填入命令式 `FormInstance` 的 ref（`submit`、`validate`、`reset`、`getValues`、`setValues`、`setErrors`、`focus`）。",
+      "layout": "vertical：标签在上；horizontal：标签在左；inline：一行排开。",
+      "messages": "校验提示文字（换语言用）；只传要改的。",
+      "onOpenChange": "面板请求关闭时调用（Esc、关闭按钮、点遮罩、取消）。提交不会自己关闭它：保存成功后你在 `onSubmit` 里关。",
+      "onSubmit": "值通过校验后调用。它返回的 promise 未完成时，保存按钮转圈、取消不可用；promise 被拒绝时面板保持打开。",
+      "onValuesChange": "以新的 `values` 调用；同时传 `values` 即为受控。",
+      "open": "面板是否打开。",
+      "size": "抽屉的宽度。",
+      "submitLabel": "保存按钮的文字；默认是当前语言的「保存」。",
+      "title": "标题。",
+      "validateOn": "校验时机：submit 只在提交时；blur 离开字段时；change 每次输入。出过错的字段之后改动就会重新校验，选择类控件（没有「离开」这个动作）改动时也立刻校验。",
+      "values": "值，受控；不传则由 Form 自己管理。",
+      "variant": "所有字段的默认变体。"
+    }
+  }
+}

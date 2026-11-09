@@ -149,6 +149,17 @@ export interface CitationLabels {
 export interface FormLabels {
   submit: string;
 }
+export interface DataTableLabels {
+  empty: string;
+  loading: string;
+  actions: string;
+  selectAll: string;
+  selectRow: string;
+}
+export interface FormDrawerLabels {
+  submit: string;
+  cancel: string;
+}
 export interface ListLabels {
   empty: string;
 }
@@ -192,7 +203,9 @@ export interface LabelTypes {
   common: CommonLabels;
   datePicker: DatePickerLabels;
   floatButton: FloatButtonLabels;
+  dataTable: DataTableLabels;
   form: FormLabels;
+  formDrawer: FormDrawerLabels;
   list: ListLabels;
   mentions: MentionsLabels;
   modelPicker: ModelPickerLabels;

@@ -5570,6 +5570,9 @@
             "contextMeter": {
               "type": "Partial<ContextMeterLabels>"
             },
+            "dataTable": {
+              "type": "Partial<DataTableLabels>"
+            },
             "datePicker": {
               "type": "Partial<DatePickerLabels>"
             },
@@ -5584,6 +5587,9 @@
             },
             "form": {
               "type": "Partial<FormLabels>"
+            },
+            "formDrawer": {
+              "type": "Partial<FormDrawerLabels>"
             },
             "image": {
               "type": "Partial<ImageLabels>"
@@ -6261,6 +6267,159 @@
         {
           "title": "In a composer",
           "code": "<Composer.ToolbarEnd>\n  <ContextMeter used={used} max={max} segments={segments} />\n  <Composer.Send />\n</Composer.ToolbarEnd>"
+        }
+      ]
+    },
+    "DataTable": {
+      "description": "A table from data: `columns` and `rows`, with the loading and empty states, an optional checkbox column\n(`selected` / `onSelectedChange`), sorting (`sort` / `onSortChange`) and an actions column (`actions`) whose buttons\ncan ask for confirmation first. It is the table of a list page, ready made; for anything beyond it (expandable rows,\neditable cells, a footer), use `Table` and its parts.\n\nTheme style: it is Table, Checkbox, Button and Popconfirm and has no slot of its own.",
+      "import": "import { DataTable } from \"@skeinui/ui\";",
+      "props": {
+        "actions": {
+          "type": "(row: Row, index: number) => readonly (false | DataTableAction | null | undefined)[]",
+          "description": "The actions of a row, in order. Falsy entries are skipped, so a permission reads naturally:\n`(row) => [can(\"edit\") && { key: \"edit\", label: \"Edit\", onClick: … }]`. A row with none has an empty cell."
+        },
+        "bordered": {
+          "type": "boolean"
+        },
+        "columns": {
+          "type": "readonly DataTableColumn<Row>[]",
+          "required": true,
+          "description": "The columns, in order."
+        },
+        "empty": {
+          "type": "ReactNode",
+          "description": "What the table says when there are no rows; defaults to the locale's \"No data\"."
+        },
+        "hoverable": {
+          "type": "boolean",
+          "description": "Highlight rows on hover.",
+          "default": "true"
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "The table is loading: the body fades and cannot be clicked; with no rows, the empty row says \"Loading…\"."
+        },
+        "onSelectedChange": {
+          "type": "(keys: string[]) => void",
+          "description": "Called with the new `selected`; pass `selected` as well to control it."
+        },
+        "onSortChange": {
+          "type": "(sort: DataTableSort | null) => void",
+          "description": "A sort button was clicked: the next sort, which goes ascending, then descending, then (`null`) back to none.\nSorting the rows (or asking the server to) is yours."
+        },
+        "rowKey": {
+          "type": "(keyof Row & string) | ((row: Row, index: number) => string)",
+          "required": true,
+          "description": "A row's identity: the name of a field holding a string or a number, or a function."
+        },
+        "rows": {
+          "type": "readonly Row[]",
+          "required": true
+        },
+        "selected": {
+          "type": "readonly string[]",
+          "description": "Keys of the selected rows; giving it (with `onSelectedChange`) adds the checkbox column."
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step of the rows."
+        },
+        "sort": {
+          "type": "DataTableSort",
+          "description": "The column the rows are sorted by, and how."
+        },
+        "striped": {
+          "type": "boolean"
+        }
+      },
+      "types": {
+        "DataTableColumn": {
+          "props": {
+            "align": {
+              "type": "\"center\" | \"start\" | \"end\"",
+              "values": [
+                "center",
+                "start",
+                "end"
+              ],
+              "description": "Horizontal alignment of the header and the cells."
+            },
+            "fixed": {
+              "type": "\"start\" | \"end\"",
+              "values": [
+                "start",
+                "end"
+              ],
+              "description": "Sticks to the left (start) or right (end) edge while the table scrolls sideways."
+            },
+            "key": {
+              "type": "string",
+              "required": true,
+              "description": "Identifies the column (the key of its cells and of the sort); also the field of the row shown when there is no `render`."
+            },
+            "render": {
+              "type": "(row: Row, index: number) => ReactNode",
+              "description": "What the cell shows for a row; without it, the row's field named `key` as text (a string, a number or a boolean; anything else needs a `render`)."
+            },
+            "sortable": {
+              "type": "boolean",
+              "description": "The header gets a sort button; the sort itself is yours (`sort` / `onSortChange`)."
+            },
+            "title": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Text of the header."
+            },
+            "width": {
+              "type": "number",
+              "description": "Column width (px): once set, this column has a fixed width."
+            }
+          }
+        },
+        "DataTableSort": {
+          "props": {
+            "key": {
+              "type": "string",
+              "required": true,
+              "description": "The `key` of the column."
+            },
+            "order": {
+              "type": "\"desc\" | \"asc\"",
+              "values": [
+                "desc",
+                "asc"
+              ],
+              "required": true
+            }
+          }
+        }
+      },
+      "docs": "data-table",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "import { DataTable } from \"@skeinui/ui\";\n\n<DataTable\n  rows={people}\n  rowKey=\"id\"\n  columns={[\n    { key: \"name\", title: \"Name\", sortable: true },\n    { key: \"email\", title: \"Email\" },\n    { key: \"role\", title: \"Role\", render: (p) => <Tag>{p.role}</Tag> },\n  ]}\n/>"
+        },
+        {
+          "title": "Actions",
+          "code": "<DataTable\n  rows={rows}\n  rowKey=\"id\"\n  columns={columns}\n  actions={(p) => [\n    { key: \"edit\", label: \"Edit\", onClick: () => edit(p) },\n    // a falsy entry is skipped: a permission reads naturally\n    p.role !== \"admin\" && {\n      key: \"delete\",\n      label: \"Delete\",\n      color: \"danger\",\n      confirm: `Delete ${p.name}?`,\n      onClick: () => remove(p.id), // a promise: the confirm button spins\n    },\n  ]}\n/>"
+        },
+        {
+          "title": "Selection",
+          "code": "const [selected, setSelected] = useState<string[]>([]);\n\n<DataTable\n  rows={people}\n  rowKey=\"id\"\n  columns={columns}\n  selected={selected}\n  onSelectedChange={setSelected}\n/>"
+        },
+        {
+          "title": "Sorting",
+          "code": "const [sort, setSort] = useState<DataTableSort | null>(null);\n\n// the button goes ascending, then descending, then null; sorting the rows is yours\n<DataTable rows={sorted} rowKey=\"id\" columns={columns} sort={sort} onSortChange={setSort} />"
+        },
+        {
+          "title": "Loading and empty",
+          "code": "<DataTable rows={[]} rowKey=\"id\" columns={columns} loading={loading} />\n<DataTable rows={[]} rowKey=\"id\" columns={columns} empty=\"Nobody here yet\" />"
         }
       ]
     },
@@ -7765,7 +7924,7 @@
       "props": {
         "actions": {
           "type": "ReactNode",
-          "description": "Fully customize the bottom action area (replaces the default buttons)."
+          "description": "Fully customize the bottom action area (replaces the default buttons); `false` leaves the area out, for a form whose\nbuttons are elsewhere (a button outside it submits with `form={id}`)."
         },
         "columns": {
           "type": "number",
@@ -7789,6 +7948,10 @@
           "type": "readonly FormField[]",
           "required": true,
           "description": "The fields, in order (`FormField`: `name`, `type`, `label`, validation rules such as `required` / `min` / `pattern`, `options`, `hidden`)."
+        },
+        "id": {
+          "type": "string",
+          "description": "The `id` of the `<form>`: another element's `form` attribute (a submit button in a drawer's footer) refers to it."
         },
         "instanceRef": {
           "type": "RefObject<FormInstance | null>",
@@ -8079,6 +8242,641 @@
         {
           "title": "Imperative API",
           "code": "const ref = useRef<FormInstance>(null);\n<Form instanceRef={ref} … />\nref.current?.setValues({ title: \"Hello\" }); ref.current?.submit();"
+        }
+      ]
+    },
+    "FormDialog": {
+      "description": "A form in a dialog: the same as `FormDrawer`, centered on the page. Use it for a few fields; a longer form is better in\na drawer.\n\nTheme style: it is Dialog, Form and Button together and has no slot of its own.",
+      "import": "import { FormDialog } from \"@skeinui/ui\";",
+      "props": {
+        "cancelLabel": {
+          "type": "ReactNode",
+          "description": "Text of the cancel button; defaults to the locale's \"Cancel\"."
+        },
+        "columns": {
+          "type": "number",
+          "description": "Columns per row (1–4); fields use span to span columns.",
+          "default": "1"
+        },
+        "defaultValues": {
+          "type": "FormValues",
+          "description": "Initial `values` when uncontrolled."
+        },
+        "description": {
+          "type": "ReactNode"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Disables every field and the submit button.",
+          "default": "false"
+        },
+        "errors": {
+          "type": "Record<string, string>",
+          "description": "Field errors provided externally (server validation), shown when there is no internal error."
+        },
+        "fields": {
+          "type": "readonly FormField[]",
+          "required": true,
+          "description": "The fields, in order (`FormField`: `name`, `type`, `label`, validation rules such as `required` / `min` / `pattern`, `options`, `hidden`)."
+        },
+        "fieldSize": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step of the fields."
+        },
+        "instanceRef": {
+          "type": "RefObject<FormInstance | null>",
+          "description": "Ref filled with the imperative `FormInstance` (`submit`, `validate`, `reset`, `getValues`, `setValues`, `setErrors`, `focus`)."
+        },
+        "layout": {
+          "type": "\"horizontal\" | \"vertical\" | \"inline\"",
+          "values": [
+            "horizontal",
+            "vertical",
+            "inline"
+          ],
+          "description": "vertical: label on top; horizontal: label on the left; inline: laid out in one row.",
+          "default": "\"vertical\""
+        },
+        "messages": {
+          "type": "Partial<FormMessages>",
+          "description": "Validation message text (for changing language); only pass the ones to change."
+        },
+        "onOpenChange": {
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": "Called when the panel asks to close (Esc, the close button, the backdrop, Cancel). It is never closed by a submit: do that in `onSubmit` once the save worked."
+        },
+        "onSubmit": {
+          "type": "(values: FormValues) => unknown",
+          "required": true,
+          "description": "Called with the values once they pass validation. While the promise it returns is pending, the button spins and\nCancel is disabled; if it rejects the panel stays open."
+        },
+        "onValuesChange": {
+          "type": "(values: FormValues, changedName: string) => void",
+          "description": "Called with the new `values`; pass `values` as well to control it."
+        },
+        "open": {
+          "type": "boolean",
+          "required": true,
+          "description": "Whether the panel is open."
+        },
+        "size": {
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "description": "Width of the dialog."
+        },
+        "submitLabel": {
+          "type": "ReactNode",
+          "description": "Text of the submit button; defaults to the locale's \"Save\"."
+        },
+        "title": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "validateOn": {
+          "type": "\"submit\" | \"blur\" | \"change\"",
+          "values": [
+            "submit",
+            "blur",
+            "change"
+          ],
+          "description": "When to validate: submit only on submit; blur when leaving the field; change on every input. A field that has had an error\nis re-validated on later changes, and choice controls (which have no \"leaving\") are validated as soon as they change.",
+          "default": "\"blur\""
+        },
+        "values": {
+          "type": "FormValues",
+          "description": "Values, controlled; if omitted the Form manages them itself."
+        },
+        "variant": {
+          "type": "\"filled\" | \"outline\"",
+          "values": [
+            "filled",
+            "outline"
+          ],
+          "description": "Default variant of every field."
+        }
+      },
+      "types": {
+        "FormField": {
+          "props": {
+            "defaultValue": {
+              "type": "{}",
+              "description": "Initial value when uncontrolled."
+            },
+            "dependencies": {
+              "type": "readonly string[]",
+              "description": "Names of other fields it depends on: when those fields' values change, this field is validated again (e.g. \"confirm password\" depends on \"password\").\nOnly fields that have already been validated are re-validated (blurred, submitted, or already with an error); untouched fields do not suddenly show errors because of changes elsewhere."
+            },
+            "description": {
+              "type": "ReactNode",
+              "description": "Description text below the control."
+            },
+            "disabled": {
+              "type": "boolean | ((values: FormValues) => boolean)",
+              "description": "Disables interaction."
+            },
+            "format": {
+              "type": "\"url\" | \"email\"",
+              "values": [
+                "url",
+                "email"
+              ],
+              "description": "Built-in format checks: email / url."
+            },
+            "hidden": {
+              "type": "boolean | ((values: FormValues) => boolean)",
+              "description": "Conditional display: when it returns true this field is not shown, not validated and not part of the submitted values (the value itself is kept and restored when shown again)."
+            },
+            "label": {
+              "type": "ReactNode",
+              "description": "Label shown with the control (on top or on the left, per Form `layout`)."
+            },
+            "max": {
+              "type": "number",
+              "description": "Maximum of a number value."
+            },
+            "maxLength": {
+              "type": "number",
+              "description": "Maximum length of a text value (characters) or of a list value (items)."
+            },
+            "messages": {
+              "type": "Partial<FormMessages>",
+              "description": "Per-field message overrides for the built-in rules (on top of Form's `messages`)."
+            },
+            "min": {
+              "type": "number",
+              "description": "Minimum of a number value."
+            },
+            "minLength": {
+              "type": "number",
+              "description": "Minimum length of a text value (characters) or of a list value (items)."
+            },
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Field name, also the key in the values object; supports dot paths \"address.city\" for nesting."
+            },
+            "options": {
+              "type": "readonly FormOption[]",
+              "description": "Options for select / radio / checkbox-group / segmented."
+            },
+            "pattern": {
+              "type": "string | RegExp",
+              "description": "Regular expression a text value must match (a string is compiled with `new RegExp`; g / y flags are ignored)."
+            },
+            "placeholder": {
+              "type": "string",
+              "description": "Text shown while empty."
+            },
+            "props": {
+              "type": "Record<string, unknown>",
+              "description": "Props passed directly to the control (e.g. rows of textarea, step of number, allowHalf of rating)."
+            },
+            "render": {
+              "type": "(control: FormControlContext) => ReactNode",
+              "description": "Used to render the control when type is custom."
+            },
+            "required": {
+              "type": "string | boolean",
+              "description": "true uses the default message; a string is used as the message."
+            },
+            "span": {
+              "type": "number",
+              "description": "Number of columns it spans in a multi-column layout (Form columns > 1), default 1."
+            },
+            "type": {
+              "type": "FormFieldType",
+              "values": [
+                "number",
+                "search",
+                "select",
+                "textarea",
+                "time",
+                "switch",
+                "text",
+                "custom",
+                "datetime",
+                "checkbox",
+                "checkbox-group",
+                "url",
+                "date",
+                "email",
+                "password",
+                "tel",
+                "radio",
+                "slider",
+                "rating",
+                "segmented"
+              ],
+              "description": "Control type, default text. To use another control choose custom and provide render."
+            },
+            "validate": {
+              "type": "(value: unknown, values: FormValues) => string | void | Promise<string | void | undefined> | undefined",
+              "description": "Custom validation: returning error text means failure, returning undefined / an empty string means pass; may be async.\nThe second argument is the current values of the whole form (e.g. \"confirm password\" must be compared with \"password\")."
+            }
+          }
+        },
+        "FormMessages": {
+          "description": "Validation message text. {n} is replaced by the number in the rule; to change language pass a new set to the messages of Form.",
+          "props": {
+            "email": {
+              "type": "string",
+              "required": true,
+              "description": "Text that is not an email address (`format: \"email\"`)."
+            },
+            "max": {
+              "type": "string",
+              "required": true,
+              "description": "Number above `max`; {n} is the maximum."
+            },
+            "maxLength": {
+              "type": "string",
+              "required": true,
+              "description": "Text / list longer than `maxLength`; {n} is the maximum."
+            },
+            "min": {
+              "type": "string",
+              "required": true,
+              "description": "Number below `min`; {n} is the minimum."
+            },
+            "minLength": {
+              "type": "string",
+              "required": true,
+              "description": "Text / list shorter than `minLength`; {n} is the minimum."
+            },
+            "pattern": {
+              "type": "string",
+              "required": true,
+              "description": "Text not matching `pattern`."
+            },
+            "required": {
+              "type": "string",
+              "required": true,
+              "description": "Shown when a `required` field is empty."
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "description": "Text that is not an http(s) URL (`format: \"url\"`)."
+            }
+          }
+        },
+        "FormOption": {
+          "props": {
+            "disabled": {
+              "type": "boolean",
+              "description": "Disables interaction."
+            },
+            "label": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Text shown for the option."
+            },
+            "value": {
+              "type": "string",
+              "required": true,
+              "description": "The value, controlled (with `onValueChange`)."
+            }
+          }
+        }
+      },
+      "docs": "form-dialog",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "import { FormDialog } from \"@skeinui/ui\";\n\n<FormDialog\n  open={open}\n  onOpenChange={setOpen}\n  title=\"Invite someone\"\n  size=\"sm\"\n  fields={[\n    { name: \"name\", label: \"Name\", required: true, minLength: 2 },\n    { name: \"email\", label: \"Email\", type: \"email\", required: true },\n  ]}\n  onSubmit={async (values) => {\n    await invite(values);\n    setOpen(false);\n  }}\n/>"
+        }
+      ]
+    },
+    "FormDrawer": {
+      "description": "A form in a drawer: the title, the fields (a `Form`) in the scrolling body, and Cancel and Save in the footer, which stays\nin view. `fields` describe the form as for `Form`; `onSubmit` gets the values once they are valid. The drawer starts\nfrom `defaultValues` every time it opens; give it a `key` when it edits another record without closing in between.\n\nTheme style: it is Drawer, Form and Button together and has no slot of its own.",
+      "import": "import { FormDrawer } from \"@skeinui/ui\";",
+      "props": {
+        "cancelLabel": {
+          "type": "ReactNode",
+          "description": "Text of the cancel button; defaults to the locale's \"Cancel\"."
+        },
+        "columns": {
+          "type": "number",
+          "description": "Columns per row (1–4); fields use span to span columns.",
+          "default": "1"
+        },
+        "defaultValues": {
+          "type": "FormValues",
+          "description": "Initial `values` when uncontrolled."
+        },
+        "description": {
+          "type": "ReactNode"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Disables every field and the submit button.",
+          "default": "false"
+        },
+        "errors": {
+          "type": "Record<string, string>",
+          "description": "Field errors provided externally (server validation), shown when there is no internal error."
+        },
+        "fields": {
+          "type": "readonly FormField[]",
+          "required": true,
+          "description": "The fields, in order (`FormField`: `name`, `type`, `label`, validation rules such as `required` / `min` / `pattern`, `options`, `hidden`)."
+        },
+        "fieldSize": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step of the fields."
+        },
+        "instanceRef": {
+          "type": "RefObject<FormInstance | null>",
+          "description": "Ref filled with the imperative `FormInstance` (`submit`, `validate`, `reset`, `getValues`, `setValues`, `setErrors`, `focus`)."
+        },
+        "layout": {
+          "type": "\"horizontal\" | \"vertical\" | \"inline\"",
+          "values": [
+            "horizontal",
+            "vertical",
+            "inline"
+          ],
+          "description": "vertical: label on top; horizontal: label on the left; inline: laid out in one row.",
+          "default": "\"vertical\""
+        },
+        "messages": {
+          "type": "Partial<FormMessages>",
+          "description": "Validation message text (for changing language); only pass the ones to change."
+        },
+        "onOpenChange": {
+          "type": "(open: boolean) => void",
+          "required": true,
+          "description": "Called when the panel asks to close (Esc, the close button, the backdrop, Cancel). It is never closed by a submit: do that in `onSubmit` once the save worked."
+        },
+        "onSubmit": {
+          "type": "(values: FormValues) => unknown",
+          "required": true,
+          "description": "Called with the values once they pass validation. While the promise it returns is pending, the button spins and\nCancel is disabled; if it rejects the panel stays open."
+        },
+        "onValuesChange": {
+          "type": "(values: FormValues, changedName: string) => void",
+          "description": "Called with the new `values`; pass `values` as well to control it."
+        },
+        "open": {
+          "type": "boolean",
+          "required": true,
+          "description": "Whether the panel is open."
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "description": "Width of the drawer."
+        },
+        "submitLabel": {
+          "type": "ReactNode",
+          "description": "Text of the submit button; defaults to the locale's \"Save\"."
+        },
+        "title": {
+          "type": "ReactNode",
+          "required": true
+        },
+        "validateOn": {
+          "type": "\"submit\" | \"blur\" | \"change\"",
+          "values": [
+            "submit",
+            "blur",
+            "change"
+          ],
+          "description": "When to validate: submit only on submit; blur when leaving the field; change on every input. A field that has had an error\nis re-validated on later changes, and choice controls (which have no \"leaving\") are validated as soon as they change.",
+          "default": "\"blur\""
+        },
+        "values": {
+          "type": "FormValues",
+          "description": "Values, controlled; if omitted the Form manages them itself."
+        },
+        "variant": {
+          "type": "\"filled\" | \"outline\"",
+          "values": [
+            "filled",
+            "outline"
+          ],
+          "description": "Default variant of every field."
+        }
+      },
+      "types": {
+        "FormField": {
+          "props": {
+            "defaultValue": {
+              "type": "{}",
+              "description": "Initial value when uncontrolled."
+            },
+            "dependencies": {
+              "type": "readonly string[]",
+              "description": "Names of other fields it depends on: when those fields' values change, this field is validated again (e.g. \"confirm password\" depends on \"password\").\nOnly fields that have already been validated are re-validated (blurred, submitted, or already with an error); untouched fields do not suddenly show errors because of changes elsewhere."
+            },
+            "description": {
+              "type": "ReactNode",
+              "description": "Description text below the control."
+            },
+            "disabled": {
+              "type": "boolean | ((values: FormValues) => boolean)",
+              "description": "Disables interaction."
+            },
+            "format": {
+              "type": "\"url\" | \"email\"",
+              "values": [
+                "url",
+                "email"
+              ],
+              "description": "Built-in format checks: email / url."
+            },
+            "hidden": {
+              "type": "boolean | ((values: FormValues) => boolean)",
+              "description": "Conditional display: when it returns true this field is not shown, not validated and not part of the submitted values (the value itself is kept and restored when shown again)."
+            },
+            "label": {
+              "type": "ReactNode",
+              "description": "Label shown with the control (on top or on the left, per Form `layout`)."
+            },
+            "max": {
+              "type": "number",
+              "description": "Maximum of a number value."
+            },
+            "maxLength": {
+              "type": "number",
+              "description": "Maximum length of a text value (characters) or of a list value (items)."
+            },
+            "messages": {
+              "type": "Partial<FormMessages>",
+              "description": "Per-field message overrides for the built-in rules (on top of Form's `messages`)."
+            },
+            "min": {
+              "type": "number",
+              "description": "Minimum of a number value."
+            },
+            "minLength": {
+              "type": "number",
+              "description": "Minimum length of a text value (characters) or of a list value (items)."
+            },
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Field name, also the key in the values object; supports dot paths \"address.city\" for nesting."
+            },
+            "options": {
+              "type": "readonly FormOption[]",
+              "description": "Options for select / radio / checkbox-group / segmented."
+            },
+            "pattern": {
+              "type": "string | RegExp",
+              "description": "Regular expression a text value must match (a string is compiled with `new RegExp`; g / y flags are ignored)."
+            },
+            "placeholder": {
+              "type": "string",
+              "description": "Text shown while empty."
+            },
+            "props": {
+              "type": "Record<string, unknown>",
+              "description": "Props passed directly to the control (e.g. rows of textarea, step of number, allowHalf of rating)."
+            },
+            "render": {
+              "type": "(control: FormControlContext) => ReactNode",
+              "description": "Used to render the control when type is custom."
+            },
+            "required": {
+              "type": "string | boolean",
+              "description": "true uses the default message; a string is used as the message."
+            },
+            "span": {
+              "type": "number",
+              "description": "Number of columns it spans in a multi-column layout (Form columns > 1), default 1."
+            },
+            "type": {
+              "type": "FormFieldType",
+              "values": [
+                "number",
+                "search",
+                "select",
+                "textarea",
+                "time",
+                "switch",
+                "text",
+                "custom",
+                "datetime",
+                "checkbox",
+                "checkbox-group",
+                "url",
+                "date",
+                "email",
+                "password",
+                "tel",
+                "radio",
+                "slider",
+                "rating",
+                "segmented"
+              ],
+              "description": "Control type, default text. To use another control choose custom and provide render."
+            },
+            "validate": {
+              "type": "(value: unknown, values: FormValues) => string | void | Promise<string | void | undefined> | undefined",
+              "description": "Custom validation: returning error text means failure, returning undefined / an empty string means pass; may be async.\nThe second argument is the current values of the whole form (e.g. \"confirm password\" must be compared with \"password\")."
+            }
+          }
+        },
+        "FormMessages": {
+          "description": "Validation message text. {n} is replaced by the number in the rule; to change language pass a new set to the messages of Form.",
+          "props": {
+            "email": {
+              "type": "string",
+              "required": true,
+              "description": "Text that is not an email address (`format: \"email\"`)."
+            },
+            "max": {
+              "type": "string",
+              "required": true,
+              "description": "Number above `max`; {n} is the maximum."
+            },
+            "maxLength": {
+              "type": "string",
+              "required": true,
+              "description": "Text / list longer than `maxLength`; {n} is the maximum."
+            },
+            "min": {
+              "type": "string",
+              "required": true,
+              "description": "Number below `min`; {n} is the minimum."
+            },
+            "minLength": {
+              "type": "string",
+              "required": true,
+              "description": "Text / list shorter than `minLength`; {n} is the minimum."
+            },
+            "pattern": {
+              "type": "string",
+              "required": true,
+              "description": "Text not matching `pattern`."
+            },
+            "required": {
+              "type": "string",
+              "required": true,
+              "description": "Shown when a `required` field is empty."
+            },
+            "url": {
+              "type": "string",
+              "required": true,
+              "description": "Text that is not an http(s) URL (`format: \"url\"`)."
+            }
+          }
+        },
+        "FormOption": {
+          "props": {
+            "disabled": {
+              "type": "boolean",
+              "description": "Disables interaction."
+            },
+            "label": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Text shown for the option."
+            },
+            "value": {
+              "type": "string",
+              "required": true,
+              "description": "The value, controlled (with `onValueChange`)."
+            }
+          }
+        }
+      },
+      "docs": "form-drawer",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "import { FormDrawer } from \"@skeinui/ui\";\n\n<FormDrawer\n  open={open}\n  onOpenChange={setOpen}\n  title=\"New person\"\n  fields={[\n    { name: \"name\", label: \"Name\", required: true, minLength: 2 },\n    { name: \"email\", label: \"Email\", type: \"email\", required: true },\n    { name: \"role\", label: \"Role\", type: \"select\", options: roles },\n  ]}\n  defaultValues={{ role: \"viewer\" }}\n  onSubmit={async (values) => {\n    await save(values); // Save spins until this settles\n    setOpen(false); // closing is yours: a failed save keeps the drawer open\n  }}\n/>"
+        },
+        {
+          "title": "Editing a record",
+          "code": "<FormDrawer\n  open={open}\n  onOpenChange={setOpen}\n  title=\"Edit person\"\n  fields={fields}\n  defaultValues={person}\n  submitLabel=\"Save changes\"\n  onSubmit={update}\n/>"
+        },
+        {
+          "title": "Conditional fields",
+          "code": "fields={[\n  { name: \"title\", label: \"Title\", required: true },\n  { name: \"reply\", label: \"Send a reply\", type: \"switch\" },\n  { name: \"body\", label: \"Reply\", type: \"textarea\", required: true, hidden: (values) => !values.reply },\n]}"
         }
       ]
     },
@@ -9651,10 +10449,10 @@
           "description": "Top right: language, appearance…"
         },
         "variant": {
-          "type": "\"centered\" | \"split\" | \"cover\"",
+          "type": "\"split\" | \"centered\" | \"cover\"",
           "values": [
-            "centered",
             "split",
+            "centered",
             "cover"
           ],
           "description": "`centered`: the form in a card in the middle; `split`: a cover on the left, the form on the right (wide screens only);\n`cover`: the card over a full-page background. How each one looks is up to the theme style.",
@@ -21758,6 +22556,21 @@
         "popover"
       ],
       "copyToClipboard": [],
+      "DataTable": [
+        "button",
+        "checkbox",
+        "flex",
+        "grid",
+        "input",
+        "input-addons",
+        "layout",
+        "popconfirm",
+        "popover",
+        "select",
+        "spinner",
+        "table",
+        "tag"
+      ],
       "DatePicker": [
         "button",
         "calendar",
@@ -21842,6 +22655,50 @@
       "formatTokens": [
         "context-meter",
         "popover"
+      ],
+      "FormDialog": [
+        "button",
+        "calendar",
+        "checkbox",
+        "dialog",
+        "drawer",
+        "field",
+        "form",
+        "input",
+        "input-addons",
+        "number-field",
+        "popover",
+        "radio",
+        "rating",
+        "segmented",
+        "select",
+        "slider",
+        "spinner",
+        "switch",
+        "tag",
+        "time-picker"
+      ],
+      "FormDrawer": [
+        "button",
+        "calendar",
+        "checkbox",
+        "dialog",
+        "drawer",
+        "field",
+        "form",
+        "input",
+        "input-addons",
+        "number-field",
+        "popover",
+        "radio",
+        "rating",
+        "segmented",
+        "select",
+        "slider",
+        "spinner",
+        "switch",
+        "tag",
+        "time-picker"
       ],
       "getIn": [],
       "getPageItems": [],
