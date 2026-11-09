@@ -2787,9 +2787,7 @@
         }
       },
       "slots": [
-        "bulk-action-bar",
-        "bulk-action-bar-count",
-        "bulk-action-bar-divider"
+        "bulk-action-bar"
       ],
       "docs": "bulk-action-bar",
       "examples": [
@@ -21922,9 +21920,7 @@
       "bottom"
     ],
     "BULK_ACTION_BAR_SLOTS": [
-      "bulk-action-bar",
-      "bulk-action-bar-count",
-      "bulk-action-bar-divider"
+      "bulk-action-bar"
     ],
     "BUTTON_GROUP_SLOTS": [
       "button-group",
@@ -23674,7 +23670,8 @@
         "button",
         "flex",
         "grid",
-        "layout"
+        "layout",
+        "typography"
       ],
       "Button": [
         "button"

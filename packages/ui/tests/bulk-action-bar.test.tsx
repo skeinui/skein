@@ -31,7 +31,7 @@ describe("BulkActionBar", () => {
   });
 
   test("a toolbar with the count, the actions and the slot / placement hooks; no class", () => {
-    expect(BULK_ACTION_BAR_SLOTS).toContain("bulk-action-bar-divider");
+    expect(BULK_ACTION_BAR_SLOTS).toEqual(["bulk-action-bar"]);
     const html = ssr(createElement(BulkActionBar, { count: 3, onClear: () => {} }, "Delete"));
     expect(html).toContain('data-slot="bulk-action-bar"');
     expect(html).toContain('data-placement="top"');

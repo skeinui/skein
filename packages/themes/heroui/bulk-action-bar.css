@@ -1,54 +1,25 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* BulkActionBar: "N selected" with the actions on those rows. `top` is in the flow; `bottom` floats at the bottom edge of the scrolling area. */
+  /* BulkActionBar: "N selected" with the actions on those rows, a low bar. `top` is in the flow; `bottom` floats at the bottom edge of the scrolling area. */
   [data-skein-theme="heroui"] [data-slot="bulk-action-bar"] {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     box-sizing: border-box;
-    padding: calc(0.5rem * var(--ui-density)) calc(0.5rem * var(--ui-density))
-      calc(0.5rem * var(--ui-density)) calc(1rem * var(--ui-density));
-    border: 1px solid color-mix(in oklab, var(--ui-c-primary) 22%, var(--ui-border));
-    border-radius: var(--ui-radius-lg);
-    background-color: color-mix(in oklab, var(--ui-c-primary) 6%, var(--ui-overlay-bg));
-    box-shadow: inset 3px 0 0 var(--ui-c-primary);
+    padding: calc(0.25rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
+    border-radius: var(--ui-radius-md);
+    background-color: color-mix(in oklab, var(--ui-c-primary) 8%, var(--ui-overlay-bg));
     color: var(--ui-fg);
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
-    animation: skein-bulk-action-bar-in 160ms cubic-bezier(0.2, 0, 0, 1);
   }
   [data-skein-theme="heroui"] [data-slot="bulk-action-bar"][data-placement="bottom"] {
     position: sticky;
     bottom: 1rem;
     z-index: 5;
     background-color: var(--ui-overlay-bg);
-    border-color: var(--ui-overlay-border);
-    box-shadow:
-      inset 3px 0 0 var(--ui-c-primary),
-      var(--ui-overlay-shadow);
-  }
-  [data-skein-theme="heroui"] [data-slot="bulk-action-bar-count"] {
-    color: var(--ui-c-primary);
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  [data-skein-theme="heroui"] [data-slot="bulk-action-bar-divider"] {
-    align-self: stretch;
-    width: 1px;
-    margin-block: 0.25rem;
-    background-color: var(--ui-border);
-  }
-  @keyframes skein-bulk-action-bar-in {
-    from {
-      opacity: 0;
-      transform: translateY(-0.25rem);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    [data-skein-theme="heroui"] [data-slot="bulk-action-bar"] {
-      animation: none;
-    }
+    box-shadow: var(--ui-overlay-shadow);
   }
 }
