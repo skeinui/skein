@@ -829,8 +829,11 @@ describe("OpenAPI → CRUD page", () => {
       'sort: { by: "sortBy", dir: "order", asc: "asc", desc: "desc" }',
     );
     expect(page("api", "index.ts")).toContain("ordersAdapter.toRequest(query).params");
+    // The table is a DataTable: its columns say which are sortable, and `sort` is the page's { field, order }
+    expect(page("components", "orders-table.tsx")).toContain("<DataTable");
+    expect(page("components", "orders-table.tsx")).toContain("sortable: sortable.has(c),");
     expect(page("components", "orders-table.tsx")).toContain(
-      "sortable={sortable.has(c)} sort={sort?.field === c ? sort.order : undefined}",
+      "sort={sort ? { key: sort.field, order: sort.order } : null}",
     );
     expect(page("mocks", "handlers.ts")).toContain('url.searchParams.get("sortBy")');
     expect(page("index.tsx")).toContain("function nextSort(");
@@ -851,7 +854,9 @@ describe("OpenAPI → CRUD page", () => {
       "const [selected, setSelected] = useState<readonly number[]>",
     );
     expect(page("index.tsx")).toContain("Promise.allSettled(");
-    expect(page("components", "orders-table.tsx")).toContain('<Table.Head kind="select">');
+    // (the table's keys are strings, the ids numbers)
+    expect(page("components", "orders-table.tsx")).toContain("selected={selected.map(String)}");
+    expect(page("components", "orders-table.tsx")).toContain("keys.map(Number)");
     expect(read(dir, "src", "lib", "export-csv.ts")).toContain("export function downloadCsv(");
     const messages = JSON.parse(page("locales", "messages", "zh.json"));
     for (const key of ["exportSelected", "selected", "deleteSelected", "deletedMany"])

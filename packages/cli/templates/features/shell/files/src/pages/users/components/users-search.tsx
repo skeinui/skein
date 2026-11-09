@@ -1,4 +1,4 @@
-import { Button, Flex, Input } from "@skeinui/ui";
+import { Button, Flex, SearchInput } from "@skeinui/ui";
 import { useState } from "react";
 import type { Filter } from "@/lib/list-query";
 import { QueryBuilder } from "@/modules/query-builder";
@@ -39,17 +39,15 @@ export function UsersSearch({ onSearch }: { onSearch: (value: UsersSearchValue) 
   return (
     <Flex gap="sm" align="center" wrap>
       <div className="table-keyword">
-        <Input
+        <SearchInput
           fullWidth
           size="sm"
           aria-label={t("filter.keyword")}
           placeholder={t("filter.keywordPlaceholder")}
           value={keyword}
           onValueChange={setKeyword}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") search({ keyword, filter });
-          }}
-          onBlur={() => search({ keyword, filter })}
+          // Enter (not while an input method is composing), the button, and the clear button
+          onSearch={(value) => search({ keyword: value, filter })}
         />
       </div>
       <QueryBuilder

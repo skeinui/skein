@@ -481,7 +481,7 @@ function nextSort(sort: Sort | undefined, field: string): ListQuery["sort"] {
     const given = (filterExpr) =>
       `{ ${[keyword && "keyword", filters.length && `filter: ${filterExpr}`].filter(Boolean).join(", ")} }`;
     files[`components/${leaf}-search.tsx`] =
-      `import { ${[...(filters.length ? ["Button"] : []), "Flex", ...(keyword ? ["Input"] : [])].join(", ")} } from "@skeinui/ui";
+      `import { ${[...(filters.length ? ["Button"] : []), "Flex", ...(keyword ? ["SearchInput"] : [])].join(", ")} } from "@skeinui/ui";
 import { useState } from "react";
 ${filters.length ? 'import type { Filter } from "@/lib/list-query";\nimport { QueryBuilder } from "@/modules/query-builder";\nimport type { QueryField } from "@/modules/query-builder";\n' : ""}${filters.length ? `import { ${adapter} } from "../api";\n` : ""}import { use${Name}Translation } from "../locales";
 
@@ -506,17 +506,15 @@ ${
 ${
   keyword
     ? `      <div className="table-keyword">
-        <Input
+        <SearchInput
           fullWidth
           size="sm"
           aria-label={t("filters.${keyword.name}")}
           placeholder={t("filters.${keyword.name}")}
           value={keyword}
           onValueChange={setKeyword}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") search(${given("filter")});
-          }}
-          onBlur={() => search(${given("filter")})}
+          // Enter (not while an input method is composing), the button, and the clear button
+          onSearch={(value) => search({ ${["keyword: value", filters.length && "filter"].filter(Boolean).join(", ")} })}
         />
       </div>
 `
@@ -554,14 +552,7 @@ ${keyword ? '            setKeyword("");\n' : ""}            setFilter(undefined
 
   // ---------- table
   const actions = editable || ops.remove;
-  const tableImports = [
-    ...(actions ? ["Button"] : []),
-    ...(selectable ? ["Checkbox"] : []),
-    ...(actions ? ["Flex"] : []),
-    ...(ops.remove ? ["Popconfirm"] : []),
-    "Table",
-    ...(usesTag ? ["Tag"] : []),
-  ];
+  const tableImports = ["DataTable", ...(usesTag ? ["Tag"] : [])];
   // The column that opens the detail page: the row's name, else the first plain one
   const plain = (f) => !["enum", "boolean", "date", "datetime"].includes(f.kind);
   const linkField = detail
@@ -584,39 +575,23 @@ ${keyword ? '            setKeyword("");\n' : ""}            setFilter(undefined
   const showActions = [editable && "canEdit", ops.remove && "canDelete"]
     .filter(Boolean)
     .join(" || ");
-  const onlyIf = (cond, jsx) => (canVars ? `{${cond} ? (\n${jsx}\n) : null}` : jsx);
+  // An action is listed only when the user may (a falsy entry is skipped by DataTable)
+  const may = (cond, action) => (canVars ? `${cond} && ${action}` : action);
+  const actionList = [
+    editable && may("canEdit", `{ key: "edit", label: t("edit"), onClick: () => onEdit(row) }`),
+    ops.remove &&
+      may(
+        "canDelete",
+        `{
+          key: "delete",
+          label: t("delete"),
+          color: "danger",
+          confirm: { title: t("deleteConfirm", { item: ${label("row")} }), confirmLabel: t("delete"), cancelLabel: t("cancel") },
+          onClick: () => onDelete(row),
+        }`,
+      ),
+  ].filter(Boolean);
   const rowKey = idField ? access("row", idField) : "rows.indexOf(row)";
-  const colSpan = `columns.length${selectable ? " + 1" : ""}${actions ? (canVars ? " + (showActions ? 1 : 0)" : " + 1") : ""}`;
-  const actionCell = `              <Table.Cell>
-                <Flex gap="xs">${
-                  editable
-                    ? `\n${onlyIf(
-                        "canEdit",
-                        `                  <Button size="sm" variant="ghost" onClick={() => onEdit(row)}>
-                    {t("edit")}
-                  </Button>`,
-                      )}`
-                    : ""
-                }${
-                  ops.remove
-                    ? `\n${onlyIf(
-                        "canDelete",
-                        `                  <Popconfirm
-                    tone="danger"
-                    title={t("deleteConfirm", { item: ${label("row")} })}
-                    confirmLabel={t("delete")}
-                    cancelLabel={t("cancel")}
-                    onConfirm={() => onDelete(row)}
-                  >
-                    <Button size="sm" variant="ghost" color="danger">
-                      {t("delete")}
-                    </Button>
-                  </Popconfirm>`,
-                      )}`
-                    : ""
-                }
-                </Flex>
-              </Table.Cell>`;
   files[`components/${leaf}-table.tsx`] = `import { ${tableImports.join(", ")} } from "@skeinui/ui";
 ${linkField ? 'import { RouterLink } from "@/skein-shell";\n' : ""}import type { ReactNode } from "react";
 ${sorted ? 'import type { Sort } from "@/lib/list-query";\n' : ""}${canVars ? 'import { useAccess } from "@/modules/access";\n' : ""}import type { ${Entity} } from "../api";
@@ -641,69 +616,33 @@ ${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle:
     canVars
       ? `  const { can } = useAccess();\n${editable ? `  const canEdit = can(${JSON.stringify(perm("update"))});\n` : ""}${ops.remove ? `  const canDelete = can(${JSON.stringify(perm("delete"))});\n` : ""}  // Without either, there is nothing to put in the actions column\n  const showActions = ${showActions};\n`
       : ""
-  }${
-    selectable
-      ? `  const ids = rows.map((row) => ${access("row", idField)});\n  const allSelected = ids.length > 0 && ids.every((id) => selected.includes(id));\n`
-      : ""
   }  const cell: Record<${ColType}, (row: ${Entity}) => ReactNode> = {
 ${columns.map((f) => `    ${key(f.name)}: (row) => ${cellExpr(f)},`).join("\n")}
   };
   return (
-    <Table hoverable loading={loading}>
-      <Table.Header>
-        <Table.Row>${
-          selectable
-            ? `
-          <Table.Head kind="select">
-            <Checkbox
-              aria-label={t("selectAll")}
-              checked={allSelected}
-              indeterminate={!allSelected && ids.some((id) => selected.includes(id))}
-              onCheckedChange={(checked) => onSelectedChange(checked ? ids : [])}
-            />
-          </Table.Head>`
-            : ""
-        }
-          {columns.map((c) => (
-            <Table.Head key={c}${sorted ? " sortable={sortable.has(c)} sort={sort?.field === c ? sort.order : undefined} onSort={() => onSort(c)}" : ""}>
-              {t(\`fields.\${c}\`)}
-            </Table.Head>
-          ))}${actions ? `\n${canVars ? '          {showActions ? <Table.Head>{t("col.actions")}</Table.Head> : null}' : '          <Table.Head>{t("col.actions")}</Table.Head>'}` : ""}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {rows.length === 0 ? (
-          <Table.Empty colSpan={${colSpan}}>{loading ? t("loading") : t("empty")}</Table.Empty>
-        ) : (
-          rows.map((row) => (
-            <Table.Row key={String(${rowKey})}${selectable ? `\n              selected={selected.includes(${access("row", idField)})}` : ""}>${
-              selectable
-                ? `
-              <Table.Cell kind="select">
-                <Checkbox
-                  aria-label={t("selectRow", { item: ${label("row")} })}
-                  checked={selected.includes(${access("row", idField)})}
-                  onCheckedChange={(checked) =>
-                    onSelectedChange(
-                      checked ? [...selected, ${access("row", idField)}] : selected.filter((id) => id !== ${access("row", idField)}),
-                    )
-                  }
-                />
-              </Table.Cell>`
-                : ""
-            }
-              {columns.map((c) => (
-                <Table.Cell key={c}>{cell[c](row)}</Table.Cell>
-              ))}${
-                actions
-                  ? `\n${canVars ? `              {showActions ? (\n${actionCell}\n              ) : null}` : actionCell}`
-                  : ""
-              }
-            </Table.Row>
-          ))
-        )}
-      </Table.Body>
-    </Table>
+    <DataTable
+      loading={loading}
+      rows={rows}
+      rowKey={(row) => String(${rowKey})}
+      empty={t("empty")}
+      columns={columns.map((c) => ({
+        key: c,
+        title: t(\`fields.\${c}\`),
+        render: cell[c],${sorted ? "\n        sortable: sortable.has(c)," : ""}
+      }))}${
+        selectable
+          ? `\n      selected={selected.map(String)}\n      onSelectedChange={(keys) => onSelectedChange(keys${idType === "number" ? ".map(Number)" : ""})}`
+          : ""
+      }${
+        sorted
+          ? `\n      sort={sort ? { key: sort.field, order: sort.order } : null}\n      // The page works out what a click on a header means; the table says which header\n      onSortChange={(next) => onSort(next?.key ?? sort?.field ?? "")}`
+          : ""
+      }${
+        actions
+          ? `\n      actions={${canVars ? "showActions\n        ? " : ""}(row) => [\n        ${actionList.join(",\n        ")},\n      ]${canVars ? "\n        : undefined" : ""}}`
+          : ""
+      }
+    />
   );
 }
 `;
@@ -785,7 +724,7 @@ ${items}
           ? `(input: ${Entity}Input) => update${Entity}(${access(`${entityVar}!`, idField)}, input)`
           : `(input: ${Entity}Input) => create${Entity}(input)`;
     files[`components/${entityKebab}-form-dialog.tsx`] =
-      `import { Dialog, Form, toast } from "@skeinui/ui";
+      `import { FormDialog, toast } from "@skeinui/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ${[...(ops.create ? [`create${Entity}`] : []), ...(editable ? [`update${Entity}`] : []), keys].join(", ")} } from "../api";
 import type { ${Entity}, ${Entity}Input } from "../api";
@@ -806,21 +745,19 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
   });
 
   return (
-    <Dialog open={${entityVar} !== undefined} onOpenChange={(open) => !open && onClose()}>
-      <Dialog.Content>
-        <Dialog.Title>{${entityVar} ? t("editTitle") : t("createTitle")}</Dialog.Title>
-        <Form
-          // A new form for every row, so the default values apply
-          key={${entityVar} ? String(${access(entityVar, idField)}) : "new"}
-          defaultValues={${entityVar} ? { ...${entityVar} } : ${JSON.stringify(defaults)}}
-          fields={[
-            ${input.map((f) => formField(f, "fields")).join(",\n            ")},
-          ]}
-          submitLabel={t("save")}
-          onSubmit={(values) => save.mutateAsync(values as unknown as ${Entity}Input).then(() => undefined, () => undefined)}
-        />
-      </Dialog.Content>
-    </Dialog>
+    <FormDialog
+      // A new form for every row, so the default values apply
+      key={${entityVar} ? String(${access(entityVar, idField)}) : "new"}
+      open={${entityVar} !== undefined}
+      onOpenChange={(open) => !open && onClose()}
+      title={${entityVar} ? t("editTitle") : t("createTitle")}
+      defaultValues={${entityVar} ? { ...${entityVar} } : ${JSON.stringify(defaults)}}
+      fields={[
+        ${input.map((f) => formField(f, "fields")).join(",\n        ")},
+      ]}
+      submitLabel={t("save")}
+      onSubmit={(values) => save.mutateAsync(values as unknown as ${Entity}Input).then(() => undefined, () => undefined)}
+    />
   );
 }
 `;
@@ -849,8 +786,6 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
             exportSelected: en ? "Export selected" : "导出选中",
             selected: en ? "Selected: {{count}}" : "已选 {{count}} 项",
             clear: en ? "Clear" : "清除",
-            selectAll: en ? "Select all" : "全选",
-            selectRow: en ? "Select {{item}}" : "选择 {{item}}",
           }
         : {}),
       ...(removeMany
@@ -884,7 +819,6 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
       empty: "Nothing here yet",
       loading: "Loading…",
       filter: { all: "All", search: "Search", reset: "Reset" },
-      col: { actions: "Actions" },
       bool: { yes: "Yes", no: "No" },
       fields: fieldLabels,
       filters: filterLabels,
@@ -919,7 +853,6 @@ export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: $
       empty: "暂无数据",
       loading: "加载中…",
       filter: { all: "全部", search: "查询", reset: "重置" },
-      col: { actions: "操作" },
       bool: { yes: "是", no: "否" },
       fields: fieldLabels,
       filters: filterLabels,

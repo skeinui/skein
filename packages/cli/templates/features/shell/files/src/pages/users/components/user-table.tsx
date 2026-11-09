@@ -1,4 +1,4 @@
-import { Button, Flex, Popconfirm, Table, Tag } from "@skeinui/ui";
+import { DataTable, Tag } from "@skeinui/ui";
 import type { ReactNode } from "react";
 import { useAccess } from "@/modules/access";
 import { RouterLink } from "@/skein-shell";
@@ -28,9 +28,6 @@ export function UserTable({
   const { can } = useAccess();
   const canEdit = can("users:update");
   const canDelete = can("users:delete");
-  // Without either, there is nothing to put in the actions column
-  const showActions = canEdit || canDelete;
-  const columns = showActions ? [...shown, "actions" as const] : shown;
   const cell: Record<UserColumn, (user: User) => ReactNode> = {
     name: (user) => (
 {{#if tenant}}
@@ -56,51 +53,31 @@ export function UserTable({
     createdAt: (user) => date.format(new Date(user.createdAt)),
   };
   return (
-    <Table hoverable loading={loading}>
-      <Table.Header>
-        <Table.Row>
-          {columns.map((c) => (
-            <Table.Head key={c}>{t(`col.${c}`)}</Table.Head>
-          ))}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {users.length === 0 ? (
-          <Table.Empty colSpan={columns.length}>{loading ? t("loading") : t("empty")}</Table.Empty>
-        ) : (
-          users.map((user) => (
-            <Table.Row key={user.id}>
-              {shown.map((c) => (
-                <Table.Cell key={c}>{cell[c](user)}</Table.Cell>
-              ))}
-              {showActions ? (
-                <Table.Cell>
-                  <Flex gap="xs">
-                    {canEdit ? (
-                      <Button size="sm" variant="ghost" onClick={() => onEdit(user)}>
-                        {t("edit")}
-                      </Button>
-                    ) : null}
-                    {canDelete ? (
-                      <Popconfirm
-                        tone="danger"
-                        title={t("deleteConfirm", { user: user.name })}
-                        confirmLabel={t("delete")}
-                        cancelLabel={t("cancel")}
-                        onConfirm={() => onDelete(user)}
-                      >
-                        <Button size="sm" variant="ghost" color="danger">
-                          {t("delete")}
-                        </Button>
-                      </Popconfirm>
-                    ) : null}
-                  </Flex>
-                </Table.Cell>
-              ) : null}
-            </Table.Row>
-          ))
-        )}
-      </Table.Body>
-    </Table>
+    <DataTable
+      loading={loading}
+      rows={users}
+      rowKey={(user) => String(user.id)}
+      empty={t("empty")}
+      columns={shown.map((c) => ({ key: c, title: t(`col.${c}`), render: cell[c] }))}
+      // Without either permission there is nothing to put in the actions column
+      actions={
+        canEdit || canDelete
+          ? (user) => [
+              canEdit && { key: "edit", label: t("edit"), onClick: () => onEdit(user) },
+              canDelete && {
+                key: "delete",
+                label: t("delete"),
+                color: "danger",
+                confirm: {
+                  title: t("deleteConfirm", { user: user.name }),
+                  confirmLabel: t("delete"),
+                  cancelLabel: t("cancel"),
+                },
+                onClick: () => onDelete(user),
+              },
+            ]
+          : undefined
+      }
+    />
   );
 }
