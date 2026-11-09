@@ -1,5 +1,12 @@
 # @skeinui/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- 3dcec1e: `Badge` is now what Ant Design calls a badge: a number or a dot hung on the corner of another element (`count`, `max`, `showZero`, `dot`, `placement`, `color`, `size`), or drawn on its own. The text label it used to be is `Tag`, which had the same props (`variant`, `color`, `size`, `radius`) and is the one to use for a status or a keyword. The notifications tool of the admin template hangs the unread count on the bell with it.
+- 9482cff: The users page of the admin template and the pages `skein new page --from` makes use `DataTable`, `FormDialog` and `SearchInput`: the tables, the create / edit dialogs and the keyword boxes are shorter, and Enter that confirms a word of an input method no longer starts a search.
+
 ## 0.1.1
 
 ### Patch Changes
