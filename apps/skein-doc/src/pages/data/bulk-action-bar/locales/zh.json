@@ -1,0 +1,36 @@
+{
+  "lead": "表格勾选了行时显示的一条栏：「已选 3 项」，加上对这些行的操作和一个清除选择的按钮。`count` 是选中的数量（0 时不显示），children 是操作，`onClear` 清除选择。配合 [DataTable](/data-table) 的 `selected` 使用；表格本身的工具见 [TableTools](/table-tools)。",
+  "cols": {
+    "id": "编号",
+    "title": "标题",
+    "status": "状态"
+  },
+  "usage": {
+    "title": "基本用法",
+    "description": "勾选行：栏出现在表格上方，在文档流里。清除选择它就消失。",
+    "assign": "指派给",
+    "delete": "删除",
+    "assigned": "已把 {count} 项指派给 {key}",
+    "deleted": "删除 {count} 项"
+  },
+  "placement": {
+    "title": "顶部还是底部",
+    "description": "`placement=\"top\"`（默认）是放在你写的位置、表格上方的一条栏。`\"bottom\"` 在滚动区域的底边浮着，翻行时一直可见：放在表格后面。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "这条栏是 `bulk-action-bar` slot（`bulk-action-bar.css`），带 `data-placement`；文字和按钮是 Text、Flex、Button。"
+  },
+  "props": {
+    "BulkActionBar": {
+      "count": "选中了几行；大于 0 才显示这条栏。",
+      "onClear": "清除选择：给了才显示「清除」按钮。",
+      "placement": "位置：`top` 是放在你写的位置的一条栏（表格上方），`bottom` 浮在滚动区域的底边（放在表格后面）。",
+      "children": "对所选行的操作：按钮、MenuButton……",
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+    }
+  }
+}

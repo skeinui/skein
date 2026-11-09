@@ -1,0 +1,26 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* BulkActionBar: "N selected" with the actions on those rows. `top` is in the flow; `bottom` floats at the bottom edge of the scrolling area. */
+  [data-skein-theme="antd"] [data-slot="bulk-action-bar"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    box-sizing: border-box;
+    padding: calc(0.5rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
+    border: 1px solid color-mix(in oklab, var(--ui-c-primary) 30%, var(--ui-border));
+    border-radius: var(--ui-radius-lg);
+    background-color: color-mix(in oklab, var(--ui-c-primary) 8%, var(--ui-overlay-bg));
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-placement="bottom"] {
+    position: sticky;
+    bottom: 1rem;
+    z-index: 5;
+    background-color: var(--ui-overlay-bg);
+    border-color: var(--ui-overlay-border);
+    box-shadow: var(--ui-overlay-shadow);
+  }
+}

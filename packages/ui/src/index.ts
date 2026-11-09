@@ -391,6 +391,8 @@ export type {
   NotificationBellProps,
   NotificationItem,
 } from "./components/notification-bell/index.ts";
+export { BulkActionBar } from "./components/bulk-action-bar/index.ts";
+export type { BulkActionBarProps } from "./components/bulk-action-bar/index.ts";
 export { QueryBuilder } from "./components/query-builder/index.ts";
 export type {
   QueryBuilderCapabilities,

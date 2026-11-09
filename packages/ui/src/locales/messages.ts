@@ -62,6 +62,12 @@ export interface NotificationBellLabels {
   markRead: string;
   open: string;
 }
+export interface BulkActionBarLabels {
+  /** The accessible name of the bar. */
+  label: string;
+  selected: (count: number) => string;
+  clear: string;
+}
 export interface QueryBuilderLabels {
   and: string;
   or: string;
@@ -278,6 +284,7 @@ export interface LabelTypes {
   splitter: SplitterLabels;
   suggestions: SuggestionsLabels;
   notificationBell: NotificationBellLabels;
+  bulkActionBar: BulkActionBarLabels;
   queryBuilder: QueryBuilderLabels;
   table: TableLabels;
   tableTools: TableToolsLabels;

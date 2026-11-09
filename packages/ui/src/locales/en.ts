@@ -471,6 +471,11 @@ export const en: Messages = {
       markRead: "Mark as read",
       open: "Open",
     },
+    bulkActionBar: {
+      label: "Actions on the selection",
+      selected: (count) => `${count} selected`,
+      clear: "Clear",
+    },
     queryBuilder: {
       and: "All of",
       or: "Any of",

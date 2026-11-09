@@ -1,0 +1,27 @@
+{
+  "lead": "\"3 selected\" with the actions on those rows and a button to clear the selection, shown while rows of a table are ticked. `count` is how many are selected (0 hides the bar), the children are the actions, `onClear` clears. It goes with the `selected` of a [DataTable](/data-table); for the tools of the table itself see [TableTools](/table-tools).",
+  "cols": {
+    "id": "No.",
+    "title": "Title",
+    "status": "Status"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "Tick rows: the bar is above the table, in the flow. Clear the selection and it goes.",
+    "assign": "Assign to",
+    "delete": "Delete",
+    "assigned": "{count} assigned to {key}",
+    "deleted": "Delete {count}"
+  },
+  "placement": {
+    "title": "Top or bottom",
+    "description": "`placement=\"top\"` (the default) is a bar where you put it, above the table. `\"bottom\"` floats at the bottom edge of the scrolling area while you go through the rows: put it after the table."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "The bar is the `bulk-action-bar` slot (`bulk-action-bar.css`), with `data-placement`; the texts and buttons are Text, Flex and Button."
+  }
+}

@@ -467,6 +467,11 @@ export const zhCN: Messages = {
       markRead: "标记为已读",
       open: "打开",
     },
+    bulkActionBar: {
+      label: "所选项的操作",
+      selected: (count) => `已选 ${count} 项`,
+      clear: "清除",
+    },
     queryBuilder: {
       and: "满足全部",
       or: "满足任一",
