@@ -10,6 +10,7 @@
     "dev": "vp run skein-doc#dev",
     "changeset": "changeset",
     "version-packages": "changeset version && vp run --fail-if-no-match --filter @skeinui/ui manifest",
+    "release:prepare": "node scripts/prepare-release.mjs",
     "release": "changeset publish --no-git-tag",
     "clean": "node scripts/clean.mjs"
   },

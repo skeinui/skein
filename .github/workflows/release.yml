@@ -1,32 +1,29 @@
-# Releases, with changesets:
+# Releases, with changesets (no version pull request: the versions are bumped on your machine):
 #
-# - A push to main that adds changesets to .changeset/ opens (or updates) the "Version packages" pull request: the
-#   versions bumped, the CHANGELOGs written, the manifest refreshed (`pnpm version-packages`).
-# - Merging it (or pushing versions bumped locally) leaves versions that npm doesn't have yet: the publish job waits
-#   for the tests on Linux, macOS and Windows (and check and build), the axe scan and the CLI's end-to-end run (a push
-#   to main runs only the tests, ci.yml), then for an approval in the `npm` environment,
-#   publishes with `changeset publish`, tags the version (`v0.0.6`: one tag for the five packages) and creates its
-#   GitHub Release.
+# - `pnpm release:prepare` runs `pnpm version-packages` (versions, CHANGELOGs, the manifest) and commits the result as
+#   "Skein UI <version>". Pushing that commit to main is the release.
+# - A push that leaves versions npm doesn't have yet: the publish job waits for the tests on Linux, macOS and
+#   Windows (and check and build), the axe scan and the CLI's end-to-end run (a push to main runs only the tests,
+#   ci.yml), then for an approval in the `npm` environment, publishes with `changeset publish`, tags the version
+#   (`v0.0.6`: one tag for the five packages) and creates its GitHub Release.
 #
 # Publishing uses npm's trusted publishing: no token, GitHub's OIDC identity of this workflow, and npm adds
 # provenance. Each package is set up on npmjs.com (Settings → Trusted publishing: skeinui/skein, release.yml,
 # environment npm).
 name: Release
 # Not the commit message (CI shows it for the same commit), so the two runs of a push read apart in the Actions list;
-# a release commit titled "Skein UI 0.0.6" (the version pull request merged with that title) gives "Release Skein UI 0.0.6"
+# a release commit titled "Skein UI 0.0.6" (what `pnpm release:prepare` writes) gives "Release Skein UI 0.0.6"
 run-name: >-
   ${{ startsWith(github.event.head_commit.message, 'Skein UI ')
     && format('Release {0}', github.event.head_commit.message)
     || format('Release ({0})', github.ref_name) }}
 
-# Only a push that touches a changeset or a package's version: a plain code push runs the tests (ci.yml) and nothing
-# else. A changeset added opens or updates the version pull request; merging it deletes the changesets and bumps the
-# versions, which is what runs the rest.
+# Only a push that touches a package's version: a plain code push, or one that adds a changeset, runs the tests
+# (ci.yml) and nothing else.
 on:
   push:
     branches: [main]
     paths:
-      - ".changeset/**"
       - "packages/*/package.json"
 
 permissions: {}
@@ -40,41 +37,15 @@ jobs:
     if: github.repository == 'skeinui/skein'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     outputs:
-      changesets: ${{ steps.changesets.outputs.has-changesets }}
       unpublished: ${{ steps.npm.outputs.unpublished }}
       version: ${{ steps.npm.outputs.version }}
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: pnpm/action-setup@v6.1.0
-        with:
-          version: 12.4.1
       - uses: actions/setup-node@v7.1.0
         with:
           node-version: 24
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: open or update the version pull request
-        id: changesets
-        uses: changesets/action@v2.1.2
-        with:
-          version-script: pnpm version-packages
-          pr-title: Version packages
-          commit-message: Version packages
-      # Named after the version it releases ("Skein UI 0.0.7"): its default squash commit then names the release run
-      # too (run-name). changesets/action only takes a fixed title, the version is known once it has run
-      - name: name the version pull request
-        if: steps.changesets.outputs.has-changesets == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          pr=$(gh pr list --head changeset-release/main --state open --json number --jq '.[0].number')
-          [ -n "$pr" ] || exit 0
-          git fetch --depth=1 origin changeset-release/main
-          version=$(git show FETCH_HEAD:packages/ui/package.json | node -p 'JSON.parse(require("fs").readFileSync(0, "utf8")).version')
-          gh pr edit "$pr" --title "Skein UI $version"
       - name: versions npm doesn't have yet
         id: npm
         run: |
@@ -96,7 +67,7 @@ jobs:
   # The approval is asked for once they all pass.
   test:
     needs: version
-    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    if: needs.version.outputs.unpublished != ''
     name: test (${{ matrix.os }})
     strategy:
       fail-fast: false
@@ -124,7 +95,7 @@ jobs:
   # AdminLayout demo, in the runner's Chrome, against the docs site's dev server
   a11y:
     needs: version
-    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    if: needs.version.outputs.unpublished != ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -148,7 +119,7 @@ jobs:
   # app driven in the runner's Chrome
   e2e:
     needs: version
-    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    if: needs.version.outputs.unpublished != ''
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -167,7 +138,7 @@ jobs:
   publish:
     name: publish v${{ needs.version.outputs.version }}
     needs: [version, test, a11y, e2e]
-    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    if: needs.version.outputs.unpublished != ''
     runs-on: ubuntu-latest
     environment: npm
     permissions:
