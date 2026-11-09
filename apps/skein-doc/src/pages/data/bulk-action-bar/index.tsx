@@ -37,7 +37,7 @@ function Demo({
   const [selected, setSelected] = useState<string[]>(initial);
   const [placement, setPlacement] = useState(initialPlacement);
   const [floatingIn, setFloatingIn] = useState<"inside" | "outside">("inside");
-  const [offset, setOffset] = useState(12);
+  const [offset, setOffset] = useState(8);
   const bar = (
     <BulkActionBar
       placement={placement}

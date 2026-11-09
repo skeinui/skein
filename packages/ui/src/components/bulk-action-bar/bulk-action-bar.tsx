@@ -33,7 +33,7 @@ export interface BulkActionBarProps extends Omit<
   floatingIn?: BulkActionBarFloat;
   /**
    * With `floating`: the distance (px) from the table's edge line, to the top or to the bottom (by `placement`, and `inside` or `outside`); a negative number moves it the other way, across the line.
-   * @default 12
+   * @default 8
    */
   offset?: number;
   /** The actions on the selection: buttons, a MenuButton… */

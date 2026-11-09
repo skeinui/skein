@@ -37,21 +37,21 @@
     box-shadow: var(--ui-overlay-shadow);
   }
   [data-skein-theme="heroui"] [data-slot="bulk-action-bar"][data-floating][data-placement="top"] {
-    top: var(--bulk-action-bar-offset, 0.75rem);
+    top: var(--bulk-action-bar-offset, 8px);
   }
   [data-skein-theme="heroui"]
     [data-slot="bulk-action-bar"][data-floating][data-placement="bottom"] {
-    bottom: var(--bulk-action-bar-offset, 0.75rem);
+    bottom: var(--bulk-action-bar-offset, 8px);
   }
   /* Outside: beyond the edge of the table instead of on it */
   [data-skein-theme="heroui"]
     [data-slot="bulk-action-bar"][data-floating-in="outside"][data-placement="top"] {
     top: auto;
-    bottom: var(--bulk-action-bar-offset, 0.75rem);
+    bottom: var(--bulk-action-bar-offset, 8px);
   }
   [data-skein-theme="heroui"]
     [data-slot="bulk-action-bar"][data-floating-in="outside"][data-placement="bottom"] {
-    top: var(--bulk-action-bar-offset, 0.75rem);
+    top: var(--bulk-action-bar-offset, 8px);
     bottom: auto;
   }
 }
