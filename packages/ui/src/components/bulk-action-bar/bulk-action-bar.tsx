@@ -50,7 +50,7 @@ export function BulkActionBar({
       data-placement={BULK_ACTION_BAR_PLACEMENTS.includes(placement) ? placement : "top"}
     >
       <Text role="status">{t.selected(count)}</Text>
-      <Flex grow gap="sm" align="center" wrap>
+      <Flex gap="sm" align="center" wrap>
         {children}
       </Flex>
       {onClear ? (

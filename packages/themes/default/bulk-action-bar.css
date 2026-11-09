@@ -8,7 +8,9 @@
     align-items: center;
     gap: 0.5rem;
     box-sizing: border-box;
-    padding: calc(0.25rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
+    /* The last button has its own inner padding, so the right edge is smaller to look the same as the left */
+    padding: calc(0.25rem * var(--ui-density)) calc(0.25rem * var(--ui-density))
+      calc(0.25rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
     border-radius: var(--ui-radius-md);
     background-color: color-mix(in oklab, var(--ui-c-primary) 8%, var(--ui-overlay-bg));
     color: var(--ui-fg);
