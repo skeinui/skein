@@ -32,7 +32,8 @@
   },
   "pages": {
     "title": "Pages and modules",
-    "p1": "`--from` reads one resource of an OpenAPI 3 document (JSON or YAML) and writes a list with filters, create, edit and delete, typed, with mocks, plus a detail page when the document reads one item (`GET /orders/{id}`). Pick the resource with `--resource /orders` when there are several."
+    "p1": "`--from` reads one resource of an OpenAPI 3 document (JSON or YAML) and writes a list with filters, create, edit and delete, typed, with mocks, plus a detail page when the document reads one item (`GET /orders/{id}`). Pick the resource with `--resource /orders` when there are several.",
+    "p2": "The generated pages are short because the repeated parts are in `src/lib` and in the library: `useListQuery` holds the page, size, sort, keyword and filter of a list; `useApiMutation` is `useMutation` with the error as a toast, a success message and the queries asked again; `QueryBoundary` is a detail page's spinner, not found and data; and `TableToolbar`, `TableTools` and `DataTable` from `@skeinui/ui` are the row above the table and the table."
   },
   "theme-commands": {
     "title": "Theme styles",

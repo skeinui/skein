@@ -74,6 +74,7 @@ skein new page orders --from openapi.yaml   # a working CRUD page for one OpenAP
 skein new module order-panel                # src/modules/order-panel/`}
         />
         <P k="pages.p1" />
+        <P k="pages.p2" />
       </GuideSection>
 
       <GuideSection id="theme-commands">

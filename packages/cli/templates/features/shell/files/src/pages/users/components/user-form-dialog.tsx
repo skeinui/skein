@@ -1,5 +1,5 @@
-import { FormDialog, toast } from "@skeinui/ui";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { FormDialog } from "@skeinui/ui";
+import { useApiMutation } from "@/lib/use-api-mutation";
 import { USER_ROLES, USER_STATUSES, createUser, updateUser, userKeys } from "../api";
 import type { User, UserInput } from "../api";
 import { useUsersTranslation } from "../locales";
@@ -13,15 +13,11 @@ export function UserFormDialog({
   onClose: () => void;
 }) {
   const { t } = useUsersTranslation();
-  const queryClient = useQueryClient();
-  const save = useMutation({
+  const save = useApiMutation({
     mutationFn: (input: UserInput) => (user ? updateUser(user.id, input) : createUser(input)),
-    onSuccess: (saved) => {
-      toast.success(t(user ? "updated" : "created", { user: saved.name }));
-      void queryClient.invalidateQueries({ queryKey: userKeys.all });
-      onClose();
-    },
-    onError: (error) => toast.danger(error.message),
+    invalidate: [userKeys.all],
+    success: (saved) => t(user ? "updated" : "created", { user: saved.name }),
+    onSuccess: () => onClose(),
   });
 
   return (

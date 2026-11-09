@@ -1,12 +1,13 @@
-import { Button, Card, Flex, Pagination, TableTools, toast, useFixedHeader } from "@skeinui/ui";
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Button, Card, Flex, Pagination, TableTools, useFixedHeader } from "@skeinui/ui";
+import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { downloadCsv } from "@/lib/export-csv";
+import { useApiMutation } from "@/lib/use-api-mutation";
+import { useListQuery } from "@/lib/use-list-query";
 import { Access } from "@/modules/access";
 import { Page } from "@/skein-shell";
 import { deleteUser, fetchUsers, userKeys } from "./api";
-import type { ListQuery } from "@/lib/list-query";
 import type { User } from "./api";
 import { UsersSearch } from "./components/users-search";
 import { UserFormDialog } from "./components/user-form-dialog";
@@ -17,7 +18,8 @@ import { useUsersTranslation } from "./locales";
 export function UsersPage() {
   const { t } = useUsersTranslation();
   const queryClient = useQueryClient();
-  const [query, setQuery] = useState<ListQuery>({ page: 1, pageSize: 10 });
+  const list = useListQuery();
+  const { query } = list;
   /** The columns in their order, and the ones shown. */
   const [order, setOrder] = useState<UserColumn[]>([...USER_COLUMNS]);
   const [visible, setVisible] = useState<string[]>([...USER_COLUMNS]);
@@ -31,13 +33,10 @@ export function UsersPage() {
     queryFn: () => fetchUsers(query),
     placeholderData: keepPreviousData,
   });
-  const remove = useMutation({
+  const remove = useApiMutation({
     mutationFn: (user: User) => deleteUser(user.id),
-    onSuccess: (_, user) => {
-      toast.success(t("deleted", { user: user.name }));
-      void queryClient.invalidateQueries({ queryKey: userKeys.all });
-    },
-    onError: (error) => toast.danger(error.message),
+    invalidate: [userKeys.all],
+    success: (_, user) => t("deleted", { user: user.name }),
   });
 
   /** The rows on screen, the columns shown, as they read on screen. */
@@ -78,7 +77,7 @@ export function UsersPage() {
         <Card.Body>
           <Flex direction="column" gap="md" grow={fixed}>
             <UsersSearch
-              onSearch={(filter) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))}
+              onSearch={list.search}
               tools={
                 <TableTools
                   onRefresh={() => void queryClient.invalidateQueries({ queryKey: userKeys.all })}
@@ -109,12 +108,8 @@ export function UsersPage() {
             <Flex justify="end">
               <Pagination
                 variant="pages"
-                page={query.page}
-                pageSize={query.pageSize}
-                total={data?.total ?? 0}
                 pageSizeOptions={[10, 20, 50]}
-                onPageChange={(page) => setQuery((q) => ({ ...q, page }))}
-                onPageSizeChange={(pageSize) => setQuery((q) => ({ ...q, pageSize, page: 1 }))}
+                {...list.pagination(data?.total ?? 0)}
               />
             </Flex>
           </Flex>

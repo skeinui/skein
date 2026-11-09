@@ -32,7 +32,8 @@
   },
   "pages": {
     "title": "页面与模块",
-    "p1": "`--from` 读取 OpenAPI 3 文档（JSON 或 YAML）中的一个资源，生成带筛选、新建、编辑、删除的列表页，有类型、带 mock；文档里有读取单条数据的接口（`GET /orders/{id}`）时，还会生成详情页。文档里有多个资源时，用 `--resource /orders` 指定。"
+    "p1": "`--from` 读取 OpenAPI 3 文档（JSON 或 YAML）中的一个资源，生成带筛选、新建、编辑、删除的列表页，有类型、带 mock；文档里有读取单条数据的接口（`GET /orders/{id}`）时，还会生成详情页。文档里有多个资源时，用 `--resource /orders` 指定。",
+    "p2": "生成的页面很短，是因为重复的部分都在 `src/lib` 和组件库里：`useListQuery` 管列表的页码、每页条数、排序、关键字和筛选；`useApiMutation` 是 `useMutation` 加上出错弹提示、成功弹提示、重新请求相关查询；`QueryBoundary` 是详情页的加载中、找不到和有数据；表格上方那一行和表格本身用 `@skeinui/ui` 的 `TableToolbar`、`TableTools` 和 `DataTable`。"
   },
   "theme-commands": {
     "title": "主题风格",

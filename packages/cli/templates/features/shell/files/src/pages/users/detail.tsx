@@ -2,6 +2,7 @@ import { Button, Card, Descriptions, Tag, Text } from "@skeinui/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate{{#if tenant}}, useParams{{/if}} } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
+import { QueryBoundary } from "@/lib/query-boundary";
 import { Page } from "@/skein-shell";
 import { fetchUser, userKeys } from "./api";
 import { useUsersTranslation } from "./locales";
@@ -13,7 +14,7 @@ export function UserDetailPage({ id }: { id: number }) {
 {{#if tenant}}
   const { tenant } = useParams({ strict: false });
 {{/if}}
-  const { data: user, error } = useQuery({
+  const query = useQuery({
     queryKey: userKeys.detail(id),
     queryFn: () => fetchUser(id),
   });
@@ -21,7 +22,7 @@ export function UserDetailPage({ id }: { id: number }) {
 
   return (
     <Page
-      title={user?.name ?? (error ? t("detail.notFound") : t("loading"))}
+      title={query.data?.name ?? (query.error ? t("detail.notFound") : t("loading"))}
       actions={
         <Button
           startContent={<ArrowLeft size={16} />}
@@ -33,30 +34,30 @@ export function UserDetailPage({ id }: { id: number }) {
     >
       <Card>
         <Card.Body>
-          {error ? (
-            <Text tone="secondary">{t("detail.notFoundHint", { id })}</Text>
-          ) : (
-            <Descriptions
-              column={2}
-              items={[
-                { label: t("col.name"), value: user?.name },
-                { label: t("col.email"), value: user?.email },
-                { label: t("col.role"), value: user ? t(`role.${user.role}`) : undefined },
-                {
-                  label: t("col.status"),
-                  value: user ? (
-                    <Tag variant="soft" color={user.status === "active" ? "success" : "neutral"}>
-                      {t(`status.${user.status}`)}
-                    </Tag>
-                  ) : undefined,
-                },
-                {
-                  label: t("col.createdAt"),
-                  value: user ? date.format(new Date(user.createdAt)) : undefined,
-                },
-              ]}
-            />
-          )}
+          <QueryBoundary
+            query={query}
+            notFound={<Text tone="secondary">{t("detail.notFoundHint", { id })}</Text>}
+          >
+            {(user) => (
+              <Descriptions
+                column={2}
+                items={[
+                  { label: t("col.name"), value: user.name },
+                  { label: t("col.email"), value: user.email },
+                  { label: t("col.role"), value: t(`role.${user.role}`) },
+                  {
+                    label: t("col.status"),
+                    value: (
+                      <Tag variant="soft" color={user.status === "active" ? "success" : "neutral"}>
+                        {t(`status.${user.status}`)}
+                      </Tag>
+                    ),
+                  },
+                  { label: t("col.createdAt"), value: date.format(new Date(user.createdAt)) },
+                ]}
+              />
+            )}
+          </QueryBoundary>
         </Card.Body>
       </Card>
     </Page>

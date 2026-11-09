@@ -11,9 +11,6 @@ const key = (name) => (IDENT.test(name) ? name : JSON.stringify(name));
 const access = (obj, name) =>
   IDENT.test(name) ? `${obj}.${name}` : `${obj}[${JSON.stringify(name)}]`;
 const json = (value) => `${JSON.stringify(value, null, 2)}\n`;
-/** `obj?.name`, for a value that may not be loaded yet. */
-const accessOpt = (obj, name) =>
-  IDENT.test(name) ? `${obj}?.${name}` : `${obj}?.[${JSON.stringify(name)}]`;
 
 function interfaceOf(name, fields, { allRequired = false } = {}) {
   const lines = fields.map(
@@ -76,21 +73,20 @@ function cellOf(f) {
   }
 }
 
-/** A field's value on the detail page (a Descriptions item), `row` possibly not loaded yet. */
+/** A field's value on the detail page (a Descriptions item), `row` loaded. */
 function valueOf(f) {
   const v = access("row", f.name);
-  const opt = accessOpt("row", f.name);
   switch (f.kind) {
     case "enum":
-      return `${opt} ? t(\`enum.${f.name}.\${${v}}\`) : undefined`;
+      return `${v} ? t(\`enum.${f.name}.\${${v}}\`) : undefined`;
     case "boolean":
-      return `row ? (\n                    <Tag variant="soft" color={${v} ? "success" : "neutral"}>\n                      {t(${v} ? "bool.yes" : "bool.no")}\n                    </Tag>\n                  ) : undefined`;
+      return `(\n                    <Tag variant="soft" color={${v} ? "success" : "neutral"}>\n                      {t(${v} ? "bool.yes" : "bool.no")}\n                    </Tag>\n                  )`;
     case "date":
-      return `${opt} ? date.format(new Date(${v})) : undefined`;
+      return `${v} ? date.format(new Date(${v})) : undefined`;
     case "datetime":
-      return `${opt} ? dateTime.format(new Date(${v})) : undefined`;
+      return `${v} ? dateTime.format(new Date(${v})) : undefined`;
     default:
-      return opt;
+      return v;
   }
 }
 
@@ -275,11 +271,13 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
   ];
   const imports = [
     `import { ${uiImports.join(", ")} } from "@skeinui/ui";`,
-    `import { keepPreviousData, ${ops.remove ? "useMutation, " : ""}useQuery${ops.remove ? ", useQueryClient" : ""} } from "@tanstack/react-query";`,
+    `import { keepPreviousData, useQuery } from "@tanstack/react-query";`,
     ...(ops.create ? [`import { Plus } from "lucide-react";`] : []),
     `import { useState } from "react";`,
     `import { downloadCsv } from "@/lib/export-csv";`,
-    `import type { ${sorted ? "ListQuery, Sort" : "ListQuery"} } from "@/lib/list-query";`,
+    ...(sorted ? [`import type { ListQuery, Sort } from "@/lib/list-query";`] : []),
+    ...(ops.remove ? [`import { useApiMutation } from "@/lib/use-api-mutation";`] : []),
+    `import { useListQuery } from "@/lib/use-list-query";`,
     ...(usesAccess ? [`import { Access } from "@/modules/access";`] : []),
     `import { Page } from "@/skein-shell";`,
     `import { ${[...(ops.remove ? [`delete${Entity}`] : []), fetchList, keys].join(", ")} } from "./api";`,
@@ -294,7 +292,7 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
   ];
   const rowId = (row) => access(row, idField);
   const idType = model.idType === "number" ? "number" : "string";
-  const setQueryName = pagination || hasSearch || sorted ? ", setQuery" : "";
+  const usesList = pagination || hasSearch || sorted;
   const createButton = `<Button color="primary" startContent={<Plus size={16} />} onClick={() => setEditing(null)}>
             {t("create")}
           </Button>`;
@@ -326,7 +324,7 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
 
 export function ${Name}Page() {
   const { t } = use${Name}Translation();
-${ops.remove ? "  const queryClient = useQueryClient();\n" : ""}  const [query${setQueryName}] = useState<ListQuery>({ page: 1, pageSize: 10 });
+${usesList ? "  const list = useListQuery();\n  const { query } = list;" : "  const { query } = useListQuery();"}
   /** The columns in their order, and the ones shown. */
   const [order, setOrder] = useState<${ColType}[]>([...${colsConst}]);
   const [visible, setVisible] = useState<string[]>([...${colsConst}]);
@@ -341,29 +339,26 @@ ${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n 
   const rows = data?.items ?? [];
 ${selectable ? `  // Only the rows on screen count: another page, a new search or a sort leaves the ticked ones out of what is exported or deleted\n  const selectedRows = rows.filter((row) => selected.includes(${rowId("row")}));\n` : ""}${
     ops.remove
-      ? `  const remove = useMutation({
+      ? `  const remove = useApiMutation({
     mutationFn: (row: ${Entity}) => delete${Entity}(${access("row", idField)}),
-    onSuccess: (_, row) => {
-      toast.success(t("deleted", { item: ${label("row")} }));
-      void queryClient.invalidateQueries({ queryKey: ${keys}.all });
-    },
-    onError: (error) => toast.danger(error.message),
+    invalidate: [${keys}.all],
+    success: (_, row) => t("deleted", { item: ${label("row")} }),
   });
 `
       : ""
   }${
     removeMany
       ? `  // The API deletes one row at a time: one request per ticked row, and the ones that failed are counted
-  const removeMany = useMutation({
+  const removeMany = useApiMutation({
     mutationFn: (rows: ${Entity}[]) =>
       Promise.allSettled(rows.map((row) => delete${Entity}(${access("row", idField)}))),
+    invalidate: [${keys}.all],
     onSuccess: (results) => {
       const failed = results.filter((r) => r.status === "rejected").length;
       if (failed < results.length)
         toast.success(t("deletedMany", { count: results.length - failed }));
       if (failed > 0) toast.danger(t("deleteManyFailed", { count: failed }));
       setSelected([]);
-      void queryClient.invalidateQueries({ queryKey: ${keys}.all });
     },
   });
 `
@@ -393,7 +388,7 @@ ${columns.map(exportLine).join("\n")}
 ${
   hasSearch
     ? `            <${Name}Search
-              onSearch={(search) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ${sorted ? "sort: q.sort, " : ""}...search }))}
+              onSearch={list.search}
               tools={
                 <TableTools
                   onRefresh={() => void refetch()}
@@ -444,7 +439,7 @@ ${
               stickyHeader={fixed}
               loading={isFetching}${selectable ? "\n              selected={selected}\n              onSelectedChange={setSelected}" : ""}${
                 sorted
-                  ? `\n              sort={query.sort?.[0]}\n              onSort={(field) => setQuery((q) => ({ ...q, page: 1, sort: nextSort(q.sort?.[0], field) }))}`
+                  ? `\n              sort={query.sort?.[0]}\n              onSort={(field) => list.sort(nextSort(query.sort?.[0], field))}`
                   : ""
               }${editable ? "\n              onEdit={setEditing}" : ""}${
                 ops.remove
@@ -457,12 +452,8 @@ ${
     ? `            <Flex justify="end">
               <Pagination
                 variant="pages"
-                page={query.page}
-                pageSize={query.pageSize}
-                total={data?.total ?? 0}
                 pageSizeOptions={[10, 20, 50]}
-                onPageChange={(page) => setQuery((q) => ({ ...q, page }))}
-                onPageSizeChange={(pageSize) => setQuery((q) => ({ ...q, pageSize, page: 1 }))}
+                {...list.pagination(data?.total ?? 0)}
               />
             </Flex>
 `
@@ -676,6 +667,7 @@ ${columns.map((f) => `    ${key(f.name)}: (row) => ${cellExpr(f)},`).join("\n")}
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate${tenant ? ", useParams" : ""} } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
+import { QueryBoundary } from "@/lib/query-boundary";
 import { Page } from "@/skein-shell";
 import { ${fetchOne}, ${keys} } from "./api";
 import { use${Name}Translation } from "./locales";
@@ -684,14 +676,14 @@ import { use${Name}Translation } from "./locales";
 export function ${Name}DetailPage({ id }: { id: ${model.idType} }) {
   const { t${dDate || dDateTime ? ", i18n" : ""} } = use${Name}Translation();
   const navigate = useNavigate();
-${tenant ? "  const { tenant } = useParams({ strict: false });\n" : ""}  const { data: row, error } = useQuery({
+${tenant ? "  const { tenant } = useParams({ strict: false });\n" : ""}  const query = useQuery({
     queryKey: ${keys}.detail(id),
     queryFn: () => ${fetchOne}(id),
   });
 ${dDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${dDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}
   return (
     <Page
-      title={${labelField ? `row ? ${label("row")} : ` : ""}error ? t("detail.notFound") : t("loading")}
+      title={${labelField ? `query.data ? ${label("query.data")} : ` : ""}query.error ? t("detail.notFound") : t("loading")}
       actions={
         <Button
           startContent={<ArrowLeft size={16} />}
@@ -703,16 +695,19 @@ ${dDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "m
     >
       <Card>
         <Card.Body>
-          {error ? (
-            <Text tone="secondary">{t("detail.notFoundHint", { id: String(id) })}</Text>
-          ) : (
-            <Descriptions
-              column={2}
-              items={[
+          <QueryBoundary
+            query={query}
+            notFound={<Text tone="secondary">{t("detail.notFoundHint", { id: String(id) })}</Text>}
+          >
+            {(row) => (
+              <Descriptions
+                column={2}
+                items={[
 ${items}
-              ]}
-            />
-          )}
+                ]}
+              />
+            )}
+          </QueryBoundary>
         </Card.Body>
       </Card>
     </Page>
@@ -734,9 +729,8 @@ ${items}
         : editable
           ? `(input: ${Entity}Input) => update${Entity}(${access(`${entityVar}!`, idField)}, input)`
           : `(input: ${Entity}Input) => create${Entity}(input)`;
-    files[`components/${entityKebab}-form-dialog.tsx`] =
-      `import { FormDialog, toast } from "@skeinui/ui";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+    files[`components/${entityKebab}-form-dialog.tsx`] = `import { FormDialog } from "@skeinui/ui";
+import { useApiMutation } from "@/lib/use-api-mutation";
 import { ${[...(ops.create ? [`create${Entity}`] : []), ...(editable ? [`update${Entity}`] : []), keys].join(", ")} } from "../api";
 import type { ${Entity}, ${Entity}Input } from "../api";
 import { use${Name}Translation } from "../locales";
@@ -744,15 +738,11 @@ import { use${Name}Translation } from "../locales";
 /** Creates a row (\`${entityVar}\` is null) or edits one; closed when \`${entityVar}\` is undefined. */
 export function ${Entity}FormDialog({ ${entityVar}, onClose }: { ${entityVar}: ${Entity} | null | undefined; onClose: () => void }) {
   const { t } = use${Name}Translation();
-  const queryClient = useQueryClient();
-  const save = useMutation({
+  const save = useApiMutation({
     mutationFn: ${mutation},
-    onSuccess: (saved) => {
-      toast.success(t(${entityVar} ? "updated" : "created", { item: ${labelField ? `String(${access("saved", labelField)} ?? "")` : '""'} }));
-      void queryClient.invalidateQueries({ queryKey: ${keys}.all });
-      onClose();
-    },
-    onError: (error) => toast.danger(error.message),
+    invalidate: [${keys}.all],
+    success: (saved) => t(${entityVar} ? "updated" : "created", { item: ${labelField ? `String(${access("saved", labelField)} ?? "")` : '""'} }),
+    onSuccess: () => onClose(),
   });
 
   return (

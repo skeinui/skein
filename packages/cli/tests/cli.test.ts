@@ -766,7 +766,13 @@ describe("OpenAPI → CRUD page", () => {
   test("a project from before the search bar and the table tools gets their files once, never over its own", () => {
     const dir = target();
     createProject({ dir, template: "admin" });
-    for (const part of ["lib/list-query", "lib/export-csv.ts"])
+    for (const part of [
+      "lib/list-query",
+      "lib/export-csv.ts",
+      "lib/use-api-mutation.ts",
+      "lib/use-list-query.ts",
+      "lib/query-boundary.tsx",
+    ])
       rmSync(join(dir, "src", part), { recursive: true });
     // A file the project changed stays as it is
     writeFileSync(join(dir, "src", "lib", "export-csv.ts"), "// mine\n");
@@ -776,7 +782,13 @@ describe("OpenAPI → CRUD page", () => {
       from: join(FIXTURES, "orders.yaml"),
     });
     expect(created).toEqual(
-      expect.arrayContaining(["src/lib/list-query/index.ts", "src/lib/list-query/adapters.ts"]),
+      expect.arrayContaining([
+        "src/lib/list-query/index.ts",
+        "src/lib/list-query/adapters.ts",
+        "src/lib/use-list-query.ts",
+        "src/lib/use-api-mutation.ts",
+        "src/lib/query-boundary.tsx",
+      ]),
     );
     expect(created).not.toContain("src/lib/export-csv.ts");
     expect(read(dir, "src", "lib", "export-csv.ts")).toBe("// mine\n");
