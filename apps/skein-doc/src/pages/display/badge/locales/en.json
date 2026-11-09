@@ -1,22 +1,41 @@
 {
-  "lead": "A display-only status label: three variants × six semantic colours × three sizes. For a removable or clickable label, see [Tag](/tag).",
-  "variants": { "title": "Variants" },
+  "lead": "A count or a dot hung on the corner of another element (an icon, an avatar, a button), or shown on its own. For a text label, a status or a keyword, see [Tag](/tag).",
+  "usage": {
+    "title": "Usage",
+    "description": "`count` is the number (or text) in the indicator; the element inside is what it hangs on."
+  },
+  "max": {
+    "title": "Maximum and zero",
+    "description": "A number above `max` (default 99) shows as `99+`; 0 is not drawn unless `showZero`."
+  },
+  "dot": {
+    "title": "Dot",
+    "description": "`dot` is a plain dot without a number, for \"something new here\"."
+  },
   "colors": {
-    "title": "Colors",
-    "description": "Every `variant` × `color` combination."
+    "title": "Colors"
   },
-  "sizes": { "title": "Sizes" },
-  "radius": {
-    "title": "Radius",
-    "description": "Without `radius`, the theme style decides."
+  "sizes": {
+    "title": "Sizes"
   },
-  "api": { "title": "API Reference" },
+  "placement": {
+    "title": "Placement",
+    "description": "The corner it hangs on; `top-end` by default."
+  },
+  "standalone": {
+    "title": "On its own",
+    "description": "Without a child the indicator is drawn inline, for a count in a list row or a menu item."
+  },
+  "api": {
+    "title": "API Reference"
+  },
   "styling": {
     "title": "Styling Reference",
-    "description": "Theme styles handle it in `badge.css`; colours come from the four `--ui-c-*` tokens: solid / soft / text / border.",
+    "description": "Theme styles handle it in `badge.css`; the colours are the `--ui-c-*` solid and foreground tokens.",
     "hook": "Hook",
     "sameAsProps": "same as the props",
-    "slot": "The badge itself",
-    "variants": "Theme styles pick the look with them; `data-radius` appears only when `radius` is passed"
+    "slot": "The wrapper (`badge`) around the child, and the indicator (`badge-indicator`) with the number",
+    "root": "On the wrapper; `data-wrapped` is set when it has a child, and `data-placement` only then",
+    "dot": "On the indicator when it is a dot"
   }
 }

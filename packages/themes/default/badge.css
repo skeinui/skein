@@ -1,103 +1,121 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* Badge: three variants solid / soft / outline, color is decided by data-color. */
+  /* Badge: a count or a dot hung on the corner of another element (data-wrapped), or drawn on its own; the color is
+     decided by data-color, the corner by data-placement. */
   [data-skein-theme="default"] [data-slot="badge"] {
+    --_h: 1.25rem;
+    --_dot: 0.5rem;
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-shrink: 0;
+    vertical-align: middle;
+    width: fit-content;
+    font-family: var(--ui-font-family);
+  }
+  /* The neutral solid color is a tint close to the page: a count wants the ink color */
+  [data-skein-theme="default"] [data-slot="badge"][data-color="neutral"] {
+    --_bg: var(--ui-fg);
+    --_fg: var(--ui-bg);
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-color="primary"] {
+    --_bg: var(--ui-c-primary);
+    --_fg: var(--ui-c-primary-fg);
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-color="secondary"] {
+    --_bg: var(--ui-c-secondary);
+    --_fg: var(--ui-c-secondary-fg);
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-color="success"] {
+    --_bg: var(--ui-c-success);
+    --_fg: var(--ui-c-success-fg);
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-color="warning"] {
+    --_bg: var(--ui-c-warning);
+    --_fg: var(--ui-c-warning-fg);
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-color="danger"] {
+    --_bg: var(--ui-c-danger);
+    --_fg: var(--ui-c-danger-fg);
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-size="sm"] {
+    --_h: 1rem;
+    --_dot: 0.375rem;
+  }
+  [data-skein-theme="default"] [data-slot="badge"][data-size="lg"] {
+    --_h: 1.5rem;
+    --_dot: 0.625rem;
+  }
+
+  [data-skein-theme="default"] [data-slot="badge-indicator"] {
     box-sizing: border-box;
     display: inline-flex;
     align-items: center;
-    gap: calc(0.25rem * var(--ui-density));
-    width: fit-content;
-    padding: calc(0.125rem * var(--ui-density)) calc(0.625rem * var(--ui-density));
-    border: 1px solid transparent;
-    border-radius: var(--_r, var(--ui-radius-full));
-    font-family: var(--ui-font-family);
-    font-size: 0.75rem;
-    font-weight: 500;
-    line-height: 1rem;
+    justify-content: center;
+    min-width: var(--_h);
+    height: var(--_h);
+    padding-inline: calc(0.3125rem * var(--ui-density));
+    border-radius: var(--ui-radius-full);
+    background-color: var(--_bg);
+    color: var(--_fg);
+    box-shadow: 0 0 0 2px var(--ui-bg);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
     white-space: nowrap;
   }
-  [data-skein-theme="default"] [data-slot="badge"][data-color="neutral"] {
-    --_solid: var(--ui-c-neutral);
-    --_solid-fg: var(--ui-c-neutral-fg);
-    --_soft: var(--ui-c-neutral-soft);
-    --_text: var(--ui-c-neutral-text);
-    --_line: var(--ui-c-neutral-border);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-color="primary"] {
-    --_solid: var(--ui-c-primary);
-    --_solid-fg: var(--ui-c-primary-fg);
-    --_soft: var(--ui-c-primary-soft);
-    --_text: var(--ui-c-primary-text);
-    --_line: var(--ui-c-primary-border);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-color="secondary"] {
-    --_solid: var(--ui-c-secondary);
-    --_solid-fg: var(--ui-c-secondary-fg);
-    --_soft: var(--ui-c-secondary-soft);
-    --_text: var(--ui-c-secondary-text);
-    --_line: var(--ui-c-secondary-border);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-color="success"] {
-    --_solid: var(--ui-c-success);
-    --_solid-fg: var(--ui-c-success-fg);
-    --_soft: var(--ui-c-success-soft);
-    --_text: var(--ui-c-success-text);
-    --_line: var(--ui-c-success-border);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-color="warning"] {
-    --_solid: var(--ui-c-warning);
-    --_solid-fg: var(--ui-c-warning-fg);
-    --_soft: var(--ui-c-warning-soft);
-    --_text: var(--ui-c-warning-text);
-    --_line: var(--ui-c-warning-border);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-color="danger"] {
-    --_solid: var(--ui-c-danger);
-    --_solid-fg: var(--ui-c-danger-fg);
-    --_soft: var(--ui-c-danger-soft);
-    --_text: var(--ui-c-danger-text);
-    --_line: var(--ui-c-danger-border);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-variant="solid"] {
-    background-color: var(--_solid);
-    color: var(--_solid-fg);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-variant="soft"] {
-    background-color: var(--_soft);
-    color: var(--_text);
-    border-color: transparent;
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-variant="outline"] {
-    border-color: var(--_line);
-    border-width: 1px;
-    background-color: transparent;
-    color: var(--_text);
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-size="sm"] {
-    padding: calc(0.0625rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
-    font-size: 0.6875rem;
-    line-height: 1rem;
-  }
-  [data-skein-theme="default"] [data-slot="badge"][data-size="lg"] {
-    padding: calc(0.1875rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
-    font-size: 0.8125rem;
-    line-height: 1.25rem;
+  [data-skein-theme="default"] [data-slot="badge-indicator"][data-dot] {
+    min-width: 0;
+    width: var(--_dot);
+    height: var(--_dot);
+    padding: 0;
   }
 
-  [data-skein-theme="default"] [data-slot="badge"][data-radius="none"] {
-    --_r: 0;
+  /* Hung on the corner: centered on it, the box of children untouched */
+  [data-skein-theme="default"] [data-slot="badge"][data-wrapped] > [data-slot="badge-indicator"] {
+    position: absolute;
+    z-index: 1;
   }
-  [data-skein-theme="default"] [data-slot="badge"][data-radius="sm"] {
-    --_r: var(--ui-radius-sm);
+  [data-skein-theme="default"]
+    [data-slot="badge"][data-placement="top-end"]
+    > [data-slot="badge-indicator"] {
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    transform: translate(50%, -50%);
   }
-  [data-skein-theme="default"] [data-slot="badge"][data-radius="md"] {
-    --_r: var(--ui-radius-md);
+  [data-skein-theme="default"]
+    [data-slot="badge"][data-placement="top-start"]
+    > [data-slot="badge-indicator"] {
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    transform: translate(-50%, -50%);
   }
-  [data-skein-theme="default"] [data-slot="badge"][data-radius="lg"] {
-    --_r: var(--ui-radius-lg);
+  [data-skein-theme="default"]
+    [data-slot="badge"][data-placement="bottom-end"]
+    > [data-slot="badge-indicator"] {
+    inset-block-end: 0;
+    inset-inline-end: 0;
+    transform: translate(50%, 50%);
   }
-  [data-skein-theme="default"] [data-slot="badge"][data-radius="full"] {
-    --_r: var(--ui-radius-full);
+  [data-skein-theme="default"]
+    [data-slot="badge"][data-placement="bottom-start"]
+    > [data-slot="badge-indicator"] {
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    transform: translate(-50%, 50%);
+  }
+  [dir="rtl"]
+    [data-skein-theme="default"]
+    [data-slot="badge"][data-placement$="-end"]
+    > [data-slot="badge-indicator"] {
+    translate: -100% 0;
+  }
+  [dir="rtl"]
+    [data-skein-theme="default"]
+    [data-slot="badge"][data-placement$="-start"]
+    > [data-slot="badge-indicator"] {
+    translate: 100% 0;
   }
 }

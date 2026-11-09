@@ -156,9 +156,9 @@ export const SELECT_SLOTS = [
 ] as const;
 
 /** Badge / Avatar / Card / Tabs / Separator / loading indicator (batch 3). */
-export const BADGE_VARIANTS = ["solid", "soft", "outline"] as const;
-export type BadgeVariant = (typeof BADGE_VARIANTS)[number];
-export const BADGE_SLOTS = ["badge"] as const;
+export const BADGE_PLACEMENTS = ["top-end", "top-start", "bottom-end", "bottom-start"] as const;
+export type BadgePlacement = (typeof BADGE_PLACEMENTS)[number];
+export const BADGE_SLOTS = ["badge", "badge-indicator"] as const;
 
 export const AVATAR_SLOTS = ["avatar", "avatar-image", "avatar-fallback", "avatar-group"] as const;
 

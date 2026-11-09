@@ -1,11 +1,4 @@
-import {
-  Badge,
-  Checkbox,
-  Pagination,
-  Table,
-  type TableEditValue,
-  type TableSort,
-} from "@skeinui/ui";
+import { Checkbox, Pagination, Table, Tag, type TableEditValue, type TableSort } from "@skeinui/ui";
 import { useMemo, useState } from "react";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
 import { usePageT } from "@/site/i18n.tsx";
@@ -104,9 +97,9 @@ function SimpleTable({
             <Table.Cell>{r.email}</Table.Cell>
             <Table.Cell>{r.role}</Table.Cell>
             <Table.Cell>
-              <Badge color={STATUS_COLOR[r.status]} size="sm">
+              <Tag color={STATUS_COLOR[r.status]} size="sm">
                 {r.status}
-              </Badge>
+              </Tag>
             </Table.Cell>
             <Table.Cell align="end">{r.logins}</Table.Cell>
           </Table.Row>
@@ -260,7 +253,7 @@ function ResizeDemo() {
             <Table.Cell>{r.email}</Table.Cell>
             <Table.Cell>{r.role}</Table.Cell>
             <Table.Cell>
-              <Badge color={STATUS_COLOR[r.status]}>{r.status}</Badge>
+              <Tag color={STATUS_COLOR[r.status]}>{r.status}</Tag>
             </Table.Cell>
           </Table.Row>
         ))}
@@ -309,7 +302,7 @@ function ExpandDemo() {
               <Table.Cell>{r.name}</Table.Cell>
               <Table.Cell>{r.role}</Table.Cell>
               <Table.Cell>
-                <Badge color={STATUS_COLOR[r.status]}>{r.status}</Badge>
+                <Tag color={STATUS_COLOR[r.status]}>{r.status}</Tag>
               </Table.Cell>
             </Table.Row>,
             expanded ? (
@@ -367,7 +360,7 @@ function EditDemo() {
               onCommit={(v) => update(r.id, { logins: Number(v ?? 0) })}
             />
             <Table.Cell>
-              <Badge color={STATUS_COLOR[r.status]}>{r.status}</Badge>
+              <Tag color={STATUS_COLOR[r.status]}>{r.status}</Tag>
             </Table.Cell>
           </Table.Row>
         ))}

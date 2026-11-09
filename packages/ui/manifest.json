@@ -2443,12 +2443,12 @@
       }
     },
     "Badge": {
-      "description": "Badge: a small display-only label for a status, count or category, with no interaction.\n`children` is the text, `color` / `variant` / `size` / `radius` set its look.\nFor a removable or clickable label use Tag.",
+      "description": "Badge: a count or a dot hung on the corner of another element (an icon, an avatar, a button), or shown on its own.\n`count` / `max` / `showZero` decide what it says, `dot` makes it a plain dot, `placement` picks the corner.\nFor a text label, a status or a keyword use Tag.",
       "import": "import { Badge } from \"@skeinui/ui\";",
       "props": {
         "children": {
           "type": "ReactNode",
-          "description": "The content."
+          "description": "The element the indicator hangs on (an icon, an avatar, a button); without it the indicator is drawn on its own."
         },
         "color": {
           "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
@@ -2461,18 +2461,37 @@
             "neutral"
           ],
           "description": "Semantic colour; the theme style picks the actual colours.",
-          "default": "\"neutral\""
+          "default": "\"danger\""
         },
-        "radius": {
-          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+        "count": {
+          "type": "ReactNode",
+          "description": "What the indicator shows: a number, or any text. A number above `max` shows as `max+`; nothing is drawn for 0\n(unless `showZero`), a negative number, or when it is not given."
+        },
+        "dot": {
+          "type": "boolean",
+          "description": "A small dot without a number, for \"something new here\"; `count` is ignored.",
+          "default": "false"
+        },
+        "max": {
+          "type": "number",
+          "description": "The largest number shown as is.",
+          "default": "99"
+        },
+        "placement": {
+          "type": "\"top-end\" | \"top-start\" | \"bottom-end\" | \"bottom-start\"",
           "values": [
-            "none",
-            "sm",
-            "md",
-            "lg",
-            "full"
+            "top-end",
+            "top-start",
+            "bottom-end",
+            "bottom-start"
           ],
-          "description": "When not passed, the theme style decides."
+          "description": "Which corner of `children` the indicator hangs on; ignored without `children`.",
+          "default": "\"top-end\""
+        },
+        "showZero": {
+          "type": "boolean",
+          "description": "Draw the indicator for a `count` of 0.",
+          "default": "false"
         },
         "size": {
           "type": "\"sm\" | \"md\" | \"lg\"",
@@ -2483,38 +2502,41 @@
           ],
           "description": "Size step.",
           "default": "\"md\""
-        },
-        "variant": {
-          "type": "\"soft\" | \"outline\" | \"solid\"",
-          "values": [
-            "soft",
-            "outline",
-            "solid"
-          ],
-          "description": "Visual variant; how each one looks is up to the theme style.",
-          "default": "\"soft\""
         }
       },
       "slots": [
-        "badge"
+        "badge",
+        "badge-indicator"
       ],
       "docs": "badge",
       "examples": [
         {
-          "title": "Variants",
-          "code": "<Badge variant=\"solid\">Solid</Badge>\n<Badge variant=\"soft\">Soft</Badge>\n<Badge variant=\"outline\">Outline</Badge>"
+          "title": "Usage",
+          "code": "<Badge count={5}>\n  <Button variant=\"outline\">Inbox</Button>\n</Badge>\n<Badge count={5}>\n  <Avatar fallback=\"AL\" color=\"primary\" />\n</Badge>"
+        },
+        {
+          "title": "Maximum and zero",
+          "code": "<Badge count={120}>…</Badge>\n<Badge count={120} max={999}>…</Badge>\n<Badge count={0}>…</Badge>\n<Badge count={0} showZero>…</Badge>"
+        },
+        {
+          "title": "Dot",
+          "code": "<Badge dot>\n  <Avatar fallback=\"AL\" color=\"primary\" />\n</Badge>"
         },
         {
           "title": "Colors",
-          "code": "<Badge color=\"success\">Success</Badge>"
+          "code": "<Badge count={5} color=\"success\">…</Badge>"
         },
         {
           "title": "Sizes",
-          "code": "<Badge size=\"sm\">Small</Badge>\n<Badge size=\"md\">Medium</Badge>\n<Badge size=\"lg\">Large</Badge>"
+          "code": "<Badge count={5} size=\"sm\">…</Badge>\n<Badge count={5} size=\"md\">…</Badge>\n<Badge count={5} size=\"lg\">…</Badge>"
         },
         {
-          "title": "Radius",
-          "code": "<Badge radius=\"none\">none</Badge>"
+          "title": "Placement",
+          "code": "<Badge count={5} placement=\"bottom-end\">…</Badge>"
+        },
+        {
+          "title": "On its own",
+          "code": "<Badge count={25} />\n<Badge count=\"new\" color=\"success\" />\n<Badge count={5} color=\"primary\" size=\"lg\" />"
         }
       ]
     },
@@ -7773,10 +7795,10 @@
         "corner": {
           "type": "FloatButtonCorner",
           "values": [
-            "bottom-end",
-            "bottom-start",
             "top-end",
-            "top-start"
+            "top-start",
+            "bottom-end",
+            "bottom-start"
           ],
           "description": "Which corner of the viewport it is fixed to; the margins come from the theme style. Inside a `FloatButton.Group`\nthe Group decides the position.",
           "default": "\"bottom-end\""
@@ -7821,10 +7843,10 @@
             "corner": {
               "type": "FloatButtonCorner",
               "values": [
-                "bottom-end",
-                "bottom-start",
                 "top-end",
-                "top-start"
+                "top-start",
+                "bottom-end",
+                "bottom-start"
               ],
               "description": "Which corner of the viewport the group is fixed to.",
               "default": "\"bottom-end\""
@@ -7845,10 +7867,10 @@
             "corner": {
               "type": "FloatButtonCorner",
               "values": [
-                "bottom-end",
-                "bottom-start",
                 "top-end",
-                "top-start"
+                "top-start",
+                "bottom-end",
+                "bottom-start"
               ],
               "description": "Which corner of the viewport it is fixed to; the margins come from the theme style. Inside a `FloatButton.Group`\nthe Group decides the position.",
               "default": "\"bottom-end\""
@@ -16261,7 +16283,7 @@
         },
         {
           "title": "Rich content and disabled",
-          "code": "{ id, label: \"Release 1.0\", content: <span>…<Badge /></span> }\n{ id, label: \"Pinned\", disabled: true }"
+          "code": "{ id, label: \"Release 1.0\", content: <span>…<Tag /></span> }\n{ id, label: \"Pinned\", disabled: true }"
         }
       ]
     },
@@ -20717,13 +20739,15 @@
       "avatar-fallback",
       "avatar-group"
     ],
-    "BADGE_SLOTS": [
-      "badge"
+    "BADGE_PLACEMENTS": [
+      "top-end",
+      "top-start",
+      "bottom-end",
+      "bottom-start"
     ],
-    "BADGE_VARIANTS": [
-      "solid",
-      "soft",
-      "outline"
+    "BADGE_SLOTS": [
+      "badge",
+      "badge-indicator"
     ],
     "BORDER_BEAM_SLOTS": [
       "border-beam",

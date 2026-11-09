@@ -1,5 +1,5 @@
 {
-  "lead": "A tag: a little larger than a [Badge](/badge) and removable, for selected items, filter conditions and keywords.",
+  "lead": "A tag: a small labelled chip, optionally removable, for statuses, selected items, filter conditions and keywords. For a count or a dot on the corner of another element, see [Badge](/badge).",
   "usage": { "title": "Usage" },
   "variants": { "title": "Variants & Colors" },
   "sizes": { "title": "Sizes", "sm": "Small", "md": "Medium", "lg": "Large" },

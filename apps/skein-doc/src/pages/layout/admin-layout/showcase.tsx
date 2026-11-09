@@ -1,7 +1,6 @@
 import {
   Alert,
   Avatar,
-  Badge,
   Button,
   Card,
   Checkbox,
@@ -140,9 +139,9 @@ export function AdminLayoutShowcase() {
             </div>
             <div style={row}>
               {COLORS.map((c) => (
-                <Badge key={c} color={c} variant="soft">
+                <Tag key={c} color={c} variant="soft">
                   {c}
-                </Badge>
+                </Tag>
               ))}
             </div>
             <div style={row}>

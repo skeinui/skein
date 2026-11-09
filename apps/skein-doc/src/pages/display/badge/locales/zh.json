@@ -1,31 +1,53 @@
 {
-  "lead": "状态徽标，纯展示。三种变体 × 六种语义色 × 三档尺寸。可关闭或可点击的标签见 [Tag](/tag)。",
-  "variants": { "title": "变体" },
+  "lead": "挂在其他元素（图标、头像、按钮）角上的数字或红点，也可以单独使用。文字标签、状态、关键词见 [Tag](/tag)。",
+  "usage": {
+    "title": "基本用法",
+    "description": "`count` 是徽标里的数字（或文字），包在里面的元素是它挂靠的对象。"
+  },
+  "max": {
+    "title": "封顶与零",
+    "description": "数字超过 `max`（默认 99）时显示 `99+`；0 不显示，除非传 `showZero`。"
+  },
+  "dot": {
+    "title": "红点",
+    "description": "`dot` 是不带数字的小圆点，表示「这里有新东西」。"
+  },
   "colors": {
-    "title": "颜色",
-    "description": "`variant` × `color` 的全部组合。"
+    "title": "颜色"
   },
-  "sizes": { "title": "尺寸" },
-  "radius": {
-    "title": "圆角",
-    "description": "不传 `radius` 时由主题风格决定。"
+  "sizes": {
+    "title": "尺寸"
   },
-  "api": { "title": "API 参考" },
+  "placement": {
+    "title": "位置",
+    "description": "挂在哪个角上，默认 `top-end`。"
+  },
+  "standalone": {
+    "title": "单独使用",
+    "description": "不包元素时徽标直接按行内元素绘制，适合列表行或菜单项里的计数。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
   "styling": {
     "title": "样式钩子",
-    "description": "主题风格在 `badge.css` 里处理，颜色取 `--ui-c-*` 的 solid / soft / text / border 四个 token。",
+    "description": "主题风格在 `badge.css` 里处理，颜色取 `--ui-c-*` 的 solid 与 fg 两个 token。",
     "hook": "钩子",
     "sameAsProps": "同 props",
-    "slot": "徽标本体",
-    "variants": "主题风格用它们选外观；`data-radius` 仅在传了 `radius` 时出现"
+    "slot": "包在子元素外的容器（`badge`），和装数字的徽标本体（`badge-indicator`）",
+    "root": "在容器上；有子元素时带 `data-wrapped`，`data-placement` 也只在那时出现",
+    "dot": "徽标是红点时出现在徽标本体上"
   },
   "props": {
     "Badge": {
-      "children": "内容。",
+      "children": "徽标挂靠的元素（图标、头像、按钮）；不传时徽标单独绘制。",
       "color": "语义色，具体颜色由主题风格决定。",
-      "radius": "圆角档位，不传时由主题风格决定。",
-      "size": "尺寸档位。",
-      "variant": "视觉变体，具体画法由主题风格决定。"
+      "count": "徽标里显示的内容：数字或文字。数字超过 `max` 显示为 `max+`；0（除非 `showZero`）、负数或不传时不绘制。",
+      "dot": "只画一个小圆点，不带数字；此时忽略 `count`。",
+      "max": "原样显示的最大数字。",
+      "placement": "徽标挂在子元素的哪个角；没有子元素时忽略。",
+      "showZero": "`count` 为 0 时也绘制。",
+      "size": "尺寸档位。"
     }
   }
 }

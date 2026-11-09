@@ -81,27 +81,8 @@ body {
   height: 100%;
 }
 
-/* The notifications tool (modules/notifications): the unread count over the bell's top right corner, the
-   list a popover wide enough for a sentence, unread items dotted in the primary color */
-.notifications-bell {
-  position: relative;
-  display: inline-flex;
-}
-.notifications-count {
-  position: absolute;
-  inset-block-start: -0.5rem;
-  inset-inline-start: 0.5rem;
-  display: inline-flex;
-  pointer-events: none;
-}
-.notifications-count [data-slot="badge"] {
-  min-width: 1rem;
-  height: 1rem;
-  padding-inline: 0.25rem;
-  font-size: 0.625rem;
-  line-height: 1rem;
-  justify-content: center;
-}
+/* The notifications tool (modules/notifications): the list a popover wide enough for a sentence, unread items
+   dotted in the primary color */
 .notifications {
   display: flex;
   flex-direction: column;

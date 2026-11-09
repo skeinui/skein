@@ -20,7 +20,7 @@ export function coverageFor(contract) {
     ATTACHMENT_VARIANTS,
     AVATAR_SLOTS,
     BADGE_SLOTS,
-    BADGE_VARIANTS,
+    BADGE_PLACEMENTS,
     BORDER_BEAM_SLOTS,
     BORDER_BEAM_TRIGGERS,
     BREADCRUMB_SLOTS,
@@ -284,11 +284,12 @@ export function coverageFor(contract) {
   const DISPLAY_COVERAGE = {
     "badge.css": [
       ...slotSel(BADGE_SLOTS),
-      ...BADGE_VARIANTS.map((v) => `[data-variant="${v}"]`),
+      ...BADGE_PLACEMENTS.map((p) => `[data-placement="${p}"]`),
       ...COLORS.map((c) => `[data-color="${c}"]`),
       '[data-size="sm"]',
       '[data-size="lg"]',
-      ...RADII.map((r) => `[data-radius="${r}"]`),
+      "[data-wrapped]",
+      "[data-dot]",
     ],
     "avatar.css": [
       ...slotSel(AVATAR_SLOTS),

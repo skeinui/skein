@@ -20,14 +20,35 @@ import {
 const ssr = (node: React.ReactElement) => renderToStaticMarkup(node);
 
 describe("display components (SSR)", () => {
-  test("Badge defaults to soft / neutral / md, no styles", () => {
-    const html = ssr(createElement(Badge, null, "New"));
+  test("Badge hangs a count on its child: danger / md / top-end, no styles", () => {
+    const html = ssr(createElement(Badge, { count: 5 }, createElement("i", null, "bell")));
     expect(html).toContain('data-slot="badge"');
-    expect(html).toContain('data-variant="soft"');
-    expect(html).toContain('data-color="neutral"');
+    expect(html).toContain('data-color="danger"');
     expect(html).toContain('data-size="md"');
+    expect(html).toContain('data-placement="top-end"');
+    expect(html).toContain("data-wrapped");
+    expect(html).toContain('data-slot="badge-indicator"');
+    expect(html).toContain(">5</span>");
     expect(html).not.toContain("class=");
     expect(html).not.toContain("style=");
+  });
+
+  test("Badge caps the number at max and hides 0 unless showZero", () => {
+    expect(ssr(createElement(Badge, { count: 120 }))).toContain(">99+</span>");
+    expect(ssr(createElement(Badge, { count: 12, max: 9 }))).toContain(">9+</span>");
+    expect(ssr(createElement(Badge, { count: 0 }))).not.toContain("badge-indicator");
+    expect(ssr(createElement(Badge, { count: 0, showZero: true }))).toContain(">0</span>");
+    expect(ssr(createElement(Badge, { count: -1 }))).not.toContain("badge-indicator");
+    expect(ssr(createElement(Badge, null))).not.toContain("badge-indicator");
+    expect(ssr(createElement(Badge, { count: "new" }))).toContain(">new</span>");
+  });
+
+  test("Badge dot has no text, and standalone it has no placement", () => {
+    const html = ssr(createElement(Badge, { dot: true, count: 5 }));
+    expect(html).toContain("data-dot");
+    expect(html).not.toContain(">5<");
+    expect(html).not.toContain("data-placement");
+    expect(html).not.toContain("data-wrapped");
   });
 
   test("each Card part has its own slot", () => {

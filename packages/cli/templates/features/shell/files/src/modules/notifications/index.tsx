@@ -37,17 +37,9 @@ export function NotificationsTool() {
         render={<Button variant="ghost" color="neutral" size="sm" iconOnly />}
         aria-label={unread > 0 ? `${t("title")} (${t("unread", { count: unread })})` : t("title")}
       >
-        {/* Sized in styles/index.css (.notifications-count): the count over the bell's corner */}
-        <span className="notifications-bell">
+        <Badge count={unread} size="sm">
           <Bell size={16} />
-          {unread > 0 ? (
-            <span className="notifications-count">
-              <Badge variant="solid" color="danger" size="sm" radius="full">
-                {unread > 99 ? "99+" : unread}
-              </Badge>
-            </span>
-          ) : null}
-        </span>
+        </Badge>
       </Popover.Trigger>
       <Popover.Content align="end">
         <div className="notifications">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Badge, Sortable, arrayMove } from "@skeinui/ui";
+import { Sortable, Tag, arrayMove } from "@skeinui/ui";
 import type { SortableItem } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
@@ -52,7 +52,7 @@ const rich = (t: T): SortableItem[] => [
     label: "Release 1.0",
     content: (
       <span>
-        Release 1.0 <Badge color="success">{t("demo.done")}</Badge>
+        Release 1.0 <Tag color="success">{t("demo.done")}</Tag>
       </span>
     ),
   },
@@ -61,7 +61,7 @@ const rich = (t: T): SortableItem[] => [
     label: "Release 1.1",
     content: (
       <span>
-        Release 1.1 <Badge color="primary">{t("demo.progress")}</Badge>
+        Release 1.1 <Tag color="primary">{t("demo.progress")}</Tag>
       </span>
     ),
   },
@@ -100,7 +100,7 @@ export default function SortablePage() {
 
       <Example
         id="rich"
-        code={`{ id, label: "Release 1.0", content: <span>…<Badge /></span> }
+        code={`{ id, label: "Release 1.0", content: <span>…<Tag /></span> }
 { id, label: "Pinned", disabled: true }`}
       >
         <Demo initial={rich(t)} />

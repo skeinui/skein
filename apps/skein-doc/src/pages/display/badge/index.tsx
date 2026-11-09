@@ -1,11 +1,12 @@
-import { BADGE_VARIANTS, Badge, COLORS, RADII } from "@skeinui/ui";
+import { Avatar, BADGE_PLACEMENTS, Badge, Button, COLORS, SIZES } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
 
 /** The styling hooks the component writes; their descriptions are the page's `styling.<key>` messages. */
 const HOOKS = [
-  { key: "slot", name: "data-slot", type: "badge" },
-  { key: "variants", name: "data-variant / data-color / data-size / data-radius" },
+  { key: "slot", name: "data-slot", type: "badge / badge-indicator" },
+  { key: "root", name: "data-color / data-size / data-placement / data-wrapped" },
+  { key: "dot", name: "data-dot", type: "badge-indicator" },
 ];
 
 export default function BadgePage() {
@@ -18,60 +19,108 @@ export default function BadgePage() {
       <DocHeading id="examples" />
 
       <Example
-        id="variants"
-        code={`<Badge variant="solid">Solid</Badge>
-<Badge variant="soft">Soft</Badge>
-<Badge variant="outline">Outline</Badge>`}
+        id="usage"
+        code={`<Badge count={5}>
+  <Button variant="outline">Inbox</Button>
+</Badge>
+<Badge count={5}>
+  <Avatar fallback="AL" color="primary" />
+</Badge>`}
       >
         <div className="pg-flex pg-flex--center pg-flex--loose">
-          {BADGE_VARIANTS.map((v) => (
-            <Badge key={v} variant={v} color="primary">
-              {v}
-            </Badge>
-          ))}
+          <Badge count={5}>
+            <Button variant="outline">Inbox</Button>
+          </Badge>
+          <Badge count={5}>
+            <Avatar fallback="AL" color="primary" />
+          </Badge>
         </div>
       </Example>
 
-      <Example id="colors" code={`<Badge color="success">Success</Badge>`}>
-        <div className="pg-stack pg-stack--start">
-          {BADGE_VARIANTS.map((v) => (
-            <div key={v} className="pg-flex pg-flex--center pg-flex--loose">
-              {COLORS.map((c) => (
-                <Badge key={c} variant={v} color={c}>
-                  {c}
-                </Badge>
-              ))}
-            </div>
+      <Example
+        id="max"
+        code={`<Badge count={120}>…</Badge>
+<Badge count={120} max={999}>…</Badge>
+<Badge count={0}>…</Badge>
+<Badge count={0} showZero>…</Badge>`}
+      >
+        <div className="pg-flex pg-flex--center pg-flex--loose">
+          <Badge count={120}>
+            <Avatar fallback="99+" />
+          </Badge>
+          <Badge count={120} max={999}>
+            <Avatar fallback="120" />
+          </Badge>
+          <Badge count={0}>
+            <Avatar fallback="0" />
+          </Badge>
+          <Badge count={0} showZero>
+            <Avatar fallback="0" />
+          </Badge>
+        </div>
+      </Example>
+
+      <Example
+        id="dot"
+        code={`<Badge dot>
+  <Avatar fallback="AL" color="primary" />
+</Badge>`}
+      >
+        <div className="pg-flex pg-flex--center pg-flex--loose">
+          <Badge dot>
+            <Avatar fallback="AL" color="primary" />
+          </Badge>
+          <Badge dot color="success">
+            <Avatar fallback="BK" color="secondary" />
+          </Badge>
+        </div>
+      </Example>
+
+      <Example id="colors" code={`<Badge count={5} color="success">…</Badge>`}>
+        <div className="pg-flex pg-flex--center pg-flex--loose">
+          {COLORS.map((c) => (
+            <Badge key={c} count={5} color={c}>
+              <Avatar fallback={c.slice(0, 2).toUpperCase()} />
+            </Badge>
           ))}
         </div>
       </Example>
 
       <Example
         id="sizes"
-        code={`<Badge size="sm">Small</Badge>
-<Badge size="md">Medium</Badge>
-<Badge size="lg">Large</Badge>`}
+        code={`<Badge count={5} size="sm">…</Badge>
+<Badge count={5} size="md">…</Badge>
+<Badge count={5} size="lg">…</Badge>`}
       >
         <div className="pg-flex pg-flex--center pg-flex--loose">
-          <Badge size="sm" color="primary">
-            Small
-          </Badge>
-          <Badge size="md" color="primary">
-            Medium
-          </Badge>
-          <Badge size="lg" color="primary">
-            Large
-          </Badge>
+          {SIZES.map((s) => (
+            <Badge key={s} count={5} size={s}>
+              <Avatar fallback={s} size="lg" />
+            </Badge>
+          ))}
         </div>
       </Example>
 
-      <Example id="radius" code={`<Badge radius="none">none</Badge>`}>
+      <Example id="placement" code={`<Badge count={5} placement="bottom-end">…</Badge>`}>
         <div className="pg-flex pg-flex--center pg-flex--loose">
-          {RADII.map((r) => (
-            <Badge key={r} radius={r} color="primary">
-              {r}
+          {BADGE_PLACEMENTS.map((p) => (
+            <Badge key={p} count={5} placement={p}>
+              <Avatar fallback="AL" color="primary" size="lg" />
             </Badge>
           ))}
+        </div>
+      </Example>
+
+      <Example
+        id="standalone"
+        code={`<Badge count={25} />
+<Badge count="new" color="success" />
+<Badge count={5} color="primary" size="lg" />`}
+      >
+        <div className="pg-flex pg-flex--center pg-flex--loose">
+          <Badge count={25} />
+          <Badge count="new" color="success" />
+          <Badge count={5} color="primary" size="lg" />
         </div>
       </Example>
 

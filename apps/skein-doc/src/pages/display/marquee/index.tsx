@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Badge, Marquee, Switch } from "@skeinui/ui";
+import { Marquee, Switch, Tag } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
 
@@ -14,7 +14,7 @@ function News() {
   const t = usePageT();
   return (
     <span>
-      <Badge color="primary">{t("basic.new")}</Badge> {t("basic.news")}
+      <Tag color="primary">{t("basic.new")}</Tag> {t("basic.news")}
     </span>
   );
 }
