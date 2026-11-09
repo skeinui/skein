@@ -15,6 +15,7 @@
 @import "./select.css";
 @import "./badge.css";
 @import "./avatar.css";
+@import "./callout.css";
 @import "./card.css";
 @import "./spinner.css";
 @import "./separator.css";
@@ -22,6 +23,7 @@
 @import "./toast.css";
 @import "./progress.css";
 @import "./table.css";
+@import "./table-tools.css";
 @import "./pagination.css";
 @import "./alert.css";
 @import "./skeleton.css";

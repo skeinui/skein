@@ -1,0 +1,36 @@
+{
+  "lead": "A block of content set apart from the text around it: a message in a conversation (the customer's, the agent's, an internal note), a suggested reply, a quotation. `variant` and `color` set the look; the content is anything. For a short status message with an icon and a title, see [Alert](/alert); for a titled panel, [Card](/card).",
+  "usage": {
+    "title": "Usage",
+    "content": "Anything goes inside: text, a heading and a list, a form."
+  },
+  "variants": {
+    "title": "Variants",
+    "description": "`outline` a border, `soft` a tinted background, `dashed` a dashed border on a light tint."
+  },
+  "colors": {
+    "title": "Colors",
+    "description": "The tint comes from `color`."
+  },
+  "conversation": {
+    "title": "A conversation",
+    "description": "What it was made for: a message of each kind, told apart by `variant` and `color`.",
+    "customer": "Priya Nair",
+    "customerText": "How do I invite a teammate with read-only access?",
+    "agent": "Ada Lin",
+    "agentText": "Open Settings, then Members, and pick the Viewer role.",
+    "note": "Ben Carter · internal note",
+    "noteText": "The customer has asked twice, can you look at this one?"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "Theme styles handle it in `callout.css`: the tint is `color-mix` of the colour's token, the border is `--ui-border`.",
+    "hook": "Hook",
+    "sameAsProps": "same as the props",
+    "slot": "The block itself",
+    "variants": "Theme styles pick the look with them; `data-radius` appears only when `radius` is passed"
+  }
+}

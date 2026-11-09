@@ -269,7 +269,9 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
     ...(pagination ? ["Pagination"] : []),
     ...(removeMany ? ["Popconfirm"] : []),
     ...(selectable ? ["Text"] : []),
+    "TableTools",
     ...(ops.remove ? ["toast"] : []),
+    "useFixedHeader",
   ];
   const imports = [
     `import { ${uiImports.join(", ")} } from "@skeinui/ui";`,
@@ -279,7 +281,6 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
     `import { downloadCsv } from "@/lib/export-csv";`,
     `import type { ${sorted ? "ListQuery, Sort" : "ListQuery"} } from "@/lib/list-query";`,
     ...(usesAccess ? [`import { Access } from "@/modules/access";`] : []),
-    `import { TableTools, useFixedHeader } from "@/modules/table-tools";`,
     `import { Page } from "@/skein-shell";`,
     `import { ${[...(ops.remove ? [`delete${Entity}`] : []), fetchList, keys].join(", ")} } from "./api";`,
     `import type { ${Entity} } from "./api";`,

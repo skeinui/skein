@@ -162,6 +162,10 @@ export const BADGE_SLOTS = ["badge", "badge-indicator"] as const;
 
 export const AVATAR_SLOTS = ["avatar", "avatar-image", "avatar-fallback", "avatar-group"] as const;
 
+export const CALLOUT_VARIANTS = ["outline", "soft", "dashed"] as const;
+export type CalloutVariant = (typeof CALLOUT_VARIANTS)[number];
+export const CALLOUT_SLOTS = ["callout"] as const;
+
 export const CARD_VARIANTS = ["outline", "filled", "elevated"] as const;
 export type CardVariant = (typeof CARD_VARIANTS)[number];
 export const CARD_SLOTS = [
@@ -487,6 +491,8 @@ export const SORTABLE_VARIANTS = ["tile", "list"] as const;
 export type SortableVariant = (typeof SORTABLE_VARIANTS)[number];
 export const SORTABLE_ORIENTATIONS = ["vertical", "horizontal"] as const;
 export type SortableOrientation = (typeof SORTABLE_ORIENTATIONS)[number];
+export const TABLE_TOOLS_SLOTS = ["table-tools", "table-tools-columns"] as const;
+
 export const SORTABLE_SLOTS = [
   "sortable-root",
   "sortable",

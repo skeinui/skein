@@ -1,0 +1,27 @@
+{
+  "lead": "The tools of a table, on the right of its toolbar: refresh, a fixed header, which columns to show and in which order, and export. Each button is shown when its props are given; what they do is yours. With [DataTable](/data-table) it is the toolbar of a list page.",
+  "col": {
+    "name": "Name",
+    "email": "Email",
+    "role": "Role"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "Hide or move a column in the columns popover; refresh spins while the list loads.",
+    "exported": "{count} rows exported"
+  },
+  "fixed": {
+    "title": "Fixed header",
+    "description": "The button turns `stickyHeader` of the table on and off (the box here has a height; in a page it is `Page fill` and `Card fill`). `useFixedHeader` starts as fixed and remembers what the user chose, per key, in this browser."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "hook": "Hook",
+    "slot": "data-slot",
+    "root": "The row of buttons",
+    "columns": "The list in the columns popover"
+  }
+}

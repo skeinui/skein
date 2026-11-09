@@ -1,0 +1,61 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Callout: a block of content set apart from the text around it. outline: a border; soft: a tinted background; dashed: a dashed border on a light tint. The tint comes from data-color. */
+  [data-skein-theme="heroui"] [data-slot="callout"] {
+    box-sizing: border-box;
+    min-width: 0;
+    padding: calc(0.875rem * var(--ui-density)) calc(1rem * var(--ui-density));
+    border: 1px solid var(--ui-border);
+    border-radius: var(--_r, var(--ui-radius-lg));
+    background-color: transparent;
+    color: var(--ui-fg);
+    font-family: var(--ui-font-family);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-color="neutral"] {
+    --_tint: color-mix(in oklab, var(--ui-fg) 4%, transparent);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-color="primary"] {
+    --_tint: color-mix(in oklab, var(--ui-c-primary) 8%, transparent);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-color="secondary"] {
+    --_tint: color-mix(in oklab, var(--ui-c-secondary) 8%, transparent);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-color="success"] {
+    --_tint: color-mix(in oklab, var(--ui-c-success) 8%, transparent);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-color="warning"] {
+    --_tint: color-mix(in oklab, var(--ui-c-warning) 8%, transparent);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-color="danger"] {
+    --_tint: color-mix(in oklab, var(--ui-c-danger) 8%, transparent);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-variant="soft"] {
+    background-color: var(--_tint);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-variant="dashed"] {
+    border-style: dashed;
+    background-color: var(--_tint);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-size="sm"] {
+    padding: calc(0.5rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-size="lg"] {
+    padding: calc(1.25rem * var(--ui-density)) calc(1.5rem * var(--ui-density));
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-radius="none"] {
+    --_r: 0;
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-radius="sm"] {
+    --_r: var(--ui-radius-sm);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-radius="md"] {
+    --_r: var(--ui-radius-md);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-radius="lg"] {
+    --_r: var(--ui-radius-lg);
+  }
+  [data-skein-theme="heroui"] [data-slot="callout"][data-radius="full"] {
+    --_r: var(--ui-radius-full);
+  }
+}

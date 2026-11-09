@@ -78,6 +78,8 @@ export { Badge } from "./components/badge/index.ts";
 export type { BadgeProps } from "./components/badge/index.ts";
 export { Avatar, AvatarGroup } from "./components/avatar/index.ts";
 export type { AvatarGroupProps, AvatarProps } from "./components/avatar/index.ts";
+export { Callout } from "./components/callout/index.ts";
+export type { CalloutProps } from "./components/callout/index.ts";
 export { Card } from "./components/card/index.ts";
 export type { CardPartProps, CardProps } from "./components/card/index.ts";
 export { Spinner } from "./components/spinner/index.ts";
@@ -371,6 +373,8 @@ export type {
   FormDrawerProps,
   FormPanelProps,
 } from "./components/form-drawer/index.ts";
+export { TableTools, useFixedHeader } from "./components/table-tools/index.ts";
+export type { TableToolsColumn, TableToolsProps } from "./components/table-tools/index.ts";
 export { SplitButton } from "./components/split-button/index.ts";
 export type {
   SplitButtonProps,

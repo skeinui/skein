@@ -6,6 +6,7 @@ import { afterEach, describe, expect, test } from "vite-plus/test";
 import {
   Avatar,
   Badge,
+  Callout,
   Card,
   Progress,
   Separator,
@@ -71,6 +72,22 @@ describe("display components (SSR)", () => {
   test("Card `fill` is a data attribute, off by default", () => {
     expect(ssr(createElement(Card, null, "x"))).not.toContain("data-fill");
     expect(ssr(createElement(Card, { fill: true }, "x"))).toContain("data-fill");
+  });
+
+  test("Callout: outline / neutral / md by default, data attributes only, any content", () => {
+    const html = ssr(createElement(Callout, null, createElement("b", null, "Hi")));
+    expect(html).toContain('data-slot="callout"');
+    expect(html).toContain('data-variant="outline"');
+    expect(html).toContain('data-color="neutral"');
+    expect(html).toContain('data-size="md"');
+    expect(html).toContain("<b>Hi</b>");
+    expect(html).not.toMatch(/class=|style=|data-radius/);
+    const note = ssr(
+      createElement(Callout, { variant: "dashed", color: "warning", radius: "lg" }, "n"),
+    );
+    expect(note).toContain('data-variant="dashed"');
+    expect(note).toContain('data-color="warning"');
+    expect(note).toContain('data-radius="lg"');
   });
 
   test("Spinner has role=status and a default accessible name", () => {

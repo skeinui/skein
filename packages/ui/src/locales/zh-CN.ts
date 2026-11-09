@@ -459,6 +459,12 @@ export const zhCN: Messages = {
     otpField: { code: "验证码", digit: (n) => `第 ${n} 位` },
     sidebar: { sidebar: "侧边栏", toggle: "展开 / 收起侧边栏" },
     splitButton: { more: "更多操作" },
+    tableTools: {
+      refresh: "刷新",
+      fixed: "固定表头，只滚动行",
+      columns: "列显示",
+      export: "导出 CSV",
+    },
     splitter: { resize: "调整大小" },
     suggestions: { label: "建议" },
     table: { resizeColumn: "调整列宽", expandRow: "展开行", collapseRow: "收起行" },

@@ -1,10 +1,9 @@
-import { Button, Card, Flex, Pagination, toast } from "@skeinui/ui";
+import { Button, Card, Flex, Pagination, TableTools, toast, useFixedHeader } from "@skeinui/ui";
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { downloadCsv } from "@/lib/export-csv";
 import { Access } from "@/modules/access";
-import { TableTools, useFixedHeader } from "@/modules/table-tools";
 import { Page } from "@/skein-shell";
 import { deleteUser, fetchUsers, userKeys } from "./api";
 import type { ListQuery } from "@/lib/list-query";

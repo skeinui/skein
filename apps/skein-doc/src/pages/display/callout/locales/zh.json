@@ -1,0 +1,45 @@
+{
+  "lead": "与周围文字区分开的一块内容：对话里的一条消息（客户的、客服的、内部备注）、一段建议回复、一段引用。`variant` 和 `color` 决定外观，内容可以是任何东西。带图标和标题的简短状态提示见 [Alert](/alert)，带标题的面板见 [Card](/card)。",
+  "usage": {
+    "title": "基本用法",
+    "content": "里面可以放任何内容：文字、标题加列表、表单。"
+  },
+  "variants": {
+    "title": "变体",
+    "description": "`outline` 边框，`soft` 淡色底，`dashed` 虚线边框加淡色底。"
+  },
+  "colors": {
+    "title": "颜色",
+    "description": "底色由 `color` 决定。"
+  },
+  "conversation": {
+    "title": "一段对话",
+    "description": "它的本意：每种消息一个，用 `variant` 和 `color` 区分。",
+    "customer": "Priya Nair",
+    "customerText": "怎么邀请同事加入，并且只给只读权限？",
+    "agent": "Ada Lin",
+    "agentText": "打开「设置」里的「成员」，选择「查看者」角色。",
+    "note": "Ben Carter · 内部备注",
+    "noteText": "客户已经问了两次，你能看一下这个吗？"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "主题风格在 `callout.css` 里处理：底色是颜色 token 的 `color-mix`，边框是 `--ui-border`。",
+    "hook": "钩子",
+    "sameAsProps": "同 props",
+    "slot": "块本身",
+    "variants": "主题风格用它们选外观；`data-radius` 仅在传了 `radius` 时出现"
+  },
+  "props": {
+    "Callout": {
+      "children": "内容，任何东西。",
+      "color": "底色的语义色，具体颜色由主题风格决定。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "size": "内边距档位。",
+      "variant": "视觉变体：`outline` 边框、`soft` 淡色底、`dashed` 虚线边框加淡色底，具体画法由主题风格决定。"
+    }
+  }
+}

@@ -3,6 +3,7 @@ import type { PageMeta } from "@/registry.ts";
 export default {
   label: "Typography",
   origin: "Skein",
+  updated: "0.1.3",
   toc: [
     {
       group: "examples",

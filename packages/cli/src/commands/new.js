@@ -12,12 +12,7 @@ import { Writer } from "../writer.js";
 const GROUP_ICONS = { system: "Settings", settings: "Settings" };
 
 /** What a list page's search bar and table tools are made of, in the admin template (`features/shell`). */
-const LIST_PARTS = [
-  "lib/list-query",
-  "lib/export-csv.ts",
-  "modules/query-builder",
-  "modules/table-tools",
-];
+const LIST_PARTS = ["lib/list-query", "lib/export-csv.ts", "modules/query-builder"];
 const LIST_STYLES = "src/styles/index.css";
 
 /** Every file under `path` (a file or a directory) of the shell template, as paths relative to its `src/`. */

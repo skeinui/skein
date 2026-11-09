@@ -226,24 +226,6 @@ body {
   flex: 1;
   min-width: 0;
 }
-
-/* The columns popover */
-/* A list of rows like a menu: the popover's own padding is for content, the rows bring theirs */
-[data-slot="popover"]:has(> .table-columns) {
-  padding: 0.5rem;
-}
-.table-columns {
-  min-width: 11rem;
-}
-/* The tools' icons are drawn like the side menu's: about 1.5px strokes, a step lighter than the text (80%), full on hover */
-.table-tools [data-slot="button"] svg {
-  stroke-width: 2.25;
-  color: color-mix(in srgb, currentcolor 80%, transparent);
-  transition: color 150ms ease;
-}
-.table-tools [data-slot="button"]:hover svg {
-  color: inherit;
-}
 {{#if tenant}}
 
 /* The tenant switcher next to the logo: a small button is 1.5rem high in some theme styles (antd), too low here */

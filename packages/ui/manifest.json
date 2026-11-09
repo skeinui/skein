@@ -3164,6 +3164,82 @@
         }
       ]
     },
+    "Callout": {
+      "description": "Callout: a block of content set apart from the text around it, such as a message in a conversation (the customer's, the agent's, an internal note),\na suggested reply or a quotation. `variant` / `color` set the look; the content is anything.\nFor a short status message with an icon and a title use Alert; for a titled panel use Card.",
+      "import": "import { Callout } from \"@skeinui/ui\";",
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "description": "The content."
+        },
+        "color": {
+          "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+          "values": [
+            "primary",
+            "secondary",
+            "success",
+            "warning",
+            "danger",
+            "neutral"
+          ],
+          "description": "Semantic colour of the tint; the theme style picks the actual colours.",
+          "default": "\"neutral\""
+        },
+        "radius": {
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "none",
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "description": "Corner radius step; when omitted the theme style decides."
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Padding step.",
+          "default": "\"md\""
+        },
+        "variant": {
+          "type": "\"soft\" | \"outline\" | \"dashed\"",
+          "values": [
+            "soft",
+            "outline",
+            "dashed"
+          ],
+          "description": "Visual variant; how each one looks is up to the theme style: `outline` a border, `soft` a tinted background, `dashed` a dashed border on a light tint.",
+          "default": "\"outline\""
+        }
+      },
+      "slots": [
+        "callout"
+      ],
+      "docs": "callout",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<Callout>Anything: text, a heading and a list, a form.</Callout>"
+        },
+        {
+          "title": "Variants",
+          "code": "<Callout variant=\"outline\">…</Callout>\n<Callout variant=\"soft\" color=\"primary\">…</Callout>\n<Callout variant=\"dashed\" color=\"warning\">…</Callout>"
+        },
+        {
+          "title": "Colors",
+          "code": "<Callout variant=\"soft\" color=\"success\">…</Callout>"
+        },
+        {
+          "title": "A conversation",
+          "code": "<Callout>…the customer…</Callout>\n<Callout variant=\"soft\" color=\"primary\">…the agent…</Callout>\n<Callout variant=\"dashed\" color=\"warning\">…an internal note…</Callout>"
+        }
+      ]
+    },
     "Card": {
       "description": "Card: a container that groups related content into one panel.\nCompose `Card.Header` (with `Card.Title` / `Card.Description`), `Card.Body` and `Card.Footer` (usually actions);\n`variant` / `radius` set its look. For a key figure use Statistic; for a list of records use List or Table.\n\nTheme style: structure only; padding, outline and shadow are all decided by the theme style.",
       "import": "import { Card } from \"@skeinui/ui\";",
@@ -5696,6 +5772,9 @@
             },
             "table": {
               "type": "Partial<TableLabels>"
+            },
+            "tableTools": {
+              "type": "Partial<TableToolsLabels>"
             },
             "tagInput": {
               "type": "Partial<TagInputLabels>"
@@ -17566,6 +17645,103 @@
         }
       ]
     },
+    "TableTools": {
+      "description": "TableTools: the tools of a table, on the right of its toolbar: refresh, a fixed header, which columns to show and in which order, and export.\nEach button is shown when its props are given; what they do is yours (reload, `stickyHeader`, hide / move columns, write the file).\nTo keep the user's choice of a fixed header use `useFixedHeader`.",
+      "import": "import { TableTools } from \"@skeinui/ui\";",
+      "props": {
+        "columns": {
+          "type": "readonly TableToolsColumn[]",
+          "description": "The columns in their order: the button for which to show and where is shown when `columns`, `visible`, `onVisibleChange` and `onOrderChange` are all given."
+        },
+        "fixed": {
+          "type": "boolean",
+          "description": "The header is fixed and only the rows scroll (the table gets `stickyHeader`, the card `fill`, the page `fill`); the button is shown when\n`onFixedChange` is given. `useFixedHeader` keeps the user's choice."
+        },
+        "labels": {
+          "type": "Partial<TableToolsLabels>",
+          "description": "Texts of the buttons, for another language."
+        },
+        "onExport": {
+          "type": "() => void",
+          "description": "Download what the table shows (the export is yours: see `downloadCsv` of the templates); the button is shown when this is given."
+        },
+        "onFixedChange": {
+          "type": "(fixed: boolean) => void",
+          "description": "Called with the new `fixed`; pass `fixed` as well to control it."
+        },
+        "onOrderChange": {
+          "type": "(keys: string[]) => void",
+          "description": "A column was moved: all keys in the new order."
+        },
+        "onRefresh": {
+          "type": "() => void",
+          "description": "Reload the list: the refresh button is shown when this is given."
+        },
+        "onVisibleChange": {
+          "type": "(visible: string[]) => void",
+          "description": "A column was shown or hidden: the keys now shown, in the order of `columns`."
+        },
+        "refreshing": {
+          "type": "boolean",
+          "description": "The list is being reloaded: the refresh icon turns (and the button ignores clicks until it is done)."
+        },
+        "visible": {
+          "type": "readonly string[]",
+          "description": "The keys of the columns shown."
+        }
+      },
+      "types": {
+        "TableToolsColumn": {
+          "props": {
+            "key": {
+              "type": "string",
+              "required": true,
+              "description": "Identifies the column; what `visible` and `onOrderChange` use."
+            },
+            "label": {
+              "type": "string",
+              "required": true,
+              "description": "The column's name in the list."
+            }
+          }
+        },
+        "TableToolsLabels": {
+          "props": {
+            "columns": {
+              "type": "string",
+              "required": true
+            },
+            "export": {
+              "type": "string",
+              "required": true
+            },
+            "fixed": {
+              "type": "string",
+              "required": true
+            },
+            "refresh": {
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      },
+      "slots": [
+        "table-tools",
+        "table-tools-columns"
+      ],
+      "docs": "table-tools",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<TableTools\n  onRefresh={() => refetch()}\n  refreshing={isFetching}\n  columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}\n  visible={visible}\n  onVisibleChange={setVisible}\n  onOrderChange={setOrder}\n  onExport={() => downloadCsv(\"people.csv\", header, rows)}\n/>"
+        },
+        {
+          "title": "Fixed header",
+          "code": "const [fixed, setFixed] = useFixedHeader(\"people\");\n\n<TableTools fixed={fixed} onFixedChange={setFixed} />\n<DataTable stickyHeader={fixed} … />"
+        }
+      ]
+    },
     "Tabs": {
       "description": "Tabs: switches between panels of content in the same place, one tab per panel.\nCompose `Tabs.List` with `Tabs.Tab value=\"…\"` and a matching `Tabs.Panel value=\"…\"`; `value` / `onValueChange` control the\nselected tab (`defaultValue` for uncontrolled). `variant` / `color` / `size` set the look, `fullWidth` stretches the tabs.\nArrow keys move between tabs. For a compact value picker use Segmented; for app-level open-page tabs use PageTabs.\n\nTheme style: keyboard navigation, selected state and panel association all come from Base UI.",
       "import": "import { Tabs } from \"@skeinui/ui\";",
@@ -20917,6 +21093,14 @@
       "calendar-period-row",
       "calendar-period"
     ],
+    "CALLOUT_SLOTS": [
+      "callout"
+    ],
+    "CALLOUT_VARIANTS": [
+      "outline",
+      "soft",
+      "dashed"
+    ],
     "CARD_SLOTS": [
       "card",
       "card-header",
@@ -22151,6 +22335,10 @@
       "asc",
       "desc"
     ],
+    "TABLE_TOOLS_SLOTS": [
+      "table-tools",
+      "table-tools-columns"
+    ],
     "TABS_SLOTS": [
       "tabs",
       "tabs-list",
@@ -22594,6 +22782,9 @@
       ],
       "Calendar": [
         "calendar"
+      ],
+      "Callout": [
+        "callout"
       ],
       "canHighlight": [],
       "Card": [
@@ -23126,6 +23317,17 @@
         "table",
         "tag"
       ],
+      "TableTools": [
+        "button",
+        "checkbox",
+        "flex",
+        "grid",
+        "layout",
+        "popover",
+        "sortable",
+        "table-tools",
+        "tooltip"
+      ],
       "Tabs": [
         "tabs"
       ],
@@ -23242,6 +23444,7 @@
         "chat-thread"
       ],
       "useConfig": [],
+      "useFixedHeader": [],
       "useSidebar": [
         "dialog",
         "drawer",

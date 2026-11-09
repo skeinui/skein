@@ -1,0 +1,41 @@
+{
+  "lead": "表格的工具，放在工具栏右侧：刷新、固定表头、显示哪些列和列的顺序、导出。传了对应的属性才显示对应的按钮，按钮做什么由你决定。和 [DataTable](/data-table) 一起就是列表页的工具栏。",
+  "col": {
+    "name": "姓名",
+    "email": "邮箱",
+    "role": "角色"
+  },
+  "usage": {
+    "title": "基本用法",
+    "description": "在列显示的弹层里隐藏或移动列；刷新时按钮转圈。",
+    "exported": "已导出 {count} 行"
+  },
+  "fixed": {
+    "title": "固定表头",
+    "description": "按钮打开或关闭表格的 `stickyHeader`（这里的盒子有高度；在页面里是 `Page fill` 和 `Card fill`）。`useFixedHeader` 默认固定，并按 key 在这个浏览器里记住用户的选择。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "hook": "钩子",
+    "slot": "data-slot",
+    "root": "一排按钮",
+    "columns": "列显示弹层里的列表"
+  },
+  "props": {
+    "TableTools": {
+      "onRefresh": "刷新列表；传了才显示刷新按钮。",
+      "refreshing": "列表正在刷新：刷新按钮转圈。",
+      "fixed": "表头是否固定、只滚动行（表格 `stickyHeader`、卡片 `fill`、页面 `fill` 由页面接上）。用 `useFixedHeader` 记住用户的选择。",
+      "onFixedChange": "点了固定表头按钮：参数是新的值；传了才显示这个按钮。",
+      "columns": "按顺序的列；`columns`、`visible`、`onVisibleChange`、`onOrderChange` 都传了才显示列显示按钮。",
+      "visible": "显示的列的 key。",
+      "onVisibleChange": "显示或隐藏了某列：参数是现在显示的 key，按 `columns` 的顺序。",
+      "onOrderChange": "移动了某列：参数是新顺序里的全部 key。",
+      "onExport": "下载表格显示的内容（导出由你写）；传了才显示导出按钮。",
+      "labels": "按钮的文字，用于其他语言。"
+    }
+  }
+}

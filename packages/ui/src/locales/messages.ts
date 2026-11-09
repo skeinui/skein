@@ -54,6 +54,12 @@ export interface SidebarLabels {
 export interface SplitButtonLabels {
   more: string;
 }
+export interface TableToolsLabels {
+  refresh: string;
+  fixed: string;
+  columns: string;
+  export: string;
+}
 export interface TreeSelectLabels {
   options: string;
 }
@@ -225,6 +231,7 @@ export interface LabelTypes {
   splitter: SplitterLabels;
   suggestions: SuggestionsLabels;
   table: TableLabels;
+  tableTools: TableToolsLabels;
   tagInput: TagInputLabels;
   threadList: ThreadListLabels;
   transfer: TransferLabels;

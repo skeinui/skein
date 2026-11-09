@@ -463,6 +463,12 @@ export const en: Messages = {
     otpField: { code: "Verification code", digit: (n) => `Digit ${n}` },
     sidebar: { sidebar: "Sidebar", toggle: "Toggle sidebar" },
     splitButton: { more: "More actions" },
+    tableTools: {
+      refresh: "Refresh",
+      fixed: "Fix the header and scroll the rows",
+      columns: "Columns",
+      export: "Export CSV",
+    },
     splitter: { resize: "Resize" },
     suggestions: { label: "Suggestions" },
     table: { resizeColumn: "Resize column", expandRow: "Expand row", collapseRow: "Collapse row" },
