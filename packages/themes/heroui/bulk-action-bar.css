@@ -17,6 +17,9 @@
     font-family: var(--ui-font-family);
     font-size: 0.875rem;
   }
+  [data-skein-theme="heroui"] [data-slot="bulk-action-bar"] [data-slot="button"] {
+    font-weight: 400;
+  }
   [data-skein-theme="heroui"] [data-slot="bulk-action-bar"][data-placement="bottom"] {
     position: sticky;
     bottom: 1rem;
