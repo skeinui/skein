@@ -50,6 +50,12 @@ describe("BulkActionBar", () => {
     // laid over the table's edge on a zero-height anchor, not in the flow
     expect(floating).toContain('data-slot="bulk-action-bar-anchor"');
     expect(html).not.toContain("bulk-action-bar-anchor");
+    // inside the table by default, or outside its edge
+    expect(floating).toContain('data-floating-in="inside"');
+    expect(
+      ssr(createElement(BulkActionBar, { count: 1, floating: true, floatingIn: "outside" })),
+    ).toContain('data-floating-in="outside"');
+    expect(html).not.toContain("data-floating-in");
   });
 
   test("Clear shows only when onClear is given, and calls it", async () => {

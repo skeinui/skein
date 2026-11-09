@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { BulkActionBar, Button, Card, DataTable, MenuButton, Segmented, toast } from "@skeinui/ui";
+import {
+  BulkActionBar,
+  Button,
+  Card,
+  DataTable,
+  Flex,
+  MenuButton,
+  Segmented,
+  toast,
+} from "@skeinui/ui";
 import type { BulkActionBarProps } from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead } from "@/doc/doc.tsx";
@@ -26,10 +35,12 @@ function Demo({
   const t = usePageT();
   const [selected, setSelected] = useState<string[]>(initial);
   const [placement, setPlacement] = useState(initialPlacement);
+  const [floatingIn, setFloatingIn] = useState<"inside" | "outside">("inside");
   const bar = (
     <BulkActionBar
       placement={placement}
       floating={floating}
+      floatingIn={floatingIn}
       count={selected.length}
       onClear={() => setSelected([])}
     >
@@ -41,16 +52,30 @@ function Demo({
       <Card.Body>
         <div className="pg-stack">
           {switchable ? (
-            <Segmented
-              size="sm"
-              aria-label={t("placement.label")}
-              value={placement}
-              onValueChange={(v) => setPlacement(v as typeof placement)}
-              options={[
-                { value: "top", label: t("placement.top") },
-                { value: "bottom", label: t("placement.bottom") },
-              ]}
-            />
+            <Flex gap="md" align="center" wrap>
+              <Segmented
+                size="sm"
+                aria-label={t("placement.label")}
+                value={placement}
+                onValueChange={(v) => setPlacement(v as typeof placement)}
+                options={[
+                  { value: "top", label: t("placement.top") },
+                  { value: "bottom", label: t("placement.bottom") },
+                ]}
+              />
+              {floating ? (
+                <Segmented
+                  size="sm"
+                  aria-label={t("floating.in")}
+                  value={floatingIn}
+                  onValueChange={(v) => setFloatingIn(v as typeof floatingIn)}
+                  options={[
+                    { value: "inside", label: t("floating.inside") },
+                    { value: "outside", label: t("floating.outside") },
+                  ]}
+                />
+              ) : null}
+            </Flex>
           ) : null}
           <div>
             {placement === "top" ? bar : null}
@@ -135,7 +160,7 @@ export default function BulkActionBarPage() {
 
       <Example
         id="floating"
-        code={`<BulkActionBar floating placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
+        code={`<BulkActionBar floating floatingIn="inside" placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
       >
         <Demo placement="bottom" floating switchable initial={[]} />
       </Example>

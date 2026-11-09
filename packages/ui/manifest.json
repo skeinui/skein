@@ -2754,6 +2754,15 @@
           "description": "Float: the bar is laid over the edge of the table it is next to instead of taking room in the flow, with a shadow, so the rows do not jump when it appears: the bottom edge of the table above it (`placement=\"bottom\"`, put it right after the table) or the top edge of the table below it (`\"top\"`, put it right before). Off, it is a plain bar in the flow.",
           "default": "false"
         },
+        "floatingIn": {
+          "type": "\"inside\" | \"outside\"",
+          "values": [
+            "inside",
+            "outside"
+          ],
+          "description": "With `floating`: `inside` lays the bar on the table, over its last (or first) rows; `outside` lays it on what is beyond the edge of the table (the pagination below it, the toolbar above it). Neither takes room in the flow.",
+          "default": "\"inside\""
+        },
         "labels": {
           "type": "Partial<BulkActionBarLabels>",
           "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
@@ -2807,7 +2816,7 @@
         },
         {
           "title": "Floating",
-          "code": "<BulkActionBar floating placement=\"bottom\" count={selected.length} onClear={clear}>…</BulkActionBar>"
+          "code": "<BulkActionBar floating floatingIn=\"inside\" placement=\"bottom\" count={selected.length} onClear={clear}>…</BulkActionBar>"
         }
       ]
     },
@@ -21924,6 +21933,10 @@
       "lg",
       "xl",
       "xxl"
+    ],
+    "BULK_ACTION_BAR_FLOATS": [
+      "inside",
+      "outside"
     ],
     "BULK_ACTION_BAR_PLACEMENTS": [
       "top",

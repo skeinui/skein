@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { BULK_ACTION_BAR_PLACEMENTS } from "../../contract.ts";
-import type { BulkActionBarPlacement } from "../../contract.ts";
+import { BULK_ACTION_BAR_FLOATS, BULK_ACTION_BAR_PLACEMENTS } from "../../contract.ts";
+import type { BulkActionBarFloat, BulkActionBarPlacement } from "../../contract.ts";
 import type { BulkActionBarLabels } from "../../locales/messages.ts";
 import { useLabels } from "../../locales/use-labels.ts";
 import { Button } from "../button/index.ts";
@@ -25,6 +25,11 @@ export interface BulkActionBarProps extends Omit<
    * @default false
    */
   floating?: boolean;
+  /**
+   * With `floating`: `inside` lays the bar on the table, over its last (or first) rows; `outside` lays it on what is beyond the edge of the table (the pagination below it, the toolbar above it). Neither takes room in the flow.
+   * @default "inside"
+   */
+  floatingIn?: BulkActionBarFloat;
   /** The actions on the selection: buttons, a MenuButton… */
   children?: ReactNode;
   /** Texts for another language; the default follows the `locale` of ConfigProvider. */
@@ -41,6 +46,7 @@ export function BulkActionBar({
   onClear,
   placement = "top",
   floating = false,
+  floatingIn = "inside",
   children,
   labels,
   ...rest
@@ -55,6 +61,9 @@ export function BulkActionBar({
       data-slot="bulk-action-bar"
       data-placement={BULK_ACTION_BAR_PLACEMENTS.includes(placement) ? placement : "top"}
       data-floating={floating ? "" : undefined}
+      data-floating-in={
+        floating && BULK_ACTION_BAR_FLOATS.includes(floatingIn) ? floatingIn : undefined
+      }
     >
       <Text role="status">{t.selected(count)}</Text>
       <Flex gap="sm" align="center" wrap>
