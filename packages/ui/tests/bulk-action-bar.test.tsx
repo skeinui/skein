@@ -28,10 +28,10 @@ const ssr = (n: React.ReactElement) => renderToStaticMarkup(n);
 describe("BulkActionBar", () => {
   test("`offset` is written as the CSS variable the theme style reads", async () => {
     const el = await mount(
-      createElement(BulkActionBar, { count: 2, floating: true, offset: 24 }, "x"),
+      createElement(BulkActionBar, { count: 2, floating: true, offset: 1.5 }, "x"),
     );
     const bar = el.querySelector<HTMLElement>('[data-slot="bulk-action-bar"]')!;
-    expect(bar.style.getPropertyValue("--bulk-action-bar-offset")).toBe("24px");
+    expect(bar.style.getPropertyValue("--bulk-action-bar-offset")).toBe("1.5rem");
     await act(async () =>
       root!.render(createElement(BulkActionBar, { count: 2, floating: true }, "x")),
     );

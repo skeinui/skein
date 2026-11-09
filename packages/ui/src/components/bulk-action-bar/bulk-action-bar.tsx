@@ -32,8 +32,8 @@ export interface BulkActionBarProps extends Omit<
    */
   floatingIn?: BulkActionBarFloat;
   /**
-   * With `floating`: the distance (px) from the table's edge line, to the top or to the bottom (by `placement`, and `inside` or `outside`); a negative number moves it the other way, across the line.
-   * @default 8
+   * With `floating`: the distance (rem) from the table's edge line, to the top or to the bottom (by `placement`, and `inside` or `outside`); a negative number moves it the other way, across the line.
+   * @default 0.5
    */
   offset?: number;
   /** The actions on the selection: buttons, a MenuButton… */
@@ -65,7 +65,7 @@ export function BulkActionBar({
     const el = ref.current;
     if (!el) return;
     if (offset === undefined) el.style.removeProperty("--bulk-action-bar-offset");
-    else el.style.setProperty("--bulk-action-bar-offset", `${offset}px`);
+    else el.style.setProperty("--bulk-action-bar-offset", `${offset}rem`);
   }, [offset, count]);
   if (count <= 0) return null;
   const bar = (

@@ -37,20 +37,20 @@
     box-shadow: var(--ui-overlay-shadow);
   }
   [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-floating][data-placement="top"] {
-    top: var(--bulk-action-bar-offset, 8px);
+    top: var(--bulk-action-bar-offset, 0.5rem);
   }
   [data-skein-theme="antd"] [data-slot="bulk-action-bar"][data-floating][data-placement="bottom"] {
-    bottom: var(--bulk-action-bar-offset, 8px);
+    bottom: var(--bulk-action-bar-offset, 0.5rem);
   }
   /* Outside: beyond the edge of the table instead of on it */
   [data-skein-theme="antd"]
     [data-slot="bulk-action-bar"][data-floating-in="outside"][data-placement="top"] {
     top: auto;
-    bottom: var(--bulk-action-bar-offset, 8px);
+    bottom: var(--bulk-action-bar-offset, 0.5rem);
   }
   [data-skein-theme="antd"]
     [data-slot="bulk-action-bar"][data-floating-in="outside"][data-placement="bottom"] {
-    top: var(--bulk-action-bar-offset, 8px);
+    top: var(--bulk-action-bar-offset, 0.5rem);
     bottom: auto;
   }
 }

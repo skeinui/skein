@@ -37,7 +37,7 @@ function Demo({
   const [selected, setSelected] = useState<string[]>(initial);
   const [placement, setPlacement] = useState(initialPlacement);
   const [floatingIn, setFloatingIn] = useState<"inside" | "outside">("inside");
-  const [offset, setOffset] = useState(8);
+  const [offset, setOffset] = useState(0.5);
   const bar = (
     <BulkActionBar
       placement={placement}
@@ -83,9 +83,9 @@ function Demo({
                   size="sm"
                   aria-label={t("floating.offset")}
                   value={offset}
-                  min={-48}
-                  max={96}
-                  step={4}
+                  min={-3}
+                  max={6}
+                  step={0.25}
                   onValueChange={(v) => setOffset(v ?? 0)}
                 />
               ) : null}

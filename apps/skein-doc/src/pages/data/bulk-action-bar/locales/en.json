@@ -29,10 +29,10 @@
   },
   "floating": {
     "title": "Floating",
-    "description": "`floating` lays the bar over the edge of the table instead of in the flow: it takes no room, so the rows do not jump when it appears. With `placement=\"bottom\"` put it right after the table and it sits on the table's bottom edge; with `\"top\"` put it right before and it sits on the top edge. `--bulk-action-bar-offset` sets its distance from that edge. Tick a row to see it. `floatingIn` chooses where: `inside` (the default) lays it on the table, over its last rows (its first rows for `top`); `outside` lays it on what is beyond the edge, such as the pagination below the table. `offset` is its distance (px) from that edge line, to the top or the bottom (8 by default); a negative number moves it across the line.",
+    "description": "`floating` lays the bar over the edge of the table instead of in the flow: it takes no room, so the rows do not jump when it appears. With `placement=\"bottom\"` put it right after the table and it sits on the table's bottom edge; with `\"top\"` put it right before and it sits on the top edge. `--bulk-action-bar-offset` sets its distance from that edge. Tick a row to see it. `floatingIn` chooses where: `inside` (the default) lays it on the table, over its last rows (its first rows for `top`); `outside` lays it on what is beyond the edge, such as the pagination below the table. `offset` is its distance (rem) from that edge line, to the top or the bottom (0.5 by default); a negative number moves it across the line.",
     "in": "Inside or outside the table",
     "inside": "Inside",
     "outside": "Outside",
-    "offset": "Distance from the edge line (px)"
+    "offset": "Distance from the edge line (rem)"
   }
 }
