@@ -23639,6 +23639,7 @@
         "list",
         "notification-bell",
         "popover",
+        "scroll-area",
         "spinner",
         "typography"
       ],

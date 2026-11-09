@@ -7,6 +7,7 @@ import { Flex } from "../layout/index.ts";
 import { List } from "../list/index.ts";
 import { Popover } from "../popover/index.ts";
 import { RelativeTime } from "../relative-time/index.ts";
+import { ScrollArea } from "../scroll-area/index.ts";
 import { Text } from "../typography/index.ts";
 
 export interface NotificationItem {
@@ -117,56 +118,58 @@ export function NotificationBell({
                 </Button>
               ) : null}
             </Flex>
-            <List
-              size="sm"
-              empty={t.empty}
-              items={items.map((n) => ({
-                key: String(n.id),
-                avatar: n.read ? undefined : <Badge dot size="sm" color="primary" />,
-                title: n.title,
-                description: n.description,
-                extra:
-                  n.time === undefined ? undefined : (
-                    <Text tone="secondary">
-                      <RelativeTime value={n.time} locale={locale} />
-                    </Text>
-                  ),
-                actions: [
-                  onOpen && n.canOpen ? (
-                    <Button
-                      key="open"
-                      variant="ghost"
-                      color="neutral"
-                      size="sm"
-                      iconOnly
-                      aria-label={t.open}
-                      onClick={() => onOpen(n)}
-                    >
-                      <Icon>
-                        <path d="M15 3h6v6" />
-                        <path d="M10 14 21 3" />
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                      </Icon>
-                    </Button>
-                  ) : null,
-                  onRead && !n.read ? (
-                    <Button
-                      key="read"
-                      variant="ghost"
-                      color="neutral"
-                      size="sm"
-                      iconOnly
-                      aria-label={t.markRead}
-                      onClick={() => onRead(n)}
-                    >
-                      <Icon>
-                        <path d="M20 6 9 17l-5-5" />
-                      </Icon>
-                    </Button>
-                  ) : null,
-                ],
-              }))}
-            />
+            <ScrollArea>
+              <List
+                size="sm"
+                empty={t.empty}
+                items={items.map((n) => ({
+                  key: String(n.id),
+                  avatar: n.read ? undefined : <Badge dot size="sm" color="primary" />,
+                  title: n.title,
+                  description: n.description,
+                  extra:
+                    n.time === undefined ? undefined : (
+                      <Text tone="secondary">
+                        <RelativeTime value={n.time} locale={locale} />
+                      </Text>
+                    ),
+                  actions: [
+                    onOpen && n.canOpen ? (
+                      <Button
+                        key="open"
+                        variant="ghost"
+                        color="neutral"
+                        size="sm"
+                        iconOnly
+                        aria-label={t.open}
+                        onClick={() => onOpen(n)}
+                      >
+                        <Icon>
+                          <path d="M15 3h6v6" />
+                          <path d="M10 14 21 3" />
+                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        </Icon>
+                      </Button>
+                    ) : null,
+                    onRead && !n.read ? (
+                      <Button
+                        key="read"
+                        variant="ghost"
+                        color="neutral"
+                        size="sm"
+                        iconOnly
+                        aria-label={t.markRead}
+                        onClick={() => onRead(n)}
+                      >
+                        <Icon>
+                          <path d="M20 6 9 17l-5-5" />
+                        </Icon>
+                      </Button>
+                    ) : null,
+                  ],
+                }))}
+              />
+            </ScrollArea>
           </Flex>
         </div>
       </Popover.Content>

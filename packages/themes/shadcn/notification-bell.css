@@ -1,8 +1,13 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* NotificationBell: the list in the popover, wide enough for a sentence and never wider than the screen */
+  /* NotificationBell: the list in the popover, wide enough for a sentence and never wider than the screen; it scrolls past the max height */
   [data-skein-theme="shadcn"] [data-slot="notification-bell"] {
     width: min(22rem, calc(100vw - 2rem));
+    --notification-bell-max-h: min(24rem, 60vh);
+  }
+  [data-skein-theme="shadcn"] [data-slot="notification-bell"] [data-slot="scroll-area"],
+  [data-skein-theme="shadcn"] [data-slot="notification-bell"] [data-slot="scroll-area-viewport"] {
+    max-height: var(--notification-bell-max-h);
   }
 }
