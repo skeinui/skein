@@ -49,7 +49,8 @@
     "align": "Alignment of the header and the cells, a fixed `width` (px), and `fixed` to stick to the start or end edge while the table scrolls sideways.",
     "sortable": "The header gets a sort button; the sort itself is yours.",
     "titleField": "Text of the header.",
-    "nowrap": "Keep the header and the cells on one line (a date, an id)."
+    "nowrap": "Keep the header and the cells on one line (a date, an id).",
+    "minWidth": "Smallest width (px) the column shrinks to in a narrow table: a title that stays readable instead of wrapping to a few characters per line."
   },
   "styling": {
     "title": "Styling Reference",

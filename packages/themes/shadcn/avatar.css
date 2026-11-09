@@ -30,6 +30,12 @@
   [data-skein-theme="shadcn"][data-skein-mode="dark"] [data-slot="avatar"]::after {
     mix-blend-mode: lighten;
   }
+  [data-skein-theme="shadcn"] [data-slot="avatar"][data-size="xs"] {
+    --_r: var(--ui-radius-full);
+    width: calc(1.25rem * var(--ui-density));
+    height: calc(1.25rem * var(--ui-density));
+    font-size: 0.5625rem;
+  }
   [data-skein-theme="shadcn"] [data-slot="avatar"][data-size="sm"] {
     --_r: var(--ui-radius-full);
     width: calc(1.5rem * var(--ui-density));
@@ -128,6 +134,9 @@
     > [data-slot="avatar"]
     ~ [data-slot="avatar"] {
     margin-inline-start: calc(var(--_overlap, 0.5rem) * -1);
+  }
+  [data-skein-theme="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="xs"] {
+    --_overlap: calc(0.5rem * 0.5);
   }
   [data-skein-theme="shadcn"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="sm"] {
     --_overlap: calc(0.5rem * 0.75);

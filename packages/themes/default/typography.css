@@ -12,6 +12,16 @@
     line-height: 1.5;
     overflow-wrap: break-word;
   }
+  /* Type sizes of Text / Paragraph (the default is the body size above) */
+  [data-skein-theme="default"] :is([data-slot="text"], [data-slot="paragraph"])[data-size="xs"] {
+    font-size: 0.6875rem;
+  }
+  [data-skein-theme="default"] :is([data-slot="text"], [data-slot="paragraph"])[data-size="sm"] {
+    font-size: 0.8125rem;
+  }
+  [data-skein-theme="default"] :is([data-slot="text"], [data-slot="paragraph"])[data-size="lg"] {
+    font-size: 1rem;
+  }
   [data-skein-theme="default"] [data-slot="title"] {
     font-weight: 600;
   }

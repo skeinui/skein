@@ -391,6 +391,16 @@ export type {
   NotificationBellProps,
   NotificationItem,
 } from "./components/notification-bell/index.ts";
+export { QueryBuilder } from "./components/query-builder/index.ts";
+export type {
+  QueryBuilderCapabilities,
+  QueryBuilderProps,
+  QueryCondition,
+  QueryField,
+  QueryFilter,
+  QueryGroup,
+  QueryOp,
+} from "./components/query-builder/index.ts";
 export { TableTools, useFixedHeader } from "./components/table-tools/index.ts";
 export type { TableToolsColumn, TableToolsProps } from "./components/table-tools/index.ts";
 export { SplitButton } from "./components/split-button/index.ts";

@@ -62,6 +62,45 @@ export interface NotificationBellLabels {
   markRead: string;
   open: string;
 }
+export interface QueryBuilderLabels {
+  and: string;
+  or: string;
+  addCondition: string;
+  removeCondition: string;
+  removeGroup: string;
+  field: string;
+  operator: string;
+  value: string;
+  from: string;
+  to: string;
+  empty: string;
+  andShort: string;
+  orShort: string;
+  ok: string;
+  matchLead: string;
+  matchTail: string;
+  all: string;
+  any: string;
+  addInner: string;
+  addSubgroup: string;
+  ops: Record<
+    | "eq"
+    | "ne"
+    | "contains"
+    | "startsWith"
+    | "endsWith"
+    | "in"
+    | "gt"
+    | "gte"
+    | "lt"
+    | "lte"
+    | "between"
+    | "blank"
+    | "notBlank",
+    string
+  >;
+  bool: { true: string; false: string };
+}
 export interface TableToolsLabels {
   refresh: string;
   fixed: string;
@@ -239,6 +278,7 @@ export interface LabelTypes {
   splitter: SplitterLabels;
   suggestions: SuggestionsLabels;
   notificationBell: NotificationBellLabels;
+  queryBuilder: QueryBuilderLabels;
   table: TableLabels;
   tableTools: TableToolsLabels;
   tagInput: TagInputLabels;

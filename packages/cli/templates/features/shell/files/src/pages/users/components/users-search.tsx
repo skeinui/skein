@@ -1,8 +1,7 @@
-import { Button, Flex, SearchInput } from "@skeinui/ui";
+import { Button, Flex, QueryBuilder, SearchInput } from "@skeinui/ui";
+import type { QueryField } from "@skeinui/ui";
 import { useState } from "react";
 import type { Filter } from "@/lib/list-query";
-import { QueryBuilder } from "@/modules/query-builder";
-import type { QueryField } from "@/modules/query-builder";
 import { USER_ROLES, USER_STATUSES } from "../api";
 import { useUsersTranslation } from "../locales";
 

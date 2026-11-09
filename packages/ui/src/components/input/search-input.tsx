@@ -12,8 +12,11 @@ export interface SearchInputLabels {
 
 export interface SearchInputProps
   extends
-    Omit<InputGroupInputProps, "type" | "size" | "value" | "defaultValue" | "onValueChange">,
-    Pick<InputGroupProps, "variant" | "size" | "fullWidth"> {
+    Omit<
+      InputGroupInputProps,
+      "type" | "size" | "width" | "value" | "defaultValue" | "onValueChange"
+    >,
+    Pick<InputGroupProps, "variant" | "size" | "fullWidth" | "width"> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -40,6 +43,7 @@ export function SearchInput({
   variant,
   size,
   fullWidth,
+  width,
   value: valueProp,
   defaultValue = "",
   onValueChange,
@@ -74,7 +78,7 @@ export function SearchInput({
     }
   };
   return (
-    <InputGroup variant={variant} size={size} fullWidth={fullWidth}>
+    <InputGroup variant={variant} size={size} fullWidth={fullWidth} width={width}>
       <InputGroup.Prefix>
         <SearchIcon />
       </InputGroup.Prefix>

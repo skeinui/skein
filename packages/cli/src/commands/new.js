@@ -12,7 +12,7 @@ import { Writer } from "../writer.js";
 const GROUP_ICONS = { system: "Settings", settings: "Settings" };
 
 /** What a list page's search bar and table tools are made of, in the admin template (`features/shell`). */
-const LIST_PARTS = ["lib/list-query", "lib/export-csv.ts", "modules/query-builder"];
+const LIST_PARTS = ["lib/list-query", "lib/export-csv.ts"];
 const LIST_STYLES = "src/styles/index.css";
 
 /** Every file under `path` (a file or a directory) of the shell template, as paths relative to its `src/`. */
@@ -28,7 +28,7 @@ function templateFiles(path) {
 }
 
 /**
- * A generated list page imports the search bar, the table tools and the query helpers of the admin template. A
+ * A generated list page imports the toolbar styles and the query helpers of the admin template. A
  * project made before them gets those files (and their styles) the first time: never over a file it has.
  */
 function writeListParts(writer, root) {
@@ -37,11 +37,11 @@ function writeListParts(writer, root) {
     if (existsSync(join(root, "src", rel))) continue;
     writer.write(join("src", rel), readFileSync(join(base, rel), "utf8"));
   }
-  // The styles: the template's block from the query builder's comment to the tenant switcher's condition
+  // The styles: the template's block from the table toolbar's comment to the tenant switcher's condition
   const css = readFileSync(join(TEMPLATES_DIR, "_base", LIST_STYLES), "utf8");
-  const block = css.slice(css.indexOf("/* modules/query-builder"), css.indexOf("{{#if tenant}}"));
+  const block = css.slice(css.indexOf("/* A table's toolbar"), css.indexOf("{{#if tenant}}"));
   const current = writer.read(LIST_STYLES);
-  if (current !== undefined && !current.includes(".qb-group {")) {
+  if (current !== undefined && !current.includes(".table-bar {")) {
     writer.write(LIST_STYLES, `${current.trimEnd()}\n\n${block.trimEnd()}\n`);
     return [LIST_STYLES];
   }

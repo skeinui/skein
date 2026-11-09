@@ -1,0 +1,79 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* QueryBuilder: the chips on one line, and the popover that edits them (rows of conditions, groups of them) */
+  [data-skein-theme="shadcn"] [data-slot="query-builder"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-chip"] {
+    max-width: 24rem;
+    overflow: hidden;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-editor"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: min(34rem, 80vw);
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-group"][data-nested] {
+    padding: 0.75rem;
+    border: 1px solid var(--ui-border);
+    border-radius: var(--ui-radius-md);
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-group-head"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-lead"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-empty"] {
+    margin: 0;
+    color: var(--ui-fg-muted);
+    font-size: 0.875rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-row"] {
+    display: grid;
+    grid-template-columns: 9rem 8rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-value"] {
+    min-width: 0;
+  }
+  [data-skein-theme="shadcn"] [data-slot="query-builder-value"] [data-slot="checkbox-group"] {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+  }
+  @media (max-width: 40rem) {
+    [data-skein-theme="shadcn"] [data-slot="query-builder-row"] {
+      grid-template-columns: 1fr 1fr auto;
+    }
+    [data-skein-theme="shadcn"] [data-slot="query-builder-value"] {
+      grid-column: 1 / -1;
+      order: 3;
+    }
+  }
+}

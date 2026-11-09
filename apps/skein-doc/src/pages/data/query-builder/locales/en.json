@@ -1,0 +1,32 @@
+{
+  "lead": "The conditions of a list as chips on one line: a chip says what it filters (\"Status is Paid\") and opens a popover to change it, \"Filter\" adds a condition. In the popover there are rows of conditions and groups of them (all of / any of, nested as deep as needed). It edits the `filter` of a list request: a condition `{ field, op, value }` or a group `{ logic, items }`. Put it with a [SearchInput](/search-input) above a [DataTable](/data-table).",
+  "fields": {
+    "name": "Name",
+    "status": "Status",
+    "paid": "Paid",
+    "shipped": "Shipped",
+    "refunded": "Refunded",
+    "amount": "Amount",
+    "created": "Created",
+    "vip": "VIP"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "`fields` say what can be filtered. A field is `text`, `number`, `date`, `enum` (with `options`) or `boolean`, and each type has its operators (contains, is, between, is one of…); `ops` on a field replaces them. What is typed is shown below as the filter you would send to the API."
+  },
+  "preset": {
+    "title": "A filter in use",
+    "description": "A group stays one chip, in brackets: opening it edits the group. Two chips or more have the logic joining them (all of / any of) on the left."
+  },
+  "capabilities": {
+    "title": "What the backend can do",
+    "description": "`capabilities` takes the options away that the backend cannot express: `or: false` leaves out \"any of\", `nested: false` the groups inside groups, and `uniqueFields` lets a field be in the filter once."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "The chips, the popover's editor and its rows are slots (`query-builder`, `query-builder-chip`, `query-builder-editor`, `query-builder-group`, `query-builder-group-head`, `query-builder-lead`, `query-builder-row`, `query-builder-value`, `query-builder-empty`), styled by `query-builder.css`; a nested group has `data-nested`."
+  }
+}

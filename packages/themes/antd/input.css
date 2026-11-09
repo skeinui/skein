@@ -150,6 +150,15 @@
     border-radius: var(--ui-radius-lg);
     font-size: 1rem;
   }
+  [data-skein-theme="antd"] [data-slot="input-group"][data-width="sm"] {
+    width: 10rem;
+  }
+  [data-skein-theme="antd"] [data-slot="input-group"][data-width="md"] {
+    width: 14rem;
+  }
+  [data-skein-theme="antd"] [data-slot="input-group"][data-width="lg"] {
+    width: 20rem;
+  }
   [data-skein-theme="antd"] [data-slot="input-group"][data-full-width] {
     display: flex;
     width: 100%;

@@ -121,6 +121,15 @@
   [data-skein-theme="heroui"] [data-slot="input-group"][data-size="lg"] {
     min-height: var(--ui-height-lg);
   }
+  [data-skein-theme="heroui"] [data-slot="input-group"][data-width="sm"] {
+    width: 10rem;
+  }
+  [data-skein-theme="heroui"] [data-slot="input-group"][data-width="md"] {
+    width: 14rem;
+  }
+  [data-skein-theme="heroui"] [data-slot="input-group"][data-width="lg"] {
+    width: 20rem;
+  }
   [data-skein-theme="heroui"] [data-slot="input-group"][data-full-width] {
     display: flex;
     width: 100%;

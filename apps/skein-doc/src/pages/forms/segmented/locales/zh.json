@@ -1,12 +1,27 @@
 {
   "lead": "分段控制：一排互斥的选项，选中项下面有一块滑动的底。语义是 radiogroup，方向键移动并选中，Home / End 跳到两端，只有选中项在 tab 顺序里。",
-  "usage": { "title": "用法" },
-  "controlled": { "title": "受控", "value": "当前值：" },
-  "icons": { "title": "带图标" },
-  "sizes": { "title": "尺寸" },
-  "block": { "title": "占满宽度" },
-  "disabled": { "title": "禁用" },
-  "api": { "title": "API 参考" },
+  "usage": {
+    "title": "用法"
+  },
+  "controlled": {
+    "title": "受控",
+    "value": "当前值："
+  },
+  "icons": {
+    "title": "带图标"
+  },
+  "sizes": {
+    "title": "尺寸"
+  },
+  "block": {
+    "title": "占满宽度"
+  },
+  "disabled": {
+    "title": "禁用"
+  },
+  "api": {
+    "title": "API 参考"
+  },
   "styling": {
     "title": "样式钩子",
     "description": "主题风格在 `segmented.css` 里处理。",
@@ -27,7 +42,8 @@
       "onValueChange": "`value` 变化时以新值调用；同时传 `value` 即为受控。",
       "options": "选项；只有文字时可以直接给字符串数组，value 和 label 都取这个字符串。",
       "size": "尺寸档位。",
-      "value": "当前选中的值，受控。"
+      "value": "当前选中的值，受控。",
+      "scrollable": "选项很多时：每个选项保持单行，行比可用空间宽时可以横向滚动（选中的选项会滚动到可见处），不再被截断。"
     }
   }
 }

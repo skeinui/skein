@@ -337,6 +337,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  [data-skein-theme="shadcn"] [data-slot="table-head"][data-min-width] {
+    min-width: var(--tbl-col-min);
+  }
   [data-skein-theme="shadcn"] [data-slot="table-head"][data-resizing] {
     user-select: none;
   }

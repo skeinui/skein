@@ -488,9 +488,9 @@ function nextSort(sort: Sort | undefined, field: string): ListQuery["sort"] {
     const given = (filterExpr) =>
       `{ ${[keyword && "keyword", filters.length && `filter: ${filterExpr}`].filter(Boolean).join(", ")} }`;
     files[`components/${leaf}-search.tsx`] =
-      `import { ${[...(filters.length ? ["Button"] : []), "Flex", ...(keyword ? ["SearchInput"] : [])].join(", ")} } from "@skeinui/ui";
-import { useState } from "react";
-${filters.length ? 'import type { Filter } from "@/lib/list-query";\nimport { QueryBuilder } from "@/modules/query-builder";\nimport type { QueryField } from "@/modules/query-builder";\n' : ""}${filters.length ? `import { ${adapter} } from "../api";\n` : ""}import { use${Name}Translation } from "../locales";
+      `import { ${[...(filters.length ? ["Button"] : []), "Flex", ...(filters.length ? ["QueryBuilder"] : []), ...(keyword ? ["SearchInput"] : [])].join(", ")} } from "@skeinui/ui";
+${filters.length ? 'import type { QueryField } from "@skeinui/ui";\n' : ""}import { useState } from "react";
+${filters.length ? 'import type { Filter } from "@/lib/list-query";\n' : ""}${filters.length ? `import { ${adapter} } from "../api";\n` : ""}import { use${Name}Translation } from "../locales";
 
 /** What the search asks for, as parts of a \`ListQuery\`. */
 export interface ${Name}SearchValue {

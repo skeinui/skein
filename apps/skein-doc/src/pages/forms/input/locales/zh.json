@@ -5,7 +5,9 @@
     "input-group": "Input Group",
     "composed": "组合输入"
   },
-  "usage": { "title": "用法" },
+  "usage": {
+    "title": "用法"
+  },
   "variants": {
     "title": "变体",
     "description": "`outline` 对应 HeroUI v3 的 primary（白底 + 阴影），`filled` 对应 secondary（灰底）。"
@@ -18,7 +20,9 @@
     "title": "类型",
     "description": "`type` 是原生属性，原样透传。"
   },
-  "disabled": { "title": "禁用" },
+  "disabled": {
+    "title": "禁用"
+  },
   "invalid": {
     "title": "无效",
     "description": "单独使用时用 `invalid` 手动标记；放进 Field 时由 Field 的校验决定，见 [Field](/field) 页。"
@@ -27,9 +31,17 @@
     "title": "只读",
     "description": "原生 `readOnly`，不做特殊外观；要弱化的话由主题风格用 `:read-only` 处理。"
   },
-  "full-width": { "title": "占满宽度" },
-  "controlled": { "title": "受控", "current": "当前值：", "empty": "（空）" },
-  "textarea-heading": { "title": "Textarea" },
+  "full-width": {
+    "title": "占满宽度"
+  },
+  "controlled": {
+    "title": "受控",
+    "current": "当前值：",
+    "empty": "（空）"
+  },
+  "textarea-heading": {
+    "title": "Textarea"
+  },
   "textarea": {
     "title": "Textarea",
     "description": "同一个 Base UI Input，渲染成 `<textarea>`，外观和 Input 一致，默认可以纵向拖动。"
@@ -46,18 +58,26 @@
     "title": "字数统计",
     "description": "`showCount` 在下面显示字数；有 `maxLength` 时是「n / max」，到上限变色。可以和 `autoSize` 一起用。"
   },
-  "input-group-heading": { "title": "Input Group" },
+  "input-group-heading": {
+    "title": "Input Group"
+  },
   "input-group": {
     "title": "前缀与后缀",
     "description": "组画底色和聚焦环，里面的输入是透明的；聚焦、无效、禁用状态由主题风格用 `:has()` 从输入读取。"
   },
-  "input-group-icons": { "title": "带图标" },
+  "input-group-icons": {
+    "title": "带图标"
+  },
   "input-group-password": {
     "title": "密码显隐切换",
     "description": "后缀里放按钮：组里的 Button 和普通 Button 是同一个组件。"
   },
-  "input-group-states": { "title": "状态" },
-  "composed": { "title": "组合输入" },
+  "input-group-states": {
+    "title": "状态"
+  },
+  "composed": {
+    "title": "组合输入"
+  },
   "password-input": {
     "title": "PasswordInput",
     "description": "InputGroup + 切换明文的按钮（`aria-pressed` 开关，名称随状态变）。"
@@ -111,7 +131,8 @@
       "children": "内容。",
       "fullWidth": "占满父元素的宽度。",
       "size": "尺寸档位。放进 Field 时默认取 Field 的。",
-      "variant": "`outline` 是带底色 / 描边的常规输入，`filled` 是灰底填充（HeroUI v3 的 primary / secondary）。放进 Field 时默认取 Field 的。"
+      "variant": "`outline` 是带底色 / 描边的常规输入，`filled` 是灰底填充（HeroUI v3 的 primary / secondary）。放进 Field 时默认取 Field 的。",
+      "width": "固定宽度（`sm` 10rem、`md` 14rem、`lg` 20rem），用于不必占满一行的输入框，比如表格上方的搜索；`fullWidth` 优先。"
     },
     "InputGroup_Input": {
       "invalid": "手动标记无效；组用 `:has()` 读取这个状态。",
@@ -147,7 +168,8 @@
       "size": "尺寸档位。放进 Field 时默认取 Field 的。",
       "value": "值，受控（配合 `onValueChange`）。",
       "variant": "`outline` 是带底色 / 描边的常规输入，`filled` 是灰底填充（HeroUI v3 的 primary / secondary）。放进 Field 时默认取 Field 的。",
-      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。",
+      "width": "固定宽度（`sm` 10rem、`md` 14rem、`lg` 20rem），用于不必占满一行的输入框，比如表格上方的搜索；`fullWidth` 优先。"
     },
     "TagInput": {
       "addOnBlur": "输入框失焦时，未提交的文字也会加为标签。",

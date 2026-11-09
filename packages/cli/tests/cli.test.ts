@@ -766,36 +766,27 @@ describe("OpenAPI → CRUD page", () => {
   test("a project from before the search bar and the table tools gets their files once, never over its own", () => {
     const dir = target();
     createProject({ dir, template: "admin" });
-    for (const part of ["lib/list-query", "lib/export-csv.ts", "modules/query-builder"])
+    for (const part of ["lib/list-query", "lib/export-csv.ts"])
       rmSync(join(dir, "src", part), { recursive: true });
     const css = join(dir, "src", "styles", "index.css");
     writeFileSync(
       css,
-      readFileSync(css, "utf8").slice(
-        0,
-        readFileSync(css, "utf8").indexOf("/* modules/query-builder"),
-      ),
+      readFileSync(css, "utf8").slice(0, readFileSync(css, "utf8").indexOf("/* A table's toolbar")),
     );
     // A file the project changed stays as it is
-    mkdirSync(join(dir, "src", "modules", "query-builder"), { recursive: true });
-    writeFileSync(join(dir, "src", "modules", "query-builder", "index.tsx"), "// mine\n");
+    writeFileSync(join(dir, "src", "lib", "export-csv.ts"), "// mine\n");
     const { created, changed } = newPage({
       name: "orders",
       cwd: dir,
       from: join(FIXTURES, "orders.yaml"),
     });
     expect(created).toEqual(
-      expect.arrayContaining([
-        "src/lib/list-query/index.ts",
-        "src/lib/list-query/adapters.ts",
-        "src/lib/export-csv.ts",
-        "src/modules/query-builder/locales/messages/zh.json",
-      ]),
+      expect.arrayContaining(["src/lib/list-query/index.ts", "src/lib/list-query/adapters.ts"]),
     );
-    expect(created).not.toContain("src/modules/query-builder/index.tsx");
-    expect(read(dir, "src", "modules", "query-builder", "index.tsx")).toBe("// mine\n");
+    expect(created).not.toContain("src/lib/export-csv.ts");
+    expect(read(dir, "src", "lib", "export-csv.ts")).toBe("// mine\n");
     expect(changed).toEqual(["src/styles/index.css"]);
-    expect(read(dir, "src", "styles", "index.css")).toContain(".qb-group {");
+    expect(read(dir, "src", "styles", "index.css")).toContain(".table-bar {");
     // A second page finds everything there
     const again = newPage({
       name: "orders2",

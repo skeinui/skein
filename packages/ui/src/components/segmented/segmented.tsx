@@ -27,6 +27,11 @@ export interface SegmentedProps {
    * @default false
    */
   fullWidth?: boolean;
+  /**
+   * With many options: keep each on one line and let the row scroll sideways when it is wider than the room (the selected option is scrolled into view), instead of being cut off.
+   * @default false
+   */
+  scrollable?: boolean;
   /** @default false */
   disabled?: boolean;
   /** Write a hidden input so it can be submitted with a native form. */
@@ -54,6 +59,7 @@ export function Segmented({
   onValueChange,
   size = "md",
   fullWidth = false,
+  scrollable = false,
   disabled = false,
   name,
   ...aria
@@ -118,6 +124,12 @@ export function Segmented({
       if (!item) return;
       root.style.setProperty("--seg-x", String(item.offsetLeft));
       root.style.setProperty("--seg-w", String(item.offsetWidth));
+      // Keep the selected option in view by scrolling the row itself, never the page
+      if (scrollable) {
+        if (item.offsetLeft < root.scrollLeft) root.scrollLeft = item.offsetLeft;
+        else if (item.offsetLeft + item.offsetWidth > root.scrollLeft + root.clientWidth)
+          root.scrollLeft = item.offsetLeft + item.offsetWidth - root.clientWidth;
+      }
     };
     place();
     // Enable the animation only after the first placement, so the thumb does not slide in from 0 on the initial render
@@ -129,7 +141,7 @@ export function Segmented({
       cancelAnimationFrame(raf);
       observer.disconnect();
     };
-  }, [selectedIndex, options.length, size, fullWidth]);
+  }, [selectedIndex, options.length, size, fullWidth, scrollable]);
 
   return (
     <div
@@ -138,6 +150,7 @@ export function Segmented({
       aria-disabled={disabled || undefined}
       {...aria}
       data-slot="segmented"
+      data-scrollable={scrollable ? "" : undefined}
       data-size={size}
       data-full-width={fullWidth ? "" : undefined}
       data-disabled={disabled ? "" : undefined}

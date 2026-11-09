@@ -33,6 +33,12 @@ body {
   white-space: nowrap;
 }
 
+/* "Powered by Skein UI" in the footer: a size smaller and lighter than the footer text */
+.app-powered {
+  font-size: 0.875em;
+  opacity: 0.7;
+}
+
 .app-powered a {
   color: inherit;
   font-weight: 500;
@@ -118,85 +124,6 @@ body {
   min-width: 0;
 }
 
-/* modules/query-builder: conditions and groups of conditions */
-.qb-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.qb-group[data-nested] {
-  padding: 0.75rem;
-  border: 1px solid var(--ui-border);
-  border-radius: var(--ui-r-item, 0.5rem);
-}
-.qb-group-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-.qb-row {
-  display: grid;
-  grid-template-columns: 9rem 8rem minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.5rem;
-}
-.qb-value {
-  min-width: 0;
-}
-.qb-empty {
-  margin: 0;
-  color: var(--ui-fg-muted);
-  font-size: 0.875rem;
-}
-@media (max-width: 40rem) {
-  .qb-row {
-    grid-template-columns: 1fr 1fr auto;
-  }
-  .qb-value {
-    grid-column: 1 / -1;
-    order: 3;
-  }
-}
-.qb-value [data-slot="checkbox-group"] {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.25rem 1rem;
-}
-.table-keyword {
-  width: 14rem;
-}
-.qb {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-}
-.qb-chip {
-  max-width: 24rem;
-  overflow: hidden;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.qb-editor {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  min-width: min(34rem, 80vw);
-}
-.qb-lead {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-}
-
 /* A table's toolbar: the search on the left, the table's tools on the right */
 .table-bar {
   display: flex;
@@ -207,6 +134,9 @@ body {
 .table-bar-main {
   flex: 1;
   min-width: 0;
+}
+.table-keyword {
+  width: 14rem;
 }
 {{#if tenant}}
 

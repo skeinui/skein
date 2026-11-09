@@ -132,7 +132,7 @@ export async function adminFlow(base, { log = console.log } = {}) {
       await popup.getByText("任一", { exact: true }).click();
       await popup.getByRole("button", { name: "确定" }).click();
       await waitRows(2);
-      const chips = await page.locator(".qb-chip").allTextContents();
+      const chips = await page.locator('[data-slot="query-builder-chip"]').allTextContents();
       if (chips.length !== 1 || !chips[0].startsWith("("))
         throw new Error(`chips: ${chips.join(" | ")}`);
       await page.getByRole("button", { name: "重置", exact: true }).click();

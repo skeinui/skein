@@ -109,7 +109,8 @@
       "sort": "当前排序方向；不传表示没按这一列排序。",
       "sortable": "可排序：表头多一个按钮和排序图标。",
       "width": "列宽（px），由调用方持有；设了之后这一列宽度固定。要让宽度跟着拖动变，配合 `resizable` + `onResize`。",
-      "nowrap": "表头文字保持一行（`white-space: nowrap`）。"
+      "nowrap": "表头文字保持一行（`white-space: nowrap`）。",
+      "minColumnWidth": "表格比内容所需更窄时，这一列最小收缩到的宽度（px，自动布局）：让标题列保持可读。调整列宽时的最小值是 `minWidth`，不是这个。"
     },
     "Table_Cell": {
       "align": "内容的水平对齐；和这一列的 `Table.Head` 写同一个值。",

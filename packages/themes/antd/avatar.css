@@ -20,6 +20,12 @@
     font-family: var(--ui-font-family);
     user-select: none;
   }
+  [data-skein-theme="antd"] [data-slot="avatar"][data-size="xs"] {
+    --_r: var(--ui-radius-full);
+    width: calc(1.25rem * var(--ui-density));
+    height: calc(1.25rem * var(--ui-density));
+    font-size: 0.5625rem;
+  }
   [data-skein-theme="antd"] [data-slot="avatar"][data-size="sm"] {
     --_r: var(--ui-radius-full);
     width: calc(1.5rem * var(--ui-density));
@@ -118,6 +124,9 @@
     > [data-slot="avatar"]
     ~ [data-slot="avatar"] {
     margin-inline-start: calc(var(--_overlap, 8px) * -1);
+  }
+  [data-skein-theme="antd"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="xs"] {
+    --_overlap: calc(8px * 0.5);
   }
   [data-skein-theme="antd"] [data-slot="avatar-group"] > [data-slot="avatar"][data-size="sm"] {
     --_overlap: calc(8px * 0.75);

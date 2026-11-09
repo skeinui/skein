@@ -1,7 +1,7 @@
 import { Input as BaseInput } from "@base-ui/react/input";
 import { useId, useLayoutEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import type { FieldVariant, UISize } from "../../contract.ts";
+import type { FieldVariant, InputWidth, UISize } from "../../contract.ts";
 import { useFieldDefaults } from "../field/context.ts";
 
 type Without<T> = Omit<T, "className" | "style">;
@@ -216,6 +216,8 @@ export interface InputGroupProps extends Without<ComponentPropsWithoutRef<"div">
   size?: UISize;
   /** @default false */
   fullWidth?: boolean;
+  /** A set width (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table; `fullWidth` wins. */
+  width?: InputWidth;
   children?: ReactNode;
 }
 
@@ -231,6 +233,7 @@ export function InputGroup({
   variant,
   size,
   fullWidth = false,
+  width,
   children,
   ...rest
 }: InputGroupProps) {
@@ -241,6 +244,7 @@ export function InputGroup({
       data-slot="input-group"
       data-variant={variant ?? field?.variant ?? "outline"}
       data-size={size ?? field?.size ?? "md"}
+      data-width={width}
       data-full-width={fullWidth ? "" : undefined}
     >
       {children}

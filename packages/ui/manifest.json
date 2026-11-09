@@ -2344,8 +2344,9 @@
           "description": "Corner radius step; when not passed the theme style's size step decides it (square in HeroUI, round in Ant Design)."
         },
         "size": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
+            "xs",
             "sm",
             "md",
             "lg"
@@ -2432,8 +2433,9 @@
           "description": "Default corner radius step for the avatars in the group."
         },
         "size": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
+            "xs",
             "sm",
             "md",
             "lg"
@@ -5749,6 +5751,9 @@
             "qrcode": {
               "type": "Partial<QRCodeLabels>"
             },
+            "queryBuilder": {
+              "type": "Partial<QueryBuilderLabels>"
+            },
             "queue": {
               "type": "Partial<QueueLabels>"
             },
@@ -6487,6 +6492,10 @@
               "type": "string",
               "required": true,
               "description": "Identifies the column (the key of its cells and of the sort); also the field of the row shown when there is no `render`."
+            },
+            "minWidth": {
+              "type": "number",
+              "description": "Smallest width (px) the column shrinks to in a narrow table: a title that should stay readable instead of wrapping to a few characters per line."
             },
             "nowrap": {
               "type": "boolean",
@@ -9713,6 +9722,15 @@
           ],
           "description": "`outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).\nInside a Field it defaults to the Field's.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "A set width (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table; `fullWidth` wins."
         }
       },
       "parts": {
@@ -13543,6 +13561,17 @@
           "type": "boolean",
           "description": "Keep the line breaks and runs of spaces of the text (`white-space: pre-wrap`), and wrap what is too long, for a message or a note typed by a person."
         },
+        "size": {
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Type size: `xs` for fine print (a credit, a caption), `sm` for secondary lines, `lg` for lead text; the default is the theme style's body size.",
+          "default": "\"md\""
+        },
         "strikethrough": {
           "type": "boolean",
           "description": "Strikethrough (<del>)."
@@ -14686,6 +14715,251 @@
         }
       ]
     },
+    "QueryBuilder": {
+      "description": "QueryBuilder: the conditions of a list as chips on one line; a chip opens a popover to change it, \"Filter\" adds a condition (rows of conditions and groups of them, all of / any of, nested as deep as needed, in the same popover).\n`fields` say what can be filtered (`text`, `number`, `date`, `enum`, `boolean`, each with its operators) and `value` / `onChange` are the filter in use: the `filter` of a list request. `capabilities` are what the backend can do.",
+      "import": "import { QueryBuilder } from \"@skeinui/ui\";",
+      "props": {
+        "capabilities": {
+          "type": "QueryBuilderCapabilities",
+          "description": "What the backend can do (`QueryAdapter.capabilities`): the editors offer no more than that."
+        },
+        "fields": {
+          "type": "QueryField[]",
+          "required": true
+        },
+        "labels": {
+          "type": "Partial<QueryBuilderLabels>",
+          "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
+        },
+        "onChange": {
+          "type": "(filter: QueryFilter | undefined) => void",
+          "required": true,
+          "description": "A condition or group was added, changed or removed (a new filter, or none)."
+        },
+        "value": {
+          "type": "QueryFilter",
+          "description": "The filter in use."
+        }
+      },
+      "types": {
+        "QueryBuilderCapabilities": {
+          "description": "What the backend can do: the editors offer no more than that. Everything is allowed when it is not given.",
+          "props": {
+            "nested": {
+              "type": "boolean",
+              "description": "Groups inside groups."
+            },
+            "or": {
+              "type": "boolean",
+              "description": "`or` groups."
+            },
+            "uniqueFields": {
+              "type": "boolean",
+              "description": "A field can be in the filter once (the backend has one parameter for it)."
+            }
+          }
+        },
+        "QueryBuilderLabels": {
+          "props": {
+            "addCondition": {
+              "type": "string",
+              "required": true
+            },
+            "addInner": {
+              "type": "string",
+              "required": true
+            },
+            "addSubgroup": {
+              "type": "string",
+              "required": true
+            },
+            "all": {
+              "type": "string",
+              "required": true
+            },
+            "and": {
+              "type": "string",
+              "required": true
+            },
+            "andShort": {
+              "type": "string",
+              "required": true
+            },
+            "any": {
+              "type": "string",
+              "required": true
+            },
+            "bool": {
+              "type": "{ true: string; false: string; }",
+              "required": true
+            },
+            "empty": {
+              "type": "string",
+              "required": true
+            },
+            "field": {
+              "type": "string",
+              "required": true
+            },
+            "from": {
+              "type": "string",
+              "required": true
+            },
+            "matchLead": {
+              "type": "string",
+              "required": true
+            },
+            "matchTail": {
+              "type": "string",
+              "required": true
+            },
+            "ok": {
+              "type": "string",
+              "required": true
+            },
+            "operator": {
+              "type": "string",
+              "required": true
+            },
+            "ops": {
+              "type": "Record<\"endsWith\" | \"startsWith\" | \"between\" | \"eq\" | \"ne\" | \"contains\" | \"in\" | \"gt\" | \"gte\" | \"lt\" | \"lte\" | \"blank\" | \"notBlank\", string>",
+              "required": true
+            },
+            "or": {
+              "type": "string",
+              "required": true
+            },
+            "orShort": {
+              "type": "string",
+              "required": true
+            },
+            "removeCondition": {
+              "type": "string",
+              "required": true
+            },
+            "removeGroup": {
+              "type": "string",
+              "required": true
+            },
+            "to": {
+              "type": "string",
+              "required": true
+            },
+            "value": {
+              "type": "string",
+              "required": true,
+              "description": "The value, controlled (with `onValueChange`)."
+            }
+          }
+        },
+        "QueryCondition": {
+          "description": "`value` is a string / number / boolean; an array for `in`; `[from, to]` for `between`; none for `blank` and `notBlank`.",
+          "props": {
+            "field": {
+              "type": "string",
+              "required": true
+            },
+            "op": {
+              "type": "QueryOp",
+              "values": [
+                "endsWith",
+                "startsWith",
+                "between",
+                "eq",
+                "ne",
+                "contains",
+                "in",
+                "gt",
+                "gte",
+                "lt",
+                "lte",
+                "blank",
+                "notBlank"
+              ],
+              "required": true
+            },
+            "value": {
+              "type": "{}",
+              "description": "The value, controlled (with `onValueChange`)."
+            }
+          }
+        },
+        "QueryField": {
+          "props": {
+            "label": {
+              "type": "string",
+              "required": true
+            },
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Field name, for native form submission."
+            },
+            "ops": {
+              "type": "readonly QueryOp[]",
+              "description": "Overrides the operators the type offers."
+            },
+            "options": {
+              "type": "{ value: string; label: string; }[]",
+              "description": "For `enum`: the values and their texts."
+            },
+            "type": {
+              "type": "\"number\" | \"boolean\" | \"text\" | \"date\" | \"enum\"",
+              "values": [
+                "number",
+                "boolean",
+                "text",
+                "date",
+                "enum"
+              ],
+              "required": true
+            }
+          }
+        },
+        "QueryGroup": {
+          "props": {
+            "items": {
+              "type": "QueryFilter[]",
+              "required": true
+            },
+            "logic": {
+              "type": "\"and\" | \"or\"",
+              "values": [
+                "and",
+                "or"
+              ],
+              "required": true
+            }
+          }
+        }
+      },
+      "slots": [
+        "query-builder",
+        "query-builder-chip",
+        "query-builder-editor",
+        "query-builder-group",
+        "query-builder-group-head",
+        "query-builder-lead",
+        "query-builder-empty",
+        "query-builder-row",
+        "query-builder-value"
+      ],
+      "docs": "query-builder",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "const [filter, setFilter] = useState<QueryFilter>();\n\n<QueryBuilder\n  fields={[\n    { name: \"name\", label: \"Name\", type: \"text\" },\n    { name: \"status\", label: \"Status\", type: \"enum\", options: [{ value: \"paid\", label: \"Paid\" }] },\n    { name: \"amount\", label: \"Amount\", type: \"number\" },\n  ]}\n  value={filter}\n  onChange={setFilter}\n/>"
+        },
+        {
+          "title": "A filter in use",
+          "code": "value = {\n  logic: \"and\",\n  items: [\n    { field: \"status\", op: \"in\", value: [\"paid\", \"shipped\"] },\n    { logic: \"or\", items: [{ field: \"amount\", op: \"gte\", value: 100 }, { field: \"vip\", op: \"eq\", value: true }] },\n  ],\n}"
+        },
+        {
+          "title": "What the backend can do",
+          "code": "<QueryBuilder fields={fields} value={filter} onChange={setFilter} capabilities={{ or: false, nested: false }} />"
+        }
+      ]
+    },
     "Queue": {
       "description": "Pending-send queue: messages the user keeps typing while the assistant is still generating, lined up in send order, which can be reordered by dragging the handle (or by keyboard) and can be removed.\nOrder and removal are owned by the caller and passed back through `onChange`; the drag, keyboard and screen-reader announcements for reordering reuse Sortable.",
       "import": "import { Queue } from \"@skeinui/ui\";",
@@ -15299,6 +15573,11 @@
       "description": "Relative time: \"5 minutes ago\" for a moment, as a `<time>` element with the exact moment in its `dateTime` and, on hover, the full date.\n`value` is the moment, `numeric` chooses between \"yesterday\" and \"1 day ago\", `refresh` keeps it current; `formatRelativeTime` gives the same text as a string.\nFor a date that is not relative use Intl.DateTimeFormat or a DatePicker's format.",
       "import": "import { RelativeTime } from \"@skeinui/ui\";",
       "props": {
+        "hoursUntil": {
+          "type": "number",
+          "description": "How many hours are still counted in hours before it switches to days: 48 says \"in 30 hours\" where the default says \"in 1 day\"; a deadline wants it larger.",
+          "default": "24"
+        },
         "locale": {
           "type": "string",
           "description": "BCP 47 tag of the language (e.g. \"zh-CN\"); defaults to the `locale` of ConfigProvider, then the browser's."
@@ -15633,6 +15912,15 @@
           "description": "`outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).\nInside a Field it defaults to the Field's.",
           "default": "\"outline\""
         },
+        "width": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "A set width (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table; `fullWidth` wins."
+        },
         "render": {
           "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, InputState>",
           "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
@@ -15692,6 +15980,11 @@
           "type": "readonly (string | SegmentedOption)[]",
           "required": true,
           "description": "Options; when there is only text you can pass a string array directly, and value and label both take that string."
+        },
+        "scrollable": {
+          "type": "boolean",
+          "description": "With many options: keep each on one line and let the row scroll sideways when it is wider than the room (the selected option is scrolled into view), instead of being cut off.",
+          "default": "false"
         },
         "size": {
           "type": "\"sm\" | \"md\" | \"lg\"",
@@ -17845,6 +18138,10 @@
               "type": "number",
               "description": "Maximum width (px) when resizing; no limit if omitted."
             },
+            "minColumnWidth": {
+              "type": "number",
+              "description": "Smallest width (px) the column shrinks to when the table is narrower than its content wants (auto layout): a title that should stay readable. Not the minimum while resizing (that is `minWidth`)."
+            },
             "minWidth": {
               "type": "number",
               "description": "Minimum width (px) when resizing.",
@@ -18707,6 +19004,17 @@
         "preserveWhitespace": {
           "type": "boolean",
           "description": "Keep the line breaks and runs of spaces of the text (`white-space: pre-wrap`), and wrap what is too long, for a message or a note typed by a person."
+        },
+        "size": {
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Type size: `xs` for fine print (a credit, a caption), `sm` for secondary lines, `lg` for lead text; the default is the theme style's body size.",
+          "default": "\"md\""
         },
         "strikethrough": {
           "type": "boolean",
@@ -21491,6 +21799,12 @@
       "media",
       "file"
     ],
+    "AVATAR_SIZES": [
+      "xs",
+      "sm",
+      "md",
+      "lg"
+    ],
     "AVATAR_SLOTS": [
       "avatar",
       "avatar-image",
@@ -22054,6 +22368,11 @@
       "input-group-prefix",
       "input-group-suffix"
     ],
+    "INPUT_WIDTHS": [
+      "sm",
+      "md",
+      "lg"
+    ],
     "KANBAN_SLOTS": [
       "kanban",
       "kanban-column",
@@ -22423,6 +22742,17 @@
       "qrcode-mask",
       "qrcode-spinner",
       "qrcode-status"
+    ],
+    "QUERY_BUILDER_SLOTS": [
+      "query-builder",
+      "query-builder-chip",
+      "query-builder-editor",
+      "query-builder-group",
+      "query-builder-group-head",
+      "query-builder-lead",
+      "query-builder-empty",
+      "query-builder-row",
+      "query-builder-value"
     ],
     "QUEUE_SLOTS": [
       "queue",
@@ -22856,6 +23186,12 @@
       "running",
       "done",
       "error"
+    ],
+    "TEXT_SIZES": [
+      "xs",
+      "sm",
+      "md",
+      "lg"
     ],
     "TEXT_TONES": [
       "default",
@@ -23702,6 +24038,24 @@
         "qrcode"
       ],
       "QRTooLongError": [],
+      "QueryBuilder": [
+        "button",
+        "calendar",
+        "checkbox",
+        "flex",
+        "grid",
+        "input",
+        "input-addons",
+        "layout",
+        "number-field",
+        "popover",
+        "query-builder",
+        "segmented",
+        "select",
+        "spinner",
+        "tag",
+        "time-picker"
+      ],
       "Queue": [
         "queue",
         "sortable"

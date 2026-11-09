@@ -492,6 +492,17 @@ export type SortableVariant = (typeof SORTABLE_VARIANTS)[number];
 export const SORTABLE_ORIENTATIONS = ["vertical", "horizontal"] as const;
 export type SortableOrientation = (typeof SORTABLE_ORIENTATIONS)[number];
 export const NOTIFICATION_BELL_SLOTS = ["notification-bell"] as const;
+export const QUERY_BUILDER_SLOTS = [
+  "query-builder",
+  "query-builder-chip",
+  "query-builder-editor",
+  "query-builder-group",
+  "query-builder-group-head",
+  "query-builder-lead",
+  "query-builder-empty",
+  "query-builder-row",
+  "query-builder-value",
+] as const;
 
 export const TABLE_TOOLS_SLOTS = ["table-tools", "table-tools-columns"] as const;
 
@@ -803,6 +814,12 @@ export const LAYOUT_TAGS = [
 ] as const;
 export type LayoutTag = (typeof LAYOUT_TAGS)[number];
 export const FLEX_SLOTS = ["flex", "flex-spacer"] as const;
+/** InputGroup / SearchInput widths (10rem / 14rem / 20rem) for an input that need not fill its row. */
+export const INPUT_WIDTHS = ["sm", "md", "lg"] as const;
+export type InputWidth = (typeof INPUT_WIDTHS)[number];
+/** Avatar sizes: the shared steps and `xs` (1.25rem) for a name in a dense line. */
+export const AVATAR_SIZES = ["xs", "sm", "md", "lg"] as const;
+export type AvatarSize = (typeof AVATAR_SIZES)[number];
 export const GRID_ASIDES = ["start", "end"] as const;
 export const GRID_ASIDE_WIDTHS = ["sm", "md", "lg"] as const;
 export const GRID_SLOTS = ["grid", "grid-item", "row", "col"] as const;
@@ -830,6 +847,9 @@ export const TEXT_TONES = [
   "disabled",
 ] as const;
 export type TextTone = (typeof TEXT_TONES)[number];
+/** Text / Paragraph type sizes; `md` is the default and writes nothing. */
+export const TEXT_SIZES = ["xs", "sm", "md", "lg"] as const;
+export type TextSize = (typeof TEXT_SIZES)[number];
 export const TYPOGRAPHY_SLOTS = [
   "text",
   "title",

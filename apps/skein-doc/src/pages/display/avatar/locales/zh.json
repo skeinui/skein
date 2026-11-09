@@ -1,16 +1,26 @@
 {
   "lead": "头像。图片加载失败或没传图时显示 fallback，加载状态来自 Base UI 的 Avatar。",
-  "usage": { "title": "用法" },
-  "sizes": { "title": "尺寸" },
-  "colors": { "title": "颜色" },
-  "radius": { "title": "圆角" },
+  "usage": {
+    "title": "用法"
+  },
+  "sizes": {
+    "title": "尺寸"
+  },
+  "colors": {
+    "title": "颜色"
+  },
+  "radius": {
+    "title": "圆角"
+  },
   "group": {
     "title": "头像组",
     "description": "叠放在一起，超过 `max` 的折成「+N」；组是 `role=group`，「+N」是带名称的 `role=img`。",
     "members": "项目成员（{size}）",
     "reviewers": "评审人"
   },
-  "api": { "title": "API 参考" },
+  "api": {
+    "title": "API 参考"
+  },
   "styling": {
     "title": "样式钩子",
     "description": "主题风格在 `avatar.css` 里处理，圆角由尺寸档位里的 `--_r` 决定。",
@@ -26,7 +36,7 @@
       "color": "fallback 的底色，图片显示时看不到。",
       "fallback": "兜底内容，通常是姓名首字母；不传时留空。",
       "radius": "圆角档位；不传时由主题风格的尺寸档位决定（HeroUI 方形，Ant Design 圆形）。",
-      "size": "尺寸档位。",
+      "size": "尺寸：`xs`（1.25rem，用于紧凑的行内姓名）、`sm`、`md`、`lg`。",
       "src": "图片地址；加载失败或不传时显示 fallback。"
     },
     "AvatarGroup": {

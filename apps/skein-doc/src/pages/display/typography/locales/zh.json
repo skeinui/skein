@@ -85,7 +85,8 @@
       "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
       "underline": "下划线（`<u>`）。",
       "nowrap": "整段文字保持一行（`white-space: nowrap`），如日期、编号；要用省略号截断请用 `ellipsis`。",
-      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。"
+      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。",
+      "size": "字号：`xs` 用于小字（署名、说明），`sm` 用于次要的行，`lg` 用于导语；默认是主题风格的正文字号。"
     },
     "Paragraph": {
       "code": "行内代码样式（`<code>`）。",
@@ -100,7 +101,8 @@
       "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
       "underline": "下划线（`<u>`）。",
       "nowrap": "整段文字保持一行（`white-space: nowrap`），如日期、编号；要用省略号截断请用 `ellipsis`。",
-      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。"
+      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。",
+      "size": "字号：`xs` 用于小字（署名、说明），`sm` 用于次要的行，`lg` 用于导语；默认是主题风格的正文字号。"
     },
     "Typography": {
       "as": "容器元素；里面的原生标题、段落、列表、引用、代码、链接、表格自动有合适的排版。"

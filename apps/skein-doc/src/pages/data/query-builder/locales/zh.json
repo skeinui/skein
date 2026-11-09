@@ -1,0 +1,41 @@
+{
+  "lead": "一行里列出列表的筛选条件，每个条件是一个标签：标签说明筛选什么（「状态 等于 已付款」），点开弹层修改，「筛选」添加条件。弹层里是一行行条件和条件组（满足全部 / 满足任一，可以嵌套任意层）。它编辑的是列表请求里的 `filter`：条件 `{ field, op, value }` 或条件组 `{ logic, items }`。通常和 [SearchInput](/search-input) 一起放在 [DataTable](/data-table) 上方。",
+  "fields": {
+    "name": "名称",
+    "status": "状态",
+    "paid": "已付款",
+    "shipped": "已发货",
+    "refunded": "已退款",
+    "amount": "金额",
+    "created": "创建时间",
+    "vip": "VIP"
+  },
+  "usage": {
+    "title": "基本用法",
+    "description": "`fields` 说明可以筛选什么。字段类型有 `text`、`number`、`date`、`enum`（带 `options`）、`boolean`，每种类型有自己的操作符（包含、等于、介于、属于…）；字段上的 `ops` 可以替换它们。下面显示的是你会发给 API 的 filter。"
+  },
+  "preset": {
+    "title": "已有的筛选",
+    "description": "一个条件组是一个带括号的标签：点开就是编辑这个组。两个或更多标签时，左边出现连接它们的逻辑（满足全部 / 满足任一）。"
+  },
+  "capabilities": {
+    "title": "后端能做什么",
+    "description": "`capabilities` 去掉后端表达不了的选项：`or: false` 没有「任一」，`nested: false` 没有嵌套的条件组，`uniqueFields` 让每个字段在筛选里只出现一次。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "标签、弹层里的编辑器和它的每一行都是 slot（`query-builder`、`query-builder-chip`、`query-builder-editor`、`query-builder-group`、`query-builder-group-head`、`query-builder-lead`、`query-builder-row`、`query-builder-value`、`query-builder-empty`），样式在 `query-builder.css`；嵌套的条件组带 `data-nested`。"
+  },
+  "props": {
+    "QueryBuilder": {
+      "fields": "可以筛选的字段：`{ name, label, type, options?, ops? }`，`type` 是 `text`、`number`、`date`、`enum`、`boolean`。",
+      "value": "正在使用的筛选：一个条件、一个条件组，或没有。",
+      "onChange": "添加、修改或删除条件时调用，参数是新的筛选（全部删光则为 undefined）。",
+      "capabilities": "后端能做什么（`or`、`nested`、`uniqueFields`），编辑器只提供不超出它的选项；不传则都可以。",
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+    }
+  }
+}

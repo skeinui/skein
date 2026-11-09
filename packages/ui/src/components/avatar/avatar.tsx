@@ -1,7 +1,7 @@
 import { Avatar as BaseAvatar } from "@base-ui/react/avatar";
 import { Children, createContext, useContext } from "react";
 import type { ReactNode } from "react";
-import type { UIColor, UIRadius, UISize } from "../../contract.ts";
+import type { AvatarSize, UIColor, UIRadius } from "../../contract.ts";
 
 export interface AvatarProps extends Omit<
   BaseAvatar.Root.Props,
@@ -14,7 +14,7 @@ export interface AvatarProps extends Omit<
   /** Fallback content, usually the initials of a name; left empty when not passed. */
   fallback?: ReactNode;
   /** @default "md" */
-  size?: UISize;
+  size?: AvatarSize;
   /**
    * Background colour of the fallback (not visible while the image shows).
    * @default "neutral"
@@ -25,9 +25,11 @@ export interface AvatarProps extends Omit<
 }
 
 /** AvatarGroup passes default size / color / radius down to the avatars inside; an avatar's own props win. */
-const GroupContext = createContext<{ size?: UISize; color?: UIColor; radius?: UIRadius } | null>(
-  null,
-);
+const GroupContext = createContext<{
+  size?: AvatarSize;
+  color?: UIColor;
+  radius?: UIRadius;
+} | null>(null);
 
 /**
  * Round (or `radius`-shaped) picture of a user or entity, with a text fallback such as initials.
@@ -69,7 +71,7 @@ export interface AvatarGroupProps {
   /** Maximum number shown; the rest collapse into "+N". All are shown if not given. */
   max?: number;
   /** Default size / color / radius for the avatars in the group; an avatar's own props win. */
-  size?: UISize;
+  size?: AvatarSize;
   /** Default colour for the avatars in the group. */
   color?: UIColor;
   /** Default corner radius step for the avatars in the group. */

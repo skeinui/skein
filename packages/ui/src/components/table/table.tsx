@@ -293,6 +293,8 @@ export interface TableHeadProps extends Omit<Without<ComponentPropsWithoutRef<"t
   onSort?: () => void;
   /** Column width (px), owned by the caller; once set, this column has a fixed width. To make the width follow dragging, combine with `resizable` + `onResize`. */
   width?: number;
+  /** Smallest width (px) the column shrinks to when the table is narrower than its content wants (auto layout): a title that should stay readable. Not the minimum while resizing (that is `minWidth`). */
+  minColumnWidth?: number;
   /** Resizable column width: the header's right edge gets a drag handle (pointer drag, or when focused the left / right arrow keys, Shift for a larger step, Home / End for min / max). */
   resizable?: boolean;
   /**
@@ -343,6 +345,7 @@ function TableHead({
   sort,
   onSort,
   width,
+  minColumnWidth,
   resizable,
   minWidth = RESIZE_MIN,
   maxWidth,
@@ -364,6 +367,12 @@ function TableHead({
     if (width === undefined) el.style.removeProperty("--tbl-col-w");
     else el.style.setProperty("--tbl-col-w", `${width}px`);
   }, [width]);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (minColumnWidth === undefined) el.style.removeProperty("--tbl-col-min");
+    else el.style.setProperty("--tbl-col-min", `${minColumnWidth}px`);
+  }, [minColumnWidth]);
 
   const clamp = (w: number) => Math.min(Math.max(Math.round(w), minWidth), maxWidth ?? Infinity);
   const current = () => width ?? ref.current?.offsetWidth ?? minWidth;
@@ -413,6 +422,7 @@ function TableHead({
       data-fixed={fixed}
       data-nowrap={nowrap ? "" : undefined}
       data-width={width}
+      data-min-width={minColumnWidth}
       data-resizable={resizable ? "" : undefined}
       data-resizing={resizing ? "" : undefined}
       data-sortable={sortable ? "" : undefined}

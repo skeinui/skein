@@ -12,20 +12,25 @@ const DAY = 86400;
 
 /**
  * "5 minutes ago", "in 2 hours", "yesterday": the time between `value` and `now`, in the largest unit that fits (seconds under 45 s, minutes under an hour,
- * hours under a day, days under 30 days, then months and years), in the language of `locale` (a BCP 47 tag; the browser's when omitted).
+ * hours under `hoursUntil` hours (a day), days under 30 days, then months and years), in the language of `locale` (a BCP 47 tag; the browser's when omitted).
  */
 export function formatRelativeTime(
   value: TimeInput,
-  options: { now?: TimeInput; numeric?: "auto" | "always"; locale?: string } = {},
+  options: {
+    now?: TimeInput;
+    numeric?: "auto" | "always";
+    locale?: string;
+    hoursUntil?: number;
+  } = {},
 ): string {
-  const { now = Date.now(), numeric = "auto", locale } = options;
+  const { now = Date.now(), numeric = "auto", locale, hoursUntil = 24 } = options;
   const seconds = (new Date(value).getTime() - new Date(now).getTime()) / 1000;
   const rtf = new Intl.RelativeTimeFormat(locale, { numeric });
   const abs = Math.abs(seconds);
   if (Number.isNaN(seconds)) return "";
   if (abs < 45) return rtf.format(Math.round(seconds), "second");
   if (abs < HOUR) return rtf.format(Math.round(seconds / MINUTE), "minute");
-  if (abs < DAY) return rtf.format(Math.round(seconds / HOUR), "hour");
+  if (abs < hoursUntil * HOUR) return rtf.format(Math.round(seconds / HOUR), "hour");
   const days = seconds / DAY;
   if (Math.abs(days) < 30) return rtf.format(Math.round(days), "day");
   if (Math.abs(days) < 365) return rtf.format(Math.round(days / 30.44), "month");
@@ -42,6 +47,11 @@ export interface RelativeTimeProps extends Without<ComponentPropsWithoutRef<"tim
   numeric?: "auto" | "always";
   /** BCP 47 tag of the language (e.g. "zh-CN"); defaults to the `locale` of ConfigProvider, then the browser's. */
   locale?: string;
+  /**
+   * How many hours are still counted in hours before it switches to days: 48 says "in 30 hours" where the default says "in 1 day"; a deadline wants it larger.
+   * @default 24
+   */
+  hoursUntil?: number;
   /** The moment to count from, instead of the clock: for a fixed picture or a test. */
   now?: TimeInput;
   /**
@@ -61,6 +71,7 @@ export function RelativeTime({
   numeric = "auto",
   locale: localeProp,
   now,
+  hoursUntil,
   refresh = 0,
   title,
   ...rest
@@ -83,7 +94,7 @@ export function RelativeTime({
       // The text depends on the clock: the server's and the browser's differ
       suppressHydrationWarning
     >
-      {formatRelativeTime(value, { now, numeric, locale })}
+      {formatRelativeTime(value, { now, numeric, locale, hoursUntil })}
     </time>
   );
 }

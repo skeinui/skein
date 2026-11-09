@@ -18,6 +18,8 @@ export interface DataTableColumn<Row> {
   align?: TableAlign;
   /** Column width (px): once set, this column has a fixed width. */
   width?: number;
+  /** Smallest width (px) the column shrinks to in a narrow table: a title that should stay readable instead of wrapping to a few characters per line. */
+  minWidth?: number;
   /** Sticks to the left (start) or right (end) edge while the table scrolls sideways. */
   fixed?: TableFixed;
   /** The header gets a sort button; the sort itself is yours (`sort` / `onSortChange`). */
@@ -198,6 +200,7 @@ export function DataTable<Row>({
                 key={c.key}
                 align={c.align}
                 width={c.width}
+                minColumnWidth={c.minWidth}
                 fixed={c.fixed}
                 nowrap={c.nowrap}
                 sortable={c.sortable}

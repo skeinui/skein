@@ -1,6 +1,6 @@
 import { createElement, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import type { LayoutTag, TextTone } from "../../contract.ts";
+import type { LayoutTag, TextSize, TextTone } from "../../contract.ts";
 import { copyToClipboard } from "./copy.ts";
 import { en } from "../../locales/en.ts";
 import { useConfig } from "../config-provider/context.ts";
@@ -101,6 +101,7 @@ const CheckIcon = () => (
 );
 
 interface CoreProps extends TextStyleProps {
+  size?: TextSize;
   tag: string;
   slot: "text" | "title" | "paragraph";
   level?: number;
@@ -115,6 +116,7 @@ function Core({
   slot,
   level,
   tone,
+  size,
   disabled,
   ellipsis,
   nowrap,
@@ -180,6 +182,7 @@ function Core({
       "data-slot": slot,
       "data-level": level,
       "data-tone": tone,
+      "data-size": size === "md" ? undefined : size,
       "data-disabled": disabled ? "" : undefined,
       "data-ellipsis": ellipsisConfig ? "" : undefined,
       "data-nowrap": nowrap ? "" : undefined,
@@ -228,6 +231,11 @@ function Core({
 }
 
 export interface TextProps extends Without<ComponentPropsWithoutRef<"span">>, TextStyleProps {
+  /**
+   * Type size: `xs` for fine print (a credit, a caption), `sm` for secondary lines, `lg` for lead text; the default is the theme style's body size.
+   * @default "md"
+   */
+  size?: TextSize;
   /** Grayed-out, unavailable look (appearance only, does not affect interaction). */
   disabled?: boolean;
 }
@@ -235,6 +243,7 @@ export interface TextProps extends Without<ComponentPropsWithoutRef<"span">>, Te
 /** Inline text: color semantics, bold / italic / underline / strikethrough / code / highlight, can be truncated and copied. */
 export function Text({
   tone,
+  size,
   disabled,
   strong,
   italic,
@@ -256,6 +265,7 @@ export function Text({
       slot="text"
       {...{
         tone,
+        size,
         disabled,
         strong,
         italic,
@@ -277,6 +287,11 @@ export function Text({
 }
 
 export interface ParagraphProps extends Without<ComponentPropsWithoutRef<"p">>, TextStyleProps {
+  /**
+   * Type size: `xs` for fine print (a credit, a caption), `sm` for secondary lines, `lg` for lead text; the default is the theme style's body size.
+   * @default "md"
+   */
+  size?: TextSize;
   /** Grayed-out, unavailable look (appearance only, does not affect interaction). */
   disabled?: boolean;
 }
@@ -284,6 +299,7 @@ export interface ParagraphProps extends Without<ComponentPropsWithoutRef<"p">>, 
 /** Paragraph (<p>): the same styling abilities as Text, often used with multi-line truncation + expand. Spacing between paragraphs is left to Flex, or put them inside Typography. */
 export function Paragraph({
   tone,
+  size,
   disabled,
   strong,
   italic,
@@ -305,6 +321,7 @@ export function Paragraph({
       slot="paragraph"
       {...{
         tone,
+        size,
         disabled,
         strong,
         italic,
