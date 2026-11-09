@@ -66,6 +66,13 @@ const Icon = ({ children }: { children: ReactNode }) => (
   </svg>
 );
 
+const bellIcon = (
+  <Icon>
+    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+  </Icon>
+);
+
 /**
  * Notification bell: a bell with the number of unread notifications that opens the list, unread ones dotted with a button that marks them read, an open button for those with something to
  * open, and "Mark all as read". `items` are the notifications; what pressing a button does is yours (`onRead`, `onReadAll`, `onOpen`), a button appears when its callback is given.
@@ -93,17 +100,17 @@ export function NotificationBell({
         aria-label={unread > 0 ? `${t.title} (${t.unread(unread)})` : t.title}
       >
         <Badge count={unread} max={max} size="sm">
-          <Icon>
-            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-          </Icon>
+          {bellIcon}
         </Badge>
       </Popover.Trigger>
       <Popover.Content align="end">
         <div data-slot="notification-bell">
           <Flex direction="column" gap="sm">
             <Flex align="center" justify="between" gap="md">
-              <Text strong>{t.title}</Text>
+              <Flex align="center" gap="sm">
+                {bellIcon}
+                <Text strong>{t.title}</Text>
+              </Flex>
               {unread > 0 && onReadAll ? (
                 <Button variant="ghost" size="sm" loading={readingAll} onClick={onReadAll}>
                   {t.readAll}
