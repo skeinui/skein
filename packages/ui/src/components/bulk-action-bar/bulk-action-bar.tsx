@@ -49,9 +49,7 @@ export function BulkActionBar({
       data-slot="bulk-action-bar"
       data-placement={BULK_ACTION_BAR_PLACEMENTS.includes(placement) ? placement : "top"}
     >
-      <Text strong role="status">
-        {t.selected(count)}
-      </Text>
+      <Text role="status">{t.selected(count)}</Text>
       <Flex grow gap="sm" align="center" wrap>
         {children}
       </Flex>
