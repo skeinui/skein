@@ -45,6 +45,19 @@
     [data-slot="scroll-area-scrollbar"][data-orientation="vertical"] {
     top: var(--tbl-head-h, 0px) !important;
   }
+  /* nowrap: a date, an id on one line */
+  [data-skein-theme="default"]
+    :is([data-slot="table-cell"], [data-slot="table-head"])[data-nowrap] {
+    white-space: nowrap;
+  }
+  /* interactive row: it does something when it is clicked */
+  [data-skein-theme="default"] [data-slot="table-row"][data-interactive] {
+    cursor: pointer;
+  }
+  [data-skein-theme="default"] [data-slot="table-row"][data-interactive]:focus-visible {
+    outline: 2px solid var(--ui-ring);
+    outline-offset: -2px;
+  }
   [data-skein-theme="default"] [data-slot="table"] {
     width: 100%;
     border-collapse: separate;
@@ -213,11 +226,11 @@
     background-color: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
     --_row-tint: color-mix(in srgb, var(--ui-c-neutral-soft) 50%, transparent);
   }
-  [data-skein-theme="default"] [data-slot="table-row"][data-selected],
+  [data-skein-theme="default"] [data-slot="table-row"]:is([data-selected], [data-active]),
   [data-skein-theme="default"]
     [data-slot="table"][data-hoverable]
     [data-slot="table-body"]
-    [data-slot="table-row"][data-selected]:hover {
+    [data-slot="table-row"]:is([data-selected], [data-active]):hover {
     background-color: color-mix(in srgb, transparent 90%, var(--ui-c-primary) 10%);
     --_row-tint: color-mix(in srgb, transparent 90%, var(--ui-c-primary) 10%);
   }

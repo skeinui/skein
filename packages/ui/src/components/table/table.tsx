@@ -252,16 +252,23 @@ export interface TableRowProps extends Without<ComponentPropsWithoutRef<"tr">> {
   selected?: boolean;
   /** This row is expanded (followed by `Table.ExpandedRow`): affects appearance only; the expand button's state is carried by `Table.ExpandButton` itself. */
   expanded?: boolean;
+  /** The row the page is showing (the one whose details are open beside the table): highlighted like a selected row, and `aria-current`. Unlike `selected` it says nothing about ticking. */
+  active?: boolean;
+  /** The row does something when it is clicked (you write the `onClick`): the pointer shows it and the row has a focus ring (give it `tabIndex={0}` and an Enter / Space handler to reach it by keyboard). */
+  interactive?: boolean;
 }
 
-function TableRow({ selected, expanded, ...rest }: TableRowProps) {
+function TableRow({ selected, expanded, active, interactive, ...rest }: TableRowProps) {
   return (
     <tr
       {...rest}
       data-slot="table-row"
       data-selected={selected ? "" : undefined}
       data-expanded={expanded ? "" : undefined}
+      data-active={active ? "" : undefined}
+      data-interactive={interactive ? "" : undefined}
       aria-selected={selected || undefined}
+      aria-current={active ? "true" : undefined}
     />
   );
 }
@@ -276,6 +283,8 @@ export interface TableHeadProps extends Omit<Without<ComponentPropsWithoutRef<"t
    * and the table needs horizontal width (e.g. give columns a minimum width) for it to actually scroll.
    */
   fixed?: TableFixed;
+  /** Keep the header's text on one line (`white-space: nowrap`). */
+  nowrap?: boolean;
   /** Sortable: the header gets an extra button and a sort icon. */
   sortable?: boolean;
   /** Current sort direction; if omitted, the table is not sorted by this column. */
@@ -329,6 +338,7 @@ function TableHead({
   align,
   kind,
   fixed,
+  nowrap,
   sortable,
   sort,
   onSort,
@@ -401,6 +411,7 @@ function TableHead({
       data-align={align}
       data-kind={kind}
       data-fixed={fixed}
+      data-nowrap={nowrap ? "" : undefined}
       data-width={width}
       data-resizable={resizable ? "" : undefined}
       data-resizing={resizing ? "" : undefined}
@@ -453,11 +464,20 @@ export interface TableCellProps extends Omit<Without<ComponentPropsWithoutRef<"t
   kind?: "select" | "expand";
   /** Fixed column, same as `fixed` on `Table.Head`: write it on both the header and every cell of the same column. */
   fixed?: TableFixed;
+  /** Keep the cell's content on one line (`white-space: nowrap`): a date, an id; write it on the header too. */
+  nowrap?: boolean;
 }
 
-function TableCell({ align, kind, fixed, ...rest }: TableCellProps) {
+function TableCell({ align, kind, fixed, nowrap, ...rest }: TableCellProps) {
   return (
-    <td {...rest} data-slot="table-cell" data-align={align} data-kind={kind} data-fixed={fixed} />
+    <td
+      {...rest}
+      data-slot="table-cell"
+      data-align={align}
+      data-kind={kind}
+      data-fixed={fixed}
+      data-nowrap={nowrap ? "" : undefined}
+    />
   );
 }
 

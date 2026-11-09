@@ -210,6 +210,19 @@ export default function GridPage() {
         </Grid>
       </Example>
 
+      <Example
+        id="aside"
+        code={`<Grid aside="end" asideWidth="md" gap="md">
+  <div>main</div>
+  <div>aside</div>
+</Grid>`}
+      >
+        <Grid aside="end" asideWidth="sm" gap="sm">
+          <Box>{t("aside.main")}</Box>
+          <Box>{t("aside.side")}</Box>
+        </Grid>
+      </Example>
+
       <Example id="auto-grid" code={`<Grid minColumnWidth="sm">…</Grid>`}>
         <Grid minColumnWidth="sm" gap="sm">
           {Array.from({ length: 7 }, (_, i) => (

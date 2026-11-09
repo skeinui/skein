@@ -91,7 +91,9 @@
     },
     "Table_Row": {
       "expanded": "这一行已展开（后面跟着 `Table.ExpandedRow`）：只影响外观；展开按钮的状态由 `Table.ExpandButton` 自己带。",
-      "selected": "选中态：高亮这一行并写 aria-selected。"
+      "selected": "选中态：高亮这一行并写 aria-selected。",
+      "active": "当前行（详情正在表格旁边打开的那一行）：像选中行一样高亮并带 `aria-current`，与 `selected`（勾选）无关。",
+      "interactive": "点击这一行会触发操作（`onClick` 自己写）：指针样式和焦点环；键盘可达需自己加 `tabIndex={0}` 和 Enter / 空格处理。"
     },
     "Table_Head": {
       "align": "内容的水平对齐。",
@@ -106,12 +108,14 @@
       "resizeLabel": "手柄的无障碍名称，默认 \"Resize column\"。",
       "sort": "当前排序方向；不传表示没按这一列排序。",
       "sortable": "可排序：表头多一个按钮和排序图标。",
-      "width": "列宽（px），由调用方持有；设了之后这一列宽度固定。要让宽度跟着拖动变，配合 `resizable` + `onResize`。"
+      "width": "列宽（px），由调用方持有；设了之后这一列宽度固定。要让宽度跟着拖动变，配合 `resizable` + `onResize`。",
+      "nowrap": "表头文字保持一行（`white-space: nowrap`）。"
     },
     "Table_Cell": {
       "align": "内容的水平对齐；和这一列的 `Table.Head` 写同一个值。",
       "fixed": "固定列，同 `Table.Head` 的 `fixed`：表头和这一列的每个单元格都要写。",
-      "kind": "select：多选框列；expand：展开按钮列（`Table.ExpandButton`）。"
+      "kind": "select：多选框列；expand：展开按钮列（`Table.ExpandButton`）。",
+      "nowrap": "单元格内容保持一行（`white-space: nowrap`）：日期、编号；表头上也写。"
     },
     "Table_EditableCell": {
       "align": "内容的水平对齐，同 `Table.Cell` 的 `align`。",

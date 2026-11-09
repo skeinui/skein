@@ -7,7 +7,17 @@ export default {
   toc: [
     {
       group: "examples",
-      items: ["row-col", "gutter", "offset", "align", "order", "responsive", "grid", "auto-grid"],
+      items: [
+        "row-col",
+        "gutter",
+        "offset",
+        "align",
+        "order",
+        "responsive",
+        "grid",
+        "aside",
+        "auto-grid",
+      ],
     },
     { group: "reference", items: ["api", "styling"] },
   ],

@@ -68,7 +68,9 @@
       "strong": "粗体（用 `<strong>` 包住文字）。",
       "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
       "underline": "下划线（`<u>`）。",
-      "level": "1–5，渲染成 h1–h5，字阶取主题风格的值。"
+      "level": "1–5，渲染成 h1–h5，字阶取主题风格的值。",
+      "nowrap": "整段文字保持一行（`white-space: nowrap`），如日期、编号；要用省略号截断请用 `ellipsis`。",
+      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。"
     },
     "Text": {
       "code": "行内代码样式（`<code>`）。",
@@ -81,7 +83,9 @@
       "strikethrough": "删除线（`<del>`）。",
       "strong": "粗体（用 `<strong>` 包住文字）。",
       "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
-      "underline": "下划线（`<u>`）。"
+      "underline": "下划线（`<u>`）。",
+      "nowrap": "整段文字保持一行（`white-space: nowrap`），如日期、编号；要用省略号截断请用 `ellipsis`。",
+      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。"
     },
     "Paragraph": {
       "code": "行内代码样式（`<code>`）。",
@@ -94,10 +98,18 @@
       "strikethrough": "删除线（`<del>`）。",
       "strong": "粗体（用 `<strong>` 包住文字）。",
       "tone": "颜色语义：secondary 是弱化的说明文字，其余取主题风格的语义色，disabled 是灰掉、不可用的样子。",
-      "underline": "下划线（`<u>`）。"
+      "underline": "下划线（`<u>`）。",
+      "nowrap": "整段文字保持一行（`white-space: nowrap`），如日期、编号；要用省略号截断请用 `ellipsis`。",
+      "preserveWhitespace": "保留文字里的换行和连续空格（`white-space: pre-wrap`），过长的内容折行；用于用户输入的消息、备注。"
     },
     "Typography": {
       "as": "容器元素；里面的原生标题、段落、列表、引用、代码、链接、表格自动有合适的排版。"
     }
+  },
+  "whitespace": {
+    "title": "不换行与保留换行",
+    "description": "`nowrap` 让日期、编号这类文字无论多窄都保持一行（`ellipsis` 是截断）。`preserveWhitespace` 保留用户输入文字里的换行和连续空格，过长的内容自动折行。",
+    "date": "2026-11-09 16:08（不会折行）",
+    "message": "你好，\n\n仪表盘先是白屏，然后整个标签页崩溃了。\n我们用的是 Mac 上的 Chrome。"
   }
 }

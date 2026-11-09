@@ -21,6 +21,15 @@ export interface GridProps extends Without<ComponentPropsWithoutRef<"div">> {
    */
   minColumnWidth?: "xs" | "sm" | "md" | "lg";
   /**
+   * A main column and one side column of a fixed width: `end` puts it after the main one, `start` before it. Give it two children (the main one first, whichever side the side column is on shows the second). Below 64rem the two stack, the main one first. `columns` and `minColumnWidth` are not used with it.
+   */
+  aside?: "start" | "end";
+  /**
+   * The width of the side column of `aside`: sm 14rem, md 20rem, lg 26rem.
+   * @default "md"
+   */
+  asideWidth?: "sm" | "md" | "lg";
+  /**
    * Spacing between cells, from the theme style's spacing scale.
    * @default "md"
    */
@@ -37,6 +46,8 @@ export function Grid({
   as = "div",
   columns,
   minColumnWidth,
+  aside,
+  asideWidth = "md",
   gap = "md",
   align = "stretch",
   ...rest
@@ -46,8 +57,10 @@ export function Grid({
   return createElement(as, {
     ...rest,
     "data-slot": "grid",
-    "data-columns": minColumnWidth ? undefined : (cols ?? 1),
-    "data-min-column": minColumnWidth,
+    "data-columns": minColumnWidth || aside ? undefined : (cols ?? 1),
+    "data-min-column": aside ? undefined : minColumnWidth,
+    "data-aside": aside,
+    "data-aside-width": aside ? asideWidth : undefined,
     "data-gap": gap,
     "data-align": align,
   });

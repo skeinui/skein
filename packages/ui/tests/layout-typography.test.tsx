@@ -101,6 +101,18 @@ describe("Grid", () => {
     expect(auto).not.toContain("data-columns");
   });
 
+  test("`aside` is a main column and a side column: data-aside and its width (md by default), no columns", () => {
+    const end = ssr(createElement(Grid, { aside: "end", columns: 3, minColumnWidth: "sm" }));
+    expect(end).toContain('data-aside="end"');
+    expect(end).toContain('data-aside-width="md"');
+    expect(end).not.toContain("data-columns");
+    expect(end).not.toContain("data-min-column");
+    const start = ssr(createElement(Grid, { aside: "start", asideWidth: "lg" }));
+    expect(start).toContain('data-aside="start"');
+    expect(start).toContain('data-aside-width="lg"');
+    expect(ssr(createElement(Grid, null))).not.toContain("data-aside");
+  });
+
   test("Grid.Item span is clamped to 1–12", () => {
     expect(ssr(createElement(Grid.Item, { span: 3 }))).toContain('data-span="3"');
     expect(ssr(createElement(Grid.Item, { span: 0 }))).toContain('data-span="1"');
@@ -135,6 +147,14 @@ describe("Typography components", () => {
     expect(ssr(createElement(Title, null, "T")).startsWith("<h1")).toBe(true);
     expect(ssr(createElement(Paragraph, null, "P")).startsWith("<p")).toBe(true);
     expect(ssr(createElement(Text, null, "S")).startsWith("<span")).toBe(true);
+  });
+
+  test("`nowrap` and `preserveWhitespace` are data attributes of Text, Paragraph and Title, off by default", () => {
+    for (const C of [Text, Paragraph, Title]) {
+      expect(ssr(createElement(C, null, "x"))).not.toMatch(/data-nowrap|data-pre/);
+      expect(ssr(createElement(C, { nowrap: true }, "x"))).toContain("data-nowrap");
+      expect(ssr(createElement(C, { preserveWhitespace: true }, "x"))).toContain("data-pre");
+    }
   });
 
   test("tone / disabled become data-*; decorations use semantic elements in a fixed nesting order", () => {

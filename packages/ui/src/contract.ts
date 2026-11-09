@@ -795,6 +795,8 @@ export const LAYOUT_TAGS = [
 ] as const;
 export type LayoutTag = (typeof LAYOUT_TAGS)[number];
 export const FLEX_SLOTS = ["flex", "flex-spacer"] as const;
+export const GRID_ASIDES = ["start", "end"] as const;
+export const GRID_ASIDE_WIDTHS = ["sm", "md", "lg"] as const;
 export const GRID_SLOTS = ["grid", "grid-item", "row", "col"] as const;
 /** Responsive breakpoints (minimum viewport width, px). Col's responsive props all use this set, shared by all theme styles. */
 export const BREAKPOINTS = { xs: 0, sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1600 } as const;

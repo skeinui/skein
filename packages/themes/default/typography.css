@@ -92,6 +92,17 @@
     color: inherit;
   }
 
+  /* nowrap: one line whatever the width; preserveWhitespace: the line breaks of the text are kept, long words wrap */
+  [data-skein-theme="default"]
+    :is([data-slot="text"], [data-slot="title"], [data-slot="paragraph"])[data-nowrap] {
+    white-space: nowrap;
+  }
+  [data-skein-theme="default"]
+    :is([data-slot="text"], [data-slot="title"], [data-slot="paragraph"])[data-pre] {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
   /* Ellipsis: single line, or multi-line (see the per-line-count rules below) */
   [data-skein-theme="default"] :is([data-slot="text"])[data-ellipsis] {
     display: inline-flex;

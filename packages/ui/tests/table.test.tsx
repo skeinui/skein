@@ -81,6 +81,32 @@ describe("Table (SSR)", () => {
     expect(html).toContain("data-striped");
   });
 
+  test("Table.Row `active` is data-active and aria-current (not aria-selected); `interactive` is a data attribute; `nowrap` goes on cells and heads", () => {
+    const html = ssr(
+      createElement(
+        Table,
+        null,
+        createElement(
+          Table.Body,
+          null,
+          createElement(
+            Table.Row,
+            { active: true, interactive: true },
+            createElement(Table.Cell, { nowrap: true }, "a"),
+          ),
+          createElement(Table.Row, null, createElement(Table.Cell, null, "b")),
+        ),
+      ),
+    );
+    expect(html).toContain("data-active");
+    expect(html).toContain('aria-current="true"');
+    expect(html).not.toContain("aria-selected");
+    expect(html).toContain("data-interactive");
+    expect(html.match(/data-nowrap/g)).toHaveLength(1);
+    const head = ssr(createElement(Table, null, createElement(Table.Head, { nowrap: true }, "h")));
+    expect(head).toContain("data-nowrap");
+  });
+
   test("sortable headers get aria-sort, data-sort, a button and an icon", () => {
     const html = demo();
     expect(html).toContain('aria-sort="ascending"');

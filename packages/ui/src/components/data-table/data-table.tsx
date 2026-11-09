@@ -22,6 +22,8 @@ export interface DataTableColumn<Row> {
   fixed?: TableFixed;
   /** The header gets a sort button; the sort itself is yours (`sort` / `onSortChange`). */
   sortable?: boolean;
+  /** Keep the header and the cells of the column on one line (`white-space: nowrap`): a date, an id. */
+  nowrap?: boolean;
 }
 
 /** An action in the last column of a row: a ghost button, or one that asks first when it has `confirm`. */
@@ -94,6 +96,29 @@ export interface DataTableProps<Row> {
    * @default false
    */
   stickyHeader?: boolean;
+  /**
+   * The key of the row the page is showing (the one whose details are open beside the table): it is highlighted and has `aria-current`.
+   * It has nothing to do with `selected`, the ticked rows.
+   */
+  activeKey?: string;
+  /**
+   * Makes the rows clickable (pointer, focus ring, Enter / Space on a focused row): called with the row. A click on a link, a button, an input
+   * or anything else inside the row that does something of its own (the checkbox, the actions, a popover's content) does not count, and neither
+   * does one that ends a text selection.
+   */
+  onRowClick?: (row: Row, index: number) => void;
+}
+
+/** Things in a row that do something of their own: a click on them is not a click on the row. */
+const OWN_ACTION =
+  'a, button, input, select, textarea, label, summary, [role="button"], [role="checkbox"], [role="switch"], [role="menuitem"], [role="combobox"]';
+
+/** Is this click on the row itself: inside the row (a popover's content is portalled, but its events still bubble here), not on something with an action, not the end of a text selection. */
+function isRowClick(row: HTMLElement, target: EventTarget): boolean {
+  if (!(target instanceof Element) || !row.contains(target)) return false;
+  const own = target.closest(OWN_ACTION);
+  if (own && row.contains(own)) return false;
+  return !window.getSelection()?.toString();
 }
 
 /** A field shown without `render`: text, a number or a boolean as it reads; anything else needs a `render`. */
@@ -131,6 +156,8 @@ export function DataTable<Row>({
   bordered,
   hoverable = true,
   stickyHeader = false,
+  activeKey,
+  onRowClick,
 }: DataTableProps<Row>) {
   const t = useLabels("dataTable");
   const keyOf = (row: Row, index: number) =>
@@ -172,6 +199,7 @@ export function DataTable<Row>({
                 align={c.align}
                 width={c.width}
                 fixed={c.fixed}
+                nowrap={c.nowrap}
                 sortable={c.sortable}
                 sort={order}
                 onSort={
@@ -198,7 +226,32 @@ export function DataTable<Row>({
             const key = keys[index]!;
             const isSelected = chosen.includes(key);
             return (
-              <Table.Row key={key} selected={selectable ? isSelected : undefined}>
+              <Table.Row
+                key={key}
+                selected={selectable ? isSelected : undefined}
+                active={activeKey !== undefined && activeKey === key}
+                interactive={onRowClick ? true : undefined}
+                tabIndex={onRowClick ? 0 : undefined}
+                onClick={
+                  onRowClick
+                    ? (event) => {
+                        if (!isRowClick(event.currentTarget, event.target)) return;
+                        onRowClick(row, index);
+                      }
+                    : undefined
+                }
+                onKeyDown={
+                  onRowClick
+                    ? (event) => {
+                        // Only a key pressed on the row itself: Enter / Space in a field or on a button inside is theirs
+                        if (event.target !== event.currentTarget) return;
+                        if (event.key !== "Enter" && event.key !== " ") return;
+                        event.preventDefault();
+                        onRowClick(row, index);
+                      }
+                    : undefined
+                }
+              >
                 {selectable ? (
                   <Table.Cell kind="select">
                     <Checkbox
@@ -213,7 +266,7 @@ export function DataTable<Row>({
                   </Table.Cell>
                 ) : null}
                 {columns.map((c) => (
-                  <Table.Cell key={c.key} align={c.align} fixed={c.fixed}>
+                  <Table.Cell key={c.key} align={c.align} fixed={c.fixed} nowrap={c.nowrap}>
                     {c.render
                       ? c.render(row, index)
                       : plainText((row as Record<string, unknown>)[c.key])}

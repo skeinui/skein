@@ -54,5 +54,11 @@
     "text": "`data-tone`, `data-disabled`; when truncating `data-ellipsis` / `data-rows`, `data-truncated` while truncated and `data-expanded` while expanded",
     "parts": "The text itself (truncation applies to it); the copy button (`data-copied` after copying); the expand / collapse button",
     "container": "The content container; its h1–h6, p, ul / ol, blockquote, code, pre, a, hr and table are styled per element by the theme style"
+  },
+  "whitespace": {
+    "title": "One line, line breaks",
+    "description": "`nowrap` keeps a date or an id on one line however narrow the space (`ellipsis` cuts it instead). `preserveWhitespace` keeps the line breaks and runs of spaces of a text a person typed, and wraps what is too long.",
+    "date": "2026-11-09 16:08 (it does not wrap)",
+    "message": "Hi Lucas,\n\nThe dashboard goes blank and then the whole tab crashes.\nWe are using Chrome on a Mac."
   }
 }

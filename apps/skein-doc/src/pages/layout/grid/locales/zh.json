@@ -1,19 +1,29 @@
 {
   "lead": "两种栅格。`Row` / `Col` 是 24 栅格（和 Ant Design 一样）：一行分 24 份，Col 用 `span` 占几份，有 `offset`、`order` 和随屏幕宽度变化的响应式属性，用来做页面排版。`Grid` 是二维的 CSS grid，固定列数或按最小列宽自适应，适合卡片墙。间距都取主题风格的刻度。",
-  "row-col": { "title": "Row 与 Col" },
+  "row-col": {
+    "title": "Row 与 Col"
+  },
   "gutter": {
     "title": "间距",
     "description": "间距取主题风格的刻度；给一对值分开设水平和垂直。超过 24 份会自动换行。"
   },
-  "offset": { "title": "偏移" },
-  "align": { "title": "对齐与分布" },
-  "order": { "title": "排序" },
+  "offset": {
+    "title": "偏移"
+  },
+  "align": {
+    "title": "对齐与分布"
+  },
+  "order": {
+    "title": "排序"
+  },
   "responsive": {
     "title": "响应式",
     "description": "缩放浏览器窗口看效果：窄屏每列占满一行，≥ 768 一行两个，≥ 992 一行四个。",
     "mdUp": "md 以上才显示"
   },
-  "grid": { "title": "Grid" },
+  "grid": {
+    "title": "Grid"
+  },
   "auto-grid": {
     "title": "自适应列数",
     "description": "按最小列宽自适应：缩小浏览器窗口，列数自己变少，不用写断点。"
@@ -55,11 +65,19 @@
       "as": "渲染成哪个元素（语义）。",
       "columns": "固定列数（1–12）。与 minColumnWidth 二选一；都不给时为 1 列。",
       "gap": "单元格之间的间距，取主题风格的刻度。",
-      "minColumnWidth": "按列宽自适应：每列至少这么宽，放得下几列就几列（屏幕变窄自动变少）。想要响应式又不写断点就用它。"
+      "minColumnWidth": "按列宽自适应：每列至少这么宽，放得下几列就几列（屏幕变窄自动变少）。想要响应式又不写断点就用它。",
+      "aside": "主栏加一个固定宽度的侧栏：`end` 侧栏在后，`start` 在前；传两个子元素（主栏在前）。窄于 64rem 时堆叠。与 `columns`、`minColumnWidth` 不同时使用。",
+      "asideWidth": "`aside` 侧栏的宽度：sm 14rem、md 20rem、lg 26rem。"
     },
     "Grid_Item": {
       "as": "渲染成哪个元素（语义）。",
       "span": "跨几列（1–12）；超过总列数时占满整行。"
     }
+  },
+  "aside": {
+    "title": "主栏加侧栏",
+    "description": "`aside` 是一个主栏加一个固定宽度的侧栏（`asideWidth`：14、20 或 26rem），侧栏在末端或起始端；窄于 64rem 时上下堆叠，主栏在前。",
+    "main": "主栏",
+    "side": "侧栏"
   }
 }

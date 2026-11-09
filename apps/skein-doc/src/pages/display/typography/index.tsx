@@ -80,6 +80,19 @@ export default function TypographyPage() {
       </Example>
 
       <Example
+        id="whitespace"
+        code={`<Text nowrap>2026-11-09 16:08</Text>
+<Text preserveWhitespace>{"Hello,\n\nthe dashboard goes blank."}</Text>`}
+      >
+        <Flex direction="column" gap="sm">
+          <div className="pg-narrow">
+            <Text nowrap>{t("whitespace.date")}</Text>
+          </div>
+          <Text preserveWhitespace>{t("whitespace.message")}</Text>
+        </Flex>
+      </Example>
+
+      <Example
         id="copy"
         code={`<Text copyable>copy me</Text>
 <Text copyable={{ text: "sk-live-…", onCopy: () => toast("Copied") }}>sk-live-••••</Text>`}

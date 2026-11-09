@@ -50,6 +50,10 @@ interface TextStyleProps {
   mark?: boolean;
   /** Truncate with an ellipsis on overflow: true is a single line, an object can specify the line count (1–10) and whether it is expandable. Truncated plain text shows the full text in its `title`. */
   ellipsis?: boolean | EllipsisConfig;
+  /** Keep the text on one line, however narrow the space (`white-space: nowrap`): a date, an id. For a line that is cut with an ellipsis use `ellipsis`. */
+  nowrap?: boolean;
+  /** Keep the line breaks and runs of spaces of the text (`white-space: pre-wrap`), and wrap what is too long, for a message or a note typed by a person. */
+  preserveWhitespace?: boolean;
   /** Add a copy button after the text; without `text` it copies the displayed text, and after copying the button shows a check for about 2 seconds. */
   copyable?: boolean | CopyConfig;
   /** Button text (for switching languages). */
@@ -113,6 +117,8 @@ function Core({
   tone,
   disabled,
   ellipsis,
+  nowrap,
+  preserveWhitespace,
   copyable,
   labels: labelsProp,
   children,
@@ -176,6 +182,8 @@ function Core({
       "data-tone": tone,
       "data-disabled": disabled ? "" : undefined,
       "data-ellipsis": ellipsisConfig ? "" : undefined,
+      "data-nowrap": nowrap ? "" : undefined,
+      "data-pre": preserveWhitespace ? "" : undefined,
       "data-rows": rows,
       "data-expanded": expanded ? "" : undefined,
       "data-truncated": truncated && !expanded ? "" : undefined,
@@ -235,6 +243,8 @@ export function Text({
   code,
   mark,
   ellipsis,
+  nowrap,
+  preserveWhitespace,
   copyable,
   labels,
   children,
@@ -254,6 +264,8 @@ export function Text({
         code,
         mark,
         ellipsis,
+        nowrap,
+        preserveWhitespace,
         copyable,
         labels,
       }}
@@ -280,6 +292,8 @@ export function Paragraph({
   code,
   mark,
   ellipsis,
+  nowrap,
+  preserveWhitespace,
   copyable,
   labels,
   children,
@@ -299,6 +313,8 @@ export function Paragraph({
         code,
         mark,
         ellipsis,
+        nowrap,
+        preserveWhitespace,
         copyable,
         labels,
       }}
@@ -331,6 +347,8 @@ export function Title({
   code,
   mark,
   ellipsis,
+  nowrap,
+  preserveWhitespace,
   copyable,
   labels,
   children,
@@ -351,6 +369,8 @@ export function Title({
         code,
         mark,
         ellipsis,
+        nowrap,
+        preserveWhitespace,
         copyable,
         labels,
       }}

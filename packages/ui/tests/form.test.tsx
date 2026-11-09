@@ -3,7 +3,7 @@ import { act, createElement, createRef } from "react";
 import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test } from "vite-plus/test";
-import { ConfigProvider, Form } from "../src/index.ts";
+import { ConfigProvider, Field, Form } from "../src/index.ts";
 import { zhCN } from "../src/locales/zh-CN.ts";
 import type { FormField, FormInstance, FormProps } from "../src/index.ts";
 
@@ -481,6 +481,17 @@ describe("Form", () => {
     await mount({ fields: [{ name: "a" }], disabled: true });
     expect(input("a").disabled).toBe(true);
     expect(document.querySelector<HTMLButtonElement>('button[type="submit"]')!.disabled).toBe(true);
+  });
+  test("Field.Label is a <label>; with nativeLabel={false} it is a div (and `render` still wins)", () => {
+    const html = (props: object) =>
+      renderToStaticMarkup(createElement(Field, null, createElement(Field.Label, props, "Name")));
+    expect(html({})).toContain("<label");
+    const plain = html({ nativeLabel: false });
+    expect(plain).not.toContain("<label");
+    expect(plain).toMatch(/<div [^>]*data-slot="field-label"/);
+    expect(html({ nativeLabel: false, render: createElement("span") })).toMatch(
+      /<span [^>]*data-slot="field-label"/,
+    );
   });
   test("the default error texts follow the locale; `messages` still wins", async () => {
     host = document.createElement("div");

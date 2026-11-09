@@ -48,7 +48,8 @@
     "render": "What the cell shows for a row; without it, the row's field named `key` as text.",
     "align": "Alignment of the header and the cells, a fixed `width` (px), and `fixed` to stick to the start or end edge while the table scrolls sideways.",
     "sortable": "The header gets a sort button; the sort itself is yours.",
-    "titleField": "Text of the header."
+    "titleField": "Text of the header.",
+    "nowrap": "Keep the header and the cells on one line (a date, an id)."
   },
   "styling": {
     "title": "Styling Reference",
@@ -59,5 +60,11 @@
   "sticky": {
     "title": "Fixed header",
     "description": "`stickyHeader` keeps the header in view and scrolls only the rows. The table takes the height of its parent, which has to have one: a box with a height as here, or a flex column that has one (`Card fill`, `Flex grow`). Without a limit the table is as tall as its rows."
+  },
+  "rowclick": {
+    "title": "Row click and current row",
+    "description": "`onRowClick` makes the rows clickable (a click, or Enter / Space on a focused row). A click on a link, a button or the tick box inside the row is theirs, not the row's. `activeKey` highlights the row whose details are open beside the table; it is not the same as the ticked rows.",
+    "none": "Click a row",
+    "open": "Open: {name}"
   }
 }

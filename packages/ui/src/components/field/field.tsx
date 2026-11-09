@@ -43,8 +43,19 @@ export function Field({ variant, size, required, children, ...rest }: FieldProps
 
 export type FieldLabelProps = Without<BaseField.Label.Props>;
 
-function FieldLabel(props: FieldLabelProps) {
-  return <BaseField.Label {...props} data-slot="field-label" />;
+/**
+ * The label of a field. With `nativeLabel={false}` (the control is a button such as a Select's trigger, or not a control at all) it is a `div`:
+ * Base UI wants an element that is not a `<label>` then, and you do not have to pass `render` yourself.
+ */
+function FieldLabel({ nativeLabel, render, ...props }: FieldLabelProps) {
+  return (
+    <BaseField.Label
+      {...props}
+      nativeLabel={nativeLabel}
+      render={render ?? (nativeLabel === false ? <div /> : undefined)}
+      data-slot="field-label"
+    />
+  );
 }
 
 export type FieldDescriptionProps = Without<BaseField.Description.Props>;

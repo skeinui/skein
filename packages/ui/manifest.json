@@ -6309,6 +6309,10 @@
           "type": "(row: Row, index: number) => readonly (false | DataTableAction | null | undefined)[]",
           "description": "The actions of a row, in order. Falsy entries are skipped, so a permission reads naturally:\n`(row) => [can(\"edit\") && { key: \"edit\", label: \"Edit\", onClick: … }]`. A row with none has an empty cell."
         },
+        "activeKey": {
+          "type": "string",
+          "description": "The key of the row the page is showing (the one whose details are open beside the table): it is highlighted and has `aria-current`.\nIt has nothing to do with `selected`, the ticked rows."
+        },
         "bordered": {
           "type": "boolean"
         },
@@ -6329,6 +6333,10 @@
         "loading": {
           "type": "boolean",
           "description": "The table is loading: the body fades and cannot be clicked; with no rows, the empty row says \"Loading…\"."
+        },
+        "onRowClick": {
+          "type": "(row: Row, index: number) => void",
+          "description": "Makes the rows clickable (pointer, focus ring, Enter / Space on a focused row): called with the row. A click on a link, a button, an input\nor anything else inside the row that does something of its own (the checkbox, the actions, a popover's content) does not count, and neither\ndoes one that ends a text selection."
         },
         "onSelectedChange": {
           "type": "(keys: string[]) => void",
@@ -6398,6 +6406,10 @@
               "required": true,
               "description": "Identifies the column (the key of its cells and of the sort); also the field of the row shown when there is no `render`."
             },
+            "nowrap": {
+              "type": "boolean",
+              "description": "Keep the header and the cells of the column on one line (`white-space: nowrap`): a date, an id."
+            },
             "render": {
               "type": "(row: Row, index: number) => ReactNode",
               "description": "What the cell shows for a row; without it, the row's field named `key` as text (a string, a number or a boolean; anything else needs a `render`)."
@@ -6456,6 +6468,10 @@
         {
           "title": "Loading and empty",
           "code": "<DataTable rows={[]} rowKey=\"id\" columns={columns} loading={loading} />\n<DataTable rows={[]} rowKey=\"id\" columns={columns} empty=\"Nobody here yet\" />"
+        },
+        {
+          "title": "Row click and current row",
+          "code": "<DataTable\n  rows={people}\n  rowKey=\"id\"\n  columns={columns}\n  activeKey={openId}\n  onRowClick={(row) => setOpenId(row.id)}\n/>"
         },
         {
           "title": "Fixed header",
@@ -8956,6 +8972,24 @@
           ],
           "description": "Which element to render as (semantics)."
         },
+        "aside": {
+          "type": "\"start\" | \"end\"",
+          "values": [
+            "start",
+            "end"
+          ],
+          "description": "A main column and one side column of a fixed width: `end` puts it after the main one, `start` before it. Give it two children (the main one first, whichever side the side column is on shows the second). Below 64rem the two stack, the main one first. `columns` and `minColumnWidth` are not used with it."
+        },
+        "asideWidth": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "The width of the side column of `aside`: sm 14rem, md 20rem, lg 26rem.",
+          "default": "\"md\""
+        },
         "columns": {
           "type": "number",
           "description": "A fixed number of columns (1–12). Mutually exclusive with minColumnWidth; if neither is given it is 1 column.",
@@ -9047,6 +9081,10 @@
         {
           "title": "Grid",
           "code": "<Grid columns={4}><Grid.Item span={2}>…</Grid.Item><Grid.Item>…</Grid.Item></Grid>"
+        },
+        {
+          "title": "Main and side column",
+          "code": "<Grid aside=\"end\" asideWidth=\"md\" gap=\"md\">\n  <div>main</div>\n  <div>aside</div>\n</Grid>"
         },
         {
           "title": "Auto-fit grid",
@@ -13096,6 +13134,14 @@
         "mark": {
           "type": "boolean",
           "description": "Highlight mark (<mark>)."
+        },
+        "nowrap": {
+          "type": "boolean",
+          "description": "Keep the text on one line, however narrow the space (`white-space: nowrap`): a date, an id. For a line that is cut with an ellipsis use `ellipsis`."
+        },
+        "preserveWhitespace": {
+          "type": "boolean",
+          "description": "Keep the line breaks and runs of spaces of the text (`white-space: pre-wrap`), and wrap what is too long, for a message or a note typed by a person."
         },
         "strikethrough": {
           "type": "boolean",
@@ -17194,9 +17240,17 @@
         },
         "Table.Row": {
           "props": {
+            "active": {
+              "type": "boolean",
+              "description": "The row the page is showing (the one whose details are open beside the table): highlighted like a selected row, and `aria-current`. Unlike `selected` it says nothing about ticking."
+            },
             "expanded": {
               "type": "boolean",
               "description": "This row is expanded (followed by `Table.ExpandedRow`): affects appearance only; the expand button's state is carried by `Table.ExpandButton` itself."
+            },
+            "interactive": {
+              "type": "boolean",
+              "description": "The row does something when it is clicked (you write the `onClick`): the pointer shows it and the row has a focus ring (give it `tabIndex={0}` and an Enter / Space handler to reach it by keyboard)."
             },
             "selected": {
               "type": "boolean",
@@ -17239,6 +17293,10 @@
               "type": "number",
               "description": "Minimum width (px) when resizing.",
               "default": "48"
+            },
+            "nowrap": {
+              "type": "boolean",
+              "description": "Keep the header's text on one line (`white-space: nowrap`)."
             },
             "onResize": {
               "type": "(width: number) => void",
@@ -17304,6 +17362,10 @@
                 "expand"
               ],
               "description": "select: the checkbox column; expand: the column of the expand buttons (`Table.ExpandButton`)."
+            },
+            "nowrap": {
+              "type": "boolean",
+              "description": "Keep the cell's content on one line (`white-space: nowrap`): a date, an id; write it on the header too."
             }
           }
         },
@@ -17985,6 +18047,14 @@
           "type": "boolean",
           "description": "Highlight mark (<mark>)."
         },
+        "nowrap": {
+          "type": "boolean",
+          "description": "Keep the text on one line, however narrow the space (`white-space: nowrap`): a date, an id. For a line that is cut with an ellipsis use `ellipsis`."
+        },
+        "preserveWhitespace": {
+          "type": "boolean",
+          "description": "Keep the line breaks and runs of spaces of the text (`white-space: pre-wrap`), and wrap what is too long, for a message or a note typed by a person."
+        },
         "strikethrough": {
           "type": "boolean",
           "description": "Strikethrough (<del>)."
@@ -18598,6 +18668,14 @@
         "mark": {
           "type": "boolean",
           "description": "Highlight mark (<mark>)."
+        },
+        "nowrap": {
+          "type": "boolean",
+          "description": "Keep the text on one line, however narrow the space (`white-space: nowrap`): a date, an id. For a line that is cut with an ellipsis use `ellipsis`."
+        },
+        "preserveWhitespace": {
+          "type": "boolean",
+          "description": "Keep the line breaks and runs of spaces of the text (`white-space: pre-wrap`), and wrap what is too long, for a message or a note typed by a person."
         },
         "strikethrough": {
           "type": "boolean",
@@ -20214,6 +20292,10 @@
           "code": "<Text ellipsis>…</Text>\n<Paragraph ellipsis={{ rows: 2, expandable: true }}>…</Paragraph>"
         },
         {
+          "title": "One line, line breaks",
+          "code": "<Text nowrap>2026-11-09 16:08</Text>\n<Text preserveWhitespace>{\"Hello,\\n\\nthe dashboard goes blank.\"}</Text>"
+        },
+        {
           "title": "Copyable",
           "code": "<Text copyable>copy me</Text>\n<Text copyable={{ text: \"sk-live-…\", onCopy: () => toast(\"Copied\") }}>sk-live-••••</Text>"
         },
@@ -21234,6 +21316,15 @@
       "md",
       "lg",
       "xl"
+    ],
+    "GRID_ASIDE_WIDTHS": [
+      "sm",
+      "md",
+      "lg"
+    ],
+    "GRID_ASIDES": [
+      "start",
+      "end"
     ],
     "GRID_SLOTS": [
       "grid",

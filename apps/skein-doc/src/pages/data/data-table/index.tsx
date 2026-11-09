@@ -34,6 +34,7 @@ const COLUMN_ROWS = [
   { key: "render", name: "render", type: "(row, index) => ReactNode" },
   { key: "align", name: "align / width / fixed", type: "—" },
   { key: "sortable", name: "sortable", type: "boolean" },
+  { key: "nowrap", name: "nowrap", type: "boolean" },
 ];
 const ACTION_ROWS = [
   { key: "key", name: "key", type: "string" },
@@ -152,6 +153,29 @@ function States() {
   );
 }
 
+function RowClick() {
+  const t = usePageT();
+  const [active, setActive] = useState<string>();
+  const person = PEOPLE.find((p) => p.id === active);
+  return (
+    <div className="pg-stack">
+      <DataTable
+        rows={PEOPLE}
+        rowKey="id"
+        columns={[
+          { key: "name", title: t("col.name") },
+          { key: "email", title: t("col.email"), nowrap: true },
+        ]}
+        activeKey={active}
+        onRowClick={(row) => setActive(row.id)}
+      />
+      <p className="pg-desc">
+        {person ? t("rowclick.open", { name: person.name }) : t("rowclick.none")}
+      </p>
+    </div>
+  );
+}
+
 export default function DataTablePage() {
   const t = usePageT();
   return (
@@ -231,6 +255,19 @@ export default function DataTablePage() {
 <DataTable rows={[]} rowKey="id" columns={columns} empty="Nobody here yet" />`}
       >
         <States />
+      </Example>
+
+      <Example
+        id="rowclick"
+        code={`<DataTable
+  rows={people}
+  rowKey="id"
+  columns={columns}
+  activeKey={openId}
+  onRowClick={(row) => setOpenId(row.id)}
+/>`}
+      >
+        <RowClick />
       </Example>
 
       <Example

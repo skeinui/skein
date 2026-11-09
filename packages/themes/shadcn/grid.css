@@ -9,6 +9,27 @@
   [data-skein-theme="shadcn"] [data-slot="grid-item"] {
     min-width: 0;
   }
+  /* aside: a main column and a side column of a fixed width; they stack below 64rem */
+  [data-skein-theme="shadcn"] [data-slot="grid"][data-aside-width="sm"] {
+    --_aside: 14rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="grid"][data-aside-width="md"] {
+    --_aside: 20rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="grid"][data-aside-width="lg"] {
+    --_aside: 26rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="grid"][data-aside="end"] {
+    grid-template-columns: minmax(0, 1fr) var(--_aside);
+  }
+  [data-skein-theme="shadcn"] [data-slot="grid"][data-aside="start"] {
+    grid-template-columns: var(--_aside) minmax(0, 1fr);
+  }
+  @media (max-width: 64rem) {
+    [data-skein-theme="shadcn"] [data-slot="grid"][data-aside] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
   [data-skein-theme="shadcn"] [data-slot="grid"][data-columns="1"] {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }

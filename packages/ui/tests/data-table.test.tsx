@@ -54,6 +54,76 @@ const click = async (el: Element | null | undefined) => {
   await act(async () => (el as HTMLElement).click());
 };
 
+describe("DataTable: current row and row click", () => {
+  test("`activeKey` marks that row (data-active, aria-current) and says nothing about ticking; `nowrap` of a column goes on its cells and header", () => {
+    const html = ssr(
+      make({ activeKey: "b", columns: [{ key: "name", title: "Name", nowrap: true }] }),
+    );
+    expect(html.match(/data-active/g)).toHaveLength(1);
+    expect(html).toContain('aria-current="true"');
+    expect(html).not.toContain("aria-selected");
+    expect(html.match(/data-nowrap/g)).toHaveLength(3);
+    expect(ssr(make())).not.toContain("data-active");
+  });
+
+  test("without `onRowClick` the rows are not interactive; with it they are focusable rows", () => {
+    expect(ssr(make())).not.toContain("data-interactive");
+    const html = ssr(make({ onRowClick: () => {} }));
+    expect(html).toContain("data-interactive");
+    expect(html).toContain('tabindex="0"');
+  });
+
+  test("a click on a row calls onRowClick with the row and its index; Enter and Space on the focused row do too", async () => {
+    const onRowClick = vi.fn();
+    const el = await mount(make({ onRowClick }));
+    const rows = el.querySelectorAll('tbody [data-slot="table-row"]');
+    await click(rows[1]!.querySelector("td"));
+    expect(onRowClick).toHaveBeenLastCalledWith(ROWS[1], 1);
+    await act(async () => {
+      rows[0]!.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+    });
+    expect(onRowClick).toHaveBeenLastCalledWith(ROWS[0], 0);
+    await act(async () => {
+      rows[1]!.dispatchEvent(new KeyboardEvent("keydown", { key: " ", bubbles: true }));
+    });
+    expect(onRowClick).toHaveBeenLastCalledWith(ROWS[1], 1);
+    await act(async () => {
+      rows[1]!.dispatchEvent(new KeyboardEvent("keydown", { key: "a", bubbles: true }));
+    });
+    expect(onRowClick).toHaveBeenCalledTimes(3);
+  });
+
+  test("a click on a button, a link or the tick box inside the row, and Enter in them, is not a click on the row", async () => {
+    const onRowClick = vi.fn();
+    const onSelectedChange = vi.fn();
+    const el = await mount(
+      make({
+        onRowClick,
+        selected: [],
+        onSelectedChange,
+        columns: [
+          {
+            key: "name",
+            title: "Name",
+            render: (p) =>
+              createElement("a", { href: "#x", "data-testid": `link-${p.id}` }, p.name),
+          },
+        ],
+        actions: () => [{ key: "x", label: "Do", onClick: () => {} }],
+      }),
+    );
+    await click(el.querySelector('[data-testid="link-a"]'));
+    await click(el.querySelector("tbody button"));
+    await click(el.querySelector('tbody [role="checkbox"], tbody input[type="checkbox"]'));
+    expect(onRowClick).not.toHaveBeenCalled();
+    const link = el.querySelector('[data-testid="link-a"]')!;
+    await act(async () => {
+      link.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+    });
+    expect(onRowClick).not.toHaveBeenCalled();
+  });
+});
+
 describe("DataTable", () => {
   test("`stickyHeader` goes to the table's container (data-sticky), off by default", () => {
     expect(ssr(make())).not.toContain("data-sticky");
