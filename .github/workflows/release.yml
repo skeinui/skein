@@ -1,9 +1,10 @@
 # Releases, with changesets:
 #
-# - A push to main with changesets in .changeset/ opens (or updates) the "Version packages" pull request: the
+# - A push to main that adds changesets to .changeset/ opens (or updates) the "Version packages" pull request: the
 #   versions bumped, the CHANGELOGs written, the manifest refreshed (`pnpm version-packages`).
 # - Merging it (or pushing versions bumped locally) leaves versions that npm doesn't have yet: the publish job waits
-#   for the tests on Linux, macOS and Windows (and check and build), then for an approval in the `npm` environment,
+#   for the tests on Linux, macOS and Windows (and check and build), the axe scan and the CLI's end-to-end run (a push
+#   to main runs only the tests, ci.yml), then for an approval in the `npm` environment,
 #   publishes with `changeset publish`, tags the version (`v0.0.6`: one tag for the five packages) and creates its
 #   GitHub Release.
 #
@@ -18,9 +19,15 @@ run-name: >-
     && format('Release {0}', github.event.head_commit.message)
     || format('Release ({0})', github.ref_name) }}
 
+# Only a push that touches a changeset or a package's version: a plain code push runs the tests (ci.yml) and nothing
+# else. A changeset added opens or updates the version pull request; merging it deletes the changesets and bumps the
+# versions, which is what runs the rest.
 on:
   push:
     branches: [main]
+    paths:
+      - ".changeset/**"
+      - "packages/*/package.json"
 
 permissions: {}
 
@@ -84,8 +91,9 @@ jobs:
           echo "version=$(node -p "require('./packages/ui/package.json').version")" >> "$GITHUB_OUTPUT"
           echo "Not on npm yet: ${unpublished:-none}"
 
-  # Before anything is published, the tests on the three platforms (as ci.yml: a Windows-only bug fails here), and
-  # check and build on Linux. The approval is asked for once they all pass.
+  # Before anything is published, the whole gate (ci.yml only runs `test` on a push): the tests on the three
+  # platforms (a Windows-only bug fails here), check and build on Linux, the axe scan and the CLI's end-to-end run.
+  # The approval is asked for once they all pass.
   test:
     needs: version
     if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
@@ -112,9 +120,53 @@ jobs:
         run: pnpm exec vp check && pnpm exec vp run -r build
       - run: pnpm exec vp run -r test
 
+  # The axe-core scan (packages/ui/tests/a11y): every theme style x light / dark x layout of the docs site's
+  # AdminLayout demo, in the runner's Chrome, against the docs site's dev server
+  a11y:
+    needs: version
+    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: start the docs site
+        run: |
+          pnpm exec vp run skein-doc#dev > "$RUNNER_TEMP/docs.log" 2>&1 &
+          timeout 180 bash -c 'until curl -sf http://localhost:5175 > /dev/null; do sleep 2; done' || { cat "$RUNNER_TEMP/docs.log"; exit 1; }
+      - run: pnpm exec vp run --fail-if-no-match --filter @skeinui/ui a11y
+
+  # tests/e2e of the CLI: every preset generated with --local, npm / pnpm installed, checked and built, the admin
+  # app driven in the runner's Chrome
+  e2e:
+    needs: version
+    if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 12.4.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec vp run --fail-if-no-match --filter @skeinui/cli e2e
+
   publish:
     name: publish v${{ needs.version.outputs.version }}
-    needs: [version, test]
+    needs: [version, test, a11y, e2e]
     if: needs.version.outputs.changesets == 'false' && needs.version.outputs.unpublished != ''
     runs-on: ubuntu-latest
     environment: npm
