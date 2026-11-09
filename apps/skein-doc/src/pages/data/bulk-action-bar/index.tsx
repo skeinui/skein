@@ -11,7 +11,13 @@ const ROWS = [
   { id: "T-1009", title: "Bulk edit", status: "resolved" },
 ];
 
-function Demo({ placement }: { placement: BulkActionBarProps["placement"] }) {
+function Demo({
+  placement,
+  floating,
+}: {
+  placement: BulkActionBarProps["placement"];
+  floating?: boolean;
+}) {
   const t = usePageT();
   const [selected, setSelected] = useState<string[]>(["T-1016", "T-1013"]);
   return (
@@ -19,7 +25,11 @@ function Demo({ placement }: { placement: BulkActionBarProps["placement"] }) {
       <Card.Body>
         <div className="pg-stack pg-stack--start">
           {placement === "top" ? (
-            <BulkActionBar count={selected.length} onClear={() => setSelected([])}>
+            <BulkActionBar
+              floating={floating}
+              count={selected.length}
+              onClear={() => setSelected([])}
+            >
               <Actions count={selected.length} />
             </BulkActionBar>
           ) : null}
@@ -37,6 +47,7 @@ function Demo({ placement }: { placement: BulkActionBarProps["placement"] }) {
           {placement === "bottom" ? (
             <BulkActionBar
               placement="bottom"
+              floating={floating}
               count={selected.length}
               onClear={() => setSelected([])}
             >
@@ -88,7 +99,11 @@ export default function BulkActionBarPage() {
         id="usage"
         code={`const [selected, setSelected] = useState<string[]>([]);
 
-<BulkActionBar count={selected.length} onClear={() => setSelected([])}>
+<BulkActionBar
+              floating={floating}
+              count={selected.length}
+              onClear={() => setSelected([])}
+            >
   <MenuButton size="sm" items={agents} onSelect={assign}>Assign to</MenuButton>
   <Button size="sm" variant="outline" color="danger" onClick={remove}>Delete</Button>
 </BulkActionBar>
@@ -103,6 +118,13 @@ export default function BulkActionBarPage() {
 <BulkActionBar placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
       >
         <Demo placement="bottom" />
+      </Example>
+
+      <Example
+        id="floating"
+        code={`<BulkActionBar floating placement="bottom" count={selected.length} onClear={clear}>…</BulkActionBar>`}
+      >
+        <Demo placement="bottom" floating />
       </Example>
 
       <DocHeading id="reference" />

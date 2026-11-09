@@ -15,7 +15,7 @@
   },
   "placement": {
     "title": "顶部还是底部",
-    "description": "`placement=\"top\"`（默认）是放在你写的位置、表格上方的一条栏。`\"bottom\"` 在滚动区域的底边浮着，翻行时一直可见：放在表格后面。"
+    "description": "`placement=\"top\"`（默认）是放在你写的位置、表格上方的一条栏；`\"bottom\"` 在表格下方：放在表格后面。"
   },
   "api": {
     "title": "API 参考"
@@ -28,9 +28,14 @@
     "BulkActionBar": {
       "count": "选中了几行；大于 0 才显示这条栏。",
       "onClear": "清除选择：给了才显示「清除」按钮。",
-      "placement": "位置：`top` 是放在你写的位置的一条栏（表格上方），`bottom` 浮在滚动区域的底边（放在表格后面）。",
+      "placement": "位置：`top` 在表格上方（放在表格前面），`bottom` 在表格下方（放在表格后面）。",
       "children": "对所选行的操作：按钮、MenuButton……",
-      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。",
+      "floating": "浮动：翻行时这条栏停在滚动区域的边上（顶边或底边，由 `placement` 决定）并带阴影；关着就是文档流里的普通栏。"
     }
+  },
+  "floating": {
+    "title": "浮动",
+    "description": "`floating` 让这条栏在翻行时一直停在滚动区域的边上并带阴影：`placement=\"bottom\"` 停在底边，`\"top\"` 停在顶边。关着（默认）就是文档流里的一条普通栏。"
   }
 }

@@ -2737,7 +2737,7 @@
       ]
     },
     "BulkActionBar": {
-      "description": "Bulk action bar: \"3 selected\" with the actions on those rows and a button to clear the selection, shown while rows of a table are ticked.\n`count` is the number selected (0 hides it), `children` are the actions, `onClear` clears; `placement` puts it above the table (`top`) or floating at the bottom (`bottom`).\nFor the tools of the table itself use TableTools.",
+      "description": "Bulk action bar: \"3 selected\" with the actions on those rows and a button to clear the selection, shown while rows of a table are ticked.\n`count` is the number selected (0 hides it), `children` are the actions, `onClear` clears; `placement` puts it above (`top`) or below (`bottom`) the table, and `floating` keeps it in view while the rows scroll.\nFor the tools of the table itself use TableTools.",
       "import": "import { BulkActionBar } from \"@skeinui/ui\";",
       "props": {
         "children": {
@@ -2748,6 +2748,11 @@
           "type": "number",
           "required": true,
           "description": "How many rows are selected; the bar shows only when it is above 0."
+        },
+        "floating": {
+          "type": "boolean",
+          "description": "Float: the bar stays at its edge of the scrolling area (the top or bottom, by `placement`) while you scroll through the rows, raised with a shadow. Off, it is a plain bar in the flow.",
+          "default": "false"
         },
         "labels": {
           "type": "Partial<BulkActionBarLabels>",
@@ -2763,7 +2768,7 @@
             "top",
             "bottom"
           ],
-          "description": "Where it sits: `top` is a bar in the flow where you put it (above the table, in place of its toolbar); `bottom` is a bar that floats at the bottom edge of the scrolling area while you scroll through the rows (put it after the table).",
+          "description": "Where it sits: `top` is above the table (put it before it, in place of its toolbar), `bottom` below it (put it after).",
           "default": "\"top\""
         }
       },
@@ -2793,11 +2798,15 @@
       "examples": [
         {
           "title": "Usage",
-          "code": "const [selected, setSelected] = useState<string[]>([]);\n\n<BulkActionBar count={selected.length} onClear={() => setSelected([])}>\n  <MenuButton size=\"sm\" items={agents} onSelect={assign}>Assign to</MenuButton>\n  <Button size=\"sm\" variant=\"outline\" color=\"danger\" onClick={remove}>Delete</Button>\n</BulkActionBar>\n<DataTable rows={rows} rowKey=\"id\" selected={selected} onSelectedChange={setSelected} columns={columns} />"
+          "code": "const [selected, setSelected] = useState<string[]>([]);\n\n<BulkActionBar\n              floating={floating}\n              count={selected.length}\n              onClear={() => setSelected([])}\n            >\n  <MenuButton size=\"sm\" items={agents} onSelect={assign}>Assign to</MenuButton>\n  <Button size=\"sm\" variant=\"outline\" color=\"danger\" onClick={remove}>Delete</Button>\n</BulkActionBar>\n<DataTable rows={rows} rowKey=\"id\" selected={selected} onSelectedChange={setSelected} columns={columns} />"
         },
         {
           "title": "Top or bottom",
           "code": "<DataTable … />\n<BulkActionBar placement=\"bottom\" count={selected.length} onClear={clear}>…</BulkActionBar>"
+        },
+        {
+          "title": "Floating",
+          "code": "<BulkActionBar floating placement=\"bottom\" count={selected.length} onClear={clear}>…</BulkActionBar>"
         }
       ]
     },

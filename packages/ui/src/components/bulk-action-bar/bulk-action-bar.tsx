@@ -16,10 +16,15 @@ export interface BulkActionBarProps extends Omit<
   /** Clear the selection: the "Clear" button shows when this is given. */
   onClear?: () => void;
   /**
-   * Where it sits: `top` is a bar in the flow where you put it (above the table, in place of its toolbar); `bottom` is a bar that floats at the bottom edge of the scrolling area while you scroll through the rows (put it after the table).
+   * Where it sits: `top` is above the table (put it before it, in place of its toolbar), `bottom` below it (put it after).
    * @default "top"
    */
   placement?: BulkActionBarPlacement;
+  /**
+   * Float: the bar stays at its edge of the scrolling area (the top or bottom, by `placement`) while you scroll through the rows, raised with a shadow. Off, it is a plain bar in the flow.
+   * @default false
+   */
+  floating?: boolean;
   /** The actions on the selection: buttons, a MenuButton… */
   children?: ReactNode;
   /** Texts for another language; the default follows the `locale` of ConfigProvider. */
@@ -28,13 +33,14 @@ export interface BulkActionBarProps extends Omit<
 
 /**
  * Bulk action bar: "3 selected" with the actions on those rows and a button to clear the selection, shown while rows of a table are ticked.
- * `count` is the number selected (0 hides it), `children` are the actions, `onClear` clears; `placement` puts it above the table (`top`) or floating at the bottom (`bottom`).
+ * `count` is the number selected (0 hides it), `children` are the actions, `onClear` clears; `placement` puts it above (`top`) or below (`bottom`) the table, and `floating` keeps it in view while the rows scroll.
  * For the tools of the table itself use TableTools.
  */
 export function BulkActionBar({
   count,
   onClear,
   placement = "top",
+  floating = false,
   children,
   labels,
   ...rest
@@ -48,6 +54,7 @@ export function BulkActionBar({
       {...rest}
       data-slot="bulk-action-bar"
       data-placement={BULK_ACTION_BAR_PLACEMENTS.includes(placement) ? placement : "top"}
+      data-floating={floating ? "" : undefined}
     >
       <Text role="status">{t.selected(count)}</Text>
       <Flex gap="sm" align="center" wrap>

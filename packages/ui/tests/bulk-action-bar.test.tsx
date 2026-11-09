@@ -43,6 +43,11 @@ describe("BulkActionBar", () => {
     expect(ssr(createElement(BulkActionBar, { count: 1, placement: "bottom" }))).toContain(
       'data-placement="bottom"',
     );
+    // floating is a separate switch, off by default
+    expect(html).not.toContain("data-floating");
+    expect(ssr(createElement(BulkActionBar, { count: 1, floating: true }))).toContain(
+      "data-floating",
+    );
   });
 
   test("Clear shows only when onClear is given, and calls it", async () => {

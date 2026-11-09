@@ -15,7 +15,7 @@
   },
   "placement": {
     "title": "Top or bottom",
-    "description": "`placement=\"top\"` (the default) is a bar where you put it, above the table. `\"bottom\"` floats at the bottom edge of the scrolling area while you go through the rows: put it after the table."
+    "description": "`placement=\"top\"` (the default) is a bar above the table, where you put it; `\"bottom\"` is below it: put it after the table."
   },
   "api": {
     "title": "API Reference"
@@ -23,5 +23,9 @@
   "styling": {
     "title": "Styling Reference",
     "description": "The bar is the `bulk-action-bar` slot (`bulk-action-bar.css`), with `data-placement`; the texts and buttons are Text, Flex and Button."
+  },
+  "floating": {
+    "title": "Floating",
+    "description": "`floating` keeps the bar at its edge of the scrolling area while you go through the rows, raised with a shadow: at the bottom for `placement=\"bottom\"`, at the top for `\"top\"`. Off (the default) it is a plain bar in the flow."
   }
 }

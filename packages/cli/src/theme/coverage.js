@@ -371,7 +371,11 @@ export function coverageFor(contract) {
       "@keyframes",
     ],
     "notification-bell.css": [...slotSel(NOTIFICATION_BELL_SLOTS)],
-    "bulk-action-bar.css": [...slotSel(BULK_ACTION_BAR_SLOTS), '[data-placement="bottom"]'],
+    "bulk-action-bar.css": [
+      ...slotSel(BULK_ACTION_BAR_SLOTS),
+      '[data-placement="bottom"]',
+      "[data-floating]",
+    ],
     "query-builder.css": [...slotSel(QUERY_BUILDER_SLOTS)],
     "table-tools.css": [...slotSel(TABLE_TOOLS_SLOTS), "[data-spinning]"],
     "table.css": [

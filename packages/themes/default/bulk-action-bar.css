@@ -1,7 +1,7 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* BulkActionBar: "N selected" with the actions on those rows, a low bar. `top` is in the flow; `bottom` floats at the bottom edge of the scrolling area. */
+  /* BulkActionBar: "N selected" with the actions on those rows, a low bar. `floating` keeps it at the top or bottom edge of the scrolling area. */
   [data-skein-theme="default"] [data-slot="bulk-action-bar"] {
     display: flex;
     flex-wrap: wrap;
@@ -20,11 +20,17 @@
   [data-skein-theme="default"] [data-slot="bulk-action-bar"] [data-slot="button"] {
     font-weight: 400;
   }
-  [data-skein-theme="default"] [data-slot="bulk-action-bar"][data-placement="bottom"] {
+  [data-skein-theme="default"] [data-slot="bulk-action-bar"][data-floating] {
     position: sticky;
-    bottom: 1rem;
     z-index: 5;
     background-color: var(--ui-overlay-bg);
     box-shadow: var(--ui-overlay-shadow);
+  }
+  [data-skein-theme="default"] [data-slot="bulk-action-bar"][data-floating][data-placement="top"] {
+    top: 0.5rem;
+  }
+  [data-skein-theme="default"]
+    [data-slot="bulk-action-bar"][data-floating][data-placement="bottom"] {
+    bottom: 1rem;
   }
 }
