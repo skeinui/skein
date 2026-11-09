@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { BULK_ACTION_BAR_FLOATS, BULK_ACTION_BAR_PLACEMENTS } from "../../contract.ts";
 import type { BulkActionBarFloat, BulkActionBarPlacement } from "../../contract.ts";
@@ -30,6 +31,11 @@ export interface BulkActionBarProps extends Omit<
    * @default "inside"
    */
   floatingIn?: BulkActionBarFloat;
+  /**
+   * With `floating`: the distance (px) from the table's edge line, to the top or to the bottom (by `placement`, and `inside` or `outside`); a negative number moves it the other way, across the line.
+   * @default 12
+   */
+  offset?: number;
   /** The actions on the selection: buttons, a MenuButton… */
   children?: ReactNode;
   /** Texts for another language; the default follows the `locale` of ConfigProvider. */
@@ -47,14 +53,24 @@ export function BulkActionBar({
   placement = "top",
   floating = false,
   floatingIn = "inside",
+  offset,
   children,
   labels,
   ...rest
 }: BulkActionBarProps) {
   const t = { ...useLabels("bulkActionBar"), ...labels };
+  const ref = useRef<HTMLDivElement>(null);
+  // The distance is a dynamic value: written as a CSS variable, which the theme style reads (the component writes no style of its own)
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (offset === undefined) el.style.removeProperty("--bulk-action-bar-offset");
+    else el.style.setProperty("--bulk-action-bar-offset", `${offset}px`);
+  }, [offset, count]);
   if (count <= 0) return null;
   const bar = (
     <div
+      ref={ref}
       role="toolbar"
       aria-label={t.label}
       {...rest}

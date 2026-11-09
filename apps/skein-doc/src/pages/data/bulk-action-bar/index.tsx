@@ -6,6 +6,7 @@ import {
   DataTable,
   Flex,
   MenuButton,
+  NumberField,
   Segmented,
   toast,
 } from "@skeinui/ui";
@@ -36,11 +37,13 @@ function Demo({
   const [selected, setSelected] = useState<string[]>(initial);
   const [placement, setPlacement] = useState(initialPlacement);
   const [floatingIn, setFloatingIn] = useState<"inside" | "outside">("inside");
+  const [offset, setOffset] = useState(12);
   const bar = (
     <BulkActionBar
       placement={placement}
       floating={floating}
       floatingIn={floatingIn}
+      offset={floating ? offset : undefined}
       count={selected.length}
       onClear={() => setSelected([])}
     >
@@ -73,6 +76,17 @@ function Demo({
                     { value: "inside", label: t("floating.inside") },
                     { value: "outside", label: t("floating.outside") },
                   ]}
+                />
+              ) : null}
+              {floating ? (
+                <NumberField
+                  size="sm"
+                  aria-label={t("floating.offset")}
+                  value={offset}
+                  min={-48}
+                  max={96}
+                  step={4}
+                  onValueChange={(v) => setOffset(v ?? 0)}
                 />
               ) : null}
             </Flex>

@@ -2767,6 +2767,11 @@
           "type": "Partial<BulkActionBarLabels>",
           "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
         },
+        "offset": {
+          "type": "number",
+          "description": "With `floating`: the distance (px) from the table's edge line, to the top or to the bottom (by `placement`, and `inside` or `outside`); a negative number moves it the other way, across the line.",
+          "default": "12"
+        },
         "onClear": {
           "type": "() => void",
           "description": "Clear the selection: the \"Clear\" button shows when this is given."
