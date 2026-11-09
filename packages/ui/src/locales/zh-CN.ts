@@ -474,6 +474,15 @@ export const zhCN: Messages = {
     },
     messageThread: { label: "对话", empty: "还没有消息", attachments: "附件" },
     messageComposer: { mode: "回复方式", send: "发送" },
+    savedViews: {
+      title: "我的视图",
+      save: "存成视图",
+      name: "名称",
+      namePlaceholder: "给这个视图起个名字",
+      cancel: "取消",
+      confirm: "保存",
+      remove: (name) => `删除视图 ${name}`,
+    },
     queryBuilder: {
       and: "满足全部",
       or: "满足任一",

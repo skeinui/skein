@@ -1,0 +1,22 @@
+{
+  "lead": "The searches a person keeps under a name: a row of them to choose from (and remove), and a button that asks for a name and keeps the current search. It stores nothing and knows nothing of what a view holds: `views` are given, and `onSelect`, `onDelete` and `onSave` hand every change back to you, so the views can live in the browser, in a store or on the server. It goes above a table, next to [Table Toolbar](/table-toolbar).",
+  "usage": {
+    "title": "Usage",
+    "description": "A view is `{ id, name }` and whatever else you keep in it: here a keyword. Type something to search and the button turns on; pressing a view puts its keyword back.",
+    "first": "Ada's tickets",
+    "saved": "Saved \"{name}\"",
+    "placeholder": "Type a keyword, then save it as a view…",
+    "hint": "Where the views are kept is the page's business: this demo keeps them in memory."
+  },
+  "storage": {
+    "title": "Saving somewhere slow",
+    "description": "`onSave` may return a promise: the dialog shows it working, closes when it is done, and stays open when it fails (show the error yourself)."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "SavedViews is Button + Dialog + Input and has no slot of its own."
+  }
+}

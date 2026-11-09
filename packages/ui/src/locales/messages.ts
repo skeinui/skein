@@ -84,6 +84,16 @@ export interface TableToolbarLabels {
   search: string;
   reset: string;
 }
+export interface SavedViewsLabels {
+  /** The label of the row of views, and its accessible name. */
+  title: string;
+  save: string;
+  name: string;
+  namePlaceholder: string;
+  cancel: string;
+  confirm: string;
+  remove: (name: string) => string;
+}
 export interface QueryBuilderLabels {
   and: string;
   or: string;
@@ -304,6 +314,7 @@ export interface LabelTypes {
   messageComposer: MessageComposerLabels;
   messageThread: MessageThreadLabels;
   queryBuilder: QueryBuilderLabels;
+  savedViews: SavedViewsLabels;
   table: TableLabels;
   tableTools: TableToolsLabels;
   tableToolbar: TableToolbarLabels;

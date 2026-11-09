@@ -98,13 +98,14 @@ export function NotificationBell({
     <Popover open={open} defaultOpen={defaultOpen} onOpenChange={(next) => onOpenChange?.(next)}>
       <Popover.Trigger
         render={<Button variant="ghost" color="neutral" size="sm" iconOnly />}
-        aria-label={unread > 0 ? `${t.title} (${t.unread(unread)})` : t.title}
+        // "Notifications, 2 unread": the number is a word of its own, so the visible count is part of the name
+        aria-label={unread > 0 ? `${t.title}, ${t.unread(unread)}` : t.title}
       >
         <Badge count={unread} max={max} size="sm">
           {bellIcon}
         </Badge>
       </Popover.Trigger>
-      <Popover.Content align="end">
+      <Popover.Content align="end" aria-label={t.title}>
         <div data-slot="notification-bell">
           <Flex direction="column" gap="sm">
             <Flex align="center" justify="between" gap="md">

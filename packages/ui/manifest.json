@@ -5858,6 +5858,9 @@
             "quote": {
               "type": "Partial<QuoteLabels>"
             },
+            "savedViews": {
+              "type": "Partial<SavedViewsLabels>"
+            },
             "searchInput": {
               "type": "Partial<SearchInputLabels>"
             },
@@ -16249,6 +16252,89 @@
         }
       }
     },
+    "SavedViews": {
+      "description": "Saved views: the searches a person keeps under a name: a row of them to choose from (and remove), and a button that asks for a name and keeps the current search.\nIt stores nothing and knows nothing of what a view holds: `views` are given, and `onSelect` / `onDelete` / `onSave` hand every change back to you.\nPut it above a table next to TableToolbar.",
+      "import": "import { SavedViews } from \"@skeinui/ui\";",
+      "props": {
+        "canSave": {
+          "type": "boolean",
+          "description": "Whether there is something to keep: the save button is off while this is false, e.g. no keyword and no filter.",
+          "default": "true"
+        },
+        "labels": {
+          "type": "Partial<SavedViewsLabels>",
+          "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
+        },
+        "onDelete": {
+          "type": "(view: T) => void",
+          "description": "The × of a view was pressed: remove it from where you keep them. The × shows when this is given."
+        },
+        "onSave": {
+          "type": "(name: string) => void | Promise<unknown>",
+          "description": "A name was confirmed in the dialog: keep the current search under it. The \"Save as a view\" button shows when this is given;\nwhen it returns a promise the dialog stays open until it is done (and stays if it fails)."
+        },
+        "onSelect": {
+          "type": "(view: T) => void",
+          "description": "A view was chosen: apply what it holds."
+        },
+        "value": {
+          "type": "string",
+          "description": "The id of the view in use: it is shown as selected."
+        },
+        "views": {
+          "type": "readonly T[]",
+          "required": true,
+          "description": "The views to show, in order. Where they are kept (the browser, the server) is yours: this only shows them."
+        }
+      },
+      "types": {
+        "SavedViewsLabels": {
+          "props": {
+            "cancel": {
+              "type": "string",
+              "required": true
+            },
+            "confirm": {
+              "type": "string",
+              "required": true
+            },
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Field name, for native form submission."
+            },
+            "namePlaceholder": {
+              "type": "string",
+              "required": true
+            },
+            "remove": {
+              "type": "(name: string) => string",
+              "required": true
+            },
+            "save": {
+              "type": "string",
+              "required": true
+            },
+            "title": {
+              "type": "string",
+              "required": true,
+              "description": "The label of the row of views, and its accessible name."
+            }
+          }
+        }
+      },
+      "docs": "saved-views",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<SavedViews\n  views={views}                       // [{ id, name, ...whatever the view holds }]\n  value={activeId}\n  canSave={Boolean(keyword || filter)}\n  onSelect={(view) => apply(view)}    // put what it holds back in the search\n  onDelete={(view) => remove(view.id)}\n  onSave={(name) => add({ name, keyword, filter })}\n/>"
+        },
+        {
+          "title": "Saving somewhere slow",
+          "code": "// onSave may return a promise: the dialog waits for it, and stays open if it fails\nonSave={async (name) => {\n  await api.post(\"/views\", { name, keyword, filter });\n  refetchViews();\n}}"
+        }
+      ]
+    },
     "ScrollArea": {
       "description": "ScrollArea: a scrollable box with a themed scrollbar, for content taller (or wider, `orientation`) than its space.\nThere is no height prop: put it in a parent with a height (or max height) and it fills the parent and scrolls inside it.\nFor a fade at the edges instead of a scrollbar use ScrollShadow.\n\nTheme style: scrolling itself is native, and the scrollbar (track, thumb) is drawn by the theme style.",
       "import": "import { ScrollArea } from \"@skeinui/ui\";",
@@ -24814,6 +24900,18 @@
       ],
       "Row": [
         "grid"
+      ],
+      "SavedViews": [
+        "button",
+        "dialog",
+        "flex",
+        "grid",
+        "input",
+        "input-addons",
+        "layout",
+        "spinner",
+        "tag",
+        "typography"
       ],
       "ScrollArea": [
         "scroll-area"

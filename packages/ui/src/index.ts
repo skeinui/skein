@@ -402,6 +402,8 @@ export type {
   MessageThreadProps,
   ThreadMessage,
 } from "./components/message-thread/index.ts";
+export { SavedViews } from "./components/saved-views/index.ts";
+export type { SavedViewItem, SavedViewsProps } from "./components/saved-views/index.ts";
 export { QueryBuilder } from "./components/query-builder/index.ts";
 export type {
   QueryBuilderCapabilities,

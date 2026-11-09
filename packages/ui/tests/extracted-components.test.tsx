@@ -204,14 +204,14 @@ describe("NotificationBell", () => {
 
   test("the trigger says how many are unread; the badge counts them", () => {
     const html = ssr(createElement(NotificationBell, { items }));
-    expect(html).toContain('aria-label="Notifications (2 unread)"');
+    expect(html).toContain('aria-label="Notifications, 2 unread"');
     expect(html).toContain('data-slot="badge-indicator"');
     expect(
       ssr(createElement(NotificationBell, { items: [{ id: 1, title: "x", read: true }] })),
     ).toContain('aria-label="Notifications"');
     expect(
       ssr(createElement(ConfigProvider, { ...zhCN }, createElement(NotificationBell, { items }))),
-    ).toContain('aria-label="通知 (2 条未读)"');
+    ).toContain('aria-label="通知, 2 条未读"');
   });
 
   test("a button is shown for what its callback is given for, and each reports the notification", async () => {

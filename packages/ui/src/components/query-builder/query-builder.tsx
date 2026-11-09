@@ -351,7 +351,7 @@ function Chip({
           {summary(filter, fields, t)}
         </Popover.Trigger>
       </Tag>
-      <Popover.Content align="start">
+      <Popover.Content align="start" aria-label={summary(filter, fields, t)}>
         <Editor
           fields={fields}
           rules={rules}
@@ -410,7 +410,7 @@ function Adder({
       >
         {label}
       </Popover.Trigger>
-      <Popover.Content align="start">
+      <Popover.Content align="start" aria-label={label}>
         <Editor
           fields={fields}
           rules={rules}

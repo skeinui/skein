@@ -478,6 +478,15 @@ export const en: Messages = {
     },
     messageThread: { label: "Conversation", empty: "No messages yet", attachments: "Attachments" },
     messageComposer: { mode: "Write as", send: "Send" },
+    savedViews: {
+      title: "My views",
+      save: "Save as a view",
+      name: "Name",
+      namePlaceholder: "Name this view",
+      cancel: "Cancel",
+      confirm: "Save",
+      remove: (name) => `Remove ${name}`,
+    },
     queryBuilder: {
       and: "All of",
       or: "Any of",

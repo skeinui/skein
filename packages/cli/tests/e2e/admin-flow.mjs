@@ -244,7 +244,7 @@ export async function adminFlow(base, { log = console.log } = {}) {
     );
     await step("notifications: 3 unread in English, mark all as read", async () => {
       // The list is fetched after the page shows: wait for the count instead of reading it once
-      const bell = page.getByRole("button", { name: "Notifications (3 unread)" });
+      const bell = page.getByRole("button", { name: "Notifications, 3 unread" });
       await bell.waitFor();
       await bell.click();
       // Server content follows the app's language (Accept-Language)
