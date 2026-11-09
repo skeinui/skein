@@ -54,6 +54,13 @@ describe("validateValue", () => {
     expect(await v(0, { required: true })).toBeUndefined();
   });
 
+  test("required: a text of only spaces is no answer, but it is still a value for the other rules", async () => {
+    expect(await v("   ", { required: true })).toBe(DEFAULT_MESSAGES.required);
+    expect(await v(" \t\n", { required: "Name please" })).toBe("Name please");
+    expect(await v("   ", {})).toBeUndefined();
+    expect(await v("   ", { format: "email" })).toBe(DEFAULT_MESSAGES.email);
+  });
+
   test("empty and not required: built-in rules are skipped", async () => {
     expect(await v("", { minLength: 3, format: "email", pattern: /x/ })).toBeUndefined();
     expect(await v(null, { min: 5 })).toBeUndefined();

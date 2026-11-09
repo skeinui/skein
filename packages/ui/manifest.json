@@ -7991,7 +7991,7 @@
         },
         "messages": {
           "type": "Partial<FormMessages>",
-          "description": "Validation message text (for changing language); only pass the ones to change."
+          "description": "Validation message text; the defaults follow the locale (ConfigProvider), pass only the ones to change."
         },
         "onInvalid": {
           "type": "(errors: Record<string, string>) => void",
@@ -8152,8 +8152,8 @@
                 "checkbox",
                 "checkbox-group",
                 "url",
-                "date",
                 "email",
+                "date",
                 "password",
                 "tel",
                 "radio",
@@ -8170,7 +8170,7 @@
           }
         },
         "FormMessages": {
-          "description": "Validation message text. {n} is replaced by the number in the rule; to change language pass a new set to the messages of Form.",
+          "description": "Validation message text. {n} is replaced by the number in the rule; Form takes them from the locale (ConfigProvider), `messages` of Form replaces any of them.",
           "props": {
             "email": {
               "type": "string",
@@ -8326,7 +8326,7 @@
         },
         "messages": {
           "type": "Partial<FormMessages>",
-          "description": "Validation message text (for changing language); only pass the ones to change."
+          "description": "Validation message text; the defaults follow the locale (ConfigProvider), pass only the ones to change."
         },
         "onOpenChange": {
           "type": "(open: boolean) => void",
@@ -8492,8 +8492,8 @@
                 "checkbox",
                 "checkbox-group",
                 "url",
-                "date",
                 "email",
+                "date",
                 "password",
                 "tel",
                 "radio",
@@ -8510,7 +8510,7 @@
           }
         },
         "FormMessages": {
-          "description": "Validation message text. {n} is replaced by the number in the rule; to change language pass a new set to the messages of Form.",
+          "description": "Validation message text. {n} is replaced by the number in the rule; Form takes them from the locale (ConfigProvider), `messages` of Form replaces any of them.",
           "props": {
             "email": {
               "type": "string",
@@ -8640,7 +8640,7 @@
         },
         "messages": {
           "type": "Partial<FormMessages>",
-          "description": "Validation message text (for changing language); only pass the ones to change."
+          "description": "Validation message text; the defaults follow the locale (ConfigProvider), pass only the ones to change."
         },
         "onOpenChange": {
           "type": "(open: boolean) => void",
@@ -8805,8 +8805,8 @@
                 "checkbox",
                 "checkbox-group",
                 "url",
-                "date",
                 "email",
+                "date",
                 "password",
                 "tel",
                 "radio",
@@ -8823,7 +8823,7 @@
           }
         },
         "FormMessages": {
-          "description": "Validation message text. {n} is replaced by the number in the rule; to change language pass a new set to the messages of Form.",
+          "description": "Validation message text. {n} is replaced by the number in the rule; Form takes them from the locale (ConfigProvider), `messages` of Form replaces any of them.",
           "props": {
             "email": {
               "type": "string",

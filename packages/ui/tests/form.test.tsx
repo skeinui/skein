@@ -3,7 +3,8 @@ import { act, createElement, createRef } from "react";
 import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test } from "vite-plus/test";
-import { Form } from "../src/index.ts";
+import { ConfigProvider, Form } from "../src/index.ts";
+import { zhCN } from "../src/locales/zh-CN.ts";
 import type { FormField, FormInstance, FormProps } from "../src/index.ts";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
@@ -480,6 +481,23 @@ describe("Form", () => {
     await mount({ fields: [{ name: "a" }], disabled: true });
     expect(input("a").disabled).toBe(true);
     expect(document.querySelector<HTMLButtonElement>('button[type="submit"]')!.disabled).toBe(true);
+  });
+  test("the default error texts follow the locale; `messages` still wins", async () => {
+    host = document.createElement("div");
+    document.body.appendChild(host);
+    root = createRoot(host);
+    await act(async () => {
+      root!.render(
+        createElement(
+          ConfigProvider,
+          { ...zhCN },
+          createElement(Form, { fields: [{ name: "a", required: true }] }),
+        ),
+      );
+    });
+    await clickSubmit();
+    expect(errorOf("a")).toBe(zhCN.labels.form.required);
+    expect(errorOf("a")).not.toBe("This field is required");
   });
   test("`id` goes to the <form>, and `actions={false}` leaves the buttons out (a button elsewhere submits with form={id})", async () => {
     await mount({ fields: FIELDS.slice(0, 1), id: "outside", actions: false });

@@ -47,7 +47,7 @@
       "fields": "按顺序排列的字段（`FormField`：`name`、`type`、`label`，`required` / `min` / `pattern` 这类校验规则，`options`、`hidden`）。",
       "instanceRef": "填入命令式 `FormInstance` 的 ref（`submit`、`validate`、`reset`、`getValues`、`setValues`、`setErrors`、`focus`）。",
       "layout": "vertical：标签在上；horizontal：标签在左；inline：一行排开。",
-      "messages": "校验提示文字（换语言用）；只传要改的。",
+      "messages": "校验提示文字；默认值跟随语言包（ConfigProvider），只传要改的。",
       "onInvalid": "提交时校验没通过：参数是 { 字段名: 错误 }；焦点会落到第一个出错的字段。",
       "onReset": "表单重置为默认值之后调用（重置按钮，或 `instanceRef` 实例的 `reset()`）。",
       "onSubmit": "校验通过后调用，参数是（可见字段的）值。返回 Promise 时提交按钮转圈，完成前不能重复提交；抛错会往外抛（不吞），状态恢复。",

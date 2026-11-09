@@ -148,6 +148,15 @@ export interface CitationLabels {
 }
 export interface FormLabels {
   submit: string;
+  /** The validation messages; `{n}` is the number in the rule. */
+  required: string;
+  minLength: string;
+  maxLength: string;
+  min: string;
+  max: string;
+  pattern: string;
+  email: string;
+  url: string;
 }
 export interface DataTableLabels {
   empty: string;

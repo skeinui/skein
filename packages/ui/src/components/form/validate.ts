@@ -1,7 +1,7 @@
 import { isEmpty } from "./values.ts";
 import type { FormValues } from "./values.ts";
 
-/** Validation message text. {n} is replaced by the number in the rule; to change language pass a new set to the messages of Form. */
+/** Validation message text. {n} is replaced by the number in the rule; Form takes them from the locale (ConfigProvider), `messages` of Form replaces any of them. */
 export interface FormMessages {
   /** Shown when a `required` field is empty. */
   required: string;
@@ -85,7 +85,9 @@ export async function validateValue(
   const messages = { ...base, ...rules.messages };
   const empty = isEmpty(value);
 
-  if (rules.required && empty) {
+  // A text of only spaces is no answer to a required field (it still is a value for the other rules)
+  const blank = typeof value === "string" && value.trim() === "";
+  if (rules.required && (empty || blank)) {
     return typeof rules.required === "string" ? rules.required : messages.required;
   }
   if (!empty) {

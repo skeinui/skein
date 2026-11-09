@@ -14,7 +14,7 @@ import { Select } from "../select/index.ts";
 import { TimePicker } from "../time-picker/index.ts";
 import { Slider } from "../slider/index.ts";
 import { Switch } from "../switch/index.ts";
-import { DEFAULT_MESSAGES, validateValue } from "./validate.ts";
+import { validateValue } from "./validate.ts";
 import type { FormMessages, ValidationRules } from "./validate.ts";
 import { getIn, setIn } from "./values.ts";
 import type { FormValues } from "./values.ts";
@@ -158,7 +158,7 @@ export interface FormProps {
   actions?: ReactNode;
   /** The `id` of the `<form>`: another element's `form` attribute (a submit button in a drawer's footer) refers to it. */
   id?: string;
-  /** Validation message text (for changing language); only pass the ones to change. */
+  /** Validation message text; the defaults follow the locale (ConfigProvider), pass only the ones to change. */
   messages?: Partial<FormMessages>;
   /** Ref filled with the imperative `FormInstance` (`submit`, `validate`, `reset`, `getValues`, `setValues`, `setErrors`, `focus`). */
   instanceRef?: RefObject<FormInstance | null>;
@@ -283,7 +283,20 @@ export function Form({
 }: FormProps) {
   const t = useLabels("form");
   const submitLabel = submitLabelProp ?? t.submit;
-  const messages = useMemo(() => ({ ...DEFAULT_MESSAGES, ...messagesProp }), [messagesProp]);
+  const messages = useMemo<FormMessages>(
+    () => ({
+      required: t.required,
+      minLength: t.minLength,
+      maxLength: t.maxLength,
+      min: t.min,
+      max: t.max,
+      pattern: t.pattern,
+      email: t.email,
+      url: t.url,
+      ...messagesProp,
+    }),
+    [t, messagesProp],
+  );
   const rootRef = useRef<HTMLFormElement>(null);
   const initialRef = useRef<FormValues | null>(null);
   initialRef.current ??= buildInitial(fields, defaultValues);
