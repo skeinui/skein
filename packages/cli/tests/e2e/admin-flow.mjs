@@ -108,8 +108,8 @@ export async function adminFlow(base, { log = console.log } = {}) {
         n,
       );
     await step("filtering by keyword alice leaves 1 row", async () => {
-      await page.getByLabel("关键词").fill("alice");
-      await page.getByLabel("关键词").press("Enter");
+      await page.getByRole("textbox", { name: "搜索", exact: true }).fill("alice");
+      await page.getByRole("textbox", { name: "搜索", exact: true }).press("Enter");
       await waitRows(1);
       await page.getByRole("button", { name: "重置", exact: true }).click();
       await waitRows(10);

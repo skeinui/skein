@@ -123,21 +123,6 @@ body {
   flex: 1;
   min-width: 0;
 }
-
-/* A table's toolbar: the search on the left, the table's tools on the right */
-.table-bar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-.table-bar-main {
-  flex: 1;
-  min-width: 0;
-}
-.table-keyword {
-  width: 14rem;
-}
 {{#if tenant}}
 
 /* The tenant switcher next to the logo: a small button is 1.5rem high in some theme styles (antd), too low here */

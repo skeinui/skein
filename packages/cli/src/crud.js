@@ -390,16 +390,26 @@ ${columns.map(exportLine).join("\n")}
       <Card fill={fixed}>
         <Card.Body>
           <Flex direction="column" gap="md" grow={fixed}>
-            <div className="table-bar">
-              <div className="table-bar-main">${
-                hasSearch
-                  ? `
-                <${Name}Search
-                  onSearch={(search) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ${sorted ? "sort: q.sort, " : ""}...search }))}
+${
+  hasSearch
+    ? `            <${Name}Search
+              onSearch={(search) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ${sorted ? "sort: q.sort, " : ""}...search }))}
+              tools={
+                <TableTools
+                  onRefresh={() => void refetch()}
+                  refreshing={isFetching}
+                  columns={order.map((key) => ({ key, label: t(\`fields.\${key}\`) }))}
+                  visible={visible}
+                  onVisibleChange={setVisible}
+                  onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
+                  fixed={fixed}
+                  onFixedChange={setFixed}
+                  onExport={() => exportRows(rows)}
                 />
-              `
-                  : ""
-              }</div>
+              }
+            />
+`
+    : `            <Flex justify="end">
               <TableTools
                 onRefresh={() => void refetch()}
                 refreshing={isFetching}
@@ -411,10 +421,11 @@ ${columns.map(exportLine).join("\n")}
                 onFixedChange={setFixed}
                 onExport={() => exportRows(rows)}
               />
-            </div>
-${
-  selectable
-    ? `            {selectedRows.length > 0 ? (
+            </Flex>
+`
+}${
+    selectable
+      ? `            {selectedRows.length > 0 ? (
               <Flex align="center" gap="md" wrap>
                 <Text tone="secondary">{t("selected", { count: selectedRows.length })}</Text>
                 <Button size="sm" variant="outline" onClick={() => exportRows(selectedRows)}>
@@ -426,8 +437,8 @@ ${
               </Flex>
             ) : null}
 `
-    : ""
-}            <${Name}Table
+      : ""
+  }            <${Name}Table
               rows={rows}
               columns={shown}
               stickyHeader={fixed}
@@ -487,17 +498,23 @@ function nextSort(sort: Sort | undefined, field: string): ListQuery["sort"] {
     // What search() is given: the keyword and / or the filter as they are now
     const given = (filterExpr) =>
       `{ ${[keyword && "keyword", filters.length && `filter: ${filterExpr}`].filter(Boolean).join(", ")} }`;
-    files[`components/${leaf}-search.tsx`] =
-      `import { ${[...(filters.length ? ["Button"] : []), "Flex", ...(filters.length ? ["QueryBuilder"] : []), ...(keyword ? ["SearchInput"] : [])].join(", ")} } from "@skeinui/ui";
+    files[`components/${leaf}-search.tsx`] = `import { TableToolbar } from "@skeinui/ui";
 ${filters.length ? 'import type { QueryField } from "@skeinui/ui";\n' : ""}import { useState } from "react";
+import type { ReactNode } from "react";
 ${filters.length ? 'import type { Filter } from "@/lib/list-query";\n' : ""}${filters.length ? `import { ${adapter} } from "../api";\n` : ""}import { use${Name}Translation } from "../locales";
 
 /** What the search asks for, as parts of a \`ListQuery\`. */
 export interface ${Name}SearchValue {
 ${keyword ? "  keyword?: string;\n" : ""}${filters.length ? "  filter?: Filter;\n" : ""}}
 
-/** ${keyword ? "A keyword (Enter searches)" : "The conditions"}${keyword && filters.length ? ", and the conditions" : ""}${filters.length ? " on the fields the API takes, as chips" : ""}. */
-export function ${Name}Search({ onSearch }: { onSearch: (value: ${Name}SearchValue) => void }) {
+/** ${keyword ? "A keyword (Enter searches)" : "The conditions"}${keyword && filters.length ? ", and the conditions" : ""}${filters.length ? " on the fields the API takes, as chips" : ""}; \`tools\` go on the right. */
+export function ${Name}Search({
+  onSearch,
+  tools,
+}: {
+  onSearch: (value: ${Name}SearchValue) => void;
+  tools?: ReactNode;
+}) {
   const { t } = use${Name}Translation();
 ${keyword ? '  const [keyword, setKeyword] = useState("");\n' : ""}${filters.length ? "  const [filter, setFilter] = useState<Filter | undefined>();\n" : ""}  const search = (next: ${Name}SearchValue) =>
     onSearch({ ${[keyword && "keyword: next.keyword?.trim() || undefined", filters.length && "filter: next.filter"].filter(Boolean).join(", ")} });
@@ -509,49 +526,32 @@ ${
 `
     : ""
 }  return (
-    <Flex gap="sm" align="center" wrap>
+    <TableToolbar
 ${
   keyword
-    ? `      <div className="table-keyword">
-        <SearchInput
-          fullWidth
-          size="sm"
-          aria-label={t("filters.${keyword.name}")}
-          placeholder={t("filters.${keyword.name}")}
-          value={keyword}
-          onValueChange={setKeyword}
-          // Enter (not while an input method is composing), the button, and the clear button
-          onSearch={(value) => search({ ${["keyword: value", filters.length && "filter"].filter(Boolean).join(", ")} })}
-        />
-      </div>
+    ? `      keyword={keyword}
+      onKeywordChange={setKeyword}
+      // Enter (not while an input method is composing), the button, and the clear button
+      onSearch={(value) => search({ ${["keyword: value", filters.length && "filter"].filter(Boolean).join(", ")} })}
+      searchPlaceholder={t("filters.${keyword.name}")}
 `
     : ""
 }${
-        filters.length
-          ? `      <QueryBuilder
-        fields={fields}
-        value={filter}
-        capabilities={${adapter}.capabilities}
-        onChange={(next) => {
-          setFilter(next);
-          search(${given("next")});
-        }}
-      />
-      {${[keyword && "keyword", "filter"].filter(Boolean).join(" || ")} ? (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-${keyword ? '            setKeyword("");\n' : ""}            setFilter(undefined);
-            search({});
-          }}
-        >
-          {t("filter.reset")}
-        </Button>
-      ) : null}
+      filters.length
+        ? `      fields={fields}
+      filter={filter}
+      capabilities={${adapter}.capabilities}
+      onFilterChange={(next) => {
+        setFilter(next);
+        search(${given("next")});
+      }}
 `
-          : ""
-      }    </Flex>
+        : ""
+    }      onReset={() => {
+${keyword ? '        setKeyword("");\n' : ""}${filters.length ? "        setFilter(undefined);\n" : ""}        search({});
+      }}
+      tools={tools}
+    />
   );
 }
 `;

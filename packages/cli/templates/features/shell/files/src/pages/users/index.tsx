@@ -77,26 +77,22 @@ export function UsersPage() {
       <Card fill={fixed}>
         <Card.Body>
           <Flex direction="column" gap="md" grow={fixed}>
-            <div className="table-bar">
-              <div className="table-bar-main">
-                <UsersSearch
-                  onSearch={(filter) =>
-                    setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))
-                  }
+            <UsersSearch
+              onSearch={(filter) => setQuery((q) => ({ page: 1, pageSize: q.pageSize, ...filter }))}
+              tools={
+                <TableTools
+                  onRefresh={() => void queryClient.invalidateQueries({ queryKey: userKeys.all })}
+                  refreshing={isFetching}
+                  columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}
+                  visible={visible}
+                  onVisibleChange={setVisible}
+                  onOrderChange={(keys) => setOrder(keys as UserColumn[])}
+                  fixed={fixed}
+                  onFixedChange={setFixed}
+                  onExport={exportRows}
                 />
-              </div>
-              <TableTools
-                onRefresh={() => void queryClient.invalidateQueries({ queryKey: userKeys.all })}
-                refreshing={isFetching}
-                columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}
-                visible={visible}
-                onVisibleChange={setVisible}
-                onOrderChange={(keys) => setOrder(keys as UserColumn[])}
-                fixed={fixed}
-                onFixedChange={setFixed}
-                onExport={exportRows}
-              />
-            </div>
+              }
+            />
             <UserTable
               users={data?.items ?? []}
               loading={isFetching}

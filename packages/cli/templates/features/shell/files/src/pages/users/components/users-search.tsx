@@ -1,6 +1,7 @@
-import { Button, Flex, QueryBuilder, SearchInput } from "@skeinui/ui";
+import { TableToolbar } from "@skeinui/ui";
 import type { QueryField } from "@skeinui/ui";
 import { useState } from "react";
+import type { ReactNode } from "react";
 import type { Filter } from "@/lib/list-query";
 import { USER_ROLES, USER_STATUSES } from "../api";
 import { useUsersTranslation } from "../locales";
@@ -11,8 +12,14 @@ export interface UsersSearchValue {
   filter?: Filter;
 }
 
-/** A keyword (Enter searches), and any conditions on the fields as chips (all of / any of, groups inside groups). */
-export function UsersSearch({ onSearch }: { onSearch: (value: UsersSearchValue) => void }) {
+/** A keyword (Enter searches), and any conditions on the fields as chips (all of / any of, groups inside groups); `tools` go on the right. */
+export function UsersSearch({
+  onSearch,
+  tools,
+}: {
+  onSearch: (value: UsersSearchValue) => void;
+  tools?: ReactNode;
+}) {
   const { t } = useUsersTranslation();
   const [keyword, setKeyword] = useState("");
   const [filter, setFilter] = useState<Filter | undefined>();
@@ -36,40 +43,24 @@ export function UsersSearch({ onSearch }: { onSearch: (value: UsersSearchValue) 
     { name: "createdAt", label: t("col.createdAt"), type: "date" },
   ];
   return (
-    <Flex gap="sm" align="center" wrap>
-      <div className="table-keyword">
-        <SearchInput
-          fullWidth
-          size="sm"
-          aria-label={t("filter.keyword")}
-          placeholder={t("filter.keywordPlaceholder")}
-          value={keyword}
-          onValueChange={setKeyword}
-          // Enter (not while an input method is composing), the button, and the clear button
-          onSearch={(value) => search({ keyword: value, filter })}
-        />
-      </div>
-      <QueryBuilder
-        fields={fields}
-        value={filter}
-        onChange={(next) => {
-          setFilter(next);
-          search({ keyword, filter: next });
-        }}
-      />
-      {keyword || filter ? (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            setKeyword("");
-            setFilter(undefined);
-            search({});
-          }}
-        >
-          {t("filter.reset")}
-        </Button>
-      ) : null}
-    </Flex>
+    <TableToolbar
+      keyword={keyword}
+      onKeywordChange={setKeyword}
+      // Enter (not while an input method is composing), the button, and the clear button
+      onSearch={(value) => search({ keyword: value, filter })}
+      searchPlaceholder={t("filter.keywordPlaceholder")}
+      fields={fields}
+      filter={filter}
+      onFilterChange={(next) => {
+        setFilter(next);
+        search({ keyword, filter: next });
+      }}
+      onReset={() => {
+        setKeyword("");
+        setFilter(undefined);
+        search({});
+      }}
+      tools={tools}
+    />
   );
 }

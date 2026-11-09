@@ -768,11 +768,6 @@ describe("OpenAPI → CRUD page", () => {
     createProject({ dir, template: "admin" });
     for (const part of ["lib/list-query", "lib/export-csv.ts"])
       rmSync(join(dir, "src", part), { recursive: true });
-    const css = join(dir, "src", "styles", "index.css");
-    writeFileSync(
-      css,
-      readFileSync(css, "utf8").slice(0, readFileSync(css, "utf8").indexOf("/* A table's toolbar")),
-    );
     // A file the project changed stays as it is
     writeFileSync(join(dir, "src", "lib", "export-csv.ts"), "// mine\n");
     const { created, changed } = newPage({
@@ -785,8 +780,7 @@ describe("OpenAPI → CRUD page", () => {
     );
     expect(created).not.toContain("src/lib/export-csv.ts");
     expect(read(dir, "src", "lib", "export-csv.ts")).toBe("// mine\n");
-    expect(changed).toEqual(["src/styles/index.css"]);
-    expect(read(dir, "src", "styles", "index.css")).toContain(".table-bar {");
+    expect(changed).toEqual([]);
     // A second page finds everything there
     const again = newPage({
       name: "orders2",

@@ -21,7 +21,7 @@ description: Add or change a page of this app — route, menu entry, API calls, 
 1. Text: every string in `locales/messages/zh.json` **and** `en.json` with the same keys; `const { t } = use<Page>Translation()`; `t("key")`, `t("key", { name })` for values. The generated texts are English in both files (and in `_meta.ts`'s `label.zh`): translate the Chinese ones; `npm run check` warns about any left.
 {{/if}}
 {{#if shell}}
-1. Layout: `<Page title={t("title")} description={…} actions={<Button color="primary">…</Button>}>` from `@/skein-shell`, then `Card`s. A list page (search, table, pagination, create / edit dialog, delete confirmation) — copy `src/pages/users/` and adapt it: one card with the search bar (`QueryBuilder`: a `fields` list gives the chips and the popover) and `TableTools` above the table, requests as a `ListQuery` through an adapter (AGENTS.md, "Lists and search"). Buttons only some users may use (create, edit, delete) go in `<Access code="orders:create">` from `@/modules/access`; see AGENTS.md, "Who may do what".
+1. Layout: `<Page title={t("title")} description={…} actions={<Button color="primary">…</Button>}>` from `@/skein-shell`, then `Card`s. A list page (search, table, pagination, create / edit dialog, delete confirmation) — copy `src/pages/users/` and adapt it: one card with `TableToolbar` (a `fields` list gives the chips and the popover, `tools={<TableTools … />}`) above the table, requests as a `ListQuery` through an adapter (AGENTS.md, "Lists and search"). Buttons only some users may use (create, edit, delete) go in `<Access code="orders:create">` from `@/modules/access`; see AGENTS.md, "Who may do what".
 {{/if}}
 1. `npm run check` until it reports no errors.
 {{#if preview}}

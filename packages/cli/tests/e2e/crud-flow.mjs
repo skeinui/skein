@@ -67,8 +67,8 @@ export async function crudFlow(base, page, { log = console.log } = {}) {
           const all = await rows().count();
           const asked = (re) => tab.waitForRequest((r) => re.test(r.url()));
           const keywordAsked = asked(new RegExp(`[?&]q=${keyword}`));
-          await tab.getByLabel("Keyword", { exact: true }).fill(keyword);
-          await tab.getByLabel("Keyword", { exact: true }).press("Enter");
+          await tab.getByRole("textbox", { name: "搜索", exact: true }).fill(keyword);
+          await tab.getByRole("textbox", { name: "搜索", exact: true }).press("Enter");
           await keywordAsked;
           await tab.waitForFunction((all) => {
             const n = document.querySelectorAll(
