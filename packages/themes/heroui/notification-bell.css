@@ -1,0 +1,8 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* NotificationBell: the list in the popover, wide enough for a sentence and never wider than the screen */
+  [data-skein-theme="heroui"] [data-slot="notification-bell"] {
+    width: min(22rem, calc(100vw - 2rem));
+  }
+}

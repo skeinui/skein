@@ -1,0 +1,18 @@
+{
+  "lead": "A bell with the number of unread notifications that opens the list: unread ones dotted with a button that marks them read, an open button for those with something to open, and \"Mark all as read\". What pressing a button does is yours; a button appears when its callback is given.",
+  "usage": {
+    "title": "Usage",
+    "description": "`items` are the notifications, newest first; `onRead`, `onReadAll` and `onOpen` give the buttons.",
+    "n1": "Ben mentioned you in a note",
+    "n2": "A ticket is overdue",
+    "n3": "A ticket was assigned to you",
+    "opened": "Open {id}"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "The list is the `notification-bell` slot (`notification-bell.css`: its width); the rest is Popover, Badge, List and Button."
+  }
+}

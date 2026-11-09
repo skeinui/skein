@@ -1,0 +1,30 @@
+{
+  "lead": "One button that opens a list of actions and reports the one chosen: \"Assign to…\", \"Insert a reply…\", \"Add a follower…\", where nothing stays selected afterwards (a [Select](/select) would hold a value; a menu holds none). For a main action with related ones, see [SplitButton](/split-button).",
+  "usage": {
+    "title": "Usage",
+    "description": "`items` fill the menu and `onSelect` gets the key of the chosen one.",
+    "label": "Assign to",
+    "picked": "Picked {key}"
+  },
+  "variants": {
+    "title": "Looks",
+    "description": "It is a Button: `variant`, `color`, `size`, `radius`, `fullWidth`, `startContent` and `loading` are its.",
+    "actions": "Actions",
+    "more": "More"
+  },
+  "items": {
+    "title": "Separators, danger, disabled",
+    "description": "An item is `danger` or `disabled`; `{ type: \"separator\" }` is a line between items.",
+    "label": "Row actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "archive": "Archive"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "MenuButton is Button + Menu and has no slot of its own: its look comes from the theme styles of those components."
+  }
+}

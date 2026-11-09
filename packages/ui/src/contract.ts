@@ -491,6 +491,8 @@ export const SORTABLE_VARIANTS = ["tile", "list"] as const;
 export type SortableVariant = (typeof SORTABLE_VARIANTS)[number];
 export const SORTABLE_ORIENTATIONS = ["vertical", "horizontal"] as const;
 export type SortableOrientation = (typeof SORTABLE_ORIENTATIONS)[number];
+export const NOTIFICATION_BELL_SLOTS = ["notification-bell"] as const;
+
 export const TABLE_TOOLS_SLOTS = ["table-tools", "table-tools-columns"] as const;
 
 export const SORTABLE_SLOTS = [

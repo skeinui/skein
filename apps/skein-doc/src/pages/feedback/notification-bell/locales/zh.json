@@ -1,0 +1,33 @@
+{
+  "lead": "一个带未读数的铃铛，点开是通知列表：未读的带圆点和「标为已读」按钮，有东西可以打开的带打开按钮，还有「全部已读」。按钮按下去做什么由你决定；传了回调才显示对应的按钮。",
+  "usage": {
+    "title": "基本用法",
+    "description": "`items` 是通知，最新的在前；`onRead`、`onReadAll`、`onOpen` 决定有哪些按钮。",
+    "n1": "Ben 在备注里提到了你",
+    "n2": "有一张工单已逾期",
+    "n3": "有一张工单指派给了你",
+    "opened": "打开 {id}"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "列表是 `notification-bell` slot（`notification-bell.css` 里是它的宽度）；其余是 Popover、Badge、List、Button。"
+  },
+  "props": {
+    "NotificationBell": {
+      "items": "通知，最新的在前（顺序由你决定）。",
+      "onRead": "按下某条通知的「标为已读」：给了才在未读项上显示这个按钮。",
+      "onReadAll": "按下「全部已读」：给了才在有未读时显示。",
+      "onOpen": "按下某条通知的打开按钮：给了才在 `canOpen` 的项上显示。",
+      "readingAll": "「全部已读」正在进行：按钮转圈。",
+      "max": "徽标原样显示的最大数字。",
+      "locale": "时间用的语言 BCP 47 标签；默认取 ConfigProvider 的 `locale`。",
+      "labels": "按钮等文字，用于其他语言。",
+      "open": "列表的打开状态（受控）。",
+      "defaultOpen": "列表初始是否打开（非受控）。",
+      "onOpenChange": "打开状态变化时调用。"
+    }
+  }
+}

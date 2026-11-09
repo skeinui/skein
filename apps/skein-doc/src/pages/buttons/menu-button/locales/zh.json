@@ -1,0 +1,50 @@
+{
+  "lead": "一个按钮，点开是一列操作，报告选了哪一项：「指派给…」「插入回复…」「添加关注人…」，选完之后什么都不保留（[Select](/select) 会保留一个值，菜单不会）。有主操作加相关操作的用 [SplitButton](/split-button)。",
+  "usage": {
+    "title": "基本用法",
+    "description": "`items` 是菜单内容，`onSelect` 拿到所选项的 key。",
+    "label": "指派给",
+    "picked": "选了 {key}"
+  },
+  "variants": {
+    "title": "外观",
+    "description": "它就是个 Button：`variant`、`color`、`size`、`radius`、`fullWidth`、`startContent`、`loading` 都是它的。",
+    "actions": "操作",
+    "more": "更多"
+  },
+  "items": {
+    "title": "分隔线、危险、禁用",
+    "description": "菜单项可以是 `danger` 或 `disabled`；`{ type: \"separator\" }` 是项目之间的分隔线。",
+    "label": "行操作",
+    "edit": "编辑",
+    "delete": "删除",
+    "archive": "归档"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "MenuButton 是 Button 加 Menu，没有自己的 slot：外观来自这两个组件的主题风格。"
+  },
+  "props": {
+    "MenuButton": {
+      "children": "按钮的文字。",
+      "items": "菜单里的操作：`{ key, label, disabled, danger, onSelect }`，或 `{ type: \"separator\" }`。",
+      "onSelect": "选中某一项时调用，参数是它的 key。",
+      "menuLabel": "菜单的无障碍名称；按钮文字是字符串时默认用它。",
+      "align": "菜单与按钮的哪一侧对齐。",
+      "disabled": "禁用；没有菜单项时也是禁用的。",
+      "open": "菜单的打开状态（受控）。",
+      "defaultOpen": "菜单初始是否打开（非受控）。",
+      "onOpenChange": "打开状态变化时调用。",
+      "variant": "按钮的视觉变体。",
+      "color": "按钮的语义色。",
+      "size": "按钮尺寸。",
+      "radius": "按钮圆角。",
+      "fullWidth": "按钮占满一行。",
+      "startContent": "按钮文字前的内容（图标）。",
+      "loading": "按钮显示加载状态。"
+    }
+  }
+}

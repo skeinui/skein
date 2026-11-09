@@ -5725,6 +5725,9 @@
             "modelPicker": {
               "type": "Partial<ModelPickerLabels>"
             },
+            "notificationBell": {
+              "type": "Partial<NotificationBellLabels>"
+            },
             "numberField": {
               "type": "Partial<NumberFieldLabels>"
             },
@@ -11189,6 +11192,34 @@
         }
       ]
     },
+    "MentionText": {
+      "description": "Mention text: a message with the mentions in it shown in bold, the companion of the Mentions input (what is typed there is shown here).\n`text` is the message, `mentions` the names someone can be mentioned by: `@Ada Lin` is bold, `@someone-else` is plain text. It renders text only, so put it in a Text or a Paragraph.",
+      "import": "import { MentionText } from \"@skeinui/ui\";",
+      "props": {
+        "mentions": {
+          "type": "readonly string[]",
+          "required": true,
+          "description": "The names that can be mentioned (the whole name of each, without the trigger): `[\"Ada Lin\", \"Ben Carter\"]`. Only a mention of one of these is shown."
+        },
+        "text": {
+          "type": "string",
+          "required": true,
+          "description": "The text, which may hold mentions such as `@Ada Lin`."
+        },
+        "trigger": {
+          "type": "string",
+          "description": "What a mention starts with; the same as the `trigger` of the Mentions input.",
+          "default": "\"@\""
+        }
+      },
+      "docs": "mention-text",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<Paragraph>\n  <MentionText text={message} mentions={[\"Ada Lin\", \"Ben Carter\"]} />\n</Paragraph>"
+        }
+      ]
+    },
     "Menu": {
       "description": "Dropdown list of actions opened from a trigger button: `<Menu.Trigger>` opens `<Menu.Content>`, which holds `Menu.Item`s (`onClick`, `color=\"danger\"`),\n`Menu.CheckboxItem`, `Menu.Group` + `Menu.GroupLabel` and `Menu.Separator`. `open` / `onOpenChange` control it; choosing an item or pressing Esc closes it,\nand arrow keys and first-letter jump move through the items. For choosing a form value use Select; for a right-click menu use ContextMenu; for an app menu bar use Menubar.\n\nTheme style: arrow keys, first-letter jump, Esc to close and collision flipping all come from Base UI.",
       "import": "import { Menu } from \"@skeinui/ui\";",
@@ -11982,6 +12013,173 @@
         }
       ]
     },
+    "MenuButton": {
+      "description": "Menu button: one button that opens a list of actions and reports the one chosen: \"Assign to…\", \"Insert a reply…\", \"Add a follower…\", where nothing stays selected\nafterwards (a Select would hold a value; a menu holds none). `children` is the button's text, `items` (`{ key, label, disabled, danger, onSelect }` or `{ type: \"separator\" }`)\nfill the menu, and `onSelect(key)` reports the chosen item.\nFor a main action with related ones use SplitButton; to build the menu from parts (groups, checkbox items, submenus) use Menu.\n\nTheme style: the button and the menu are Button and Menu: arrow keys, first-letter jump and Esc to close come from Base UI.",
+      "import": "import { MenuButton } from \"@skeinui/ui\";",
+      "props": {
+        "align": {
+          "type": "\"center\" | \"start\" | \"end\"",
+          "values": [
+            "center",
+            "start",
+            "end"
+          ],
+          "description": "Which side of the button the menu lines up with.",
+          "default": "\"start\""
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The button's text."
+        },
+        "color": {
+          "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+          "values": [
+            "primary",
+            "secondary",
+            "success",
+            "warning",
+            "danger",
+            "neutral"
+          ],
+          "description": "Semantic colour; the theme style picks the actual colours.",
+          "default": "\"primary\""
+        },
+        "defaultOpen": {
+          "type": "boolean",
+          "description": "Initial `open` when uncontrolled."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Disabled; a menu without items is disabled too."
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "description": "Fill the width of the parent.",
+          "default": "false"
+        },
+        "items": {
+          "type": "readonly MenuButtonEntry[]",
+          "required": true,
+          "description": "The actions the menu lists."
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "Loading: does not respond to clicks, the leading icon slot is replaced by a spinner, and it stays focusable.",
+          "default": "false"
+        },
+        "menuLabel": {
+          "type": "string",
+          "description": "The menu's accessible name; defaults to the button's text when that is a string."
+        },
+        "onOpenChange": {
+          "type": "(open: boolean) => void",
+          "description": "Called with the new `open`; pass `open` as well to control it."
+        },
+        "onSelect": {
+          "type": "(key: string) => void",
+          "description": "Called with the key of the chosen item."
+        },
+        "open": {
+          "type": "boolean",
+          "description": "Open state of the menu: controlled / uncontrolled initial value / change callback."
+        },
+        "radius": {
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "none",
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "description": "When not passed, the theme style decides."
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step.",
+          "default": "\"md\""
+        },
+        "startContent": {
+          "type": "ReactNode",
+          "description": "Before the text, usually an icon; replaced by the spinner while `loading`."
+        },
+        "variant": {
+          "type": "\"soft\" | \"outline\" | \"solid\" | \"ghost\" | \"faded\" | \"shadow\"",
+          "values": [
+            "soft",
+            "outline",
+            "solid",
+            "ghost",
+            "faded",
+            "shadow"
+          ],
+          "description": "Visual variant; how each one looks is up to the theme style.",
+          "default": "\"solid\""
+        }
+      },
+      "types": {
+        "MenuButtonItem": {
+          "props": {
+            "danger": {
+              "type": "boolean",
+              "description": "Destructive action such as delete; the color is decided by the theme style."
+            },
+            "disabled": {
+              "type": "boolean",
+              "description": "Disables interaction."
+            },
+            "key": {
+              "type": "string",
+              "required": true,
+              "description": "Unique key; passed to the overall `onSelect`."
+            },
+            "label": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Text of the menu item."
+            },
+            "onSelect": {
+              "type": "() => void",
+              "description": "Called on selection (also triggers the overall onSelect)."
+            }
+          }
+        },
+        "MenuButtonSeparator": {
+          "props": {
+            "key": {
+              "type": "string",
+              "description": "Optional React key; the index is used when omitted."
+            },
+            "type": {
+              "type": "\"separator\"",
+              "required": true,
+              "description": "Marks this entry as a separator line between menu items."
+            }
+          }
+        }
+      },
+      "docs": "menu-button",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<MenuButton\n  items={[{ key: \"ada\", label: \"Ada Lin\" }, { key: \"ben\", label: \"Ben Carter\" }]}\n  onSelect={(key) => assign(key)}\n>\n  Assign to\n</MenuButton>"
+        },
+        {
+          "title": "Looks",
+          "code": "<MenuButton variant=\"solid\" color=\"primary\" …>Actions</MenuButton>\n<MenuButton variant=\"ghost\" size=\"sm\" …>More</MenuButton>"
+        },
+        {
+          "title": "Separators, danger, disabled",
+          "code": "items={[\n  { key: \"edit\", label: \"Edit\" },\n  { type: \"separator\" },\n  { key: \"delete\", label: \"Delete\", danger: true },\n  { key: \"archive\", label: \"Archive\", disabled: true },\n]}"
+        }
+      ]
+    },
     "MermaidBlock": {
       "description": "Mermaid diagram block: renders Mermaid `code` as a diagram, with a header holding a title, a \"view source\" toggle and a copy button.\nMermaid is not bundled: pass `render` (code → SVG string), and the result is shown as an `<img>`, so the SVG is never injected into the page.\nWhile rendering a status is announced to screen readers; on failure the error is shown with the source; if it rendered before, the previous diagram stays (faded).\nSwitching light / dark mode (`data-skein-mode` on `<html>`) re-renders with the new theme.\nFor plain source code use CodeBlock.\n\nTheme style: `data-state` (loading / ready / error) and `data-view` (diagram / source) on the root, `data-stale` on the image while re-rendering.",
       "import": "import { MermaidBlock } from \"@skeinui/ui\";",
@@ -12444,6 +12642,129 @@
         {
           "title": "Links Only",
           "code": "<NavigationMenu.Item><NavigationMenu.Link href=\"#\" /></NavigationMenu.Item>"
+        }
+      ]
+    },
+    "NotificationBell": {
+      "description": "Notification bell: a bell with the number of unread notifications that opens the list, unread ones dotted with a button that marks them read, an open button for those with something to\nopen, and \"Mark all as read\". `items` are the notifications; what pressing a button does is yours (`onRead`, `onReadAll`, `onOpen`), a button appears when its callback is given.\nFor the list alone use List; for a count on another element use Badge.",
+      "import": "import { NotificationBell } from \"@skeinui/ui\";",
+      "props": {
+        "defaultOpen": {
+          "type": "boolean",
+          "description": "Initial `open` when uncontrolled."
+        },
+        "items": {
+          "type": "readonly NotificationItem[]",
+          "required": true,
+          "description": "The notifications, newest first (the order is yours)."
+        },
+        "labels": {
+          "type": "Partial<NotificationBellLabels>",
+          "description": "Texts, for another language."
+        },
+        "locale": {
+          "type": "string",
+          "description": "BCP 47 tag for the times (e.g. \"zh-CN\"); defaults to the `locale` of ConfigProvider."
+        },
+        "max": {
+          "type": "number",
+          "description": "The largest number the badge shows as is.",
+          "default": "99"
+        },
+        "onOpen": {
+          "type": "(item: NotificationItem) => void",
+          "description": "A notification's open button was pressed; shown on those with `canOpen` when this is given."
+        },
+        "onOpenChange": {
+          "type": "(open: boolean) => void",
+          "description": "Called with the new `open`; pass `open` as well to control it."
+        },
+        "onRead": {
+          "type": "(item: NotificationItem) => void",
+          "description": "A notification's \"mark as read\" button was pressed; shown on unread ones when this is given."
+        },
+        "onReadAll": {
+          "type": "() => void",
+          "description": "\"Mark all as read\" was pressed; shown while there is something unread when this is given."
+        },
+        "open": {
+          "type": "boolean",
+          "description": "Open state of the list: controlled / uncontrolled initial value / change callback."
+        },
+        "readingAll": {
+          "type": "boolean",
+          "description": "\"Mark all as read\" is being done: its button spins."
+        }
+      },
+      "types": {
+        "NotificationBellLabels": {
+          "props": {
+            "empty": {
+              "type": "string",
+              "required": true
+            },
+            "markRead": {
+              "type": "string",
+              "required": true
+            },
+            "open": {
+              "type": "string",
+              "required": true,
+              "description": "Whether it is open, controlled (with `onOpenChange`)."
+            },
+            "readAll": {
+              "type": "string",
+              "required": true
+            },
+            "title": {
+              "type": "string",
+              "required": true
+            },
+            "unread": {
+              "type": "(count: number) => string",
+              "required": true
+            }
+          }
+        },
+        "NotificationItem": {
+          "props": {
+            "canOpen": {
+              "type": "boolean",
+              "description": "Has something to open (a ticket, an order): its open button is shown when `onOpen` is given."
+            },
+            "description": {
+              "type": "ReactNode",
+              "description": "More about it, under the title."
+            },
+            "id": {
+              "type": "string | number",
+              "required": true,
+              "description": "Identifies the notification; reported back to `onRead` and `onOpen`."
+            },
+            "read": {
+              "type": "boolean",
+              "description": "Already read: it has no dot and no \"mark as read\" button."
+            },
+            "time": {
+              "type": "string | number | Date",
+              "description": "When it happened: shown as \"3 hours ago\"."
+            },
+            "title": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "What happened."
+            }
+          }
+        }
+      },
+      "slots": [
+        "notification-bell"
+      ],
+      "docs": "notification-bell",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<NotificationBell\n  items={items}\n  onRead={(item) => markRead(item.id)}\n  onReadAll={markAllRead}\n  onOpen={(item) => navigate(item.id)}\n/>"
         }
       ]
     },
@@ -14974,6 +15295,54 @@
         }
       ]
     },
+    "RelativeTime": {
+      "description": "Relative time: \"5 minutes ago\" for a moment, as a `<time>` element with the exact moment in its `dateTime` and, on hover, the full date.\n`value` is the moment, `numeric` chooses between \"yesterday\" and \"1 day ago\", `refresh` keeps it current; `formatRelativeTime` gives the same text as a string.\nFor a date that is not relative use Intl.DateTimeFormat or a DatePicker's format.",
+      "import": "import { RelativeTime } from \"@skeinui/ui\";",
+      "props": {
+        "locale": {
+          "type": "string",
+          "description": "BCP 47 tag of the language (e.g. \"zh-CN\"); defaults to the `locale` of ConfigProvider, then the browser's."
+        },
+        "now": {
+          "type": "TimeInput",
+          "description": "The moment to count from, instead of the clock: for a fixed picture or a test."
+        },
+        "numeric": {
+          "type": "\"auto\" | \"always\"",
+          "values": [
+            "auto",
+            "always"
+          ],
+          "description": "`auto` says \"yesterday\" and \"now\", `always` says \"1 day ago\" and \"0 seconds ago\".",
+          "default": "\"auto\""
+        },
+        "refresh": {
+          "type": "number",
+          "description": "Count again every this many seconds, so \"5 minutes ago\" does not go stale on a page that stays open; 0 does not.",
+          "default": "0"
+        },
+        "value": {
+          "type": "TimeInput",
+          "required": true,
+          "description": "The moment: a `Date`, an ISO string or a timestamp in milliseconds."
+        }
+      },
+      "docs": "relative-time",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<RelativeTime value={ticket.updatedAt} />\nformatRelativeTime(ticket.updatedAt) // \"3 hours ago\""
+        },
+        {
+          "title": "Yesterday or 1 day ago",
+          "code": "<RelativeTime value={yesterday} />                     // yesterday\n<RelativeTime value={yesterday} numeric=\"always\" />    // 1 day ago"
+        },
+        {
+          "title": "Keeping it current",
+          "code": "<RelativeTime value={createdAt} refresh={30} />"
+        }
+      ]
+    },
     "Result": {
       "description": "Result page: a large icon (or error code), title, description and action buttons, centered; used for whole-page states such as operation success / failure and 404 / 403 / 500.",
       "import": "import { Result } from \"@skeinui/ui\";",
@@ -16933,6 +17302,114 @@
         {
           "title": "In cards",
           "code": "<Card><Statistic title=\"Users\" value={1234} description=\"+3.2%\" /></Card>"
+        }
+      ]
+    },
+    "StatisticCard": {
+      "description": "Statistic card: a key figure in a card, the tile of a dashboard or a report (`title`, `value`, `prefix` / `suffix`, `color`, `loading`; `variant` / `radius` are the card's).\nTo lay several out use a Grid with `minColumnWidth`; for a figure inside other content use Statistic.",
+      "import": "import { StatisticCard } from \"@skeinui/ui\";",
+      "props": {
+        "animated": {
+          "type": "boolean",
+          "description": "Number rolling: each digit is a column of 0–9, and when the value changes each digit rolls to its new number; on first display it rolls up from 0.\nOnly applies to the default number formatting (no rolling if `format` is given); does not move when the system asks for reduced motion. The rolling visual layer is hidden from screen readers, which read the full text.",
+          "default": "false"
+        },
+        "color": {
+          "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+          "values": [
+            "primary",
+            "secondary",
+            "success",
+            "warning",
+            "danger",
+            "neutral"
+          ],
+          "description": "Color of the value."
+        },
+        "decimalSeparator": {
+          "type": "string",
+          "description": "Character between the integer and decimal parts.",
+          "default": "\".\""
+        },
+        "description": {
+          "type": "ReactNode",
+          "description": "Small text under the value, often used for period-over-period / year-over-year trends."
+        },
+        "format": {
+          "type": "(value: string | number | undefined) => ReactNode",
+          "description": "Fully custom display (e.g. percentages, unit conversion); when given, the formatting above is no longer used."
+        },
+        "groupSeparator": {
+          "type": "string",
+          "description": "Separator for every three digits of the integer part; pass an empty string for no grouping.",
+          "default": "\",\""
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "Loading: the value position is replaced by a placeholder bar.",
+          "default": "false"
+        },
+        "precision": {
+          "type": "number",
+          "description": "Number of decimal places to keep; left as is if omitted."
+        },
+        "prefix": {
+          "type": "ReactNode",
+          "description": "Shown before the value, e.g. a currency sign or an icon."
+        },
+        "radius": {
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "none",
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "description": "Corner radius step of the card; when omitted the theme style decides."
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step of the value.",
+          "default": "\"md\""
+        },
+        "suffix": {
+          "type": "ReactNode",
+          "description": "Shown after the value, e.g. a unit or \"%\"."
+        },
+        "title": {
+          "type": "ReactNode",
+          "description": "Small caption above the value, e.g. \"Active users\"."
+        },
+        "value": {
+          "type": "string | number",
+          "description": "Value to display; a number or numeric string is formatted by precision and the separator, other strings are shown as is."
+        },
+        "variant": {
+          "type": "\"filled\" | \"outline\" | \"elevated\"",
+          "values": [
+            "filled",
+            "outline",
+            "elevated"
+          ],
+          "description": "Look of the card.",
+          "default": "\"outline\""
+        }
+      },
+      "docs": "statistic-card",
+      "examples": [
+        {
+          "title": "Open tickets",
+          "code": "<StatisticCard title=\"Open tickets\" value={128} color=\"primary\" />"
+        },
+        {
+          "title": "In a grid",
+          "code": "<Grid minColumnWidth=\"sm\" gap=\"md\">\n  <StatisticCard title=\"SLA met\" value={96.4} precision={1} suffix=\"%\" color=\"success\" />\n  …\n</Grid>"
         }
       ]
     },
@@ -21822,6 +22299,9 @@
       "navigation-menu-popup",
       "navigation-menu-viewport"
     ],
+    "NOTIFICATION_BELL_SLOTS": [
+      "notification-bell"
+    ],
     "NUMBER_FIELD_SLOTS": [
       "number-field",
       "number-field-group",
@@ -22981,6 +23461,7 @@
         "statistic"
       ],
       "formatPeriod": [],
+      "formatRelativeTime": [],
       "formatTime": [],
       "formatTokens": [
         "context-meter",
@@ -23113,12 +23594,19 @@
         "spinner",
         "tag"
       ],
+      "MentionText": [
+        "typography"
+      ],
       "Menu": [
         "menu"
       ],
       "Menubar": [
         "menu",
         "menubar"
+      ],
+      "MenuButton": [
+        "button",
+        "menu"
       ],
       "MermaidBlock": [
         "mermaid-block"
@@ -23141,6 +23629,19 @@
         "navigation-menu"
       ],
       "normalizeSettings": [],
+      "NotificationBell": [
+        "badge",
+        "button",
+        "empty",
+        "flex",
+        "grid",
+        "layout",
+        "list",
+        "notification-bell",
+        "popover",
+        "spinner",
+        "typography"
+      ],
       "NumberField": [
         "input",
         "number-field"
@@ -23223,6 +23724,7 @@
         "reasoning",
         "shimmer-text"
       ],
+      "RelativeTime": [],
       "resolveResponsive": [
         "masonry"
       ],
@@ -23295,6 +23797,11 @@
         "splitter"
       ],
       "Statistic": [
+        "skeleton",
+        "statistic"
+      ],
+      "StatisticCard": [
+        "card",
         "skeleton",
         "statistic"
       ],

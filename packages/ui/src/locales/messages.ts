@@ -54,6 +54,14 @@ export interface SidebarLabels {
 export interface SplitButtonLabels {
   more: string;
 }
+export interface NotificationBellLabels {
+  title: string;
+  unread: (count: number) => string;
+  readAll: string;
+  empty: string;
+  markRead: string;
+  open: string;
+}
 export interface TableToolsLabels {
   refresh: string;
   fixed: string;
@@ -230,6 +238,7 @@ export interface LabelTypes {
   splitButton: SplitButtonLabels;
   splitter: SplitterLabels;
   suggestions: SuggestionsLabels;
+  notificationBell: NotificationBellLabels;
   table: TableLabels;
   tableTools: TableToolsLabels;
   tagInput: TagInputLabels;

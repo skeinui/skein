@@ -1,0 +1,41 @@
+{
+  "lead": "卡片里的一个关键数字，仪表盘或报表的一块。`title`、`value`、`prefix` / `suffix`、`color`、`loading` 是 [Statistic](/statistic) 的；`variant` 和 `radius` 是卡片的。",
+  "usage": {
+    "title": "待处理工单",
+    "description": "一个数字加它的标题。"
+  },
+  "grid": {
+    "title": "放进网格",
+    "description": "用 [Grid](/grid) 的 `minColumnWidth` 排列，窄屏自动换行。",
+    "sla": "SLA 达标",
+    "csat": "满意度",
+    "open": "未结",
+    "loading": "加载中"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "StatisticCard 是 Card 加 Statistic，没有自己的 slot。"
+  },
+  "props": {
+    "StatisticCard": {
+      "variant": "卡片的外观。",
+      "radius": "卡片的圆角档位，不传时由主题风格决定。",
+      "title": "数字的标题。",
+      "value": "数字。",
+      "prefix": "数字前的内容（图标）。",
+      "suffix": "数字后的内容（单位）。",
+      "color": "数字的语义色。",
+      "loading": "显示加载骨架。",
+      "precision": "小数位数。",
+      "size": "尺寸档位。",
+      "animated": "数值变化时做滚动动画。",
+      "description": "数字下方的说明。",
+      "format": "自定义数字格式。",
+      "decimalSeparator": "小数点符号。",
+      "groupSeparator": "千分位符号。"
+    }
+  }
+}

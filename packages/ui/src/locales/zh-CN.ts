@@ -459,6 +459,14 @@ export const zhCN: Messages = {
     otpField: { code: "验证码", digit: (n) => `第 ${n} 位` },
     sidebar: { sidebar: "侧边栏", toggle: "展开 / 收起侧边栏" },
     splitButton: { more: "更多操作" },
+    notificationBell: {
+      title: "通知",
+      unread: (count) => `${count} 条未读`,
+      readAll: "全部已读",
+      empty: "暂无通知",
+      markRead: "标记为已读",
+      open: "打开",
+    },
     tableTools: {
       refresh: "刷新",
       fixed: "固定表头，只滚动行",

@@ -373,6 +373,24 @@ export type {
   FormDrawerProps,
   FormPanelProps,
 } from "./components/form-drawer/index.ts";
+export { MenuButton } from "./components/menu-button/index.ts";
+export type {
+  MenuButtonEntry,
+  MenuButtonItem,
+  MenuButtonProps,
+  MenuButtonSeparator,
+} from "./components/menu-button/index.ts";
+export { RelativeTime, formatRelativeTime } from "./components/relative-time/index.ts";
+export type { RelativeTimeProps } from "./components/relative-time/index.ts";
+export { MentionText } from "./components/mention-text/index.ts";
+export type { MentionTextProps } from "./components/mention-text/index.ts";
+export { StatisticCard } from "./components/statistic-card/index.ts";
+export type { StatisticCardProps } from "./components/statistic-card/index.ts";
+export { NotificationBell } from "./components/notification-bell/index.ts";
+export type {
+  NotificationBellProps,
+  NotificationItem,
+} from "./components/notification-bell/index.ts";
 export { TableTools, useFixedHeader } from "./components/table-tools/index.ts";
 export type { TableToolsColumn, TableToolsProps } from "./components/table-tools/index.ts";
 export { SplitButton } from "./components/split-button/index.ts";

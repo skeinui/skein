@@ -151,6 +151,7 @@ export function coverageFor(contract) {
     TABLE_ALIGNS,
     TABLE_SLOTS,
     TABLE_TOOLS_SLOTS,
+    NOTIFICATION_BELL_SLOTS,
     TABS_SLOTS,
     TABS_VARIANTS,
     TAG_SLOTS,
@@ -365,6 +366,7 @@ export function coverageFor(contract) {
       "--pc-value",
       "@keyframes",
     ],
+    "notification-bell.css": [...slotSel(NOTIFICATION_BELL_SLOTS)],
     "table-tools.css": [...slotSel(TABLE_TOOLS_SLOTS), "[data-spinning]"],
     "table.css": [
       ...slotSel(TABLE_SLOTS),

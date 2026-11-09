@@ -1,0 +1,22 @@
+{
+  "lead": "把消息里的提及加粗显示：[Mentions](/mentions) 的配套，那里输入的，这里显示。`mentions` 是可以被提及的名字；提及其他人的保持普通文字。",
+  "usage": {
+    "title": "基本用法",
+    "description": "`@Ada Lin` 和 `@Ben Carter` 在列表里，`@someone` 不在。它只渲染文字：放进 Text 或 Paragraph 里。",
+    "message": "@Ada Lin 你能看一下这个吗？@Ben Carter 已经看过了，销售的 @someone 问了两次。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "MentionText 把提及渲染成 Text 的 `strong`，没有自己的 slot。"
+  },
+  "props": {
+    "MentionText": {
+      "text": "文字，里面可以有 `@Ada Lin` 这样的提及。",
+      "mentions": "可以被提及的名字（每个的全名，不含触发符）；只有提及这些名字的才会显示为提及。",
+      "trigger": "提及的起始符号，和 Mentions 输入框的 `trigger` 一致。"
+    }
+  }
+}

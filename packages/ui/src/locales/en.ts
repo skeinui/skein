@@ -463,6 +463,14 @@ export const en: Messages = {
     otpField: { code: "Verification code", digit: (n) => `Digit ${n}` },
     sidebar: { sidebar: "Sidebar", toggle: "Toggle sidebar" },
     splitButton: { more: "More actions" },
+    notificationBell: {
+      title: "Notifications",
+      unread: (count) => `${count} unread`,
+      readAll: "Mark all as read",
+      empty: "No notifications",
+      markRead: "Mark as read",
+      open: "Open",
+    },
     tableTools: {
       refresh: "Refresh",
       fixed: "Fix the header and scroll the rows",

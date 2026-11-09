@@ -1,0 +1,22 @@
+{
+  "lead": "\"5 minutes ago\" for a moment, as a `<time>` element with the exact moment in its `dateTime` and, on hover, the full date. It follows the `locale` of ConfigProvider. `formatRelativeTime` gives the same text as a string.",
+  "usage": {
+    "title": "Usage",
+    "description": "The largest unit that fits: seconds, minutes, hours, days, months, years; the left is the past, the right the future."
+  },
+  "numeric": {
+    "title": "Yesterday or 1 day ago",
+    "description": "`numeric=\"auto\"` (the default) says \"yesterday\" and \"now\", `always` says \"1 day ago\"."
+  },
+  "refresh": {
+    "title": "Keeping it current",
+    "description": "`refresh` counts again every this many seconds, so the text does not go stale on a page that stays open."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "RelativeTime renders a plain `<time>` with no slot: style it with the text around it."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "lead": "A key figure in a card, the tile of a dashboard or a report. `title`, `value`, `prefix` / `suffix`, `color` and `loading` are those of [Statistic](/statistic); `variant` and `radius` are the card's.",
+  "usage": {
+    "title": "Open tickets",
+    "description": "A figure with its title."
+  },
+  "grid": {
+    "title": "In a grid",
+    "description": "A [Grid](/grid) with `minColumnWidth` lays the tiles out and wraps them on a narrow screen.",
+    "sla": "SLA met",
+    "csat": "CSAT",
+    "open": "Open",
+    "loading": "Loading"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "StatisticCard is Card + Statistic and has no slot of its own."
+  }
+}

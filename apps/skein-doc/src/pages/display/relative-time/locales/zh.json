@@ -1,0 +1,31 @@
+{
+  "lead": "一个时刻的「5 分钟前」，渲染为 `<time>`，`dateTime` 里是准确时间，悬停显示完整日期。跟随 ConfigProvider 的 `locale`。`formatRelativeTime` 以字符串给出同样的文字。",
+  "usage": {
+    "title": "基本用法",
+    "description": "取最合适的最大单位：秒、分钟、小时、天、月、年；左边是过去，右边是将来。"
+  },
+  "numeric": {
+    "title": "「昨天」还是「1 天前」",
+    "description": "`numeric=\"auto\"`（默认）说「昨天」「现在」，`always` 说「1 天前」。"
+  },
+  "refresh": {
+    "title": "保持最新",
+    "description": "`refresh` 每隔这么多秒重新计算一次，页面一直开着时文字不会过期。"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "RelativeTime 渲染一个普通的 `<time>`，没有 slot：样式跟着周围的文字走。"
+  },
+  "props": {
+    "RelativeTime": {
+      "value": "那个时刻：`Date`、ISO 字符串或毫秒时间戳。",
+      "numeric": "`auto` 说「昨天」「现在」，`always` 说「1 天前」「0 秒前」。",
+      "locale": "语言的 BCP 47 标签（如 \"zh-CN\"）；默认取 ConfigProvider 的 `locale`，再默认取浏览器的。",
+      "now": "计算的起点，不传就用当前时间：用于固定画面或测试。",
+      "refresh": "每隔这么多秒重新计算一次，0 表示不刷新。"
+    }
+  }
+}

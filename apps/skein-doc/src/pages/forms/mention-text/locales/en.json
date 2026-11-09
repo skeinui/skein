@@ -1,0 +1,15 @@
+{
+  "lead": "A message with the mentions in it shown in bold: the companion of [Mentions](/mentions), what is typed there is shown here. `mentions` are the names someone can be mentioned by; a mention of anyone else stays plain text.",
+  "usage": {
+    "title": "Usage",
+    "description": "`@Ada Lin` and `@Ben Carter` are in the list, `@someone` is not. It renders text only: put it in a Text or a Paragraph.",
+    "message": "@Ada Lin can you look at this one? @Ben Carter has seen it, and @someone from sales asked twice."
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "MentionText renders its mentions as Text `strong` and has no slot of its own."
+  }
+}
