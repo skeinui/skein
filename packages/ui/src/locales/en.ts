@@ -476,6 +476,8 @@ export const en: Messages = {
       selected: (count) => `${count} selected`,
       clear: "Clear",
     },
+    messageThread: { label: "Conversation", empty: "No messages yet", attachments: "Attachments" },
+    messageComposer: { mode: "Write as", send: "Send" },
     queryBuilder: {
       and: "All of",
       or: "Any of",

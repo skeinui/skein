@@ -393,6 +393,15 @@ export type {
 } from "./components/notification-bell/index.ts";
 export { BulkActionBar } from "./components/bulk-action-bar/index.ts";
 export type { BulkActionBarProps } from "./components/bulk-action-bar/index.ts";
+export { MessageComposer, MessageThread } from "./components/message-thread/index.ts";
+export type {
+  ComposerMode,
+  MessageAttachment,
+  MessageComposerProps,
+  MessageKind,
+  MessageThreadProps,
+  ThreadMessage,
+} from "./components/message-thread/index.ts";
 export { QueryBuilder } from "./components/query-builder/index.ts";
 export type {
   QueryBuilderCapabilities,

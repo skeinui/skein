@@ -1,0 +1,51 @@
+{
+  "lead": "A conversation between people as a column of messages: who wrote each one, what kind it is (the customer's, the agent's, an internal note), when, the text with its mentions in bold, and the files. `MessageComposer` is the box under it, with a switch between the ways of writing (reply, internal note). For a conversation with an AI assistant see [Chat Thread](/chat-thread).",
+  "kinds": {
+    "customer": "Customer",
+    "agent": "Agent",
+    "note": "Internal note"
+  },
+  "messages": {
+    "customer": "Hi, how do I invite a teammate to our workspace, and give them read-only access?",
+    "note": "@Ada Lin can you look at this one? The customer has asked twice.",
+    "agent": "Hi Priya, go to Settings → Team → Invite, and pick the Viewer role. I have sent you the steps too."
+  },
+  "modes": {
+    "reply": "Reply",
+    "note": "Internal note",
+    "sendReply": "Send reply",
+    "addNote": "Add note",
+    "replyPlaceholder": "Write to the customer…",
+    "notePlaceholder": "Write a note for the team, @ mentions someone…"
+  },
+  "usage": {
+    "title": "Usage",
+    "description": "`messages` are the data and `kinds` say how each kind looks: a label and the `variant` / `color` of the [Callout](/callout) it sits in. `mentions` are the names that can be mentioned. A text keeps its line breaks; a message with a node as its body shows it as it is."
+  },
+  "relative": {
+    "title": "Relative time",
+    "description": "`relativeTime` says \"1 hour ago\" instead of the date; the date is the tooltip."
+  },
+  "composer": {
+    "title": "Composer",
+    "description": "`modes` are the ways of writing; the switch shows with two or more. A mode with `mentions` has a box that takes `@`. `toolbar` is what you add above the box (a function gets the mode), and `onSend` gets the text and the mode. The draft is yours: keep one per mode when each should remember its own.",
+    "useSuggestion": "Use the suggestion",
+    "suggestion": "Hi Priya, you can invite a teammate under Settings → Team → Invite.",
+    "sent": "{mode}: {value}"
+  },
+  "conversation": {
+    "title": "A conversation",
+    "description": "Both together: write a reply or a note and it joins the thread.",
+    "sent": "Sent"
+  },
+  "api": {
+    "title": "MessageThread API"
+  },
+  "composerApi": {
+    "title": "MessageComposer API"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "MessageThread and MessageComposer have no slot of their own: a message is a Callout, with an Avatar, Text, Tag and Link; the composer is a Segmented, a Textarea or Mentions, and a Button."
+  }
+}

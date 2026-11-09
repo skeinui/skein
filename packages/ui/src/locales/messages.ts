@@ -68,6 +68,17 @@ export interface BulkActionBarLabels {
   selected: (count: number) => string;
   clear: string;
 }
+export interface MessageThreadLabels {
+  /** The accessible name of the conversation. */
+  label: string;
+  empty: string;
+  attachments: string;
+}
+export interface MessageComposerLabels {
+  /** The accessible name of the switch between the ways of writing. */
+  mode: string;
+  send: string;
+}
 export interface QueryBuilderLabels {
   and: string;
   or: string;
@@ -285,6 +296,8 @@ export interface LabelTypes {
   suggestions: SuggestionsLabels;
   notificationBell: NotificationBellLabels;
   bulkActionBar: BulkActionBarLabels;
+  messageComposer: MessageComposerLabels;
+  messageThread: MessageThreadLabels;
   queryBuilder: QueryBuilderLabels;
   table: TableLabels;
   tableTools: TableToolsLabels;

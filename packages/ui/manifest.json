@@ -5816,6 +5816,12 @@
             "mermaidBlock": {
               "type": "Partial<MermaidLabels>"
             },
+            "messageComposer": {
+              "type": "Partial<MessageComposerLabels>"
+            },
+            "messageThread": {
+              "type": "Partial<MessageThreadLabels>"
+            },
             "modelPicker": {
               "type": "Partial<ModelPickerLabels>"
             },
@@ -12364,6 +12370,305 @@
         {
           "title": "In Markdown",
           "code": "const renderers = {\n  mermaid: ({ code }) => <MermaidBlock code={code} render={render} />,\n};\n\n<Markdown codeRenderers={renderers} streaming={streaming}>{text}</Markdown>"
+        }
+      ]
+    },
+    "MessageComposer": {
+      "description": "Message composer: the box under a MessageThread to write the next message: a switch between the ways of writing (reply, internal note), a box that takes mentions where the mode has `mentions`, a `toolbar` for what you add, and a send button.\nEverything is controlled: `mode`, `value` and `onSend` are yours. For the box of an AI chat use Composer.",
+      "import": "import { MessageComposer } from \"@skeinui/ui\";",
+      "props": {
+        "disabled": {
+          "type": "boolean",
+          "description": "Disables interaction."
+        },
+        "labels": {
+          "type": "Partial<MessageComposerLabels>",
+          "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
+        },
+        "mode": {
+          "type": "string",
+          "required": true,
+          "description": "The mode in use."
+        },
+        "modes": {
+          "type": "readonly ComposerMode[]",
+          "required": true,
+          "description": "The ways of writing; a switch shows when there are two or more."
+        },
+        "onModeChange": {
+          "type": "(mode: string) => void",
+          "required": true,
+          "description": "Called with the new `mode`; pass `mode` as well to control it."
+        },
+        "onSend": {
+          "type": "(value: string, mode: string) => void",
+          "required": true,
+          "description": "Called when the send button is pressed (or Ctrl / ⌘ + Enter) and there is something to send."
+        },
+        "onValueChange": {
+          "type": "(value: string) => void",
+          "required": true,
+          "description": "Called with the new `value`; pass `value` as well to control it."
+        },
+        "rows": {
+          "type": "number",
+          "description": "Visible rows of the box.",
+          "default": "4"
+        },
+        "sending": {
+          "type": "boolean",
+          "description": "Sending: the button spins and the box can not be sent again."
+        },
+        "toolbar": {
+          "type": "string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode> | ((mode: string) => ReactNode)",
+          "description": "Tools above the box that depend on the mode: canned replies, a tone switch, an AI suggestion. A function gets the mode."
+        },
+        "value": {
+          "type": "string",
+          "required": true,
+          "description": "What is typed. One draft: keep one per mode in your state when each mode should remember its own."
+        }
+      },
+      "types": {
+        "ComposerMode": {
+          "description": "One way of writing: a reply to the customer, an internal note.",
+          "props": {
+            "label": {
+              "type": "string",
+              "required": true,
+              "description": "Name of the mode, in the switch above the box (\"Reply\", \"Internal note\")."
+            },
+            "mentions": {
+              "type": "readonly (string | MentionOption)[]",
+              "description": "The people who can be mentioned with `@` in this mode (the box becomes a Mentions); none, a plain box."
+            },
+            "placeholder": {
+              "type": "string",
+              "description": "Text shown while empty."
+            },
+            "sendLabel": {
+              "type": "string",
+              "description": "Text of the send button in this mode (\"Send reply\", \"Add note\"); the default \"Send\"."
+            },
+            "value": {
+              "type": "string",
+              "required": true,
+              "description": "The value, controlled (with `onValueChange`)."
+            }
+          }
+        },
+        "MentionOption": {
+          "props": {
+            "disabled": {
+              "type": "boolean",
+              "description": "Disables interaction."
+            },
+            "label": {
+              "type": "ReactNode",
+              "description": "Content shown in the list, defaults to value; can be a node such as an avatar."
+            },
+            "value": {
+              "type": "string",
+              "required": true,
+              "description": "Content inserted into the text after selection (the part after the prefix)."
+            }
+          }
+        },
+        "MessageComposerLabels": {
+          "props": {
+            "mode": {
+              "type": "string",
+              "required": true,
+              "description": "The accessible name of the switch between the ways of writing."
+            },
+            "send": {
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      },
+      "docs": "message-thread",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<MessageThread\n  messages={[\n    { id: 1, kind: \"customer\", author: \"Priya Nair\", time: sentAt, body: \"How do I invite a teammate?\", attachments: [{ name: \"error.png\", size: 183000 }] },\n    { id: 2, kind: \"note\", author: \"Ben Carter\", time: noteAt, body: \"@Ada Lin can you look at this one?\" },\n  ]}\n  kinds={{\n    customer: { label: \"Customer\" },\n    agent: { label: \"Agent\", variant: \"soft\", color: \"primary\" },\n    note: { label: \"Internal note\", variant: \"dashed\", color: \"warning\" },\n  }}\n  mentions={[\"Ada Lin\", \"Ben Carter\"]}\n/>"
+        },
+        {
+          "title": "Relative time",
+          "code": "<MessageThread messages={messages} kinds={kinds} relativeTime />"
+        },
+        {
+          "title": "Composer",
+          "code": "<MessageComposer\n  modes={[\n    { value: \"agent\", label: \"Reply\", sendLabel: \"Send reply\" },\n    { value: \"note\", label: \"Internal note\", sendLabel: \"Add note\", mentions: [\"Ada Lin\", \"Ben Carter\"] },\n  ]}\n  mode={mode}\n  onModeChange={setMode}\n  value={drafts[mode] ?? \"\"}\n  onValueChange={(v) => setDrafts({ ...drafts, [mode]: v })}\n  onSend={(value, mode) => send(value, mode)}\n  toolbar={(mode) => (mode === \"agent\" ? <Button size=\"sm\" variant=\"ghost\">Use the suggestion</Button> : null)}\n/>"
+        },
+        {
+          "title": "A conversation",
+          "code": "<MessageThread messages={messages} kinds={kinds} mentions={agentNames} />\n<MessageComposer modes={modes} mode={mode} onModeChange={setMode} value={draft} onValueChange={setDraft} onSend={send} />"
+        }
+      ]
+    },
+    "MessageThread": {
+      "description": "Message thread: a conversation as a column of messages: who wrote it, what kind of message it is (the customer's, the agent's, an internal note), when, the text with its mentions, and the files.\n`messages` are the data and `kinds` say how each kind looks (a label, and the `variant` / `color` of the Callout it sits in). For the reply box under it see MessageComposer.\nFor a conversation with an AI assistant use ChatThread; this one is for people writing to each other.",
+      "import": "import { MessageThread } from \"@skeinui/ui\";",
+      "props": {
+        "aria-label": {
+          "type": "string",
+          "description": "Accessible name, when there is no visible label."
+        },
+        "empty": {
+          "type": "ReactNode",
+          "description": "Shown when there are no messages."
+        },
+        "kinds": {
+          "type": "Readonly<Record<string, MessageKind>>",
+          "required": true,
+          "description": "The kinds of message and how each looks, by the `kind` of the messages. A message of a kind that is not here looks like `outline` / `neutral` without a tag."
+        },
+        "labels": {
+          "type": "Partial<MessageThreadLabels>",
+          "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
+        },
+        "locale": {
+          "type": "string",
+          "description": "BCP 47 tag of the language of the dates; defaults to the `locale` of ConfigProvider."
+        },
+        "mentions": {
+          "type": "readonly string[]",
+          "description": "Names that can be mentioned (without the trigger): `@name` in the text of a message is shown in bold."
+        },
+        "messages": {
+          "type": "readonly ThreadMessage[]",
+          "required": true
+        },
+        "relativeTime": {
+          "type": "boolean",
+          "description": "Say \"5 minutes ago\" instead of the date.",
+          "default": "false"
+        }
+      },
+      "types": {
+        "MessageAttachment": {
+          "props": {
+            "href": {
+              "type": "string",
+              "description": "Where the file is: the name becomes a link."
+            },
+            "name": {
+              "type": "string",
+              "required": true,
+              "description": "Field name, for native form submission."
+            },
+            "size": {
+              "type": "number",
+              "description": "Size in bytes, shown as KB / MB."
+            }
+          }
+        },
+        "MessageKind": {
+          "description": "How one kind of message looks: its label and the Callout it sits in.",
+          "props": {
+            "color": {
+              "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+              "values": [
+                "primary",
+                "secondary",
+                "success",
+                "warning",
+                "danger",
+                "neutral"
+              ],
+              "description": "Semantic colour; the theme style picks the actual colours.",
+              "default": "\"neutral\""
+            },
+            "label": {
+              "type": "string",
+              "required": true,
+              "description": "Name of the kind, shown as a tag after the author (\"Customer\", \"Internal note\")."
+            },
+            "variant": {
+              "type": "\"soft\" | \"outline\" | \"dashed\"",
+              "values": [
+                "soft",
+                "outline",
+                "dashed"
+              ],
+              "description": "Visual variant; how each one looks is up to the theme style.",
+              "default": "\"outline\""
+            }
+          }
+        },
+        "MessageThreadLabels": {
+          "props": {
+            "attachments": {
+              "type": "string",
+              "required": true
+            },
+            "empty": {
+              "type": "string",
+              "required": true
+            },
+            "label": {
+              "type": "string",
+              "required": true,
+              "description": "The accessible name of the conversation."
+            }
+          }
+        },
+        "ThreadMessage": {
+          "props": {
+            "attachments": {
+              "type": "readonly MessageAttachment[]"
+            },
+            "author": {
+              "type": "string",
+              "required": true,
+              "description": "Who wrote it."
+            },
+            "avatar": {
+              "type": "string",
+              "description": "Picture of the author; the initials of the name when omitted."
+            },
+            "body": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "The text; a string keeps its line breaks and shows its mentions in bold (`mentions`), anything else is shown as it is."
+            },
+            "id": {
+              "type": "string | number",
+              "required": true,
+              "description": "Identifies the message (React key)."
+            },
+            "kind": {
+              "type": "string",
+              "required": true,
+              "description": "Which kind of message it is: a key of `kinds`."
+            },
+            "time": {
+              "type": "string | number | Date",
+              "required": true,
+              "description": "When it was sent: a `Date`, an ISO string or a timestamp in milliseconds."
+            }
+          }
+        }
+      },
+      "docs": "message-thread",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<MessageThread\n  messages={[\n    { id: 1, kind: \"customer\", author: \"Priya Nair\", time: sentAt, body: \"How do I invite a teammate?\", attachments: [{ name: \"error.png\", size: 183000 }] },\n    { id: 2, kind: \"note\", author: \"Ben Carter\", time: noteAt, body: \"@Ada Lin can you look at this one?\" },\n  ]}\n  kinds={{\n    customer: { label: \"Customer\" },\n    agent: { label: \"Agent\", variant: \"soft\", color: \"primary\" },\n    note: { label: \"Internal note\", variant: \"dashed\", color: \"warning\" },\n  }}\n  mentions={[\"Ada Lin\", \"Ben Carter\"]}\n/>"
+        },
+        {
+          "title": "Relative time",
+          "code": "<MessageThread messages={messages} kinds={kinds} relativeTime />"
+        },
+        {
+          "title": "Composer",
+          "code": "<MessageComposer\n  modes={[\n    { value: \"agent\", label: \"Reply\", sendLabel: \"Send reply\" },\n    { value: \"note\", label: \"Internal note\", sendLabel: \"Add note\", mentions: [\"Ada Lin\", \"Ben Carter\"] },\n  ]}\n  mode={mode}\n  onModeChange={setMode}\n  value={drafts[mode] ?? \"\"}\n  onValueChange={(v) => setDrafts({ ...drafts, [mode]: v })}\n  onSend={(value, mode) => send(value, mode)}\n  toolbar={(mode) => (mode === \"agent\" ? <Button size=\"sm\" variant=\"ghost\">Use the suggestion</Button> : null)}\n/>"
+        },
+        {
+          "title": "A conversation",
+          "code": "<MessageThread messages={messages} kinds={kinds} mentions={agentNames} />\n<MessageComposer modes={modes} mode={mode} onModeChange={setMode} value={draft} onValueChange={setDraft} onSend={send} />"
         }
       ]
     },
@@ -24058,6 +24363,29 @@
       ],
       "MermaidBlock": [
         "mermaid-block"
+      ],
+      "MessageComposer": [
+        "button",
+        "flex",
+        "grid",
+        "input",
+        "input-addons",
+        "layout",
+        "mentions",
+        "popover",
+        "segmented",
+        "spinner",
+        "tag"
+      ],
+      "MessageThread": [
+        "avatar",
+        "callout",
+        "flex",
+        "grid",
+        "layout",
+        "link",
+        "tag",
+        "typography"
       ],
       "Meter": [
         "progress"

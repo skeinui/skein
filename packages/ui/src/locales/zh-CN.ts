@@ -472,6 +472,8 @@ export const zhCN: Messages = {
       selected: (count) => `已选 ${count} 项`,
       clear: "清除",
     },
+    messageThread: { label: "对话", empty: "还没有消息", attachments: "附件" },
+    messageComposer: { mode: "回复方式", send: "发送" },
     queryBuilder: {
       and: "满足全部",
       or: "满足任一",

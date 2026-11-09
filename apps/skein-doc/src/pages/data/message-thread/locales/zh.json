@@ -1,0 +1,76 @@
+{
+  "lead": "人与人之间的对话，一列消息：每条是谁写的、什么类型（客户的、客服的、内部备注）、什么时候、文字（提及加粗）和附件。`MessageComposer` 是它下面的输入框，可以切换写作方式（回复、内部备注）。和 AI 助手的对话见 [Chat Thread](/chat-thread)。",
+  "kinds": {
+    "customer": "客户",
+    "agent": "客服",
+    "note": "内部备注"
+  },
+  "messages": {
+    "customer": "你好，请问怎么邀请同事加入我们的工作区，并且只给只读权限？",
+    "note": "@Ada Lin 你能看一下这个吗？客户已经问了两次。",
+    "agent": "你好 Priya，在 设置 → 团队 → 邀请 里选择「查看者」角色即可。我也把步骤发给你了。"
+  },
+  "modes": {
+    "reply": "回复客户",
+    "note": "内部备注",
+    "sendReply": "发送回复",
+    "addNote": "添加备注",
+    "replyPlaceholder": "写给客户……",
+    "notePlaceholder": "给团队写一条备注，输入 @ 提及某人……"
+  },
+  "usage": {
+    "title": "基本用法",
+    "description": "`messages` 是数据，`kinds` 说明每种类型的样子：一个标签，加上它所在 [Callout](/callout) 的 `variant` / `color`。`mentions` 是可以被提及的名字。文字保留换行；正文是节点的消息原样显示。"
+  },
+  "relative": {
+    "title": "相对时间",
+    "description": "`relativeTime` 显示「1 小时前」而不是日期；日期放在悬停提示里。"
+  },
+  "composer": {
+    "title": "输入框",
+    "description": "`modes` 是写作方式；有两种或更多时显示切换。带 `mentions` 的模式，输入框支持 `@`。`toolbar` 是放在输入框上方的工具（函数会拿到当前模式），`onSend` 拿到文字和模式。草稿由你管理：希望每种模式各记各的，就按模式各存一份。",
+    "useSuggestion": "使用建议回复",
+    "suggestion": "你好 Priya，在 设置 → 团队 → 邀请 里就可以邀请同事。",
+    "sent": "{mode}：{value}"
+  },
+  "conversation": {
+    "title": "一段对话",
+    "description": "两个组件放在一起：写一条回复或备注，它就进入对话。",
+    "sent": "已发送"
+  },
+  "api": {
+    "title": "MessageThread API"
+  },
+  "composerApi": {
+    "title": "MessageComposer API"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "MessageThread 和 MessageComposer 没有自己的 slot：一条消息是 Callout，里面有 Avatar、Text、Tag、Link；输入框是 Segmented、Textarea 或 Mentions，加一个 Button。"
+  },
+  "props": {
+    "MessageThread": {
+      "messages": "消息，按顺序显示。",
+      "kinds": "消息的类型和各自的样子，按消息的 `kind` 对应：一个标签，加所在 Callout 的 `variant` 和 `color`。不在这里的类型显示为 `outline` / `neutral`，没有标签。",
+      "mentions": "可以被提及的名字（不含触发符）：消息文字里的 `@名字` 会加粗。",
+      "relativeTime": "显示「5 分钟前」而不是日期。",
+      "locale": "日期语言的 BCP 47 标签；默认取 ConfigProvider 的 `locale`。",
+      "empty": "没有消息时显示的内容。",
+      "aria-label": "对话的无障碍名称。",
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+    },
+    "MessageComposer": {
+      "modes": "写作方式；有两种或更多时显示切换。",
+      "mode": "当前使用的模式。",
+      "onModeChange": "切换了模式时调用。",
+      "value": "输入的内容。只有一份草稿：要让每种模式各记各的，就按模式各存一份。",
+      "onValueChange": "输入变化时调用。",
+      "onSend": "按发送按钮（或 Ctrl / ⌘ + Enter）且有内容时调用，参数是文字和模式。",
+      "sending": "发送中：按钮转圈，不能再次发送。",
+      "disabled": "禁用。",
+      "rows": "输入框可见的行数。",
+      "toolbar": "放在输入框上方、随模式变化的工具：常用回复、语气切换、AI 建议。给函数则拿到当前模式。",
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+    }
+  }
+}
