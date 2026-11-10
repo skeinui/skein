@@ -36,7 +36,7 @@ export interface SearchInputProps
 }
 
 /**
- * Search box: a search icon in front, a clear button when there is content, and a search button at the end.
+ * Search box: a search button (the magnifier) at the end, and a clear button before it when there is content. There is no icon in front: two magnifiers side by side say the same thing twice.
  * Enter and the button both trigger onSearch (Enter during IME composition does not count); Esc clears.
  */
 export function SearchInput({
@@ -79,9 +79,6 @@ export function SearchInput({
   };
   return (
     <InputGroup variant={variant} size={size} fullWidth={fullWidth} width={width}>
-      <InputGroup.Prefix>
-        <SearchIcon />
-      </InputGroup.Prefix>
       <InputGroup.Input
         enterKeyHint="search"
         {...rest}

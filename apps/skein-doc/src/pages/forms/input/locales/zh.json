@@ -84,7 +84,7 @@
   },
   "search-input": {
     "title": "SearchInput",
-    "description": "搜索图标 + 有内容时的清除按钮 + 搜索按钮；<kbd>Enter</kbd> 或按钮触发 `onSearch`，<kbd>Esc</kbd> 清空，`loading` 时不再触发。"
+    "description": "有内容时的清除按钮，加末尾的搜索按钮（前面不再放图标：按钮本身就是放大镜）；<kbd>Enter</kbd> 或按钮触发 `onSearch`，<kbd>Esc</kbd> 清空，`loading` 时不再触发。"
   },
   "tag-input": {
     "title": "TagInput",

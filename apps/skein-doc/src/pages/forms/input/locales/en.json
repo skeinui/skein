@@ -64,7 +64,7 @@
   },
   "search-input": {
     "title": "SearchInput",
-    "description": "A search icon, a clear button when there is text, and a search button. <kbd>Enter</kbd> or the button calls `onSearch`, <kbd>Esc</kbd> clears, and nothing fires while `loading`."
+    "description": "A clear button when there is text, and a search button at the end (no icon in front: the button already is the magnifier). <kbd>Enter</kbd> or the button calls `onSearch`, <kbd>Esc</kbd> clears, and nothing fires while `loading`."
   },
   "tag-input": {
     "title": "TagInput",
