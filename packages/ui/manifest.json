@@ -19056,6 +19056,16 @@
           "type": "string",
           "description": "Hint in the search box."
         },
+        "searchWidth": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Width of the search box: `sm` 10rem, `md` 14rem, `lg` 20rem.",
+          "default": "\"lg\""
+        },
         "tools": {
           "type": "ReactNode",
           "description": "On the right: usually TableTools."

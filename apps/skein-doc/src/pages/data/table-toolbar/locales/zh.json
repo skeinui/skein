@@ -41,7 +41,8 @@
       "children": "搜索那一行里、筛选后面的更多内容。",
       "below": "搜索下面、靠左的一行：「存成视图」。",
       "tools": "右边的内容，通常是 TableTools。",
-      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。"
+      "labels": "其他语言的文字；默认跟随 ConfigProvider 的 `locale`。",
+      "searchWidth": "搜索框的宽度：`sm` 10rem、`md` 14rem、`lg` 20rem。"
     }
   }
 }

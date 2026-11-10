@@ -3,6 +3,7 @@ import type { TableToolbarLabels } from "../../locales/messages.ts";
 import { useLabels } from "../../locales/use-labels.ts";
 import { Button } from "../button/index.ts";
 import { SearchInput } from "../input/index.ts";
+import type { InputWidth } from "../../contract.ts";
 import { Flex } from "../layout/index.ts";
 import { QueryBuilder } from "../query-builder/index.ts";
 import type { QueryBuilderCapabilities, QueryField, QueryFilter } from "../query-builder/index.ts";
@@ -15,6 +16,11 @@ export interface TableToolbarProps {
   onSearch?: (keyword: string) => void;
   /** Hint in the search box. */
   searchPlaceholder?: string;
+  /**
+   * Width of the search box: `sm` 10rem, `md` 14rem, `lg` 20rem.
+   * @default "lg"
+   */
+  searchWidth?: InputWidth;
   /** What can be filtered: the conditions as chips with a "Filter" button. Shown when `onFilterChange` is given. */
   fields?: readonly QueryField[];
   /** The filter in use. */
@@ -44,6 +50,7 @@ export function TableToolbar({
   onKeywordChange,
   onSearch,
   searchPlaceholder,
+  searchWidth = "lg",
   fields,
   filter,
   onFilterChange,
@@ -65,7 +72,7 @@ export function TableToolbar({
           <Flex gap="sm" align="center" wrap>
             {hasSearch ? (
               <SearchInput
-                width="md"
+                width={searchWidth}
                 size="sm"
                 aria-label={t.search}
                 placeholder={searchPlaceholder}

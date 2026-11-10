@@ -64,6 +64,11 @@ describe("TableToolbar", () => {
       }),
     );
     expect(html).toContain('data-slot="input-group"');
+    // wide enough for a hint of a few words by default; `searchWidth` changes it
+    expect(html).toContain('data-width="lg"');
+    expect(ssr(createElement(TableToolbar, { onSearch: () => {}, searchWidth: "sm" }))).toContain(
+      'data-width="sm"',
+    );
     expect(html).toContain('data-slot="query-builder"');
     expect(html).toContain("TOOLS");
     expect(html).toContain("BELOW");
