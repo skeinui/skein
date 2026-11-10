@@ -8,6 +8,10 @@
     "placeholder": "Type a keyword, then save it as a view…",
     "hint": "Where the views are kept is the page's business: this demo keeps them in memory."
   },
+  "menu": {
+    "title": "In a menu",
+    "description": "`layout=\"menu\"` shows one small button that opens the views as a menu (a check marks the active one, the bin removes one, and \"Save as a view\" is at the end) instead of a row: for a page with little room, such as the row above a table."
+  },
   "storage": {
     "title": "Saving somewhere slow",
     "description": "`onSave` may return a promise: the dialog shows it working, closes when it is done, and stays open when it fails (show the error yourself)."

@@ -44,8 +44,8 @@ function Demo({ full }: { full?: boolean }) {
       <Card.Body>
         <Flex direction="column" gap="md">
           <TableToolbar
-            keyword={keyword}
-            onKeywordChange={setKeyword}
+            keyword={full ? keyword : undefined}
+            onKeywordChange={full ? setKeyword : undefined}
             onSearch={(value) => setApplied(value)}
             searchPlaceholder={t("usage.placeholder")}
             fields={full ? fields : undefined}
@@ -104,9 +104,8 @@ export default function TableToolbarPage() {
 
       <Example
         id="usage"
-        code={`<TableToolbar
-  keyword={keyword}
-  onKeywordChange={setKeyword}
+        code={`// The box keeps what is typed itself; pass keyword / onKeywordChange to set it from outside
+<TableToolbar
   onSearch={(value) => search({ keyword: value, filter })}
   searchPlaceholder="Search…"
   onReset={reset}

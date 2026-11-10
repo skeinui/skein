@@ -1,5 +1,5 @@
 {
-  "lead": "The row above a table: the search box and the conditions ([Query Builder](/query-builder)) on the left, the table's tools ([Table Tools](/table-tools)) on the right, and a \"Reset\" when something is set. It holds no state: `keyword` and `filter` are yours, and `onSearch` / `onFilterChange` tell you when to ask the list again. Each part shows when its props are given.",
+  "lead": "The row above a table: the search box and the conditions ([Query Builder](/query-builder)) on the left, the table's tools ([Table Tools](/table-tools)) on the right, and a \"Reset\" when something is set. It holds no search state: `filter` is yours, and `onSearch` / `onFilterChange` tell you when to ask the list again (the typed text is the box's own, unless you pass `keyword`). Each part shows when its props are given.",
   "fields": {
     "id": "No.",
     "title": "Title",

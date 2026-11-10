@@ -7,7 +7,7 @@
   },
   "usage": {
     "title": "基本用法",
-    "description": "在列显示的弹层里隐藏或移动列；刷新时按钮转圈。",
+    "description": "在列弹层里隐藏或移动一列；列表加载时刷新按钮会转动。`useTableColumns` 保存显示哪些列和列的顺序：渲染它的 `shown`，把它的 `tools` 展开给 `TableTools`。",
     "exported": "已导出 {count} 行"
   },
   "fixed": {

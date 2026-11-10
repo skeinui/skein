@@ -9,7 +9,7 @@ interface View extends SavedViewItem {
   keyword: string;
 }
 
-function Demo({ slow }: { slow?: boolean }) {
+function Demo({ slow, menu }: { slow?: boolean; menu?: boolean }) {
   const t = usePageT();
   const [views, setViews] = useState<View[]>([
     { id: "v1", name: t("usage.first"), keyword: "ada" },
@@ -21,6 +21,7 @@ function Demo({ slow }: { slow?: boolean }) {
       <Card.Body>
         <Flex direction="column" gap="md">
           <SavedViews
+            layout={menu ? "menu" : undefined}
             views={views}
             value={active}
             canSave={keyword.trim() !== ""}
@@ -78,6 +79,14 @@ export default function SavedViewsPage() {
 />`}
       >
         <Demo />
+      </Example>
+
+      <Example
+        id="menu"
+        code={`// The views in a menu: one small button, for a page with little room
+<SavedViews layout="menu" views={views} … />`}
+      >
+        <Demo menu />
       </Example>
 
       <Example

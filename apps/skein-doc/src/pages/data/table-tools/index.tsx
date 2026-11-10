@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { DataTable, Flex, TableTools, Tag, toast, useFixedHeader } from "@skeinui/ui";
+import {
+  DataTable,
+  Flex,
+  TableTools,
+  Tag,
+  toast,
+  useFixedHeader,
+  useTableColumns,
+} from "@skeinui/ui";
 import { usePageT } from "@/site/i18n.tsx";
 import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.tsx";
 
@@ -26,10 +34,8 @@ const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function Usage() {
   const t = usePageT();
-  const [order, setOrder] = useState<string[]>([...KEYS]);
-  const [visible, setVisible] = useState<string[]>([...KEYS]);
+  const cols = useTableColumns(KEYS, (key) => t(`col.${key}`));
   const [refreshing, setRefreshing] = useState(false);
-  const shown = order.filter((k) => visible.includes(k));
   return (
     <Flex direction="column" gap="sm">
       <Flex justify="end">
@@ -39,10 +45,7 @@ function Usage() {
             setRefreshing(true);
             void wait(900).then(() => setRefreshing(false));
           }}
-          columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}
-          visible={visible}
-          onVisibleChange={setVisible}
-          onOrderChange={setOrder}
+          {...cols.tools}
           onExport={() => toast.success(t("usage.exported", { count: PEOPLE.length }))}
         />
       </Flex>
@@ -50,7 +53,7 @@ function Usage() {
         rows={PEOPLE.slice(0, 4)}
         rowKey="id"
         loading={refreshing}
-        columns={shown.map((key) => ({
+        columns={cols.shown.map((key) => ({
           key,
           title: t(`col.${key}`),
           render:
@@ -115,13 +118,13 @@ export default function TableToolsPage() {
 
       <Example
         id="usage"
-        code={`<TableTools
+        code={`// useTableColumns holds which columns are shown and in which order
+const cols = useTableColumns(["name", "email", "role"], (key) => t(\`col.\${key}\`));
+
+<TableTools
   onRefresh={() => refetch()}
   refreshing={isFetching}
-  columns={order.map((key) => ({ key, label: t(\`col.\${key}\`) }))}
-  visible={visible}
-  onVisibleChange={setVisible}
-  onOrderChange={setOrder}
+  {...cols.tools}
   onExport={() => toast.success("exported")}
 />`}
       >

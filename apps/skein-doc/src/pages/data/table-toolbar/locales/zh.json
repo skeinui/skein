@@ -1,5 +1,5 @@
 {
-  "lead": "表格上方的一行：左边是搜索框和筛选条件（[Query Builder](/query-builder)），右边是表格的工具（[Table Tools](/table-tools)），有设置时还有一个「重置」。它不保存状态：`keyword` 和 `filter` 由你管理，`onSearch` / `onFilterChange` 告诉你什么时候重新请求列表。给了哪部分的属性就显示哪部分。",
+  "lead": "表格上方的一行：左边是搜索框和筛选条件（[Query Builder](/query-builder)），右边是表格的工具（[Table Tools](/table-tools)），有设置时还有一个「重置」。它不保存搜索状态：`filter` 由你管理，`onSearch` / `onFilterChange` 告诉你什么时候重新请求列表（输入的文字由搜索框自己保存，除非你传了 `keyword`）。给了哪部分的属性就显示哪部分。",
   "fields": {
     "id": "编号",
     "title": "标题",

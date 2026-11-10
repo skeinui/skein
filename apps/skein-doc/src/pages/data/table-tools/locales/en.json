@@ -7,7 +7,7 @@
   },
   "usage": {
     "title": "Usage",
-    "description": "Hide or move a column in the columns popover; refresh spins while the list loads.",
+    "description": "Hide or move a column in the columns popover; refresh spins while the list loads. `useTableColumns` holds which columns are shown and in which order: render its `shown` and spread its `tools` into `TableTools`.",
     "exported": "{count} rows exported"
   },
   "fixed": {
