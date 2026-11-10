@@ -36,4 +36,4 @@ The Skein style's `Table` / `DataTable`: a quieter header (smaller, medium weigh
 
 The Ant Design style's `Table` / `DataTable`: an empty table shows Ant Design's "no data" picture (light and dark), a loading one a turning ring in place of it, and figures in right-aligned columns line up.
 
-The Ant Design style: the table header is a little lower (48px, was 55px) and a small `Segmented` has more room (24px items, 10px at the sides, was 20px and 7px).
+The Ant Design style: the table header is a little lower (48px, was 55px) and a `Segmented` has more room (a small one: 24px items, 10px at the sides, was 20px and 7px; 4px between the selected option and the frame, was 2px).

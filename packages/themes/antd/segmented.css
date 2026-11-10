@@ -4,7 +4,8 @@
   /* Segmented: a row of mutually exclusive options, with a sliding background under the selected one.
      The slider's position comes from --seg-x / --seg-w (see segmented.tsx); this file only draws and handles the sliding animation. */
   [data-skein-theme="antd"] [data-slot="segmented"] {
-    --_pad: 2px;
+    /* Official is 2px, which leaves the selected option almost touching the frame */
+    --_pad: 4px;
     --_h: calc(1.75rem * var(--ui-density));
     --_px: calc(0.6875rem * var(--ui-density));
     --_r: var(--ui-radius-md);
