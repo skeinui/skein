@@ -73,7 +73,7 @@
   }
   [data-skein-theme="antd"] [data-slot="table-head"] {
     position: relative;
-    height: calc(3.4375rem * var(--ui-density));
+    height: calc(3rem * var(--ui-density));
     padding: 0 calc(1rem * var(--ui-density));
     background-color: var(
       --ui-fill-weak,
@@ -271,7 +271,7 @@
     height: auto;
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="lg"] [data-slot="table-head"] {
-    height: calc(4rem * var(--ui-density));
+    height: calc(3.5rem * var(--ui-density));
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="lg"] [data-slot="table-cell"] {
     padding-block: calc(1.25rem * var(--ui-density));

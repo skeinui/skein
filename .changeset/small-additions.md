@@ -35,3 +35,5 @@ Three more pieces pages wrote by hand: `TextPair` (two lines that belong togethe
 The Skein style's `Table` / `DataTable`: a quieter header (smaller, medium weight, a step lighter than the rows, round corners), roomier cells (12px at the sides, 44px rows), no divider between header columns except where a column can be dragged, and figures in right-aligned columns line up.
 
 The Ant Design style's `Table` / `DataTable`: an empty table shows Ant Design's "no data" picture (light and dark), a loading one a turning ring in place of it, and figures in right-aligned columns line up.
+
+The Ant Design style: the table header is a little lower (48px, was 55px) and a small `Segmented` has more room (24px items, 10px at the sides, was 20px and 7px).

@@ -23,8 +23,9 @@
     line-height: 1.375rem;
   }
   [data-skein-theme="antd"] [data-slot="segmented"][data-size="sm"] {
-    --_h: calc(1.25rem * var(--ui-density));
-    --_px: calc(0.4375rem * var(--ui-density));
+    /* Official small is 20px with 7px at the sides, which is tight for words: a little taller and wider */
+    --_h: calc(1.5rem * var(--ui-density));
+    --_px: calc(0.625rem * var(--ui-density));
     --_r: var(--ui-radius-sm);
     --_ir: calc(var(--ui-radius-sm) - 2px);
     font-size: 0.875rem;
