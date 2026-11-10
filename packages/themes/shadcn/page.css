@@ -23,7 +23,7 @@
     flex: 1 1 auto;
     min-height: 0;
   }
-  /* PageFooter: the bar at the bottom of a page; sticky keeps it at the bottom edge of the scrolling area. */
+  /* PageFooter: the bar at the bottom of a page; sticky makes it a bar across the page that stays at the bottom edge of the scrolling area. */
   [data-skein-theme="shadcn"] [data-slot="page-footer"] {
     display: flex;
     flex-wrap: wrap;
@@ -45,8 +45,11 @@
     position: sticky;
     bottom: 0;
     z-index: 5;
-    padding-block: calc(0.75rem * var(--ui-density));
+    /* A bar of its own across the page: out to both sides and down to the bottom edge, over the page's padding */
+    margin-inline: calc(-1.5rem * var(--ui-density));
+    margin-block-end: calc(-1.25rem * var(--ui-density));
+    padding: calc(0.75rem * var(--ui-density)) calc(1.5rem * var(--ui-density));
     border-top: 1px solid var(--ui-border);
-    background-color: var(--ui-bg);
+    background-color: var(--ui-overlay-bg);
   }
 }
