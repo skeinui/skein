@@ -242,6 +242,16 @@ function GitHubLink({ inNav = false }: { inNav?: boolean }) {
   );
 }
 
+/** The nearest ancestor that scrolls vertically (overflow auto or scroll, with something to scroll). */
+function scrollParent(el: HTMLElement): HTMLElement | null {
+  for (let e = el.parentElement; e && e !== document.documentElement; e = e.parentElement) {
+    const { overflowY } = getComputedStyle(e);
+    if ((overflowY === "auto" || overflowY === "scroll") && e.scrollHeight > e.clientHeight)
+      return e;
+  }
+  return null;
+}
+
 export function Sidebar({ current, onNavigate }: { current: string; onNavigate?: () => void }) {
   const t = useSiteT();
   const [filter, setFilter] = useState("");
@@ -250,12 +260,13 @@ export function Sidebar({ current, onNavigate }: { current: string; onNavigate?:
   const lang = useLang();
   const guides = GUIDES.filter((p) => !q || pageLabel(p, lang).toLowerCase().includes(q));
 
-  // Scroll the current page into the sidebar's visible range: the sidebar only (scrollIntoView would scroll the
-  // window too, hiding what is above the header)
+  // Scroll the current page into the sidebar's visible range: the scrolling parent of the sidebar only (scrollIntoView would
+  // scroll the window too, hiding what is above the header). The parent is the aside beside the page, or the body of the
+  // navigation drawer on a narrow screen: the nav itself does not scroll.
   useEffect(() => {
-    const box = nav.current;
-    const item = box?.querySelector<HTMLElement>('[aria-current="page"]');
-    if (!box || !item) return;
+    const item = nav.current?.querySelector<HTMLElement>('[aria-current="page"]');
+    const box = item && scrollParent(item);
+    if (!item || !box) return;
     const view = box.getBoundingClientRect();
     const at = item.getBoundingClientRect();
     if (at.top < view.top || at.bottom > view.bottom)
