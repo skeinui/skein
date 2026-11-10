@@ -13660,6 +13660,49 @@
         }
       ]
     },
+    "PageHeader": {
+      "description": "Page header: the top of a page: its title and one line of description on the left, its actions on the right (a \"New\" button).\nEvery page of an app starts the same way, and the theme style decides how (the spacing, the type scale, how the actions wrap), so the pages of different apps look alike.\nIt is the look only: tabs, breadcrumbs and routing are the app's. Renders nothing when it has no title, description and actions.",
+      "import": "import { PageHeader } from \"@skeinui/ui\";",
+      "props": {
+        "actions": {
+          "type": "ReactNode",
+          "description": "On the right of the title: the main action of the page (a primary Button) and what goes with it. Wraps under the title on a narrow screen."
+        },
+        "description": {
+          "type": "ReactNode",
+          "description": "One line under the title: what the page is for."
+        },
+        "level": {
+          "type": "3 | 1 | 2 | 4 | 5",
+          "description": "The heading level of the title (h1–h5); the type scale is the theme style's.",
+          "default": "3"
+        },
+        "title": {
+          "type": "ReactNode",
+          "description": "The title of the page."
+        }
+      },
+      "slots": [
+        "page-header",
+        "page-header-main",
+        "page-header-actions"
+      ],
+      "docs": "page-header",
+      "examples": [
+        {
+          "title": "Tickets",
+          "code": "<PageHeader title=\"Tickets\" description=\"Every request that became a ticket\" />"
+        },
+        {
+          "title": "Customers",
+          "code": "<PageHeader\n  title=\"Customers\"\n  description=\"…\"\n  actions={<Button color=\"primary\">New</Button>}\n/>"
+        },
+        {
+          "title": "Heading level",
+          "code": "<PageHeader title=\"Tickets\" level={1} />"
+        }
+      ]
+    },
     "PageTabs": {
       "description": "Page tab bar (like browser tabs, the common \"opened pages\" in admin consoles): switch, close, pin, drag-reorder, context menu\n(close others / left / right / all, pin, refresh), and scroll buttons at both ends when there are too many.\nIt knows nothing about routing: tabs are data (`tabs` + `activeKey`), clicks and closes are handed back through callbacks, and you navigate yourself in the callback.\nTogether with `KeepAlive` the state of pages before closing can be kept around.\n\nKeyboard: arrow keys move focus between tabs, Home / End go to the ends, Enter / Space switch, `Delete` closes, `Alt + Left/Right` reorders;\neach action is announced with `role=\"status\"`. Middle-click on a tab also closes it.",
       "import": "import { PageTabs } from \"@skeinui/ui\";",
@@ -23436,6 +23479,11 @@
       "bottom",
       "left"
     ],
+    "PAGE_HEADER_SLOTS": [
+      "page-header",
+      "page-header-main",
+      "page-header-actions"
+    ],
     "PAGE_TABS_SLOTS": [
       "page-tabs",
       "page-tabs-list",
@@ -24808,6 +24856,10 @@
       "openTab": [],
       "OtpField": [
         "otp-field"
+      ],
+      "PageHeader": [
+        "page-header",
+        "typography"
       ],
       "PageTabs": [
         "menu",

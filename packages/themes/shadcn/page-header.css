@@ -1,0 +1,26 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* PageHeader: the top of a page: the title and its description on the left, the actions on the right; the actions drop under the title when there is no room. */
+  [data-skein-theme="shadcn"] [data-slot="page-header"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: calc(0.75rem * var(--ui-density));
+    box-sizing: border-box;
+    font-family: var(--ui-font-family);
+  }
+  [data-skein-theme="shadcn"] [data-slot="page-header-main"] {
+    display: flex;
+    flex-direction: column;
+    gap: calc(0.25rem * var(--ui-density));
+    min-width: 0;
+  }
+  [data-skein-theme="shadcn"] [data-slot="page-header-actions"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(0.5rem * var(--ui-density));
+  }
+}

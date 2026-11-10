@@ -1,11 +1,11 @@
-import { Flex, Text, Title } from "@skeinui/ui";
+import { Flex, PageHeader } from "@skeinui/ui";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { usePagePath } from "./keep-alive-outlet";
 import { usePageTitles } from "./store";
 
 /**
- * A page's frame: title, description and actions on top, then the content. The title (or `tabTitle`, when the
+ * A page's frame: the PageHeader (title, description and actions: the theme style lays it out, so every page starts the same way) on top, then the content. The title (or `tabTitle`, when the
  * title isn't plain text) also names the page's tab and ends its breadcrumb when it isn't a menu item itself
  * (a detail page).
  */
@@ -38,15 +38,7 @@ export function Page({
     // The layout's content area has no padding of its own: the page decides
     <div className="page" data-fill={fill ? "" : undefined}>
       <Flex direction="column" gap="lg" grow={fill}>
-        {title || actions ? (
-          <Flex align="start" justify="between" gap="md" wrap>
-            <Flex direction="column" gap="xs">
-              {title ? <Title level={3}>{title}</Title> : null}
-              {description ? <Text tone="secondary">{description}</Text> : null}
-            </Flex>
-            {actions ? <Flex gap="sm">{actions}</Flex> : null}
-          </Flex>
-        ) : null}
+        <PageHeader title={title} description={description} actions={actions} />
         {children}
       </Flex>
     </div>

@@ -153,6 +153,7 @@ export function coverageFor(contract) {
     TABLE_TOOLS_SLOTS,
     NOTIFICATION_BELL_SLOTS,
     BULK_ACTION_BAR_SLOTS,
+    PAGE_HEADER_SLOTS,
     QUERY_BUILDER_SLOTS,
     TABS_SLOTS,
     TABS_VARIANTS,
@@ -371,6 +372,7 @@ export function coverageFor(contract) {
       "@keyframes",
     ],
     "notification-bell.css": [...slotSel(NOTIFICATION_BELL_SLOTS)],
+    "page-header.css": [...slotSel(PAGE_HEADER_SLOTS)],
     "bulk-action-bar.css": [
       ...slotSel(BULK_ACTION_BAR_SLOTS),
       '[data-placement="bottom"]',
