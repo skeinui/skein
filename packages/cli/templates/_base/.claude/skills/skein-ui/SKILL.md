@@ -11,7 +11,8 @@ description: Build or change UI in this app with Skein UI components (@skeinui/u
    - Variants are values: `<Button variant="outline" color="danger" size="sm">`. Only listed values exist.
    - Data first: `<Form fields={[{ name, label, type, required, options }]} onSubmit />`, `<Select options />`, `<Pagination page pageSize total onPageChange />`, `Table` with `Table.Header` / `Table.Row` / `Table.Cell`.
    - Controlled: `value` + `onValueChange`, `open` + `onOpenChange`.
-   - Messages to the user: `toast.success(…)` / `toast.danger(…)` from `@skeinui/ui`; confirmations: `<Popconfirm title onConfirm>`.
+   - Values are shown by components, not formatted by hand: dates `<DateText value dateStyle timeStyle>` (`formatDateText` for a string, `weekday` for a day of the week), numbers, percentages and money `<NumberText value format precision>` (`formatNumberText`), "5 minutes ago" `<RelativeTime>`; initials `<Avatar name>`; a labelled control `<Field label description>`. They follow the app's language: no `Intl.DateTimeFormat` or `Math.round(x * 100)` in a page.
+   - Messages to the user: `toast.success(…)` / `toast.danger(…)` from `@skeinui/ui`; confirmations: `<ConfirmButton question onConfirm>` for a button that asks first, `<Popconfirm title onConfirm>` around anything else.
 3. **Your own CSS** (`src/styles/index.css` or a file next to the page) uses tokens only: `var(--ui-fg)`, `var(--ui-fg-muted)`, `var(--ui-bg)`, `var(--ui-surface)`, `var(--ui-border)`, `var(--ui-c-primary)`, `var(--ui-radius)`. No hex colors.
 4. **Check.** `npm run check` — fix every error; its hints say how Skein wants it done.
 {{#if preview}}
