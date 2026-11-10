@@ -1,4 +1,12 @@
-import { Button, Card, Flex, Pagination, TableTools, useFixedHeader } from "@skeinui/ui";
+import {
+  Button,
+  Card,
+  Flex,
+  Pagination,
+  TableTools,
+  useFixedHeader,
+  useTableColumns,
+} from "@skeinui/ui";
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
@@ -20,9 +28,7 @@ export function UsersPage() {
   const list = useListQuery();
   const { query } = list;
   /** The columns in their order, and the ones shown. */
-  const [order, setOrder] = useState<UserColumn[]>([...USER_COLUMNS]);
-  const [visible, setVisible] = useState<string[]>([...USER_COLUMNS]);
-  const shown = order.filter((c) => visible.includes(c));
+  const cols = useTableColumns(USER_COLUMNS, (key) => t(`col.${key}`));
   /** The header fixed and the rows scrolling inside the card (the page fills the screen), or the whole page scrolling: the user's choice, fixed at first. */
   const [fixed, setFixed] = useFixedHeader("users");
   /** undefined: closed; null: creating; a user: editing it. */
@@ -50,8 +56,8 @@ export function UsersPage() {
             : user[c];
     return {
       filename: "users.csv",
-      headers: shown.map((c) => t(`col.${c}`)),
-      rows: (data?.items ?? []).map((user) => shown.map((c) => cell(user, c))),
+      headers: cols.shown.map((c) => t(`col.${c}`)),
+      rows: (data?.items ?? []).map((user) => cols.shown.map((c) => cell(user, c))),
     };
   };
 
@@ -81,10 +87,7 @@ export function UsersPage() {
                 <TableTools
                   onRefresh={() => void queryClient.invalidateQueries({ queryKey: userKeys.all })}
                   refreshing={isFetching}
-                  columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}
-                  visible={visible}
-                  onVisibleChange={setVisible}
-                  onOrderChange={(keys) => setOrder(keys as UserColumn[])}
+                  {...cols.tools}
                   fixed={fixed}
                   onFixedChange={setFixed}
                   exportCsv={exportCsv}
@@ -94,7 +97,7 @@ export function UsersPage() {
             <UserTable
               users={data?.items ?? []}
               loading={isFetching}
-              columns={shown}
+              columns={cols.shown}
               stickyHeader={fixed}
               onEdit={setEditing}
               onDelete={(user) =>

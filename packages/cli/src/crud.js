@@ -269,12 +269,13 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
     ...(selectable ? ["downloadCsv"] : []),
     ...(ops.remove ? ["toast"] : []),
     "useFixedHeader",
+    "useTableColumns",
   ];
   const imports = [
     `import { ${uiImports.join(", ")} } from "@skeinui/ui";`,
     `import { keepPreviousData, useQuery } from "@tanstack/react-query";`,
     ...(ops.create ? [`import { Plus } from "lucide-react";`] : []),
-    `import { useState } from "react";`,
+    ...(hasDialog || selectable ? [`import { useState } from "react";`] : []),
     ...(sorted ? [`import type { ListQuery, Sort } from "@/lib/list-query";`] : []),
     ...(ops.remove ? [`import { useApiMutation } from "@/lib/use-api-mutation";`] : []),
     `import { useListQuery } from "@/lib/use-list-query";`,
@@ -326,11 +327,9 @@ export function ${Name}Page() {
   const { t } = use${Name}Translation();
 ${usesList ? "  const list = useListQuery();\n  const { query } = list;" : "  const { query } = useListQuery();"}
   /** The columns in their order, and the ones shown. */
-  const [order, setOrder] = useState<${ColType}[]>([...${colsConst}]);
-  const [visible, setVisible] = useState<string[]>([...${colsConst}]);
+  const cols = useTableColumns(${colsConst}, (key) => t(\`fields.\${key}\`));
   /** The header fixed and the rows scrolling inside the card (the page fills the screen), or the whole page scrolling: the user's choice, fixed at first. */
   const [fixed, setFixed] = useFixedHeader(${JSON.stringify(leaf)});
-  const shown = order.filter((c) => visible.includes(c));
 ${hasDialog ? `  /** undefined: closed; null: creating; a row: editing it. */\n  const [editing, setEditing] = useState<${Entity} | null | undefined>(undefined);\n` : ""}${selectable ? `  /** The ids of the ticked rows. */\n  const [selected, setSelected] = useState<readonly ${idType}[]>([]);\n` : ""}  const { data, isFetching, refetch } = useQuery({
     queryKey: ${keys}.list(query),
     queryFn: () => ${fetchList}(query),
@@ -371,8 +370,8 @@ ${columns.map(exportLine).join("\n")}
   /** The rows as a CSV file, in the columns shown: what is on screen (this page, with its search and sort) or the ticked ones. */
   const csvOf = (list: readonly ${Entity}[]) => ({
     filename: ${JSON.stringify(`${leaf}.csv`)},
-    headers: shown.map((c) => t(\`fields.\${c}\`)),
-    rows: list.map((row) => shown.map((c) => exportCell[c](row))),
+    headers: cols.shown.map((c) => t(\`fields.\${c}\`)),
+    rows: list.map((row) => cols.shown.map((c) => exportCell[c](row))),
   });${
     selectable
       ? `
@@ -401,10 +400,7 @@ ${
                 <TableTools
                   onRefresh={() => void refetch()}
                   refreshing={isFetching}
-                  columns={order.map((key) => ({ key, label: t(\`fields.\${key}\`) }))}
-                  visible={visible}
-                  onVisibleChange={setVisible}
-                  onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
+                  {...cols.tools}
                   fixed={fixed}
                   onFixedChange={setFixed}
                   exportCsv={() => csvOf(rows)}
@@ -416,10 +412,7 @@ ${
               <TableTools
                 onRefresh={() => void refetch()}
                 refreshing={isFetching}
-                columns={order.map((key) => ({ key, label: t(\`fields.\${key}\`) }))}
-                visible={visible}
-                onVisibleChange={setVisible}
-                onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
+                {...cols.tools}
                 fixed={fixed}
                 onFixedChange={setFixed}
                 exportCsv={() => csvOf(rows)}
@@ -443,7 +436,7 @@ ${
       : ""
   }            <${Name}Table
               rows={rows}
-              columns={shown}
+              columns={cols.shown}
               stickyHeader={fixed}
               loading={isFetching}${selectable ? "\n              selected={selected}\n              onSelectedChange={setSelected}" : ""}${
                 sorted

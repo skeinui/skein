@@ -34,14 +34,14 @@ export function UserMenu() {
   });
 
   return (
-    // Sized in styles/index.css (.user-menu): the button is the avatar's size
-    <span className="user-menu">
+    <>
       <Menu>
         <Menu.Trigger
           render={<Button variant="ghost" color="neutral" size="sm" radius="full" iconOnly />}
           aria-label={t("account")}
         >
           <Avatar
+            size="sm"
             src={user?.avatar}
             alt={user?.name ?? ""}
             fallback={user?.name.slice(0, 1).toUpperCase() ?? "?"}
@@ -60,6 +60,6 @@ export function UserMenu() {
           </Menu.Item>
         </Menu.Content>
       </Menu>
-    </span>
+    </>
   );
 }

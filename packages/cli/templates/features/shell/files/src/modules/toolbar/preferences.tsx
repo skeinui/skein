@@ -1,4 +1,4 @@
-import { Button, Switch } from "@skeinui/ui";
+import { Button, Flex, Separator, Switch, Text, Title } from "@skeinui/ui";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useToolbarTranslation } from "./locales";
 import { useToolbarStore } from "./store";
@@ -42,14 +42,15 @@ export function ToolbarPreferences() {
   };
   const name = (id: string) => t(`tools.${id}`, { defaultValue: id });
   return (
-    <section className="tool-prefs">
-      <h4>{t("preferences.title")}</h4>
-      <p>{t("preferences.hint")}</p>
+    <Flex as="section" direction="column" gap="md">
+      <Separator />
+      <Title level={5}>{t("preferences.title")}</Title>
+      <Text tone="secondary">{t("preferences.hint")}</Text>
       {[...shown, ...hidden].map((id) => {
         const index = shown.indexOf(id);
         const on = index >= 0;
         return (
-          <div key={id} className="tool-prefs-row">
+          <Flex key={id} align="center" gap="sm">
             <Switch
               aria-label={name(id)}
               checked={on}
@@ -57,7 +58,9 @@ export function ToolbarPreferences() {
                 setHeader(checked ? [...shown, id] : shown.filter((x) => x !== id))
               }
             />
-            <span className="tool-prefs-name">{name(id)}</span>
+            <Flex grow>
+              <Text>{name(id)}</Text>
+            </Flex>
             <Button
               variant="ghost"
               color="neutral"
@@ -80,9 +83,9 @@ export function ToolbarPreferences() {
             >
               <ArrowDown size={14} />
             </Button>
-          </div>
+          </Flex>
         );
       })}
-    </section>
+    </Flex>
   );
 }

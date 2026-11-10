@@ -1,3 +1,4 @@
+import { Flex } from "@skeinui/ui";
 import { Fragment } from "react";
 import { settings } from "@/settings";
 import { useToolbarStore } from "./store";
@@ -12,7 +13,7 @@ export function Toolbar({ place }: { place: keyof typeof settings.toolbar }) {
   const chosen = useToolbarStore((s) => s.header);
   const ids = place === "header" ? chosen : settings.toolbar[place];
   return (
-    <span className="app-toolbar">
+    <Flex inline align="center" gap="xs">
       {ids.map((id) => {
         const Tool = TOOLS[id];
         if (!Tool) {
@@ -26,6 +27,6 @@ export function Toolbar({ place }: { place: keyof typeof settings.toolbar }) {
           </Fragment>
         );
       })}
-    </span>
+    </Flex>
   );
 }
