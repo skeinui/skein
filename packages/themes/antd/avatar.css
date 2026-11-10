@@ -12,10 +12,10 @@
     overflow: hidden;
     vertical-align: middle;
     border-radius: var(--_r);
-    /* Official colorTextPlaceholder: rgba(0,0,0,.25), rgba(255,255,255,.25) in dark */
+    /* Official colorTextPlaceholder (rgba(0,0,0,.25), rgba(255,255,255,.25) in dark), darker in light mode so the initials can be read */
     background-color: var(
-      --ui-field-placeholder,
-      color-mix(in srgb, var(--ui-c-neutral) 25%, transparent)
+      --ui-avatar-bg,
+      var(--ui-field-placeholder, color-mix(in srgb, var(--ui-c-neutral) 25%, transparent))
     );
     font-family: var(--ui-font-family);
     user-select: none;

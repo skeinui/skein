@@ -35,6 +35,8 @@
     --ui-field-filled-bg: rgb(0 0 0 / 0.04);
     --ui-field-fg: rgb(0 0 0 / 0.88);
     --ui-field-placeholder: rgb(0 0 0 / 0.25);
+    /* The background of an avatar with initials (white text on it): Ant Design uses the placeholder color, 1.6:1; this is 4.7:1 */
+    --ui-avatar-bg: rgb(0 0 0 / 0.55);
     --ui-field-border: #d9d9d9;
     --ui-field-shadow: 0 0 0 0 transparent;
 
@@ -76,21 +78,21 @@
     --ui-c-success: #52c41a;
     --ui-c-success-fg: #ffffff;
     --ui-c-success-soft: #f6ffed;
-    --ui-c-success-text: #52c41a;
+    --ui-c-success-text: #357e11; /* Ant Design: #52c41a, 2.3:1 on white; this is 5:1 */
     --ui-c-success-hover: #95de64;
     --ui-c-success-active: #389e0d;
     --ui-c-success-border: #b7eb8f;
     --ui-c-warning: #faad14;
     --ui-c-warning-fg: #ffffff;
     --ui-c-warning-soft: #fffbe6;
-    --ui-c-warning-text: #faad14;
+    --ui-c-warning-text: #966503; /* Ant Design: #faad14, 1.9:1 on white; this is 5:1 */
     --ui-c-warning-hover: #ffd666;
     --ui-c-warning-active: #d48806;
     --ui-c-warning-border: #ffe58f;
     --ui-c-danger: #ff4d4f;
     --ui-c-danger-fg: #ffffff;
     --ui-c-danger-soft: #fff2f0;
-    --ui-c-danger-text: #ff4d4f;
+    --ui-c-danger-text: #e10003; /* Ant Design: #ff4d4f, 3:1 on its tint; this is 4.6:1 */
     --ui-c-danger-hover: #ff7875;
     --ui-c-danger-active: #d9363e;
     --ui-c-danger-border: #ffccc7;

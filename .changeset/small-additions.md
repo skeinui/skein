@@ -27,3 +27,5 @@ Five more pieces pages wrote by hand: `DateText` / `formatDateText` (a date or m
 A `Table` without a fixed header passes a vertical wheel or swipe on to what holds it (the page scrolls), instead of the table's `ScrollArea` keeping it.
 
 `skein check` has a `pages` check: in an admin project, a page (`src/pages/<path>/index.tsx` or `detail.tsx`) that is not framed by `<Page>`, or has more than one primary button in its `actions`, is a warning with a hint (the sign-in and the fallback pages are left out).
+
+The Ant Design style in light mode: the text of success, warning and danger (soft tags, statistics, outline buttons) and the initials in an avatar had 1.8 to 3:1 against their background; they are darker now (about 5:1), the fills and borders stay Ant Design's.

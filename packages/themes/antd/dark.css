@@ -31,6 +31,7 @@
     --ui-field-filled-bg: rgb(255 255 255 / 0.08);
     --ui-field-fg: rgb(255 255 255 / 0.85);
     --ui-field-placeholder: rgb(255 255 255 / 0.25);
+    --ui-avatar-bg: rgb(255 255 255 / 0.25);
     --ui-field-border: #424242;
     --ui-field-shadow: 0 0 0 0 transparent;
     /* Focus ring opacity: antd uses 31% in dark (10% in light) */
