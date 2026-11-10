@@ -618,14 +618,16 @@
     min-height: 0;
     overflow: auto;
   }
+  /* No space above: the page above has its own bottom padding, so a second one would only push the content up */
   [data-skein-theme="antd"] [data-slot="admin-layout-footer"] {
     flex: none;
-    padding: 0.75rem 1.5rem;
+    padding: 0 1.5rem 0.75rem;
     color: var(--ui-fg-muted);
     font-size: 0.75rem;
     text-align: center;
   }
   [data-skein-theme="antd"] [data-slot="admin-layout-footer"][data-fixed] {
+    padding-top: 0.75rem;
     position: sticky;
     bottom: 0;
     border-top: 1px solid var(--ui-border);
