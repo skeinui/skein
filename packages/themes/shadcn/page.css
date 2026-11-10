@@ -1,16 +1,30 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* Page: the frame of a page: the padding, the space between the header, the content and the footer, and `fill` (as high as the area it is in; its content takes what is left). */
+  /* Page: the frame of one page: as high as the area it is in, the page scrolls inside it (a ScrollArea; the area itself does not), or with `fill` it does not and its content takes what is left. */
   [data-skein-theme="shadcn"] [data-slot="page"] {
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 0;
+    font-family: var(--ui-font-family);
+  }
+  /* The page scrolls up and down only: what is wider than it (a table) scrolls sideways itself, it does not widen the page (the ScrollArea's content is as wide as its widest child by default) */
+  [data-skein-theme="shadcn"]
+    [data-slot="page"]
+    > [data-slot="scroll-area"]
+    > [data-slot="scroll-area-viewport"]
+    > * {
+    min-width: 0 !important;
+  }
+  /* What scrolls: the padding, the space between the header, the body and the footer */
+  [data-skein-theme="shadcn"] [data-slot="page-content"] {
     display: flex;
     flex-direction: column;
     gap: calc(1.5rem * var(--ui-density));
     box-sizing: border-box;
     padding: calc(1.25rem * var(--ui-density)) calc(1.5rem * var(--ui-density));
-    font-family: var(--ui-font-family);
   }
-  [data-skein-theme="shadcn"] [data-slot="page"][data-fill] {
+  [data-skein-theme="shadcn"] [data-slot="page-content"][data-fill] {
     height: 100%;
   }
   [data-skein-theme="shadcn"] [data-slot="page-body"] {
@@ -19,7 +33,7 @@
     gap: calc(1.5rem * var(--ui-density));
     min-width: 0;
   }
-  [data-skein-theme="shadcn"] [data-slot="page"][data-fill] > [data-slot="page-body"] {
+  [data-skein-theme="shadcn"] [data-slot="page-content"][data-fill] > [data-slot="page-body"] {
     flex: 1 1 auto;
     min-height: 0;
   }

@@ -244,4 +244,13 @@ describe("Page `loading` / `notFound`", () => {
     expect(gone).not.toContain('data-slot="spinner"');
     expect(gone).not.toContain("BODY");
   });
+
+  test("a page scrolls inside its own frame; with `fill` it does not", () => {
+    const scrolling = page({});
+    expect(scrolling).toContain('data-slot="scroll-area"');
+    expect(scrolling).toMatch(/data-slot="scroll-area-viewport".*data-slot="page-content"/s);
+    const filled = page({ fill: true });
+    expect(filled).not.toContain('data-slot="scroll-area"');
+    expect(filled).toContain('data-slot="page-content" data-fill=""');
+  });
 });

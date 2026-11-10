@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test } from "vite-plus/test";
 import { Pagination, Table, getPageItems } from "../src/index.ts";
+import { withoutScrollAreaInternals } from "./base-ui-markup.ts";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 const ssr = (n: React.ReactElement) => renderToStaticMarkup(n);
@@ -61,13 +62,14 @@ describe("Table (SSR)", () => {
     expect(html).toContain('data-slot="table-container"');
     expect(html).toContain("data-bordered");
     expect(html).not.toContain("data-sticky");
-    expect(html).not.toContain("scroll-area");
+    // Sideways only: the table is in a ScrollArea here too, so its scrollbar is the theme style's
+    expect(html).toContain('data-slot="scroll-area-viewport"');
     expect(html).toContain('data-slot="table"');
     expect(html).toContain('data-size="md"');
     expect(html).toContain("data-striped");
     expect(html).toContain("data-hoverable");
-    expect(html).not.toContain("class=");
-    expect(html).not.toContain("style=");
+    expect(withoutScrollAreaInternals(html)).not.toContain("class=");
+    expect(withoutScrollAreaInternals(html)).not.toContain("style=");
   });
 
   test("a fixed header puts the table in a ScrollArea inside the container (the container does not scroll), and the table keeps its hooks", () => {

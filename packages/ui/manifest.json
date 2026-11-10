@@ -13965,7 +13965,7 @@
       ]
     },
     "Page": {
-      "description": "Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.\nIt is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.\n`loading` and `notFound` stand in for the content while a detail page's data loads or when it is not there, so the page keeps its frame in every state.",
+      "description": "Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.\nIt is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.\nThe page scrolls on its own, inside its frame (a `ScrollArea`), so the area it is in (the content of an app shell) does not need to; with `fill` it does not scroll and takes the height of the area.\n`loading` and `notFound` stand in for the content while a detail page's data loads or when it is not there, so the page keeps its frame in every state.",
       "import": "import { Page } from \"@skeinui/ui\";",
       "props": {
         "actions": {
@@ -14009,6 +14009,7 @@
       },
       "slots": [
         "page",
+        "page-content",
         "page-body",
         "page-footer"
       ],
@@ -23941,6 +23942,7 @@
     ],
     "PAGE_SLOTS": [
       "page",
+      "page-content",
       "page-body",
       "page-footer"
     ],
@@ -25336,6 +25338,7 @@
         "layout",
         "page",
         "page-header",
+        "scroll-area",
         "spinner",
         "typography"
       ],

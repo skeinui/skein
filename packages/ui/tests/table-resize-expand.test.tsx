@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { Table } from "../src/index.ts";
+import { withoutScrollAreaInternals } from "./base-ui-markup.ts";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 const ssr = (n: React.ReactElement) => renderToStaticMarkup(n);
@@ -109,7 +110,7 @@ describe("Table resizable columns", () => {
     expect(html).toContain('aria-valuemin="48"');
     expect(html).toContain('aria-valuemax="400"');
     expect(html).toContain('data-width="120"');
-    expect(html).not.toMatch(/\sclass=|\sstyle=/);
+    expect(withoutScrollAreaInternals(html)).not.toMatch(/\sclass=|\sstyle=/);
   });
 
   test("no handle without resizable", () => {
@@ -254,7 +255,7 @@ describe("Table expandable rows", () => {
     expect(html).toContain('data-kind="expand"');
     expect(html).toContain('data-slot="table-expanded-cell"');
     expect(html).toContain('colSpan="1"');
-    expect(html).not.toMatch(/\sclass=|\sstyle=/);
+    expect(withoutScrollAreaInternals(html)).not.toMatch(/\sclass=|\sstyle=/);
   });
 
   test("the button expands / collapses; aria-expanded and aria-controls match the expanded row", async () => {

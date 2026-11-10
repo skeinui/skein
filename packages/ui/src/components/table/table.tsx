@@ -186,15 +186,12 @@ function TableRoot({
   ...rest
 }: TableProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const scrollable = useScrollable(ref, stickyHeader);
-  const onScroll = useFixedColumns(ref, stickyHeader);
+  // The table is always in a ScrollArea (sideways, and with a fixed header up and down too): the theme style draws its scrollbar
+  const scrollable = useScrollable(ref, true);
+  useFixedColumns(ref, true);
   const label = rest["aria-label"];
-  // When content really overflows what scrolls and needs scrolling, it must be keyboard-focusable (so arrow keys can scroll it, WCAG 2.1.1)
-  const focusable = scrollable
-    ? { tabIndex: 0, ...(label ? { role: "region", "aria-label": label } : null) }
-    : null;
   useEffect(() => {
-    // With a fixed header the scroller is the ScrollArea's viewport, not an element of ours: the same attributes go on it
+    // The scroller is the ScrollArea's viewport, not an element of ours: when content really overflows it needs scrolling, so it must be keyboard-focusable (so arrow keys can scroll it, WCAG 2.1.1)
     const viewport = ref.current?.querySelector<HTMLElement>(VIEWPORT);
     if (!viewport) return;
     if (scrollable) {
@@ -226,10 +223,8 @@ function TableRoot({
       data-slot="table-container"
       data-bordered={bordered ? "" : undefined}
       data-sticky={stickyHeader ? "" : undefined}
-      onScroll={stickyHeader ? undefined : onScroll}
-      {...(stickyHeader ? null : focusable)}
     >
-      {stickyHeader ? <ScrollArea orientation="both">{table}</ScrollArea> : table}
+      <ScrollArea orientation={stickyHeader ? "both" : "horizontal"}>{table}</ScrollArea>
     </div>
   );
 }

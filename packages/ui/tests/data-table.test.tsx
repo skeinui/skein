@@ -5,6 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test, vi } from "vite-plus/test";
 import { DataTable } from "../src/index.ts";
 import type { DataTableProps } from "../src/index.ts";
+import { withoutScrollAreaInternals } from "./base-ui-markup.ts";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 const ssr = (n: React.ReactElement) => renderToStaticMarkup(n);
@@ -137,7 +138,7 @@ describe("DataTable", () => {
     expect(html).toContain("Ada");
     expect(html).toContain("role: viewer");
     expect(html.match(/data-slot="table-row"/g)).toHaveLength(3); // the header row and two rows
-    expect(html).not.toMatch(/class=|style=/);
+    expect(withoutScrollAreaInternals(html)).not.toMatch(/class=|style=/);
   });
 
   test("empty: the locale's text, or yours; loading says so and marks the table busy", () => {

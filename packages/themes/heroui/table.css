@@ -10,7 +10,7 @@
     position: relative;
     width: 100%;
     box-sizing: border-box;
-    overflow: auto;
+    overflow: hidden;
     /* The frame's padding is drawn with a transparent border (the background shows through from below): the border is not inside the scroll area, so when pinned columns scroll, the content underneath does not leak through the padding */
     border: solid transparent;
     border-width: 0 0.25rem 0.25rem;

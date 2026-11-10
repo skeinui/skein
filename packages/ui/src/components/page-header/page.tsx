@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Flex } from "../layout/index.ts";
+import { ScrollArea } from "../scroll-area/index.ts";
 import { Spinner } from "../spinner/index.ts";
 import { PageHeader } from "./page-header.tsx";
 import type { PageHeaderProps } from "./page-header.tsx";
@@ -27,6 +28,7 @@ export interface PageProps
 /**
  * Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.
  * It is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.
+ * The page scrolls on its own, inside its frame (a `ScrollArea`), so the area it is in (the content of an app shell) does not need to; with `fill` it does not scroll and takes the height of the area.
  * `loading` and `notFound` stand in for the content while a detail page's data loads or when it is not there, so the page keeps its frame in every state.
  */
 export function Page({
@@ -41,8 +43,8 @@ export function Page({
   children,
   ...rest
 }: PageProps) {
-  return (
-    <div {...rest} data-slot="page" data-fill={fill ? "" : undefined}>
+  const content = (
+    <div data-slot="page-content" data-fill={fill ? "" : undefined}>
       <PageHeader title={title} description={description} actions={actions} level={level} />
       <div data-slot="page-body">
         {notFound ? (
@@ -56,6 +58,12 @@ export function Page({
         )}
       </div>
       {footer}
+    </div>
+  );
+  // A page that fills its area does not scroll (its table does); any other scrolls inside the frame, with the theme style's scrollbar
+  return (
+    <div {...rest} data-slot="page" data-fill={fill ? "" : undefined}>
+      {fill ? content : <ScrollArea>{content}</ScrollArea>}
     </div>
   );
 }

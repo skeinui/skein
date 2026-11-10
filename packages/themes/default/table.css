@@ -5,7 +5,7 @@
   [data-skein-theme="default"] [data-slot="table-container"] {
     position: relative;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
   }
   [data-skein-theme="default"] [data-slot="table-container"][data-bordered] {
     border: 1px solid var(--ui-border);

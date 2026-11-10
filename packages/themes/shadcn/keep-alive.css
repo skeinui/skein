@@ -14,6 +14,10 @@
     min-height: 0;
     overflow: auto;
   }
+  /* A Page scrolls inside its own frame, so the pane that holds one does not scroll as well */
+  [data-skein-theme="shadcn"] [data-slot="keep-alive-pane"]:has(> [data-slot="page"]) {
+    overflow: hidden;
+  }
   [data-skein-theme="shadcn"]
     [data-transition="fade"]
     > [data-slot="keep-alive-pane"][data-active] {

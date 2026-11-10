@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, test } from "vite-plus/test";
 import { Table } from "../src/index.ts";
+import { withoutScrollAreaInternals } from "./base-ui-markup.ts";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -70,7 +71,7 @@ describe("Table fixed columns", () => {
     const html = renderToStaticMarkup(table());
     expect(html.match(/data-fixed="start"/g)).toHaveLength(4);
     expect(html.match(/data-fixed="end"/g)).toHaveLength(2);
-    expect(html).not.toMatch(/class=|style=/);
+    expect(withoutScrollAreaInternals(html)).not.toMatch(/class=|style=/);
   });
 
   test("each row sums the widths of the fixed columns before (after) into --tbl-fixed; the innermost cell gets data-fixed-edge", async () => {
@@ -88,8 +89,10 @@ describe("Table fixed columns", () => {
 
   test("the container's horizontal scroll position is written as data-scroll-x: none / start / middle / end", async () => {
     const h = await mount();
-    const box = h.querySelector<HTMLElement>('[data-slot="table-container"]')!;
-    expect(box.dataset.scrollX).toBe("none");
+    const frame = h.querySelector<HTMLElement>('[data-slot="table-container"]')!;
+    // The scroller is the viewport of the ScrollArea in the container; the position is written on the container
+    const box = frame.querySelector<HTMLElement>('[data-slot="scroll-area-viewport"]')!;
+    expect(frame.dataset.scrollX).toBe("none");
     const set = (left: number) => {
       Object.defineProperty(box, "scrollWidth", { configurable: true, value: 500 });
       Object.defineProperty(box, "clientWidth", { configurable: true, value: 200 });
@@ -104,7 +107,7 @@ describe("Table fixed columns", () => {
       await act(async () => {
         box.dispatchEvent(new Event("scroll"));
       });
-      expect(box.dataset.scrollX).toBe(expected);
+      expect(frame.dataset.scrollX).toBe(expected);
     }
   });
 });

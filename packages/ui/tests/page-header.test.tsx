@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vite-plus/test";
 import { PAGE_HEADER_SLOTS, PAGE_SLOTS } from "../src/contract.ts";
 import { Page, PageFooter, PageHeader } from "../src/index.ts";
+import { withoutScrollAreaInternals } from "./base-ui-markup.ts";
 
 const ssr = (n: React.ReactElement) => renderToStaticMarkup(n);
 
@@ -58,7 +59,7 @@ describe("Page and PageFooter", () => {
     expect(html.indexOf("page-header")).toBeLessThan(html.indexOf("page-body"));
     expect(html.indexOf("page-body")).toBeLessThan(html.indexOf("page-footer"));
     expect(html).toContain("<p>content</p>");
-    expect(html).not.toContain("class=");
+    expect(withoutScrollAreaInternals(html)).not.toContain("class=");
   });
 
   test("`fill` is written only when asked; a page without a title has no header", () => {
