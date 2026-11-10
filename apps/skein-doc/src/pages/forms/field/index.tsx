@@ -79,6 +79,19 @@ export default function FieldPage() {
       <DocHeading id="examples" />
 
       <Example
+        id="label"
+        code={`<Field label="Email" description="We will never share your email.">
+  <Input type="email" />
+</Field>`}
+      >
+        <div style={{ width: "min(320px, 100%)" }}>
+          <Field label="Email" description="We will never share your email.">
+            <Input type="email" placeholder="john@example.com" />
+          </Field>
+        </div>
+      </Example>
+
+      <Example
         id="description"
         code={`<Field name="email">
   <Field.Label>Email</Field.Label>

@@ -1,0 +1,40 @@
+{
+  "lead": "点一下先在气泡里问「确定吗」，确认后才做按钮上写的事：删除、合并、归档。它是 [Popconfirm](/popconfirm) 里的一个 [Button](/button)，所以接受 Button 的全部属性，`color=\"danger\"` 时气泡也是危险色。表格行里的操作用 [DataTable](/data-table) 操作的 `confirm`。",
+  "usage": { "title": "基本用法", "description": "气泡里的确认按钮写着和按钮一样的字。" },
+  "danger": {
+    "title": "危险操作",
+    "description": "`color=\"danger\"` 让按钮和气泡都变成危险色；`description` 说明后果。"
+  },
+  "async": {
+    "title": "异步确认",
+    "description": "`onConfirm` 可以返回 Promise：气泡保持打开，确认按钮转圈，完成后关闭。",
+    "left": "剩余条目：`{n}`"
+  },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "ConfirmButton 没有自己的 slot：按钮是 [Button](/button)，气泡是 [Popconfirm](/popconfirm)，样式由它们的样式表负责。"
+  },
+  "props": {
+    "ConfirmButton": {
+      "question": "确认前问的问题，如「删除这个工单？」",
+      "description": "问题下面的说明：会有什么后果。",
+      "confirmLabel": "气泡里确认按钮的文字；默认取按钮自己的文字（是字符串时），否则取语言包的「确定」。",
+      "cancelLabel": "气泡里取消按钮的文字；默认取语言包的「取消」。",
+      "onConfirm": "确认时调用。返回 Promise 时气泡保持打开、确认按钮转圈，完成后关闭，失败时保持打开（错误提示自己处理）。",
+      "children": "按钮内容。",
+      "color": "语义色；`danger` 时气泡也是危险色。",
+      "endContent": "文字后面的内容，通常是图标（如箭头）。",
+      "fullWidth": "占满父元素的宽度。",
+      "iconOnly": "只有图标、没有文字的按钮，主题风格会把它画成正方形。",
+      "loading": "加载中：不响应点击，开头的图标位换成 spinner，仍然可以聚焦。",
+      "radius": "圆角档位，不传时由主题风格决定。",
+      "size": "尺寸档位。",
+      "startContent": "文字前面的内容，通常是图标；`loading` 时换成 spinner。",
+      "variant": "视觉变体，具体画法由主题风格决定。",
+      "focusableWhenDisabled": "禁用时是否仍可聚焦。",
+      "nativeButton": "替换 `render` 时，是否渲染原生 `<button>` 元素。",
+      "render": "把组件的 HTML 元素换成别的标签，或者和另一个组件组合。"
+    }
+  }
+}

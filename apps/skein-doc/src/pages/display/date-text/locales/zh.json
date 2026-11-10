@@ -1,0 +1,33 @@
+{
+  "lead": "一个日期或时刻的文字，用应用的语言显示，渲染为 `<time>`，`dateTime` 里是准确时间。跟随 ConfigProvider 的 `locale`，页面不必再自己写 `Intl.DateTimeFormat`。`formatDateText` 以字符串给出同样的文字（CSV 单元格、标题）。要「5 分钟前」用 [Relative Time](/relative-time)。",
+  "usage": {
+    "title": "基本用法",
+    "description": "默认按 `medium` 显示日期。"
+  },
+  "styles": {
+    "title": "说多少",
+    "description": "`dateStyle` 和 `timeStyle` 取 `short`、`medium`、`long`、`full`；只传 `timeStyle` 就只显示时间。"
+  },
+  "empty": {
+    "title": "没有值",
+    "description": "没有值或值无效时显示 `fallback`，默认是一个破折号，可选日期的一列不必再写 `?:`。",
+    "none": "未设置"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "DateText 渲染一个普通的 `<time>`，没有 slot：样式跟着周围的文字走。"
+  },
+  "props": {
+    "DateText": {
+      "value": "日期或时刻：`Date`、ISO 字符串或毫秒时间戳。",
+      "fallback": "没有值或值无效时显示的内容。",
+      "dateStyle": "日期的详细程度；只传 `timeStyle` 时不显示日期。",
+      "timeStyle": "时间的详细程度；不传就只显示日期。",
+      "locale": "语言的 BCP 47 标签（如 \"zh-CN\"）；默认取 ConfigProvider 的 `locale`，再默认取浏览器的。",
+      "timeZone": "IANA 时区名（如 \"Asia/Shanghai\"）；默认取浏览器的。"
+    }
+  }
+}

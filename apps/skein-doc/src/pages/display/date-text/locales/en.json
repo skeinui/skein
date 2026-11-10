@@ -1,0 +1,23 @@
+{
+  "lead": "A date or a moment as text in the language of the app, as a `<time>` element with the exact moment in its `dateTime`. It follows the `locale` of ConfigProvider, so a page needs no `Intl.DateTimeFormat` of its own. `formatDateText` gives the same text as a string (a CSV cell, a title). For \"5 minutes ago\" use [Relative Time](/relative-time).",
+  "usage": {
+    "title": "Usage",
+    "description": "The date as `medium` by default."
+  },
+  "styles": {
+    "title": "How much to say",
+    "description": "`dateStyle` and `timeStyle` take `short`, `medium`, `long` or `full`; `timeStyle` alone shows the time only."
+  },
+  "empty": {
+    "title": "No value",
+    "description": "A missing or invalid value shows `fallback`, a dash by default, so a column of optional dates needs no `?:`.",
+    "none": "Not set"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "DateText renders a plain `<time>` with no slot: style it with the text around it."
+  }
+}

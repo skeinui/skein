@@ -63,14 +63,6 @@ export interface MessageThreadProps {
   labels?: Partial<MessageThreadLabels>;
 }
 
-const initialsOf = (name: string) =>
-  name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part.charAt(0).toUpperCase())
-    .join("");
-
 const sizeOf = (bytes: number) =>
   bytes < 1024
     ? `${bytes} B`
@@ -113,7 +105,7 @@ export function MessageThread({
           >
             <Flex direction="column" gap="sm">
               <Flex align="center" gap="sm">
-                <Avatar size="sm" src={m.avatar} alt="" fallback={initialsOf(m.author)} />
+                <Avatar size="sm" src={m.avatar} alt="" name={m.author} />
                 <Text strong>{m.author}</Text>
                 {kind ? (
                   <Tag size="sm" variant="outline" color={kind.color}>

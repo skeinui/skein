@@ -35,7 +35,12 @@
       "onVisibleChange": "显示或隐藏了某列：参数是现在显示的 key，按 `columns` 的顺序。",
       "onOrderChange": "移动了某列：参数是新顺序里的全部 key。",
       "onExport": "下载表格显示的内容（导出由你写）；传了才显示导出按钮。",
-      "labels": "按钮的文字，用于其他语言。"
+      "labels": "按钮的文字，用于其他语言。",
+      "exportCsv": "下载表格显示内容的 CSV 文件：按下按钮时调用，返回文件名、表头和各行；传了才显示导出按钮。"
     }
+  },
+  "csv": {
+    "title": "导出 CSV",
+    "description": "按下按钮时才调用 `exportCsv`，所以读到的是此刻屏幕上的行；它给出文件名、表头和各行，TableTools 负责生成文件（带 BOM 的 UTF-8、加引号、单元格里的公式不会被执行）并下载。没有表格的场景可以直接用导出的 `downloadCsv` 和 `toCsv`。"
   }
 }

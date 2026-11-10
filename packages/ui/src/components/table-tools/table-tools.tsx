@@ -7,6 +7,8 @@ import { Sortable, arrayMove } from "../sortable/index.ts";
 import { Tooltip } from "../tooltip/index.ts";
 import { useLabels } from "../../locales/use-labels.ts";
 import type { TableToolsLabels } from "../../locales/messages.ts";
+import { downloadCsv } from "./csv.ts";
+import type { CsvData } from "./csv.ts";
 
 type Without<T> = Omit<T, "className" | "style">;
 
@@ -36,8 +38,13 @@ export interface TableToolsProps extends Without<ComponentPropsWithoutRef<"div">
   onVisibleChange?: (visible: string[]) => void;
   /** A column was moved: all keys in the new order. */
   onOrderChange?: (keys: string[]) => void;
-  /** Download what the table shows (the export is yours: see `downloadCsv` of the templates); the button is shown when this is given. */
+  /** Download what the table shows as you do it yourself; the button is shown when this is given. For a CSV file give `exportCsv` instead. */
   onExport?: () => void;
+  /**
+   * Download what the table shows as a CSV file: called when the button is pressed (so it reads the rows on screen then) and gives the file's
+   * name, the header row and the rows; the file is UTF-8 with a byte order mark, which Excel needs to read Chinese. The button is shown when this is given.
+   */
+  exportCsv?: () => CsvData;
   /** Texts of the buttons, for another language. */
   labels?: Partial<TableToolsLabels>;
 }
@@ -74,6 +81,7 @@ export function TableTools({
   onVisibleChange,
   onOrderChange,
   onExport,
+  exportCsv,
   labels,
   ...rest
 }: TableToolsProps) {
@@ -175,7 +183,7 @@ export function TableTools({
             </Popover.Content>
           </Popover>
         ) : null}
-        {onExport ? (
+        {onExport || exportCsv ? (
           <Tooltip content={t.export}>
             <Button
               variant="ghost"
@@ -183,7 +191,13 @@ export function TableTools({
               size="sm"
               iconOnly
               aria-label={t.export}
-              onClick={onExport}
+              onClick={() => {
+                if (exportCsv) {
+                  const { filename, headers, rows } = exportCsv();
+                  downloadCsv(filename, headers, rows);
+                }
+                onExport?.();
+              }}
             >
               <Icon>
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

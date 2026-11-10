@@ -60,6 +60,17 @@ export default function AvatarPage() {
         </div>
       </Example>
 
+      <Example
+        id="name"
+        code={`<Avatar name="Ada Lin" />
+<Avatar name="Maya Brooks" color="success" />`}
+      >
+        <div className="pg-flex pg-flex--center pg-flex--loose">
+          <Avatar name="Ada Lin" />
+          <Avatar name="Maya Brooks" color="success" />
+        </div>
+      </Example>
+
       <Example id="sizes" code={`<Avatar size="sm" fallback="S" />`}>
         <div className="pg-flex pg-flex--center pg-flex--loose">
           <Avatar size="sm" fallback="S" />

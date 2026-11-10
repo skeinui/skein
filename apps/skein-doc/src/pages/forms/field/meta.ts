@@ -10,6 +10,7 @@ export default {
       items: [
         "usage",
         "anatomy",
+        "label",
         "description",
         "required",
         "validation",

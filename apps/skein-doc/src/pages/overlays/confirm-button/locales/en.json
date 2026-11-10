@@ -1,0 +1,21 @@
+{
+  "lead": "A button that asks \"are you sure?\" in a bubble before it does what it says: Delete, Merge, Archive. It is a [Button](/button) inside a [Popconfirm](/popconfirm), so it takes the props of Button, and `color=\"danger\"` makes the bubble danger too. For the row actions of a table use the `confirm` of a [DataTable](/data-table) action.",
+  "usage": {
+    "title": "Usage",
+    "description": "The confirm button of the bubble says what the button says."
+  },
+  "danger": {
+    "title": "Danger",
+    "description": "`color=\"danger\"` colours the button and the bubble; `description` says what follows."
+  },
+  "async": {
+    "title": "Async confirm",
+    "description": "`onConfirm` may return a promise: the bubble stays open with the confirm button loading, and closes when it is done.",
+    "left": "Items left: `{n}`"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "ConfirmButton has no slot of its own: the button is a [Button](/button) and the bubble a [Popconfirm](/popconfirm), styled by their stylesheets."
+  }
+}

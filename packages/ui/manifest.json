@@ -2330,7 +2330,11 @@
         },
         "fallback": {
           "type": "ReactNode",
-          "description": "Fallback content, usually the initials of a name; left empty when not passed."
+          "description": "Fallback content, usually the initials of a name; the initials of `name` when not passed."
+        },
+        "name": {
+          "type": "string",
+          "description": "The person's name: its initials are the fallback and the name is the image's `alt`, unless those are passed."
         },
         "radius": {
           "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
@@ -2370,6 +2374,10 @@
         {
           "title": "Usage",
           "code": "import { Avatar } from \"@skeinui/ui\";\n\n<Avatar src=\"/avatar.png\" alt=\"Jane\" fallback=\"JD\" />\n<Avatar fallback=\"JD\" />"
+        },
+        {
+          "title": "From a name",
+          "code": "<Avatar name=\"Ada Lin\" />\n<Avatar name=\"Maya Brooks\" color=\"success\" />"
         },
         {
           "title": "Sizes",
@@ -3876,7 +3884,11 @@
             },
             "fallback": {
               "type": "ReactNode",
-              "description": "Fallback content, usually the initials of a name; left empty when not passed."
+              "description": "Fallback content, usually the initials of a name; the initials of `name` when not passed."
+            },
+            "name": {
+              "type": "string",
+              "description": "The person's name: its initials are the fallback and the name is the image's `alt`, unless those are passed."
             },
             "radius": {
               "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
@@ -5939,6 +5951,140 @@
         }
       ]
     },
+    "ConfirmButton": {
+      "description": "Confirm button: a Button that asks \"are you sure?\" in a bubble before it does what it says: Delete, Merge, Archive.\nIt takes the props of Button (`variant`, `color`, `size`, `loading`…), and `color=\"danger\"` makes the bubble danger too.\nFor the row actions of a table use the `confirm` of a DataTable action; for a bubble around anything else use Popconfirm.",
+      "import": "import { ConfirmButton } from \"@skeinui/ui\";",
+      "props": {
+        "cancelLabel": {
+          "type": "ReactNode",
+          "description": "Text of the button that backs out; the locale's \"Cancel\" by default."
+        },
+        "children": {
+          "type": "ReactNode",
+          "description": "The content."
+        },
+        "color": {
+          "type": "\"primary\" | \"secondary\" | \"success\" | \"warning\" | \"danger\" | \"neutral\"",
+          "values": [
+            "primary",
+            "secondary",
+            "success",
+            "warning",
+            "danger",
+            "neutral"
+          ],
+          "description": "Semantic colour; the theme style picks the actual colours.",
+          "default": "\"primary\""
+        },
+        "confirmLabel": {
+          "type": "ReactNode",
+          "description": "Text of the button that confirms; the button's own text when that is a string, else the locale's \"OK\"."
+        },
+        "description": {
+          "type": "ReactNode",
+          "description": "Secondary text under the question: what follows from it."
+        },
+        "endContent": {
+          "type": "ReactNode",
+          "description": "After the text, usually an icon (e.g. an arrow)."
+        },
+        "fullWidth": {
+          "type": "boolean",
+          "description": "Fill the width of the parent.",
+          "default": "false"
+        },
+        "iconOnly": {
+          "type": "boolean",
+          "description": "A button with only an icon and no text; the theme style draws it as a square accordingly.",
+          "default": "false"
+        },
+        "loading": {
+          "type": "boolean",
+          "description": "Loading: does not respond to clicks, the leading icon slot is replaced by a spinner, and it stays focusable.",
+          "default": "false"
+        },
+        "onConfirm": {
+          "type": "() => void | Promise<void>",
+          "required": true,
+          "description": "Called on confirm. A promise keeps the bubble open with the confirm button loading, closes it when it is done, and keeps it open when it fails\n(show the error yourself)."
+        },
+        "question": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The question asked before it happens: \"Delete this ticket?\""
+        },
+        "radius": {
+          "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+          "values": [
+            "none",
+            "sm",
+            "md",
+            "lg",
+            "full"
+          ],
+          "description": "When not passed, the theme style decides."
+        },
+        "size": {
+          "type": "\"sm\" | \"md\" | \"lg\"",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Size step.",
+          "default": "\"md\""
+        },
+        "startContent": {
+          "type": "ReactNode",
+          "description": "Before the text, usually an icon; replaced by the spinner while `loading`."
+        },
+        "variant": {
+          "type": "\"soft\" | \"outline\" | \"solid\" | \"ghost\" | \"faded\" | \"shadow\"",
+          "values": [
+            "soft",
+            "outline",
+            "solid",
+            "ghost",
+            "faded",
+            "shadow"
+          ],
+          "description": "Visual variant; how each one looks is up to the theme style.",
+          "default": "\"solid\""
+        },
+        "focusableWhenDisabled": {
+          "type": "boolean",
+          "description": "Whether the button should be focusable when disabled.",
+          "default": "false",
+          "from": "base-ui"
+        },
+        "nativeButton": {
+          "type": "boolean",
+          "description": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`).",
+          "default": "true",
+          "from": "base-ui"
+        },
+        "render": {
+          "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ButtonState>",
+          "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+          "from": "base-ui"
+        }
+      },
+      "docs": "confirm-button",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "import { ConfirmButton } from \"@skeinui/ui\";\n\n<ConfirmButton variant=\"outline\" question=\"Merge these tickets?\" onConfirm={merge}>\n  Merge\n</ConfirmButton>"
+        },
+        {
+          "title": "Danger",
+          "code": "<ConfirmButton\n  variant=\"outline\"\n  color=\"danger\"\n  question=\"Delete this article?\"\n  description=\"It cannot be restored.\"\n  onConfirm={remove}\n>\n  Delete\n</ConfirmButton>"
+        },
+        {
+          "title": "Async confirm",
+          "code": "<ConfirmButton question=\"Remove this item?\" onConfirm={async () => { await api.remove(id); }}>\n  Remove\n</ConfirmButton>"
+        }
+      ]
+    },
     "ConfirmDialog": {
       "description": "Confirm dialog: AlertDialog plus the common title / description / cancel / confirm, one component instead of a dozen lines of boilerplate.\nFor more customization (other buttons, forms) use AlertDialog directly.",
       "import": "import { ConfirmDialog } from \"@skeinui/ui\";",
@@ -6894,6 +7040,64 @@
         }
       ]
     },
+    "DateText": {
+      "description": "Date text: a date or a moment as text in the language of the app, as a `<time>` element with the exact moment in its `dateTime`.\n`dateStyle` and `timeStyle` pick how much is said (\"Nov 10\", \"Nov 10, 2026, 6:37 PM\"); the language is the `locale` of ConfigProvider.\nWith no value it shows `fallback` (a dash). For \"5 minutes ago\" use RelativeTime; for the text alone (a CSV cell) use `formatDateText`.",
+      "import": "import { DateText } from \"@skeinui/ui\";",
+      "props": {
+        "dateStyle": {
+          "type": "DateStyle",
+          "values": [
+            "full",
+            "long",
+            "medium",
+            "short"
+          ],
+          "default": "\"medium\""
+        },
+        "fallback": {
+          "type": "ReactNode",
+          "description": "Shown when there is no value or it is not a date.",
+          "default": "\"—\""
+        },
+        "locale": {
+          "type": "string",
+          "description": "BCP 47 tag of the language (e.g. \"zh-CN\"); the browser's when omitted."
+        },
+        "timeStyle": {
+          "type": "DateStyle",
+          "values": [
+            "full",
+            "long",
+            "medium",
+            "short"
+          ],
+          "description": "None by default: a date only."
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "IANA name of the time zone (\"Asia/Shanghai\"); the browser's when omitted."
+        },
+        "value": {
+          "type": "DateInput",
+          "description": "The date or moment: a `Date`, an ISO string or a timestamp in milliseconds."
+        }
+      },
+      "docs": "date-text",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<DateText value={ticket.createdAt} />\nformatDateText(ticket.createdAt) // \"Nov 10, 2026\""
+        },
+        {
+          "title": "How much to say",
+          "code": "<DateText value={at} dateStyle=\"short\" />\n<DateText value={at} dateStyle=\"long\" timeStyle=\"short\" />\n<DateText value={at} timeStyle=\"short\" />"
+        },
+        {
+          "title": "No value",
+          "code": "<DateText value={null} />\n<DateText value={undefined} fallback=\"Not set\" />"
+        }
+      ]
+    },
     "Descriptions": {
       "description": "Descriptions list: a group of \"name — content\" pairs laid out in multiple columns, often used to show fields on a detail page.",
       "import": "import { Descriptions } from \"@skeinui/ui\";",
@@ -7790,6 +7994,19 @@
           "type": "ReactNode",
           "description": "The content."
         },
+        "description": {
+          "type": "ReactNode",
+          "description": "Help text under the control: the short way of `<Field.Description>`."
+        },
+        "label": {
+          "type": "ReactNode",
+          "description": "The label above the control: the short way of `<Field.Label>`."
+        },
+        "nativeLabel": {
+          "type": "boolean",
+          "description": "Whether the label is a real `<label>` of the control. Set it to false for a control that is not an input (a Select, a MenuButton): the label is then a plain element, and the control names itself.",
+          "default": "true"
+        },
         "required": {
           "type": "boolean",
           "description": "Only affects the asterisk after the label; real required validation needs required on the control."
@@ -7925,6 +8142,10 @@
         {
           "title": "Anatomy",
           "code": "<Field>\n  <Field.Label />\n  <Input />\n  <Field.Description />\n  <Field.Error />\n</Field>"
+        },
+        {
+          "title": "Label shorthand",
+          "code": "<Field label=\"Email\" description=\"We will never share your email.\">\n  <Input type=\"email\" />\n</Field>"
         },
         {
           "title": "With Description",
@@ -19363,6 +19584,10 @@
           "type": "readonly TableToolsColumn[]",
           "description": "The columns in their order: the button for which to show and where is shown when `columns`, `visible`, `onVisibleChange` and `onOrderChange` are all given."
         },
+        "exportCsv": {
+          "type": "() => CsvData",
+          "description": "Download what the table shows as a CSV file: called when the button is pressed (so it reads the rows on screen then) and gives the file's\nname, the header row and the rows; the file is UTF-8 with a byte order mark, which Excel needs to read Chinese. The button is shown when this is given."
+        },
         "fixed": {
           "type": "boolean",
           "description": "The header is fixed and only the rows scroll (the table gets `stickyHeader`, the card `fill`, the page `fill`); the button is shown when\n`onFixedChange` is given. `useFixedHeader` keeps the user's choice."
@@ -19373,7 +19598,7 @@
         },
         "onExport": {
           "type": "() => void",
-          "description": "Download what the table shows (the export is yours: see `downloadCsv` of the templates); the button is shown when this is given."
+          "description": "Download what the table shows as you do it yourself; the button is shown when this is given. For a CSV file give `exportCsv` instead."
         },
         "onFixedChange": {
           "type": "(fixed: boolean) => void",
@@ -19444,7 +19669,11 @@
       "examples": [
         {
           "title": "Usage",
-          "code": "<TableTools\n  onRefresh={() => refetch()}\n  refreshing={isFetching}\n  columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}\n  visible={visible}\n  onVisibleChange={setVisible}\n  onOrderChange={setOrder}\n  onExport={() => downloadCsv(\"people.csv\", header, rows)}\n/>"
+          "code": "<TableTools\n  onRefresh={() => refetch()}\n  refreshing={isFetching}\n  columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}\n  visible={visible}\n  onVisibleChange={setVisible}\n  onOrderChange={setOrder}\n  onExport={() => toast.success(\"exported\")}\n/>"
+        },
+        {
+          "title": "Export as CSV",
+          "code": "<TableTools\n  exportCsv={() => ({\n    filename: \"people.csv\",\n    headers: [\"Name\", \"Email\", \"Role\"],\n    rows: people.map((p) => [p.name, p.email, p.role]),\n  })}\n/>"
         },
         {
           "title": "Fixed header",
@@ -24657,6 +24886,11 @@
         "popover"
       ],
       "ConfigProvider": [],
+      "ConfirmButton": [
+        "button",
+        "popconfirm",
+        "popover"
+      ],
       "ConfirmDialog": [
         "button",
         "dialog"
@@ -24696,6 +24930,7 @@
         "select",
         "time-picker"
       ],
+      "DateText": [],
       "DEFAULT_ADMIN_LAYOUT_SETTINGS": [],
       "DEFAULT_MESSAGES": [],
       "Descriptions": [
@@ -24710,6 +24945,7 @@
         "diff-view"
       ],
       "displayTime": [],
+      "downloadCsv": [],
       "Drawer": [
         "dialog",
         "drawer"
@@ -24764,6 +25000,7 @@
         "statistic"
       ],
       "formatDate": [],
+      "formatDateText": [],
       "formatFileSize": [
         "attachment"
       ],
@@ -24833,6 +25070,9 @@
       "ImageGrid": [
         "image",
         "image-grid"
+      ],
+      "initialsOf": [
+        "avatar"
       ],
       "Input": [
         "input",
@@ -25276,6 +25516,7 @@
       "Toaster": [
         "toast"
       ],
+      "toCsv": [],
       "Toggle": [
         "toggle"
       ],

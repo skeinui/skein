@@ -11,8 +11,10 @@ export interface AvatarProps extends Omit<
   src?: string;
   /** Alternative text for the image (the person's name); empty by default, which marks the image as decorative. */
   alt?: string;
-  /** Fallback content, usually the initials of a name; left empty when not passed. */
+  /** Fallback content, usually the initials of a name; the initials of `name` when not passed. */
   fallback?: ReactNode;
+  /** The person's name: its initials are the fallback and the name is the image's `alt`, unless those are passed. */
+  name?: string;
   /** @default "md" */
   size?: AvatarSize;
   /**
@@ -31,6 +33,17 @@ const GroupContext = createContext<{
   radius?: UIRadius;
 } | null>(null);
 
+/** The initials of a name: the first letter of its first two words ("Ada Lin" is "AL"), the first letter of a name of one word ("王雨桐" is "王"). */
+export function initialsOf(name: string): string {
+  return name
+    .trim()
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((word) => Array.from(word)[0] ?? "")
+    .join("")
+    .toUpperCase();
+}
+
 /**
  * Round (or `radius`-shaped) picture of a user or entity, with a text fallback such as initials.
  * Pass `src` and `alt`; `fallback` is shown while there is no image or when it fails to load. `size` / `color` / `radius` set the look,
@@ -40,13 +53,16 @@ const GroupContext = createContext<{
  */
 export function Avatar({
   src,
-  alt = "",
-  fallback,
+  alt: altProp,
+  fallback: fallbackProp,
+  name,
   size: sizeProp,
   color: colorProp,
   radius: radiusProp,
   ...rest
 }: AvatarProps) {
+  const alt = altProp ?? name ?? "";
+  const fallback = fallbackProp ?? (name ? initialsOf(name) : undefined);
   const group = useContext(GroupContext);
   const size = sizeProp ?? group?.size ?? "md";
   const color = colorProp ?? group?.color ?? "neutral";

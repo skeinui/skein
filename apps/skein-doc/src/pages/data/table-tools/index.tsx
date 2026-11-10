@@ -67,6 +67,20 @@ function Usage() {
   );
 }
 
+function Csv() {
+  return (
+    <Flex justify="end">
+      <TableTools
+        exportCsv={() => ({
+          filename: "people.csv",
+          headers: ["Name", "Email", "Role"],
+          rows: PEOPLE.map((p) => [p.name, p.email, p.role]),
+        })}
+      />
+    </Flex>
+  );
+}
+
 function Fixed() {
   const t = usePageT();
   const [fixed, setFixed] = useFixedHeader("docs-table-tools");
@@ -108,10 +122,23 @@ export default function TableToolsPage() {
   visible={visible}
   onVisibleChange={setVisible}
   onOrderChange={setOrder}
-  onExport={() => downloadCsv("people.csv", header, rows)}
+  onExport={() => toast.success("exported")}
 />`}
       >
         <Usage />
+      </Example>
+
+      <Example
+        id="csv"
+        code={`<TableTools
+  exportCsv={() => ({
+    filename: "people.csv",
+    headers: ["Name", "Email", "Role"],
+    rows: people.map((p) => [p.name, p.email, p.role]),
+  })}
+/>`}
+      >
+        <Csv />
       </Example>
 
       <Example

@@ -13,6 +13,15 @@ export interface FieldProps extends Without<BaseField.Root.Props> {
   size?: UISize;
   /** Only affects the asterisk after the label; real required validation needs required on the control. */
   required?: boolean;
+  /** The label above the control: the short way of `<Field.Label>`. */
+  label?: ReactNode;
+  /**
+   * Whether the label is a real `<label>` of the control. Set it to false for a control that is not an input (a Select, a MenuButton): the label is then a plain element, and the control names itself.
+   * @default true
+   */
+  nativeLabel?: boolean;
+  /** Help text under the control: the short way of `<Field.Description>`. */
+  description?: ReactNode;
   children?: ReactNode;
 }
 
@@ -24,7 +33,16 @@ export interface FieldProps extends Without<BaseField.Root.Props> {
  *
  * Theme style: validation and a11y association (label for, aria-describedby) come from Base UI; the field writes `data-variant` / `data-size` / `data-required`.
  */
-export function Field({ variant, size, required, children, ...rest }: FieldProps) {
+export function Field({
+  variant,
+  size,
+  required,
+  label,
+  nativeLabel,
+  description,
+  children,
+  ...rest
+}: FieldProps) {
   const value = useMemo(() => ({ variant, size }), [variant, size]);
   return (
     <FieldContext.Provider value={value}>
@@ -35,7 +53,9 @@ export function Field({ variant, size, required, children, ...rest }: FieldProps
         data-size={size}
         data-required={required ? "" : undefined}
       >
+        {label ? <FieldLabel nativeLabel={nativeLabel}>{label}</FieldLabel> : null}
         {children}
+        {description ? <FieldDescription>{description}</FieldDescription> : null}
       </BaseField.Root>
     </FieldContext.Provider>
   );

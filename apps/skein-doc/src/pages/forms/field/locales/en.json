@@ -1,8 +1,14 @@
 {
   "lead": "Puts a label, a control, a description and an error message together into one form item. Validation, the label association and `aria-describedby` come from Base UI's Field; the examples follow the TextField, Label, Description and FieldError pages of the HeroUI docs.",
-  "usage": { "title": "Usage" },
-  "anatomy": { "title": "Anatomy" },
-  "description": { "title": "With Description" },
+  "usage": {
+    "title": "Usage"
+  },
+  "anatomy": {
+    "title": "Anatomy"
+  },
+  "description": {
+    "title": "With Description"
+  },
   "required": {
     "title": "Required",
     "description": "On the Field, `required` only draws the asterisk; the input needs `required` too to take part in validation."
@@ -19,9 +25,15 @@
     "title": "Variants & Sizes",
     "description": "`variant` / `size` on the Field are the defaults of the controls inside."
   },
-  "textarea": { "title": "With Textarea" },
-  "input-group": { "title": "With Input Group" },
-  "disabled": { "title": "Disabled" },
+  "textarea": {
+    "title": "With Textarea"
+  },
+  "input-group": {
+    "title": "With Input Group"
+  },
+  "disabled": {
+    "title": "Disabled"
+  },
   "form": {
     "title": "A small form",
     "description": "Several items put together, with a Button at the end."
@@ -40,5 +52,9 @@
     "required": "Present when the Field has `required`; theme styles draw the asterisk with it",
     "states": "State hooks, written by Base UI; theme styles turn the label red with `:has([data-invalid])`",
     "transitions": "Animation hooks for `Field.Error` appearing / disappearing"
+  },
+  "label": {
+    "title": "Label shorthand",
+    "description": "`label` and `description` write the `Field.Label` before the control and the `Field.Description` after it. Use the parts when you need `Field.Error` or something between. `nativeLabel={false}` is for a control that is not an input (a custom picker)."
   }
 }

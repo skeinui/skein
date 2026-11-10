@@ -23,5 +23,9 @@
     "slot": "data-slot",
     "root": "The row of buttons",
     "columns": "The list in the columns popover"
+  },
+  "csv": {
+    "title": "Export as CSV",
+    "description": "`exportCsv` is called when the button is pressed, so it reads the rows on screen then, and gives the file's name, header row and rows; TableTools makes the file (UTF-8 with a byte order mark, quoted, and safe against formulas in cells) and downloads it. `downloadCsv` and `toCsv` are exported for the cases without a table."
   }
 }

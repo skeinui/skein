@@ -1,8 +1,14 @@
 {
   "lead": "把标签、控件、说明和错误提示拼成一个表单项。校验、label 关联、`aria-describedby` 都来自 Base UI 的 Field，示例参照 HeroUI 文档的 TextField、Label、Description、FieldError。",
-  "usage": { "title": "用法" },
-  "anatomy": { "title": "结构" },
-  "description": { "title": "带说明" },
+  "usage": {
+    "title": "用法"
+  },
+  "anatomy": {
+    "title": "结构"
+  },
+  "description": {
+    "title": "带说明"
+  },
   "required": {
     "title": "必填",
     "description": "`required` 在 Field 上只画星号；输入框自己也要传 `required` 才会真正参与校验。"
@@ -19,9 +25,15 @@
     "title": "变体与尺寸",
     "description": "Field 上的 `variant` / `size` 是里面控件的默认值。"
   },
-  "textarea": { "title": "配合 Textarea" },
-  "input-group": { "title": "配合 Input Group" },
-  "disabled": { "title": "禁用" },
+  "textarea": {
+    "title": "配合 Textarea"
+  },
+  "input-group": {
+    "title": "配合 Input Group"
+  },
+  "disabled": {
+    "title": "禁用"
+  },
   "form": {
     "title": "一个小表单",
     "description": "把几项拼起来的样子（Button 在最后）。"
@@ -56,7 +68,10 @@
       "touched": "字段是否被触碰过。字段状态由外部库控制时有用。",
       "validate": "自定义校验函数。值无效时返回错误信息字符串或字符串数组；不返回、返回 `null`、空字符串或空数组表示有效。支持异步函数，但使用 `validationMode=\"onSubmit\"` 时不会阻止表单提交。",
       "validationDebounceTime": "`validationMode=\"onChange\"` 时两次 `validate` 调用之间的等待时间，单位毫秒。",
-      "validationMode": "何时校验字段，优先于 `<Form>` 上的 `validationMode`。`onSubmit`：表单提交时校验，提交后每次变化重新校验；`onBlur`：控件失焦时校验；`onChange`：控件值每次变化时校验。"
+      "validationMode": "何时校验字段，优先于 `<Form>` 上的 `validationMode`。`onSubmit`：表单提交时校验，提交后每次变化重新校验；`onBlur`：控件失焦时校验；`onChange`：控件值每次变化时校验。",
+      "label": "标签文字，写在控件前（简写 `Field.Label`）。",
+      "description": "说明文字，写在控件后（简写 `Field.Description`）。",
+      "nativeLabel": "标签是否渲染原生 `<label>`；控件不是原生 input 时设为 `false`，标签会渲染成 div。"
     },
     "Field_Label": {
       "nativeLabel": "用 `render` 替换元素时，组件是否渲染为原生 `<label>`。渲染的元素不是 label（比如 `<div>`）时设为 `false`。在 `<button>` 类控件（如 `<Select.Trigger>`、`<Combobox.Trigger>`）上可以避免继承 label 的行为，包括悬停在标签上时按钮出现 `:hover`、点击标签时触发按钮点击。",
@@ -69,5 +84,9 @@
       "match": "按字段的 [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) 决定是否显示错误信息。传 `true` 则始终显示，交给外部库控制显示与否。",
       "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
     }
+  },
+  "label": {
+    "title": "label 简写",
+    "description": "`label` 和 `description` 会在控件前写 `Field.Label`、在控件后写 `Field.Description`。需要 `Field.Error` 或在中间放别的内容时，仍然用各个部件。控件不是 input（如自定义选择器）时用 `nativeLabel={false}`。"
   }
 }
