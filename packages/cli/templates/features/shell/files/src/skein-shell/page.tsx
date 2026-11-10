@@ -14,6 +14,7 @@ export function Page({
   tabTitle,
   description,
   actions,
+  back,
   footer,
   fill = false,
   loading,
@@ -24,6 +25,8 @@ export function Page({
   tabTitle?: string;
   description?: ReactNode;
   actions?: ReactNode;
+  /** Above the title: the way back to the list this page belongs to, a link. */
+  back?: ReactNode;
   /** The bottom of the page: a `PageFooter` with the actions that finish it (Cancel, Save). */
   footer?: ReactNode;
   /** Fill the height of the content area instead of growing with the content: what a table that scrolls its rows (`DataTable stickyHeader` in a `Card fill`) needs. */
@@ -49,6 +52,7 @@ export function Page({
       title={title}
       description={description}
       actions={actions}
+      back={back}
       footer={footer}
       fill={fill}
       loading={loading}
