@@ -94,6 +94,22 @@ describe("TableToolbar", () => {
     ).not.toContain("Reset");
   });
 
+  test("without `keyword` the box keeps what is typed itself, and Reset clears it", async () => {
+    const onReset = vi.fn();
+    const el = await mount(createElement(TableToolbar, { onSearch: () => {}, onReset }));
+    const input = el.querySelector("input")!;
+    expect([...el.querySelectorAll("button")].some((b) => b.textContent === "Reset")).toBe(false);
+    await act(async () => {
+      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")!.set!.call(input, "ada");
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    expect(input.value).toBe("ada");
+    const reset = [...el.querySelectorAll("button")].find((b) => b.textContent === "Reset")!;
+    await act(async () => reset.click());
+    expect(onReset).toHaveBeenCalledTimes(1);
+    expect(input.value).toBe("");
+  });
+
   test("the filter shows as a chip; the language follows ConfigProvider", () => {
     const html = ssr(
       createElement(

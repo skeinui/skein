@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ReactNode } from "react";
 import type { TableToolbarLabels } from "../../locales/messages.ts";
 import { useLabels } from "../../locales/use-labels.ts";
@@ -9,7 +10,10 @@ import { QueryBuilder } from "../query-builder/index.ts";
 import type { QueryBuilderCapabilities, QueryField, QueryFilter } from "../query-builder/index.ts";
 
 export interface TableToolbarProps {
-  /** What is typed in the search box. The box shows when `onSearch` is given. */
+  /**
+   * What is typed in the search box. The box shows when `onSearch` is given. Leave it out and the box keeps what is typed itself (and "Reset"
+   * clears it); give it to set the text from outside, such as when a saved search is picked.
+   */
   keyword?: string;
   onKeywordChange?: (keyword: string) => void;
   /** Called on Enter (not while an input method is composing), the search button and the clear button. */
@@ -42,11 +46,11 @@ export interface TableToolbarProps {
 
 /**
  * Table toolbar: the row above a table: the search box and the conditions (QueryBuilder) on the left, the table's tools (TableTools) on the right, and a "Reset" when something is set.
- * It holds no state: `keyword` and `filter` are yours, and `onSearch` / `onFilterChange` tell you when to ask the list again.
+ * It holds no search state: `filter` is yours, and `onSearch` / `onFilterChange` tell you when to ask the list again (the typed text is the box's own unless you pass `keyword`).
  * Each part shows when its props are given, so a table with only a search box, or only tools, is the same component.
  */
 export function TableToolbar({
-  keyword = "",
+  keyword: keywordProp,
   onKeywordChange,
   onSearch,
   searchPlaceholder,
@@ -62,12 +66,25 @@ export function TableToolbar({
   labels,
 }: TableToolbarProps) {
   const t = { ...useLabels("tableToolbar"), ...labels };
+  const [typed, setTyped] = useState("");
+  const keyword = keywordProp ?? typed;
+  const changeKeyword = (next: string) => {
+    setTyped(next);
+    onKeywordChange?.(next);
+  };
   const hasSearch = Boolean(onSearch);
   const hasFilter = Boolean(onFilterChange && fields);
   const main = hasSearch || hasFilter || onReset || children;
   const reset =
     onReset && (keyword || filter) ? (
-      <Button variant="ghost" size="sm" onClick={onReset}>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => {
+          setTyped("");
+          onReset();
+        }}
+      >
         {t.reset}
       </Button>
     ) : null;
@@ -96,7 +113,7 @@ export function TableToolbar({
                   aria-label={t.search}
                   placeholder={searchPlaceholder}
                   value={keyword}
-                  onValueChange={onKeywordChange}
+                  onValueChange={changeKeyword}
                   onSearch={(value) => onSearch?.(value)}
                 />
               ) : null}

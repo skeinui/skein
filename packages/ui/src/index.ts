@@ -436,7 +436,7 @@ export type { DueTagProps } from "./components/due-tag/index.ts";
 export type { NumberFormatOptions, NumberTextProps } from "./components/number-text/index.ts";
 export { downloadCsv, toCsv } from "./components/table-tools/index.ts";
 export type { CsvData } from "./components/table-tools/index.ts";
-export { TableTools, useFixedHeader } from "./components/table-tools/index.ts";
+export { TableTools, useFixedHeader, useTableColumns } from "./components/table-tools/index.ts";
 export type { TableToolsColumn, TableToolsProps } from "./components/table-tools/index.ts";
 export { SplitButton } from "./components/split-button/index.ts";
 export type {

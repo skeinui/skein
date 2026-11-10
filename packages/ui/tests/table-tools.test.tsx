@@ -3,7 +3,7 @@ import { act, createElement } from "react";
 import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vite-plus/test";
-import { ConfigProvider, TableTools, useFixedHeader } from "../src/index.ts";
+import { ConfigProvider, TableTools, useFixedHeader, useTableColumns } from "../src/index.ts";
 import { zhCN } from "../src/locales/zh-CN.ts";
 
 let host: HTMLElement | null = null;
@@ -175,5 +175,30 @@ describe("useFixedHeader", () => {
     const el = await mount(createElement(Probe, { id: "c" }));
     expect(el.textContent).toBe("true");
     spy.mockRestore();
+  });
+});
+
+describe("useTableColumns", () => {
+  const KEYS = ["name", "email", "role"] as const;
+  let tools: ReturnType<typeof useTableColumns<(typeof KEYS)[number]>> | undefined;
+  function Probe() {
+    tools = useTableColumns(KEYS, (key) => key.toUpperCase());
+    return createElement("span", null, tools.shown.join(","));
+  }
+  test("shows every column in order at first, with labels for TableTools", async () => {
+    const el = await mount(createElement(Probe));
+    expect(el.textContent).toBe("name,email,role");
+    expect(tools!.tools.columns).toEqual([
+      { key: "name", label: "NAME" },
+      { key: "email", label: "EMAIL" },
+      { key: "role", label: "ROLE" },
+    ]);
+  });
+  test("hiding and moving columns change what is shown", async () => {
+    const el = await mount(createElement(Probe));
+    await act(async () => tools!.tools.onOrderChange(["role", "name", "email"]));
+    expect(el.textContent).toBe("role,name,email");
+    await act(async () => tools!.tools.onVisibleChange(["role", "email"]));
+    expect(el.textContent).toBe("role,email");
   });
 });

@@ -16909,6 +16909,10 @@
           "code": "<SavedViews\n  views={views}                       // [{ id, name, ...whatever the view holds }]\n  value={activeId}\n  canSave={Boolean(keyword || filter)}\n  onSelect={(view) => apply(view)}    // put what it holds back in the search\n  onDelete={(view) => remove(view.id)}\n  onSave={(name) => add({ name, keyword, filter })}\n/>"
         },
         {
+          "title": "In a menu",
+          "code": "// The views in a menu: one small button, for a page with little room\n<SavedViews layout=\"menu\" views={views} … />"
+        },
+        {
           "title": "Saving somewhere slow",
           "code": "// onSave may return a promise: the dialog waits for it, and stays open if it fails\nonSave={async (name) => {\n  await api.post(\"/views\", { name, keyword, filter });\n  refetchViews();\n}}"
         }
@@ -19584,7 +19588,7 @@
       ]
     },
     "TableToolbar": {
-      "description": "Table toolbar: the row above a table: the search box and the conditions (QueryBuilder) on the left, the table's tools (TableTools) on the right, and a \"Reset\" when something is set.\nIt holds no state: `keyword` and `filter` are yours, and `onSearch` / `onFilterChange` tell you when to ask the list again.\nEach part shows when its props are given, so a table with only a search box, or only tools, is the same component.",
+      "description": "Table toolbar: the row above a table: the search box and the conditions (QueryBuilder) on the left, the table's tools (TableTools) on the right, and a \"Reset\" when something is set.\nIt holds no search state: `filter` is yours, and `onSearch` / `onFilterChange` tell you when to ask the list again (the typed text is the box's own unless you pass `keyword`).\nEach part shows when its props are given, so a table with only a search box, or only tools, is the same component.",
       "import": "import { TableToolbar } from \"@skeinui/ui\";",
       "props": {
         "below": {
@@ -19609,7 +19613,7 @@
         },
         "keyword": {
           "type": "string",
-          "description": "What is typed in the search box. The box shows when `onSearch` is given."
+          "description": "What is typed in the search box. The box shows when `onSearch` is given. Leave it out and the box keeps what is typed itself (and \"Reset\"\nclears it); give it to set the text from outside, such as when a saved search is picked."
         },
         "labels": {
           "type": "Partial<TableToolbarLabels>",
@@ -19766,7 +19770,7 @@
       "examples": [
         {
           "title": "Search and tools",
-          "code": "<TableToolbar\n  keyword={keyword}\n  onKeywordChange={setKeyword}\n  onSearch={(value) => search({ keyword: value, filter })}\n  searchPlaceholder=\"Search…\"\n  onReset={reset}\n  tools={<TableTools onRefresh={refresh} refreshing={isFetching} />}\n/>\n<DataTable … />"
+          "code": "// The box keeps what is typed itself; pass keyword / onKeywordChange to set it from outside\n<TableToolbar\n  onSearch={(value) => search({ keyword: value, filter })}\n  searchPlaceholder=\"Search…\"\n  onReset={reset}\n  tools={<TableTools onRefresh={refresh} refreshing={isFetching} />}\n/>\n<DataTable … />"
         },
         {
           "title": "With conditions and a row below",
@@ -19867,7 +19871,7 @@
       "examples": [
         {
           "title": "Usage",
-          "code": "<TableTools\n  onRefresh={() => refetch()}\n  refreshing={isFetching}\n  columns={order.map((key) => ({ key, label: t(`col.${key}`) }))}\n  visible={visible}\n  onVisibleChange={setVisible}\n  onOrderChange={setOrder}\n  onExport={() => toast.success(\"exported\")}\n/>"
+          "code": "// useTableColumns holds which columns are shown and in which order\nconst cols = useTableColumns([\"name\", \"email\", \"role\"], (key) => t(`col.${key}`));\n\n<TableTools\n  onRefresh={() => refetch()}\n  refreshing={isFetching}\n  {...cols.tools}\n  onExport={() => toast.success(\"exported\")}\n/>"
         },
         {
           "title": "Export as CSV",
@@ -25863,6 +25867,7 @@
         "drawer",
         "sidebar"
       ],
+      "useTableColumns": [],
       "validateValue": [],
       "Watermark": [
         "watermark"
