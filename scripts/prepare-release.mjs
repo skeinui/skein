@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Prepares a release on your machine: bumps the versions with the changesets (`pnpm version-packages`: versions,
- * CHANGELOGs, the manifest) and commits the result as "Skein UI <version>". Pushing that commit to main is the
+ * CHANGELOGs, the manifest; the CHANGELOGs are then formatted) and commits the result as "Skein UI <version>". Pushing that commit to main is the
  * release (.github/workflows/release.yml: tests, an approval in the `npm` environment, publish, tag, GitHub Release).
  *
  *   pnpm release:prepare
@@ -35,6 +35,8 @@ if (changesets.length === 0)
 console.log(`Releasing ${changesets.length} changeset(s): ${changesets.join(", ")}`);
 
 execFileSync("pnpm", ["version-packages"], { cwd: root, stdio: "inherit" });
+// The CHANGELOGs changesets writes are not in the formatter's style (blank lines inside an entry): CI's `vp check` fails on them
+execFileSync("vp", ["check", "--fix"], { cwd: root, stdio: "inherit" });
 
 const { version } = JSON.parse(readFileSync(join(root, "packages/ui/package.json"), "utf8"));
 run("git", ["add", "-A"]);
