@@ -71,9 +71,13 @@
     line-height: 1.5714;
     caption-side: bottom;
   }
+  /* A theme does not count on an app's reset: the height of a header is its whole height, border included */
+  [data-skein-theme="antd"] :is([data-slot="table-head"], [data-slot="table-cell"]) {
+    box-sizing: border-box;
+  }
   [data-skein-theme="antd"] [data-slot="table-head"] {
     position: relative;
-    height: calc(3rem * var(--ui-density));
+    height: calc(2.75rem * var(--ui-density));
     padding: 0 calc(1rem * var(--ui-density));
     background-color: var(
       --ui-fill-weak,
@@ -204,11 +208,21 @@
     height: auto;
     transition: background-color 150ms ease;
   }
+  /* Rows are 40 / 44 / 48px for sm / md / lg (a 22px line, a 1px divider and the padding: 8.5 / 10.5 / 12.5px), and the header is as high as a row */
   [data-skein-theme="antd"] [data-slot="table-cell"] {
-    padding: calc(1rem * var(--ui-density)) calc(1rem * var(--ui-density));
+    padding: calc(0.65625rem * var(--ui-density)) calc(1rem * var(--ui-density));
     border-bottom: 1px solid
       var(--ui-border-secondary, color-mix(in srgb, var(--ui-fg) 6.7%, transparent));
     vertical-align: middle;
+  }
+  /* The checkbox of a row sits on the baseline of a text line, which makes the line (and the row) a few pixels taller than the box: here it is a block of its own, centered */
+  [data-skein-theme="antd"] [data-slot="table-cell"][data-kind="select"] > * {
+    display: flex;
+    justify-content: center;
+  }
+  /* A tag in the middle of a text line makes the line taller than both: at the top of it, a row with tags is as high as one without (the tag is as high as the line) */
+  [data-skein-theme="antd"] [data-slot="table-cell"] [data-slot="tag"] {
+    vertical-align: top;
   }
   /* Figures line up in a column when every digit is as wide as the next */
   [data-skein-theme="antd"] [data-slot="table-cell"][data-align="end"] {
@@ -261,20 +275,20 @@
     );
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="sm"] [data-slot="table-head"] {
-    height: calc(2.4375rem * var(--ui-density));
+    height: calc(2.5rem * var(--ui-density));
     padding-inline: calc(0.5rem * var(--ui-density));
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="sm"] [data-slot="table-cell"] {
-    padding: calc(0.5rem * var(--ui-density));
+    padding: calc(0.53125rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="sm"] [data-slot="table-row"] {
     height: auto;
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="lg"] [data-slot="table-head"] {
-    height: calc(3.5rem * var(--ui-density));
+    height: calc(3rem * var(--ui-density));
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="lg"] [data-slot="table-cell"] {
-    padding-block: calc(1.25rem * var(--ui-density));
+    padding-block: calc(0.78125rem * var(--ui-density));
   }
   [data-skein-theme="antd"] [data-slot="table"][data-size="lg"] [data-slot="table-row"] {
     height: auto;

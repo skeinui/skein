@@ -184,7 +184,7 @@ export function Pagination({
         {onPageSizeChange ? (
           <div data-slot="pagination-size">
             <Select
-              size="sm"
+              size={size}
               aria-label={l.pageSizeSelect}
               disabled={disabled}
               value={String(pageSize)}

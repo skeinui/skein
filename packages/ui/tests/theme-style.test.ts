@@ -80,7 +80,7 @@ describe("heroui control heights read the height scale (so density / custom heig
     "select.css",
     "tabs.css",
     "segmented.css",
-    "table.css",
+    // (not table.css: its header and rows have heights of their own, 32 / 36 / 40px and 38 / 42 / 46px, which follow density)
     "menu.css",
     "button.css",
     "pagination.css",

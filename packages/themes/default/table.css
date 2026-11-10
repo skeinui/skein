@@ -75,6 +75,10 @@
     caption-side: bottom;
   }
   /* The header is a quiet band: smaller, medium weight and a step lighter than the rows, so the data is what you read first */
+  /* A theme does not count on an app's reset: the height of a header is its whole height, border included */
+  [data-skein-theme="default"] :is([data-slot="table-head"], [data-slot="table-cell"]) {
+    box-sizing: border-box;
+  }
   [data-skein-theme="default"] [data-slot="table-head"] {
     position: relative;
     height: calc(2.5rem * var(--ui-density));
@@ -211,6 +215,23 @@
     height: calc(2.75rem * var(--ui-density));
     transition: background-color 150ms ease;
   }
+  /* Rows are 40 / 44 / 48px for sm / md / lg, headers 36 / 40 / 44: a step of 4px between sizes.
+     The header row is a little lower than the rows (a row's height would stretch its cells to the same) */
+  [data-skein-theme="default"] [data-slot="table-header"] [data-slot="table-row"] {
+    height: calc(2.5rem * var(--ui-density));
+  }
+  [data-skein-theme="default"]
+    [data-slot="table"][data-size="sm"]
+    [data-slot="table-header"]
+    [data-slot="table-row"] {
+    height: calc(2.25rem * var(--ui-density));
+  }
+  [data-skein-theme="default"]
+    [data-slot="table"][data-size="lg"]
+    [data-slot="table-header"]
+    [data-slot="table-row"] {
+    height: calc(2.75rem * var(--ui-density));
+  }
   [data-skein-theme="default"] [data-slot="table-cell"] {
     padding: calc(0.375rem * var(--ui-density)) calc(0.75rem * var(--ui-density));
     border-bottom: 1px solid var(--ui-border);
@@ -254,22 +275,22 @@
     --_row-tint: color-mix(in srgb, transparent 90%, var(--ui-c-primary) 10%);
   }
   [data-skein-theme="default"] [data-slot="table"][data-size="sm"] [data-slot="table-head"] {
-    height: calc(2.125rem * var(--ui-density));
+    height: calc(2.25rem * var(--ui-density));
   }
   [data-skein-theme="default"] [data-slot="table"][data-size="sm"] [data-slot="table-cell"] {
     padding-block: calc(0.25rem * var(--ui-density));
   }
   [data-skein-theme="default"] [data-slot="table"][data-size="sm"] [data-slot="table-row"] {
-    height: calc(2.25rem * var(--ui-density));
+    height: calc(2.5rem * var(--ui-density));
   }
   [data-skein-theme="default"] [data-slot="table"][data-size="lg"] [data-slot="table-head"] {
-    height: calc(3rem * var(--ui-density));
+    height: calc(2.75rem * var(--ui-density));
   }
   [data-skein-theme="default"] [data-slot="table"][data-size="lg"] [data-slot="table-cell"] {
     padding-block: calc(0.625rem * var(--ui-density));
   }
   [data-skein-theme="default"] [data-slot="table"][data-size="lg"] [data-slot="table-row"] {
-    height: calc(3.25rem * var(--ui-density));
+    height: calc(3rem * var(--ui-density));
   }
   [data-skein-theme="default"] [data-slot="table-footer"] [data-slot="table-cell"] {
     border-top: 1px solid var(--ui-border);

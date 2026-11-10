@@ -14,6 +14,13 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
+  /* The controls of a pagination are a step lower than the same-size button elsewhere: 28 / 32 / 36px for sm / md / lg, the 4px steps of a table's rows, so the bar under a table is not taller than the rows above it.
+     The buttons, the ellipsis and the page size select read these (--ui-height-*) from here. */
+  [data-skein-theme="heroui"] [data-slot="pagination"] {
+    --ui-height-sm: calc(1.75rem * var(--ui-density));
+    --ui-height-md: calc(2rem * var(--ui-density));
+    --ui-height-lg: calc(2.25rem * var(--ui-density));
+  }
   [data-skein-theme="heroui"] [data-slot="pagination-info"] {
     color: var(--ui-fg-muted);
   }

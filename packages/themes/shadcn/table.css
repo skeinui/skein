@@ -73,6 +73,10 @@
     line-height: 1.25rem;
     caption-side: bottom;
   }
+  /* A theme does not count on an app's reset: the height of a header is its whole height, border included */
+  [data-skein-theme="shadcn"] :is([data-slot="table-head"], [data-slot="table-cell"]) {
+    box-sizing: border-box;
+  }
   [data-skein-theme="shadcn"] [data-slot="table-head"] {
     position: relative;
     height: calc(2.5rem * var(--ui-density));
@@ -183,14 +187,29 @@
   [data-skein-theme="shadcn"] [data-slot="table-head"][data-sortable]:hover {
     color: var(--ui-fg);
   }
+  /* Rows are 36 / 40 / 44px for sm / md / lg, a step of 4px; the header row is as high as a row (the official header is 40px, h-10) */
   [data-skein-theme="shadcn"] [data-slot="table-row"] {
-    height: auto;
+    height: calc(2.5rem * var(--ui-density));
     transition: background-color 150ms ease;
   }
   [data-skein-theme="shadcn"] [data-slot="table-cell"] {
-    padding: calc(0.5rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
+    /* 7px, not 8px: a row with a 24px tag is 14 + 24 + 1 = 39px and fits the 40px of the row */
+    padding: calc(0.4375rem * var(--ui-density)) calc(0.5rem * var(--ui-density));
     border-bottom: 1px solid var(--ui-border);
     vertical-align: middle;
+  }
+  /* A tag in the middle of a text line makes the line taller than both: at the top of it, a row with tags is as high as one without */
+  [data-skein-theme="shadcn"] [data-slot="table-cell"] [data-slot="tag"] {
+    vertical-align: top;
+  }
+  /* The checkbox of a row sits on the baseline of a text line, which makes the line (and the row) a pixel or more taller than the box: here it is a block of its own, centered */
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-kind="select"] > * {
+    display: flex;
+    justify-content: center;
+  }
+  /* Figures line up in a column when every digit is as wide as the next */
+  [data-skein-theme="shadcn"] [data-slot="table-cell"][data-align="end"] {
+    font-variant-numeric: tabular-nums;
   }
   [data-skein-theme="shadcn"]
     [data-slot="table-body"]
@@ -232,16 +251,16 @@
     padding-block: calc(0.25rem * var(--ui-density));
   }
   [data-skein-theme="shadcn"] [data-slot="table"][data-size="sm"] [data-slot="table-row"] {
-    height: auto;
+    height: calc(2.25rem * var(--ui-density));
   }
   [data-skein-theme="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-head"] {
     height: calc(2.75rem * var(--ui-density));
   }
   [data-skein-theme="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-cell"] {
-    padding-block: calc(0.75rem * var(--ui-density));
+    padding-block: calc(0.5rem * var(--ui-density));
   }
   [data-skein-theme="shadcn"] [data-slot="table"][data-size="lg"] [data-slot="table-row"] {
-    height: auto;
+    height: calc(2.75rem * var(--ui-density));
   }
   [data-skein-theme="shadcn"] [data-slot="table-footer"] [data-slot="table-cell"] {
     border-top: 1px solid var(--ui-border);
