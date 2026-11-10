@@ -16,6 +16,8 @@ export function Page({
   actions,
   footer,
   fill = false,
+  loading,
+  notFound,
   children,
 }: {
   title?: ReactNode;
@@ -26,6 +28,10 @@ export function Page({
   footer?: ReactNode;
   /** Fill the height of the content area instead of growing with the content: what a table that scrolls its rows (`DataTable stickyHeader` in a `Card fill`) needs. */
   fill?: boolean;
+  /** The page's data is on its way: a spinner takes the place of the content, the header stays. */
+  loading?: boolean;
+  /** The page's thing is not there (a 404): this (an `Empty`) takes the place of the content. */
+  notFound?: ReactNode;
   children?: ReactNode;
 }) {
   // The path the page was opened at: a page kept alive in a background tab must not take the current one's
@@ -45,6 +51,8 @@ export function Page({
       actions={actions}
       footer={footer}
       fill={fill}
+      loading={loading}
+      notFound={notFound}
     >
       {children}
     </PageFrame>
