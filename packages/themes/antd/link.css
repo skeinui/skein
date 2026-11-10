@@ -44,7 +44,8 @@
     color: color-mix(in srgb, var(--_c) 85%, black);
   }
   [data-skein-theme="antd"] [data-slot="link"][data-variant="subtle"] {
-    color: var(--ui-fg);
+    /* The color of the text around it (the page's text color in a paragraph, a lighter one in a footer or a caption) */
+    color: inherit;
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
   }

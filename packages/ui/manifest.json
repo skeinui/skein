@@ -10890,7 +10890,7 @@
             "default",
             "subtle"
           ],
-          "description": "`default` is always coloured; `subtle` uses the text colour with a faint underline and takes the colour on hover.",
+          "description": "`default` is always coloured; `subtle` uses the colour of the text around it with a faint underline and takes the colour on hover.",
           "default": "\"default\""
         }
       },
@@ -15791,6 +15791,10 @@
           "type": "QueryBuilderCapabilities",
           "description": "What the backend can do (`QueryAdapter.capabilities`): the editors offer no more than that."
         },
+        "children": {
+          "type": "ReactNode",
+          "description": "After the \"Filter\" button, in the same row of chips: a \"Reset\" that must stay with them, not wrap to a line of its own."
+        },
         "fields": {
           "type": "QueryField[]",
           "required": true
@@ -16830,6 +16834,15 @@
         "labels": {
           "type": "Partial<SavedViewsLabels>",
           "description": "Texts for another language; the default follows the `locale` of ConfigProvider."
+        },
+        "layout": {
+          "type": "\"menu\" | \"row\"",
+          "values": [
+            "menu",
+            "row"
+          ],
+          "description": "`row` lists the views next to each other with a save button: it takes a row of its own. `menu` is one button that opens a menu with the views (the one in use is ticked),\na × after each one to remove it (Delete on the keyboard) and \"Save as a view…\": it fits at the end of a toolbar or of a row of tabs.",
+          "default": "\"row\""
         },
         "onDelete": {
           "type": "(view: T) => void",
@@ -25592,6 +25605,7 @@
         "input",
         "input-addons",
         "layout",
+        "menu",
         "spinner",
         "tag",
         "typography"

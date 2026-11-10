@@ -328,12 +328,11 @@ describe("collapsed sidebar footer toolbar keeps only the last item (avatar)", (
   );
 });
 
-describe("header inside the content area (data-header-inset): 3rem (48px) high, always a sidebar toggle on the left", () => {
+describe("every layout has a 3rem (48px) header; the one inside the content area (data-header-inset) always has a sidebar toggle on the left", () => {
   test.each(skins)("%s", (skin) => {
     const css = read(skinDir(skin), "admin-layout.css");
-    expect(css).toMatch(
-      /\[data-slot="admin-layout"\]\[data-header-inset\]\s*\{\s*--_header: 3rem;/,
-    );
+    // The same height in every layout: the variable is set once, on the root
+    expect(css).toMatch(/\[data-slot="admin-layout"\]\s*\{\s*--_header: 3rem;/);
     expect(css).toMatch(
       /\[data-header-inset\]\s*\[data-slot="admin-layout-header"\]\s*\[data-slot="admin-layout-sidebar-trigger"\]\s*\{\s*display: inline-flex;/,
     );

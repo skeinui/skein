@@ -34,20 +34,18 @@ export function RouteLayout() {
           </>
         }
         footer={
-          <>
+          <span className="app-powered">
             {settings.footer}
             {settings.poweredBy ? (
               <>
                 {" · "}
-                <span className="app-powered">
-                  Powered by{" "}
-                  <a href="https://skeinui.com" target="_blank" rel="noreferrer">
-                    Skein UI
-                  </a>
-                </span>
+                Powered by{" "}
+                <a href="https://skeinui.com" target="_blank" rel="noreferrer">
+                  Skein UI
+                </a>
               </>
             ) : null}
-          </>
+          </span>
         }
       />
       <PreferencesButton />

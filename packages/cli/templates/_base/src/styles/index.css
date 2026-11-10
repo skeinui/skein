@@ -22,10 +22,9 @@ body {
   white-space: nowrap;
 }
 
-/* "Powered by Skein UI" in the footer: a size smaller and lighter than the footer text */
+/* The footer text, "Powered by Skein UI" and its link included: one muted color */
 .app-powered {
-  font-size: 0.875em;
-  opacity: 0.7;
+  color: var(--ui-fg-muted);
 }
 
 .app-powered a {

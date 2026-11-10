@@ -6,7 +6,7 @@ export interface LinkProps extends Omit<
   "className" | "style" | "color"
 > {
   /**
-   * `default` is always coloured; `subtle` uses the text colour with a faint underline and takes the colour on hover.
+   * `default` is always coloured; `subtle` uses the colour of the text around it with a faint underline and takes the colour on hover.
    * @default "default"
    */
   variant?: LinkVariant;

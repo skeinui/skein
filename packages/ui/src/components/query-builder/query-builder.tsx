@@ -221,6 +221,8 @@ export interface QueryBuilderProps {
   capabilities?: QueryBuilderCapabilities;
   /** Texts for another language; the default follows the `locale` of ConfigProvider. */
   labels?: Partial<QueryBuilderLabels>;
+  /** After the "Filter" button, in the same row of chips: a "Reset" that must stay with them, not wrap to a line of its own. */
+  children?: ReactNode;
 }
 
 /**
@@ -236,7 +238,13 @@ export function QueryBuilder({ labels, ...props }: QueryBuilderProps) {
   );
 }
 
-function Builder({ fields, value, onChange, capabilities }: Omit<QueryBuilderProps, "labels">) {
+function Builder({
+  fields,
+  value,
+  onChange,
+  capabilities,
+  children,
+}: Omit<QueryBuilderProps, "labels">) {
   const t = useT();
   const root = rootOf(value);
   const rules = rulesOf(capabilities);
@@ -293,6 +301,7 @@ function Builder({ fields, value, onChange, capabilities }: Omit<QueryBuilderPro
         taken={taken()}
         onAdd={(f, wrapper) => commit([...root.items, ...spread(f, wrapper)])}
       />
+      {children}
     </div>
   );
 }
@@ -347,7 +356,16 @@ function Chip({
         removeLabel={t.removeCondition}
         onRemove={() => onChange(undefined, false)}
       >
-        <Popover.Trigger render={<button type="button" data-slot="query-builder-chip" />}>
+        <Popover.Trigger
+          // A long condition is cut with an ellipsis (the theme style sets how wide a chip may be): its title says all of it
+          render={
+            <button
+              type="button"
+              data-slot="query-builder-chip"
+              title={summary(filter, fields, t)}
+            />
+          }
+        >
           {summary(filter, fields, t)}
         </Popover.Trigger>
       </Tag>

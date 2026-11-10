@@ -65,41 +65,52 @@ export function TableToolbar({
   const hasSearch = Boolean(onSearch);
   const hasFilter = Boolean(onFilterChange && fields);
   const main = hasSearch || hasFilter || onReset || children;
+  const reset =
+    onReset && (keyword || filter) ? (
+      <Button variant="ghost" size="sm" onClick={onReset}>
+        {t.reset}
+      </Button>
+    ) : null;
+  /** The conditions with their "Filter" and "Reset": one line with the search box while there are none, a row of their own under it once there are chips */
+  const builder = hasFilter ? (
+    <QueryBuilder
+      fields={[...(fields ?? [])]}
+      value={filter}
+      onChange={(next) => onFilterChange?.(next)}
+      capabilities={capabilities}
+    >
+      {reset}
+    </QueryBuilder>
+  ) : null;
+  const chipped = hasFilter && Boolean(filter);
   return (
-    <Flex justify="between" align="start" gap="md">
-      <Flex direction="column" gap="none" grow>
-        {main ? (
-          <Flex gap="sm" align="center" wrap>
-            {hasSearch ? (
-              <SearchInput
-                width={searchWidth}
-                size="sm"
-                aria-label={t.search}
-                placeholder={searchPlaceholder}
-                value={keyword}
-                onValueChange={onKeywordChange}
-                onSearch={(value) => onSearch?.(value)}
-              />
-            ) : null}
-            {hasFilter ? (
-              <QueryBuilder
-                fields={[...(fields ?? [])]}
-                value={filter}
-                onChange={(next) => onFilterChange?.(next)}
-                capabilities={capabilities}
-              />
-            ) : null}
-            {onReset && (keyword || filter) ? (
-              <Button variant="ghost" size="sm" onClick={onReset}>
-                {t.reset}
-              </Button>
-            ) : null}
-            {children}
-          </Flex>
-        ) : null}
-        {below}
+    <Flex direction="column" gap="sm">
+      <Flex justify="between" align="start" gap="md">
+        <Flex direction="column" gap="none" grow>
+          {main ? (
+            <Flex gap="sm" align="center" wrap>
+              {hasSearch ? (
+                <SearchInput
+                  width={searchWidth}
+                  size="sm"
+                  aria-label={t.search}
+                  placeholder={searchPlaceholder}
+                  value={keyword}
+                  onValueChange={onKeywordChange}
+                  onSearch={(value) => onSearch?.(value)}
+                />
+              ) : null}
+              {chipped ? null : builder}
+              {hasFilter ? null : reset}
+              {children}
+            </Flex>
+          ) : null}
+        </Flex>
+        {tools}
       </Flex>
-      {tools}
+      {/* Under the search and the tools, so the chips have the whole width: beside the tools they would wrap early and leave the space under them empty */}
+      {chipped ? builder : null}
+      {below}
     </Flex>
   );
 }

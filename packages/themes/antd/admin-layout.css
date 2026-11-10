@@ -6,8 +6,9 @@
    * side (sidebar; the toolbar sits at the bottom of the sidebar or in a header at the top of the content area), top (top bar), mix (top bar for level one + sidebar for level two), column (icon column + secondary menu column), boxed (content is a rounded card).
    * Narrow screens (below md = 768px): the header navigation collapses and is replaced by an "open menu" button; the sidebar, icon column and secondary menu no longer take up space.
    */
+  /* Every layout has the same header: 3rem = 48px, a step above the 40px tab bar under it; the sidebar's logo strip reads the same --_header */
   [data-skein-theme="antd"] [data-slot="admin-layout"] {
-    --_header: 3.5rem;
+    --_header: 3rem;
     --_boxed: color-mix(in srgb, var(--ui-c-primary) 16%, black);
     display: flex;
     flex-direction: column;
@@ -45,9 +46,6 @@
   }
   /* A header inside the content area is shorter (3rem = 48px, a step above the 40px tab bar under it; the full-row header of other layouts is 3.5rem): the sidebar's logo band reads the same --_header, so they shrink together;
      the left side always has a "collapse / expand sidebar" button (so the left is not empty without breadcrumbs; other layouts only need it on narrow screens) */
-  [data-skein-theme="antd"] [data-slot="admin-layout"][data-header-inset] {
-    --_header: 3rem;
-  }
   [data-skein-theme="antd"]
     [data-header-inset]
     [data-slot="admin-layout-header"]
@@ -78,9 +76,41 @@
   [data-skein-theme="antd"] [data-layout="mix"] [data-slot="admin-layout-header"] {
     padding-inline-start: 1.75rem;
   }
+  /* The card of the boxed layout starts right under the header, where the content of the side layout does: the same distance from the top (the card keeps its margin on the other sides) */
+  [data-skein-theme="antd"]
+    [data-layout="boxed"]
+    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
+    [data-slot="sidebar-inset"] {
+    margin-block-start: 0;
+  }
+  /* The sidebar's menu starts at the top of the card too (it keeps the space below, as the card does) */
+  [data-skein-theme="antd"]
+    [data-layout="boxed"]
+    [data-slot="sidebar"][data-variant="inset"]
+    > [data-slot="sidebar-container"] {
+    padding-block-start: 0;
+  }
+  /* ... and its top edge is a line over the first pixel of the card, in the border color, bending with the corners: the card is clipped at the header, so nothing outside it (a shadow, a border) could show, and a border of its own would push the content down */
+  [data-skein-theme="antd"]
+    [data-layout="boxed"]
+    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
+    [data-slot="sidebar-inset"]::before {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    inset-block-start: 0;
+    inset-inline: 0;
+    box-sizing: border-box;
+    height: calc(var(--ui-radius-lg) * 2);
+    border-top: 1px solid var(--ui-border);
+    border-start-start-radius: var(--ui-radius-lg);
+    border-start-end-radius: var(--ui-radius-lg);
+    pointer-events: none;
+  }
   [data-skein-theme="antd"] [data-layout="boxed"] [data-slot="admin-layout-header"] {
     padding-inline-start: 2.25rem;
-    border-bottom: 0;
+    /* No line, but the same 1px as the header of the side layout, so what is in it sits at the same height */
+    border-bottom: 1px solid transparent;
     background-color: var(--_boxed);
   }
   /* Dark outer frame: the tokens read by text, breadcrumbs and buttons must switch to the light set, otherwise dark text sits on a dark background */
@@ -653,7 +683,7 @@
     flex: none;
     align-items: center;
     box-sizing: border-box;
-    height: var(--_header, 3.5rem);
+    height: var(--_header, 3rem);
     padding-inline: 1rem;
     border-bottom: 1px solid var(--ui-border);
     font-weight: 600;
