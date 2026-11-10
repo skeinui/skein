@@ -2687,3 +2687,13 @@ body {
   outline: 2px solid var(--ui-ring, currentColor);
   outline-offset: 2px;
 }
+
+/* The room of a bar that is shown only while something is selected (BulkActionBar examples): the page does not jump */
+.pg-bar-slot {
+  min-height: 3rem;
+}
+
+/* The room of a table whose rows come and go with a search (the TableToolbar examples) */
+.pg-table-slot {
+  min-height: 13.75rem;
+}

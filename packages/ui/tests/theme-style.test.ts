@@ -28,6 +28,18 @@ const read = (...parts: string[]) => readFileSync(join(...parts), "utf8");
 const declaredTokens = (css: string) =>
   new Set([...css.matchAll(/(--ui-[a-z0-9-]+)\s*:/g)].map((m) => m[1]));
 
+describe("Form controls inside a table", () => {
+  // A control that raises a part of itself with z-index (the check mark above its growing background) must be a stacking
+  // context of its own: otherwise the raised part joins the table's layer and paints over the sticky header when the rows scroll
+  test.each(skins)("the checkbox of %s does not leak a z-index out of its control", (skin) => {
+    const css = read(skinDir(skin), "checkbox.css");
+    const raises = /\[data-slot="checkbox-indicator"\]\s*\{[^}]*z-index:/.test(css);
+    if (!raises) return;
+    const control = /\[data-slot="checkbox-control"\]\s*\{[^}]*\}/.exec(css)?.[0] ?? "";
+    expect(control).toMatch(/isolation:\s*isolate|z-index:/);
+  });
+});
+
 describe("Table container", () => {
   // When the scroll container has padding, sticky fixed columns stick inside the padding and scrolling content leaks out of the margin; margins must be drawn with a transparent border
   test.each(skins)("%s table-container has no padding", (skin) => {

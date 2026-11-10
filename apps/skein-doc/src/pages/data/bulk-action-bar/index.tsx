@@ -50,6 +50,9 @@ function Demo({
       <Actions count={selected.length} />
     </BulkActionBar>
   );
+  // The bar is gone when nothing is selected, and the page below the example would jump: a plain bar keeps its room in the
+  // example (a floating one takes none)
+  const barSlot = floating ? bar : <div className="pg-bar-slot">{bar}</div>;
   return (
     <Card>
       <Card.Body>
@@ -93,7 +96,7 @@ function Demo({
           ) : null}
           {/* Floating takes no room, so its anchor must not add a gap either: no gap there, a small one otherwise */}
           <Flex direction="column" gap={floating ? "none" : "sm"}>
-            {placement === "top" ? bar : null}
+            {placement === "top" ? barSlot : null}
             <DataTable
               rows={ROWS}
               rowKey="id"
@@ -105,7 +108,7 @@ function Demo({
                 { key: "status", title: t("cols.status") },
               ]}
             />
-            {placement === "bottom" ? bar : null}
+            {placement === "bottom" ? barSlot : null}
           </Flex>
         </div>
       </Card.Body>

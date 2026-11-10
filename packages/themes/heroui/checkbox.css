@@ -15,6 +15,9 @@
   [data-skein-theme="heroui"] [data-slot="checkbox-control"] {
     --_bg: var(--ui-field-bg);
     position: relative;
+    /* Its own stacking context: the indicator's z-index (above the growing background) stays inside, so a checkbox in a
+       row never paints over a sticky table header */
+    isolation: isolate;
     display: inline-flex;
     flex: none;
     align-items: center;

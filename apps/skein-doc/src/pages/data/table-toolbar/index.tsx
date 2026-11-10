@@ -75,15 +75,18 @@ function Demo({ full }: { full?: boolean }) {
               />
             }
           />
-          <DataTable
-            rows={rows}
-            rowKey="id"
-            columns={[
-              { key: "id", title: t("fields.id"), nowrap: true },
-              { key: "title", title: t("fields.title") },
-              { key: "status", title: t("fields.status") },
-            ]}
-          />
+          {/* Searching leaves fewer rows: the table keeps its room, so the page below the example does not jump */}
+          <div className="pg-table-slot">
+            <DataTable
+              rows={rows}
+              rowKey="id"
+              columns={[
+                { key: "id", title: t("fields.id"), nowrap: true },
+                { key: "title", title: t("fields.title") },
+                { key: "status", title: t("fields.status") },
+              ]}
+            />
+          </div>
         </Flex>
       </Card.Body>
     </Card>
