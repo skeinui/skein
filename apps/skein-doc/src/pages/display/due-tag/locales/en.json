@@ -1,0 +1,21 @@
+{
+  "lead": "When something is due. Before the deadline the time left in plain text (\"in 5 hours\"); after it a red [Tag](/tag) with \"Overdue\" and how long ago. A `done` item has nothing due (a dash) and a `paused` clock says so in a grey tag. It counts again every minute, so a page that stays open turns red on time. The time is a [Relative Time](/relative-time).",
+  "usage": {
+    "title": "Usage",
+    "description": "A ticket, a task, an invoice: anything with a deadline."
+  },
+  "states": {
+    "title": "The four states",
+    "description": "Coming up, overdue, paused (waiting for the customer) and done."
+  },
+  "labels": {
+    "title": "Texts and units",
+    "description": "`labels` replaces the texts for another language; `hoursUntil` is how long the time counts in hours before it counts in days (48 by default).",
+    "late": "Late"
+  },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "DueTag has no slot of its own: it is a [Tag](/tag) or plain text, styled by their stylesheets."
+  }
+}

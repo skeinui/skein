@@ -5792,6 +5792,9 @@
             "diffView": {
               "type": "Partial<DiffViewLabels>"
             },
+            "dueTag": {
+              "type": "Partial<DueTagLabels>"
+            },
             "feedback": {
               "type": "Partial<FeedbackLabels>"
             },
@@ -7744,6 +7747,63 @@
         {
           "title": "Controlled",
           "code": "<Drawer open={open} onOpenChange={setOpen}>…</Drawer>"
+        }
+      ]
+    },
+    "DueTag": {
+      "description": "Due tag: when something is due. Before the deadline the time left in plain text (\"in 5 hours\"), after it a red tag with \"Overdue\" and how long ago.\nA `done` item has nothing due (a dash) and a `paused` clock says so in a grey tag. It counts again every minute, so a page that stays open turns red on time.",
+      "import": "import { DueTag } from \"@skeinui/ui\";",
+      "props": {
+        "done": {
+          "type": "boolean",
+          "description": "Nothing is due any more (the ticket is resolved, the task is done): a dash."
+        },
+        "hoursUntil": {
+          "type": "number",
+          "description": "How long the time counts in hours before it counts in days: \"30 hours ago\", not \"1 day ago\".",
+          "default": "48"
+        },
+        "labels": {
+          "type": "Partial<DueTagLabels>",
+          "description": "Texts of the tag, for another language."
+        },
+        "paused": {
+          "type": "boolean",
+          "description": "The clock is stopped (waiting for the customer): \"Paused\" instead of the time."
+        },
+        "value": {
+          "type": "string | number | Date",
+          "required": true,
+          "description": "The deadline: a `Date`, an ISO string or a timestamp in milliseconds."
+        }
+      },
+      "types": {
+        "DueTagLabels": {
+          "props": {
+            "overdue": {
+              "type": "string",
+              "required": true
+            },
+            "paused": {
+              "type": "string",
+              "required": true
+            }
+          }
+        }
+      },
+      "docs": "due-tag",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<DueTag value={ticket.dueAt} done={ticket.status === \"resolved\"} />"
+        },
+        {
+          "title": "The four states",
+          "code": "<DueTag value={dueAt} />               // in 5 hours\n<DueTag value={dueAt} />               // Overdue · 3 hours ago\n<DueTag value={dueAt} paused />        // Paused\n<DueTag value={dueAt} done />          // —"
+        },
+        {
+          "title": "Texts and units",
+          "code": "<DueTag value={dueAt} labels={{ overdue: \"Late\" }} hoursUntil={24} />"
         }
       ]
     },
@@ -13972,6 +14032,10 @@
           "type": "ReactNode",
           "description": "On the right of the title: the main action of the page (a primary Button) and what goes with it. Wraps under the title on a narrow screen."
         },
+        "back": {
+          "type": "ReactNode",
+          "description": "Above the title: the way back to the list this page belongs to, a link (`<RouterLink to=\"/tickets\">Tickets</RouterLink>`)."
+        },
         "children": {
           "type": "ReactNode",
           "description": "The content."
@@ -14036,6 +14100,10 @@
           "code": "<Page title=\"T-1016\" loading={ticket.isPending} notFound={ticket.error ? <Empty title=\"Not found\" /> : undefined}>\n  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}\n</Page>"
         },
         {
+          "title": "The way back",
+          "code": "<Page\n  title=\"T-1016\"\n  back={<RouterLink to=\"/tickets\">Tickets</RouterLink>}\n>\n  …\n</Page>"
+        },
+        {
           "title": "Heading level",
           "code": "<PageHeader title=\"Tickets\" level={1} />"
         }
@@ -14085,6 +14153,10 @@
           "code": "<Page title=\"T-1016\" loading={ticket.isPending} notFound={ticket.error ? <Empty title=\"Not found\" /> : undefined}>\n  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}\n</Page>"
         },
         {
+          "title": "The way back",
+          "code": "<Page\n  title=\"T-1016\"\n  back={<RouterLink to=\"/tickets\">Tickets</RouterLink>}\n>\n  …\n</Page>"
+        },
+        {
           "title": "Heading level",
           "code": "<PageHeader title=\"Tickets\" level={1} />"
         }
@@ -14097,6 +14169,10 @@
         "actions": {
           "type": "ReactNode",
           "description": "On the right of the title: the main action of the page (a primary Button) and what goes with it. Wraps under the title on a narrow screen."
+        },
+        "back": {
+          "type": "ReactNode",
+          "description": "Above the title: the way back to the list this page belongs to, a link (`<RouterLink to=\"/tickets\">Tickets</RouterLink>`)."
         },
         "description": {
           "type": "ReactNode",
@@ -14115,6 +14191,7 @@
       "slots": [
         "page-header",
         "page-header-main",
+        "page-header-back",
         "page-header-actions"
       ],
       "docs": "page",
@@ -14138,6 +14215,10 @@
         {
           "title": "Loading and not found",
           "code": "<Page title=\"T-1016\" loading={ticket.isPending} notFound={ticket.error ? <Empty title=\"Not found\" /> : undefined}>\n  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}\n</Page>"
+        },
+        {
+          "title": "The way back",
+          "code": "<Page\n  title=\"T-1016\"\n  back={<RouterLink to=\"/tickets\">Tickets</RouterLink>}\n>\n  …\n</Page>"
         },
         {
           "title": "Heading level",
@@ -20424,6 +20505,53 @@
         }
       }
     },
+    "TextPair": {
+      "description": "Text pair: two lines that belong together, the thing and what describes it: a person's name over their email, a subject over its preview, a company over its domain.\nThe cell of a table's first column, a row of a list. `extra` sits after the title (a Tag, an icon).",
+      "import": "import { TextPair } from \"@skeinui/ui\";",
+      "props": {
+        "description": {
+          "type": "ReactNode",
+          "description": "The line under it, in the secondary color: the email, the domain, a preview."
+        },
+        "ellipsis": {
+          "type": "boolean",
+          "description": "Cut the description to one line with an ellipsis."
+        },
+        "extra": {
+          "type": "ReactNode",
+          "description": "After the title, on the same line: a Tag (\"VIP\", \"You\"), an icon."
+        },
+        "strong": {
+          "type": "boolean",
+          "description": "Draw the title in bold. Turn it off for a title that is a link, which has its own look.",
+          "default": "true"
+        },
+        "title": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The first line: the name, the subject, a link."
+        }
+      },
+      "docs": "text-pair",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<TextPair title=\"Maya Brooks\" description=\"maya@northwind.example\" />"
+        },
+        {
+          "title": "Next to the title",
+          "code": "<TextPair\n  title=\"Maya Brooks\"\n  description=\"maya@northwind.example\"\n  extra={<Tag size=\"sm\" variant=\"soft\" color=\"warning\">VIP</Tag>}\n/>"
+        },
+        {
+          "title": "A link as the title",
+          "code": "<TextPair\n  strong={false}\n  title={<RouterLink to=\"/companies/$id\" params={{ id }}>Northwind</RouterLink>}\n  description=\"northwind.example\"\n/>"
+        },
+        {
+          "title": "In a table",
+          "code": "<DataTable\n  rows={people}\n  rowKey=\"id\"\n  columns={[\n    {\n      key: \"name\",\n      title: \"Customer\",\n      render: (p) => <TextPair title={p.name} description={p.email} />,\n    },\n  ]}\n/>"
+        }
+      ]
+    },
     "ThreadList": {
       "description": "Conversation list (chat sidebar / conversation picker): each row is an icon, a title, a line of preview and supplementary info on the right.\nThe current conversation is written as `aria-current=\"true\"` and highlighted; each row is a native button, usable with Tab / Enter / Space.\nOverlong titles and previews are truncated, so rows fit in a narrow sidebar.",
       "import": "import { ThreadList } from \"@skeinui/ui\";",
@@ -23938,6 +24066,7 @@
     "PAGE_HEADER_SLOTS": [
       "page-header",
       "page-header-main",
+      "page-header-back",
       "page-header-actions"
     ],
     "PAGE_SLOTS": [
@@ -25055,6 +25184,10 @@
         "dialog",
         "drawer"
       ],
+      "DueTag": [
+        "tag",
+        "typography"
+      ],
       "Empty": [
         "empty"
       ],
@@ -25602,6 +25735,12 @@
       "Textarea": [
         "input",
         "input-addons"
+      ],
+      "TextPair": [
+        "flex",
+        "grid",
+        "layout",
+        "typography"
       ],
       "themeVars": [],
       "ThreadList": [

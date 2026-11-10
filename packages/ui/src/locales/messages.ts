@@ -133,6 +133,10 @@ export interface QueryBuilderLabels {
   >;
   bool: { true: string; false: string };
 }
+export interface DueTagLabels {
+  overdue: string;
+  paused: string;
+}
 export interface TableToolsLabels {
   refresh: string;
   fixed: string;
@@ -298,6 +302,7 @@ export interface LabelTypes {
   datePicker: DatePickerLabels;
   floatButton: FloatButtonLabels;
   dataTable: DataTableLabels;
+  dueTag: DueTagLabels;
   form: FormLabels;
   formDrawer: FormDrawerLabels;
   list: ListLabels;

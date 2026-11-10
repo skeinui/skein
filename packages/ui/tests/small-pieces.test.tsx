@@ -11,7 +11,10 @@ import {
   Field,
   Input,
   TableTools,
+  DueTag,
   NumberText,
+  PageHeader,
+  TextPair,
   formatDateText,
   formatNumberText,
   Page,
@@ -252,5 +255,63 @@ describe("Page `loading` / `notFound`", () => {
     const filled = page({ fill: true });
     expect(filled).not.toContain('data-slot="scroll-area"');
     expect(filled).toContain('data-slot="page-content" data-fill=""');
+  });
+});
+
+describe("TextPair", () => {
+  test("a bold title over a secondary description; extra after the title; strong off for a link", () => {
+    const html = ssr(
+      createElement(TextPair, {
+        title: "Maya Brooks",
+        description: "maya@northwind.example",
+        extra: createElement("i", {}, "VIP"),
+      }),
+    );
+    expect(html.indexOf("Maya Brooks")).toBeLessThan(html.indexOf("<i>VIP</i>"));
+    expect(html.indexOf("<i>VIP</i>")).toBeLessThan(html.indexOf("maya@northwind.example"));
+    expect(html).toContain("<strong");
+    expect(html).toContain('data-tone="secondary"');
+    expect(ssr(createElement(TextPair, { title: "Link", strong: false }))).not.toContain("<strong");
+    expect(ssr(createElement(TextPair, { title: "Only" }))).not.toContain("secondary");
+  });
+});
+
+describe("DueTag", () => {
+  const hour = 3_600_000;
+  const tag = (props: object) =>
+    ssr(createElement(DueTag, { value: Date.now() + 5 * hour, ...props } as never));
+
+  test("before the deadline: the time left in plain text, no tag", () => {
+    const html = tag({});
+    expect(html).toContain("<time");
+    expect(html).not.toContain('data-slot="tag"');
+  });
+
+  test("after it: a danger tag with Overdue; done: a dash; paused: Paused", () => {
+    const late = tag({ value: Date.now() - 3 * hour });
+    expect(late).toContain('data-color="danger"');
+    expect(late).toContain("Overdue");
+    expect(tag({ value: Date.now() - 3 * hour, done: true })).toContain("—");
+    expect(tag({ value: Date.now() - 3 * hour, done: true })).not.toContain("Overdue");
+    const paused = tag({ paused: true });
+    expect(paused).toContain("Paused");
+    expect(paused).not.toContain("<time");
+    expect(tag({ value: Date.now() - hour, labels: { overdue: "Late" } })).toContain("Late");
+  });
+});
+
+describe("PageHeader `back`", () => {
+  test("the way back is above the title, inside the main block; a header may be only that", () => {
+    const html = ssr(
+      createElement(PageHeader, {
+        title: "T-1016",
+        back: createElement("a", { href: "/t" }, "Tickets"),
+      }),
+    );
+    expect(html).toContain('data-slot="page-header-back"');
+    expect(html.indexOf("page-header-main")).toBeLessThan(html.indexOf("page-header-back"));
+    expect(html.indexOf("page-header-back")).toBeLessThan(html.indexOf("T-1016"));
+    expect(ssr(createElement(PageHeader, { back: "Back" }))).toContain("Back");
+    expect(ssr(createElement(PageHeader, { title: "A" }))).not.toContain("page-header-back");
   });
 });

@@ -495,6 +495,7 @@ export const NOTIFICATION_BELL_SLOTS = ["notification-bell"] as const;
 export const PAGE_HEADER_SLOTS = [
   "page-header",
   "page-header-main",
+  "page-header-back",
   "page-header-actions",
 ] as const;
 export const PAGE_SLOTS = ["page", "page-content", "page-body", "page-footer"] as const;

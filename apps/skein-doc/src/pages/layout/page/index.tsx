@@ -155,6 +155,22 @@ export default function PagePage() {
         </Flex>
       </Example>
 
+      <Example
+        id="back"
+        code={`<Page
+  title="T-1016"
+  back={<RouterLink to="/tickets">Tickets</RouterLink>}
+>
+  …
+</Page>`}
+      >
+        <div className="pg-page-box">
+          <Page title="T-1016" back={<a href="#back">{t("back.link")}</a>}>
+            <Text>{t("back.content")}</Text>
+          </Page>
+        </div>
+      </Example>
+
       <Example id="levels" code={`<PageHeader title="Tickets" level={1} />`}>
         <Flex direction="column" gap="md">
           <Segmented

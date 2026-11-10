@@ -49,5 +49,11 @@
     "loading": "Loading",
     "notFound": "Not found",
     "empty": "This ticket does not exist."
+  },
+  "back": {
+    "title": "The way back",
+    "description": "A detail page says where it belongs: `back` puts a link above the title, small, in the header. The link is yours (your router's), the place and the size are the theme style's.",
+    "link": "Tickets",
+    "content": "The ticket."
   }
 }

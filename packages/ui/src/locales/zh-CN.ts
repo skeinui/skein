@@ -525,6 +525,7 @@ export const zhCN: Messages = {
       addSubgroup: "添加条件组",
     },
     tableToolbar: { search: "搜索", reset: "重置" },
+    dueTag: { overdue: "已逾期", paused: "已暂停" },
     tableTools: {
       refresh: "刷新",
       fixed: "固定表头，只滚动行",

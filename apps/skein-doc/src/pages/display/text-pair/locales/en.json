@@ -1,0 +1,21 @@
+{
+  "lead": "Two lines that belong together, the thing and what describes it: a person's name over their email, a subject over its preview, a company over its domain. The first column of a [DataTable](/data-table), a row of a list. It is a composition of [Text](/typography) and [Flex](/flex), so it needs no stylesheet.",
+  "usage": {
+    "title": "Usage",
+    "description": "The title in bold, the description under it in the secondary color."
+  },
+  "extra": {
+    "title": "Next to the title",
+    "description": "`extra` sits after the title on the same line: a Tag (\"VIP\", \"You\"), an icon."
+  },
+  "link": {
+    "title": "A link as the title",
+    "description": "A link has its own look: `strong={false}` leaves the bold off."
+  },
+  "table": { "title": "In a table", "customer": "Customer" },
+  "api": { "title": "API Reference" },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "TextPair has no slot of its own: it is Flex and Text, styled by their stylesheets."
+  }
+}

@@ -529,6 +529,7 @@ export const en: Messages = {
       addSubgroup: "Add group",
     },
     tableToolbar: { search: "Search", reset: "Reset" },
+    dueTag: { overdue: "Overdue", paused: "Paused" },
     tableTools: {
       refresh: "Refresh",
       fixed: "Fix the header and scroll the rows",

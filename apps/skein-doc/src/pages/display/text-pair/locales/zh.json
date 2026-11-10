@@ -1,0 +1,24 @@
+{
+  "lead": "两行相关的文字，一个对象和对它的说明：姓名下面是邮箱，主题下面是预览，公司下面是域名。[DataTable](/data-table) 的第一列、列表的一行。它是 [Text](/typography) 和 [Flex](/flex) 的组合，不需要样式表。",
+  "usage": { "title": "基本用法", "description": "标题加粗，下面一行是次要颜色的说明。" },
+  "extra": {
+    "title": "标题旁边",
+    "description": "`extra` 放在标题后面、同一行：标签（「VIP」「你」）或图标。"
+  },
+  "link": { "title": "链接作标题", "description": "链接有自己的样式：`strong={false}` 不再加粗。" },
+  "table": { "title": "在表格里", "customer": "客户" },
+  "api": { "title": "API 参考" },
+  "styling": {
+    "title": "样式钩子",
+    "description": "TextPair 没有自己的 slot：它是 Flex 和 Text，样式由它们的样式表负责。"
+  },
+  "props": {
+    "TextPair": {
+      "title": "第一行：名称、主题、链接。",
+      "description": "下面一行，次要颜色：邮箱、域名、预览。",
+      "extra": "标题后面、同一行的内容：标签（「VIP」「你」）、图标。",
+      "strong": "标题是否加粗；标题是链接时关掉。",
+      "ellipsis": "说明只占一行，超出显示省略号。"
+    }
+  }
+}

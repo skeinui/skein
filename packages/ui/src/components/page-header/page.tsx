@@ -10,7 +10,7 @@ type Without<T> = Omit<T, "className" | "style" | "title">;
 export interface PageProps
   extends
     Without<ComponentPropsWithoutRef<"div">>,
-    Pick<PageHeaderProps, "title" | "description" | "actions" | "level"> {
+    Pick<PageHeaderProps, "title" | "description" | "actions" | "back" | "level"> {
   /** The bottom of the page: a PageFooter with the actions that finish it. */
   footer?: ReactNode;
   /**
@@ -35,6 +35,7 @@ export function Page({
   title,
   description,
   actions,
+  back,
   level,
   footer,
   fill = false,
@@ -45,7 +46,13 @@ export function Page({
 }: PageProps) {
   const content = (
     <div data-slot="page-content" data-fill={fill ? "" : undefined}>
-      <PageHeader title={title} description={description} actions={actions} level={level} />
+      <PageHeader
+        title={title}
+        description={description}
+        actions={actions}
+        back={back}
+        level={level}
+      />
       <div data-slot="page-body">
         {notFound ? (
           notFound
