@@ -1,4 +1,4 @@
-import { Button, Result } from "@skeinui/ui";
+import { Button, Page, Result } from "@skeinui/ui";
 import { useNavigate } from "@tanstack/react-router";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 import { AccessDeniedError } from "@/modules/access";
@@ -15,7 +15,7 @@ export function ErrorPage({ error, reset }: ErrorComponentProps) {
   const navigate = useNavigate();
   if (error instanceof AccessDeniedError) return <ForbiddenPage />;
   return (
-    <div className="page">
+    <Page>
       <Result
         status="500"
         title={t("title")}
@@ -35,6 +35,6 @@ export function ErrorPage({ error, reset }: ErrorComponentProps) {
           <code>{error instanceof Error ? error.message : String(error)}</code>
         ) : null}
       </Result>
-    </div>
+    </Page>
   );
 }

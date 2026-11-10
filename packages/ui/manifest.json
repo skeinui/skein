@@ -13660,6 +13660,115 @@
         }
       ]
     },
+    "Page": {
+      "description": "Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.\nIt is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.",
+      "import": "import { Page } from \"@skeinui/ui\";",
+      "props": {
+        "actions": {
+          "type": "ReactNode",
+          "description": "On the right of the title: the main action of the page (a primary Button) and what goes with it. Wraps under the title on a narrow screen."
+        },
+        "children": {
+          "type": "ReactNode",
+          "description": "The content."
+        },
+        "description": {
+          "type": "ReactNode",
+          "description": "One line under the title: what the page is for."
+        },
+        "fill": {
+          "type": "boolean",
+          "description": "Fill the height of the area the page is in (and let a Card `fill` take what is left of it) instead of growing with the content: what a table that scrolls its own rows under a fixed header needs.",
+          "default": "false"
+        },
+        "footer": {
+          "type": "ReactNode",
+          "description": "The bottom of the page: a PageFooter with the actions that finish it."
+        },
+        "level": {
+          "type": "3 | 1 | 2 | 4 | 5",
+          "description": "The heading level of the title (h1–h5); the type scale is the theme style's.",
+          "default": "3"
+        },
+        "title": {
+          "type": "ReactNode",
+          "description": "The title of the page."
+        }
+      },
+      "slots": [
+        "page",
+        "page-body",
+        "page-footer"
+      ],
+      "docs": "page",
+      "examples": [
+        {
+          "title": "Tickets",
+          "code": "<Page title=\"Tickets\" description=\"Every request that became a ticket\">\n  <Card>…</Card>\n</Page>"
+        },
+        {
+          "title": "Customers",
+          "code": "<Page\n  title=\"Customers\"\n  description=\"…\"\n  actions={<Button color=\"primary\">New customer</Button>}\n>\n  …\n</Page>"
+        },
+        {
+          "title": "Edit the rule",
+          "code": "<Page\n  title=\"Edit rule\"\n  footer={\n    <PageFooter sticky>\n      <Button variant=\"ghost\">Cancel</Button>\n      <Button color=\"primary\">Save</Button>\n    </PageFooter>\n  }\n>\n  …a long form…\n</Page>"
+        },
+        {
+          "title": "Tickets",
+          "code": "<Page fill title=\"Tickets\">\n  <Card fill>…a table that scrolls its rows…</Card>\n</Page>"
+        },
+        {
+          "title": "Heading level",
+          "code": "<PageHeader title=\"Tickets\" level={1} />"
+        }
+      ]
+    },
+    "PageFooter": {
+      "description": "Page footer: the bar at the bottom of a page: the actions that finish it (Cancel, Save) or a line about it. `sticky` keeps it in view while a long page scrolls.\nIt is the page's own: for the footer of the whole app (the copyright line) use the `footer` of AdminLayout.",
+      "import": "import { PageFooter } from \"@skeinui/ui\";",
+      "props": {
+        "align": {
+          "type": "\"center\" | \"start\" | \"end\" | \"between\"",
+          "values": [
+            "center",
+            "start",
+            "end",
+            "between"
+          ],
+          "description": "Where the content sits in the bar: `end` for the actions of a form (Cancel, Save), `between` for a note on the left and actions on the right.",
+          "default": "\"end\""
+        },
+        "sticky": {
+          "type": "boolean",
+          "description": "Stay at the bottom edge of the scrolling area while the page scrolls, with a line above it, so the Save of a long form is always in reach.",
+          "default": "false"
+        }
+      },
+      "docs": "page",
+      "examples": [
+        {
+          "title": "Tickets",
+          "code": "<Page title=\"Tickets\" description=\"Every request that became a ticket\">\n  <Card>…</Card>\n</Page>"
+        },
+        {
+          "title": "Customers",
+          "code": "<Page\n  title=\"Customers\"\n  description=\"…\"\n  actions={<Button color=\"primary\">New customer</Button>}\n>\n  …\n</Page>"
+        },
+        {
+          "title": "Edit the rule",
+          "code": "<Page\n  title=\"Edit rule\"\n  footer={\n    <PageFooter sticky>\n      <Button variant=\"ghost\">Cancel</Button>\n      <Button color=\"primary\">Save</Button>\n    </PageFooter>\n  }\n>\n  …a long form…\n</Page>"
+        },
+        {
+          "title": "Tickets",
+          "code": "<Page fill title=\"Tickets\">\n  <Card fill>…a table that scrolls its rows…</Card>\n</Page>"
+        },
+        {
+          "title": "Heading level",
+          "code": "<PageHeader title=\"Tickets\" level={1} />"
+        }
+      ]
+    },
     "PageHeader": {
       "description": "Page header: the top of a page: its title and one line of description on the left, its actions on the right (a \"New\" button).\nEvery page of an app starts the same way, and the theme style decides how (the spacing, the type scale, how the actions wrap), so the pages of different apps look alike.\nIt is the look only: tabs, breadcrumbs and routing are the app's. Renders nothing when it has no title, description and actions.",
       "import": "import { PageHeader } from \"@skeinui/ui\";",
@@ -13687,15 +13796,23 @@
         "page-header-main",
         "page-header-actions"
       ],
-      "docs": "page-header",
+      "docs": "page",
       "examples": [
         {
           "title": "Tickets",
-          "code": "<PageHeader title=\"Tickets\" description=\"Every request that became a ticket\" />"
+          "code": "<Page title=\"Tickets\" description=\"Every request that became a ticket\">\n  <Card>…</Card>\n</Page>"
         },
         {
           "title": "Customers",
-          "code": "<PageHeader\n  title=\"Customers\"\n  description=\"…\"\n  actions={<Button color=\"primary\">New</Button>}\n/>"
+          "code": "<Page\n  title=\"Customers\"\n  description=\"…\"\n  actions={<Button color=\"primary\">New customer</Button>}\n>\n  …\n</Page>"
+        },
+        {
+          "title": "Edit the rule",
+          "code": "<Page\n  title=\"Edit rule\"\n  footer={\n    <PageFooter sticky>\n      <Button variant=\"ghost\">Cancel</Button>\n      <Button color=\"primary\">Save</Button>\n    </PageFooter>\n  }\n>\n  …a long form…\n</Page>"
+        },
+        {
+          "title": "Tickets",
+          "code": "<Page fill title=\"Tickets\">\n  <Card fill>…a table that scrolls its rows…</Card>\n</Page>"
         },
         {
           "title": "Heading level",
@@ -23479,10 +23596,21 @@
       "bottom",
       "left"
     ],
+    "PAGE_FOOTER_ALIGNS": [
+      "start",
+      "center",
+      "end",
+      "between"
+    ],
     "PAGE_HEADER_SLOTS": [
       "page-header",
       "page-header-main",
       "page-header-actions"
+    ],
+    "PAGE_SLOTS": [
+      "page",
+      "page-body",
+      "page-footer"
     ],
     "PAGE_TABS_SLOTS": [
       "page-tabs",
@@ -24856,6 +24984,14 @@
       "openTab": [],
       "OtpField": [
         "otp-field"
+      ],
+      "Page": [
+        "page",
+        "page-header",
+        "typography"
+      ],
+      "PageFooter": [
+        "page"
       ],
       "PageHeader": [
         "page-header",

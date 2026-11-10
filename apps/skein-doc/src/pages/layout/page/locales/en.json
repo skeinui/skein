@@ -1,0 +1,45 @@
+{
+  "lead": "The frame of one page of an app: a [PageHeader](#headerApi) (title, one line of description, actions on the right), the content, and a footer, with the padding and the space between them from the **theme style**. Every page of every app is framed the same way, because the theme decides how, not each project's CSS. It is the look only: the tab, the breadcrumb and the route stay in the app. Put the main action of a page in `actions` (one primary [Button](/button)), not in the toolbar of a table; put what finishes a page, such as Cancel and Save, in a `PageFooter`.",
+  "usage": {
+    "title": "Tickets",
+    "description": "Every request that became a ticket, newest first.",
+    "content": "The content of the page: cards, a table, a form."
+  },
+  "actions": {
+    "title": "Customers",
+    "description": "The people who write to you, and the companies they work for.",
+    "import": "Import",
+    "new": "New customer",
+    "clicked": "New customer"
+  },
+  "footer": {
+    "title": "Edit the rule",
+    "description": "",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saved": "Saved",
+    "section": "Section {n} of a long form"
+  },
+  "fill": {
+    "title": "Tickets",
+    "content": "`fill` makes the page as high as the area it is in, and a Card with `fill` takes what is left: the table inside scrolls its rows under a fixed header."
+  },
+  "levels": {
+    "title": "Heading level",
+    "description": "The title is an h3 by default. `level` sets the heading (h1–h5) and with it the size from the theme style's type scale; a page has one h1, so use `level={1}` where the header is the page's main heading.",
+    "label": "Heading level"
+  },
+  "api": {
+    "title": "Page API"
+  },
+  "headerApi": {
+    "title": "PageHeader API"
+  },
+  "footerApi": {
+    "title": "PageFooter API"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "`page`, `page-body` and `page-footer` (the frame, its content and the bar at the bottom, with `data-fill`, `data-sticky` and `data-align`) are styled by `page.css`; `page-header`, `page-header-main` and `page-header-actions` by `page-header.css`. The title and the description are Title and Text."
+  }
+}

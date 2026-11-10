@@ -1,0 +1,52 @@
+@layer ui-tokens, ui-color, ui-style;
+
+@layer ui-style {
+  /* Page: the frame of a page: the padding, the space between the header, the content and the footer, and `fill` (as high as the area it is in; its content takes what is left). */
+  [data-skein-theme="antd"] [data-slot="page"] {
+    display: flex;
+    flex-direction: column;
+    gap: calc(1.5rem * var(--ui-density));
+    box-sizing: border-box;
+    padding: calc(1.25rem * var(--ui-density)) calc(1.5rem * var(--ui-density));
+    font-family: var(--ui-font-family);
+  }
+  [data-skein-theme="antd"] [data-slot="page"][data-fill] {
+    height: 100%;
+  }
+  [data-skein-theme="antd"] [data-slot="page-body"] {
+    display: flex;
+    flex-direction: column;
+    gap: calc(1.5rem * var(--ui-density));
+    min-width: 0;
+  }
+  [data-skein-theme="antd"] [data-slot="page"][data-fill] > [data-slot="page-body"] {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  /* PageFooter: the bar at the bottom of a page; sticky keeps it at the bottom edge of the scrolling area. */
+  [data-skein-theme="antd"] [data-slot="page-footer"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: calc(0.5rem * var(--ui-density));
+    box-sizing: border-box;
+  }
+  [data-skein-theme="antd"] [data-slot="page-footer"][data-align="start"] {
+    justify-content: flex-start;
+  }
+  [data-skein-theme="antd"] [data-slot="page-footer"][data-align="center"] {
+    justify-content: center;
+  }
+  [data-skein-theme="antd"] [data-slot="page-footer"][data-align="between"] {
+    justify-content: space-between;
+  }
+  [data-skein-theme="antd"] [data-slot="page-footer"][data-sticky] {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    padding-block: calc(0.75rem * var(--ui-density));
+    border-top: 1px solid var(--ui-border);
+    background-color: var(--ui-bg);
+  }
+}

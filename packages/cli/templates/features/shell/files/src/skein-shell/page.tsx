@@ -1,11 +1,11 @@
-import { Flex, PageHeader } from "@skeinui/ui";
+import { Page as PageFrame } from "@skeinui/ui";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { usePagePath } from "./keep-alive-outlet";
 import { usePageTitles } from "./store";
 
 /**
- * A page's frame: the PageHeader (title, description and actions: the theme style lays it out, so every page starts the same way) on top, then the content. The title (or `tabTitle`, when the
+ * A page's frame: the library's `Page` (a PageHeader with the title, description and actions, the content, a footer, all laid out by the theme style, so every page starts the same way) plus what only the app knows: the title (or `tabTitle`, when the
  * title isn't plain text) also names the page's tab and ends its breadcrumb when it isn't a menu item itself
  * (a detail page).
  */
@@ -14,6 +14,7 @@ export function Page({
   tabTitle,
   description,
   actions,
+  footer,
   fill = false,
   children,
 }: {
@@ -21,6 +22,8 @@ export function Page({
   tabTitle?: string;
   description?: ReactNode;
   actions?: ReactNode;
+  /** The bottom of the page: a `PageFooter` with the actions that finish it (Cancel, Save). */
+  footer?: ReactNode;
   /** Fill the height of the content area instead of growing with the content: what a table that scrolls its rows (`DataTable stickyHeader` in a `Card fill`) needs. */
   fill?: boolean;
   children?: ReactNode;
@@ -34,13 +37,16 @@ export function Page({
     if (name) setTitle(path, name);
   }, [path, name, setTitle]);
 
+  // The frame is the library's Page: its padding, spacing, header and `fill` come from the theme style
   return (
-    // The layout's content area has no padding of its own: the page decides
-    <div className="page" data-fill={fill ? "" : undefined}>
-      <Flex direction="column" gap="lg" grow={fill}>
-        <PageHeader title={title} description={description} actions={actions} />
-        {children}
-      </Flex>
-    </div>
+    <PageFrame
+      title={title}
+      description={description}
+      actions={actions}
+      footer={footer}
+      fill={fill}
+    >
+      {children}
+    </PageFrame>
   );
 }

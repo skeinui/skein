@@ -391,8 +391,12 @@ export type {
   NotificationBellProps,
   NotificationItem,
 } from "./components/notification-bell/index.ts";
-export { PageHeader } from "./components/page-header/index.ts";
-export type { PageHeaderProps } from "./components/page-header/index.ts";
+export { Page, PageFooter, PageHeader } from "./components/page-header/index.ts";
+export type {
+  PageFooterProps,
+  PageHeaderProps,
+  PageProps,
+} from "./components/page-header/index.ts";
 export { BulkActionBar } from "./components/bulk-action-bar/index.ts";
 export type { BulkActionBarProps } from "./components/bulk-action-bar/index.ts";
 export { MessageComposer, MessageThread } from "./components/message-thread/index.ts";

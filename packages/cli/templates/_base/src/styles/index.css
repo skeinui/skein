@@ -13,17 +13,6 @@ body {
 }
 {{#if shell}}
 
-.page {
-  padding: 1.25rem 1.5rem;
-}
-/* <Page fill>: as high as the content area (the keep-alive pane), the page's column takes what is left of it */
-.page[data-fill] {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  height: 100%;
-}
-
 .app-logo {
   display: inline-flex;
   align-items: center;

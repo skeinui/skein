@@ -1,4 +1,4 @@
-import { Button, Result } from "@skeinui/ui";
+import { Button, Page, Result } from "@skeinui/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { settings } from "@/settings";
 import { useForbiddenTranslation } from "./locales";
@@ -8,7 +8,7 @@ export function ForbiddenPage() {
   const { t } = useForbiddenTranslation();
   const navigate = useNavigate();
   return (
-    <div className="page">
+    <Page>
       <Result
         status="403"
         title={t("title")}
@@ -19,6 +19,6 @@ export function ForbiddenPage() {
           </Button>
         }
       />
-    </div>
+    </Page>
   );
 }

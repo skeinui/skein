@@ -1,0 +1,66 @@
+{
+  "lead": "应用里一个页面的外框：一个 [PageHeader](#headerApi)（标题、一行说明、右边的操作区）、内容和页脚，内边距和它们之间的间距都来自**主题风格**。每个应用的每个页面都是同样的外框，因为怎么排由主题决定，而不是每个项目自己的 CSS。它只管外观：标签页、面包屑和路由仍然是应用自己的。页面的主操作放在 `actions` 里（一个主色 [Button](/button)），不要放进表格的工具栏；结束一个页面的操作，比如取消和保存，放在 `PageFooter` 里。",
+  "usage": {
+    "title": "工单",
+    "description": "所有变成工单的请求，最新的在前。",
+    "content": "页面的内容：卡片、表格、表单。"
+  },
+  "actions": {
+    "title": "客户",
+    "description": "给你写信的人，和他们所在的公司。",
+    "import": "导入",
+    "new": "新增客户",
+    "clicked": "新增客户"
+  },
+  "footer": {
+    "title": "编辑规则",
+    "description": "",
+    "cancel": "取消",
+    "save": "保存",
+    "saved": "已保存",
+    "section": "长表单的第 {n} 部分"
+  },
+  "fill": {
+    "title": "工单",
+    "content": "`fill` 让页面和它所在的区域一样高，带 `fill` 的 Card 占满剩下的部分：里面的表格在固定表头下滚动行。"
+  },
+  "levels": {
+    "title": "标题级别",
+    "description": "标题默认是 h3。`level` 设置标题级别（h1–h5），字号随之取自主题风格的字号阶梯；一个页面只有一个 h1，所以当这个标题就是页面的主标题时用 `level={1}`。",
+    "label": "标题级别"
+  },
+  "api": {
+    "title": "Page API"
+  },
+  "headerApi": {
+    "title": "PageHeader API"
+  },
+  "footerApi": {
+    "title": "PageFooter API"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "`page`、`page-body`、`page-footer`（外框、它的内容和底部的栏，带 `data-fill`、`data-sticky`、`data-align`）的样式在 `page.css`；`page-header`、`page-header-main`、`page-header-actions` 在 `page-header.css`。标题和说明是 Title 和 Text。"
+  },
+  "props": {
+    "Page": {
+      "title": "页面的标题。",
+      "description": "标题下面的一行：这个页面是做什么的。",
+      "actions": "标题右边：页面的主操作（一个主色按钮）和配套的操作。",
+      "level": "标题的级别（h1–h5）。",
+      "footer": "页面的底部：一个 PageFooter，放结束这个页面的操作。",
+      "fill": "撑满所在区域的高度（带 `fill` 的 Card 占满剩下的部分），而不是随内容增长：表格在固定表头下滚动行时需要。",
+      "children": "页面的内容。"
+    },
+    "PageHeader": {
+      "title": "页面的标题。",
+      "description": "标题下面的一行：这个页面是做什么的。",
+      "actions": "标题右边：页面的主操作（一个主色按钮）和配套的操作。窄屏时换到标题下面。",
+      "level": "标题的级别（h1–h5）；字号阶梯由主题风格决定。"
+    },
+    "PageFooter": {
+      "align": "内容在栏里的位置：`end` 放表单的操作（取消、保存），`between` 左边一句说明、右边操作。",
+      "sticky": "页面滚动时一直停在滚动区域的底边，上面有一条线：长表单的保存按钮始终够得着。"
+    }
+  }
+}

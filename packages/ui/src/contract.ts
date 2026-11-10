@@ -497,6 +497,9 @@ export const PAGE_HEADER_SLOTS = [
   "page-header-main",
   "page-header-actions",
 ] as const;
+export const PAGE_SLOTS = ["page", "page-body", "page-footer"] as const;
+export const PAGE_FOOTER_ALIGNS = ["start", "center", "end", "between"] as const;
+export type PageFooterAlign = (typeof PAGE_FOOTER_ALIGNS)[number];
 export const BULK_ACTION_BAR_SLOTS = ["bulk-action-bar", "bulk-action-bar-anchor"] as const;
 export const BULK_ACTION_BAR_FLOATS = ["inside", "outside"] as const;
 export type BulkActionBarFloat = (typeof BULK_ACTION_BAR_FLOATS)[number];

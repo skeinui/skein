@@ -1,4 +1,4 @@
-import { Button, Result } from "@skeinui/ui";
+import { Button, Page, Result } from "@skeinui/ui";
 import { useNavigate } from "@tanstack/react-router";
 import { settings } from "@/settings";
 import { useNotFoundTranslation } from "./locales";
@@ -7,7 +7,7 @@ export function NotFoundPage() {
   const { t } = useNotFoundTranslation();
   const navigate = useNavigate();
   return (
-    <div className="page">
+    <Page>
       <Result
         status="404"
         title={t("title")}
@@ -18,6 +18,6 @@ export function NotFoundPage() {
           </Button>
         }
       />
-    </div>
+    </Page>
   );
 }

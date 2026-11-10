@@ -2697,3 +2697,17 @@ body {
 .pg-table-slot {
   min-height: 13.75rem;
 }
+
+/* The areas the Page examples are drawn in: the frame has its own padding, and `fill` and a sticky footer need a box of a given height to work in */
+.pg-page-box {
+  border: 1px dashed var(--pg-line-2);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.pg-page-box--scroll {
+  height: 22rem;
+  overflow-y: auto;
+}
+.pg-page-box--tall {
+  height: 20rem;
+}
