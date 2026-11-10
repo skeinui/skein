@@ -7,6 +7,12 @@
     width: 100%;
     overflow: hidden;
   }
+  /* Without a fixed header the table only scrolls sideways: a wheel or a swipe up and down over it goes on to what holds it (the page), the ScrollArea does not keep it */
+  [data-skein-theme="shadcn"]
+    [data-slot="table-container"]:not([data-sticky])
+    [data-slot="scroll-area-viewport"] {
+    overscroll-behavior-y: auto;
+  }
   [data-skein-theme="shadcn"] [data-slot="table-container"][data-bordered] {
     border: 1px solid var(--ui-border);
     border-radius: var(--ui-radius-md);

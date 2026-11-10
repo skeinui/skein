@@ -17,6 +17,12 @@
     border-radius: calc(var(--ui-r-block) * 1.25);
     background-color: var(--_frame);
   }
+  /* Without a fixed header the table only scrolls sideways: a wheel or a swipe up and down over it goes on to what holds it (the page), the ScrollArea does not keep it */
+  [data-skein-theme="heroui"]
+    [data-slot="table-container"]:not([data-sticky])
+    [data-slot="scroll-area-viewport"] {
+    overscroll-behavior-y: auto;
+  }
   [data-skein-theme="heroui"] [data-slot="table-container"][data-bordered] {
     border-width: 1px calc(0.25rem + 1px) calc(0.25rem + 1px);
     border-radius: var(--ui-r-surface);
