@@ -7,7 +7,7 @@ export default {
   components: ["Page", "PageHeader", "PageFooter"],
   source: "page-header",
   toc: [
-    { group: "examples", items: ["usage", "actions", "footer", "fill", "levels"] },
+    { group: "examples", items: ["usage", "actions", "footer", "fill", "states", "levels"] },
     { group: "reference", items: ["api", "headerApi", "footerApi", "styling"] },
   ],
 } satisfies PageMeta;

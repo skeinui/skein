@@ -1,6 +1,7 @@
 import {
   Button,
   Card,
+  Empty,
   Flex,
   Page,
   PageFooter,
@@ -16,6 +17,7 @@ import { ApiReference, DocHeading, Example, Lead } from "@/doc/doc.tsx";
 export default function PagePage() {
   const t = usePageT();
   const [level, setLevel] = useState("3");
+  const [state, setState] = useState("loading");
   return (
     <article className="pg-doc">
       <h1 className="pg-doc-title">Page</h1>
@@ -124,6 +126,33 @@ export default function PagePage() {
             </Card>
           </Page>
         </div>
+      </Example>
+
+      <Example
+        id="states"
+        code={`<Page title="T-1016" loading={ticket.isPending} notFound={ticket.error ? <Empty title="Not found" /> : undefined}>
+  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}
+</Page>`}
+      >
+        <Flex direction="column" gap="md">
+          <Segmented
+            size="sm"
+            aria-label={t("states.label")}
+            value={state}
+            onValueChange={setState}
+            options={[
+              { value: "loading", label: t("states.loading") },
+              { value: "notFound", label: t("states.notFound") },
+            ]}
+          />
+          <div className="pg-page-box">
+            <Page
+              title="T-1016"
+              loading={state === "loading"}
+              notFound={state === "notFound" ? <Empty title={t("states.empty")} /> : undefined}
+            />
+          </div>
+        </Flex>
       </Example>
 
       <Example id="levels" code={`<PageHeader title="Tickets" level={1} />`}>

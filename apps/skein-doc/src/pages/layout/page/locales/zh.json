@@ -50,7 +50,9 @@
       "level": "标题的级别（h1–h5）。",
       "footer": "页面的底部：一个 PageFooter，放结束这个页面的操作。",
       "fill": "撑满所在区域的高度（带 `fill` 的 Card 占满剩下的部分），而不是随内容增长：表格在固定表头下滚动行时需要。",
-      "children": "页面的内容。"
+      "children": "页面的内容。",
+      "loading": "数据还在加载：用 spinner 代替内容（页眉和外框保留）。",
+      "notFound": "对象不存在（404、没有权限）：用这个节点（`Empty`、`Text`）代替内容，优先于 `loading`。"
     },
     "PageHeader": {
       "title": "页面的标题。",
@@ -62,5 +64,13 @@
       "align": "内容在栏里的位置：`end` 放表单的操作（取消、保存），`between` 左边一句说明、右边操作。",
       "sticky": "页面滚动时一直停在滚动区域的底边，上面有一条线：长表单的保存按钮始终够得着。"
     }
+  },
+  "states": {
+    "title": "加载中和未找到",
+    "description": "详情页的数据还在加载时，`loading` 用 spinner 代替内容；对象不存在时，`notFound`（一个 `Empty` 或 `Text`）代替内容，并且优先于 `loading`。页眉和外框保持不变，所以页面在每种状态下看起来都一致。",
+    "label": "状态",
+    "loading": "加载中",
+    "notFound": "未找到",
+    "empty": "这张工单不存在。"
   }
 }

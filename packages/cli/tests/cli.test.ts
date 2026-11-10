@@ -766,16 +766,10 @@ describe("OpenAPI → CRUD page", () => {
   test("a project from before the search bar and the table tools gets their files once, never over its own", () => {
     const dir = target();
     createProject({ dir, template: "admin" });
-    for (const part of [
-      "lib/list-query",
-      "lib/export-csv.ts",
-      "lib/use-api-mutation.ts",
-      "lib/use-list-query.ts",
-      "lib/query-boundary.tsx",
-    ])
+    for (const part of ["lib/list-query", "lib/use-api-mutation.ts", "lib/use-list-query.ts"])
       rmSync(join(dir, "src", part), { recursive: true });
     // A file the project changed stays as it is
-    writeFileSync(join(dir, "src", "lib", "export-csv.ts"), "// mine\n");
+    writeFileSync(join(dir, "src", "lib", "query-boundary.tsx"), "// mine\n");
     const { created, changed } = newPage({
       name: "orders",
       cwd: dir,
@@ -787,11 +781,10 @@ describe("OpenAPI → CRUD page", () => {
         "src/lib/list-query/adapters.ts",
         "src/lib/use-list-query.ts",
         "src/lib/use-api-mutation.ts",
-        "src/lib/query-boundary.tsx",
       ]),
     );
-    expect(created).not.toContain("src/lib/export-csv.ts");
-    expect(read(dir, "src", "lib", "export-csv.ts")).toBe("// mine\n");
+    expect(created).not.toContain("src/lib/query-boundary.tsx");
+    expect(read(dir, "src", "lib", "query-boundary.tsx")).toBe("// mine\n");
     expect(changed).toEqual([]);
     // A second page finds everything there
     const again = newPage({
@@ -847,7 +840,8 @@ describe("OpenAPI → CRUD page", () => {
     // (the table's keys are strings, the ids numbers)
     expect(page("components", "orders-table.tsx")).toContain("selected={selected.map(String)}");
     expect(page("components", "orders-table.tsx")).toContain("keys.map(Number)");
-    expect(read(dir, "src", "lib", "export-csv.ts")).toContain("export function downloadCsv(");
+    expect(page("index.tsx")).toContain("exportCsv={() => csvOf(rows)}");
+    expect(page("index.tsx")).toContain("downloadCsv(file.filename, file.headers, file.rows)");
     const messages = JSON.parse(page("locales", "messages", "zh.json"));
     for (const key of ["exportSelected", "selected", "deleteSelected", "deletedMany"])
       expect(messages).toHaveProperty(key);

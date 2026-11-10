@@ -41,5 +41,13 @@
   "styling": {
     "title": "Styling Reference",
     "description": "`page`, `page-body` and `page-footer` (the frame, its content and the bar at the bottom, with `data-fill`, `data-sticky` and `data-align`) are styled by `page.css`; `page-header`, `page-header-main` and `page-header-actions` by `page-header.css`. The title and the description are Title and Text."
+  },
+  "states": {
+    "title": "Loading and not found",
+    "description": "While a detail page's data loads, `loading` puts a spinner in place of the content; when the thing is not there, `notFound` (an `Empty`, a `Text`) does, and wins. The header and the frame stay, so the page looks the same in every state.",
+    "label": "State",
+    "loading": "Loading",
+    "notFound": "Not found",
+    "empty": "This ticket does not exist."
   }
 }

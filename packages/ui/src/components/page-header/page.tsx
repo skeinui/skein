@@ -1,4 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { Flex } from "../layout/index.ts";
+import { Spinner } from "../spinner/index.ts";
 import { PageHeader } from "./page-header.tsx";
 import type { PageHeaderProps } from "./page-header.tsx";
 
@@ -15,12 +17,17 @@ export interface PageProps
    * @default false
    */
   fill?: boolean;
+  /** The data of the page is on its way: a spinner takes the place of the content (the header and the frame stay). */
+  loading?: boolean;
+  /** The page's thing is not there (a 404, no permission): this (an `Empty`, a `Text`) takes the place of the content, and wins over `loading`. */
+  notFound?: ReactNode;
   children?: ReactNode;
 }
 
 /**
  * Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.
  * It is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.
+ * `loading` and `notFound` stand in for the content while a detail page's data loads or when it is not there, so the page keeps its frame in every state.
  */
 export function Page({
   title,
@@ -29,13 +36,25 @@ export function Page({
   level,
   footer,
   fill = false,
+  loading = false,
+  notFound,
   children,
   ...rest
 }: PageProps) {
   return (
     <div {...rest} data-slot="page" data-fill={fill ? "" : undefined}>
       <PageHeader title={title} description={description} actions={actions} level={level} />
-      <div data-slot="page-body">{children}</div>
+      <div data-slot="page-body">
+        {notFound ? (
+          notFound
+        ) : loading ? (
+          <Flex justify="center">
+            <Spinner />
+          </Flex>
+        ) : (
+          children
+        )}
+      </div>
       {footer}
     </div>
   );

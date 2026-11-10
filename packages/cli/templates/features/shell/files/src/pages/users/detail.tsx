@@ -1,4 +1,4 @@
-import { Button, Card, Descriptions, Tag, Text } from "@skeinui/ui";
+import { Button, Card, DateText, Descriptions, Tag, Text } from "@skeinui/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate{{#if tenant}}, useParams{{/if}} } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
@@ -9,7 +9,7 @@ import { useUsersTranslation } from "./locales";
 
 /** {{#if tenant}}/<tenant>{{/if}}/users/<id>: one user{{#if tenant}} of the tenant. A user of another tenant is not found{{else}}; one that doesn't exist is not found{{/if}} (404 from the API). */
 export function UserDetailPage({ id }: { id: number }) {
-  const { t, i18n } = useUsersTranslation();
+  const { t } = useUsersTranslation();
   const navigate = useNavigate();
 {{#if tenant}}
   const { tenant } = useParams({ strict: false });
@@ -18,7 +18,6 @@ export function UserDetailPage({ id }: { id: number }) {
     queryKey: userKeys.detail(id),
     queryFn: () => fetchUser(id),
   });
-  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });
 
   return (
     <Page
@@ -53,7 +52,7 @@ export function UserDetailPage({ id }: { id: number }) {
                       </Tag>
                     ),
                   },
-                  { label: t("col.createdAt"), value: date.format(new Date(user.createdAt)) },
+                  { label: t("col.createdAt"), value: <DateText value={user.createdAt} /> },
                 ]}
               />
             )}

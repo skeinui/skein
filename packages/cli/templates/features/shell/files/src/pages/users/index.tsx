@@ -2,7 +2,6 @@ import { Button, Card, Flex, Pagination, TableTools, useFixedHeader } from "@ske
 import { keepPreviousData, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { downloadCsv } from "@/lib/export-csv";
 import { useApiMutation } from "@/lib/use-api-mutation";
 import { useListQuery } from "@/lib/use-list-query";
 import { Access } from "@/modules/access";
@@ -40,7 +39,7 @@ export function UsersPage() {
   });
 
   /** The rows on screen, the columns shown, as they read on screen. */
-  const exportRows = () => {
+  const exportCsv = () => {
     const cell = (user: User, c: UserColumn) =>
       c === "role"
         ? t(`role.${user.role}`)
@@ -49,11 +48,11 @@ export function UsersPage() {
           : c === "createdAt"
             ? user.createdAt.slice(0, 10)
             : user[c];
-    downloadCsv(
-      "users.csv",
-      shown.map((c) => t(`col.${c}`)),
-      (data?.items ?? []).map((user) => shown.map((c) => cell(user, c))),
-    );
+    return {
+      filename: "users.csv",
+      headers: shown.map((c) => t(`col.${c}`)),
+      rows: (data?.items ?? []).map((user) => shown.map((c) => cell(user, c))),
+    };
   };
 
   return (
@@ -88,7 +87,7 @@ export function UsersPage() {
                   onOrderChange={(keys) => setOrder(keys as UserColumn[])}
                   fixed={fixed}
                   onFixedChange={setFixed}
-                  onExport={exportRows}
+                  exportCsv={exportCsv}
                 />
               }
             />

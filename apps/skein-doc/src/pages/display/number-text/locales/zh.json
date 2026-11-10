@@ -1,0 +1,43 @@
+{
+  "lead": "一个数字的文字，用应用的语言显示，渲染为 `<data>`，`value` 里是准确的值：计数、百分比、金额、大小。跟随 ConfigProvider 的 `locale`，页面不必再自己写 `Math.round(x * 100)` 和 `%`。`formatNumberText` 以字符串给出同样的文字（CSV 单元格、标题）。日期用 [Date Text](/date-text)。",
+  "usage": {
+    "title": "基本用法",
+    "description": "数位按所用语言的习惯分组。"
+  },
+  "percent": {
+    "title": "百分比",
+    "description": "`format=\"percent\"` 接收小数（0.97 是 97%）；本来就是百分数的数字（97）用 `format=\"unit\"` 加 `unit=\"percent\"`。`precision` 是小数点后的位数，固定这么多位。"
+  },
+  "money": {
+    "title": "金额",
+    "description": "`format=\"currency\"` 加上 `currency` 代码；符号和位置由语言决定。"
+  },
+  "compact": {
+    "title": "紧凑",
+    "description": "`notation=\"compact\"` 缩短大数：「13K」「3.2M」；中文是「1.3万」。"
+  },
+  "empty": {
+    "title": "没有值",
+    "description": "没有值或不是数字时显示 `fallback`，默认是一个破折号。",
+    "none": "暂无数据"
+  },
+  "api": {
+    "title": "API 参考"
+  },
+  "styling": {
+    "title": "样式钩子",
+    "description": "NumberText 渲染一个普通的 `<data>`，没有 slot：样式跟着周围的文字走。"
+  },
+  "props": {
+    "NumberText": {
+      "value": "数字。",
+      "fallback": "没有值或不是数字时显示的内容。",
+      "format": "`percent` 把 0.97 写成「97%」；`unit` 加 `unit=\"percent\"` 把 97 写成「97%」。",
+      "currency": "ISO 4217 代码（如 \"USD\"、\"CNY\"）；`format=\"currency\"` 时必填。",
+      "unit": "Intl 的单位（\"kilometer\"、\"megabyte\"、\"hour\"、\"percent\"）；`format=\"unit\"` 时必填。",
+      "precision": "小数点后的位数，固定这么多位（1 写成「4.0」）；不传时按 format 的惯例。",
+      "notation": "`compact` 把 12500 写成「1.3万」（英文 \"13K\"）。",
+      "locale": "语言的 BCP 47 标签（如 \"zh-CN\"）；默认取 ConfigProvider 的 `locale`，再默认取浏览器的。"
+    }
+  }
+}

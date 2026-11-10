@@ -13714,6 +13714,80 @@
         }
       ]
     },
+    "NumberText": {
+      "description": "Number text: a number as text in the language of the app, as a `<data>` element with the exact value: a count, a percentage, an amount of money, a size.\n`format` picks what it is (`percent`, `currency`, `unit`), `precision` how many digits follow the point, `notation=\"compact\"` shortens a large number; the language is the `locale` of ConfigProvider.\nWith no value it shows `fallback` (a dash). For the text alone (a CSV cell, a title) use `formatNumberText`.",
+      "import": "import { NumberText } from \"@skeinui/ui\";",
+      "props": {
+        "currency": {
+          "type": "string",
+          "description": "ISO 4217 code (\"USD\", \"CNY\"); needed by `format=\"currency\"`."
+        },
+        "fallback": {
+          "type": "ReactNode",
+          "description": "Shown when there is no value or it is not a number.",
+          "default": "\"—\""
+        },
+        "format": {
+          "type": "\"unit\" | \"decimal\" | \"percent\" | \"currency\"",
+          "values": [
+            "unit",
+            "decimal",
+            "percent",
+            "currency"
+          ],
+          "description": "`percent` writes `0.97` as \"97%\"; `unit: \"percent\"` (with `format: \"unit\"`) writes `97` as \"97%\".",
+          "default": "\"decimal\""
+        },
+        "locale": {
+          "type": "string",
+          "description": "BCP 47 tag of the language (e.g. \"zh-CN\"); the browser's when omitted."
+        },
+        "notation": {
+          "type": "\"standard\" | \"compact\"",
+          "values": [
+            "standard",
+            "compact"
+          ],
+          "description": "`compact` writes 12500 as \"13K\" (each language shortens in its own way).",
+          "default": "\"standard\""
+        },
+        "precision": {
+          "type": "number",
+          "description": "How many digits after the point, always that many (1 gives \"4.0\"); the format's usual number when omitted."
+        },
+        "unit": {
+          "type": "string",
+          "description": "A unit of Intl (\"kilometer\", \"megabyte\", \"hour\", \"percent\"); needed by `format=\"unit\"`."
+        },
+        "value": {
+          "type": "number | bigint",
+          "description": "The number."
+        }
+      },
+      "docs": "number-text",
+      "examples": [
+        {
+          "title": "Usage",
+          "code": "<NumberText value={12500} />\nformatNumberText(12500) // \"12,500\""
+        },
+        {
+          "title": "Percent",
+          "code": "<NumberText value={0.974} format=\"percent\" />                 // 97%\n<NumberText value={97.4} format=\"unit\" unit=\"percent\" />       // 97%\n<NumberText value={0.974} format=\"percent\" precision={1} />    // 97.4%"
+        },
+        {
+          "title": "Money",
+          "code": "<NumberText value={4.5} format=\"currency\" currency=\"USD\" />\n<NumberText value={1280} format=\"currency\" currency=\"CNY\" />"
+        },
+        {
+          "title": "Compact",
+          "code": "<NumberText value={12500} notation=\"compact\" />\n<NumberText value={3.2e6} notation=\"compact\" />"
+        },
+        {
+          "title": "No value",
+          "code": "<NumberText value={null} />\n<NumberText value={undefined} fallback=\"No data\" />"
+        }
+      ]
+    },
     "OtpField": {
       "description": "One-time code input: one box per digit (`length` boxes) for verification codes, with automatic advance, pasting the whole code and backspace stepping back.\n`value` / `onValueChange` hold the code as a string, `onValueComplete` fires when every box is filled, and `separatorAfter` splits the boxes into groups (\"123 – 456\").\nFor a regular text or password input use Input.\n\nTheme style: advance, paste and backspace behavior come from Base UI. Each box uses the `otp-input` slot, and its look is decided by the theme style (width, height, border radius, focus ring).",
       "import": "import { OtpField } from \"@skeinui/ui\";",
@@ -13782,7 +13856,7 @@
           "from": "base-ui"
         },
         "inputMode": {
-          "type": "\"search\" | \"text\" | \"none\" | \"url\" | \"email\" | \"tel\" | \"numeric\" | \"decimal\"",
+          "type": "\"search\" | \"text\" | \"none\" | \"url\" | \"email\" | \"tel\" | \"decimal\" | \"numeric\"",
           "values": [
             "search",
             "text",
@@ -13790,8 +13864,8 @@
             "url",
             "email",
             "tel",
-            "numeric",
-            "decimal"
+            "decimal",
+            "numeric"
           ],
           "description": "The virtual keyboard hint applied to the slot inputs and hidden validation input.\n\nBuilt-in validation modes provide sensible defaults, but you can override them when needed.",
           "from": "base-ui"
@@ -13891,7 +13965,7 @@
       ]
     },
     "Page": {
-      "description": "Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.\nIt is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.",
+      "description": "Page: the frame of one page of an app: a PageHeader (`title`, `description`, `actions`), the content, and a `footer`, with the padding and the space between them from the theme style, so every page of every app is framed the same way.\nIt is the look only: the tab, the breadcrumb and the route are the app's. For a page that scrolls its table under a fixed header use `fill`.\n`loading` and `notFound` stand in for the content while a detail page's data loads or when it is not there, so the page keeps its frame in every state.",
       "import": "import { Page } from \"@skeinui/ui\";",
       "props": {
         "actions": {
@@ -13920,6 +13994,14 @@
           "description": "The heading level of the title (h1–h5); the type scale is the theme style's.",
           "default": "3"
         },
+        "loading": {
+          "type": "boolean",
+          "description": "The data of the page is on its way: a spinner takes the place of the content (the header and the frame stay)."
+        },
+        "notFound": {
+          "type": "ReactNode",
+          "description": "The page's thing is not there (a 404, no permission): this (an `Empty`, a `Text`) takes the place of the content, and wins over `loading`."
+        },
         "title": {
           "type": "ReactNode",
           "description": "The title of the page."
@@ -13947,6 +14029,10 @@
         {
           "title": "Tickets",
           "code": "<Page fill title=\"Tickets\">\n  <Card fill>…a table that scrolls its rows…</Card>\n</Page>"
+        },
+        {
+          "title": "Loading and not found",
+          "code": "<Page title=\"T-1016\" loading={ticket.isPending} notFound={ticket.error ? <Empty title=\"Not found\" /> : undefined}>\n  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}\n</Page>"
         },
         {
           "title": "Heading level",
@@ -13992,6 +14078,10 @@
         {
           "title": "Tickets",
           "code": "<Page fill title=\"Tickets\">\n  <Card fill>…a table that scrolls its rows…</Card>\n</Page>"
+        },
+        {
+          "title": "Loading and not found",
+          "code": "<Page title=\"T-1016\" loading={ticket.isPending} notFound={ticket.error ? <Empty title=\"Not found\" /> : undefined}>\n  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}\n</Page>"
         },
         {
           "title": "Heading level",
@@ -14043,6 +14133,10 @@
         {
           "title": "Tickets",
           "code": "<Page fill title=\"Tickets\">\n  <Card fill>…a table that scrolls its rows…</Card>\n</Page>"
+        },
+        {
+          "title": "Loading and not found",
+          "code": "<Page title=\"T-1016\" loading={ticket.isPending} notFound={ticket.error ? <Empty title=\"Not found\" /> : undefined}>\n  {ticket.data ? <TicketBody ticket={ticket.data} /> : null}\n</Page>"
         },
         {
           "title": "Heading level",
@@ -25017,6 +25111,7 @@
         "skeleton",
         "statistic"
       ],
+      "formatNumberText": [],
       "formatPeriod": [],
       "formatRelativeTime": [],
       "formatTime": [],
@@ -25230,13 +25325,18 @@
         "input",
         "number-field"
       ],
+      "NumberText": [],
       "openTab": [],
       "OtpField": [
         "otp-field"
       ],
       "Page": [
+        "flex",
+        "grid",
+        "layout",
         "page",
         "page-header",
+        "spinner",
         "typography"
       ],
       "PageFooter": [

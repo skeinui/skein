@@ -65,9 +65,9 @@ function cellOf(f) {
     case "boolean":
       return `<Tag variant="soft" color={${v} ? "success" : "neutral"}>{t(${v} ? "bool.yes" : "bool.no")}</Tag>`;
     case "date":
-      return `{${v} ? date.format(new Date(${v})) : null}`;
+      return `<DateText value={${v}} />`;
     case "datetime":
-      return `{${v} ? dateTime.format(new Date(${v})) : null}`;
+      return `<DateText value={${v}} timeStyle="short" />`;
     default:
       return `{${v}}`;
   }
@@ -82,9 +82,9 @@ function valueOf(f) {
     case "boolean":
       return `(\n                    <Tag variant="soft" color={${v} ? "success" : "neutral"}>\n                      {t(${v} ? "bool.yes" : "bool.no")}\n                    </Tag>\n                  )`;
     case "date":
-      return `${v} ? date.format(new Date(${v})) : undefined`;
+      return `<DateText value={${v}} />`;
     case "datetime":
-      return `${v} ? dateTime.format(new Date(${v})) : undefined`;
+      return `<DateText value={${v}} timeStyle="short" />`;
     default:
       return v;
   }
@@ -266,6 +266,7 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
     ...(removeMany ? ["Popconfirm"] : []),
     ...(selectable ? ["Text"] : []),
     "TableTools",
+    ...(selectable ? ["downloadCsv"] : []),
     ...(ops.remove ? ["toast"] : []),
     "useFixedHeader",
   ];
@@ -274,7 +275,6 @@ ${detail ? `\nexport const ${fetchOne} = (id: ${model.idType}) => http.get<${Ent
     `import { keepPreviousData, useQuery } from "@tanstack/react-query";`,
     ...(ops.create ? [`import { Plus } from "lucide-react";`] : []),
     `import { useState } from "react";`,
-    `import { downloadCsv } from "@/lib/export-csv";`,
     ...(sorted ? [`import type { ListQuery, Sort } from "@/lib/list-query";`] : []),
     ...(ops.remove ? [`import { useApiMutation } from "@/lib/use-api-mutation";`] : []),
     `import { useListQuery } from "@/lib/use-list-query";`,
@@ -369,12 +369,20 @@ ${selectable ? `  // Only the rows on screen count: another page, a new search o
 ${columns.map(exportLine).join("\n")}
   };
   /** The rows as a CSV file, in the columns shown: what is on screen (this page, with its search and sort) or the ticked ones. */
-  const exportRows = (list: readonly ${Entity}[]) =>
-    downloadCsv(
-      ${JSON.stringify(`${leaf}.csv`)},
-      shown.map((c) => t(\`fields.\${c}\`)),
-      list.map((row) => shown.map((c) => exportCell[c](row))),
-    );
+  const csvOf = (list: readonly ${Entity}[]) => ({
+    filename: ${JSON.stringify(`${leaf}.csv`)},
+    headers: shown.map((c) => t(\`fields.\${c}\`)),
+    rows: list.map((row) => shown.map((c) => exportCell[c](row))),
+  });${
+    selectable
+      ? `
+  /** The ticked rows as a CSV file. */
+  const exportSelected = () => {
+    const file = csvOf(selectedRows);
+    downloadCsv(file.filename, file.headers, file.rows);
+  };`
+      : ""
+  }
 
   return (
     <Page
@@ -399,7 +407,7 @@ ${
                   onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
                   fixed={fixed}
                   onFixedChange={setFixed}
-                  onExport={() => exportRows(rows)}
+                  exportCsv={() => csvOf(rows)}
                 />
               }
             />
@@ -414,7 +422,7 @@ ${
                 onOrderChange={(keys) => setOrder(keys as ${ColType}[])}
                 fixed={fixed}
                 onFixedChange={setFixed}
-                onExport={() => exportRows(rows)}
+                exportCsv={() => csvOf(rows)}
               />
             </Flex>
 `
@@ -423,7 +431,7 @@ ${
       ? `            {selectedRows.length > 0 ? (
               <Flex align="center" gap="md" wrap>
                 <Text tone="secondary">{t("selected", { count: selectedRows.length })}</Text>
-                <Button size="sm" variant="outline" onClick={() => exportRows(selectedRows)}>
+                <Button size="sm" variant="outline" onClick={exportSelected}>
                   {t("exportSelected")}
                 </Button>${removeMany ? `\n                ${wrapAccess("delete", deleteSelected)}` : ""}
                 <Button size="sm" variant="ghost" onClick={() => setSelected([])}>
@@ -550,7 +558,11 @@ ${keyword ? '        setKeyword("");\n' : ""}${filters.length ? "        setFilt
 
   // ---------- table
   const actions = editable || ops.remove;
-  const tableImports = ["DataTable", ...(usesTag ? ["Tag"] : [])];
+  const tableImports = [
+    "DataTable",
+    ...(usesDate || usesDateTime ? ["DateText"] : []),
+    ...(usesTag ? ["Tag"] : []),
+  ];
   // The column that opens the detail page: the row's name, else the first plain one
   const plain = (f) => !["enum", "boolean", "date", "datetime"].includes(f.kind);
   const linkField = detail
@@ -612,12 +624,12 @@ export function ${Name}Table({
   stickyHeader?: boolean;
   loading: boolean;${selectable ? `\n  /** The ids of the ticked rows. */\n  selected: readonly ${idType}[];\n  onSelectedChange: (ids: readonly ${idType}[]) => void;` : ""}${sorted ? `\n  sort?: Sort;\n  /** A click on a sortable header, with the column's field name. */\n  onSort: (field: string) => void;` : ""}${editable ? `\n  onEdit: (row: ${Entity}) => void;` : ""}${ops.remove ? `\n  onDelete: (row: ${Entity}) => Promise<void>;` : ""}
 }) {
-  const { t${usesDate || usesDateTime ? ", i18n" : ""} } = use${Name}Translation();
-${usesDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${usesDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}${
-    canVars
-      ? `  const { can } = useAccess();\n${editable ? `  const canEdit = can(${JSON.stringify(perm("update"))});\n` : ""}${ops.remove ? `  const canDelete = can(${JSON.stringify(perm("delete"))});\n` : ""}  // Without either, there is nothing to put in the actions column\n  const showActions = ${showActions};\n`
-      : ""
-  }  const cell: Record<${ColType}, (row: ${Entity}) => ReactNode> = {
+  const { t } = use${Name}Translation();
+${
+  canVars
+    ? `  const { can } = useAccess();\n${editable ? `  const canEdit = can(${JSON.stringify(perm("update"))});\n` : ""}${ops.remove ? `  const canDelete = can(${JSON.stringify(perm("delete"))});\n` : ""}  // Without either, there is nothing to put in the actions column\n  const showActions = ${showActions};\n`
+    : ""
+}  const cell: Record<${ColType}, (row: ${Entity}) => ReactNode> = {
 ${columns.map((f) => `    ${key(f.name)}: (row) => ${cellExpr(f)},`).join("\n")}
   };
   return (
@@ -662,8 +674,14 @@ ${columns.map((f) => `    ${key(f.name)}: (row) => ${cellExpr(f)},`).join("\n")}
           `                {\n                  label: t("fields.${f.name}"),\n                  value: ${valueOf(f)},\n                },`,
       )
       .join("\n");
-    files["detail.tsx"] =
-      `import { ${["Button", "Card", "Descriptions", ...(dTag ? ["Tag"] : []), "Text"].join(", ")} } from "@skeinui/ui";
+    files["detail.tsx"] = `import { ${[
+      "Button",
+      "Card",
+      ...(dDate || dDateTime ? ["DateText"] : []),
+      "Descriptions",
+      ...(dTag ? ["Tag"] : []),
+      "Text",
+    ].join(", ")} } from "@skeinui/ui";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate${tenant ? ", useParams" : ""} } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
@@ -674,13 +692,13 @@ import { use${Name}Translation } from "./locales";
 
 /** ${tenant ? "/<tenant>" : ""}${listPath}/<id>: one row${tenant ? " of the tenant; another tenant's" : "; one that doesn't exist"} is not found (404 from the API). */
 export function ${Name}DetailPage({ id }: { id: ${model.idType} }) {
-  const { t${dDate || dDateTime ? ", i18n" : ""} } = use${Name}Translation();
+  const { t } = use${Name}Translation();
   const navigate = useNavigate();
 ${tenant ? "  const { tenant } = useParams({ strict: false });\n" : ""}  const query = useQuery({
     queryKey: ${keys}.detail(id),
     queryFn: () => ${fetchOne}(id),
   });
-${dDate ? '  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });\n' : ""}${dDateTime ? '  const dateTime = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" });\n' : ""}
+
   return (
     <Page
       title={${labelField ? `query.data ? ${label("query.data")} : ` : ""}query.error ? t("detail.notFound") : t("loading")}

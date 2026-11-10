@@ -11,7 +11,10 @@ import {
   Field,
   Input,
   TableTools,
+  NumberText,
   formatDateText,
+  formatNumberText,
+  Page,
   initialsOf,
   toCsv,
 } from "../src/index.ts";
@@ -187,5 +190,58 @@ describe("ConfirmButton", () => {
     expect(confirm.length).toBeGreaterThan(1);
     await act(async () => confirm.at(-1)!.click());
     expect(onConfirm).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("NumberText / formatNumberText", () => {
+  test("a number in the language asked for: decimal, percent, unit, currency, compact", () => {
+    expect(formatNumberText(12500, { locale: "en" })).toBe("12,500");
+    expect(formatNumberText(0.974, { locale: "en", format: "percent" })).toBe("97%");
+    expect(formatNumberText(97, { locale: "en", format: "unit", unit: "percent" })).toBe("97%");
+    expect(formatNumberText(4.5, { locale: "en", format: "currency", currency: "USD" })).toBe(
+      "$4.50",
+    );
+    expect(formatNumberText(4, { locale: "en", precision: 1 })).toBe("4.0");
+    expect(formatNumberText(12500, { locale: "en", notation: "compact" })).toBe("13K");
+    expect(formatNumberText(1234.5, { locale: "de" })).toBe("1.234,5");
+  });
+
+  test("no value or not a number: undefined", () => {
+    for (const bad of [undefined, null, Number.NaN, Number.POSITIVE_INFINITY])
+      expect(formatNumberText(bad)).toBeUndefined();
+    expect(formatNumberText(0, { locale: "en" })).toBe("0");
+  });
+
+  test("a <data> with the exact value; the dash when empty; the language of ConfigProvider", () => {
+    expect(ssr(createElement(NumberText, { value: 0.5, format: "percent", locale: "en" }))).toBe(
+      '<data value="0.5">50%</data>',
+    );
+    expect(ssr(createElement(NumberText, { value: null }))).toBe("—");
+    expect(ssr(createElement(NumberText, { value: undefined, fallback: "n/a" }))).toBe("n/a");
+    const zh = ssr(
+      createElement(
+        ConfigProvider,
+        { ...zhCN, locale: "zh-CN" },
+        createElement(NumberText, { value: 12500, notation: "compact" }),
+      ),
+    );
+    expect(zh).toContain("1.3万");
+  });
+});
+
+describe("Page `loading` / `notFound`", () => {
+  const page = (props: object) =>
+    ssr(createElement(Page, { title: "Ticket", ...props }, createElement("p", {}, "BODY")));
+
+  test("the content by default; a spinner while loading; notFound wins; the frame stays", () => {
+    expect(page({})).toContain("BODY");
+    const loading = page({ loading: true });
+    expect(loading).not.toContain("BODY");
+    expect(loading).toContain('data-slot="spinner"');
+    expect(loading).toContain('data-slot="page-header"');
+    const gone = page({ loading: true, notFound: createElement("span", {}, "NOPE") });
+    expect(gone).toContain("NOPE");
+    expect(gone).not.toContain('data-slot="spinner"');
+    expect(gone).not.toContain("BODY");
   });
 });

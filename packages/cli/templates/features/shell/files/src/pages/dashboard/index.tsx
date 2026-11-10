@@ -1,4 +1,4 @@
-import { Card, Grid, Table } from "@skeinui/ui";
+import { Card, DateText, Grid, Table } from "@skeinui/ui";
 import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, UserCheck, UserX, Users } from "lucide-react";
 import { Page } from "@/skein-shell";
@@ -7,10 +7,9 @@ import { StatCard } from "./components/stat-card";
 import { useDashboardTranslation } from "./locales";
 
 export function DashboardPage() {
-  const { t, i18n } = useDashboardTranslation();
+  const { t } = useDashboardTranslation();
   const stats = useQuery({ queryKey: dashboardKeys.stats, queryFn: fetchStats });
   const recent = useQuery({ queryKey: dashboardKeys.recentUsers, queryFn: fetchRecentUsers });
-  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });
 
   return (
     <Page title={t("title")} description={t("subtitle")}>
@@ -62,7 +61,9 @@ export function DashboardPage() {
                 <Table.Row key={user.id}>
                   <Table.Cell>{user.name}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{date.format(new Date(user.createdAt))}</Table.Cell>
+                  <Table.Cell>
+                    <DateText value={user.createdAt} />
+                  </Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>

@@ -428,6 +428,8 @@ export { ConfirmButton } from "./components/confirm-button/index.ts";
 export type { ConfirmButtonProps } from "./components/confirm-button/index.ts";
 export { DateText, formatDateText } from "./components/date-text/index.ts";
 export type { DateFormatOptions, DateTextProps } from "./components/date-text/index.ts";
+export { NumberText, formatNumberText } from "./components/number-text/index.ts";
+export type { NumberFormatOptions, NumberTextProps } from "./components/number-text/index.ts";
 export { downloadCsv, toCsv } from "./components/table-tools/index.ts";
 export type { CsvData } from "./components/table-tools/index.ts";
 export { TableTools, useFixedHeader } from "./components/table-tools/index.ts";

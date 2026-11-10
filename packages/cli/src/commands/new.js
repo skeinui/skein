@@ -14,7 +14,6 @@ const GROUP_ICONS = { system: "Settings", settings: "Settings" };
 /** What a list page's search bar and table tools are made of, in the admin template (`features/shell`). */
 const LIST_PARTS = [
   "lib/list-query",
-  "lib/export-csv.ts",
   "lib/use-api-mutation.ts",
   "lib/use-list-query.ts",
   "lib/query-boundary.tsx",

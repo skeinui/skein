@@ -1,4 +1,4 @@
-import { DataTable, Tag } from "@skeinui/ui";
+import { DataTable, DateText, Tag } from "@skeinui/ui";
 import type { ReactNode } from "react";
 import { useAccess } from "@/modules/access";
 import { RouterLink } from "@/skein-shell";
@@ -26,8 +26,7 @@ export function UserTable({
   onEdit: (user: User) => void;
   onDelete: (user: User) => Promise<void>;
 }) {
-  const { t, i18n } = useUsersTranslation();
-  const date = new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium" });
+  const { t } = useUsersTranslation();
   const { can } = useAccess();
   const canEdit = can("users:update");
   const canDelete = can("users:delete");
@@ -53,7 +52,7 @@ export function UserTable({
         {t(`status.${user.status}`)}
       </Tag>
     ),
-    createdAt: (user) => date.format(new Date(user.createdAt)),
+    createdAt: (user) => <DateText value={user.createdAt} />,
   };
   return (
     <DataTable

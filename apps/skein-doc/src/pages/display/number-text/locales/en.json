@@ -1,0 +1,31 @@
+{
+  "lead": "A number as text in the language of the app, as a `<data>` element with the exact value: a count, a percentage, an amount of money, a size. It follows the `locale` of ConfigProvider, so a page needs no `Math.round(x * 100)` and `%` of its own. `formatNumberText` gives the same text as a string (a CSV cell, a title). For dates use [Date Text](/date-text).",
+  "usage": {
+    "title": "Usage",
+    "description": "Digits are grouped the way the language does it."
+  },
+  "percent": {
+    "title": "Percent",
+    "description": "`format=\"percent\"` takes a fraction (0.97 is 97%); a number that is already a percentage (97) is `format=\"unit\"` with `unit=\"percent\"`. `precision` is how many digits follow the point, always that many."
+  },
+  "money": {
+    "title": "Money",
+    "description": "`format=\"currency\"` with the `currency` code; the symbol and where it goes come from the language."
+  },
+  "compact": {
+    "title": "Compact",
+    "description": "`notation=\"compact\"` shortens a large number: \"13K\", \"3.2M\"; other languages shorten it their own way."
+  },
+  "empty": {
+    "title": "No value",
+    "description": "A missing value, or one that is not a number, shows `fallback`, a dash by default.",
+    "none": "No data"
+  },
+  "api": {
+    "title": "API Reference"
+  },
+  "styling": {
+    "title": "Styling Reference",
+    "description": "NumberText renders a plain `<data>` with no slot: style it with the text around it."
+  }
+}
