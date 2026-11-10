@@ -28,6 +28,9 @@ const CHANNEL = process.env.SNAPSHOT_CHANNEL ?? "chrome";
 const WORKERS = Number(process.env.SNAPSHOT_WORKERS ?? 4);
 
 const ALL_STYLES = ["default", "shadcn", "heroui", "antd"];
+/** The clock the pages see: a calendar marks today, so with the real date the baseline would differ every day. */
+const FIXED_NOW = new Date("2026-01-15T09:00:00");
+
 const PAGES = [
   "accordion",
   "alert",
@@ -37,6 +40,7 @@ const PAGES = [
   "avatar",
   "badge",
   "breadcrumb",
+  "bulk-action-bar",
   "button",
   "calendar",
   "callout",
@@ -49,15 +53,20 @@ const PAGES = [
   "color-picker",
   "combobox",
   "command",
+  "confirm-button",
   "context-meter",
   "data-table",
   "date-picker",
+  "date-text",
   "descriptions",
   "dialog",
   "diff-view",
   "drawer",
+  "enum-tag",
   "feedback",
   "float-button",
+  "form-dialog",
+  "form-drawer",
   "image-grid",
   "input",
   "kanban",
@@ -65,12 +74,18 @@ const PAGES = [
   "layout",
   "markdown",
   "marquee",
+  "mention-text",
   "mentions",
   "menu",
+  "menu-button",
   "menubar",
+  "message-thread",
   "navigation-menu",
+  "notification-bell",
   "number-field",
+  "number-text",
   "otp-field",
+  "page",
   "page-tabs",
   "pagination",
   "plan",
@@ -79,14 +94,18 @@ const PAGES = [
   "queue",
   "quote",
   "radio",
+  "relative-time",
+  "saved-views",
   "segmented",
   "select",
   "sidebar",
   "slider",
   "sortable",
+  "statistic-card",
   "suggestions",
   "switch",
   "table",
+  "table-toolbar",
   "table-tools",
   "tabs",
   "tag",
@@ -281,6 +300,7 @@ async function measureAdmin(context, { style, mode, layout }) {
   // A context of its own: the layout is set in localStorage before the page loads, and pages running at the same
   // time in a shared context write theirs back, so a page could come up in another job's layout
   const own = await context.browser().newContext({ viewport: { width: 1400, height: 900 } });
+  await own.clock.setFixedTime(FIXED_NOW);
   const page = await own.newPage();
   try {
     await page.addInitScript(
@@ -358,6 +378,7 @@ async function main() {
   }
   const browser = await chromium.launch({ channel: CHANNEL, headless: true });
   const context = await browser.newContext({ viewport: { width: 1400, height: 900 } });
+  await context.clock.setFixedTime(FIXED_NOW);
 
   const pages = [...PAGES, ...Object.keys(OVERLAYS)].filter((p) => !onlyPages || onlyPages.has(p));
   /** @type {Record<string, Record<string, string[]>>} file name -> page -> keys */
