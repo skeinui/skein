@@ -1,10 +1,10 @@
 @layer ui-tokens, ui-color, ui-style;
 
 @layer ui-style {
-  /* TableTools: the tools' icons are drawn like the side menu's: about 1.5px strokes, a step lighter than the text (80%), full on hover */
+  /* TableTools: the tools' icons are drawn like the side menu's: about 1.5px strokes, lighter than the text (60%, still above the 3:1 an icon needs), full on hover */
   [data-skein-theme="antd"] [data-slot="table-tools"] [data-slot="button"] svg {
     stroke-width: 2.25;
-    color: color-mix(in srgb, currentcolor 80%, transparent);
+    color: color-mix(in srgb, currentcolor 60%, transparent);
     transition: color 150ms ease;
   }
   [data-skein-theme="antd"] [data-slot="table-tools"] [data-slot="button"]:hover svg {
