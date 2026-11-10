@@ -91,7 +91,8 @@ function Demo({
               ) : null}
             </Flex>
           ) : null}
-          <div>
+          {/* Floating takes no room, so its anchor must not add a gap either: no gap there, a small one otherwise */}
+          <Flex direction="column" gap={floating ? "none" : "sm"}>
             {placement === "top" ? bar : null}
             <DataTable
               rows={ROWS}
@@ -105,7 +106,7 @@ function Demo({
               ]}
             />
             {placement === "bottom" ? bar : null}
-          </div>
+          </Flex>
         </div>
       </Card.Body>
     </Card>
