@@ -7080,6 +7080,15 @@
         "value": {
           "type": "DateInput",
           "description": "The date or moment: a `Date`, an ISO string or a timestamp in milliseconds."
+        },
+        "weekday": {
+          "type": "\"long\" | \"short\" | \"narrow\"",
+          "values": [
+            "long",
+            "short",
+            "narrow"
+          ],
+          "description": "Only the day of the week (\"Sun\", \"Sunday\", \"S\"): `dateStyle` and `timeStyle` are not used with it.\nFor a column of days (a week's opening hours) rather than a moment."
         }
       },
       "docs": "date-text",
@@ -7090,7 +7099,7 @@
         },
         {
           "title": "How much to say",
-          "code": "<DateText value={at} dateStyle=\"short\" />\n<DateText value={at} dateStyle=\"long\" timeStyle=\"short\" />\n<DateText value={at} timeStyle=\"short\" />"
+          "code": "<DateText value={at} dateStyle=\"short\" />\n<DateText value={at} dateStyle=\"long\" timeStyle=\"short\" />\n<DateText value={at} timeStyle=\"short\" />\n<DateText value={at} weekday=\"long\" />"
         },
         {
           "title": "No value",

@@ -6,7 +6,7 @@
   },
   "styles": {
     "title": "How much to say",
-    "description": "`dateStyle` and `timeStyle` take `short`, `medium`, `long` or `full`; `timeStyle` alone shows the time only."
+    "description": "`dateStyle` and `timeStyle` take `short`, `medium`, `long` or `full`; `timeStyle` alone shows the time only; `weekday` alone shows the day of the week (`short`, `long`, `narrow`)."
   },
   "empty": {
     "title": "No value",

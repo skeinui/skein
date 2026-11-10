@@ -10,6 +10,11 @@ export interface DateFormatOptions {
   dateStyle?: DateStyle;
   /** None by default: a date only. */
   timeStyle?: DateStyle;
+  /**
+   * Only the day of the week ("Sun", "Sunday", "S"): `dateStyle` and `timeStyle` are not used with it.
+   * For a column of days (a week's opening hours) rather than a moment.
+   */
+  weekday?: "long" | "short" | "narrow";
   /** BCP 47 tag of the language (e.g. "zh-CN"); the browser's when omitted. */
   locale?: string;
   /** IANA name of the time zone ("Asia/Shanghai"); the browser's when omitted. */
@@ -19,11 +24,13 @@ export interface DateFormatOptions {
 /** A date or a moment as text in the language of `locale` ("Nov 10, 2026", "2026年11月10日 18:37"); an empty or invalid value is `undefined`. */
 export function formatDateText(
   value: DateInput | null | undefined,
-  { dateStyle, timeStyle, locale, timeZone }: DateFormatOptions = {},
+  { dateStyle, timeStyle, weekday, locale, timeZone }: DateFormatOptions = {},
 ): string | undefined {
   if (value === null || value === undefined || value === "") return undefined;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return undefined;
+  // Intl does not take a weekday together with a date style
+  if (weekday) return new Intl.DateTimeFormat(locale, { weekday, timeZone }).format(date);
   return new Intl.DateTimeFormat(locale, {
     // A time alone is not asked for: with neither style given it is the date
     dateStyle: dateStyle ?? (timeStyle ? undefined : "medium"),
@@ -52,6 +59,7 @@ export function DateText({
   value,
   dateStyle,
   timeStyle,
+  weekday,
   locale: localeProp,
   timeZone,
   fallback = "—",
@@ -59,7 +67,7 @@ export function DateText({
 }: DateTextProps) {
   const config = useConfig();
   const locale = localeProp ?? config.locale;
-  const text = formatDateText(value, { dateStyle, timeStyle, locale, timeZone });
+  const text = formatDateText(value, { dateStyle, timeStyle, weekday, locale, timeZone });
   if (text === undefined) return <>{fallback}</>;
   return (
     <time {...rest} dateTime={new Date(value as DateInput).toISOString()}>

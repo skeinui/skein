@@ -50,6 +50,21 @@ describe("DateText / formatDateText", () => {
     ).toBe("11/10/26");
   });
 
+  test("`weekday` gives the day of the week alone", () => {
+    expect(formatDateText(MOMENT, { locale: "en", timeZone: "UTC", weekday: "short" })).toBe("Tue");
+    expect(formatDateText(MOMENT, { locale: "en", timeZone: "UTC", weekday: "long" })).toBe(
+      "Tuesday",
+    );
+    expect(formatDateText(MOMENT, { locale: "zh-CN", timeZone: "UTC", weekday: "short" })).toBe(
+      "周二",
+    );
+    expect(
+      ssr(
+        createElement(DateText, { value: MOMENT, locale: "en", timeZone: "UTC", weekday: "short" }),
+      ),
+    ).toContain(">Tue</time>");
+  });
+
   test("no value or not a date: undefined", () => {
     for (const bad of [undefined, null, "", "not a date"])
       expect(formatDateText(bad)).toBeUndefined();

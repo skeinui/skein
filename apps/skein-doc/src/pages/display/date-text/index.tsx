@@ -28,12 +28,14 @@ formatDateText(ticket.createdAt) // "Nov 10, 2026"`}
         id="styles"
         code={`<DateText value={at} dateStyle="short" />
 <DateText value={at} dateStyle="long" timeStyle="short" />
-<DateText value={at} timeStyle="short" />`}
+<DateText value={at} timeStyle="short" />
+<DateText value={at} weekday="long" />`}
       >
         <div className="pg-stack pg-stack--start">
           <DateText value={MOMENT} dateStyle="short" />
           <DateText value={MOMENT} dateStyle="long" timeStyle="short" />
           <DateText value={MOMENT} timeStyle="short" />
+          <DateText value={MOMENT} weekday="long" />
         </div>
       </Example>
 

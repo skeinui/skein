@@ -6,7 +6,7 @@
   },
   "styles": {
     "title": "说多少",
-    "description": "`dateStyle` 和 `timeStyle` 取 `short`、`medium`、`long`、`full`；只传 `timeStyle` 就只显示时间。"
+    "description": "`dateStyle` 和 `timeStyle` 取 `short`、`medium`、`long`、`full`；只传 `timeStyle` 就只显示时间；`weekday` 单独显示星期几（`short`、`long`、`narrow`）。"
   },
   "empty": {
     "title": "没有值",
@@ -27,7 +27,8 @@
       "dateStyle": "日期的详细程度；只传 `timeStyle` 时不显示日期。",
       "timeStyle": "时间的详细程度；不传就只显示日期。",
       "locale": "语言的 BCP 47 标签（如 \"zh-CN\"）；默认取 ConfigProvider 的 `locale`，再默认取浏览器的。",
-      "timeZone": "IANA 时区名（如 \"Asia/Shanghai\"）；默认取浏览器的。"
+      "timeZone": "IANA 时区名（如 \"Asia/Shanghai\"）；默认取浏览器的。",
+      "weekday": "只显示星期几（如「周二」）；传了它就不再使用 `dateStyle` 和 `timeStyle`，适合一周营业时间这样的一列。"
     }
   }
 }
