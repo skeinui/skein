@@ -18,6 +18,7 @@ describe("PageHeader", () => {
         title: "Tickets",
         description: "Every request",
         actions: createElement("button", null, "New"),
+        back: "Home",
       }),
     );
     for (const slot of PAGE_HEADER_SLOTS) expect(html).toContain(`data-slot="${slot}"`);
@@ -49,6 +50,7 @@ describe("Page and PageFooter", () => {
         {
           title: "Tickets",
           actions: "New",
+          back: "Home",
           footer: createElement(PageFooter, { sticky: true }, "Save"),
         },
         createElement("p", null, "content"),
