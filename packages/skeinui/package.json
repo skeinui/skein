@@ -1,6 +1,6 @@
 {
   "name": "skeinui",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "npx skeinui: an alias of the skein command (@skeinui/cli)",
   "keywords": [
     "cli",
