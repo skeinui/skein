@@ -109,7 +109,7 @@ Generated projects come with `AGENTS.md`, `CLAUDE.md` and skills (`.claude/skill
 | Command                  | What it gives                                                                                        |
 | ------------------------ | ---------------------------------------------------------------------------------------------------- |
 | `skein docs [Component]` | What a component is for, its props and allowed values, data types, examples; `--search <words>`      |
-| `skein check`            | Type errors with hints, missing translations, hard-coded colors, theme coverage                      |
+| `skein check`            | Type errors with hints, missing translations, hard-coded colors, theme coverage, the frame of a page |
 | `skein preview <route>`  | Opens the page in Chrome (signed in) and reports errors, failed requests, a blank page, a screenshot |
 | `skein mcp`              | All of the above, plus `new page`, `theme` and `create`, as MCP tools                                |
 

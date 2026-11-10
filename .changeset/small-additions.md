@@ -25,3 +25,5 @@ Five more pieces pages wrote by hand: `DateText` / `formatDateText` (a date or m
 `Page` scrolls inside its own frame (a `ScrollArea`, so the scrollbar is the theme style's) and the pane of a `KeepAlive` that holds a `Page` no longer scrolls itself; a `Table` is in a `ScrollArea` for its sideways scrolling too, not only with a fixed header. The table-tools icons are lighter. A new `page-content` slot holds the padding and the spacing: a project's own theme style needs it in `page.css` (`skein theme check` lists it).
 
 A `Table` without a fixed header passes a vertical wheel or swipe on to what holds it (the page scrolls), instead of the table's `ScrollArea` keeping it.
+
+`skein check` has a `pages` check: in an admin project, a page (`src/pages/<path>/index.tsx` or `detail.tsx`) that is not framed by `<Page>`, or has more than one primary button in its `actions`, is a warning with a hint (the sign-in and the fallback pages are left out).

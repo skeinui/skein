@@ -41,7 +41,7 @@ Usage:
   skein new module <name>            add a module: src/modules/<name>/
   skein docs [component]             component docs: props, parts, examples (no name: the list)
   skein docs --search <words>        find components
-  skein check [--only typecheck,i18n,style,theme]
+  skein check [--only typecheck,i18n,style,theme,pages]
                                      everything wrong with the project, with hints
   skein theme use <name>             make a theme style the app's (admin: the default of settings.ts)
   skein theme add <name…>            admin: more theme styles users can switch to in the preferences

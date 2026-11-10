@@ -44,7 +44,7 @@
     "command": "Command",
     "does": "What it does",
     "docs": "What a component is for, its props and allowed values, examples. `--search <words>` finds components.",
-    "check": "Type errors with hints, missing translations, hard-coded colours, theme coverage.",
+    "check": "Type errors with hints, missing translations, hard-coded colours, theme coverage, the frame of each page (`Page`, one primary action).",
     "preview": "Opens the page in Chrome (signed in) and reports errors, failed requests, a blank page, and a screenshot.",
     "list": "Templates, features and theme styles.",
     "init": "Writes `.skein.json` for a project that lacks it, detecting its features from its files.",

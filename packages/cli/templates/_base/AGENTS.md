@@ -5,7 +5,7 @@ A React app built with [Skein UI](https://github.com/skeinui/skein){{#if shell}}
 ## Commands
 
 - `npm run dev`: start the app{{#if mock}} (the API is mocked by MSW, see `.env.development`){{/if}}{{#if auth}}; sign in with admin / admin123{{/if}}.
-- `npm run check`: **run after every change.** First `skein check` (type errors, missing translations, hard-coded colors and theme coverage, each with a hint on the Skein way to fix it), then `vp check` (format, lint, types). `npx vp check --fix` formats and fixes what it can. Repeat until it reports no errors. `npm run build` must pass too.
+- `npm run check`: **run after every change.** First `skein check` (type errors, missing translations, hard-coded colors, theme coverage and the frame of each page (`<Page>`, one primary action), each with a hint on the Skein way to fix it), then `vp check` (format, lint, types). `npx vp check --fix` formats and fixes what it can. Repeat until it reports no errors. `npm run build` must pass too.
 {{#if preview}}
 - `npx skein preview <route>`: **after changing a page, open it.** It starts the dev server, opens the route in Chrome{{#if auth}} (signed in){{/if}} and lists exceptions, console errors, failed requests and a blank page, then saves a screenshot (path in the output) to look at. Fix what it reports until it says ✓; `--json` for the details.
 {{/if}}

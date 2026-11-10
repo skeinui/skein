@@ -13,8 +13,10 @@ import { checkTheme } from "../theme/index.js";
  *   left untranslated (the English placeholders `new page` writes into zh.json and _meta.ts)
  * - style: no hard-coded colors in the project's CSS or inline styles (use var(--ui-*))
  * - theme: a theme style written in the project (src/theme/) covers the @skeinui/ui contract
+ * - pages: in a project with the admin shell, a page (`src/pages/<path>/index.tsx` or `detail.tsx`) is framed by `<Page>`
+ *   and has at most one primary button in its `actions`
  */
-export const CHECKS = ["typecheck", "i18n", "style", "theme"];
+export const CHECKS = ["typecheck", "i18n", "style", "theme", "pages"];
 
 /** @typedef {{ check: string; severity: "error" | "warning"; file?: string; line?: number; message: string; hint?: string }} Issue */
 
@@ -286,6 +288,64 @@ function style(root) {
   return issues;
 }
 
+/** Pages that have no frame of their own to check: the sign-in and the pages the router falls back to. */
+const UNFRAMED_PAGES = new Set(["login", "register", "forbidden", "not-found", "error"]);
+
+/** The text of the `{ … }` that starts at `open` (its braces balanced, strings skipped), without the outer braces. */
+function braced(text, open) {
+  let depth = 0;
+  let quote = "";
+  for (let i = open; i < text.length; i++) {
+    const c = text[i];
+    if (quote) {
+      if (c === "\\") i++;
+      else if (c === quote) quote = "";
+    } else if (c === '"' || c === "'" || c === "`") quote = c;
+    else if (c === "{") depth++;
+    else if (c === "}" && --depth === 0) return text.slice(open + 1, i);
+  }
+  return text.slice(open + 1);
+}
+
+const lineOf = (text, index) => text.slice(0, index).split("\n").length;
+
+function pages(root) {
+  // Only the admin shell has the Page; a project without it frames its screens its own way
+  if (!existsSync(join(root, "src", "skein-shell", "page.tsx"))) return [];
+  const dir = join(root, "src", "pages");
+  const issues = [];
+  const files = walk(dir, (f) => /\/(index|detail)\.tsx$/.test(toPosix(f)));
+  for (const file of files) {
+    const parts = toPosix(relative(dir, file)).split("/");
+    if (parts.includes("components") || parts.some((p) => UNFRAMED_PAGES.has(p))) continue;
+    const text = readFileSync(file, "utf8");
+    if (!/export (?:default )?(?:async )?(?:function|const)/.test(text)) continue;
+    if (!/<Page[\s/>]/.test(text)) {
+      issues.push({
+        check: "pages",
+        severity: "warning",
+        file: relative(root, file),
+        message: "the page is not framed by <Page>",
+        hint: 'Wrap it in <Page title description actions> from "@/skein-shell": the theme style lays out the padding, the header and the footer so every page is framed the same way.',
+      });
+      continue;
+    }
+    for (const m of text.matchAll(/\bactions=\{/g)) {
+      const primaries = braced(text, m.index + m[0].length - 1).match(/color="primary"/g) ?? [];
+      if (primaries.length > 1)
+        issues.push({
+          check: "pages",
+          severity: "warning",
+          file: relative(root, file),
+          line: lineOf(text, m.index),
+          message: `${primaries.length} primary buttons in the actions of the page`,
+          hint: 'A page has one main action: one color="primary" Button; the others are outline or ghost (or a Menu).',
+        });
+    }
+  }
+  return issues;
+}
+
 async function theme(root) {
   const dir = join(root, "src", "theme");
   const tokens = join(dir, "tokens.css");
@@ -324,6 +384,7 @@ export async function check({ cwd = process.cwd(), only } = {}) {
   if (ran.includes("i18n")) issues.push(...i18n(root));
   if (ran.includes("style")) issues.push(...style(root));
   if (ran.includes("theme")) issues.push(...(await theme(root)));
+  if (ran.includes("pages")) issues.push(...pages(root));
   // Paths with `/` on every platform, as --json and MCP report them
   for (const issue of issues) if (issue.file) issue.file = toPosix(issue.file);
   const errors = issues.filter((i) => i.severity === "error").length;

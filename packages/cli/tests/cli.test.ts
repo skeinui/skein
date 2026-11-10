@@ -1224,3 +1224,57 @@ describe("names", () => {
     expect(pascal("system-user-roles")).toBe("SystemUserRoles");
   });
 });
+
+describe("check: the frame of a page", () => {
+  const pageIssues = async (dir: string) =>
+    (await check({ cwd: dir, only: ["pages"] })).issues.map((i) => [i.file, i.message]);
+
+  test("a fresh admin project has none; a page without <Page> and one with two primary buttons are warnings", async () => {
+    const dir = target();
+    createProject({ dir, template: "admin" });
+    expect(await pageIssues(dir)).toEqual([]);
+
+    mkdirSync(join(dir, "src", "pages", "plain"), { recursive: true });
+    writeFileSync(
+      join(dir, "src", "pages", "plain", "index.tsx"),
+      "export function PlainPage() {\n  return <div>hello</div>;\n}\n",
+    );
+    mkdirSync(join(dir, "src", "pages", "busy"), { recursive: true });
+    writeFileSync(
+      join(dir, "src", "pages", "busy", "index.tsx"),
+      `import { Button } from "@skeinui/ui";
+import { Page } from "@/skein-shell";
+
+export function BusyPage() {
+  return (
+    <Page
+      title="Busy"
+      actions={
+        <>
+          <Button color="primary">New</Button>
+          <Button color="primary">Import</Button>
+          <Button variant="outline">Export</Button>
+        </>
+      }
+    >
+      <p>x</p>
+    </Page>
+  );
+}
+`,
+    );
+    const issues = await pageIssues(dir);
+    expect(issues).toEqual([
+      ["src/pages/busy/index.tsx", "2 primary buttons in the actions of the page"],
+      ["src/pages/plain/index.tsx", "the page is not framed by <Page>"],
+    ]);
+    // Warnings: the check still passes
+    expect((await check({ cwd: dir, only: ["pages"] })).ok).toBe(true);
+  });
+
+  test("a project without the admin shell has nothing to check", async () => {
+    const dir = target();
+    createProject({ dir, template: "basic" });
+    expect(await pageIssues(dir)).toEqual([]);
+  });
+});
