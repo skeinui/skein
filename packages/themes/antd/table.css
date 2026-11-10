@@ -210,6 +210,10 @@
       var(--ui-border-secondary, color-mix(in srgb, var(--ui-fg) 6.7%, transparent));
     vertical-align: middle;
   }
+  /* Figures line up in a column when every digit is as wide as the next */
+  [data-skein-theme="antd"] [data-slot="table-cell"][data-align="end"] {
+    font-variant-numeric: tabular-nums;
+  }
   [data-skein-theme="antd"]
     [data-slot="table-container"][data-bordered]
     [data-slot="table-body"]
@@ -297,6 +301,24 @@
     color: var(--ui-fg-muted);
     text-align: center;
   }
+  /* The empty table draws Ant Design's simple "no data" picture above its text (the colors are the official light and dark ones) */
+  [data-skein-theme="antd"] [data-slot="table-empty"]::before {
+    content: "";
+    display: block;
+    width: 4rem;
+    height: 2.5625rem;
+    margin: 0 auto 0.5rem;
+    background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2241%22 viewBox=%220 0 64 41%22%3E%3Cg transform=%22translate(0 1)%22 fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cellipse fill=%22%23f5f5f5%22 cx=%2232%22 cy=%2233%22 rx=%2232%22 ry=%227%22/%3E%3Cg fill-rule=%22nonzero%22 stroke=%22%23d9d9d9%22%3E%3Cpath d=%22M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z%22/%3E%3Cpath d=%22M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z%22 fill=%22%23fafafa%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+  /* While it loads, the ring takes the place of the picture */
+  [data-skein-theme="antd"] [data-slot="table"][data-loading] [data-slot="table-empty"]::before {
+    visibility: hidden;
+  }
+  [data-skein-theme="antd"][data-skein-mode="dark"] [data-slot="table-empty"]::before,
+  [data-skein-theme="antd"] :where([data-skein-mode="dark"]) [data-slot="table-empty"]::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2264%22 height=%2241%22 viewBox=%220 0 64 41%22%3E%3Cg transform=%22translate(0 1)%22 fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cellipse fill=%22%23262626%22 cx=%2232%22 cy=%2233%22 rx=%2232%22 ry=%227%22/%3E%3Cg fill-rule=%22nonzero%22 stroke=%22%23424242%22%3E%3Cpath d=%22M55 12.76L44.854 1.258C44.367.474 43.656 0 42.907 0H21.093c-.749 0-1.46.474-1.947 1.257L9 12.761V22h46v-9.24z%22/%3E%3Cpath d=%22M41.613 15.931c0-1.605.994-2.93 2.227-2.931H55v18.137C55 33.26 53.68 35 52.05 35h-40.1C10.32 35 9 33.259 9 31.137V13h11.16c1.233 0 2.227 1.323 2.227 2.928v.022c0 1.605 1.005 2.901 2.237 2.901h14.752c1.232 0 2.237-1.308 2.237-2.913v-.007z%22 fill=%22%231f1f1f%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
   [data-skein-theme="antd"] [data-slot="table-row"][data-empty] {
     height: auto;
   }
@@ -310,11 +332,37 @@
     pointer-events: none;
     transition: opacity 150ms ease;
   }
+  /* Loading: the rows dim and a ring turns over them, like Ant Design's Spin (placed near the top, where the rows are, not in the middle of a tall table) */
+  [data-skein-theme="antd"]
+    [data-slot="table-container"]:has([data-slot="table"][data-loading])::after {
+    content: "";
+    position: absolute;
+    z-index: 11;
+    top: 5rem;
+    left: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-inline-start: -0.75rem;
+    box-sizing: border-box;
+    border: 2px solid var(--ui-c-primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: antd-table-spin 0.8s linear infinite;
+  }
+  @keyframes antd-table-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     [data-skein-theme="antd"] [data-slot="table-row"],
     [data-skein-theme="antd"] [data-slot="table-sort-icon"] {
       transition: none;
+    }
+    [data-skein-theme="antd"] [data-slot="table-container"]::after {
+      animation-duration: 2.4s;
     }
   }
 

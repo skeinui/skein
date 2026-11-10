@@ -33,3 +33,5 @@ The Ant Design style in light mode: the text of success, warning and danger (sof
 Three more pieces pages wrote by hand: `TextPair` (two lines that belong together: a name over its email, a subject over its preview; `extra` after the title, `strong`, `ellipsis`), `DueTag` (when something is due: the time left, a red "Overdue" tag after it, a dash when done, "Paused" when the clock is stopped; counts again every minute) and `back` on `PageHeader` / `Page` (the way back to the list, a small link above the title; a new `page-header-back` slot that a project's own theme style needs in `page-header.css`). `TextPair` and `DueTag` need no stylesheet.
 
 The Skein style's `Table` / `DataTable`: a quieter header (smaller, medium weight, a step lighter than the rows, round corners), roomier cells (12px at the sides, 44px rows), no divider between header columns except where a column can be dragged, and figures in right-aligned columns line up.
+
+The Ant Design style's `Table` / `DataTable`: an empty table shows Ant Design's "no data" picture (light and dark), a loading one a turning ring in place of it, and figures in right-aligned columns line up.
