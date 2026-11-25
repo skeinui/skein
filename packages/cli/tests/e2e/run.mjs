@@ -11,7 +11,7 @@
  * Needs network access for npm and a local Chrome (E2E_CHANNEL, default chrome). Not part of `vp test`.
  */
 import { execFileSync, spawn } from "node:child_process";
-import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createRequire } from "node:module";
@@ -168,6 +168,45 @@ async function basicPage(base) {
   }
 }
 
+/**
+ * The linked packages (`--local`) are type-checked from this checkout's source, which resolves the React / csstype types in this
+ * workspace (held back by pnpm's release-age policy), while the project installs the latest: two copies of the same types, which
+ * are not assignable to each other. Pin the project to the workspace's versions so there is one.
+ */
+function pinSharedTypes(dir, pm) {
+  const resolveFrom = (from, id) => createRequire(from).resolve(`${id}/package.json`);
+  const reactTypes = resolveFrom(
+    join(import.meta.dirname, "..", "..", "..", "ui", "package.json"),
+    "@types/react",
+  );
+  const pins = {
+    "@types/react": JSON.parse(readFileSync(reactTypes, "utf8")).version,
+    csstype: JSON.parse(readFileSync(resolveFrom(reactTypes, "csstype"), "utf8")).version,
+  };
+  if (pm === "pnpm") {
+    const file = join(dir, "pnpm-workspace.yaml");
+    const yaml = readFileSync(file, "utf8");
+    const lines = Object.entries(pins).map(([name, version]) => `  "${name}": "${version}"`);
+    writeFileSync(
+      file,
+      yaml.replace(/^overrides:\n/m, (m) => `${m}${lines.join("\n")}\n`),
+    );
+    return;
+  }
+  // Edit the text, not the parsed JSON, so the file keeps the formatting the generated project's `vp check` expects.
+  // npm refuses an override that disagrees with a direct dependency, so that one is pinned directly too.
+  const file = join(dir, "package.json");
+  const json = readFileSync(file, "utf8")
+    .replace(/("@types\/react": )"[^"]*"/, `$1"${pins["@types/react"]}"`)
+    .replace(
+      /("overrides": \{\n)/,
+      `$1${Object.entries(pins)
+        .map(([name, version]) => `    "${name}": "${version}",\n`)
+        .join("")}`,
+    );
+  writeFileSync(file, json);
+}
+
 let port = 4500;
 for (const c of CASES) {
   console.log(`\n${c.id}  (skein create ${c.create.join(" ")})`);
@@ -175,6 +214,7 @@ for (const c of CASES) {
   if (!check(c.id, "create", () => sh(root, "node", [CLI, "create", dir, ...c.create, "--local"])))
     continue;
   const pm = c.pm ?? "npm";
+  pinSharedTypes(dir, pm);
   const installArgs = pm === "npm" ? ["install", "--no-audit", "--no-fund"] : ["install"];
   if (!check(c.id, `${pm} install`, () => sh(dir, pm, installArgs))) continue;
   check(c.id, "build", () => sh(dir, "npm", ["run", "build"]));

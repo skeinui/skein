@@ -19,12 +19,14 @@ run-name: >-
     || format('Release ({0})', github.ref_name) }}
 
 # Only a push that touches a package's version: a plain code push, or one that adds a changeset, runs the tests
-# (ci.yml) and nothing else.
+# (ci.yml) and nothing else. Run it by hand (Actions -> Release -> Run workflow, on main) to release a version npm
+# lacks without a version push, e.g. after a fix to the gate itself; the `version` job still decides what is published.
 on:
   push:
     branches: [main]
     paths:
       - "packages/*/package.json"
+  workflow_dispatch:
 
 permissions: {}
 
