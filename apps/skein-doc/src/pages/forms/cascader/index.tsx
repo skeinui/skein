@@ -229,6 +229,19 @@ export default function CascaderPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<Cascader width={256} options={OPTIONS} />
+<Cascader minWidth={200} options={OPTIONS} />
+<Cascader maxWidth={120} options={OPTIONS} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Cascader aria-label="Width" width={256} options={OPTIONS} />
+          <Cascader aria-label="Min width" minWidth={200} options={OPTIONS} />
+          <Cascader aria-label="Max width" maxWidth={120} options={OPTIONS} />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

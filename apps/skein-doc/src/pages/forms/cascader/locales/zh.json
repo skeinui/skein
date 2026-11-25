@@ -22,6 +22,10 @@
   "clearable": { "title": "可清除" },
   "variants": { "title": "变体与尺寸" },
   "invalid": { "title": "校验失败与禁用" },
+  "width": {
+    "title": "宽度",
+    "description": "`width` 固定宽度；`minWidth` / `maxWidth` 给随内容变化的宽度设下限 / 上限。数字按 px，字符串可写任意 CSS 长度（`\"16rem\"`、`\"50%\"`）。同时设了 `fullWidth` 时以 `fullWidth` 为准。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -38,6 +42,9 @@
   },
   "props": {
     "Cascader": {
+      "width": "固定宽度：数字按 px，字符串可写任意 CSS 长度；同时设了 `fullWidth` 时以 `fullWidth` 为准。不设置时宽度随内容。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "aria-label": "没有可见标签时的无障碍名称。",
       "changeOnSelect": "单选时允许选中非叶子节点（点中即提交，不必走到最后一级）。",
       "clearable": "有值时显示清除按钮。",

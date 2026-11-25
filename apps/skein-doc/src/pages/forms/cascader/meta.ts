@@ -17,6 +17,7 @@ export default {
         "clearable",
         "variants",
         "invalid",
+        "width",
       ],
     },
     { group: "reference", items: ["api", "styling"] },

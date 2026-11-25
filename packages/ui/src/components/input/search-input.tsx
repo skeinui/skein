@@ -14,9 +14,16 @@ export interface SearchInputProps
   extends
     Omit<
       InputGroupInputProps,
-      "type" | "size" | "width" | "value" | "defaultValue" | "onValueChange"
+      | "type"
+      | "size"
+      | "width"
+      | "minWidth"
+      | "maxWidth"
+      | "value"
+      | "defaultValue"
+      | "onValueChange"
     >,
-    Pick<InputGroupProps, "variant" | "size" | "fullWidth" | "width"> {
+    Pick<InputGroupProps, "variant" | "size" | "fullWidth" | "width" | "minWidth" | "maxWidth"> {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
@@ -44,6 +51,8 @@ export function SearchInput({
   size,
   fullWidth,
   width,
+  minWidth,
+  maxWidth,
   value: valueProp,
   defaultValue = "",
   onValueChange,
@@ -78,7 +87,14 @@ export function SearchInput({
     }
   };
   return (
-    <InputGroup variant={variant} size={size} fullWidth={fullWidth} width={width}>
+    <InputGroup
+      variant={variant}
+      size={size}
+      fullWidth={fullWidth}
+      width={width}
+      minWidth={minWidth}
+      maxWidth={maxWidth}
+    >
       <InputGroup.Input
         enterKeyHint="search"
         {...rest}

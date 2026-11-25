@@ -114,19 +114,27 @@
     --ui-c-danger-active: color-mix(in oklab, var(--ui-c-danger) 80%, var(--ui-c-danger-fg) 20%);
     --ui-c-danger-border: color-mix(in oklab, var(--ui-c-danger) 40%, transparent);
 
-    --ui-radius-sm: calc(var(--ui-radius) * 2);
-    --ui-radius-md: calc(var(--ui-radius) * 3);
-    --ui-radius-lg: calc(var(--ui-radius) * 4);
+    /* HeroUI v3's radius scale, all derived from --ui-radius (8px). Its 4 / 6 / 8px steps (sm / md / lg there) are not here: in this package
+       --ui-radius-sm / -md / -lg are the three steps every theme style provides (and the preferences drawer writes), which in this style are 16 / 24 / 32px. */
+    --ui-radius-xs: calc(var(--ui-radius) * 0.25);
+    --ui-radius-xl: calc(var(--ui-radius) * 1.5);
+    --ui-radius-2xl: calc(var(--ui-radius) * 2);
+    --ui-radius-3xl: calc(var(--ui-radius) * 3);
+    --ui-radius-4xl: calc(var(--ui-radius) * 4);
     --ui-radius-full: 9999px;
 
-    /* Semantic radii (aligned with HeroUI v3's radius system, base value --ui-radius = 8px):
+    --ui-radius-sm: var(--ui-radius-2xl);
+    --ui-radius-md: var(--ui-radius-3xl);
+    --ui-radius-lg: var(--ui-radius-4xl);
+
+    /* Semantic radii (aligned with HeroUI v3's radius system), referencing the scale above:
        surface overlays / standalone containers 24px; block content blocks in a conversation 16px; item entries inside blocks, input types 12px;
        small one more level inside an entry 8px; pill controls (buttons, small labels) are made as pills, not relying on "a too-large radius being clamped by the browser". */
-    --ui-r-surface: min(2rem, calc(var(--ui-radius) * 3));
-    --ui-r-block: calc(var(--ui-radius) * 2);
-    --ui-r-item: calc(var(--ui-radius) * 1.5);
+    --ui-r-surface: min(2rem, var(--ui-radius-3xl));
+    --ui-r-block: var(--ui-radius-2xl);
+    --ui-r-item: var(--ui-radius-xl);
     --ui-r-small: var(--ui-radius);
-    --ui-r-control: 9999px;
+    --ui-r-control: var(--ui-radius-full);
 
     /* Larger touch targets on narrow screens: 40 / 36 / 44px; at ≥ 768px they are 36 / 32 / 40px */
     --ui-height-sm: calc(2.25rem * var(--ui-density));

@@ -11,8 +11,8 @@ export interface PasswordInputLabels {
 
 export interface PasswordInputProps
   extends
-    Omit<InputGroupInputProps, "type" | "size">,
-    Pick<InputGroupProps, "variant" | "size" | "fullWidth"> {
+    Omit<InputGroupInputProps, "type" | "size" | "width">,
+    Pick<InputGroupProps, "variant" | "size" | "fullWidth" | "width" | "minWidth" | "maxWidth"> {
   /**
    * Button to show / hide the password.
    * @default true
@@ -31,6 +31,9 @@ export function PasswordInput({
   variant,
   size,
   fullWidth,
+  width,
+  minWidth,
+  maxWidth,
   visibilityToggle = true,
   visible: visibleProp,
   defaultVisible = false,
@@ -47,7 +50,14 @@ export function PasswordInput({
     onVisibleChange?.(!visible);
   };
   return (
-    <InputGroup variant={variant} size={size} fullWidth={fullWidth}>
+    <InputGroup
+      variant={variant}
+      size={size}
+      fullWidth={fullWidth}
+      width={width}
+      minWidth={minWidth}
+      maxWidth={maxWidth}
+    >
       <InputGroup.Input
         {...rest}
         autoComplete={autoComplete}

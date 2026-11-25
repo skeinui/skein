@@ -367,3 +367,12 @@
     }
   }
 }
+
+/* Width props (width / minWidth / maxWidth): the component writes them as CSS variables on the slot; unset, the fallbacks keep the defaults above */
+@layer ui-style {
+  [data-skein-theme="antd"] [data-slot="cascader-trigger"] {
+    width: var(--ui-cascader-width, auto);
+    min-width: var(--ui-cascader-min-width, 0);
+    max-width: var(--ui-cascader-max-width, none);
+  }
+}

@@ -2,11 +2,13 @@ import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
 import type { FieldVariant, UISize } from "../../contract.ts";
 import { useFieldDefaults } from "../field/context.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
-export interface NumberFieldProps extends Omit<
-  BaseNumberField.Root.Props,
-  "className" | "style" | "children" | "render" | "size"
-> {
+export interface NumberFieldProps
+  extends
+    Omit<BaseNumberField.Root.Props, "className" | "style" | "children" | "render" | "size">,
+    WidthProps {
   variant?: FieldVariant;
   size?: UISize;
   fullWidth?: boolean;
@@ -47,6 +49,9 @@ export function NumberField({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   placeholder,
   stepper = true,
@@ -55,9 +60,11 @@ export function NumberField({
 }: NumberFieldProps) {
   const t = useLabels("numberField");
   const field = useFieldDefaults();
+  const groupRef = useWidthVars<HTMLDivElement>("input-group", { width, minWidth, maxWidth });
   return (
     <BaseNumberField.Root {...root} data-slot="number-field">
       <BaseNumberField.Group
+        ref={groupRef}
         data-slot="input-group"
         data-variant={variant ?? field?.variant ?? "outline"}
         data-size={size ?? field?.size ?? "md"}

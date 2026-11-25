@@ -123,6 +123,29 @@ export default function ComboboxPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<Combobox width={256} options={FRUITS} placeholder="Search fruit" />
+<Combobox minWidth={200} options={FRUITS} placeholder="Search fruit" />
+<Combobox maxWidth={120} options={FRUITS} placeholder="Search fruit" />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Combobox aria-label="Width" width={256} options={FRUITS} placeholder="Search fruit" />
+          <Combobox
+            aria-label="Min width"
+            minWidth={200}
+            options={FRUITS}
+            placeholder="Search fruit"
+          />
+          <Combobox
+            aria-label="Max width"
+            maxWidth={120}
+            options={FRUITS}
+            placeholder="Search fruit"
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

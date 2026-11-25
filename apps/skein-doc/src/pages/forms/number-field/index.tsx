@@ -76,6 +76,19 @@ export default function NumberFieldPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<NumberField width={256} defaultValue={1} />
+<NumberField minWidth={200} defaultValue={1} />
+<NumberField maxWidth={120} defaultValue={1} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <NumberField aria-label="Width" width={256} defaultValue={1} />
+          <NumberField aria-label="Min width" minWidth={200} defaultValue={1} />
+          <NumberField aria-label="Max width" maxWidth={120} defaultValue={1} />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

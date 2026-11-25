@@ -17,6 +17,7 @@ export default {
         "limits",
         "controlled",
         "disabled",
+        "width",
       ],
     },
     { group: "reference", items: ["api", "styling"] },

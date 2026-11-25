@@ -6,7 +6,7 @@ export default {
   toc: [
     {
       group: "examples",
-      items: ["usage", "range", "format", "variants", "no-stepper", "in-field", "invalid"],
+      items: ["usage", "range", "format", "variants", "no-stepper", "in-field", "invalid", "width"],
     },
     { group: "reference", items: ["api", "styling"] },
   ],

@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import type { FieldVariant, UISize } from "../../contract.ts";
 import { Input, Textarea } from "../input/index.ts";
 import { useMentionMenu } from "./use-mention-menu.tsx";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
 export interface MentionOption {
   /** Content inserted into the text after selection (the part after the prefix). */
@@ -12,7 +14,7 @@ export interface MentionOption {
   disabled?: boolean;
 }
 
-export interface MentionsProps {
+export interface MentionsProps extends WidthProps {
   /** Candidates; when there are only names you can pass a string array directly. */
   options: readonly (string | MentionOption)[];
   /**
@@ -80,6 +82,9 @@ export function Mentions({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   disabled = false,
   readOnly = false,
@@ -91,6 +96,11 @@ export function Mentions({
   const [inner, setInner] = useState(defaultValue);
   const value = valueProp !== undefined ? valueProp : inner;
   const wrapRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useWidthVars<HTMLDivElement>(
+    "mentions",
+    { width, minWidth, maxWidth },
+    wrapRef,
+  );
 
   const field = () =>
     wrapRef.current?.querySelector<HTMLInputElement | HTMLTextAreaElement>(
@@ -126,7 +136,8 @@ export function Mentions({
     readOnly,
     variant,
     size,
-    fullWidth,
+    // With a set width the input fills the wrapper, which carries the width
+    fullWidth: fullWidth || width !== undefined || minWidth !== undefined || maxWidth !== undefined,
     invalid,
     ...menu.inputProps,
     ...aria,
@@ -134,7 +145,7 @@ export function Mentions({
 
   return (
     <div
-      ref={wrapRef}
+      ref={wrapperRef}
       data-slot="mentions"
       data-full-width={fullWidth ? "" : undefined}
       data-disabled={disabled ? "" : undefined}

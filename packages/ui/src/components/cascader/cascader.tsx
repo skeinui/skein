@@ -7,6 +7,8 @@ import { Input } from "../input/index.ts";
 import { Popover } from "../popover/index.ts";
 import { Tag } from "../tag/index.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
 export interface CascaderOption {
   value: string;
@@ -18,7 +20,7 @@ export interface CascaderOption {
   lazy?: boolean;
 }
 
-interface CascaderBaseProps {
+interface CascaderBaseProps extends WidthProps {
   /** The option tree (`CascaderOption`: `value`, `label`, nested `children`, `lazy` for async loading); one column per level. */
   options: CascaderOption[];
   /** Text shown while empty; defaults to the language pack's "Select". */
@@ -191,6 +193,9 @@ export function Cascader(props: CascaderProps) {
     variant,
     size,
     fullWidth = false,
+    width,
+    minWidth,
+    maxWidth,
     invalid,
     disabled = false,
     emptyText: emptyTextProp,
@@ -444,7 +449,9 @@ export function Cascader(props: CascaderProps) {
         : undefined
     : (text ?? (typeof placeholder === "string" ? placeholder : undefined));
 
+  const triggerRef = useWidthVars<HTMLElement>("cascader", { width, minWidth, maxWidth });
   const triggerProps = {
+    ref: triggerRef,
     "data-slot": "cascader-trigger",
     "data-variant": variant ?? field?.variant ?? "outline",
     "data-size": size ?? field?.size ?? "md",

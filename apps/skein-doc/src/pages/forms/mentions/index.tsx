@@ -174,6 +174,37 @@ export default function MentionsPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<Mentions width={256} options={PEOPLE} placeholder="Type @ …" multiline={false} />
+<Mentions minWidth={200} options={PEOPLE} placeholder="Type @ …" multiline={false} />
+<Mentions maxWidth={120} options={PEOPLE} placeholder="Type @ …" multiline={false} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Mentions
+            aria-label="Width"
+            width={256}
+            options={PEOPLE}
+            placeholder="Type @ …"
+            multiline={false}
+          />
+          <Mentions
+            aria-label="Min width"
+            minWidth={200}
+            options={PEOPLE}
+            placeholder="Type @ …"
+            multiline={false}
+          />
+          <Mentions
+            aria-label="Max width"
+            maxWidth={120}
+            options={PEOPLE}
+            placeholder="Type @ …"
+            multiline={false}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

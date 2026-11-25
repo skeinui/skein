@@ -70,6 +70,18 @@
     "title": "TagInput",
     "description": "<kbd>Enter</kbd> or a comma adds a tag, <kbd>Backspace</kbd> in an empty input removes the last one, and pasted text is split on the separators; see also `max` / `validate` / `allowDuplicates`."
   },
+  "width": {
+    "title": "Width",
+    "description": "`width` fixes the width; `minWidth` and `maxWidth` bound a box that otherwise follows its content. A number is px, a string any CSS length (`\"16rem\"`, `\"50%\"`). `fullWidth` wins over `width`."
+  },
+  "textarea-width": {
+    "title": "Width",
+    "description": "`width` fixes the width; `minWidth` and `maxWidth` bound a box that otherwise follows its content. A number is px, a string any CSS length (`\"16rem\"`, `\"50%\"`). `fullWidth` wins over `width`."
+  },
+  "input-group-width": {
+    "title": "Width",
+    "description": "`width` fixes the width; `minWidth` and `maxWidth` bound a box that otherwise follows its content. A number is px, a string any CSS length (`\"16rem\"`, `\"50%\"`). `fullWidth` wins over `width`."
+  },
   "api": {
     "title": "API Reference",
     "affixes": "`InputGroup.Prefix` / `InputGroup.Suffix` take a span's native props and hold what goes before / after the input (icons, text, buttons); `InputGroup.Action` is a small icon button in the suffix position, and needs an `aria-label`."

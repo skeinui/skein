@@ -81,6 +81,19 @@ export default function TimePickerPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<TimePicker width={256} />
+<TimePicker minWidth={200} />
+<TimePicker maxWidth={120} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <TimePicker aria-label="Width" width={256} />
+          <TimePicker aria-label="Min width" minWidth={200} />
+          <TimePicker aria-label="Max width" maxWidth={120} />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

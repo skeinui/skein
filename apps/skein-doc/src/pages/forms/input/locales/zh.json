@@ -90,6 +90,18 @@
     "title": "TagInput",
     "description": "<kbd>Enter</kbd> 或逗号提交标签，空输入时 <kbd>Backspace</kbd> 删最后一个，粘贴按分隔符拆开；另见 `max` / `validate` / `allowDuplicates`。"
   },
+  "width": {
+    "title": "宽度",
+    "description": "`width` 固定宽度；`minWidth` / `maxWidth` 给随内容变化的宽度设下限 / 上限。数字按 px，字符串可写任意 CSS 长度（`\"16rem\"`、`\"50%\"`）。同时设了 `fullWidth` 时以 `fullWidth` 为准。"
+  },
+  "textarea-width": {
+    "title": "宽度",
+    "description": "`width` 固定宽度；`minWidth` / `maxWidth` 给随内容变化的宽度设下限 / 上限。数字按 px，字符串可写任意 CSS 长度（`\"16rem\"`、`\"50%\"`）。同时设了 `fullWidth` 时以 `fullWidth` 为准。"
+  },
+  "input-group-width": {
+    "title": "宽度",
+    "description": "`width` 固定宽度；`minWidth` / `maxWidth` 给随内容变化的宽度设下限 / 上限。数字按 px，字符串可写任意 CSS 长度（`\"16rem\"`、`\"50%\"`）。同时设了 `fullWidth` 时以 `fullWidth` 为准。"
+  },
   "api": {
     "title": "API 参考",
     "affixes": "`InputGroup.Prefix` / `InputGroup.Suffix` 接受 span 的原生属性，放输入前后的内容（图标、文字、按钮）；`InputGroup.Action` 是后缀位置的小图标按钮，必须传 `aria-label`。"
@@ -107,6 +119,9 @@
   },
   "props": {
     "Input": {
+      "width": "固定宽度：数字按 px，字符串可写任意 CSS 长度；同时设了 `fullWidth` 时以 `fullWidth` 为准。不设置时宽度随内容。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "fullWidth": "占满父元素的宽度。",
       "invalid": "显示无效状态。",
       "size": "输入框的尺寸档位（不是原生的 size 字符数，原生的那个被去掉了）。放进 Field 时默认取 Field 的。",
@@ -117,6 +132,9 @@
       "value": "输入框的值，受控时使用。"
     },
     "Textarea": {
+      "width": "固定宽度：数字按 px，字符串可写任意 CSS 长度；同时设了 `fullWidth` 时以 `fullWidth` 为准。不设置时宽度随内容。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "autoSize": "随内容自动增高：传 `true` 时至少 `rows` 行（默认 2），没有上限；也可以传 `{ minRows, maxRows }`，超过 `maxRows` 后高度固定、里面滚动。开了自动增高就不能手动拖动调整大小。",
       "fullWidth": "占满父元素的宽度。",
       "invalid": "显示无效状态。",
@@ -128,11 +146,13 @@
       "value": "输入框的值，受控时使用。"
     },
     "InputGroup": {
+      "width": "固定宽度：预设（`sm` 10rem、`md` 14rem、`lg` 20rem）适合不必占满一行的输入框，比如表格上方的搜索；也可以写数字（px）或 CSS 长度字符串。`fullWidth` 优先。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "children": "内容。",
       "fullWidth": "占满父元素的宽度。",
       "size": "尺寸档位。放进 Field 时默认取 Field 的。",
-      "variant": "`outline` 是带底色 / 描边的常规输入，`filled` 是灰底填充（HeroUI v3 的 primary / secondary）。放进 Field 时默认取 Field 的。",
-      "width": "固定宽度（`sm` 10rem、`md` 14rem、`lg` 20rem），用于不必占满一行的输入框，比如表格上方的搜索；`fullWidth` 优先。"
+      "variant": "`outline` 是带底色 / 描边的常规输入，`filled` 是灰底填充（HeroUI v3 的 primary / secondary）。放进 Field 时默认取 Field 的。"
     },
     "InputGroup_Input": {
       "invalid": "手动标记无效；组用 `:has()` 读取这个状态。",
@@ -142,6 +162,9 @@
       "value": "输入框的值，受控时使用。"
     },
     "PasswordInput": {
+      "width": "固定宽度：数字按 px，字符串可写任意 CSS 长度；同时设了 `fullWidth` 时以 `fullWidth` 为准。不设置时宽度随内容。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "defaultVisible": "非受控时 `visible` 的初始值。",
       "fullWidth": "占满父元素的宽度。",
       "invalid": "显示无效状态。",
@@ -157,6 +180,9 @@
       "value": "输入框的值，受控时使用。"
     },
     "SearchInput": {
+      "width": "固定宽度：预设（`sm` 10rem、`md` 14rem、`lg` 20rem）适合不必占满一行的输入框，比如表格上方的搜索；也可以写数字（px）或 CSS 长度字符串。`fullWidth` 优先。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "clearable": "有内容时显示清除按钮。",
       "defaultValue": "非受控时 `value` 的初始值。",
       "fullWidth": "占满父元素的宽度。",
@@ -168,10 +194,12 @@
       "size": "尺寸档位。放进 Field 时默认取 Field 的。",
       "value": "值，受控（配合 `onValueChange`）。",
       "variant": "`outline` 是带底色 / 描边的常规输入，`filled` 是灰底填充（HeroUI v3 的 primary / secondary）。放进 Field 时默认取 Field 的。",
-      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。",
-      "width": "固定宽度（`sm` 10rem、`md` 14rem、`lg` 20rem），用于不必占满一行的输入框，比如表格上方的搜索；`fullWidth` 优先。"
+      "render": "替换组件的 HTML 元素，或与另一个组件组合。接受一个 `ReactElement`，或返回要渲染元素的函数。"
     },
     "TagInput": {
+      "width": "固定宽度：数字按 px，字符串可写任意 CSS 长度；同时设了 `fullWidth` 时以 `fullWidth` 为准。不设置时宽度随内容。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "addOnBlur": "输入框失焦时，未提交的文字也会加为标签。",
       "allowDuplicates": "是否允许重复；不允许时重复的会被忽略。",
       "defaultValue": "非受控时 `value` 的初始值。",

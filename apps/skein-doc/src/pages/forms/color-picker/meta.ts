@@ -15,6 +15,7 @@ export default {
         "show-value",
         "sizes",
         "disabled",
+        "width",
       ],
     },
     { group: "reference", items: ["api", "styling"] },

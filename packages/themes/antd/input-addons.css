@@ -107,3 +107,12 @@
     color: var(--ui-c-danger-text);
   }
 }
+
+/* Width props (width / minWidth / maxWidth): the component writes them as CSS variables on the slot; unset, the fallbacks keep the defaults above */
+@layer ui-style {
+  [data-skein-theme="antd"] [data-slot="textarea-wrapper"] {
+    width: var(--ui-textarea-wrapper-width, auto);
+    min-width: var(--ui-textarea-wrapper-min-width, auto);
+    max-width: var(--ui-textarea-wrapper-max-width, 100%);
+  }
+}

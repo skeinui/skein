@@ -59,3 +59,12 @@
     }
   }
 }
+
+/* Width props (width / minWidth / maxWidth): the component writes them as CSS variables on the slot; unset, the fallbacks keep the defaults above */
+@layer ui-style {
+  [data-skein-theme="default"] [data-slot="mentions"] {
+    width: var(--ui-mentions-width, auto);
+    min-width: var(--ui-mentions-min-width, auto);
+    max-width: var(--ui-mentions-max-width, 100%);
+  }
+}

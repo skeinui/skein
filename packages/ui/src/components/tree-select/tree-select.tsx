@@ -8,6 +8,8 @@ import { Tag } from "../tag/index.ts";
 import { Tree } from "../tree/index.ts";
 import type { TreeNode } from "../tree/index.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
 export interface TreeSelectNode {
   /** Unique id across the whole tree; this is what `value` holds. */
@@ -20,7 +22,7 @@ export interface TreeSelectNode {
   lazy?: boolean;
 }
 
-interface TreeSelectBaseProps {
+interface TreeSelectBaseProps extends WidthProps {
   /** The tree data: top-level nodes, each nesting its `children`. */
   nodes: TreeSelectNode[];
   /** Text shown while empty, default the locale's "Select". */
@@ -172,6 +174,9 @@ export function TreeSelect(props: TreeSelectProps) {
     variant,
     size,
     fullWidth,
+    width,
+    minWidth,
+    maxWidth,
     invalid,
     disabled,
     emptyText,
@@ -225,7 +230,9 @@ export function TreeSelect(props: TreeSelectProps) {
     if (!next) setQuery("");
   };
 
+  const triggerRef = useWidthVars<HTMLElement>("treeselect", { width, minWidth, maxWidth });
   const triggerProps = {
+    ref: triggerRef,
     "data-slot": "treeselect-trigger",
     "data-variant": variant ?? field?.variant ?? "outline",
     "data-size": size ?? field?.size ?? "md",

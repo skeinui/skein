@@ -7,8 +7,10 @@ import { Toggle, ToggleGroup } from "../toggle/index.ts";
 import { formatColor, hsvToRgb, parseColor, rgbToHsv, toHex } from "./color.ts";
 import type { HSVA } from "./color.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
-export interface ColorPickerProps {
+export interface ColorPickerProps extends WidthProps {
   /**
    * Current color; the string format follows format: hex is #rrggbb (#rrggbbaa when opacity is below 1),
    * rgb is `rgb(22 119 255 / 0.5)`, hsb is `hsb(215 91% 100%)`. All three formats are accepted when reading.
@@ -163,6 +165,9 @@ export function ColorPicker({
   presets,
   showValue = false,
   size = "md",
+  width,
+  minWidth,
+  maxWidth,
   disabled = false,
   open,
   defaultOpen,
@@ -171,6 +176,7 @@ export function ColorPicker({
   "aria-label": ariaLabelProp,
 }: ColorPickerProps) {
   const t = useLabels("colorPicker");
+  const triggerRef = useWidthVars<HTMLButtonElement>("colorpicker", { width, minWidth, maxWidth });
   const ariaLabel = ariaLabelProp ?? t.color;
   const [hsva, setHsva] = useState<HSVA>(
     () => parseColor(valueProp ?? defaultValue) ?? { h: 0, s: 0, v: 0, a: 1 },
@@ -270,6 +276,7 @@ export function ColorPicker({
   return (
     <Popover open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
       <Popover.Trigger
+        ref={triggerRef}
         data-slot="colorpicker-trigger"
         data-size={size}
         disabled={disabled}

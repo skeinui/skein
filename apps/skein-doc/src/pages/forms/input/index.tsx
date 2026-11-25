@@ -204,6 +204,19 @@ export function Basic() {
         <ControlledDemo />
       </Example>
 
+      <Example
+        id="width"
+        code={`<Input width={256} placeholder="width 256" />
+<Input minWidth={200} placeholder="minWidth 200" />
+<Input maxWidth={120} placeholder="maxWidth 120" />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Input aria-label="Width" width={256} placeholder="width 256" />
+          <Input aria-label="Min width" minWidth={200} placeholder="minWidth 200" />
+          <Input aria-label="Max width" maxWidth={120} placeholder="maxWidth 120" />
+        </div>
+      </Example>
+
       <DocHeading id="textarea-heading" />
 
       <Example
@@ -263,6 +276,19 @@ export function Basic() {
             autoSize
             placeholder="Count and auto size"
           />
+        </div>
+      </Example>
+
+      <Example
+        id="textarea-width"
+        code={`<Textarea width={256} />
+<Textarea minWidth={200} />
+<Textarea maxWidth={120} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Textarea aria-label="Width" width={256} placeholder="width 256" />
+          <Textarea aria-label="Min width" minWidth={200} placeholder="minWidth 200" />
+          <Textarea aria-label="Max width" maxWidth={120} placeholder="maxWidth 120" />
         </div>
       </Example>
 
@@ -359,6 +385,28 @@ export function Basic() {
               <MailIcon />
             </InputGroup.Prefix>
             <InputGroup.Input aria-label="Disabled" disabled placeholder="Disabled" />
+          </InputGroup>
+        </div>
+      </Example>
+
+      <Example
+        id="input-group-width"
+        code={`<InputGroup width={256}>…</InputGroup>
+<InputGroup minWidth={200}>…</InputGroup>
+<InputGroup maxWidth={120}>…</InputGroup>`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <InputGroup width={256}>
+            <InputGroup.Prefix>https://</InputGroup.Prefix>
+            <InputGroup.Input aria-label="Width" placeholder="width 256" />
+          </InputGroup>
+          <InputGroup minWidth={200}>
+            <InputGroup.Prefix>https://</InputGroup.Prefix>
+            <InputGroup.Input aria-label="Min width" placeholder="minWidth 200" />
+          </InputGroup>
+          <InputGroup maxWidth={160}>
+            <InputGroup.Prefix>https://</InputGroup.Prefix>
+            <InputGroup.Input aria-label="Max width" placeholder="maxWidth 160" />
           </InputGroup>
         </div>
       </Example>

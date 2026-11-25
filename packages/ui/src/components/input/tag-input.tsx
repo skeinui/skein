@@ -6,8 +6,11 @@ import { useLabels } from "../../locales/use-labels.ts";
 
 export interface TagInputProps
   extends
-    Omit<InputGroupInputProps, "size" | "value" | "defaultValue" | "onValueChange" | "type">,
-    Pick<InputGroupProps, "variant" | "size" | "fullWidth"> {
+    Omit<
+      InputGroupInputProps,
+      "size" | "width" | "value" | "defaultValue" | "onValueChange" | "type"
+    >,
+    Pick<InputGroupProps, "variant" | "size" | "fullWidth" | "width" | "minWidth" | "maxWidth"> {
   /** Existing tags. */
   value?: string[];
   defaultValue?: string[];
@@ -43,6 +46,9 @@ export function TagInput({
   variant,
   size,
   fullWidth,
+  width,
+  minWidth,
+  maxWidth,
   value: valueProp,
   defaultValue = [],
   onValueChange,
@@ -123,7 +129,14 @@ export function TagInput({
   };
 
   return (
-    <InputGroup variant={variant} size={size} fullWidth={fullWidth}>
+    <InputGroup
+      variant={variant}
+      size={size}
+      fullWidth={fullWidth}
+      width={width}
+      minWidth={minWidth}
+      maxWidth={maxWidth}
+    >
       {tags.length > 0 ? (
         <span data-slot="input-group-tags">
           {tags.map((tag, i) => (

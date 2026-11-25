@@ -122,6 +122,19 @@ export default function TreeSelectPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<TreeSelect width={256} nodes={NODES} />
+<TreeSelect minWidth={200} nodes={NODES} />
+<TreeSelect maxWidth={120} nodes={NODES} />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <TreeSelect aria-label="Width" width={256} nodes={NODES} />
+          <TreeSelect aria-label="Min width" minWidth={200} nodes={NODES} />
+          <TreeSelect aria-label="Max width" maxWidth={120} nodes={NODES} />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

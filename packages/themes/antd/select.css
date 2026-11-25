@@ -9,7 +9,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 4px;
-    min-width: 0;
+    min-width: var(--ui-select-min-width, 0);
+    width: var(--ui-select-width, auto);
+    max-width: var(--ui-select-max-width, none);
     height: var(--ui-height-md);
     padding-inline: 11px;
     border: 1px solid var(--ui-field-border);

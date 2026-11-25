@@ -147,6 +147,19 @@ export default function DatePickerPage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<DatePicker width={256} placeholder="Pick a date" />
+<DatePicker minWidth={200} placeholder="Pick a date" />
+<DatePicker maxWidth={120} placeholder="Pick a date" />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <DatePicker aria-label="Width" width={256} placeholder="Pick a date" />
+          <DatePicker aria-label="Min width" minWidth={200} placeholder="Pick a date" />
+          <DatePicker aria-label="Max width" maxWidth={120} placeholder="Pick a date" />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

@@ -15,6 +15,7 @@ export default {
         "in-field",
         "disabled",
         "full-width",
+        "width",
       ],
     },
     {

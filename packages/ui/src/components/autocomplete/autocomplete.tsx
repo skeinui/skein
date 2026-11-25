@@ -2,8 +2,10 @@ import { Autocomplete as BaseAutocomplete } from "@base-ui/react/autocomplete";
 import type { ReactNode } from "react";
 import type { FieldVariant, OverlayAlign, OverlaySide, UISize } from "../../contract.ts";
 import { useFieldDefaults } from "../field/context.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
-export interface AutocompleteProps {
+export interface AutocompleteProps extends WidthProps {
   /** Suggestion list, plain strings; the user can pick one, or type any text outside the list. */
   items: string[];
   /** Text in the input. Controlled. */
@@ -55,6 +57,9 @@ export function Autocomplete({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   disabled,
   open,
@@ -67,6 +72,7 @@ export function Autocomplete({
   sideOffset = 4,
 }: AutocompleteProps) {
   const field = useFieldDefaults();
+  const groupRef = useWidthVars<HTMLDivElement>("input-group", { width, minWidth, maxWidth });
   return (
     <BaseAutocomplete.Root
       items={items}
@@ -80,6 +86,7 @@ export function Autocomplete({
       name={name}
     >
       <BaseAutocomplete.InputGroup
+        ref={groupRef}
         data-slot="input-group"
         data-variant={variant ?? field?.variant ?? "outline"}
         data-size={size ?? field?.size ?? "md"}

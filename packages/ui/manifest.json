@@ -2225,6 +2225,14 @@
           "required": true,
           "description": "Suggestion list, plain strings; the user can pick one, or type any text outside the list."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "name": {
           "type": "string",
           "description": "Field name, for native form submission."
@@ -2281,6 +2289,10 @@
             "outline"
           ],
           "description": "Visual variant; how each one looks is up to the theme style."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "docs": "autocomplete",
@@ -2304,6 +2316,10 @@
         {
           "title": "Disabled & Invalid",
           "code": "<Autocomplete disabled … />\n<Autocomplete invalid … />"
+        },
+        {
+          "title": "Width",
+          "code": "<Autocomplete width={256} items={TAGS} placeholder=\"Search tags\" />\n<Autocomplete minWidth={200} items={TAGS} placeholder=\"Search tags\" />\n<Autocomplete maxWidth={120} items={TAGS} placeholder=\"Search tags\" />"
         }
       ]
     },
@@ -3607,6 +3623,14 @@
           "type": "number",
           "description": "Maximum number of tags shown in the trigger; the rest collapse into \"+N\"."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "multiple": {
           "type": "boolean",
           "description": "Multiple selection: each option has a checkbox, checking a parent node checks all available leaves under it,\nand `value` becomes an array of leaf paths.\nMultiple selection: each option has a checkbox, and checking a parent node checks all available leaves under it.",
@@ -3663,6 +3687,10 @@
             "outline"
           ],
           "description": "Visual variant; how each one looks is up to the theme style."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "types": {
@@ -3752,6 +3780,10 @@
         {
           "title": "Invalid & Disabled",
           "code": "<Cascader invalid />\\n<Cascader disabled />"
+        },
+        {
+          "title": "Width",
+          "code": "<Cascader width={256} options={OPTIONS} />\n<Cascader minWidth={200} options={OPTIONS} />\n<Cascader maxWidth={120} options={OPTIONS} />"
         }
       ]
     },
@@ -4808,6 +4840,14 @@
           "description": "Formats that can be switched in the panel; with only one, the switch is not shown.",
           "default": "[\"hex\", \"rgb\", \"hsb\"]"
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "name": {
           "type": "string",
           "description": "Write a hidden input so it is submitted with the native form."
@@ -4850,6 +4890,10 @@
         "value": {
           "type": "string",
           "description": "Current color; the string format follows format: hex is #rrggbb (#rrggbbaa when opacity is below 1),\nrgb is `rgb(22 119 255 / 0.5)`, hsb is `hsb(215 91% 100%)`. All three formats are accepted when reading."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "slots": [
@@ -4905,6 +4949,10 @@
         {
           "title": "Disabled",
           "code": "<ColorPicker disabled />"
+        },
+        {
+          "title": "Width",
+          "code": "<ColorPicker width={256} defaultValue=\"#1677ff\" showValue />\n<ColorPicker minWidth={200} defaultValue=\"#1677ff\" showValue />\n<ColorPicker maxWidth={120} defaultValue=\"#1677ff\" showValue />"
         }
       ]
     },
@@ -4950,6 +4998,14 @@
         "invalid": {
           "type": "boolean",
           "description": "Shows the invalid state."
+        },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
         },
         "name": {
           "type": "string",
@@ -5012,6 +5068,10 @@
             "outline"
           ],
           "description": "Visual variant; how each one looks is up to the theme style."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "types": {
@@ -5081,6 +5141,10 @@
         {
           "title": "Disabled & Invalid",
           "code": "<Combobox disabled … />\n<Combobox invalid … />"
+        },
+        {
+          "title": "Width",
+          "code": "<Combobox width={256} options={FRUITS} placeholder=\"Search fruit\" />\n<Combobox minWidth={200} options={FRUITS} placeholder=\"Search fruit\" />\n<Combobox maxWidth={120} options={FRUITS} placeholder=\"Search fruit\" />"
         }
       ]
     },
@@ -6869,9 +6933,17 @@
           "type": "string",
           "description": "Latest selectable date, \"YYYY-MM-DD\" (also limits periods that lie entirely after it)."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
         "min": {
           "type": "string",
           "description": "Earliest selectable date, \"YYYY-MM-DD\" (also limits weeks / months / quarters / years that lie entirely before it)."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
         },
         "mode": {
           "type": "\"single\" | \"range\"",
@@ -6930,6 +7002,10 @@
         "weekStartsOn": {
           "type": "0 | 3 | 1 | 2 | 4 | 5 | 6",
           "description": "Which weekday each week starts on, 0 = Sunday, 1 = Monday. Default 0. Also decides the value of a week pick."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "types": {
@@ -7040,6 +7116,10 @@
         {
           "title": "Disabled & Invalid",
           "code": "<DatePicker disabled />\n<DatePicker invalid />"
+        },
+        {
+          "title": "Width",
+          "code": "<DatePicker width={256} placeholder=\"Pick a date\" />\n<DatePicker minWidth={200} placeholder=\"Pick a date\" />\n<DatePicker maxWidth={120} placeholder=\"Pick a date\" />"
         }
       ]
     },
@@ -10048,6 +10128,14 @@
           "type": "boolean",
           "description": "Shows the invalid state."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "size": {
           "type": "\"sm\" | \"md\" | \"lg\"",
           "values": [
@@ -10066,6 +10154,10 @@
           ],
           "description": "`outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).\nInside a Field it defaults to the Field's.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         },
         "defaultValue": {
           "type": "string | number | readonly string[]",
@@ -10135,6 +10227,10 @@
           "code": "const [value, setValue] = useState(\"\");\n\n<Input value={value} onValueChange={setValue} placeholder=\"Type something\" />"
         },
         {
+          "title": "Width",
+          "code": "<Input width={256} placeholder=\"width 256\" />\n<Input minWidth={200} placeholder=\"minWidth 200\" />\n<Input maxWidth={120} placeholder=\"maxWidth 120\" />"
+        },
+        {
           "title": "Textarea",
           "code": "<Textarea placeholder=\"Tell us about yourself\" />\n<Textarea variant=\"filled\" placeholder=\"Filled\" />"
         },
@@ -10151,6 +10247,10 @@
           "code": "<Textarea showCount maxLength={100} />\n<Textarea showCount autoSize />"
         },
         {
+          "title": "Width",
+          "code": "<Textarea width={256} />\n<Textarea minWidth={200} />\n<Textarea maxWidth={120} />"
+        },
+        {
           "title": "Prefix & Suffix",
           "code": "<InputGroup>\n  <InputGroup.Prefix>https://</InputGroup.Prefix>\n  <InputGroup.Input placeholder=\"example\" />\n  <InputGroup.Suffix>.com</InputGroup.Suffix>\n</InputGroup>"
         },
@@ -10165,6 +10265,10 @@
         {
           "title": "States",
           "code": "<InputGroup size=\"sm\">…</InputGroup>\n<InputGroup size=\"lg\">…</InputGroup>\n<InputGroup><InputGroup.Input invalid /></InputGroup>\n<InputGroup><InputGroup.Input disabled /></InputGroup>"
+        },
+        {
+          "title": "Width",
+          "code": "<InputGroup width={256}>…</InputGroup>\n<InputGroup minWidth={200}>…</InputGroup>\n<InputGroup maxWidth={120}>…</InputGroup>"
         },
         {
           "title": "PasswordInput",
@@ -10193,6 +10297,14 @@
           "description": "Fills the width of the parent.",
           "default": "false"
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length)."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "size": {
           "type": "\"sm\" | \"md\" | \"lg\"",
           "values": [
@@ -10213,13 +10325,8 @@
           "default": "\"outline\""
         },
         "width": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ],
-          "description": "A set width (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table; `fullWidth` wins."
+          "type": "number | \"sm\" | \"md\" | \"lg\" | (string & {})",
+          "description": "A set width: a preset (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table,\nor a number (px) / CSS length string for a fixed width; `fullWidth` wins."
         }
       },
       "parts": {
@@ -11564,6 +11671,14 @@
           "type": "boolean",
           "description": "Shows the invalid state."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "multiline": {
           "type": "boolean",
           "description": "Multi-line input (textarea); false is a single-line input.",
@@ -11641,6 +11756,10 @@
             "outline"
           ],
           "description": "Visual variant; how each one looks is up to the theme style."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "types": {
@@ -11696,6 +11815,10 @@
         {
           "title": "States",
           "code": "<Mentions disabled />"
+        },
+        {
+          "title": "Width",
+          "code": "<Mentions width={256} options={PEOPLE} placeholder=\"Type @ …\" multiline={false} />\n<Mentions minWidth={200} options={PEOPLE} placeholder=\"Type @ …\" multiline={false} />\n<Mentions maxWidth={120} options={PEOPLE} placeholder=\"Type @ …\" multiline={false} />"
         }
       ]
     },
@@ -13594,6 +13717,14 @@
           "type": "boolean",
           "description": "Shows the invalid state."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "placeholder": {
           "type": "string",
           "description": "Text shown while empty."
@@ -13619,6 +13750,10 @@
             "outline"
           ],
           "description": "Visual variant; how each one looks is up to the theme style."
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         },
         "allowOutOfRange": {
           "type": "boolean",
@@ -13771,6 +13906,10 @@
         {
           "title": "Disabled & Invalid",
           "code": "<NumberField disabled />\n<NumberField invalid />"
+        },
+        {
+          "title": "Width",
+          "code": "<NumberField width={256} defaultValue={1} />\n<NumberField minWidth={200} defaultValue={1} />\n<NumberField maxWidth={120} defaultValue={1} />"
         }
       ]
     },
@@ -14743,6 +14882,14 @@
           "type": "Partial<PasswordInputLabels>",
           "description": "Built-in texts to override (see its Labels type below); by default they follow the ConfigProvider locale."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length)."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "onVisibleChange": {
           "type": "(visible: boolean) => void",
           "description": "Called with the new `visible`; pass `visible` as well to control it."
@@ -14774,6 +14921,10 @@
         "visible": {
           "type": "boolean",
           "description": "Controlled visibility state."
+        },
+        "width": {
+          "type": "number | \"sm\" | \"md\" | \"lg\" | (string & {})",
+          "description": "A set width: a preset (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table,\nor a number (px) / CSS length string for a fixed width; `fullWidth` wins."
         },
         "defaultValue": {
           "type": "string | number | readonly string[]",
@@ -17049,6 +17200,14 @@
           "description": "Searching: the search button is replaced by a spinner (with `aria-busy`), and searching cannot be triggered again.",
           "default": "false"
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length)."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "onSearch": {
           "type": "(value: string, source: \"button\" | \"clear\" | \"enter\") => void",
           "description": "Called on Enter (not during IME composition), clicking the search button, or clicking the clear button (where source is \"clear\"); not while `loading`."
@@ -17081,13 +17240,8 @@
           "default": "\"outline\""
         },
         "width": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
-          "values": [
-            "sm",
-            "md",
-            "lg"
-          ],
-          "description": "A set width (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table; `fullWidth` wins."
+          "type": "number | \"sm\" | \"md\" | \"lg\" | (string & {})",
+          "description": "A set width: a preset (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table,\nor a number (px) / CSS length string for a fixed width; `fullWidth` wins."
         },
         "render": {
           "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, InputState>",
@@ -17258,6 +17412,14 @@
           "type": "boolean",
           "description": "When not inside a Field, mark it manually with invalid; inside a Field the Field's validation state decides."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "options": {
           "type": "(SelectOption | SelectOptionGroup)[]",
           "required": true,
@@ -17301,6 +17463,10 @@
           ],
           "description": "Look of the trigger; inside a Field the Field's is used when not passed.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         },
         "actionsRef": {
           "type": "RefObject<SelectRootActions | null>",
@@ -17495,6 +17661,10 @@
         {
           "title": "Full Width",
           "code": "<Select fullWidth … />"
+        },
+        {
+          "title": "Width",
+          "code": "<Select width={256} … />  <Select minWidth={200} maxWidth={320} … />"
         }
       ]
     },
@@ -20192,6 +20362,14 @@
           "type": "number",
           "description": "Maximum number of tags; no more are added once full."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length)."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "onValueChange": {
           "type": "(tags: string[]) => void",
           "description": "Called with the new `value`; pass `value` as well to control it."
@@ -20231,6 +20409,10 @@
           ],
           "description": "`outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).\nInside a Field it defaults to the Field's.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "number | \"sm\" | \"md\" | \"lg\" | (string & {})",
+          "description": "A set width: a preset (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table,\nor a number (px) / CSS length string for a fixed width; `fullWidth` wins."
         },
         "render": {
           "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, InputState>",
@@ -20481,6 +20663,14 @@
           "type": "boolean",
           "description": "Shows the invalid state."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "showCount": {
           "type": "boolean",
           "description": "Show a character count below the input (\"n / max\" when there is a `maxLength`, changing color at the limit). Counted by `value.length`, consistent with native `maxLength`.",
@@ -20504,6 +20694,10 @@
           ],
           "description": "`outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).\nInside a Field it defaults to the Field's.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         },
         "defaultValue": {
           "type": "string | number | readonly string[]",
@@ -20877,6 +21071,10 @@
           "type": "string",
           "description": "Latest selectable time \"HH:mm[:ss]\"; later options are disabled."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
         "min": {
           "type": "string",
           "description": "Earliest selectable time \"HH:mm[:ss]\"; earlier options are disabled."
@@ -20885,6 +21083,10 @@
           "type": "number",
           "description": "Interval between minute options, e.g. 15 for :00 / :15 / :30 / :45.",
           "default": "1"
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
         },
         "name": {
           "type": "string",
@@ -20930,6 +21132,10 @@
           ],
           "description": "Visual variant, as on Select; inside a Field it defaults to the Field's.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "types": {
@@ -21004,6 +21210,10 @@
         {
           "title": "Disabled and invalid",
           "code": "<TimePicker disabled /> <TimePicker invalid />"
+        },
+        {
+          "title": "Width",
+          "code": "<TimePicker width={256} />\n<TimePicker minWidth={200} />\n<TimePicker maxWidth={120} />"
         }
       ]
     },
@@ -22475,6 +22685,14 @@
           "type": "number",
           "description": "Maximum number of tags shown in the trigger; the rest collapse into \"+N\"."
         },
+        "maxWidth": {
+          "type": "string | number",
+          "description": "Maximum width (number = px, string = CSS length); longer content is truncated or scrolls inside."
+        },
+        "minWidth": {
+          "type": "string | number",
+          "description": "Minimum width (number = px, string = CSS length); the box still grows with its content."
+        },
         "multiple": {
           "type": "boolean",
           "description": "Multiple selection: each node has a checkbox, and checking a parent checks all available leaves beneath it.",
@@ -22528,6 +22746,10 @@
           ],
           "description": "Visual variant of the trigger, as on Select; inside a Field it defaults to the Field's.",
           "default": "\"outline\""
+        },
+        "width": {
+          "type": "string | number",
+          "description": "Fixed width (a number is px, a string any CSS length such as `\"16rem\"` or `\"50%\"`). Unset, the box is as wide as its content; `fullWidth` wins."
         }
       },
       "types": {
@@ -22579,6 +22801,10 @@
         {
           "title": "Sizes and states",
           "code": "<TreeSelect size=\"sm\" /> <TreeSelect invalid /> <TreeSelect disabled />"
+        },
+        {
+          "title": "Width",
+          "code": "<TreeSelect width={256} nodes={NODES} />\n<TreeSelect minWidth={200} nodes={NODES} />\n<TreeSelect maxWidth={120} nodes={NODES} />"
         }
       ]
     },

@@ -14,6 +14,10 @@
   "show-value": { "title": "显示色值" },
   "sizes": { "title": "尺寸" },
   "disabled": { "title": "禁用" },
+  "width": {
+    "title": "宽度",
+    "description": "`width` 固定宽度；`minWidth` / `maxWidth` 给随内容变化的宽度设下限 / 上限。数字按 px，字符串可写任意 CSS 长度（`\"16rem\"`、`\"50%\"`）。同时设了 `fullWidth` 时以 `fullWidth` 为准。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -29,6 +33,9 @@
   },
   "props": {
     "ColorPicker": {
+      "width": "固定宽度：数字按 px，字符串可写任意 CSS 长度；同时设了 `fullWidth` 时以 `fullWidth` 为准。不设置时宽度随内容。",
+      "minWidth": "最小宽度（数字按 px，字符串为 CSS 长度）；内容更长时仍会撑开。",
+      "maxWidth": "最大宽度（数字按 px，字符串为 CSS 长度）；内容更长时截断或在内部滚动。",
       "alpha": "显示透明度滑块和透明度输入框（百分数）。",
       "aria-label": "没有可见标签时的无障碍名称。",
       "defaultFormat": "非受控时 `format` 的初始值。",

@@ -158,6 +158,27 @@ export default function SelectPage() {
         <Select aria-label="Full width" fullWidth placeholder="Full width" options={FRUITS} />
       </Example>
 
+      <Example
+        id="width"
+        code={`<Select width={256} … />  <Select minWidth={200} maxWidth={320} … />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Select aria-label="Width" width={256} placeholder="width 256" options={FRUITS} />
+          <Select
+            aria-label="Min width"
+            minWidth={200}
+            placeholder="minWidth 200"
+            options={FRUITS}
+          />
+          <Select
+            aria-label="Max width"
+            maxWidth={120}
+            placeholder="maxWidth 120"
+            options={FRUITS}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

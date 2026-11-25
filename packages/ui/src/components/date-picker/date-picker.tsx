@@ -19,11 +19,13 @@ import {
   splitRange,
 } from "./parse.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
 /** What to pick by: date (default), week, month, quarter, year. */
 export type DatePickerPicker = "date" | "week" | "month" | "quarter" | "year";
 
-interface DatePickerBaseProps {
+interface DatePickerBaseProps extends WidthProps {
   placeholder?: string;
   variant?: FieldVariant;
   size?: UISize;
@@ -135,6 +137,9 @@ export function DatePicker(props: DatePickerProps) {
     variant,
     size,
     fullWidth = false,
+    width,
+    minWidth,
+    maxWidth,
     invalid,
     disabled,
     editable = false,
@@ -313,9 +318,13 @@ export function DatePicker(props: DatePickerProps) {
   const sizeValue = size ?? field?.size ?? "md";
   const calendarLabel = dp.choose[picker];
 
+  const widthVars = { width, minWidth, maxWidth };
+  // The trigger is a box (editable) or a button; both are the select-trigger slot, so they read Select's width variables
+  const editableRef = useWidthVars<HTMLDivElement>("select", widthVars, wrapRef);
+  const buttonRef = useWidthVars<HTMLButtonElement>("select", widthVars);
   const trigger = editable ? (
     <div
-      ref={wrapRef}
+      ref={editableRef}
       data-slot="select-trigger"
       data-editable=""
       data-variant={variantValue}
@@ -364,6 +373,7 @@ export function DatePicker(props: DatePickerProps) {
     </div>
   ) : (
     <Popover.Trigger
+      ref={buttonRef}
       disabled={disabled}
       // The accessible name must include the visible text (WCAG 2.5.3 Label in Name), so the value goes first, followed by the name given by the caller
       aria-label={ariaLabel ? `${text ?? placeholder}, ${ariaLabel}` : undefined}

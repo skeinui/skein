@@ -90,6 +90,29 @@ export default function AutocompletePage() {
         </div>
       </Example>
 
+      <Example
+        id="width"
+        code={`<Autocomplete width={256} items={TAGS} placeholder="Search tags" />
+<Autocomplete minWidth={200} items={TAGS} placeholder="Search tags" />
+<Autocomplete maxWidth={120} items={TAGS} placeholder="Search tags" />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <Autocomplete aria-label="Width" width={256} items={TAGS} placeholder="Search tags" />
+          <Autocomplete
+            aria-label="Min width"
+            minWidth={200}
+            items={TAGS}
+            placeholder="Search tags"
+          />
+          <Autocomplete
+            aria-label="Max width"
+            maxWidth={120}
+            items={TAGS}
+            placeholder="Search tags"
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

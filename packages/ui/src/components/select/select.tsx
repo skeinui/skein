@@ -1,6 +1,8 @@
 import { Select as BaseSelect } from "@base-ui/react/select";
 import type { ReactNode } from "react";
 import type { FieldVariant, OverlayAlign, OverlaySide, UISize } from "../../contract.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 import { useFieldDefaults } from "../field/context.ts";
 
 export interface SelectOption {
@@ -17,10 +19,10 @@ export interface SelectOptionGroup {
   options: SelectOption[];
 }
 
-export interface SelectProps extends Omit<
-  BaseSelect.Root.Props<string, false>,
-  "children" | "items" | "multiple"
-> {
+export interface SelectProps
+  extends
+    Omit<BaseSelect.Root.Props<string, false>, "children" | "items" | "multiple">,
+    WidthProps {
   /**
    * Options: a plain option, or a group with a label. Options are described with data rather than a pile of child elements,
    * so the selected item's text can be read directly, and it is also easier to generate pages from data later.
@@ -102,6 +104,9 @@ export function Select({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   "aria-label": ariaLabel,
   side = "bottom",
@@ -110,10 +115,12 @@ export function Select({
   ...root
 }: SelectProps) {
   const field = useFieldDefaults();
+  const triggerRef = useWidthVars<HTMLButtonElement>("select", { width, minWidth, maxWidth });
   const items = options.flatMap((o) => (isGroup(o) ? o.options : [o]));
   return (
     <BaseSelect.Root items={items} {...root}>
       <BaseSelect.Trigger
+        ref={triggerRef}
         aria-label={ariaLabel}
         {...(invalid ? { "data-invalid": "", "aria-invalid": true } : null)}
         data-slot="select-trigger"

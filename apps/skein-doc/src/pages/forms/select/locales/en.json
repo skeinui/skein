@@ -13,6 +13,7 @@
   },
   "disabled": { "title": "Disabled & Invalid" },
   "full-width": { "title": "Full Width" },
+  "width": { "title": "Width" },
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",

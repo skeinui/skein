@@ -201,3 +201,22 @@
     padding-inline-end: 0.375rem;
   }
 }
+
+/* Width props (width / minWidth / maxWidth): the component writes them as CSS variables on the slot; unset, the fallbacks keep the defaults above */
+@layer ui-style {
+  [data-skein-theme="shadcn"] [data-slot="input"] {
+    width: var(--ui-input-width, auto);
+    min-width: var(--ui-input-min-width, 0);
+    max-width: var(--ui-input-max-width, none);
+  }
+  [data-skein-theme="shadcn"] [data-slot="textarea"] {
+    width: var(--ui-textarea-width, auto);
+    min-width: var(--ui-textarea-min-width, 0);
+    max-width: var(--ui-textarea-max-width, none);
+  }
+  [data-skein-theme="shadcn"] [data-slot="input-group"] {
+    width: var(--ui-input-group-width, auto);
+    min-width: var(--ui-input-group-min-width, auto);
+    max-width: var(--ui-input-group-max-width, none);
+  }
+}

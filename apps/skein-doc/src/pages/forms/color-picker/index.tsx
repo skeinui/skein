@@ -129,6 +129,19 @@ export default function ColorPickerPage() {
         <ColorPicker aria-label="Disabled" disabled showValue defaultValue="#13c2c2" />
       </Example>
 
+      <Example
+        id="width"
+        code={`<ColorPicker width={256} defaultValue="#1677ff" showValue />
+<ColorPicker minWidth={200} defaultValue="#1677ff" showValue />
+<ColorPicker maxWidth={120} defaultValue="#1677ff" showValue />`}
+      >
+        <div className="pg-flex pg-flex--loose">
+          <ColorPicker aria-label="Width" width={256} defaultValue="#1677ff" showValue />
+          <ColorPicker aria-label="Min width" minWidth={200} defaultValue="#1677ff" showValue />
+          <ColorPicker aria-label="Max width" maxWidth={120} defaultValue="#1677ff" showValue />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

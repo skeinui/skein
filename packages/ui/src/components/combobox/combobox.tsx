@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import type { FieldVariant, OverlayAlign, OverlaySide, UISize } from "../../contract.ts";
 import { useFieldDefaults } from "../field/context.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
 export interface ComboboxOption {
   value: string;
@@ -18,7 +20,7 @@ export interface ComboboxOptionGroup {
   options: ComboboxOption[];
 }
 
-export interface ComboboxProps {
+export interface ComboboxProps extends WidthProps {
   /** Options: a plain option, or a group with a label. Described with data, consistent with Select. */
   options: (ComboboxOption | ComboboxOptionGroup)[];
   /** Value of the selected item; null means nothing selected. Controlled. */
@@ -107,6 +109,9 @@ export function Combobox({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   disabled,
   open,
@@ -122,6 +127,7 @@ export function Combobox({
   const c = useLabels("common");
   const emptyText = emptyTextProp ?? c.noResults;
   const field = useFieldDefaults();
+  const groupRef = useWidthVars<HTMLDivElement>("input-group", { width, minWidth, maxWidth });
   const flat = options.flatMap((o) => (isGroup(o) ? o.options : [o]));
   const find = (v: string | null | undefined) =>
     v == null ? null : (flat.find((o) => o.value === v) ?? null);
@@ -144,6 +150,7 @@ export function Combobox({
       isItemEqualToValue={(a, b) => (a as ComboboxOption).value === (b as ComboboxOption).value}
     >
       <BaseCombobox.InputGroup
+        ref={groupRef}
         data-slot="input-group"
         data-variant={variant ?? field?.variant ?? "outline"}
         data-size={size ?? field?.size ?? "md"}

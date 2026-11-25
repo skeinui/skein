@@ -2,6 +2,8 @@ import { Input as BaseInput } from "@base-ui/react/input";
 import { useId, useLayoutEffect, useRef, useState } from "react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { FieldVariant, InputWidth, UISize } from "../../contract.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 import { useFieldDefaults } from "../field/context.ts";
 
 type Without<T> = Omit<T, "className" | "style">;
@@ -10,7 +12,7 @@ type Without<T> = Omit<T, "className" | "style">;
 const invalidProps = (invalid?: boolean) =>
   invalid ? ({ "data-invalid": "", "aria-invalid": true } as const) : null;
 
-export interface InputProps extends Omit<Without<BaseInput.Props>, "size"> {
+export interface InputProps extends Omit<Without<BaseInput.Props>, "size" | "width">, WidthProps {
   /**
    * `outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).
    * Inside a Field it defaults to the Field's.
@@ -35,11 +37,23 @@ export interface InputProps extends Omit<Without<BaseInput.Props>, "size"> {
  * For icons or buttons inside the border use InputGroup; for passwords PasswordInput; for search SearchInput;
  * for numbers NumberField; for several lines Textarea.
  */
-export function Input({ variant, size, fullWidth = false, invalid, ...rest }: InputProps) {
+export function Input({
+  variant,
+  size,
+  fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
+  invalid,
+  ref,
+  ...rest
+}: InputProps) {
   const field = useFieldDefaults();
+  const widthRef = useWidthVars<HTMLInputElement>("input", { width, minWidth, maxWidth }, ref);
   return (
     <BaseInput
       {...rest}
+      ref={widthRef}
       {...invalidProps(invalid)}
       data-slot="input"
       data-variant={variant ?? field?.variant ?? "outline"}
@@ -53,7 +67,8 @@ export function Input({ variant, size, fullWidth = false, invalid, ...rest }: In
 export interface TextareaProps
   extends
     Without<Omit<ComponentPropsWithoutRef<"textarea">, "value" | "defaultValue" | "onChange">>,
-    Pick<BaseInput.Props, "value" | "defaultValue" | "onValueChange"> {
+    Pick<BaseInput.Props, "value" | "defaultValue" | "onValueChange">,
+    WidthProps {
   /**
    * `outline` is the regular input with a background / border, `filled` a grey fill (HeroUI v3's primary / secondary).
    * Inside a Field it defaults to the Field's.
@@ -113,6 +128,9 @@ export function Textarea({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   autoSize,
   showCount = false,
@@ -122,6 +140,14 @@ export function Textarea({
 }: TextareaProps) {
   const field = useFieldDefaults();
   const ref = useRef<HTMLTextAreaElement>(null);
+  const widthProps = { width, minWidth, maxWidth };
+  // With a count the wrapper is the box that gets the width (the textarea stretches to it); without, the textarea itself
+  const textareaRef = useWidthVars<HTMLTextAreaElement>(
+    "textarea",
+    showCount ? {} : widthProps,
+    ref,
+  );
+  const wrapperRef = useWidthVars<HTMLDivElement>("textarea-wrapper", showCount ? widthProps : {});
   const countId = useId();
   const controlled = rest.value;
   const [inner, setInner] = useState(
@@ -168,7 +194,7 @@ export function Textarea({
     <BaseInput
       {...(rest as BaseInput.Props)}
       {...invalidProps(invalid)}
-      ref={ref as never}
+      ref={textareaRef as never}
       render={<textarea rows={rows} maxLength={maxLength} />}
       data-slot="textarea"
       data-variant={variant ?? field?.variant ?? "outline"}
@@ -189,6 +215,7 @@ export function Textarea({
   const atLimit = maxLength !== undefined && length >= maxLength;
   return (
     <div
+      ref={wrapperRef}
       data-slot="textarea-wrapper"
       data-full-width={fullWidth ? "" : undefined}
       data-invalid={invalid ? "" : undefined}
@@ -216,10 +243,20 @@ export interface InputGroupProps extends Without<ComponentPropsWithoutRef<"div">
   size?: UISize;
   /** @default false */
   fullWidth?: boolean;
-  /** A set width (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table; `fullWidth` wins. */
-  width?: InputWidth;
+  /**
+   * A set width: a preset (`sm` 10rem, `md` 14rem, `lg` 20rem) for a box that need not fill its row, such as the search above a table,
+   * or a number (px) / CSS length string for a fixed width; `fullWidth` wins.
+   */
+  // eslint-disable-next-line typescript/no-redundant-type-constituents -- keeps the presets in autocomplete
+  width?: InputWidth | number | (string & {});
+  /** Minimum width (number = px, string = CSS length); the box still grows with its content. */
+  minWidth?: number | string;
+  /** Maximum width (number = px, string = CSS length). */
+  maxWidth?: number | string;
   children?: ReactNode;
 }
+
+const isInputWidth = (v: unknown): v is InputWidth => v === "sm" || v === "md" || v === "lg";
 
 /**
  * Text input with things attached inside its border: icons or text before / after it and small action buttons (show password, clear, search).
@@ -234,17 +271,26 @@ export function InputGroup({
   size,
   fullWidth = false,
   width,
+  minWidth,
+  maxWidth,
   children,
   ...rest
 }: InputGroupProps) {
   const field = useFieldDefaults();
+  const preset = isInputWidth(width) ? width : undefined;
+  const widthRef = useWidthVars<HTMLDivElement>("input-group", {
+    width: preset ? undefined : width,
+    minWidth,
+    maxWidth,
+  });
   return (
     <div
       {...rest}
+      ref={widthRef}
       data-slot="input-group"
       data-variant={variant ?? field?.variant ?? "outline"}
       data-size={size ?? field?.size ?? "md"}
-      data-width={width}
+      data-width={preset}
       data-full-width={fullWidth ? "" : undefined}
     >
       {children}

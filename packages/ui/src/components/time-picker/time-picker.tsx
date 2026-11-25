@@ -8,6 +8,8 @@ import type { TimePanelLabels, TimePanelProps } from "./time-panel.tsx";
 import { clampTime, displayTime, formatTime, isDisabled, nowTime, parseTime } from "./time.ts";
 import { en } from "../../locales/en.ts";
 import { useConfig } from "../config-provider/context.ts";
+import { useWidthVars } from "../../internal/use-width-vars.ts";
+import type { WidthProps } from "../../internal/use-width-vars.ts";
 
 export interface TimePickerLabels extends TimePanelLabels {
   now: string;
@@ -18,10 +20,13 @@ export interface TimePickerLabels extends TimePanelLabels {
   choose: string;
 }
 
-export interface TimePickerProps extends Pick<
-  TimePanelProps,
-  "seconds" | "hour12" | "hourStep" | "minuteStep" | "secondStep" | "min" | "max"
-> {
+export interface TimePickerProps
+  extends
+    Pick<
+      TimePanelProps,
+      "seconds" | "hour12" | "hourStep" | "minuteStep" | "secondStep" | "min" | "max"
+    >,
+    WidthProps {
   /** Time "HH:mm" ("HH:mm:ss" when seconds are shown), 24-hour clock; null if none is selected. */
   value?: string | null;
   /**
@@ -105,6 +110,9 @@ export function TimePicker({
   variant,
   size,
   fullWidth = false,
+  width,
+  minWidth,
+  maxWidth,
   invalid,
   disabled,
   name,
@@ -115,6 +123,7 @@ export function TimePicker({
   const labels = { ...en.labels.timePicker, ...config.labels?.timePicker, ...labelsProp };
   const placeholder = placeholderProp ?? labels.placeholder;
   const field = useFieldDefaults();
+  const triggerRef = useWidthVars<HTMLButtonElement>("select", { width, minWidth, maxWidth });
   const [open, setOpen] = useState(false);
   const [inner, setInner] = useState<string | null>(defaultValue);
   const value = valueProp !== undefined ? valueProp : inner;
@@ -140,6 +149,7 @@ export function TimePicker({
             : undefined
         }
         {...(invalid ? { "data-invalid": "", "aria-invalid": true } : null)}
+        ref={triggerRef}
         data-slot="select-trigger"
         data-variant={variant ?? field?.variant ?? "outline"}
         data-size={size ?? field?.size ?? "md"}

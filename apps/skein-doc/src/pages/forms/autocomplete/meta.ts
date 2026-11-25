@@ -4,7 +4,10 @@ export default {
   label: "Autocomplete",
   origin: "Base UI",
   toc: [
-    { group: "examples", items: ["usage", "controlled", "variants", "in-field", "disabled"] },
+    {
+      group: "examples",
+      items: ["usage", "controlled", "variants", "in-field", "disabled", "width"],
+    },
     { group: "reference", items: ["api", "styling"] },
   ],
 } satisfies PageMeta;

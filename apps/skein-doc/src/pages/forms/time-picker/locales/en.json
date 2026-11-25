@@ -7,6 +7,10 @@
   "controlled": { "title": "Controlled", "value": "Value:" },
   "in-field": { "title": "In Field", "label": "Start time" },
   "states": { "title": "Disabled and invalid" },
+  "width": {
+    "title": "Width",
+    "description": "`width` fixes the width; `minWidth` and `maxWidth` bound a box that otherwise follows its content. A number is px, a string any CSS length (`\"16rem\"`, `\"50%\"`). `fullWidth` wins over `width`."
+  },
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",
