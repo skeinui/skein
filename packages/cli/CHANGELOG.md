@@ -1,5 +1,11 @@
 # @skeinui/cli
 
+## 0.1.6
+
+### Patch Changes
+
+- 7300a44: Things found building a chat page. A vertical `ScrollArea` gives its content the width of the area (Base UI makes the content as wide as its widest line, so a long title in a list widened it instead of being cut with an ellipsis); the content has the slot `scroll-area-content` and the area writes `data-orientation`. `Splitter.Panel` takes `overflow` (`visible` does not cut what is outside the content's box, like a focus ring, at the panel's edge) and `fill` (the content fills the panel's height, as a column), and `Splitter` takes `gap` (space between the content and the bar, on each side). `ChatTurn.Copy` is the copy action of a message: it copies `text`, and for two seconds the icon fades into a check mark in the success color. `Button` takes `size="xs"` (1.5rem high) and `Progress` takes `size="xs"` (a small ring of 1.25rem, a thin bar). The rules that style a `Sidebar.Provider` by the sidebar it holds look at its own sidebar and inset only (`>`), so a sidebar in the page of an `AdminLayout` no longer takes the look of the outer one (the inset as a card with a margin and a line on its top). A user turn may hold a `ChatTurn.Avatar`: the bubble (or the edit form) and the avatar sit side by side, the avatar on the right, and the actions under the bubble, wherever the children are written; the avatar of either side is yours to set (`src`, the initials of a `name`, or any `fallback`).
+
 ## 0.1.5
 
 ### Patch Changes
