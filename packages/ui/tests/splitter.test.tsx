@@ -177,6 +177,69 @@ describe("Splitter", () => {
     expect(sizes()[0]).toBe("250"); // unchanged by the parent, still 250
   });
 
+  const dblclick = (el: Element) =>
+    act(() => {
+      el.dispatchEvent(new MouseEvent("dblclick", { bubbles: true, cancelable: true }));
+    });
+
+  test("double click on a bar puts the panels around it back to their default sizes", () => {
+    const ended: number[][] = [];
+    mount([{ defaultSize: 200 }, {}], { onResizeEnd: (s) => ended.push(s) });
+    pointer(handle(), "pointerdown", 200);
+    pointer(handle(), "pointermove", 320);
+    pointer(handle(), "pointerup", 320);
+    expect(sizes()[0]).toBe("320");
+    dblclick(handle());
+    expect(sizes()[0]).toBe("200");
+    expect(ended.at(-1)).toEqual([200, 400]);
+  });
+
+  test("double click: only the two panels next to the bar go back, the others stay", () => {
+    mount([{ defaultSize: 100 }, { defaultSize: 200 }, {}]);
+    keydown(handle(0), "ArrowRight"); // 110 / 190 / rest
+    keydown(handle(1), "ArrowRight"); // 110 / 200 / rest
+    keydown(handle(1), "ArrowRight");
+    expect(sizes()).toEqual(["110", "210", "rest"]);
+    dblclick(handle(1));
+    expect(sizes()).toEqual(["110", "200", "rest"]);
+  });
+
+  test("double click stays within the min / max of the panels", () => {
+    mount([{ defaultSize: 100, min: 150 }, {}]);
+    expect(sizes()[0]).toBe("150"); // the default is already clamped to the minimum
+    keydown(handle(), "ArrowRight");
+    dblclick(handle());
+    expect(sizes()[0]).toBe("150");
+  });
+
+  test("double click: controlled sizes get the default sizes from onResize", () => {
+    const resized: number[][] = [];
+    mount([{ defaultSize: 200 }, {}], { sizes: [320, 280], onResize: (s) => resized.push(s) });
+    dblclick(handle());
+    expect(resized.at(-1)).toEqual([200, 400]);
+  });
+
+  test("double click does nothing when disabled", () => {
+    const resized: number[][] = [];
+    mount([{ defaultSize: 200 }, {}], { disabled: true, onResize: (s) => resized.push(s) });
+    dblclick(handle());
+    expect(resized).toEqual([]);
+  });
+
+  const gripOf = () => document.querySelector('[data-slot="splitter"]')!.getAttribute("data-grip");
+  test("grip: nothing is written for the default", () => {
+    mount([{ defaultSize: 200 }, {}]);
+    expect(gripOf()).toBeNull();
+  });
+  test.each([
+    ["always", null],
+    ["hover", "hover"],
+    ["none", "none"],
+  ] as const)("grip=%s writes data-grip=%s on the splitter", (grip, written) => {
+    mount([{ defaultSize: 200 }, {}], { grip });
+    expect(gripOf()).toBe(written);
+  });
+
   test("disabled: ignores keyboard and pointer, not in the tab order", () => {
     mount([{ defaultSize: 200 }, {}], { disabled: true });
     keydown(handle(), "ArrowRight");

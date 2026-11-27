@@ -117,6 +117,26 @@
   [data-skein-theme="default"] [data-slot="splitter-handle"][data-active]::before {
     background-color: var(--_line-active);
   }
+  /* grip="hover": the grip shows when the bar is pointed at, focused or dragged; grip="none": no grip. Only the bars of this splitter (not those of one nested in it) */
+  [data-skein-theme="default"]
+    [data-slot="splitter"][data-grip="hover"]
+    > [data-slot="splitter-bar"]
+    > [data-slot="splitter-handle"]::after {
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+  [data-skein-theme="default"]
+    [data-slot="splitter"][data-grip="hover"]
+    > [data-slot="splitter-bar"]
+    > [data-slot="splitter-handle"]:is(:hover, :focus-visible, [data-active])::after {
+    opacity: 1;
+  }
+  [data-skein-theme="default"]
+    [data-slot="splitter"][data-grip="none"]
+    > [data-slot="splitter-bar"]
+    > [data-slot="splitter-handle"]::after {
+    display: none;
+  }
   [data-skein-theme="default"] [data-slot="splitter"][data-disabled] [data-slot="splitter-handle"] {
     cursor: default;
     pointer-events: none;
@@ -124,6 +144,12 @@
 
   @media (prefers-reduced-motion: reduce) {
     [data-skein-theme="default"] [data-slot="splitter-handle"]::before {
+      transition: none;
+    }
+    [data-skein-theme="default"]
+      [data-slot="splitter"][data-grip="hover"]
+      > [data-slot="splitter-bar"]
+      > [data-slot="splitter-handle"]::after {
       transition: none;
     }
   }

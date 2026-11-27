@@ -124,6 +124,12 @@ export default function ModelPickerPage() {
         <ComposerDemo />
       </Example>
 
+      <Example id="icon-size" code={`<ModelPicker iconSize={24} models={…} />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <ModelPicker aria-label="Model" iconSize={24} models={models(t)} defaultValue="fast" />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

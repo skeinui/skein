@@ -18,6 +18,10 @@
     flex: 1 1 auto;
     min-height: 0;
   }
+  /* shrink={false}: keeps its size when the flex parent is short of room (a bar above a list that scrolls) */
+  [data-skein-theme="shadcn"] [data-slot="flex"][data-no-shrink] {
+    flex-shrink: 0;
+  }
   [data-skein-theme="shadcn"] [data-slot="flex-spacer"] {
     flex: 1 1 auto;
   }

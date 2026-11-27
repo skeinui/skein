@@ -1,5 +1,5 @@
 {
-  "lead": "可拖拽分栏：几个面板并排（或上下叠放），之间的分隔条可以拖动，也可以聚焦后用方向键、Home / End 调整。每个面板可以设最小 / 最大尺寸，尺寸可以是像素或百分比，最后一个面板吸收容器大小变化。",
+  "lead": "可拖拽分栏：几个面板并排（或上下叠放），之间的分隔条可以拖动，也可以聚焦后用方向键、Home / End 调整，双击分隔条会让它两侧的面板回到初始尺寸。每个面板可以设最小 / 最大尺寸，尺寸可以是像素或百分比，最后一个面板吸收容器大小变化。",
   "usage": {
     "title": "用法",
     "left": "左",
@@ -18,12 +18,17 @@
   "nested": { "title": "嵌套", "explorer": "资源管理器", "editor": "编辑器", "terminal": "终端" },
   "controlled": { "title": "受控" },
   "disabled": { "title": "禁用", "fixed": "固定" },
+  "grip": {
+    "title": "把手",
+    "hover": "鼠标移到分隔条上、聚焦或拖动时才显示把手",
+    "none": "不画把手，只留一条线"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
     "description": "主题风格在 `splitter.css` 里处理。Splitter 填满父元素，所以父元素要有高度（横向时）。",
     "hook": "钩子",
-    "splitter": "整体（flex）；`data-orientation` / `data-ready`（量到容器尺寸之后）/ `data-dragging` / `data-disabled`",
+    "splitter": "整体（flex）；`data-orientation` / `data-ready`（量到容器尺寸之后）/ `data-dragging` / `data-disabled` / `data-grip`（`hover` 或 `none`；`always` 时没有）",
     "panel": "每个面板；它的 `--splitter-size` 是像素尺寸，最后一个面板（`data-last`）吸收剩余空间",
     "bar": "分隔条（宽度为 0）和里面绝对定位的拖动区（`role=separator`，可聚焦，拖动时 `data-active`）；线和把手是它的伪元素"
   },
@@ -31,6 +36,7 @@
     "Splitter": {
       "children": "内容（Splitter.Panel）。",
       "disabled": "禁用时不能拖动，也不能用键盘调整。",
+      "grip": "分隔条中间的把手：`always` 一直显示，`hover` 只在鼠标移上去、聚焦或拖动时显示（线还在），`none` 完全不画把手。",
       "handleLabel": "分隔条的无障碍名称；默认取语言包里的 “Resize”。",
       "onResize": "拖动中每次变化时回调，参数是各面板的像素尺寸。",
       "onResizeEnd": "松开鼠标 / 键盘调整结束时回调。",

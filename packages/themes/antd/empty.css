@@ -20,8 +20,8 @@
     opacity: 0.7;
   }
   [data-skein-theme="antd"] [data-slot="empty-icon"] > svg {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: var(--ui-empty-icon-size, 2.5rem);
+    height: var(--ui-empty-icon-size, 2.5rem);
   }
   [data-skein-theme="antd"] [data-slot="empty-title"] {
     color: var(--ui-fg);

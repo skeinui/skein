@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { ResultStatus } from "../../contract.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 export type { ResultStatus };
 
@@ -20,6 +21,10 @@ export interface ResultProps {
   extra?: ReactNode;
   /** Content beyond the description (e.g. a list of error details), placed in a light background block. */
   children?: ReactNode;
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used. It does not apply to the error code shown for 403 / 404 / 500.
+   */
+  iconSize?: number | string;
 }
 
 const ICON_PATHS: Record<"success" | "error" | "info" | "warning", string> = {
@@ -37,9 +42,11 @@ export function Result({
   title,
   description,
   icon,
+  iconSize,
   extra,
   children,
 }: ResultProps) {
+  const ref = useIconSizeVar<HTMLDivElement>("result", iconSize);
   const isCode = status === "403" || status === "404" || status === "500";
   const visual =
     icon ??
@@ -51,7 +58,7 @@ export function Result({
       </svg>
     ));
   return (
-    <div data-slot="result" data-status={status}>
+    <div ref={ref} data-slot="result" data-status={status}>
       <div data-slot="result-icon">{visual}</div>
       {title ? <div data-slot="result-title">{title}</div> : null}
       {description ? <div data-slot="result-description">{description}</div> : null}

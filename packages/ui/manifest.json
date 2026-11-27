@@ -2023,6 +2023,10 @@
         {
           "title": "Card and panel",
           "code": "<ArtifactCard title=\"greet.ts\" meta=\"Code · v1\" selected={open === id} onOpen={() => setOpen(id)} />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<ArtifactCard iconSize={24} title=\"report.md\" />"
         }
       ]
     },
@@ -2033,6 +2037,10 @@
         "icon": {
           "type": "ReactNode",
           "description": "Icon on the left, a document icon by default."
+        },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used."
         },
         "meta": {
           "type": "string",
@@ -5164,6 +5172,10 @@
           "type": "ReactNode",
           "description": "Text shown when nothing matches."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It applies to the icon before each command (`CommandItem.icon`)."
+        },
         "items": {
           "type": "readonly CommandEntry[]",
           "required": true,
@@ -5274,6 +5286,10 @@
         {
           "title": "Search and keywords",
           "code": "{ key: \"new\", label: \"New file\", keywords: [\"create\", \"add\"] }"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Command iconSize={24} items={…} />"
         }
       ]
     },
@@ -5305,6 +5321,10 @@
         "hotkey": {
           "type": "string",
           "description": "Global shortcut to toggle open / close, e.g. `\"mod+k\"` (mod is ⌘ on Mac, Ctrl elsewhere)."
+        },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It applies to the icon before each command (`CommandItem.icon`)."
         },
         "items": {
           "type": "readonly CommandEntry[]",
@@ -7903,6 +7923,10 @@
           "type": "ReactNode",
           "description": "Icon / illustration, placed at the top."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used."
+        },
         "size": {
           "type": "\"sm\" | \"md\" | \"lg\"",
           "values": [
@@ -7942,6 +7966,10 @@
         {
           "title": "In Table",
           "code": "<Table.Empty colSpan={2}><Empty size=\"sm\" title=\"No data\" /></Table.Empty>"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Empty iconSize={64} icon={<InboxIcon />} title=\"No messages\" />"
         }
       ]
     },
@@ -8451,6 +8479,11 @@
           ],
           "description": "Main-axis distribution (horizontal when in a row).",
           "default": "\"start\""
+        },
+        "shrink": {
+          "type": "boolean",
+          "description": "Whether it may shrink when the flex parent is short of room. `false` keeps its size: a bar above a list that scrolls, which must not be squeezed.",
+          "default": "true"
         },
         "wrap": {
           "type": "boolean",
@@ -9668,6 +9701,11 @@
           "description": "Spacing between cells, from the theme style's spacing scale.",
           "default": "\"md\""
         },
+        "grow": {
+          "type": "boolean",
+          "description": "Take the height the parent flex container has left, and let it shrink below its content (like Flex `grow`): with `aside`, the two columns then have that height, and a column that holds a list can scroll inside it.",
+          "default": "false"
+        },
         "minColumnWidth": {
           "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
@@ -9745,6 +9783,10 @@
         {
           "title": "Main and side column",
           "code": "<Grid aside=\"end\" asideWidth=\"md\" gap=\"md\">\n  <div>main</div>\n  <div>aside</div>\n</Grid>"
+        },
+        {
+          "title": "Side column first",
+          "code": "<Grid aside=\"start\" asideWidth=\"md\" gap=\"md\">\n  <div>main</div>\n  <div>aside</div>\n</Grid>"
         },
         {
           "title": "Auto-fit grid",
@@ -13321,6 +13363,10 @@
           "type": "boolean",
           "description": "Disables interaction."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It applies to the icon in the trigger and in the list."
+        },
         "models": {
           "type": "readonly ModelOption[]",
           "required": true,
@@ -13410,6 +13456,10 @@
         {
           "title": "In a Composer",
           "code": "<Composer.ToolbarStart>\n  <ModelPicker models={models} value={model} onValueChange={setModel} />\n</Composer.ToolbarStart>"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<ModelPicker iconSize={24} models={…} />"
         }
       ]
     },
@@ -16865,6 +16915,10 @@
           "type": "ReactNode",
           "description": "Custom icon, replacing the default status icon (for 403 / 404 / 500 it replaces the error code)."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It does not apply to the error code shown for 403 / 404 / 500."
+        },
         "status": {
           "type": "\"success\" | \"warning\" | \"error\" | \"info\" | \"403\" | \"404\" | \"500\"",
           "values": [
@@ -16914,6 +16968,10 @@
         {
           "title": "Custom Icon",
           "code": "<Result icon={<SmileIcon />} title=\"…\" />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Result status=\"success\" iconSize={48} title=\"…\" />"
         }
       ]
     },
@@ -18652,6 +18710,16 @@
           "description": "When disabled it cannot be dragged or adjusted with the keyboard.",
           "default": "false"
         },
+        "grip": {
+          "type": "\"none\" | \"always\" | \"hover\"",
+          "values": [
+            "none",
+            "always",
+            "hover"
+          ],
+          "description": "The grip in the middle of the drag bar: `always` shows it, `hover` only while the bar is pointed at, focused or dragged (the line stays), `none` draws no grip at all.",
+          "default": "\"always\""
+        },
         "handleLabel": {
           "type": "string",
           "description": "Accessible name of the drag bar; defaults to the locale's \"Resize\"."
@@ -18731,6 +18799,10 @@
         {
           "title": "Disabled",
           "code": "<Splitter disabled>…</Splitter>"
+        },
+        {
+          "title": "Grip",
+          "code": "<Splitter grip=\"hover\">…</Splitter>\n<Splitter grip=\"none\">…</Splitter>"
         }
       ]
     },
@@ -19156,6 +19228,10 @@
           "type": "ReactNode",
           "description": "Description under the heading."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used."
+        },
         "items": {
           "type": "SuggestionItem[]",
           "required": true,
@@ -19232,6 +19308,10 @@
         {
           "title": "Chips",
           "code": "<Suggestions layout=\"chips\" … />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Suggestions iconSize={28} items={…} />"
         }
       ]
     },
@@ -20775,6 +20855,10 @@
           "type": "ReactNode",
           "description": "Content shown when there are no conversations."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the row icons, for the SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size (18px) is used.\nAn avatar or image passed as `icon` sizes itself."
+        },
         "items": {
           "type": "ThreadItem[]",
           "required": true,
@@ -20837,6 +20921,10 @@
         {
           "title": "Empty",
           "code": "<ThreadList items={[]} empty=\"No conversations yet\" aria-label=\"Empty conversations\" />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<ThreadList iconSize={28} items={…} />\n<ThreadList iconSize=\"1.5rem\" items={…} />"
         }
       ]
     },
@@ -20856,6 +20944,10 @@
           ],
           "description": "Color used by items with no individually specified color.",
           "default": "\"primary\""
+        },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It applies to the icons inside the dots (`TimelineItem.icon`); the dot itself is sized by `size`."
         },
         "items": {
           "type": "TimelineItem[]",
@@ -20944,6 +21036,10 @@
         {
           "title": "Sizes",
           "code": "<Timeline size=\"sm\" … />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Timeline iconSize={18} items={…} />"
         }
       ]
     },
@@ -22504,6 +22600,10 @@
           "type": "(node: TreeNode, query: string) => boolean",
           "description": "Custom match rule; if omitted it is a case-insensitive contains match (compares the label when the node label is a string, otherwise the id) and highlights the matching part of the text."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It applies to the icon before each label (`TreeNode.icon`), not to the expand arrow or checkbox."
+        },
         "lines": {
           "type": "boolean",
           "description": "Draws connecting lines between parents and children (like a directory structure); the expand arrow becomes a boxed plus / minus in the theme style.",
@@ -22639,6 +22739,10 @@
         {
           "title": "Colors",
           "code": "<Tree color=\"success\" defaultSelected=\"index\" … />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Tree iconSize={24} nodes={…} />"
         }
       ]
     },
@@ -22936,6 +23040,10 @@
           "type": "ReactNode",
           "description": "Icon of the trigger area; the built-in upload icon if omitted."
         },
+        "iconSize": {
+          "type": "string | number",
+          "description": "Size of the icons, for SVG icons: a number is px, a string any CSS length (`\"1.5rem\"`). Unset, the theme style's size is used. It applies to the trigger-area icon, in every variant, not to the file rows' icons."
+        },
         "multiple": {
           "type": "boolean",
           "description": "Allow selecting / dropping several files at once; otherwise only the first is passed to `onFilesAdded`.",
@@ -23045,6 +23153,10 @@
         {
           "title": "Disabled",
           "code": "<Upload disabled … />"
+        },
+        {
+          "title": "Icon Size",
+          "code": "<Upload iconSize={48} />"
         }
       ]
     },

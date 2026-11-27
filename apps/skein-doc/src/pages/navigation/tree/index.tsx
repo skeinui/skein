@@ -358,6 +358,17 @@ export default function TreePage() {
         </div>
       </Example>
 
+      <Example id="icon-size" code={`<Tree iconSize={24} nodes={…} />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Tree
+            aria-label="Icon size"
+            iconSize={24}
+            nodes={withIcons(FILES)}
+            defaultExpanded={["src"]}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

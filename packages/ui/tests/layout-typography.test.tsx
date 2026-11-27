@@ -80,6 +80,12 @@ describe("Flex", () => {
     expect(ssr(createElement(Flex, { grow: true }, "x"))).toContain("data-grow");
   });
 
+  test("`shrink={false}` is a data attribute, off by default (a flex item may shrink)", () => {
+    expect(ssr(createElement(Flex, null, "x"))).not.toContain("data-no-shrink");
+    expect(ssr(createElement(Flex, { shrink: true }, "x"))).not.toContain("data-no-shrink");
+    expect(ssr(createElement(Flex, { shrink: false }, "x"))).toContain("data-no-shrink");
+  });
+
   test("Flex.Spacer is decorative (aria-hidden); other props pass through", () => {
     const html = ssr(
       createElement(Flex, { "aria-label": "bar", id: "f" }, createElement(Flex.Spacer)),
@@ -111,6 +117,12 @@ describe("Grid", () => {
     expect(start).toContain('data-aside="start"');
     expect(start).toContain('data-aside-width="lg"');
     expect(ssr(createElement(Grid, null))).not.toContain("data-aside");
+  });
+
+  test("`grow` is a data attribute, off by default", () => {
+    expect(ssr(createElement(Grid, null))).not.toContain("data-grow");
+    expect(ssr(createElement(Grid, { grow: true }))).toContain("data-grow");
+    expect(ssr(createElement(Grid, { aside: "start", grow: true }))).toContain("data-grow");
   });
 
   test("Grid.Item span is clamped to 1–12", () => {

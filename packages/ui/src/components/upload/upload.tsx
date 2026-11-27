@@ -3,6 +3,7 @@ import type { DragEvent, KeyboardEvent, ReactNode } from "react";
 import type { UploadFileStatus, UploadVariant } from "../../contract.ts";
 import { Progress } from "../progress/index.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 export interface UploadFile {
   /** Unique id chosen by the consumer; passed to `onRemove` / `onRetry`. */
@@ -52,6 +53,10 @@ export interface UploadProps {
   hint?: ReactNode;
   /** Icon of the trigger area; the built-in upload icon if omitted. */
   icon?: ReactNode;
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used. It applies to the trigger-area icon, in every variant, not to the file rows' icons.
+   */
+  iconSize?: number | string;
   /** Accessible text of the remove button in a file row, default "Remove". */
   removeLabel?: string;
   /** Accessible text of the retry button in a failed file row, default "Retry". */
@@ -151,6 +156,7 @@ export function Upload({
   title,
   hint,
   icon,
+  iconSize,
   removeLabel: removeLabelProp,
   retryLabel: retryLabelProp,
   "aria-label": ariaLabel,
@@ -160,6 +166,7 @@ export function Upload({
   const retryLabel = retryLabelProp ?? c.retry;
   const removeLabel = removeLabelProp ?? c.remove;
   const input = useRef<HTMLInputElement>(null);
+  const rootRef = useIconSizeVar<HTMLDivElement>("upload", iconSize);
   const [dragging, setDragging] = useState(false);
 
   const open = () => {
@@ -191,6 +198,7 @@ export function Upload({
 
   return (
     <div
+      ref={rootRef}
       data-slot="upload"
       data-variant={variant}
       data-disabled={disabled ? "" : undefined}

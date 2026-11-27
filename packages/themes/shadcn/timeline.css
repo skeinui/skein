@@ -106,8 +106,8 @@
     color: var(--_text);
   }
   [data-skein-theme="shadcn"] [data-slot="timeline-dot"] > svg {
-    width: 0.875rem;
-    height: 0.875rem;
+    width: var(--ui-timeline-icon-size, 0.875rem);
+    height: var(--ui-timeline-icon-size, 0.875rem);
   }
   [data-skein-theme="shadcn"] [data-slot="timeline-connector"] {
     flex: 1;

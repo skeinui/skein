@@ -149,6 +149,19 @@ export default function CommandPage() {
         </div>
       </Example>
 
+      <Example id="icon-size" code={`<Command iconSize={24} items={…} />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Command
+            aria-label="Icon size"
+            iconSize={24}
+            items={[
+              { key: "home", label: "Home", icon: <Icon d={HOME} /> },
+              { key: "file", label: "New file", icon: <Icon d={FILE} /> },
+            ]}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

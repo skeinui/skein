@@ -18,6 +18,7 @@ export default {
         "icons",
         "sizes",
         "colors",
+        "icon-size",
       ],
     },
     { group: "reference", items: ["api", "styling"] },

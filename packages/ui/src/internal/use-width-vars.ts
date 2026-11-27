@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useVars } from "./use-vars.ts";
 import type { Ref } from "react";
 
 /** Width props shared by field-like components; a number is px, a string any CSS length (`"16rem"`, `"50%"`). */
@@ -11,7 +12,8 @@ export interface WidthProps {
   maxWidth?: number | string;
 }
 
-const toLength = (v: number | string | undefined) => (typeof v === "number" ? `${v}px` : (v ?? ""));
+export const toLength = (v: number | string | undefined) =>
+  typeof v === "number" ? `${v}px` : (v ?? "");
 
 /**
  * Writes `width` / `minWidth` / `maxWidth` as `--ui-<prefix>-width` / `-min-width` / `-max-width` on the element (component code does not write `style`);
@@ -38,4 +40,9 @@ export function useWidthVars<T extends HTMLElement>(
     },
     [prefix, w, min, max, forwarded],
   );
+}
+
+/** `iconSize` of a component: written as `--ui-<prefix>-icon-size` on the element the returned ref goes to; the theme style reads it where it sizes the icons. */
+export function useIconSizeVar<T extends HTMLElement>(prefix: string, size?: number | string) {
+  return useVars<T>({ [`--ui-${prefix}-icon-size`]: toLength(size) });
 }

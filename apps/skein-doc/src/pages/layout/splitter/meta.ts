@@ -6,7 +6,7 @@ export default {
   toc: [
     {
       group: "examples",
-      items: ["usage", "vertical", "limits", "nested", "controlled", "disabled"],
+      items: ["usage", "vertical", "limits", "nested", "controlled", "disabled", "grip"],
     },
     { group: "reference", items: ["api", "styling"] },
   ],

@@ -67,7 +67,8 @@
       "gap": "单元格之间的间距，取主题风格的刻度。",
       "minColumnWidth": "按列宽自适应：每列至少这么宽，放得下几列就几列（屏幕变窄自动变少）。想要响应式又不写断点就用它。",
       "aside": "主栏加一个固定宽度的侧栏：`end` 侧栏在后，`start` 在前；传两个子元素（主栏在前）。窄于 64rem 时堆叠。与 `columns`、`minColumnWidth` 不同时使用。",
-      "asideWidth": "`aside` 侧栏的宽度：sm 14rem、md 20rem、lg 26rem。"
+      "asideWidth": "`aside` 侧栏的宽度：sm 14rem、md 20rem、lg 26rem。",
+      "grow": "占满父级 flex 容器剩下的高度，并允许缩到比内容还小（同 Flex 的 `grow`）：配合 `aside`，两栏就是这么高，装列表的那一栏可以在里面滚动。"
     },
     "Grid_Item": {
       "as": "渲染成哪个元素（语义）。",
@@ -79,5 +80,9 @@
     "description": "`aside` 是一个主栏加一个固定宽度的侧栏（`asideWidth`：14、20 或 26rem），侧栏在末端或起始端；窄于 64rem 时上下堆叠，主栏在前。",
     "main": "主栏",
     "side": "侧栏"
+  },
+  "aside-start": {
+    "title": "侧栏在前",
+    "description": "`aside=\"start\"` 让侧栏排在主栏前面；子元素仍然是主栏在前、侧栏在后，所以窄于 64rem 堆叠时顺序不变。"
   }
 }

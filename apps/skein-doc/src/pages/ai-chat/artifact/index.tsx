@@ -141,6 +141,12 @@ export default function ArtifactPage() {
         <CardDemo />
       </Example>
 
+      <Example id="icon-size" code={`<ArtifactCard iconSize={24} title="report.md" />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <ArtifactCard iconSize={24} title="report.md" meta="Document" />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

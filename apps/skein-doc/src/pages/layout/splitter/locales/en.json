@@ -1,5 +1,5 @@
 {
-  "lead": "Resizable panels: panels side by side (or stacked), with drag bars between them that can be dragged, or focused and adjusted with the arrow keys and Home / End. Each panel can have a minimum / maximum size, in pixels or percentages, and the last panel absorbs changes in the container's size.",
+  "lead": "Resizable panels: panels side by side (or stacked), with drag bars between them that can be dragged, or focused and adjusted with the arrow keys and Home / End, and a double click on a bar puts the panels next to it back to the sizes they started with. Each panel can have a minimum / maximum size, in pixels or percentages, and the last panel absorbs changes in the container's size.",
   "usage": {
     "title": "Usage",
     "left": "Left",
@@ -23,12 +23,17 @@
   },
   "controlled": { "title": "Controlled" },
   "disabled": { "title": "Disabled", "fixed": "Fixed" },
+  "grip": {
+    "title": "Grip",
+    "hover": "the grip shows when the bar is pointed at, focused or dragged",
+    "none": "no grip, only the line"
+  },
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",
     "description": "Theme styles handle it in `splitter.css`. Splitter fills its parent, so the parent needs a height (when horizontal).",
     "hook": "Hook",
-    "splitter": "The whole (flex); `data-orientation` / `data-ready` (once the container size is measured) / `data-dragging` / `data-disabled`",
+    "splitter": "The whole (flex); `data-orientation` / `data-ready` (once the container size is measured) / `data-dragging` / `data-disabled` / `data-grip` (`hover` or `none`; absent for `always`)",
     "panel": "Each panel; its `--splitter-size` is the size in pixels, and the last panel (`data-last`) absorbs the remaining space",
     "bar": "The drag bar (zero width) and the absolutely positioned drag area inside it (`role=separator`, focusable, `data-active` while dragging); the line and the grip are its pseudo-elements"
   }

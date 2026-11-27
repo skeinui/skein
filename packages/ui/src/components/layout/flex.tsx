@@ -45,6 +45,11 @@ export interface FlexProps extends Without<ComponentPropsWithoutRef<"div">> {
    * @default false
    */
   grow?: boolean;
+  /**
+   * Whether it may shrink when the flex parent is short of room. `false` keeps its size: a bar above a list that scrolls, which must not be squeezed.
+   * @default true
+   */
+  shrink?: boolean;
 }
 
 /**
@@ -60,6 +65,7 @@ export function Flex({
   wrap = false,
   inline = false,
   grow = false,
+  shrink = true,
   ...rest
 }: FlexProps) {
   return createElement(as, {
@@ -72,6 +78,7 @@ export function Flex({
     "data-wrap": wrap ? "" : undefined,
     "data-inline": inline ? "" : undefined,
     "data-grow": grow ? "" : undefined,
+    "data-no-shrink": shrink ? undefined : "",
   });
 }
 

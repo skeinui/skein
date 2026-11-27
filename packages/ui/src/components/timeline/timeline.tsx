@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import type { UIColor, UISize } from "../../contract.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 export interface TimelineItem {
   /** Main text of the event. */
@@ -32,13 +33,30 @@ export interface TimelineProps extends Omit<
    * @default "md"
    */
   size?: UISize;
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used. It applies to the icons inside the dots (`TimelineItem.icon`); the dot itself is sized by `size`.
+   */
+  iconSize?: number | string;
 }
 
 /** Timeline: data-driven, laid out vertically, each item is time + dot / icon (with a line connecting to the next item) + title / description. */
-export function Timeline({ items, color = "primary", size = "md", ...rest }: TimelineProps) {
+export function Timeline({
+  items,
+  color = "primary",
+  size = "md",
+  iconSize,
+  ...rest
+}: TimelineProps) {
+  const ref = useIconSizeVar<HTMLOListElement>("timeline", iconSize);
   const hasTime = items.some((item) => item.time != null);
   return (
-    <ol {...rest} data-slot="timeline" data-size={size} data-has-time={hasTime ? "" : undefined}>
+    <ol
+      {...rest}
+      ref={ref}
+      data-slot="timeline"
+      data-size={size}
+      data-has-time={hasTime ? "" : undefined}
+    >
       {items.map((item, i) => (
         <li
           key={i}

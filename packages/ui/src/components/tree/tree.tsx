@@ -3,6 +3,7 @@ import type { DragEvent, KeyboardEvent, ReactNode } from "react";
 import type { UIColor, UISize } from "../../contract.ts";
 import { Checkbox } from "../checkbox/index.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 /** Node state passed to the icon function, used to swap icons on expand / collapse and selection (e.g. open and closed folders). */
 export interface TreeNodeState {
@@ -37,6 +38,11 @@ export interface TreeProps {
   nodes: TreeNode[];
   /** @default "md" */
   size?: UISize;
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used. It applies to the icon before each label (`TreeNode.icon`), not to the expand arrow or checkbox.
+   */
+  iconSize?: number | string;
+
   /** @default "primary" */
   color?: UIColor;
   /**
@@ -221,6 +227,7 @@ function highlight(label: string, query: string): ReactNode {
 export function Tree({
   nodes,
   size = "md",
+  iconSize,
   color = "primary",
   lines = false,
   block = false,
@@ -389,6 +396,7 @@ export function Tree({
   // Drag and drop: dragId is the node being dragged, drop is the drop position currently pointed at
   const [dragId, setDragId] = useState<string | null>(null);
   const [drop, setDrop] = useState<TreeMove | null>(null);
+  const rootRef = useIconSizeVar<HTMLUListElement>("tree", iconSize);
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => () => clearTimeout(hoverTimer.current), []);
 
@@ -641,6 +649,7 @@ export function Tree({
 
   return (
     <ul
+      ref={rootRef}
       role="tree"
       data-slot="tree"
       data-size={size}

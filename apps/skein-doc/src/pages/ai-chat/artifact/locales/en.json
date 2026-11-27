@@ -13,6 +13,10 @@
     "description": "An `ArtifactCard` in the conversation: `aria-pressed` tells whether its artifact is open beside it.",
     "open": "Open: {id}"
   },
+  "icon-size": {
+    "title": "Icon Size",
+    "description": "`iconSize` sets the size of the icons: a number is px, a string any CSS length (`\"1.5rem\"`). It applies to SVG icons; anything else sizes itself."
+  },
   "api": {
     "title": "API Reference",
     "description": "`Artifact` is a compound component; the parts without props of their own take the props of the element they render.",

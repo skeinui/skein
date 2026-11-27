@@ -46,6 +46,10 @@
   "icons": { "title": "图标" },
   "sizes": { "title": "尺寸" },
   "colors": { "title": "颜色" },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -61,6 +65,7 @@
   },
   "props": {
     "Tree": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "allowDrop": "过滤能否放到这里；不能放的位置不显示放置提示，也不触发 onMove。",
       "aria-label": "无障碍名称，没有可见标签时使用。",
       "aria-labelledby": "用其文字做名称的元素 id。",

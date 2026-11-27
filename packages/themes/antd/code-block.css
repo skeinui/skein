@@ -4,6 +4,8 @@
   /* CodeBlock: the header holds the language and copy button, with scrollable code below; colored tokens use data-token, and line numbers use CSS counters */
   [data-skein-theme="antd"] [data-slot="code-block"] {
     box-sizing: border-box;
+    /* its visually hidden status line is `position: absolute`: this keeps it inside the block (and clipped by it) instead of leaking into a scroll container around it */
+    position: relative;
     max-width: 100%;
     overflow: hidden;
     border: 1px solid var(--ui-border);

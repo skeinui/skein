@@ -4,6 +4,10 @@
   "actions": { "title": "带操作" },
   "sizes": { "title": "尺寸" },
   "in-table": { "title": "在表格中" },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -14,6 +18,7 @@
   },
   "props": {
     "Empty": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "actions": "下面的操作区，通常是一两个按钮。",
       "description": "标题下的说明：为什么是空的，或者下一步该做什么。",
       "icon": "图标或插画，放在最上面。",

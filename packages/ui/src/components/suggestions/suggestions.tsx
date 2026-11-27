@@ -2,6 +2,7 @@ import { useId } from "react";
 import type { ReactNode } from "react";
 import type { SuggestionsLayout } from "../../contract.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 export interface SuggestionItem {
   /** Unique key; the title is used if omitted. */
@@ -30,6 +31,10 @@ export interface SuggestionsProps {
   title?: ReactNode;
   /** Description under the heading. */
   description?: ReactNode;
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used.
+   */
+  iconSize?: number | string;
   /** Name of this group when there is no `title` (for screen readers); by default the locale's "Suggestions". */
   "aria-label"?: string;
 }
@@ -44,12 +49,15 @@ export function Suggestions({
   layout = "grid",
   title,
   description,
+  iconSize,
   "aria-label": label,
 }: SuggestionsProps) {
+  const ref = useIconSizeVar<HTMLDivElement>("suggestions", iconSize);
   const t = useLabels("suggestions");
   const titleId = useId();
   return (
     <div
+      ref={ref}
       role="group"
       aria-labelledby={title ? titleId : undefined}
       aria-label={title ? undefined : (label ?? t.label)}

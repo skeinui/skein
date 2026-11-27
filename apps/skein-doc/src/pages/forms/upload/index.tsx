@@ -135,6 +135,12 @@ export default function UploadPage() {
         <Upload disabled hint={t("disabled.hint")} />
       </Example>
 
+      <Example id="icon-size" code={`<Upload iconSize={48} />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Upload aria-label="Upload" iconSize={48} />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

@@ -28,6 +28,10 @@
     "label": "Search demo",
     "empty": "Nothing matches that."
   },
+  "icon-size": {
+    "title": "Icon Size",
+    "description": "`iconSize` sets the size of the icons: a number is px, a string any CSS length (`\"1.5rem\"`). It applies to SVG icons; anything else sizes itself."
+  },
   "api": {
     "title": "API Reference",
     "entries": "Each entry of `items` is a command `{ key, label, icon?, shortcut?, keywords?, disabled?, onSelect? }` or a group `{ type: \"group\", key, label, items }`."

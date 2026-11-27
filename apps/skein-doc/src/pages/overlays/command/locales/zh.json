@@ -28,6 +28,10 @@
     "label": "搜索示例",
     "empty": "没有匹配的命令。"
   },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": {
     "title": "API 参考",
     "entries": "`items` 的每一项是一条命令 `{ key, label, icon?, shortcut?, keywords?, disabled?, onSelect? }`，或一个分组 `{ type: \"group\", key, label, items }`。"
@@ -43,6 +47,7 @@
   },
   "props": {
     "Command": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "aria-label": "输入框和列表的无障碍名称。",
       "autoFocus": "打开时自动聚焦输入框（在 Dialog 里由 Dialog 管理，一般不用传）。",
       "emptyText": "没有匹配时显示的文字。",
@@ -53,6 +58,7 @@
       "query": "受控的搜索词。"
     },
     "CommandDialog": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "aria-label": "输入框和列表的无障碍名称。",
       "autoFocus": "打开时自动聚焦输入框（在 Dialog 里由 Dialog 管理，一般不用传）。",
       "closeOnSelect": "选中后关闭面板。",

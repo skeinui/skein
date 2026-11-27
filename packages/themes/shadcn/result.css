@@ -34,8 +34,8 @@
     line-height: 1;
   }
   [data-skein-theme="shadcn"] [data-slot="result-icon"] > svg {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: var(--ui-result-icon-size, 4.5rem);
+    height: var(--ui-result-icon-size, 4.5rem);
   }
   /* Page-level error code: large and faint, just a marker */
   [data-skein-theme="shadcn"] [data-slot="result-code"] {

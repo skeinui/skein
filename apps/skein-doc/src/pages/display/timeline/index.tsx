@@ -106,6 +106,18 @@ export default function TimelinePage() {
         </div>
       </Example>
 
+      <Example id="icon-size" code={`<Timeline iconSize={18} items={…} />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Timeline
+            iconSize={18}
+            items={[
+              { title: t("icons.paid"), color: "success", icon: <Check /> },
+              { title: t("icons.failed"), color: "danger", icon: <Alert /> },
+            ]}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

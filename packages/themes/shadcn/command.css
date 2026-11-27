@@ -90,7 +90,7 @@
     display: inline-flex;
     flex: none;
     color: var(--ui-fg-muted);
-    font-size: 1rem;
+    font-size: var(--ui-command-icon-size, 1rem);
   }
   [data-skein-theme="shadcn"] [data-slot="command-icon"] > svg {
     width: 1em;

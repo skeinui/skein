@@ -89,8 +89,8 @@
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
   }
   [data-skein-theme="antd"] [data-slot="suggestions-item-icon"] > svg {
-    width: 1rem;
-    height: 1rem;
+    width: var(--ui-suggestions-icon-size, 1rem);
+    height: var(--ui-suggestions-icon-size, 1rem);
   }
   [data-skein-theme="antd"] [data-slot="suggestions-item-text"] {
     display: flex;

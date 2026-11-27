@@ -18,6 +18,10 @@
     "atlasLarge": "Most capable",
     "borealis": "Conversational"
   },
+  "icon-size": {
+    "title": "Icon Size",
+    "description": "`iconSize` sets the size of the icons: a number is px, a string any CSS length (`\"1.5rem\"`). It applies to SVG icons; anything else sizes itself."
+  },
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",

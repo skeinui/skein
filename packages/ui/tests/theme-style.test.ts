@@ -74,6 +74,41 @@ describe("grid breakpoints", () => {
   });
 });
 
+describe("grid aside", () => {
+  // The main column is written first whichever side the side column is on: with `start` the second child must go to
+  // the first (the fixed width) column, and below 64rem, where the two stack, both go back to where they were written.
+  test.each(skins)("%s grid.css: aside=start puts the second child in the side column", (skin) => {
+    const css = read(skinDir(skin), "grid.css");
+    const stacked = css.indexOf("@media (max-width: 64rem)");
+    expect(stacked, `${skin}/grid.css has the stacking media query`).toBeGreaterThan(-1);
+    const [wide, narrow] = [css.slice(0, stacked), css.slice(stacked)];
+    const rule = (text: string, child: number) =>
+      new RegExp(
+        `\\[data-aside="start"\\]\\s*>\\s*:nth-child\\(${child}\\)[^{]*\\{([^}]*)\\}`,
+      ).exec(text)?.[1] ?? "";
+    expect(rule(wide, 1), `${skin}: the first child`).toMatch(/grid-column:\s*2/);
+    expect(rule(wide, 2), `${skin}: the second child`).toMatch(/grid-column:\s*1/);
+    expect(narrow, `${skin}: stacked, the placement is undone`).toMatch(
+      /:nth-child\(2\)\s*\{[^}]*grid-column:\s*auto/,
+    );
+  });
+});
+
+describe("what is positioned inside a scroll container stays inside it", () => {
+  // A visually hidden status line (`position: absolute`) with no positioned ancestor is placed against the page: inside a
+  // scrolling thread it then widens the scroll area of the container around it (a scrollbar and a blank stretch under the box).
+  test.each(skins)("%s: the code block and the chat thread are containing blocks", (skin) => {
+    for (const [file, slot] of [
+      ["code-block.css", "code-block"],
+      ["chat-thread.css", "chat-thread"],
+    ] as const) {
+      const css = read(skinDir(skin), file);
+      const root = new RegExp(`\\[data-slot="${slot}"\\]\\s*\\{([^}]*)\\}`).exec(css)?.[1] ?? "";
+      expect(root, `${skin}/${file}`).toMatch(/position:\s*relative/);
+    }
+  });
+});
+
 describe("heroui control heights read the height scale (so density / custom heights take effect)", () => {
   test.each([
     "input.css",
@@ -428,6 +463,29 @@ describe("color theme contract", () => {
       const css = read(DENSITY_DIR, file);
       expect([...declaredTokens(css)]).toEqual(["--ui-density"]);
       expect(css).toContain("@layer ui-color");
+    },
+  );
+});
+
+describe("splitter grip", () => {
+  // The grip rules select the bars of the splitter itself (`>`), so a splitter nested in one that hides its grip keeps its own
+  test.each(skins)(
+    "%s splitter.css: grip=hover and grip=none reach only the bars of their own splitter",
+    (skin) => {
+      const css = read(skinDir(skin), "splitter.css");
+      for (const grip of ["hover", "none"]) {
+        const rules = [
+          ...css.matchAll(
+            new RegExp(`\\[data-slot="splitter"\\]\\[data-grip="${grip}"\\][^{]*\\{`, "g"),
+          ),
+        ].map((m) => m[0]);
+        expect(rules.length).toBeGreaterThan(0);
+        for (const rule of rules) {
+          expect(rule).toMatch(
+            /\[data-slot="splitter"\]\[data-grip="\w+"\]\s*>\s*\[data-slot="splitter-bar"\]\s*>\s*\[data-slot="splitter-handle"\]/,
+          );
+        }
+      }
     },
   );
 });

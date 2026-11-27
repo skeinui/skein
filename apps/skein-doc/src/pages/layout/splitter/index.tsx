@@ -140,6 +140,27 @@ export default function SplitterPage() {
         </div>
       </Example>
 
+      <Example
+        id="grip"
+        code={`<Splitter grip="hover">…</Splitter>
+<Splitter grip="none">…</Splitter>`}
+      >
+        <div className="pg-stack">
+          {(["hover", "none"] as const).map((grip) => (
+            <div key={grip} className="pg-split-frame">
+              <Splitter grip={grip}>
+                <Splitter.Panel defaultSize="50%">
+                  <Pane title={`grip="${grip}"`}>{t(`grip.${grip}`)}</Pane>
+                </Splitter.Panel>
+                <Splitter.Panel>
+                  <Pane title={t("usage.right")} />
+                </Splitter.Panel>
+              </Splitter>
+            </div>
+          ))}
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

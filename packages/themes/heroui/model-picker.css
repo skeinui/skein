@@ -51,8 +51,8 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: 1rem;
-    height: 1rem;
+    width: var(--ui-model-picker-icon-size, 1rem);
+    height: var(--ui-model-picker-icon-size, 1rem);
   }
   [data-skein-theme="heroui"] [data-slot="model-picker-icon"] > svg,
   [data-skein-theme="heroui"] [data-slot="model-picker-item-icon"] > svg {

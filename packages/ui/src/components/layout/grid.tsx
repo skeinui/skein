@@ -39,6 +39,11 @@ export interface GridProps extends Without<ComponentPropsWithoutRef<"div">> {
    * @default "stretch"
    */
   align?: "start" | "center" | "end" | "stretch";
+  /**
+   * Take the height the parent flex container has left, and let it shrink below its content (like Flex `grow`): with `aside`, the two columns then have that height, and a column that holds a list can scroll inside it.
+   * @default false
+   */
+  grow?: boolean;
 }
 
 /** Grid layout: a fixed number of columns, or adapt to a minimum column width; use Grid.Item's span to make an item span several columns. */
@@ -50,6 +55,7 @@ export function Grid({
   asideWidth = "md",
   gap = "md",
   align = "stretch",
+  grow = false,
   ...rest
 }: GridProps) {
   const cols =
@@ -63,6 +69,7 @@ export function Grid({
     "data-aside-width": aside ? asideWidth : undefined,
     "data-gap": gap,
     "data-align": align,
+    "data-grow": grow ? "" : undefined,
   });
 }
 

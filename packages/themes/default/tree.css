@@ -119,8 +119,8 @@
     color: var(--ui-fg-muted);
   }
   [data-skein-theme="default"] [data-slot="tree-icon"] > svg {
-    width: 1rem;
-    height: 1rem;
+    width: var(--ui-tree-icon-size, 1rem);
+    height: var(--ui-tree-icon-size, 1rem);
   }
   [data-skein-theme="default"] [data-slot="tree-label"] {
     min-width: 0;

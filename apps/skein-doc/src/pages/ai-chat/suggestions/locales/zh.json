@@ -17,6 +17,10 @@
   },
   "list": { "title": "列表" },
   "chips": { "title": "胶囊" },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": {
     "title": "API 参考",
     "item": "每个 `SuggestionItem` 是 `{ id?, title, description?, prompt?, icon? }`：`title` 是标题，`description` 是一句说明（胶囊布局不显示），`prompt` 是点击时要发的文字（不传就是 title），`icon` 在标题前。"
@@ -32,6 +36,7 @@
   },
   "props": {
     "Suggestions": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "aria-label": "没有 `title` 时这一组的名称（读屏用）；默认是当前语言的「建议」。",
       "description": "标题下面的说明。",
       "items": "这一组建议。",

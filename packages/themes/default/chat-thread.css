@@ -4,6 +4,8 @@
   /* ChatThread: message area that scrolls pinned to the bottom (role=log). The back-to-bottom button sticks to the bottom edge of the viewport at the end and takes no height itself */
   [data-skein-theme="default"] [data-slot="chat-thread"] {
     box-sizing: border-box;
+    /* the scroll container is the containing block of what is absolutely positioned inside it (a hidden status line), so that cannot widen the scroll area around the thread */
+    position: relative;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;

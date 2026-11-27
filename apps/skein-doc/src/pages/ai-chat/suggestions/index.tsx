@@ -80,6 +80,16 @@ export default function SuggestionsPage() {
         <Demo layout="chips" />
       </Example>
 
+      <Example id="icon-size" code={`<Suggestions iconSize={28} items={…} />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Suggestions
+            layout="list"
+            iconSize={28}
+            items={ITEMS.map((key) => ({ id: key, title: t(`grid.${key}`), icon: Spark }))}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

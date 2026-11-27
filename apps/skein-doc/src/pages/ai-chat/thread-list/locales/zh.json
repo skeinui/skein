@@ -18,6 +18,10 @@
     "text": "还没有会话",
     "label": "空的会话列表"
   },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置每行图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；头像或图片自己决定大小。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -34,6 +38,7 @@
     "ThreadList": {
       "aria-label": "列表的名称，读屏用，默认 \"Conversations\"。",
       "empty": "没有会话时显示的内容。",
+      "iconSize": "行图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小（18px）。作为 `icon` 传入的头像或图片自己决定大小。",
       "items": "要列出的会话，按显示顺序（`{ id, title, preview, meta, icon }`）。",
       "onValueChange": "点了某个会话时触发。",
       "value": "当前打开的会话 id。"

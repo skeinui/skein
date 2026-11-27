@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 import { useLabels } from "../../locales/use-labels.ts";
 
 export interface ThreadItem {
@@ -23,6 +24,11 @@ export interface ThreadListProps {
   onValueChange?: (id: string) => void;
   /** Content shown when there are no conversations. */
   empty?: ReactNode;
+  /**
+   * Size of the row icons, for the SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size (18px) is used.
+   * An avatar or image passed as `icon` sizes itself.
+   */
+  iconSize?: number | string;
   /** Name of this list, for screen readers, default "Conversations". */
   "aria-label"?: string;
 }
@@ -37,12 +43,14 @@ export function ThreadList({
   value,
   onValueChange,
   empty,
+  iconSize,
   "aria-label": labelProp,
 }: ThreadListProps) {
   const t = useLabels("threadList");
   const label = labelProp ?? t.label;
+  const ref = useIconSizeVar<HTMLElement>("thread-list", iconSize);
   return (
-    <nav data-slot="thread-list" aria-label={label}>
+    <nav ref={ref} data-slot="thread-list" aria-label={label}>
       {items.length === 0 && empty ? <div data-slot="thread-list-empty">{empty}</div> : null}
       {items.length > 0 ? (
         <ul data-slot="thread-list-items">

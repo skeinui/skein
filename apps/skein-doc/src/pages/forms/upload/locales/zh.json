@@ -9,6 +9,10 @@
   "button": { "title": "按钮" },
   "states": { "title": "文件状态", "tooLarge": "文件超过 50 MB" },
   "disabled": { "title": "禁用", "hint": "上传已关闭" },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -21,6 +25,7 @@
   },
   "props": {
     "Upload": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "accept": "原生 accept，例如 \".png,.jpg\" 或 \"image/*\"。",
       "aria-label": "没有可见标签时的无障碍名称。",
       "disabled": "禁用选择和拖入文件。",

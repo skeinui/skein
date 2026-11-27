@@ -93,6 +93,12 @@ export default function ResultPage() {
         <Result icon={<span className="pg-emoji-icon">🎉</span>} title="You are all caught up" />
       </Example>
 
+      <Example id="icon-size" code={`<Result status="success" iconSize={48} title="…" />`}>
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Result status="success" iconSize={48} title="Payment received" />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { UISize } from "../../contract.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 type DivProps = Omit<
   import("react").ComponentPropsWithoutRef<"div">,
@@ -20,12 +21,25 @@ export interface EmptyProps extends DivProps {
    * @default "md"
    */
   size?: UISize;
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used.
+   */
+  iconSize?: number | string;
 }
 
 /** Empty state: placeholder message when there is no data or no search results. Data-driven, every part is optional. */
-export function Empty({ icon, title, description, actions, size = "md", ...rest }: EmptyProps) {
+export function Empty({
+  icon,
+  iconSize,
+  title,
+  description,
+  actions,
+  size = "md",
+  ...rest
+}: EmptyProps) {
+  const ref = useIconSizeVar<HTMLDivElement>("empty", iconSize);
   return (
-    <div {...rest} data-slot="empty" data-size={size}>
+    <div {...rest} ref={ref} data-slot="empty" data-size={size}>
       {icon ? (
         <div data-slot="empty-icon" aria-hidden="true">
           {icon}

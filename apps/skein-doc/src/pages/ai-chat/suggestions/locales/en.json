@@ -17,6 +17,10 @@
   },
   "list": { "title": "List" },
   "chips": { "title": "Chips" },
+  "icon-size": {
+    "title": "Icon Size",
+    "description": "`iconSize` sets the size of the icons: a number is px, a string any CSS length (`\"1.5rem\"`). It applies to SVG icons; anything else sizes itself."
+  },
   "api": {
     "title": "API Reference",
     "item": "Each `SuggestionItem` is `{ id?, title, description?, prompt?, icon? }`: `title` is the visible text, `description` a line under it (not shown as chips), `prompt` the text to send on click (the title when omitted), `icon` goes before the title."

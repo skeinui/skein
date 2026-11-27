@@ -17,6 +17,7 @@ export default {
         "responsive",
         "grid",
         "aside",
+        "aside-start",
         "auto-grid",
       ],
     },

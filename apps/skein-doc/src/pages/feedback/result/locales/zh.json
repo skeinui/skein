@@ -5,6 +5,10 @@
   "pages": { "title": "页面错误" },
   "content": { "title": "附加内容" },
   "icon": { "title": "自定义图标" },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": { "title": "API 参考" },
   "styling": {
     "title": "样式钩子",
@@ -17,6 +21,7 @@
   },
   "props": {
     "Result": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "children": "说明之外的内容（比如出错的详情列表），放在一块浅色背景里。",
       "description": "标题下面的说明。",
       "extra": "底部的操作区，通常放一两个按钮。",

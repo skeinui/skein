@@ -45,5 +45,9 @@
     "description": "`aside` is a main column and a side column of a fixed width (`asideWidth`: 14, 20 or 26rem), on the end or the start side; below 64rem they stack, the main one first.",
     "main": "Main",
     "side": "Side"
+  },
+  "aside-start": {
+    "title": "Side column first",
+    "description": "`aside=\"start\"` puts the side column before the main one; the children are still written main first, then the side, so the order below 64rem (stacked) is the same."
   }
 }

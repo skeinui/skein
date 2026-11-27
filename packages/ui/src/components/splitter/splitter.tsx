@@ -45,6 +45,11 @@ export interface SplitterProps {
   disabled?: boolean;
   /** Accessible name of the drag bar; defaults to the locale's "Resize". */
   handleLabel?: string;
+  /**
+   * The grip in the middle of the drag bar: `always` shows it, `hover` only while the bar is pointed at, focused or dragged (the line stays), `none` draws no grip at all.
+   * @default "always"
+   */
+  grip?: "always" | "hover" | "none";
   children?: ReactNode;
 }
 
@@ -99,6 +104,7 @@ export function Splitter({
   onResizeEnd,
   disabled = false,
   handleLabel: handleLabelProp,
+  grip = "always",
   children,
 }: SplitterProps) {
   const t = useLabels("splitter");
@@ -223,6 +229,14 @@ export function Splitter({
     if (currentRef.current) onResizeEnd?.(currentRef.current);
   };
 
+  /** Double click on a bar: the two panels around it go back to the sizes they start with (`defaultSize`), as far as their min / max and the others allow. */
+  const reset = (index: number) => {
+    const base = currentRef.current;
+    if (disabled || !base || !initial) return;
+    commit(move(index, initial[index]! - base[index]!, base));
+    onResizeEnd?.(currentRef.current!);
+  };
+
   const onKeyDown = (event: KeyboardEvent<HTMLElement>, index: number) => {
     const base = currentRef.current;
     if (disabled || !base) return;
@@ -248,6 +262,7 @@ export function Splitter({
       data-ready={current ? "" : undefined}
       data-dragging={dragging !== null ? "" : undefined}
       data-disabled={disabled ? "" : undefined}
+      data-grip={grip === "always" ? undefined : grip}
     >
       {panels.map((panel, i) => {
         const last = i === panels.length - 1;
@@ -289,6 +304,7 @@ export function Splitter({
                   onPointerMove={onPointerMove}
                   onPointerUp={endDrag}
                   onPointerCancel={endDrag}
+                  onDoubleClick={() => reset(i)}
                   onKeyDown={(e) => onKeyDown(e, i)}
                 />
               </div>

@@ -2,6 +2,7 @@ import { Select as BaseSelect } from "@base-ui/react/select";
 import type { ReactNode } from "react";
 import type { OverlayAlign, OverlaySide } from "../../contract.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 export interface ModelOption {
   /** Unique id; it is the picker's `value`. */
@@ -20,6 +21,10 @@ export interface ModelOption {
 }
 
 export interface ModelPickerProps {
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used. It applies to the icon in the trigger and in the list.
+   */
+  iconSize?: number | string;
   /** The models to choose from, in display order (models with the same `group` are gathered together). */
   models: readonly ModelOption[];
   /** Id of the current model; controlled. */
@@ -112,11 +117,15 @@ export function ModelPicker({
   onValueChange,
   placeholder: placeholderProp,
   disabled,
+  iconSize,
   "aria-label": labelProp,
   side = "top",
   align = "start",
 }: ModelPickerProps) {
   const t = useLabels("modelPicker");
+  // The list is portaled out of the trigger, so each carries the variable
+  const triggerRef = useIconSizeVar<HTMLButtonElement>("model-picker", iconSize);
+  const popupRef = useIconSizeVar<HTMLDivElement>("model-picker", iconSize);
   const label = labelProp ?? t.label;
   const placeholder = placeholderProp ?? t.placeholder;
   const items = models.map((m) => ({ value: m.id, label: m.name }));
@@ -140,7 +149,7 @@ export function ModelPicker({
         if (typeof next === "string") onValueChange?.(next);
       }}
     >
-      <BaseSelect.Trigger aria-label={label} data-slot="model-picker-trigger">
+      <BaseSelect.Trigger ref={triggerRef} aria-label={label} data-slot="model-picker-trigger">
         <BaseSelect.Value data-slot="model-picker-name" placeholder={placeholder}>
           {(id: string | null) => {
             const model = id ? byId.get(id) : undefined;
@@ -170,7 +179,7 @@ export function ModelPicker({
           sideOffset={6}
           alignItemWithTrigger={false}
         >
-          <BaseSelect.Popup data-slot="select" data-model-picker="">
+          <BaseSelect.Popup ref={popupRef} data-slot="select" data-model-picker="">
             <BaseSelect.List data-slot="select-list">
               {groups.map((group, i) =>
                 group.name === null ? (

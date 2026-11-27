@@ -513,10 +513,12 @@ export function coverageFor(contract) {
       ...SUGGESTIONS_LAYOUTS.map((l) => `[data-layout="${l}"]`),
       ":focus-visible",
       "prefers-reduced-motion",
+      "--ui-suggestions-icon-size",
     ],
     "thread-list.css": [
       ...slotSel(THREAD_LIST_SLOTS),
       "[data-selected]",
+      "--ui-thread-list-icon-size",
       ":focus-visible",
       "prefers-reduced-motion",
     ],
@@ -527,12 +529,14 @@ export function coverageFor(contract) {
       "[data-model-picker]",
       ":focus-visible",
       "prefers-reduced-motion",
+      "--ui-model-picker-icon-size",
     ],
     "artifact.css": [
       ...slotSel(ARTIFACT_SLOTS),
       "[data-selected]",
       ":focus-visible",
       "prefers-reduced-motion",
+      "--ui-artifact-card-icon-size",
     ],
     "plan.css": [
       ...slotSel(PLAN_SLOTS),
@@ -835,6 +839,7 @@ export function coverageFor(contract) {
       "[data-disabled]",
       "[data-starting-style]",
       "[data-ending-style]",
+      "--ui-command-icon-size",
     ],
     "collapsible.css": [
       ...slotSel(COLLAPSIBLE_SLOTS),
@@ -941,7 +946,12 @@ export function coverageFor(contract) {
       "[data-disabled]",
       ":focus-visible",
     ],
-    "empty.css": [...slotSel(EMPTY_SLOTS), '[data-size="sm"]', '[data-size="lg"]'],
+    "empty.css": [
+      ...slotSel(EMPTY_SLOTS),
+      '[data-size="sm"]',
+      '[data-size="lg"]',
+      "--ui-empty-icon-size",
+    ],
     "stepper.css": [
       ...slotSel(STEPPER_SLOTS),
       ...COLORS.map((c) => `[data-color="${c}"]`),
@@ -1033,6 +1043,7 @@ export function coverageFor(contract) {
       '[data-status="success"]',
       '[data-status="error"]',
       '[data-status="warning"]',
+      "--ui-result-icon-size",
     ],
     "statistic.css": [
       ...slotSel(STATISTIC_SLOTS),
@@ -1054,6 +1065,8 @@ export function coverageFor(contract) {
     "splitter.css": [
       ...slotSel(SPLITTER_SLOTS),
       '[data-orientation="vertical"]',
+      '[data-grip="hover"]',
+      '[data-grip="none"]',
       "[data-ready]",
       "[data-dragging]",
       "[data-active]",
@@ -1081,6 +1094,7 @@ export function coverageFor(contract) {
       "[data-wrap]",
       "[data-inline]",
       "[data-grow]",
+      "[data-no-shrink]",
     ],
     "grid.css": [
       ...slotSel(GRID_SLOTS),
@@ -1095,6 +1109,7 @@ export function coverageFor(contract) {
       '[data-order="24"]',
       '[data-xxl-span="24"]',
       "[data-nowrap]",
+      "[data-grow]",
     ],
     "layout.css": [...slotSel(LAYOUT_SLOTS), '[data-size="lg"]'],
     "typography.css": [
@@ -1151,6 +1166,7 @@ export function coverageFor(contract) {
       "[data-pending]",
       "[data-has-time]",
       "[data-has-icon]",
+      "--ui-timeline-icon-size",
     ],
     "tree.css": [
       ...slotSel(TREE_SLOTS),
@@ -1170,6 +1186,7 @@ export function coverageFor(contract) {
       '[data-drop="after"]',
       '[data-drop="inside"]',
       ":focus-visible",
+      "--ui-tree-icon-size",
     ],
     "upload.css": [
       ...slotSel(UPLOAD_SLOTS),
@@ -1180,6 +1197,7 @@ export function coverageFor(contract) {
       '[data-status="done"]',
       '[data-status="error"]',
       ":focus-visible",
+      "--ui-upload-icon-size",
     ],
   };
   /** Button and ButtonGroup. */

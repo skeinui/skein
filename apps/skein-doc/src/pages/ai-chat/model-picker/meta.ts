@@ -4,7 +4,7 @@ export default {
   label: "Model Picker",
   origin: "Skein",
   toc: [
-    { group: "examples", items: ["usage", "groups", "composer"] },
+    { group: "examples", items: ["usage", "groups", "composer", "icon-size"] },
     { group: "reference", items: ["api", "styling"] },
   ],
 } satisfies PageMeta;

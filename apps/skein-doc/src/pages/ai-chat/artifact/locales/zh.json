@@ -13,6 +13,10 @@
     "description": "对话里的 `ArtifactCard`：`aria-pressed` 表示这个产物是否正在旁边打开着。",
     "open": "已打开：{id}"
   },
+  "icon-size": {
+    "title": "图标尺寸",
+    "description": "`iconSize` 设置图标的大小：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。对 SVG 图标生效；其它内容自己决定大小。"
+  },
   "api": {
     "title": "API 参考",
     "description": "`Artifact` 是复合组件；没有自己 props 的部件接受它所渲染元素的 props。",
@@ -70,6 +74,7 @@
       "aria-label": "内容区的名称，给读屏用，默认 \"Content\"。"
     },
     "ArtifactCard": {
+      "iconSize": "图标的大小，针对 SVG 图标：数字按 px，字符串可写任意 CSS 长度（`\"1.5rem\"`）。不设置时用主题样式自己的大小。",
       "icon": "左侧图标，默认是文档图标。",
       "meta": "标题下面那一行（\"Code · v2\"、\"Document\"）。",
       "onOpen": "点击（打开 / 切换到这个产物）。",

@@ -25,9 +25,37 @@
   [data-skein-theme="default"] [data-slot="grid"][data-aside="start"] {
     grid-template-columns: var(--_aside) minmax(0, 1fr);
   }
+  /* The main column is written first whichever side the side column is on, so with `start` the second child goes to the first column */
+  [data-skein-theme="default"] [data-slot="grid"][data-aside="start"] > :nth-child(1) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  [data-skein-theme="default"] [data-slot="grid"][data-aside="start"] > :nth-child(2) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  /* grow: takes the height the flex parent has left (like Flex grow); with an aside the one row is that tall and its columns can shrink and scroll */
+  [data-skein-theme="default"] [data-slot="grid"][data-grow] {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  [data-skein-theme="default"] [data-slot="grid"][data-grow] > * {
+    min-height: 0;
+  }
+  [data-skein-theme="default"] [data-slot="grid"][data-grow][data-aside] {
+    grid-template-rows: minmax(0, 1fr);
+  }
   @media (max-width: 64rem) {
     [data-skein-theme="default"] [data-slot="grid"][data-aside] {
       grid-template-columns: minmax(0, 1fr);
+    }
+    [data-skein-theme="default"] [data-slot="grid"][data-grow][data-aside] {
+      grid-template-rows: none;
+    }
+    [data-skein-theme="default"] [data-slot="grid"][data-aside="start"] > :nth-child(1),
+    [data-skein-theme="default"] [data-slot="grid"][data-aside="start"] > :nth-child(2) {
+      grid-column: auto;
+      grid-row: auto;
     }
   }
   [data-skein-theme="default"] [data-slot="grid"][data-columns="1"] {

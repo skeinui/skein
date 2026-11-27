@@ -82,6 +82,20 @@ export default function EmptyPage() {
         </Table>
       </Example>
 
+      <Example
+        id="icon-size"
+        code={`<Empty iconSize={64} icon={<InboxIcon />} title="No messages" />`}
+      >
+        <div style={{ width: 360, maxWidth: "100%" }}>
+          <Empty
+            iconSize={64}
+            icon={<InboxIcon />}
+            title="No messages"
+            description="You are all caught up."
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

@@ -3,6 +3,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
 import { score } from "./filter.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 export { score };
 
@@ -36,6 +37,10 @@ export interface CommandGroup {
 export type CommandEntry = CommandItem | CommandGroup;
 
 export interface CommandProps {
+  /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used. It applies to the icon before each command (`CommandItem.icon`).
+   */
+  iconSize?: number | string;
   /** Commands: plain items and / or `{ type: "group" }` groups. Loose items are listed before the groups. */
   items: readonly CommandEntry[];
   /** Called with the item's key and the item when a command runs (Enter or click); the item's own `onSelect` runs too. */
@@ -77,8 +82,10 @@ export function Command({
   query: queryProp,
   onQueryChange,
   autoFocus,
+  iconSize,
   ...aria
 }: CommandProps) {
+  const rootRef = useIconSizeVar<HTMLDivElement>("command", iconSize);
   const t = useLabels("command");
   const emptyText = emptyTextProp ?? t.empty;
   const placeholder = placeholderProp ?? t.placeholder;
@@ -169,7 +176,7 @@ export function Command({
 
   let counter = -1;
   return (
-    <div data-slot="command">
+    <div ref={rootRef} data-slot="command">
       <div data-slot="command-input-wrap">
         <svg
           viewBox="0 0 24 24"

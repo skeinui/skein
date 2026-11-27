@@ -4,7 +4,7 @@ export default {
   label: "Artifact",
   origin: "Skein",
   toc: [
-    { group: "examples", items: ["usage", "card"] },
+    { group: "examples", items: ["usage", "card", "icon-size"] },
     { group: "reference", items: ["api", "styling"] },
   ],
 } satisfies PageMeta;

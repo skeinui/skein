@@ -5,6 +5,7 @@ import type { ButtonProps } from "../button/index.ts";
 import { Segmented } from "../segmented/index.ts";
 import type { SegmentedProps } from "../segmented/index.ts";
 import { useLabels } from "../../locales/use-labels.ts";
+import { useIconSizeVar } from "../../internal/use-width-vars.ts";
 
 type Without<T> = Omit<T, "className" | "style">;
 
@@ -130,6 +131,10 @@ export interface ArtifactCardProps {
   /** Icon on the left, a document icon by default. */
   icon?: ReactNode;
   /**
+   * Size of the icons, for SVG icons: a number is px, a string any CSS length (`"1.5rem"`). Unset, the theme style's size is used.
+   */
+  iconSize?: number | string;
+  /**
    * This artifact is currently open in the right panel.
    * @default false
    */
@@ -139,9 +144,18 @@ export interface ArtifactCardProps {
 }
 
 /** A small card in the conversation pointing to an artifact: clicking it opens `Artifact` beside it. It is a button, and `aria-pressed` indicates whether it is currently open. */
-export function ArtifactCard({ title, meta, icon, selected = false, onOpen }: ArtifactCardProps) {
+export function ArtifactCard({
+  title,
+  meta,
+  icon,
+  iconSize,
+  selected = false,
+  onOpen,
+}: ArtifactCardProps) {
+  const ref = useIconSizeVar<HTMLButtonElement>("artifact-card", iconSize);
   return (
     <button
+      ref={ref}
       type="button"
       data-slot="artifact-card"
       data-selected={selected ? "" : undefined}

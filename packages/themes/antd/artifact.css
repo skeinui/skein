@@ -106,8 +106,8 @@
     color: var(--ui-fg);
   }
   [data-skein-theme="antd"] [data-slot="artifact-card-icon"] > svg {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: var(--ui-artifact-card-icon-size, 1.125rem);
+    height: var(--ui-artifact-card-icon-size, 1.125rem);
   }
   [data-skein-theme="antd"] [data-slot="artifact-card-text"] {
     display: flex;

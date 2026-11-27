@@ -2,7 +2,22 @@
 import { act, createElement } from "react";
 import { createRoot } from "react-dom/client";
 import { afterEach, describe, expect, test } from "vite-plus/test";
-import { Input, InputGroup, Select, Textarea } from "../src/index.ts";
+import {
+  ArtifactCard,
+  Command,
+  Empty,
+  Input,
+  InputGroup,
+  ModelPicker,
+  Result,
+  Select,
+  Suggestions,
+  Textarea,
+  ThreadList,
+  Timeline,
+  Tree,
+  Upload,
+} from "../src/index.ts";
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -81,5 +96,39 @@ describe("width / minWidth / maxWidth are written as CSS variables on the slot",
     expect(slot("input-group").dataset.width).toBeUndefined();
     expect(v(slot("input-group"), "--ui-input-group-width")).toBe("16rem");
     expect(v(slot("input-group"), "--ui-input-group-min-width")).toBe("100px");
+  });
+
+  test("ThreadList iconSize is a variable on the root", async () => {
+    await mount(createElement(ThreadList, { items: [], iconSize: 28 }));
+    expect(v(slot("thread-list"), "--ui-thread-list-icon-size")).toBe("28px");
+    await rerender(createElement(ThreadList, { items: [], iconSize: "1.5rem" }));
+    expect(v(slot("thread-list"), "--ui-thread-list-icon-size")).toBe("1.5rem");
+    await rerender(createElement(ThreadList, { items: [] }));
+    expect(v(slot("thread-list"), "--ui-thread-list-icon-size")).toBe("");
+  });
+
+  test.each([
+    ["empty", "empty", Empty, {}],
+    ["result", "result", Result, {}],
+    ["upload", "upload", Upload, {}],
+    ["artifact-card", "artifact-card", ArtifactCard, { title: "t" }],
+    ["suggestions", "suggestions", Suggestions, { items: [] }],
+    ["tree", "tree", Tree, { nodes: [] }],
+    ["command", "command", Command, { items: [] }],
+    ["timeline", "timeline", Timeline, { items: [] }],
+  ] as const)(
+    "%s: iconSize is a variable on the root",
+    async (prefix, slotName, Component, props) => {
+      const C = Component as React.ComponentType<Record<string, unknown>>;
+      await mount(createElement(C, { ...props, iconSize: 32 }));
+      expect(v(slot(slotName), `--ui-${prefix}-icon-size`)).toBe("32px");
+      await rerender(createElement(C, { ...props, iconSize: "2rem" }));
+      expect(v(slot(slotName), `--ui-${prefix}-icon-size`)).toBe("2rem");
+    },
+  );
+
+  test("ModelPicker iconSize is on the trigger", async () => {
+    await mount(createElement(ModelPicker, { models: [], iconSize: 24 }));
+    expect(v(slot("model-picker-trigger"), "--ui-model-picker-icon-size")).toBe("24px");
   });
 });

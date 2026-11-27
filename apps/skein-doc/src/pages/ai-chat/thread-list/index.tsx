@@ -92,6 +92,33 @@ export default function ThreadListPage() {
         </div>
       </Example>
 
+      <Example
+        id="icon-size"
+        code={`<ThreadList iconSize={28} items={…} />
+<ThreadList iconSize="1.5rem" items={…} />`}
+      >
+        <div style={{ width: 320, maxWidth: "100%" }}>
+          <ThreadList
+            aria-label={t("icon-size.title")}
+            iconSize={28}
+            items={[
+              {
+                id: "1",
+                title: t("usage.planning"),
+                preview: t("usage.planningPreview"),
+                icon: Chat,
+              },
+              {
+                id: "2",
+                title: t("usage.recipes"),
+                preview: t("usage.recipesPreview"),
+                icon: Chat,
+              },
+            ]}
+          />
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

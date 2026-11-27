@@ -18,6 +18,10 @@
     "text": "No conversations yet",
     "label": "Empty conversations"
   },
+  "icon-size": {
+    "title": "Icon Size",
+    "description": "`iconSize` sets the size of the row icons: a number is px, a string any CSS length (`\"1.5rem\"`). It applies to SVG icons; an avatar or image sizes itself."
+  },
   "api": { "title": "API Reference" },
   "styling": {
     "title": "Styling Reference",

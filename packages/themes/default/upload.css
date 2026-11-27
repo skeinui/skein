@@ -71,15 +71,15 @@
     color: var(--ui-fg-muted);
   }
   [data-skein-theme="default"] [data-slot="upload-icon"] > svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: var(--ui-upload-icon-size, 1.5rem);
+    height: var(--ui-upload-icon-size, 1.5rem);
   }
   [data-skein-theme="default"]
     [data-slot="upload"][data-variant="button"]
     [data-slot="upload-icon"]
     > svg {
-    width: 1rem;
-    height: 1rem;
+    width: var(--ui-upload-icon-size, 1rem);
+    height: var(--ui-upload-icon-size, 1rem);
   }
   [data-skein-theme="default"] [data-slot="upload-title"] {
     font-weight: 500;
