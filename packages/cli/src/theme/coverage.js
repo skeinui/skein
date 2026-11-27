@@ -205,6 +205,9 @@ export function coverageFor(contract) {
       "[data-invalid]",
       "[data-disabled]",
       ":focus",
+      "--ui-input-width",
+      "--ui-textarea-width",
+      "--ui-input-group-width",
     ],
     "input-addons.css": [
       ...slotSel(INPUT_ADDON_SLOTS),
@@ -216,6 +219,7 @@ export function coverageFor(contract) {
       "[data-limit]",
       "--ta-height",
       ":focus-visible",
+      "--ui-textarea-wrapper-width",
     ],
     "field.css": [...slotSel(FIELD_SLOTS), "[data-required]", "[data-invalid]"],
     "checkbox.css": [
@@ -289,6 +293,7 @@ export function coverageFor(contract) {
       ":focus-visible",
       "[data-editable]",
       ":focus-within",
+      "--ui-select-width",
     ],
   };
   /** Display components (batch 3). */
@@ -954,6 +959,7 @@ export function coverageFor(contract) {
       '[data-size="lg"]',
       "[data-invalid]",
       "[data-disabled]",
+      "--ui-cascader-width",
       "[data-popup-open]",
       "[data-placeholder]",
       "[data-active]",
@@ -970,6 +976,7 @@ export function coverageFor(contract) {
       '[data-size="lg"]',
       "[data-invalid]",
       "[data-disabled]",
+      "--ui-treeselect-width",
       "[data-popup-open]",
       "[data-placeholder]",
       "[data-multiple]",
@@ -991,12 +998,14 @@ export function coverageFor(contract) {
       "[data-selected]",
       '[data-field="alpha"]',
       ":focus-visible",
+      "--ui-colorpicker-width",
     ],
     "mentions.css": [
       ...slotSel(MENTIONS_SLOTS),
       "[data-full-width]",
       "[data-active]",
       "[data-disabled]",
+      "--ui-mentions-width",
     ],
     "scrollbar.css": ["[data-skein-theme"],
     "tour.css": [
