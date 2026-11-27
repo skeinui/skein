@@ -16,6 +16,13 @@
     overscroll-behavior: contain;
     outline: none;
   }
+  /* Base UI writes `min-width: fit-content` on the content, so a long line widens it: in a vertical area the content is as wide as the area (hence `!important`: it is in the element's own style) */
+  [data-skein-theme="default"]
+    [data-slot="scroll-area"][data-orientation="vertical"]
+    > [data-slot="scroll-area-viewport"]
+    > [data-slot="scroll-area-content"] {
+    min-width: 0 !important;
+  }
   [data-skein-theme="default"] [data-slot="scroll-area-viewport"]:focus-visible {
     box-shadow: inset 0 0 0 2px var(--ui-ring);
   }

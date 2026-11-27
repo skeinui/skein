@@ -35,6 +35,12 @@
     font-size: 0.8125rem;
   }
 
+  [data-skein-theme="default"] [data-slot="button"][data-size="xs"] {
+    height: calc(1.5rem * var(--ui-density));
+    padding-inline: calc(0.5rem * var(--ui-density));
+    font-size: 0.75rem;
+  }
+
   [data-skein-theme="default"] [data-slot="button"][data-size="lg"] {
     height: var(--ui-height-lg);
     padding-inline: calc(1.25rem * var(--ui-density));

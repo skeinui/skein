@@ -1,10 +1,15 @@
 {
-  "lead": "One message in a chat: the assistant's is \"avatar + content column\", the user's a bubble on the right. The content can hold Markdown, sources and tool calls, with a row of faded actions below. Each message is a named article, so inside a Chat Thread a screen reader can read them one by one.",
+  "lead": "One message in a chat: the assistant's is \"avatar + content column\", the user's a bubble on the right (with an avatar next to it if you give one). The content can hold Markdown, sources and tool calls, with a row of faded actions below. Each message is a named article, so inside a Chat Thread a screen reader can read them one by one.",
   "assistant": "Assistant",
   "usage": {
     "title": "Usage",
     "question": "How do I validate a form?",
     "answer": "Use a schema and validate on submit."
+  },
+  "avatars": {
+    "title": "Avatars",
+    "description": "Both sides can have an avatar, and both are yours to set: an image (`src`), the initials of a `name`, or anything as the `fallback` (an icon). The user's goes next to the bubble, on the right, and is optional.",
+    "user": "Ada Lovelace"
   },
   "markdown": {
     "title": "With Markdown",
@@ -12,7 +17,7 @@
   },
   "actions": {
     "title": "Actions",
-    "description": "The actions stay faded until the message is hovered or focused with the keyboard (always shown on touch screens); toggles such as Like use `pressed`.",
+    "description": "The actions stay faded until the message is hovered or focused with the keyboard (always shown on touch screens); toggles such as Like use `pressed`. `ChatTurn.Copy` copies a text and, for two seconds, turns its icon into a check mark.",
     "message": "Hover (or focus) this message to reveal the actions.",
     "copy": "Copy",
     "retry": "Retry",
@@ -48,6 +53,7 @@
     "Assistant": "The root of an assistant message: an `article` with a name (`aria-label`, \"Assistant\" by default).",
     "User": "The root of a user message: an `article` with a name (`aria-label`, \"You\" by default).",
     "Avatar": "The assistant's avatar (`src` / `alt` / `fallback`). In a run of assistant messages, the later ones pass `show={false}`: an empty slot of the same width keeps the text aligned.",
+    "Copy": "The copy action: `text` is put on the clipboard, and for two seconds the icon fades into a check mark (in the success color) and the button is named \"Copied\"; `onCopy` is called after it. Nothing happens when the clipboard cannot be written.",
     "Actions": "A row of action buttons (`role=group`, `aria-label` \"Message actions\" by default). Faded until the message is hovered or focused; always shown on touch screens.",
     "Action": "An icon button (a small, muted Button); `aria-label` is required. `pressed` is written as `aria-pressed`, for Like / Dislike.",
     "Edit": "A form to edit a user message: put it in `ChatTurn.User` instead of `Bubble`. `defaultValue` / `onSave(value)` / `onCancel`. It grows with its text, Enter adds a line, ⌘ / Ctrl + Enter saves, Esc cancels, it takes focus when mounted, and empty text can't be saved; `labels` changes the button texts.",
@@ -72,6 +78,7 @@
     "edit": "The edit form of a user message, its textarea and its Save / Cancel row",
     "pager": "The reply version switcher and its \"2 / 3\"",
     "status": "The send state (`data-state`) and the Retry button",
+    "copy": "`ChatTurn.Copy`: `data-copy` marks the button, `data-copied` is written for two seconds after the copy (the icon swaps to a check mark); the status text is for screen readers and is not displayed",
     "time": "The timestamp"
   }
 }

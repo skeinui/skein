@@ -162,6 +162,22 @@ describe("interaction (DOM)", () => {
     expect(el.querySelector('[data-slot="scroll-area"]')?.hasAttribute("class")).toBe(false);
   });
 
+  test("ScrollArea writes its orientation, and its content has a slot the theme styles use for the width", async () => {
+    const root = async (orientation: "vertical" | "horizontal" | "both") => {
+      const el = await mount(
+        createElement(ScrollArea, { orientation }, createElement("p", null, "Content")),
+      );
+      return el.querySelector<HTMLElement>('[data-slot="scroll-area"]')!;
+    };
+    for (const orientation of ["vertical", "horizontal", "both"] as const) {
+      const el = await root(orientation);
+      expect(el.getAttribute("data-orientation")).toBe(orientation);
+      expect(
+        el.querySelector('[data-slot="scroll-area-viewport"] > [data-slot="scroll-area-content"]'),
+      ).not.toBeNull();
+    }
+  });
+
   test("ContextMenu renders items with the menu slots when open", async () => {
     await mount(
       createElement(

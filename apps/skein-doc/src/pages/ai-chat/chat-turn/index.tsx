@@ -30,6 +30,7 @@ const HOOKS = [
   { key: "edit", name: "chat-turn-edit / -textarea / -actions" },
   { key: "pager", name: "chat-turn-pager / chat-turn-pager-count" },
   { key: "status", name: "chat-turn-status / chat-turn-status-retry" },
+  { key: "copy", name: "chat-turn-copy-status / data-copy / data-copied" },
   { key: "time", name: "chat-turn-time" },
 ];
 
@@ -48,7 +49,6 @@ const icon = (d: string) => (
     <path d={d} />
   </svg>
 );
-const COPY = icon("M9 9h11v11H9zM5 15H4V4h11v1");
 const RETRY = icon("M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5");
 const LIKE = icon("M7 10v11M7 10l4-7a2 2 0 0 1 2 2v4h6a2 2 0 0 1 2 2l-1.5 7A2 2 0 0 1 17.5 20H7");
 
@@ -61,7 +61,7 @@ function ActionsDemo() {
       <ChatTurn.Body>
         <ChatTurn.Content>{t("actions.message")}</ChatTurn.Content>
         <ChatTurn.Actions>
-          <ChatTurn.Action aria-label={t("actions.copy")}>{COPY}</ChatTurn.Action>
+          <ChatTurn.Copy text={t("actions.message")} />
           <ChatTurn.Action aria-label={t("actions.retry")}>{RETRY}</ChatTurn.Action>
           <ChatTurn.Action
             aria-label={t("actions.like")}
@@ -201,6 +201,37 @@ export default function ChatTurnPage() {
       </Example>
 
       <Example
+        id="avatars"
+        code={`<ChatTurn.User>
+  <ChatTurn.Bubble><ChatTurn.Content>…</ChatTurn.Content></ChatTurn.Bubble>
+  <ChatTurn.Avatar name="Ada Lovelace" src={user.avatar} />
+</ChatTurn.User>
+
+<ChatTurn.Assistant>
+  <ChatTurn.Avatar alt="Assistant" fallback={<SparklesIcon />} />
+  <ChatTurn.Body>…</ChatTurn.Body>
+</ChatTurn.Assistant>`}
+      >
+        <div className="pg-stack" style={{ width: 560, maxWidth: "100%" }}>
+          <ChatTurn.User>
+            <ChatTurn.Bubble>
+              <ChatTurn.Content>{t("usage.question")}</ChatTurn.Content>
+            </ChatTurn.Bubble>
+            <ChatTurn.Avatar name={t("avatars.user")} />
+          </ChatTurn.User>
+          <ChatTurn.Assistant>
+            <ChatTurn.Avatar
+              alt={t("assistant")}
+              fallback={icon("M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z")}
+            />
+            <ChatTurn.Body>
+              <ChatTurn.Content>{t("usage.answer")}</ChatTurn.Content>
+            </ChatTurn.Body>
+          </ChatTurn.Assistant>
+        </div>
+      </Example>
+
+      <Example
         id="markdown"
         code={`<ChatTurn.Assistant>
   <ChatTurn.Avatar alt="Assistant" fallback="AI" />
@@ -226,7 +257,7 @@ export default function ChatTurnPage() {
       <Example
         id="actions"
         code={`<ChatTurn.Actions>
-  <ChatTurn.Action aria-label="Copy">…</ChatTurn.Action>
+  <ChatTurn.Copy text={answer} />
   <ChatTurn.Action aria-label="Like" pressed={liked} onClick={…}>…</ChatTurn.Action>
 </ChatTurn.Actions>`}
       >

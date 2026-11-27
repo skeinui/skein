@@ -52,6 +52,9 @@
     border-radius: var(--_r, var(--ui-radius-full));
     background-color: var(--ui-fill-secondary, color-mix(in srgb, var(--ui-fg) 6%, transparent));
   }
+  [data-skein-theme="antd"] [data-slot="progress"][data-size="xs"] [data-slot="progress-track"] {
+    height: calc(4px * var(--ui-density));
+  }
   [data-skein-theme="antd"] [data-slot="progress"][data-size="sm"] [data-slot="progress-track"] {
     height: calc(6px * var(--ui-density));
   }
@@ -138,6 +141,14 @@
     [data-slot="progress"][data-size="sm"]
     [data-slot="progress-circle-body"] {
     --_d: 3rem;
+  }
+  [data-skein-theme="antd"]
+    [data-slot="progress"][data-size="xs"]
+    [data-slot="progress-circle-body"] {
+    --_d: 1.25rem;
+  }
+  [data-skein-theme="antd"] [data-slot="progress"][data-size="xs"]:not([data-type="line"]) {
+    --_stroke: 12;
   }
   [data-skein-theme="antd"]
     [data-slot="progress"][data-size="lg"]

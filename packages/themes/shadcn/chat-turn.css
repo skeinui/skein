@@ -21,6 +21,35 @@
     align-items: flex-end;
     gap: 0.25rem;
   }
+  /* A user turn with an avatar: the bubble (or the edit form) and the avatar side by side, the avatar on the right; the actions under the bubble. Placed by name, so the order of the children does not matter */
+  [data-skein-theme="shadcn"]
+    [data-slot="chat-turn"][data-role="user"]:has(> [data-slot="chat-turn-avatar"]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="chat-turn"][data-role="user"]
+    > :is([data-slot="chat-turn-bubble"], [data-slot="chat-turn-edit"]) {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="chat-turn"][data-role="user"]
+    > [data-slot="chat-turn-avatar"] {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="chat-turn"][data-role="user"]
+    > [data-slot="chat-turn-actions"] {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+  }
   [data-skein-theme="shadcn"] [data-slot="chat-turn-avatar"] {
     display: inline-flex;
     flex: none;
@@ -52,6 +81,16 @@
   }
   [data-skein-theme="shadcn"] [data-slot="chat-turn-bubble"] [data-slot="chat-turn-content"] {
     white-space: pre-wrap;
+  }
+  /* Text for announcements, not displayed */
+  [data-skein-theme="shadcn"] [data-slot="chat-turn-copy-status"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
   [data-skein-theme="shadcn"] [data-slot="chat-turn-actions"] {
     display: flex;
@@ -162,5 +201,33 @@
     color: color-mix(in srgb, var(--ui-fg-muted) 60%, var(--ui-fg));
     font-size: 0.75rem;
     line-height: 1.25rem;
+  }
+
+  /* ChatTurn.Copy: the copy icon and the check mark sit on top of each other and fade (and scale) into one another; the check mark is in the success color */
+  [data-skein-theme="shadcn"] [data-slot="button"][data-copy] > svg {
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease;
+  }
+  [data-skein-theme="shadcn"] [data-slot="button"][data-copy] > svg:nth-child(2) {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    color: var(--ui-c-success);
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  [data-skein-theme="shadcn"] [data-slot="button"][data-copy][data-copied] > svg:first-child {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  [data-skein-theme="shadcn"] [data-slot="button"][data-copy][data-copied] > svg:nth-child(2) {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-skein-theme="shadcn"] [data-slot="button"][data-copy] > svg {
+      transition: none;
+    }
   }
 }

@@ -1,10 +1,15 @@
 {
-  "lead": "聊天里的一条消息：助手是「头像 + 内容列」，用户是靠右的气泡；内容里可以放 Markdown、来源、工具调用，下面是一排淡出的操作按钮。每条是一个有名称的 article，放进 Chat Thread 里读屏能逐条读。",
+  "lead": "聊天里的一条消息：助手是「头像 + 内容列」，用户是靠右的气泡（给了头像就放在气泡旁边）；内容里可以放 Markdown、来源、工具调用，下面是一排淡出的操作按钮。每条是一个有名称的 article，放进 Chat Thread 里读屏能逐条读。",
   "assistant": "助手",
   "usage": {
     "title": "用法",
     "question": "怎么校验表单？",
     "answer": "用一个 schema，在提交时校验。"
+  },
+  "avatars": {
+    "title": "头像",
+    "description": "两边都可以有头像，也都由你来设：一张图片（`src`）、`name` 的首字母，或者任何东西当 `fallback`（比如一个图标）。用户的头像在气泡右边，可选。",
+    "user": "Ada Lovelace"
   },
   "markdown": {
     "title": "配合 Markdown",
@@ -12,7 +17,7 @@
   },
   "actions": {
     "title": "操作按钮",
-    "description": "操作按钮平时淡出，悬停或键盘聚焦到这一条时显示（触屏一直显示）；点赞这类开关用 `pressed`。",
+    "description": "操作按钮平时淡出，悬停或键盘聚焦到这一条时显示（触屏一直显示）；点赞这类开关用 `pressed`。`ChatTurn.Copy` 复制一段文字，成功后图标会变成对勾，两秒后恢复。",
     "message": "悬停（或聚焦）到这条消息上，显示操作按钮。",
     "copy": "复制",
     "retry": "重试",
@@ -48,6 +53,7 @@
     "Assistant": "助手消息的根：一个有名称的 `article`（`aria-label`，默认 \"Assistant\"）。",
     "User": "用户消息的根：一个有名称的 `article`（`aria-label`，默认 \"You\"）。",
     "Avatar": "助手头像（`src` / `alt` / `fallback`）；连续几条助手消息时，后面的传 `show={false}`：留出同样宽度的空位，文字对齐。",
+    "Copy": "复制操作：把 `text` 放进剪贴板，成功后两秒内图标渐变成对勾（成功色），按钮名称变成 \"Copied\"；复制之后调用 `onCopy`。剪贴板写不进去（没有权限）时什么都不发生。",
     "Actions": "一排操作按钮（`role=group`，`aria-label` 默认 \"Message actions\"）；平时淡出，悬停 / 聚焦到这一条显示，触屏一直显示。",
     "Action": "一个图标按钮（小号、淡色的 Button），`aria-label` 必填；`pressed` 写成 `aria-pressed`，用于点赞 / 点踩。",
     "Edit": "编辑用户消息：放在 `ChatTurn.User` 里代替 `Bubble`。`defaultValue` / `onSave(value)` / `onCancel`；随内容长高，回车换行，⌘ / Ctrl + 回车保存，Esc 取消，挂载时聚焦；空文字不能保存；`labels` 换按钮文字。",
@@ -72,6 +78,7 @@
     "edit": "编辑用户消息的表单、输入框和保存取消按钮行",
     "pager": "回复版本切换和「2 / 3」",
     "status": "发送状态（`data-state`）和重试按钮",
+    "copy": "`ChatTurn.Copy`：`data-copy` 标记这个按钮，复制后两秒内写上 `data-copied`（图标换成对勾）；状态文字只给读屏用，不显示",
     "time": "时间戳"
   },
   "props": {
@@ -91,6 +98,12 @@
     },
     "ChatTurn_Actions": {
       "aria-label": "这组操作按钮的名称，给读屏用，默认 \"Message actions\"。"
+    },
+    "ChatTurn_Copy": {
+      "aria-label": "按钮的名称，默认 \"Copy\"。",
+      "copiedLabel": "复制之后两秒内按钮的名称，默认 \"Copied\"。",
+      "onCopy": "文字复制成功之后调用。",
+      "text": "要放进剪贴板的文字。"
     },
     "ChatTurn_Action": {
       "aria-label": "只有图标，所以名称必填。",

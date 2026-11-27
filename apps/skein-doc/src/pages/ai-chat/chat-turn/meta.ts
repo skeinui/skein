@@ -6,7 +6,7 @@ export default {
   toc: [
     {
       group: "examples",
-      items: ["usage", "markdown", "actions", "grouped", "edit", "pager", "status"],
+      items: ["usage", "avatars", "markdown", "actions", "grouped", "edit", "pager", "status"],
     },
     {
       group: "reference",

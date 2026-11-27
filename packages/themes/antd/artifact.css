@@ -99,8 +99,8 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: calc(var(--ui-artifact-card-icon-size, 1.125rem) + 1.125rem);
+    height: calc(var(--ui-artifact-card-icon-size, 1.125rem) + 1.125rem);
     border-radius: var(--ui-r-small);
     background-color: var(--ui-c-neutral-soft);
     color: var(--ui-fg);

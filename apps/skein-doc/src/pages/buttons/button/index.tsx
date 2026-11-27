@@ -83,11 +83,13 @@ export function Basic() {
 
       <Example
         id="sizes"
-        code={`<Button size="sm">Small</Button>
+        code={`<Button size="xs">Extra small</Button>
+<Button size="sm">Small</Button>
 <Button size="md">Medium</Button>
 <Button size="lg">Large</Button>`}
       >
         <div className="pg-flex pg-flex--center">
+          <Button size="xs">Extra small</Button>
           <Button size="sm">Small</Button>
           <Button size="md">Medium</Button>
           <Button size="lg">Large</Button>

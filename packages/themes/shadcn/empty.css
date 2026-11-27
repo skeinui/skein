@@ -18,8 +18,8 @@
     align-items: center;
     justify-content: center;
     flex: none;
-    width: 2rem;
-    height: 2rem;
+    width: calc(var(--ui-empty-icon-size, 1rem) + 1rem);
+    height: calc(var(--ui-empty-icon-size, 1rem) + 1rem);
     margin-bottom: 0.5rem;
     border-radius: var(--ui-radius-lg);
     background-color: var(--ui-c-neutral-soft);

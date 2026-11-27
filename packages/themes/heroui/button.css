@@ -46,6 +46,17 @@
     padding-inline: calc(0.75rem * var(--ui-density));
   }
 
+  [data-skein-theme="heroui"] [data-slot="button"][data-size="xs"] {
+    height: calc(1.5rem * var(--ui-density));
+    padding-inline: calc(0.5rem * var(--ui-density));
+    font-size: 0.75rem;
+    line-height: 1.33;
+  }
+  [data-skein-theme="heroui"] [data-slot="button"][data-size="xs"][data-icon-only] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
   [data-skein-theme="heroui"] [data-slot="button"][data-size="lg"] {
     height: var(--ui-height-lg);
     font-size: 1rem;

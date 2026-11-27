@@ -137,6 +137,60 @@
     > [data-slot="splitter-handle"]::after {
     display: none;
   }
+  /* Panel: overflow="visible" does not clip what is outside the content's box; fill lays the children out as a column that keeps its height. Only the panels of this splitter (`>`), not those of one nested in it */
+  [data-skein-theme="antd"]
+    [data-slot="splitter"]
+    > [data-slot="splitter-panel"][data-overflow="visible"] {
+    overflow: visible;
+  }
+  [data-skein-theme="antd"] [data-slot="splitter"] > [data-slot="splitter-panel"][data-fill] {
+    display: flex;
+    flex-direction: column;
+  }
+  /* gap: space between the content and the bar on each side of it; the panel's size includes it */
+  [data-skein-theme="antd"] [data-slot="splitter"][data-gap] > [data-slot="splitter-panel"] {
+    box-sizing: border-box;
+  }
+  [data-skein-theme="antd"] [data-slot="splitter"][data-gap="xs"] {
+    --_gap: 0.25rem;
+  }
+  [data-skein-theme="antd"] [data-slot="splitter"][data-gap="sm"] {
+    --_gap: 0.5rem;
+  }
+  [data-skein-theme="antd"] [data-slot="splitter"][data-gap="md"] {
+    --_gap: 1rem;
+  }
+  [data-skein-theme="antd"] [data-slot="splitter"][data-gap="lg"] {
+    --_gap: 1.5rem;
+  }
+  [data-skein-theme="antd"] [data-slot="splitter"][data-gap="xl"] {
+    --_gap: 2rem;
+  }
+  [data-skein-theme="antd"]
+    [data-slot="splitter"][data-gap]
+    > [data-slot="splitter-panel"]:not(:first-child) {
+    padding-inline-start: var(--_gap);
+  }
+  [data-skein-theme="antd"]
+    [data-slot="splitter"][data-gap]
+    > [data-slot="splitter-panel"]:not(:last-child) {
+    padding-inline-end: var(--_gap);
+  }
+  [data-skein-theme="antd"]
+    [data-slot="splitter"][data-gap][data-orientation="vertical"]
+    > [data-slot="splitter-panel"] {
+    padding-inline: 0;
+  }
+  [data-skein-theme="antd"]
+    [data-slot="splitter"][data-gap][data-orientation="vertical"]
+    > [data-slot="splitter-panel"]:not(:first-child) {
+    padding-block-start: var(--_gap);
+  }
+  [data-skein-theme="antd"]
+    [data-slot="splitter"][data-gap][data-orientation="vertical"]
+    > [data-slot="splitter-panel"]:not(:last-child) {
+    padding-block-end: var(--_gap);
+  }
   [data-skein-theme="antd"] [data-slot="splitter"][data-disabled] [data-slot="splitter-handle"] {
     cursor: default;
     pointer-events: none;

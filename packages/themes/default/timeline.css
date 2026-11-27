@@ -40,7 +40,7 @@
   }
   [data-skein-theme="default"] [data-slot="timeline"] {
     --_dot: 0.625rem;
-    --_icon: 1.5rem;
+    --_icon: max(1.5rem, calc(var(--ui-timeline-icon-size, 0px) + 0.5rem));
     --_gap: 1.25rem;
     margin: 0;
     padding: 0;
@@ -52,13 +52,13 @@
   }
   [data-skein-theme="default"] [data-slot="timeline"][data-size="sm"] {
     --_dot: 0.5rem;
-    --_icon: 1.25rem;
+    --_icon: max(1.25rem, calc(var(--ui-timeline-icon-size, 0px) + 0.5rem));
     --_gap: 1rem;
     font-size: 0.8125rem;
   }
   [data-skein-theme="default"] [data-slot="timeline"][data-size="lg"] {
     --_dot: 0.75rem;
-    --_icon: 1.75rem;
+    --_icon: max(1.75rem, calc(var(--ui-timeline-icon-size, 0px) + 0.5rem));
     --_gap: 1.5rem;
     font-size: 1rem;
     line-height: 1.5rem;

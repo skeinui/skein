@@ -31,12 +31,12 @@
   }
   [data-skein-theme="antd"]
     [data-slot="sidebar-provider"]:has(
-      [data-slot="sidebar"]:is([data-variant="floating"], [data-variant="inset"])
+      > [data-slot="sidebar"]:is([data-variant="floating"], [data-variant="inset"])
     ) {
     --_pad: 0.5rem;
   }
   [data-skein-theme="antd"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"]) {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"]) {
     --_card: 0.5rem;
     background-color: var(--_bg);
   }
@@ -148,11 +148,15 @@
     --ui-border: unset;
   }
   [data-skein-theme="antd"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar-inner"][data-theme="dark"]) {
+    [data-slot="sidebar-provider"]:has(
+      > [data-slot="sidebar"] [data-slot="sidebar-inner"][data-theme="dark"]
+    ) {
     --_bg: color-mix(in srgb, var(--ui-c-primary) 16%, black);
   }
   [data-skein-theme="antd"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar-inner"][data-theme="light"]) {
+    [data-slot="sidebar-provider"]:has(
+      > [data-slot="sidebar"] [data-slot="sidebar-inner"][data-theme="light"]
+    ) {
     --_bg: var(--ui-surface);
   }
   [data-skein-theme="antd"] [data-slot="sidebar-inner"][data-variant="sidebar"] {
@@ -223,8 +227,8 @@
     color: var(--ui-fg);
   }
   [data-skein-theme="antd"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
-    [data-slot="sidebar-inset"] {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"])
+    > [data-slot="sidebar-inset"] {
     margin-block: var(--_card);
     margin-inline-end: var(--_card);
     border-radius: var(--ui-radius-lg);
@@ -232,18 +236,18 @@
   }
   [data-skein-theme="antd"]
     [data-slot="sidebar-provider"]:has(
-      [data-slot="sidebar"][data-variant="inset"][data-side="right"]
+      > [data-slot="sidebar"][data-variant="inset"][data-side="right"]
     )
-    [data-slot="sidebar-inset"] {
+    > [data-slot="sidebar-inset"] {
     margin-inline: var(--_card) 0;
   }
 
   /* After collapsing to offcanvas the sidebar takes no space, and the card has margins on all four sides */
   [data-skein-theme="antd"]
     [data-slot="sidebar-provider"]:has(
-      [data-slot="sidebar"][data-variant="inset"][data-collapsible="offcanvas"]
+      > [data-slot="sidebar"][data-variant="inset"][data-collapsible="offcanvas"]
     )
-    [data-slot="sidebar-inset"] {
+    > [data-slot="sidebar-inset"] {
     margin-inline: var(--_card);
   }
 

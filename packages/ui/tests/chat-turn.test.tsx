@@ -94,6 +94,57 @@ describe("ChatTurn", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  test("Copy: copies the text, then for two seconds says it is copied, and goes back", async () => {
+    vi.useFakeTimers();
+    const writeText = vi.fn(async () => {});
+    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+    const onCopy = vi.fn();
+    host = document.createElement("div");
+    document.body.appendChild(host);
+    root = createRoot(host);
+    await act(async () => {
+      root!.render(createElement(ChatTurn.Copy, { text: "the answer", onCopy }));
+    });
+    const button = () => host!.querySelector<HTMLButtonElement>("button")!;
+    expect(button().getAttribute("aria-label")).toBe("Copy");
+    expect(button().hasAttribute("data-copied")).toBe(false);
+    expect(button().querySelectorAll("svg").length).toBe(2);
+    const status = () => host!.querySelector('[data-slot="chat-turn-copy-status"]')!;
+    expect(status().getAttribute("role")).toBe("status");
+    expect(status().textContent).toBe("");
+    await act(async () => button().click());
+    // announced once, to screen readers
+    expect(status().textContent).toBe("Copied");
+    expect(writeText).toHaveBeenCalledWith("the answer");
+    expect(onCopy).toHaveBeenCalledTimes(1);
+    expect(button().getAttribute("aria-label")).toBe("Copied");
+    expect(button().hasAttribute("data-copied")).toBe(true);
+    await act(async () => vi.advanceTimersByTime(2100));
+    expect(button().getAttribute("aria-label")).toBe("Copy");
+    expect(button().hasAttribute("data-copied")).toBe(false);
+    expect(status().textContent).toBe("");
+    vi.useRealTimers();
+  });
+
+  test("Copy: nothing happens when the clipboard cannot be written", async () => {
+    const writeText = vi.fn(async () => {
+      throw new Error("denied");
+    });
+    Object.defineProperty(navigator, "clipboard", { value: { writeText }, configurable: true });
+    const onCopy = vi.fn();
+    host = document.createElement("div");
+    document.body.appendChild(host);
+    root = createRoot(host);
+    await act(async () => {
+      root!.render(createElement(ChatTurn.Copy, { text: "x", onCopy, "aria-label": "Kopieren" }));
+    });
+    const button = host.querySelector<HTMLButtonElement>("button")!;
+    await act(async () => button.click());
+    expect(onCopy).not.toHaveBeenCalled();
+    expect(button.getAttribute("aria-label")).toBe("Kopieren");
+    expect(button.hasAttribute("data-copied")).toBe(false);
+  });
+
   test("Action without toggle has no aria-pressed", () => {
     expect(ssr(createElement(ChatTurn.Action, { "aria-label": "Copy" }, "C"))).not.toContain(
       "aria-pressed",

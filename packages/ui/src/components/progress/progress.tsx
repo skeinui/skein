@@ -1,6 +1,6 @@
 import { Progress as BaseProgress } from "@base-ui/react/progress";
 import type { ReactNode } from "react";
-import type { ProgressType, UIColor, UIRadius, UISize } from "../../contract.ts";
+import type { ProgressSize, ProgressType, UIColor, UIRadius } from "../../contract.ts";
 
 export interface ProgressProps extends Omit<
   BaseProgress.Root.Props,
@@ -14,10 +14,10 @@ export interface ProgressProps extends Omit<
    */
   type?: ProgressType;
   /**
-   * Size step: the bar's thickness / the ring's diameter (3 / 5 / 7.5rem).
+   * Size step: the bar's thickness / the ring's diameter (3 / 5 / 7.5rem). `xs` is a small ring that sits in a line of text or a toolbar (1.25rem), and a thin bar; it has no room for `showValue` or a `label` on a ring.
    * @default "md"
    */
-  size?: UISize;
+  size?: ProgressSize;
   /**
    * Semantic colour of the indicator; the theme style picks the actual colours.
    * @default "primary"

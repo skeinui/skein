@@ -49,14 +49,18 @@ export default function ProgressPage() {
 
       <Example
         id="sizes"
-        code={`<Progress size="sm" value={50} />
+        code={`<Progress size="xs" value={50} />
+<Progress size="sm" value={50} />
 <Progress size="md" value={50} />
-<Progress size="lg" value={50} />`}
+<Progress size="lg" value={50} />
+<Progress type="circle" size="xs" value={50} />`}
       >
         <div className="pg-stack">
+          <Progress size="xs" value={50} aria-label="Extra small" />
           <Progress size="sm" value={50} aria-label="Small" />
           <Progress size="md" value={50} aria-label="Medium" />
           <Progress size="lg" value={50} aria-label="Large" />
+          <Progress type="circle" size="xs" value={50} aria-label="Extra small ring" />
         </div>
       </Example>
 

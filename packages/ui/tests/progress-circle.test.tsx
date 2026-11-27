@@ -77,4 +77,10 @@ describe("Progress circle", () => {
     expect(indicator().style.getPropertyValue("--pc-value")).toBe("100");
     expect(document.querySelector('[data-slot="progress-label"]')!.textContent).toBe("Storage");
   });
+
+  test("size xs is written on the progress, for the small ring (and the thin bar)", async () => {
+    await mount({ type: "circle", value: 40, size: "xs" });
+    expect(document.querySelector('[data-slot="progress"]')!.getAttribute("data-size")).toBe("xs");
+    expect(indicator().style.getPropertyValue("--pc-value")).toBe("40");
+  });
 });

@@ -30,12 +30,12 @@
     --_w: 20rem;
   }
   [data-skein-theme="heroui"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="floating"]) {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="floating"]) {
     --_pad: 0.5rem;
     background-color: var(--_bg);
   }
   [data-skein-theme="heroui"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"]) {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"]) {
     --_card: 0.5rem;
     background-color: var(--_bg);
   }
@@ -145,12 +145,16 @@
     --ui-border: unset;
   }
   [data-skein-theme="heroui"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar-inner"][data-theme="dark"]) {
+    [data-slot="sidebar-provider"]:has(
+      > [data-slot="sidebar"] [data-slot="sidebar-inner"][data-theme="dark"]
+    ) {
     --_bg: var(--ui-fg);
     --_dark-bg: var(--ui-fg);
   }
   [data-skein-theme="heroui"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar-inner"][data-theme="light"]) {
+    [data-slot="sidebar-provider"]:has(
+      > [data-slot="sidebar"] [data-slot="sidebar-inner"][data-theme="light"]
+    ) {
     --_bg: var(--ui-surface);
   }
   /* HeroUI's edge line is an inner shadow, not a border */
@@ -242,8 +246,8 @@
     color: var(--ui-fg);
   }
   [data-skein-theme="heroui"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
-    [data-slot="sidebar-inset"] {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"])
+    > [data-slot="sidebar-inset"] {
     margin-block: var(--_card);
     margin-inline-end: var(--_card);
     background-color: var(--ui-surface);
@@ -256,18 +260,18 @@
   }
   [data-skein-theme="heroui"]
     [data-slot="sidebar-provider"]:has(
-      [data-slot="sidebar"][data-variant="inset"][data-side="right"]
+      > [data-slot="sidebar"][data-variant="inset"][data-side="right"]
     )
-    [data-slot="sidebar-inset"] {
+    > [data-slot="sidebar-inset"] {
     margin-inline: var(--_card) 0;
   }
 
   /* After collapsing to offcanvas the sidebar takes no space, and the card has margins on all sides */
   [data-skein-theme="heroui"]
     [data-slot="sidebar-provider"]:has(
-      [data-slot="sidebar"][data-variant="inset"][data-collapsible="offcanvas"]
+      > [data-slot="sidebar"][data-variant="inset"][data-collapsible="offcanvas"]
     )
-    [data-slot="sidebar-inset"] {
+    > [data-slot="sidebar-inset"] {
     margin-inline: var(--_card);
   }
 
@@ -379,12 +383,12 @@
     box-shadow: inset 1px 0 0 rgb(255 255 255 / 0.1);
   }
   [data-skein-theme="heroui"][data-skein-mode="dark"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
-    [data-slot="sidebar-inset"],
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"])
+    > [data-slot="sidebar-inset"],
   [data-skein-theme="heroui"]
     [data-skein-mode="dark"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
-    [data-slot="sidebar-inset"] {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"])
+    > [data-slot="sidebar-inset"] {
     box-shadow: none;
   }
   /* Mobile drawer: the drawer's own 1rem padding is removed, and the panel fills the whole drawer */

@@ -23,6 +23,11 @@
   },
   "controlled": { "title": "Controlled" },
   "disabled": { "title": "Disabled", "fixed": "Fixed" },
+  "panel": {
+    "title": "Panel: overflow, fill and gap",
+    "fill": "fill",
+    "fillNote": "the content takes the panel's height; `overflow=\"visible\"` does not cut a ring at its edge; `gap` leaves room around the bar"
+  },
   "grip": {
     "title": "Grip",
     "hover": "the grip shows when the bar is pointed at, focused or dragged",

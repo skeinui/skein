@@ -161,6 +161,25 @@ export default function SplitterPage() {
         </div>
       </Example>
 
+      <Example
+        id="panel"
+        code={`<Splitter gap="sm">
+  <Splitter.Panel defaultSize={220} overflow="visible" fill>…</Splitter.Panel>
+  <Splitter.Panel fill>…</Splitter.Panel>
+</Splitter>`}
+      >
+        <div className="pg-split-frame">
+          <Splitter gap="sm">
+            <Splitter.Panel defaultSize={220} min={120} overflow="visible" fill>
+              <Pane title={t("panel.fill")}>{t("panel.fillNote")}</Pane>
+            </Splitter.Panel>
+            <Splitter.Panel fill>
+              <Pane title={t("usage.right")} />
+            </Splitter.Panel>
+          </Splitter>
+        </div>
+      </Example>
+
       <DocHeading id="reference" />
 
       <section id="api" className="pg-example">

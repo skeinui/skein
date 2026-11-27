@@ -17,6 +17,13 @@
     outline: none;
   }
   /* Nova: ring-[3px] ring-ring/50 + outline-1 (outline color is ring/50) */
+  /* Base UI writes `min-width: fit-content` on the content, so a long line widens it: in a vertical area the content is as wide as the area (hence `!important`: it is in the element's own style) */
+  [data-skein-theme="shadcn"]
+    [data-slot="scroll-area"][data-orientation="vertical"]
+    > [data-slot="scroll-area-viewport"]
+    > [data-slot="scroll-area-content"] {
+    min-width: 0 !important;
+  }
   [data-skein-theme="shadcn"] [data-slot="scroll-area-viewport"]:focus-visible {
     outline: 1px solid color-mix(in oklab, var(--ui-ring) 50%, transparent);
     outline-offset: 0;

@@ -82,8 +82,8 @@
   /* The card of the boxed layout starts right under the header, where the content of the side layout does: the same distance from the top (the card keeps its margin on the other sides) */
   [data-skein-theme="default"]
     [data-layout="boxed"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
-    [data-slot="sidebar-inset"] {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"])
+    > [data-slot="sidebar-inset"] {
     margin-block-start: 0;
   }
   /* The sidebar's menu starts at the top of the card too (it keeps the space below, as the card does) */
@@ -96,8 +96,8 @@
   /* ... and its top edge is a line over the first pixel of the card, in the border color, bending with the corners: the card is clipped at the header, so nothing outside it (a shadow, a border) could show, and a border of its own would push the content down */
   [data-skein-theme="default"]
     [data-layout="boxed"]
-    [data-slot="sidebar-provider"]:has([data-slot="sidebar"][data-variant="inset"])
-    [data-slot="sidebar-inset"]::before {
+    [data-slot="sidebar-provider"]:has(> [data-slot="sidebar"][data-variant="inset"])
+    > [data-slot="sidebar-inset"]::before {
     content: "";
     position: absolute;
     z-index: 5;

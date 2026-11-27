@@ -89,6 +89,8 @@ export const en: Messages = {
       user: "You",
       actions: "Message actions",
       edit: "Edit message",
+      copy: "Copy",
+      copied: "Copied",
     },
     composer: { input: "Message", send: "Send message", stop: "Stop generating" },
     contextMeter: {

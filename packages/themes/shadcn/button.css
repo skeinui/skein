@@ -37,6 +37,18 @@
     font-size: 0.8rem;
   }
 
+  [data-skein-theme="shadcn"] [data-slot="button"][data-size="xs"] {
+    height: calc(1.5rem * var(--ui-density));
+    gap: 0.25rem;
+    padding-inline: calc(0.5rem * var(--ui-density));
+    border-radius: var(--ui-radius-md);
+    font-size: 0.75rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="button"][data-size="xs"][data-icon-only] > svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
   [data-skein-theme="shadcn"] [data-slot="button"][data-size="lg"] {
     height: var(--ui-height-lg);
     padding-inline: calc(0.625rem * var(--ui-density));

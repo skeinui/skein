@@ -4,7 +4,7 @@ import { ApiReference, DocHeading, Example, Lead, PropsTable } from "@/doc/doc.t
 
 /** The styling hooks; their descriptions are the page's `styling.<key>` messages. */
 const HOOKS = [
-  { key: "root", name: "scroll-area / scroll-area-viewport", type: "slot" },
+  { key: "root", name: "scroll-area / scroll-area-viewport / scroll-area-content", type: "slot" },
   { key: "scrollbar", name: "scroll-area-scrollbar / scroll-area-thumb", type: "slot" },
   { key: "corner", name: "scroll-area-corner", type: "slot" },
   { key: "states", name: "data-hovering / data-scrolling", type: "boolean attribute" },

@@ -8,7 +8,7 @@
     "title": "Styling Reference",
     "description": "Theme styles handle it in `scroll-area.css`: the thumb uses 25% of the foreground colour and darkens on hover.",
     "hook": "Hook",
-    "root": "The outer box (clips the content) and the viewport that actually scrolls",
+    "root": "The outer box (clips the content; `data-orientation` tells the direction), the viewport that actually scrolls and the content inside it (as wide as the area in a vertical one, so a long line is cut with an ellipsis instead of widening it)",
     "scrollbar": "The scrollbar and its thumb; `data-orientation` tells the direction, and Base UI writes the thumb size as CSS variables",
     "corner": "The bottom-right corner when both scrollbars are shown",
     "states": "Written on the scrollbar while hovered or scrolling, so it can fade in"

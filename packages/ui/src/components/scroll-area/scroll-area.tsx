@@ -21,14 +21,15 @@ export interface ScrollAreaProps extends Omit<
  * For a fade at the edges instead of a scrollbar use ScrollShadow.
  *
  * Theme style: scrolling itself is native, and the scrollbar (track, thumb) is drawn by the theme style.
+ * Base UI makes the content as wide as its widest line (`min-width: fit-content`, in its own `style`); the theme style gives the content of a vertical area the width of the area, so a long line is cut or wrapped where the content says so (an ellipsis in a list) instead of widening it.
  */
 export function ScrollArea({ orientation = "vertical", children, ...rest }: ScrollAreaProps) {
   const vertical = orientation !== "horizontal";
   const horizontal = orientation !== "vertical";
   return (
-    <BaseScrollArea.Root {...rest} data-slot="scroll-area">
+    <BaseScrollArea.Root {...rest} data-slot="scroll-area" data-orientation={orientation}>
       <BaseScrollArea.Viewport data-slot="scroll-area-viewport">
-        <BaseScrollArea.Content>{children}</BaseScrollArea.Content>
+        <BaseScrollArea.Content data-slot="scroll-area-content">{children}</BaseScrollArea.Content>
       </BaseScrollArea.Viewport>
       {vertical ? (
         <BaseScrollArea.Scrollbar data-slot="scroll-area-scrollbar" orientation="vertical">

@@ -42,6 +42,16 @@
     padding-inline: 7px;
     border-radius: var(--ui-radius-sm);
   }
+  [data-skein-theme="antd"] [data-slot="button"][data-size="xs"] {
+    height: calc(1.5rem * var(--ui-density));
+    padding-inline: 5px;
+    border-radius: var(--ui-radius-sm);
+    font-size: 0.75rem;
+  }
+  [data-skein-theme="antd"] [data-slot="button"][data-icon-only][data-size="xs"] {
+    width: calc(1.5rem * var(--ui-density));
+  }
+
   [data-skein-theme="antd"] [data-slot="button"][data-size="lg"] {
     height: var(--ui-height-lg);
     border-radius: var(--ui-radius-lg);

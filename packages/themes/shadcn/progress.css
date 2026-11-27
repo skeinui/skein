@@ -53,6 +53,9 @@
     border-radius: var(--_r, var(--ui-radius-full));
     background-color: var(--ui-c-neutral-soft);
   }
+  [data-skein-theme="shadcn"] [data-slot="progress"][data-size="xs"] [data-slot="progress-track"] {
+    height: calc(0.125rem * var(--ui-density));
+  }
   [data-skein-theme="shadcn"] [data-slot="progress"][data-size="sm"] [data-slot="progress-track"] {
     height: calc(0.125rem * var(--ui-density));
   }
@@ -135,6 +138,14 @@
     [data-slot="progress"][data-size="sm"]
     [data-slot="progress-circle-body"] {
     --_d: 3rem;
+  }
+  [data-skein-theme="shadcn"]
+    [data-slot="progress"][data-size="xs"]
+    [data-slot="progress-circle-body"] {
+    --_d: 1.25rem;
+  }
+  [data-skein-theme="shadcn"] [data-slot="progress"][data-size="xs"]:not([data-type="line"]) {
+    --_stroke: 12;
   }
   [data-skein-theme="shadcn"]
     [data-slot="progress"][data-size="lg"]

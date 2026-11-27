@@ -1,6 +1,6 @@
 import { Button as BaseButton } from "@base-ui/react/button";
 import type { MouseEvent, ReactNode } from "react";
-import type { ButtonVariant, UIColor, UIRadius, UISize } from "../../contract.ts";
+import type { ButtonSize, ButtonVariant, UIColor, UIRadius } from "../../contract.ts";
 import { useButtonGroup } from "../button-group/context.ts";
 
 export interface ButtonProps extends Omit<BaseButton.Props, "className" | "style" | "children"> {
@@ -8,8 +8,11 @@ export interface ButtonProps extends Omit<BaseButton.Props, "className" | "style
   variant?: ButtonVariant;
   /** @default "primary" */
   color?: UIColor;
-  /** @default "md" */
-  size?: UISize;
+  /**
+   * `xs` is smaller than the smallest step the other components share (1.5rem high): a button in a dense row, the send button of a message box.
+   * @default "md"
+   */
+  size?: ButtonSize;
   /** When not passed, the theme style decides. */
   radius?: UIRadius;
   /**

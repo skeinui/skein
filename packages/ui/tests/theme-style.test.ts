@@ -489,3 +489,82 @@ describe("splitter grip", () => {
     },
   );
 });
+
+describe("splitter panels", () => {
+  // The rules of a panel's overflow, fill and gap select the panels of the splitter itself (`>`), so a splitter nested in a panel keeps its own
+  test.each(skins)(
+    "%s splitter.css: overflow, fill and gap reach only the panels of their own splitter",
+    (skin) => {
+      const css = read(skinDir(skin), "splitter.css");
+      for (const hook of ['[data-overflow="visible"]', "[data-fill]"]) {
+        const rules = [
+          ...css.matchAll(/\[data-slot="splitter"\]\s*>\s*\[data-slot="splitter-panel"\][^{]*\{/g),
+        ]
+          .map((m) => m[0])
+          .filter((r) => r.includes(hook));
+        expect(rules.length).toBeGreaterThan(0);
+      }
+      const gapRules = [...css.matchAll(/\[data-slot="splitter"\]\[data-gap[^{]*\{/g)].map(
+        (m) => m[0],
+      );
+      expect(gapRules.length).toBeGreaterThan(0);
+      for (const rule of gapRules) {
+        if (rule.includes("splitter-panel"))
+          expect(rule).toMatch(/\]\s*>\s*\[data-slot="splitter-panel"\]/);
+      }
+    },
+  );
+});
+
+describe("sidebar inside a sidebar's page", () => {
+  // The rules that style a provider by the sidebar it holds select its own sidebar and inset (`>`): a Sidebar inside the
+  // content of another (a list of conversations in a page of an AdminLayout) does not take the look of the outer one
+  test.each(skins)("%s: a provider's rules look at its own sidebar and inset only", (skin) => {
+    for (const file of ["sidebar.css", "admin-layout.css"]) {
+      const css = read(skinDir(skin), file);
+      const rules = [
+        ...css.matchAll(
+          /\[data-slot="sidebar-provider"\]:has\(([^{]*?)\)(\s*>?\s*\[data-slot="sidebar-inset"\])?[^{]*\{/g,
+        ),
+      ];
+      expect(rules.length).toBeGreaterThan(0);
+      for (const rule of rules) {
+        expect(rule[1]!.trim().startsWith(">")).toBe(true);
+        if (rule[2]) expect(rule[2].trim().startsWith(">")).toBe(true);
+      }
+    }
+  });
+});
+
+describe("scroll area content", () => {
+  // Base UI writes `min-width: fit-content` in the style of the content, so a vertical area's content gets `min-width: 0 !important`
+  test.each(skins)(
+    "%s scroll-area.css: the content of a vertical area is as wide as the area",
+    (skin) => {
+      const css = read(skinDir(skin), "scroll-area.css");
+      const rule =
+        /\[data-slot="scroll-area"\]\[data-orientation="vertical"\]\s*>\s*\[data-slot="scroll-area-viewport"\]\s*>\s*\[data-slot="scroll-area-content"\]\s*\{([^}]*)\}/.exec(
+          css,
+        );
+      expect(rule?.[1]).toMatch(/min-width:\s*0\s*!important/);
+    },
+  );
+});
+
+describe("chat turn avatar", () => {
+  // A user turn may hold an avatar: the bubble (or the edit form), the avatar and the actions are placed by name in a grid
+  test.each(skins)(
+    "%s chat-turn.css: a user turn with an avatar is a grid with the avatar on the right",
+    (skin) => {
+      const css = read(skinDir(skin), "chat-turn.css");
+      const rule =
+        /\[data-slot="chat-turn"\]\[data-role="user"\]:has\(>\s*\[data-slot="chat-turn-avatar"\]\)\s*\{([^}]*)\}/.exec(
+          css,
+        );
+      expect(rule?.[1]).toMatch(/display:\s*grid/);
+      expect(css).toMatch(
+        /\[data-role="user"\]\s*>\s*\[data-slot="chat-turn-avatar"\]\s*\{[^}]*grid-column:\s*2/,
+      );
+    },
+  );
+});

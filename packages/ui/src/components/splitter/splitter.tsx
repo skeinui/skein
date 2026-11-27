@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import type { KeyboardEvent, PointerEvent, ReactNode } from "react";
+import type { Gap } from "../../contract.ts";
 import { useLabels } from "../../locales/use-labels.ts";
 
 /** Size: a number is pixels, a string can be "30%" or "120px". */
@@ -24,6 +25,16 @@ export interface SplitterPanelProps {
   min?: PanelSize;
   /** Maximum size, px number or "30%" / "120px" string; dragging will not go past it. */
   max?: PanelSize;
+  /**
+   * What the panel does with content larger than itself: `auto` scrolls it, `visible` lets it show (what sits outside the content's box, like a focus ring or a shadow, is not cut at the edge of the panel; the content then scrolls by itself).
+   * @default "auto"
+   */
+  overflow?: "auto" | "visible";
+  /**
+   * The content fills the panel's height: the panel lays its children out as a column that keeps its height, so a `Flex grow` or a scrolling list inside takes what is left.
+   * @default false
+   */
+  fill?: boolean;
 }
 
 export interface SplitterProps {
@@ -50,6 +61,11 @@ export interface SplitterProps {
    * @default "always"
    */
   grip?: "always" | "hover" | "none";
+  /**
+   * Space between the panels' content and the bar, on each side of it, from the theme style's spacing scale. The panels' sizes then include it.
+   * @default "none"
+   */
+  gap?: Gap;
   children?: ReactNode;
 }
 
@@ -105,6 +121,7 @@ export function Splitter({
   disabled = false,
   handleLabel: handleLabelProp,
   grip = "always",
+  gap = "none",
   children,
 }: SplitterProps) {
   const t = useLabels("splitter");
@@ -263,6 +280,7 @@ export function Splitter({
       data-dragging={dragging !== null ? "" : undefined}
       data-disabled={disabled ? "" : undefined}
       data-grip={grip === "always" ? undefined : grip}
+      data-gap={gap === "none" ? undefined : gap}
     >
       {panels.map((panel, i) => {
         const last = i === panels.length - 1;
@@ -281,6 +299,8 @@ export function Splitter({
               id={`${baseId}-${i}`}
               data-slot="splitter-panel"
               data-last={last ? "" : undefined}
+              data-overflow={panel.props.overflow === "visible" ? "visible" : undefined}
+              data-fill={panel.props.fill ? "" : undefined}
             >
               {panel.props.children}
             </div>

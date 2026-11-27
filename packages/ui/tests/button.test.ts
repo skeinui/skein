@@ -24,6 +24,12 @@ describe("Button", () => {
     expect(html).toContain('data-size="lg"');
   });
 
+  test("size xs, below the steps the other components share, is written as is", () => {
+    expect(render({ size: "xs", iconOnly: true, "aria-label": "Copy" })).toContain(
+      'data-size="xs"',
+    );
+  });
+
   test("loading replaces the start content with a spinner and marks busy", () => {
     const html = render({ loading: true, startContent: "icon", children: "Submit" });
     expect(html).toContain("data-loading");

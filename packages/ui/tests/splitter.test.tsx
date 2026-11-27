@@ -28,7 +28,13 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-type PanelProps = { defaultSize?: number | string; min?: number | string; max?: number | string };
+type PanelProps = {
+  defaultSize?: number | string;
+  min?: number | string;
+  max?: number | string;
+  overflow?: "auto" | "visible";
+  fill?: boolean;
+};
 function mount(panels: PanelProps[], props: Omit<SplitterProps, "children"> = {}) {
   host = document.createElement("div");
   document.body.appendChild(host);
@@ -238,6 +244,22 @@ describe("Splitter", () => {
   ] as const)("grip=%s writes data-grip=%s on the splitter", (grip, written) => {
     mount([{ defaultSize: 200 }, {}], { grip });
     expect(gripOf()).toBe(written);
+  });
+
+  test("panel overflow and fill, and the splitter's gap, are written as data attributes only when they are not the default", () => {
+    mount([{ defaultSize: 200 }, {}]);
+    expect(
+      panelEls().every((p) => !p.hasAttribute("data-overflow") && !p.hasAttribute("data-fill")),
+    ).toBe(true);
+    expect(document.querySelector('[data-slot="splitter"]')!.hasAttribute("data-gap")).toBe(false);
+    act(() => root?.unmount());
+    mount([{ defaultSize: 200, overflow: "visible", fill: true }, { overflow: "auto" }], {
+      gap: "sm",
+    });
+    expect(panelEls()[0]!.getAttribute("data-overflow")).toBe("visible");
+    expect(panelEls()[0]!.hasAttribute("data-fill")).toBe(true);
+    expect(panelEls()[1]!.hasAttribute("data-overflow")).toBe(false);
+    expect(document.querySelector('[data-slot="splitter"]')!.getAttribute("data-gap")).toBe("sm");
   });
 
   test("disabled: ignores keyboard and pointer, not in the tab order", () => {

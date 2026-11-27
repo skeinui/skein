@@ -84,6 +84,99 @@ function ChatTurnAction({ pressed, ...rest }: ChatTurnActionProps) {
   );
 }
 
+const COPIED_MS = 2000;
+
+export interface ChatTurnCopyProps extends Omit<
+  ButtonProps,
+  "variant" | "color" | "size" | "iconOnly" | "children" | "aria-label" | "onClick"
+> {
+  /** The text to put on the clipboard. */
+  text: string;
+  /** Called after the text is copied. */
+  onCopy?: () => void;
+  /** Name of the button, default "Copy". */
+  "aria-label"?: string;
+  /** Name of the button for two seconds after the copy, default "Copied". */
+  copiedLabel?: string;
+}
+
+/**
+ * The copy action of a message: it copies `text`, and for two seconds the icon turns into a check mark (fading into it, in the success color) and the button is named "Copied",
+ * as the copy button of a `CodeBlock` does, and the copy is announced once to screen readers (`chat-turn-copy-status`, `role="status"`, not displayed).
+ * Nothing happens when the clipboard cannot be written (no permission).
+ */
+function ChatTurnCopy({
+  text,
+  onCopy,
+  "aria-label": labelProp,
+  copiedLabel: copiedProp,
+  ...rest
+}: ChatTurnCopyProps) {
+  const t = useLabels("chatTurn");
+  const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      return;
+    }
+    setCopied(true);
+    onCopy?.();
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), COPIED_MS);
+  };
+  const copiedLabel = copiedProp ?? t.copied;
+  return (
+    <>
+      <Button
+        variant="ghost"
+        color="neutral"
+        size="sm"
+        iconOnly
+        {...rest}
+        data-copy=""
+        data-copied={copied ? "" : undefined}
+        aria-label={copied ? copiedLabel : (labelProp ?? t.copy)}
+        onClick={() => void copy()}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </svg>
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M20 6 9 17l-5-5" />
+        </svg>
+      </Button>
+      <span data-slot="chat-turn-copy-status" role="status">
+        {copied ? copiedLabel : ""}
+      </span>
+    </>
+  );
+}
+
 /** Text for the chat message parts (edit, version switch, send status). */
 export interface ChatTurnLabels {
   save?: string;
@@ -99,6 +192,9 @@ export interface ChatTurnLabels {
   user?: string;
   actions?: string;
   edit?: string;
+  /** Name of the copy action, and of it for a moment after the copy: default "Copy" / "Copied". */
+  copy?: string;
+  copied?: string;
 }
 
 export interface ChatTurnEditProps extends Omit<
@@ -327,6 +423,7 @@ export const ChatTurn = {
   Content: ChatTurnContent,
   Actions: ChatTurnActions,
   Action: ChatTurnAction,
+  Copy: ChatTurnCopy,
   Edit: ChatTurnEdit,
   Pager: ChatTurnPager,
   Status: ChatTurnStatus,

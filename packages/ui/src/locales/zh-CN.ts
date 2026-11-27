@@ -88,6 +88,8 @@ export const zhCN: Messages = {
       user: "你",
       actions: "消息操作",
       edit: "编辑消息",
+      copy: "复制",
+      copied: "已复制",
     },
     composer: { input: "消息", send: "发送消息", stop: "停止生成" },
     contextMeter: {

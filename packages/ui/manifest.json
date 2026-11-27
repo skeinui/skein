@@ -2909,13 +2909,14 @@
           "description": "When not passed, the theme style decides."
         },
         "size": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
+            "xs",
             "sm",
             "md",
             "lg"
           ],
-          "description": "Size step.",
+          "description": "`xs` is smaller than the smallest step the other components share (1.5rem high): a button in a dense row, the send button of a message box.",
           "default": "\"md\""
         },
         "startContent": {
@@ -2967,7 +2968,7 @@
         },
         {
           "title": "Sizes",
-          "code": "<Button size=\"sm\">Small</Button>\n<Button size=\"md\">Medium</Button>\n<Button size=\"lg\">Large</Button>"
+          "code": "<Button size=\"xs\">Extra small</Button>\n<Button size=\"sm\">Small</Button>\n<Button size=\"md\">Medium</Button>\n<Button size=\"lg\">Large</Button>"
         },
         {
           "title": "With Icons",
@@ -4031,6 +4032,73 @@
             }
           }
         },
+        "ChatTurn.Copy": {
+          "props": {
+            "aria-label": {
+              "type": "string",
+              "description": "Name of the button, default \"Copy\"."
+            },
+            "copiedLabel": {
+              "type": "string",
+              "description": "Name of the button for two seconds after the copy, default \"Copied\"."
+            },
+            "endContent": {
+              "type": "ReactNode",
+              "description": "After the text, usually an icon (e.g. an arrow)."
+            },
+            "fullWidth": {
+              "type": "boolean",
+              "description": "Fill the width of the parent.",
+              "default": "false"
+            },
+            "loading": {
+              "type": "boolean",
+              "description": "Loading: does not respond to clicks, the leading icon slot is replaced by a spinner, and it stays focusable.",
+              "default": "false"
+            },
+            "onCopy": {
+              "type": "() => void",
+              "description": "Called after the text is copied."
+            },
+            "radius": {
+              "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"full\"",
+              "values": [
+                "none",
+                "sm",
+                "md",
+                "lg",
+                "full"
+              ],
+              "description": "When not passed, the theme style decides."
+            },
+            "startContent": {
+              "type": "ReactNode",
+              "description": "Before the text, usually an icon; replaced by the spinner while `loading`."
+            },
+            "text": {
+              "type": "string",
+              "required": true,
+              "description": "The text to put on the clipboard."
+            },
+            "focusableWhenDisabled": {
+              "type": "boolean",
+              "description": "Whether the button should be focusable when disabled.",
+              "default": "false",
+              "from": "base-ui"
+            },
+            "nativeButton": {
+              "type": "boolean",
+              "description": "Whether the component renders a native `<button>` element when replacing it\nvia the `render` prop.\nSet to `false` if the rendered element is not a button (for example, `<div>`).",
+              "default": "true",
+              "from": "base-ui"
+            },
+            "render": {
+              "type": "ReactElement<unknown, string | JSXElementConstructor<any>> | ComponentRenderFn<HTMLProps, ButtonState>",
+              "description": "Allows you to replace the component's HTML element\nwith a different tag, or compose it with another component.\n\nAccepts a `ReactElement` or a function that returns the element to render.",
+              "from": "base-ui"
+            }
+          }
+        },
         "ChatTurn.Edit": {
           "props": {
             "aria-label": {
@@ -4135,6 +4203,7 @@
         "chat-turn-bubble",
         "chat-turn-content",
         "chat-turn-actions",
+        "chat-turn-copy-status",
         "chat-turn-edit",
         "chat-turn-edit-textarea",
         "chat-turn-edit-actions",
@@ -4151,12 +4220,16 @@
           "code": "import { ChatTurn } from \"@skeinui/ui\";\n\n<ChatTurn.User>\n  <ChatTurn.Bubble>\n    <ChatTurn.Content>How do I validate a form?</ChatTurn.Content>\n  </ChatTurn.Bubble>\n</ChatTurn.User>\n<ChatTurn.Assistant>\n  <ChatTurn.Avatar alt=\"Assistant\" fallback=\"AI\" />\n  <ChatTurn.Body>\n    <ChatTurn.Content>Use a schema and validate on submit.</ChatTurn.Content>\n  </ChatTurn.Body>\n</ChatTurn.Assistant>"
         },
         {
+          "title": "Avatars",
+          "code": "<ChatTurn.User>\n  <ChatTurn.Bubble><ChatTurn.Content>…</ChatTurn.Content></ChatTurn.Bubble>\n  <ChatTurn.Avatar name=\"Ada Lovelace\" src={user.avatar} />\n</ChatTurn.User>\n\n<ChatTurn.Assistant>\n  <ChatTurn.Avatar alt=\"Assistant\" fallback={<SparklesIcon />} />\n  <ChatTurn.Body>…</ChatTurn.Body>\n</ChatTurn.Assistant>"
+        },
+        {
           "title": "With Markdown",
           "code": "<ChatTurn.Assistant>\n  <ChatTurn.Avatar alt=\"Assistant\" fallback=\"AI\" />\n  <ChatTurn.Body>\n    <ChatTurn.Content>\n      <Markdown>{response}</Markdown>\n    </ChatTurn.Content>\n  </ChatTurn.Body>\n</ChatTurn.Assistant>"
         },
         {
           "title": "Actions",
-          "code": "<ChatTurn.Actions>\n  <ChatTurn.Action aria-label=\"Copy\">…</ChatTurn.Action>\n  <ChatTurn.Action aria-label=\"Like\" pressed={liked} onClick={…}>…</ChatTurn.Action>\n</ChatTurn.Actions>"
+          "code": "<ChatTurn.Actions>\n  <ChatTurn.Copy text={answer} />\n  <ChatTurn.Action aria-label=\"Like\" pressed={liked} onClick={…}>…</ChatTurn.Action>\n</ChatTurn.Actions>"
         },
         {
           "title": "Consecutive messages",
@@ -6112,13 +6185,14 @@
           "description": "When not passed, the theme style decides."
         },
         "size": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
+            "xs",
             "sm",
             "md",
             "lg"
           ],
-          "description": "Size step.",
+          "description": "`xs` is smaller than the smallest step the other components share (1.5rem high): a button in a dense row, the send button of a message box.",
           "default": "\"md\""
         },
         "startContent": {
@@ -12768,13 +12842,14 @@
           "description": "When not passed, the theme style decides."
         },
         "size": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
+            "xs",
             "sm",
             "md",
             "lg"
           ],
-          "description": "Size step.",
+          "description": "`xs` is smaller than the smallest step the other components share (1.5rem high): a button in a dense row, the send button of a message box.",
           "default": "\"md\""
         },
         "startContent": {
@@ -15744,13 +15819,14 @@
           "default": "false"
         },
         "size": {
-          "type": "\"sm\" | \"md\" | \"lg\"",
+          "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
           "values": [
+            "xs",
             "sm",
             "md",
             "lg"
           ],
-          "description": "Size step: the bar's thickness / the ring's diameter (3 / 5 / 7.5rem).",
+          "description": "Size step: the bar's thickness / the ring's diameter (3 / 5 / 7.5rem). `xs` is a small ring that sits in a line of text or a toolbar (1.25rem), and a thin bar; it has no room for `showValue` or a `label` on a ring.",
           "default": "\"md\""
         },
         "type": {
@@ -15826,7 +15902,7 @@
         },
         {
           "title": "Sizes",
-          "code": "<Progress size=\"sm\" value={50} />\n<Progress size=\"md\" value={50} />\n<Progress size=\"lg\" value={50} />"
+          "code": "<Progress size=\"xs\" value={50} />\n<Progress size=\"sm\" value={50} />\n<Progress size=\"md\" value={50} />\n<Progress size=\"lg\" value={50} />\n<Progress type=\"circle\" size=\"xs\" value={50} />"
         },
         {
           "title": "Colors",
@@ -17128,7 +17204,7 @@
       ]
     },
     "ScrollArea": {
-      "description": "ScrollArea: a scrollable box with a themed scrollbar, for content taller (or wider, `orientation`) than its space.\nThere is no height prop: put it in a parent with a height (or max height) and it fills the parent and scrolls inside it.\nFor a fade at the edges instead of a scrollbar use ScrollShadow.\n\nTheme style: scrolling itself is native, and the scrollbar (track, thumb) is drawn by the theme style.",
+      "description": "ScrollArea: a scrollable box with a themed scrollbar, for content taller (or wider, `orientation`) than its space.\nThere is no height prop: put it in a parent with a height (or max height) and it fills the parent and scrolls inside it.\nFor a fade at the edges instead of a scrollbar use ScrollShadow.\n\nTheme style: scrolling itself is native, and the scrollbar (track, thumb) is drawn by the theme style.\nBase UI makes the content as wide as its widest line (`min-width: fit-content`, in its own `style`); the theme style gives the content of a vertical area the width of the area, so a long line is cut or wrapped where the content says so (an ellipsis in a list) instead of widening it.",
       "import": "import { ScrollArea } from \"@skeinui/ui\";",
       "props": {
         "children": {
@@ -17155,6 +17231,7 @@
       "slots": [
         "scroll-area",
         "scroll-area-viewport",
+        "scroll-area-content",
         "scroll-area-scrollbar",
         "scroll-area-thumb",
         "scroll-area-corner"
@@ -18710,6 +18787,19 @@
           "description": "When disabled it cannot be dragged or adjusted with the keyboard.",
           "default": "false"
         },
+        "gap": {
+          "type": "\"none\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+          "values": [
+            "none",
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl"
+          ],
+          "description": "Space between the panels' content and the bar, on each side of it, from the theme style's spacing scale. The panels' sizes then include it.",
+          "default": "\"none\""
+        },
         "grip": {
           "type": "\"none\" | \"always\" | \"hover\"",
           "values": [
@@ -18757,6 +18847,11 @@
               "type": "PanelSize",
               "description": "Initial size: a number is pixels, or a string such as \"30%\" / \"120px\"; panels without one split the remaining space equally."
             },
+            "fill": {
+              "type": "boolean",
+              "description": "The content fills the panel's height: the panel lays its children out as a column that keeps its height, so a `Flex grow` or a scrolling list inside takes what is left.",
+              "default": "false"
+            },
             "max": {
               "type": "PanelSize",
               "description": "Maximum size, px number or \"30%\" / \"120px\" string; dragging will not go past it."
@@ -18764,6 +18859,15 @@
             "min": {
               "type": "PanelSize",
               "description": "Minimum size, px number or \"30%\" / \"120px\" string; dragging will not go past it."
+            },
+            "overflow": {
+              "type": "\"auto\" | \"visible\"",
+              "values": [
+                "auto",
+                "visible"
+              ],
+              "description": "What the panel does with content larger than itself: `auto` scrolls it, `visible` lets it show (what sits outside the content's box, like a focus ring or a shadow, is not cut at the edge of the panel; the content then scrolls by itself).",
+              "default": "\"auto\""
             }
           }
         }
@@ -18803,6 +18907,10 @@
         {
           "title": "Grip",
           "code": "<Splitter grip=\"hover\">…</Splitter>\n<Splitter grip=\"none\">…</Splitter>"
+        },
+        {
+          "title": "Panel: overflow, fill and gap",
+          "code": "<Splitter gap=\"sm\">\n  <Splitter.Panel defaultSize={220} overflow=\"visible\" fill>…</Splitter.Panel>\n  <Splitter.Panel fill>…</Splitter.Panel>\n</Splitter>"
         }
       ]
     },
@@ -23615,6 +23723,12 @@
       "button-group",
       "button-group-separator"
     ],
+    "BUTTON_SIZES": [
+      "xs",
+      "sm",
+      "md",
+      "lg"
+    ],
     "BUTTON_SLOTS": [
       "button",
       "button-start",
@@ -23721,6 +23835,7 @@
       "chat-turn-bubble",
       "chat-turn-content",
       "chat-turn-actions",
+      "chat-turn-copy-status",
       "chat-turn-edit",
       "chat-turn-edit-textarea",
       "chat-turn-edit-actions",
@@ -24495,6 +24610,12 @@
       "popover-description",
       "popover-close"
     ],
+    "PROGRESS_SIZES": [
+      "xs",
+      "sm",
+      "md",
+      "lg"
+    ],
     "PROGRESS_SLOTS": [
       "progress",
       "progress-header",
@@ -24689,6 +24810,7 @@
     "SCROLL_AREA_SLOTS": [
       "scroll-area",
       "scroll-area-viewport",
+      "scroll-area-content",
       "scroll-area-scrollbar",
       "scroll-area-thumb",
       "scroll-area-corner"

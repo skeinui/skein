@@ -28,6 +28,10 @@ export type UIOrientation = (typeof ORIENTATIONS)[number];
 export const BUTTON_VARIANTS = ["solid", "soft", "outline", "ghost", "faded", "shadow"] as const;
 export type ButtonVariant = (typeof BUTTON_VARIANTS)[number];
 
+/** The steps every component shares, plus `xs` (1.5rem high) for a button in a dense row or the send button of a message box. */
+export const BUTTON_SIZES = ["xs", ...SIZES] as const;
+export type ButtonSize = (typeof BUTTON_SIZES)[number];
+
 /**
  * Look of form controls: outline is a regular input with a background / border, filled is a gray filled background.
  * In HeroUI v3 they are called primary / secondary, and in shadcn filled corresponds to secondary's background.
@@ -218,6 +222,10 @@ export const TOAST_SLOTS = [
 
 export const PROGRESS_TYPES = ["line", "circle", "dashboard"] as const;
 export type ProgressType = (typeof PROGRESS_TYPES)[number];
+
+/** The steps every component shares, plus `xs`: a small ring that sits in a line of text or a toolbar, and a thin bar. */
+export const PROGRESS_SIZES = ["xs", ...SIZES] as const;
+export type ProgressSize = (typeof PROGRESS_SIZES)[number];
 export const PROGRESS_SLOTS = [
   "progress",
   "progress-header",
@@ -369,6 +377,7 @@ export const CALENDAR_SLOTS = [
 export const SCROLL_AREA_SLOTS = [
   "scroll-area",
   "scroll-area-viewport",
+  "scroll-area-content",
   "scroll-area-scrollbar",
   "scroll-area-thumb",
   "scroll-area-corner",
@@ -1025,6 +1034,7 @@ export const CHAT_TURN_SLOTS = [
   "chat-turn-bubble",
   "chat-turn-content",
   "chat-turn-actions",
+  "chat-turn-copy-status",
   "chat-turn-edit",
   "chat-turn-edit-textarea",
   "chat-turn-edit-actions",

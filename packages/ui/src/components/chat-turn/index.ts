@@ -3,6 +3,7 @@ export type {
   ChatTurnActionProps,
   ChatTurnActionsProps,
   ChatTurnAvatarProps,
+  ChatTurnCopyProps,
   ChatTurnEditProps,
   ChatTurnLabels,
   ChatTurnPagerProps,
